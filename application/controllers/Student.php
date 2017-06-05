@@ -215,13 +215,13 @@ class Student extends CI_Controller
         }
      }
 
-	  public function view_all_circular($cid)
+	  public function view_all_circular()
 	   {
 		 $datas=$this->session->userdata();
          $user_id=$this->session->userdata('user_id');
          $user_type=$this->session->userdata('user_type');
 
-		 $datas['circular']=$this->studentmodel->get_circular($user_id,$cid);
+		 $datas['circular']=$this->studentmodel->get_circular($user_id);
 		 //print_r($datas['circular']);exit;
          if($user_type==3)
 		 {

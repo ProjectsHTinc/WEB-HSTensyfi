@@ -251,6 +251,10 @@ var loadFile2 = function(event)
  output2.src = URL.createObjectURL(event.target.files[0]); 
 };
 
+  $('#admissionmenu').addClass('collapse in');
+         $('#admission').addClass('active');
+         $('#admission3').addClass('active');
+
 $(document).ready(function () {
 
  $('#parentform').validate({ // initialize the plugin

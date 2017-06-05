@@ -184,9 +184,9 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 
      }
 
-	 function get_circular($user_id,$cid){
+	 function get_circular($user_id){
 		 $cid=$this->get_class_id_user();
-        //echo $class_id;exit;
+        //echo $cid;exit;
 		  $sql="SELECT * FROM edu_communication WHERE status='A' AND FIND_IN_SET('$cid',class_id) ORDER BY commu_id DESC ";
 		  $res=$this->db->query($sql);
 		  $row=$res->result();

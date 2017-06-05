@@ -48,13 +48,14 @@ margin-bottom:0px;}
 	color: red;
 font-weight: 500;
 }
+.abox{border: 1px solid grey;}
 
 </style>
 </head>
 <body>
 
 <div class="wrapper">
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" style="background-color:#dfdfdf;">
 			<div class="container-fluid">
 
 				<div class="navbar-header">
@@ -68,6 +69,21 @@ font-weight: 500;
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
+					    <li>
+						<img src="http://happysanz.net/final/assets/rain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
+						</li>
+					<li style="padding:08px 10px;">
+							<a href="<?php echo base_url(); ?>teachercommunication/view_circular" class="abox"style="padding:03px 15px;">
+
+								<p style="text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
+							</a>
+						</li>
+                   <li style="padding:08px 10px;">
+							<a href="<?php echo base_url(); ?>teacherevent/home" class="abox"style="padding:03px 15px;">
+
+								<p style="text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
+							</a>
+						</li>
 						<li class="dropdown dropdown-with-icons">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<div class="photo">

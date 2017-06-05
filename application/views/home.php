@@ -1,12 +1,19 @@
 <style>
+th{text-align: center;}
 .box{
     padding: 12px 0px 66px 0px;
     border: 2px solid #9a8585;
   }
 		.head-count{  text-align: center; border-bottom: 2px solid #9a8585;
     }
+    .abox:hover{
+      color:#fff;
+    }
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:not(.btn):hover, .navbar-default .navbar-nav > .active > a:not(.btn):focus, .navbar-default .navbar-nav > li > a:not(.btn):hover, .navbar-default .navbar-nav > li > a:not(.btn):focus{
+      color:grey;
+    }
 		.cnt{font-size: 20px;}
-    input[type='radio']:after {
+    /*input[type='radio']:after {
             height: 25px;
             width: 25px;
             border-radius: 15px;
@@ -34,14 +41,29 @@
             border: 2px solid white;
         }
         input[type=radio] {
-    margin: 7px 14px 0;}
+    margin: 7px 14px 0;}*/
+.alinks{color: #888282;
 
+    font-size: 17px;}
+    td{text-align: center;}
+    .fc-month-button{
+    	display: none;
+    	}
+    .fc-basicWeek-button{display: none;} .fc-basicDay-button{display: none;}
+    .fc-scroller{
+      overflow-y: hidden;
+      overflow-x: hidden;
+      height: 265px !important;
+      width:300px;
+    }
+    .fc-toolbar h2{font-size: 20px;}
+    .fc-view-container{margin-top: -25px;}
 </style>
 	<div class="main-panel">
         <div class="content">
 					<div class="card">
             <div class="container-fluid">
-							<h2>Admin Dashboard</h2>
+							<p style="font-size:20px;">Admin Dashboard</p>
 
 
 
@@ -86,9 +108,13 @@
                         </div>
 	</div>
 	<div class="col-md-3">
-    <div class="card">
+    <?php
+    $dt = new DateTime();
+    echo $dt->format('d-M-Y');
+?>
+    <div class="">
                             <div class="header">
-                              No .Of.Users
+
                             </div>
                             <div class="content table-full-width">
                                 <table class="table table-striped">
@@ -96,7 +122,8 @@
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th>Name</th>
-                                            <th>Total</th>
+                                            <th>Present</th>
+                                             <th>Absent</th>
 
                                         </tr>
                                     </thead>
@@ -110,20 +137,9 @@
                                         				foreach ($teacher as $user_to) {}
                                         						echo $user_to->user_count;
                                         			} ?></td>
-
+                                        <td>0</td>
                                         </tr>
-                                        <tr>
 
-                                            <td class="text-center">2</td>
-                                            <td>Parents</td>
-                                            <td><?php  if(empty($parents)){
-                                      				echo "No data";
-                                      			}else{
-                                      				foreach ($parents as $user_parents) {}
-                                      						echo $user_parents->user_count;
-                                      			} ?></td>
-
-                                        </tr>
                                         <tr>
                                             <td class="text-center">3</td>
                                             <td>Students</td>
@@ -133,6 +149,7 @@
                                         				foreach ($res as $user_to) {}
                                         						echo $user_to->user_count;
                                         			}  ?></td>
+                                        			 <td>0</td>
 
                                         </tr>
 
@@ -142,18 +159,58 @@
                             </div>
                         </div>
 
-
 		<p></p>
 	</div>
 </div>
 <hr>
-
 <div class="col-md-12">
+    	<div class="col-md-4">
+		<div class="card ">
+									<div id="fullCalendar"></div>
+
+
+												</div>
+	</div>
 	<div class="col-md-4">
 		<div class="card ">
-                            <div class="header">
-                                <h4 class="title">UpComing Events</h4>
+														<div class="header">
+																<h4 class="title" style="float:left;"> Reminder</h4>
+    <span class="pull-right "><a href="<?php echo base_url(); ?>communication/add_communication" class="alinks">Set Reminder</a></span>
+														</div>
+							<div class="content">
+									<div class="table-full-width">
+									<table class="table">
+										<tbody>
+									<?php  if(empty($dash_comm)){
 
+									} else {
+										 $i=1;
+										foreach ($dash_comm as $rows) { ?>
+											<tr>
+													<td>
+															<label class="checkbox">
+																<?php echo $i; ?>
+																</label>
+													</td>
+													<td><?php echo $rows->commu_title;  ?> </td>
+
+											</tr>
+
+								<?php  $i++; } 	}?>
+
+										</tbody>
+									</table>
+									</div>
+							</div>
+
+
+												</div>
+	</div>
+	<div class="col-md-4">
+		<div class="card ">
+                            <div class="header" >
+                                <h4 class="title" style="float:left;">Task & Events</h4>
+                                <span class="pull-right alinks"><a href="<?php echo base_url(); ?>event/create" class="alinks">Create Task</a></span>
                             </div>
                             <div class="content">
                                 <div class="table-full-width">
@@ -188,84 +245,9 @@
 
                         </div>
 	</div>
-	<div class="col-md-4">
-		<div class="card ">
-														<div class="header">
-																<h4 class="title">Recent Users</h4>
-
-														</div>
-														<div class="content">
-																<div class="table-full-width">
-																		<table class="table">
-																				<tbody>
-																					<?php  if(empty($das_users)){
-
-																					} else {
-																						 $i=1;
-																						foreach ($das_users as $rows) { ?>
-																							<tr>
-																									<td>
-																											<label class="checkbox">
-																												<?php echo $i; ?>
-																												</label>
-																									</td>
-																									<td><?php echo $rows->user_name;  ?> ->&nbsp; <?php if($rows->user_type=="2"){
-                                                    echo "Teacher";
-                                                  }else if($rows->user_type=="3"){
-                                                      echo "Student";
-                                                  }else if($rows->user_type=="4"){
-                                                      echo "Parent";
-                                                  }
-                                                ?> ->&nbsp; <?php echo $rows->name; ?></td>
-
-																							</tr>
-
-																				<?php  $i++; } 	}?>
-
-																				</tbody>
-																		</table>
-																</div>
-														</div>
 
 
-												</div>
-	</div>
 
-	<div class="col-md-4">
-		<div class="card ">
-														<div class="header">
-																<h4 class="title">Recent Circular</h4>
-
-														</div>
-							<div class="content">
-									<div class="table-full-width">
-									<table class="table">
-										<tbody>
-									<?php  if(empty($dash_comm)){
-
-									} else {
-										 $i=1;
-										foreach ($dash_comm as $rows) { ?>
-											<tr>
-													<td>
-															<label class="checkbox">
-																<?php echo $i; ?>
-																</label>
-													</td>
-													<td><?php echo $rows->commu_title;  ?> </td>
-
-											</tr>
-
-								<?php  $i++; } 	}?>
-
-										</tbody>
-									</table>
-									</div>
-							</div>
-
-
-												</div>
-	</div>
 
 </div>
 
@@ -279,7 +261,50 @@
 			</div>
 
 <script type="text/javascript">
+$(document).ready(function() {
+$('#fullCalendar').fullCalendar({
+  header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'month,basicWeek,basicDay'
+  },
+  defaultDate: new Date(),
+  editable: false,
+  eventLimit: true, // allow "more" link when too many events
+  // events:"<?php echo base_url() ?>event/getall_act_event",
+  eventSources: [
+{
+ url: '<?php echo base_url() ?>event/getall_act_event',
+ color: 'yellow',
+ textColor: 'black'
+},
+{
+ url: '<?php echo base_url() ?>event/get_all_regularleave',
+ color: 'blue',
+ textColor: 'white'
+}
+],
+  eventMouseover: function(calEvent, jsEvent) {
+var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background-color:#000;color:#fff;position:absolute;z-index:10001;padding:20px;">' + calEvent.description + '</div>';
+var $tooltip = $(tooltip).appendTo('body');
 
+$(this).mouseover(function(e) {
+    $(this).css('z-index', 10000);
+    $tooltip.fadeIn('500');
+    $tooltip.fadeTo('10', 1.9);
+}).mousemove(function(e) {
+    $tooltip.css('top', e.pageY + 10);
+    $tooltip.css('left', e.pageX + 20);
+});
+},
+
+eventMouseout: function(calEvent, jsEvent) {
+$(this).css('z-index', 8);
+$('.tooltipevent').remove();
+},
+
+});
+});
 function search_load(){
 
 var ser= $("#search_txt").val();

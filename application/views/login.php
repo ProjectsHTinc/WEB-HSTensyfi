@@ -5,7 +5,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Edu App</title>
+	<title>ENSYFI</title>
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" />
     <!--  Light Bootstrap Dashboard core CSS    -->
     <link href="<?php echo base_url(); ?>assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
@@ -29,7 +29,7 @@
     <div class="full-page login-page" data-color="purple" data-image="../../assets/img/full-screen-image-1.jpg">
 
     <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
-        <div class="content">
+        <div class="content" style="padding-top: 12vh;">
             <div class="container">
 
                 <div class="row">
@@ -50,7 +50,7 @@
                             <div class="card card-hidden">
 
 							<?php
-
+                                $server_url = $_SERVER['HTTP_HOST']; 
 						          $query="SELECT user_pic FROM edu_users WHERE user_type=1";
 								  $objRs=$this->db->query($query);
 								  $row=$objRs->result();
@@ -59,16 +59,15 @@
 									  $pic=$rows1->user_pic;
 									  if($pic!='')
 									  {
-
 								?>
                                   <div class="header text-center">
-					<img src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" class="img-circle" style="width:110px;"> </div>
+					                <img src="http://<?php echo $server_url; ?>/institute_logo/<?php echo $pic; ?>" class="img-circle" style="width: 150px;
+    height: 150px;"> </div>
 						 <?php }else
 						 {
 							   ?><div class="header text-center">Login</div>
 						 <?php }
 }						 ?>
-
                                 <div class="content">
 								<!-- <div class="form-group">
 										<label>School ID</label>
@@ -81,13 +80,14 @@
                                     <div class="form-group">
                                         <label>Password</label>
                                         <input type="password" placeholder="Password" name="password" class="form-control">
-																				<p class="pull-right"><a href="<?php echo base_url(); ?>home/forgotpassword">Forgot Password</a></p>
-
+									<!--	<p class="pull-right" style="padding: 4px 15px 10px;"><a href="<?php echo base_url(); ?>home/forgotpassword">Forgot Password</a></p>-->
                                     </div>
-
+                                    <div class="form-group">
+                                        <label style="float:right;"><a  href="<?php echo base_url(); ?>home/forgotpassword">Forgot Password</a></label>
+										</div>
 
                                 </div>
-                                <div class="footer text-center">
+                                <div class="footer text-center" style="padding: 15px 15px;">
                                     <button type="submit" class="btn btn-fill btn-warning btn-wd">Login</button>
                                 </div>
 

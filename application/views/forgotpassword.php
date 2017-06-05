@@ -5,7 +5,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Edu App</title>
+	<title>ENSYFI</title>
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" />
     <!--  Light Bootstrap Dashboard core CSS    -->
     <link href="<?php echo base_url(); ?>assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
@@ -49,8 +49,8 @@
 
                             <div class="card card-hidden">
 
-							<?php
-
+						<?php
+                                $server_url = $_SERVER['HTTP_HOST']; 
 						          $query="SELECT user_pic FROM edu_users WHERE user_type=1";
 								  $objRs=$this->db->query($query);
 								  $row=$objRs->result();
@@ -59,10 +59,10 @@
 									  $pic=$rows1->user_pic;
 									  if($pic!='')
 									  {
-
 								?>
                                   <div class="header text-center">
-					<img src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" class="img-circle" style="width:110px;"> </div>
+					                <img src="http://<?php echo $server_url; ?>/institute_logo/<?php echo $pic; ?>" class="img-circle" style="width: 150px;
+    height: 150px;"> </div>
 						 <?php }else
 						 {
 							   ?><div class="header text-center">Login</div>

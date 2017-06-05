@@ -98,7 +98,7 @@
                searchAlign: 'left',
                pageSize: 8,
                clickToSelect: false,
-               pageList: [8,10,25,50,100],
+               pageList: [10,25,50,100],
 
                formatShowingRows: function(pageFrom, pageTo, totalRows){
                    //do nothing here, we don't want to show the text "showing x of y from..."
@@ -124,7 +124,7 @@
 
 
        });
-       $('#admissionmenu').addClass('collapse in');
-       $('#admission').addClass('active');
-       $('#admission3').addClass('active');
+        $('#admissionmenu').addClass('collapse in');
+         $('#admission').addClass('active');
+         $('#admission3').addClass('active');
 </script>

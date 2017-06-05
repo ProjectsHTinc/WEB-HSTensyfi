@@ -1,0 +1,60 @@
+[23-May-2017 06:32:23 UTC] PHP Warning:  include(/home/netsanz/public_html/testing/application//errors/html/error_php.php): failed to open stream: No such file or directory in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[23-May-2017 06:32:23 UTC] PHP Warning:  include(): Failed opening '/home/netsanz/public_html/testing/application//errors/html/error_php.php' for inclusion (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[23-May-2017 06:32:23 UTC] PHP Warning:  include(/home/netsanz/public_html/testing/application//errors/html/error_php.php): failed to open stream: No such file or directory in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[23-May-2017 06:32:23 UTC] PHP Warning:  include(): Failed opening '/home/netsanz/public_html/testing/application//errors/html/error_php.php' for inclusion (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[23-May-2017 06:32:24 UTC] PHP Warning:  include(/home/netsanz/public_html/testing/application//errors/html/error_php.php): failed to open stream: No such file or directory in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[23-May-2017 06:32:24 UTC] PHP Warning:  include(): Failed opening '/home/netsanz/public_html/testing/application//errors/html/error_php.php' for inclusion (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[23-May-2017 06:32:24 UTC] PHP Warning:  include(/home/netsanz/public_html/testing/application//errors/html/error_php.php): failed to open stream: No such file or directory in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[23-May-2017 06:32:24 UTC] PHP Warning:  include(): Failed opening '/home/netsanz/public_html/testing/application//errors/html/error_php.php' for inclusion (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[24-May-2017 06:53:05 UTC] PHP Warning:  include(/home/netsanz/public_html/testing/application//errors/html/error_php.php): failed to open stream: No such file or directory in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[24-May-2017 06:53:05 UTC] PHP Warning:  include(): Failed opening '/home/netsanz/public_html/testing/application//errors/html/error_php.php' for inclusion (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[24-May-2017 06:53:05 UTC] PHP Warning:  include(/home/netsanz/public_html/testing/application//errors/html/error_php.php): failed to open stream: No such file or directory in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[24-May-2017 06:53:05 UTC] PHP Warning:  include(): Failed opening '/home/netsanz/public_html/testing/application//errors/html/error_php.php' for inclusion (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[24-May-2017 12:54:42 UTC] PHP Fatal error:  Cannot redeclare Apimodel::studTimetable() in /home/netsanz/public_html/testing/application/models/Apimodel.php on line 168
+[24-May-2017 12:57:04 UTC] PHP Fatal error:  Cannot redeclare Apimodel::studTimetable() in /home/netsanz/public_html/testing/application/models/Apimodel.php on line 168
+[24-May-2017 12:59:57 UTC] PHP Fatal error:  Cannot redeclare Apimodel::studTimetable() in /home/netsanz/public_html/testing/application/models/Apimodel.php on line 168
+[24-May-2017 13:08:24 UTC] PHP Fatal error:  Call to a member function num_rows() on array in /home/netsanz/public_html/testing/application/models/Apimodel.php on line 156
+[24-May-2017 13:09:51 UTC] PHP Fatal error:  Call to a member function num_rows() on array in /home/netsanz/public_html/testing/application/models/Apimodel.php on line 156
+[24-May-2017 13:10:36 UTC] PHP Fatal error:  Call to a member function num_rows() on array in /home/netsanz/public_html/testing/application/models/Apimodel.php on line 156
+[24-May-2017 13:12:44 UTC] PHP Fatal error:  Call to a member function num_rows() on array in /home/netsanz/public_html/testing/application/models/Apimodel.php on line 156
+[25-May-2017 07:24:47 UTC] PHP Parse error:  syntax error, unexpected ';', expecting ')' in /home/netsanz/public_html/testing/application/models/Apimodel.php on line 268
+[25-May-2017 09:32:14 UTC] PHP Warning:  include(/home/netsanz/public_html/testing/application//errors/html/error_php.php): failed to open stream: No such file or directory in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[25-May-2017 09:32:14 UTC] PHP Warning:  include(): Failed opening '/home/netsanz/public_html/testing/application//errors/html/error_php.php' for inclusion (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[25-May-2017 09:32:14 UTC] PHP Warning:  include(/home/netsanz/public_html/testing/application//errors/html/error_php.php): failed to open stream: No such file or directory in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[25-May-2017 09:32:14 UTC] PHP Warning:  include(): Failed opening '/home/netsanz/public_html/testing/application//errors/html/error_php.php' for inclusion (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/netsanz/public_html/testing/system/core/Exceptions.php on line 268
+[26-May-2017 13:20:40 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Teachermodel.php on line 129
+[27-May-2017 08:11:31 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Enrollmentmodel.php on line 38
+[27-May-2017 08:11:39 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Enrollmentmodel.php on line 38
+[27-May-2017 08:15:03 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Enrollmentmodel.php on line 38
+[27-May-2017 12:09:42 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Apimodel.php on line 144
+[27-May-2017 12:09:46 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Apimodel.php on line 144
+[27-May-2017 18:52:10 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Parentsmodel.php on line 180
+[28-May-2017 07:46:36 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Apimodel.php on line 144
+[28-May-2017 07:48:07 UTC] PHP Fatal error:  Call to a member function result() on boolean in /home/netsanz/public_html/final/application/models/Apimodel.php on line 144
+[31-May-2017 13:14:09 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:09 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:11 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:12 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:13 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:13 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:14 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:15 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:16 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:18 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:21 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:24 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:26 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:33 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:40 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:42 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:45 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:47 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:48 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:14:54 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:15:00 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:15:02 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:15:06 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:15:18 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:15:18 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:15:19 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 111
+[31-May-2017 13:18:03 UTC] PHP Parse error:  syntax error, unexpected '>' in /home/netsanz/public_html/final/application/views/home.php on line 125

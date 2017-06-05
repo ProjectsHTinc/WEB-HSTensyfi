@@ -182,8 +182,8 @@
                                     </div>
 
                           <?php }}?>
-                                </div><?php foreach($stud_cls_id as $id){}$cid=$id->class_id; ?>
-								 <a href="<?php echo base_url();?>student/view_all_circular/<?php echo $cid; ?>" class="btn btn-social btn-simple btn-twitter">View All</a>
+                                </div>
+								 <a href="<?php echo base_url();?>student/view_all_circular" class="btn btn-social btn-simple btn-twitter">View All</a>
                             </div>
 
                                			</div>

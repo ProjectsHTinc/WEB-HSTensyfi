@@ -21,7 +21,7 @@
                                 <th data-field="id" class="text-left">ID</th>
                                 <th data-field="name" class="text-left" data-sortable="true">Name</th>
                                 <th data-field="email" class="text-left" data-sortable="true">Email</th>
-                                <th data-field="mobile" class="text-left" data-sortable="true">Mobile</th>
+                                <th data-field="mobile" class="text-left" data-sortable="true">Date of birth</th>
 								<th data-field="status" class="text-left" data-sortable="true">Status</th>
                                 <th data-field="Section" class="text-left" data-sortable="true">Action</th>
                               </thead>
@@ -36,7 +36,7 @@
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
                                     <td><?php echo $rows->email; ?></td>
-                                    <td><?php echo $rows->mobile; ?></td>
+                                    <td><?php echo  $new_date = date('d-m-Y', strtotime($rows->dob)); ?></td>
 									<td><?php 
 									  if($stu=='A'){?>
 									   <button class="btn btn-success btn-fill btn-wd">Active</button>
@@ -53,7 +53,7 @@
 										if($enrollment_status==0)
 										{
 										?>
-                                      <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Add Enrollment" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                      <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
 									  <i class="fa fa-address-book" aria-hidden="true"></i>
 
                                      <!--  <i class="fa fa-address-card-o" aria-hidden="true"></i> -->
@@ -62,7 +62,7 @@
 										}
 										else{
 											?>
-<a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Already Added Enrollment Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+<a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                       <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                         </a>
 										<?php

@@ -73,13 +73,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-$db['default'] = array(
+$db['default']=array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	// 'username' => 'netsanz_edu_test',
-	// 'password' => 'BI74D6RECRI6',
-	// 'database' => 'netsanz_eduapptest',
-
 	'username' => 'root',
 	'password' => '',
 	'database' => 'eduapp',
