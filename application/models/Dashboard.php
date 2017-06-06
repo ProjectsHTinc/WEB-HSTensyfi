@@ -238,7 +238,7 @@ Class Dashboard extends CI_Model
      <th>Admission No</th>
      <th>Class</th>
      <th>Admission Date</th>
-     <th>Action</th>
+	 <th>Edit</th>
     </tr>
   ';
      foreach($result->result() as $row){
@@ -248,7 +248,7 @@ Class Dashboard extends CI_Model
       <td>'.$row->admisn_no.'</td>
       <td>'.$row->class_name.'-'.$row->sec_name.'</td>
       <td>'.$row->admit_date.'</td>
-    <td><a href="'. base_url().'admission/get_ad_id/'.$row->admission_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
+	 <td><a href="'. base_url().'admission/get_ad_id/'.$row->admission_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
      </tr>
     ';
          }
@@ -256,10 +256,10 @@ Class Dashboard extends CI_Model
 
        }
        }else if($user_type=="parents"){
-        $query="SELECT et.name,et.phone,et.email,c.class_name,s.sec_name,et.status FROM edu_teachers AS et JOIN edu_classmaster AS cm, edu_sections AS s,edu_class AS c WHERE et.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND et.name LIKE '$ser_txt%'";
+        $query="SELECT et.teacher_id,et.name,et.phone,et.email,c.class_name,s.sec_name,et.status FROM edu_teachers AS et JOIN edu_classmaster AS cm, edu_sections AS s,edu_class AS c WHERE et.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND et.name LIKE '$ser_txt%'";
 
        }else if($user_type=="teachers"){
-         $query="SELECT et.name,et.phone,et.email,c.class_name,s.sec_name,et.status,et.teacher_id FROM edu_teachers AS et JOIN edu_classmaster AS cm, edu_sections AS s,edu_class AS c WHERE et.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND et.name LIKE '$ser_txt%'";
+         $query="SELECT et.name,et.phone,et.email,et.teacher_id,c.class_name,s.sec_name,et.status FROM edu_teachers AS et JOIN edu_classmaster AS cm, edu_sections AS s,edu_class AS c WHERE et.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND et.name LIKE '$ser_txt%'";
          $result=$this->db->query($query);
          if($result->num_rows()==0){
           echo "No Data Found";
@@ -272,7 +272,8 @@ Class Dashboard extends CI_Model
      <th>phone No</th>
      <th>Class Teacher</th>
      <th>Email </th>
-     <th>Status</th>
+   
+	 <th>Edit</th>
     </tr>
   ';
      foreach($result->result() as $row){
@@ -282,7 +283,8 @@ Class Dashboard extends CI_Model
       <td>'.$row->phone.'</td>
       <td>'.$row->class_name.'-'.$row->sec_name.'</td>
       <td>'.$row->email.'</td>
-      <td><a href="'. base_url().'teacher/get_teacher_id/'.$row->teacher_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
+    
+	  <td><a href="'. base_url().'teacher/get_teacher_id/'.$row->teacher_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
      </tr>
     ';
          }
@@ -294,19 +296,14 @@ Class Dashboard extends CI_Model
        }
 
    }
+   
+   //Notifications 
 
-      // Notification
-
-      function pending_leave(){
+ function pending_leave(){
         $query="SELECT l.leave_id,l.user_id,et.name FROM edu_user_leave AS l LEFT JOIN edu_teachers  AS et ON et.teacher_id=l.user_id WHERE l.status='P' LIMIT 5";
         $result12=$this->db->query($query);
         return  $result12->result();
       }
-
-
-
-
-
 //Admin  Teacher
 
     function dash_teacher($user_id){

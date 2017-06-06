@@ -145,11 +145,11 @@
                                           <div class="col-sm-10">
 										  
 										  <label class="radio">
-                                                    <input type="radio" data-toggle="radio" name="test_type" value="HT" checked="">Class Test
+                                                    <input type="radio" data-toggle="radio" name="test_type" value="HT" checked onclick="myFunction1()">Class Test
                                                 </label>
 
                                                 <label class="radio">
-                                                    <input type="radio" data-toggle="radio" name="test_type" value="HW">Home Work
+                                                    <input type="radio" data-toggle="radio" name="test_type" value="HW" onclick="myFunction()">Home Work
                                                 </label>
                                      <input type="hidden" id="event_id" name="class_id" class="form-control" value="<?php ?>"/>
 
@@ -182,6 +182,18 @@
                                           </div>
                                        </div>
                                     </fieldset>
+                                    
+                                    <div id="submission" style="display:none">
+									 <fieldset>
+                                       <div class="form-group">
+                                          <label class="col-sm-2 control-label">Submission Date</label>
+                                          <div class="col-sm-6">
+                                             <input type="text" placeholder="Select Submission Date" name="sub_date" class="form-control datepicker" >
+                                          </div>
+                                       </div>
+                                    </fieldset>
+									</div>
+									
                                     <fieldset>
                                        <div class="form-group">
                                           <label class="col-sm-2 control-label">Details</label>
@@ -238,6 +250,14 @@
             }
     });
    });
+   
+   function myFunction() 
+   {
+      $("#submission").show();
+   } 
+   function myFunction1(){
+	  $("#submission").hide();
+   }
 
    var $table = $('#bootstrap-table');
          $().ready(function(){

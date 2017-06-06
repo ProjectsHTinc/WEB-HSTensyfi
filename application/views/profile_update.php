@@ -98,11 +98,17 @@ var loadFile = function(event) {
 
 
 
+  var elmt = document.getElementById('sname');
 
+  elmt.addEventListener('keydown', function (event) {
+      if (elmt.value.length === 0 && event.which === 32) {
+          event.preventDefault();
+      }
+  });
 
 $('#profileedit').validate({ // initialize the plugin
     rules: {
-        sname:{required:true},
+        sname:{required:true,noSpace: true },
 
 
     },

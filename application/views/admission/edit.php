@@ -271,51 +271,47 @@ var loadFile = function(event) {
  output.src = URL.createObjectURL(event.target.files[0]);
 };
 
- $('#admissionmenu').addClass('collapse in');
-         $('#admission').addClass('active');
-         $('#admission2').addClass('active');
+$(document).ready(function () {
+jQuery('#admissionmenu').addClass('collapse in');
+$('#admission').addClass('active');
+$('#admission2').addClass('active');
+ $('#admissionform').validate({ // initialize the plugin
+     rules: {
+         admission_no:{required:true, number: true },
+         admission_year:{required:true },
+         admission_date:{required:true },
+         name:{required:true },
+         email:{required:true,email:true},
+         sex:{required:true },
+         dob:{required:true },
+         age:{required:true,number:true,maxlength:2 },
+         nationality:{required:true },
+         religion:{required:true },
+         community_class:{required:true },
+         community:{required:true },
+         mother_tongue:{required:true },
+         mobile:{required:true }
 
-// $(document).ready(function () {
-// jQuery('#admissionmenu').addClass('collapse in');
-// $('#admission').addClass('active');
-// $('#admission2').addClass('active');
-//  $('#admissionform').validate({ // initialize the plugin
-//      rules: {
-//          admission_no:{required:true, number: true },
-//          admission_year:{required:true },
-//          admission_date:{required:true },
-//          name:{required:true },
-//          email:{required:true,email:true},
-//          sex:{required:true },
-//          dob:{required:true },
-//          age:{required:true,number:true,maxlength:2 },
-//          nationality:{required:true },
-//          religion:{required:true },
-//          community_class:{required:true },
-//          community:{required:true },
-//          mother_tongue:{required:true },
-//          mobile:{required:true }
-
-//      },
-//      messages: {
-//           admission_no: "Enter Admission No",
-//           admission_year: "Enter Admission Year",
-//           admission_date: "Select Admission Date",
-//           name: "Enter Name",
-//             email: "Enter Email Address",
-//           sex: "Select Gender",
-//           dob: "Select Date of Birth",
-//           age: "Enter AGE",
-//           nationality: "Nationality",
-//           religion: "Enter the Religion",
-//           community:"Enter the Community",
-//           community_class:"Enter the Community Class",
-//           mother_tongue:"Enter The Mother tongue",
-//           mobile:"Enter the mobile Number",
-//           student_pic:"Enter the Student Picture"
-//          }
-//  });
-// });
+     },
+     messages: {
+           admission_no: "Enter Admission No",
+           admission_year: "Enter Admission Year",
+           admission_date: "Select Admission Date",
+           name: "Enter Name",
+            email: "Enter Email Address",
+           sex: "Select Gender",
+           dob: "Select Date of Birth",
+           age: "Enter AGE",
+           nationality: "Nationality",
+           religion: "Enter the Religion",
+           community:"Enter the Community",
+           community_class:"Enter the Community Class",
+           mother_tongue:"Enter The Mother tongue",
+           mobile:"Enter the mobile Number",
+           student_pic:"Enter the Student Picture"
+         }
+ });
+});
 
 </script>
 <script type="text/javascript">

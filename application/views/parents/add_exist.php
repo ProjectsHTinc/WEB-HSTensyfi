@@ -297,9 +297,9 @@
 </div>
 </div>
 <script type="text/javascript">
-  $('#admissionmenu').addClass('collapse in');
-         $('#admission').addClass('active');
-         $('#admission3').addClass('active');
+$('#mastersmenu').addClass('collapse in');
+$('#master').addClass('active');
+$('#masters3').addClass('active');
 
 var loadFile = function(event)
  {

@@ -13,14 +13,14 @@
       <!--  CSS for Demo Purpose, don't include it in your project     -->
       <link href="<?php echo base_url(); ?>assets/css/demo.css" rel="stylesheet" />
 
-	    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common.min.css"/>
+	  <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common.min.css"/>
       <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.rtl.min.css"/>
       <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.silver.min.css"/>
       <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.mobile.all.min.css"/>
       <script src="<?php echo base_url(); ?>assets/js/jquery-1.12.4.min.js" type="text/javascript"></script>
 	  <script src="<?php echo base_url(); ?>assets/js/kendo.all.min.js" type="text/javascript"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
 
 
       <!--     Fonts and icons     -->
@@ -41,21 +41,6 @@
       <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/jquery.datatables.js"></script>
       <style>
-      input[type=radio]{
-         margin: 4px 5px 0;
-
-      }
-      .btn-info.btn-fill{
-        background-color: grey;
-        border-color: grey;
-      }
-    .btn-info.btn-fill:hover, .btn-info.btn-fill:focus, .btn-info.btn-fill:active, .btn-info.btn-fill.active, .open > .btn-info.btn-fill.dropdown-toggle{
-      background-color: grey;
-      border-color: grey;
-    }
-      body{
-          font-family: 'Roboto', sans-serif;
-      }
          .navbar{
          margin-bottom:0px;}
          .sidemenu{margin-top:78px;}
@@ -79,7 +64,7 @@
    </head>
    <body>
       <div class="wrapper">
-      <nav class="navbar navbar-default" style="background-color: #dfdfdf;height:70px;">
+      <nav class="navbar navbar-default" style="background-color: #9266d9;height: 70px;">
          <div class="container-fluid">
             <div class="navbar-header">
                <button type="button" class="navbar-toggle" data-toggle="collapse">
@@ -88,47 +73,38 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="#"style="margin-left: 10px; margin-top: 02px; "><?php   echo $this->session->userdata('name'); ?> </a>
+               <a class="navbar-brand" href="#" style="color: white;margin-left: 10px;"><?php   echo $this->session->userdata('name'); ?> </a>
             </div>
             <div class="collapse navbar-collapse">
                <ul class="nav navbar-nav navbar-right">
-                   <li>
-						<img src="<?php echo base_url(); ?>assets/rain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
-						</li>
-					<li style="padding:08px 10px;">
-							<a href="<?php echo base_url(); ?>communication/add_communication" class="abox"style="padding:03px 15px;">
-
-								<p style="text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
+                   <!-- <li>
+						<img src="<?php echo base_url(); ?>assets/wrain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
+						</li>-->
+						<li style="padding:08px 10px;">
+							<a href="<?php echo base_url(); ?>communication/add_communication" class="abox"style="padding:03px 15px;border-color: white;">
+								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
 							</a>
 						</li>
-                   <li style="padding:08px 10px;">
-							<a href="<?php echo base_url(); ?>event/create" class="abox"style="padding:03px 15px;">
-
-								<p style="text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
+                   <li style="padding: 08px 10px;">
+							<a href="<?php echo base_url(); ?>event/create" class="abox"style="padding:03px 15px;border-color: white;">
+							
+								<p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
 							</a>
 						</li>
-
-
                   <li class="dropdown" style="padding:08px 10px;">
-							<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px;text-transform: uppercase;">
-
-
-								 Notifications
-							</a>
-
-							<ul class="dropdown-menu">
-
-                <li><a href="<?php echo base_url(); ?>communication/view_user_leaves">View Users Leaves</a></li>
-                  <li><a href="<?php echo base_url(); ?>communication/view">View all Circular</a></li>
-
+					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
+						   Teachers Leaves</a>
+								<ul class="dropdown-menu">
+ <li><a href="<?php echo base_url(); ?>communication/view_user_leaves">View Teachers Leaves</a></li>
+<!-- <li><a href="<?php echo base_url(); ?>communication/view">View all Circular</a></li> -->
+ 
 							</ul>
-
-
 						</li>
                   <li class="dropdown dropdown-with-icons">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top:2px;">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:05px;">
                         <div class="photo">
-                           <i class="pe-7s-user pe-7x" style="font-size:35px;"></i>
+                           <i class="pe-7s-user pe-7x" style="font-size:35px;color: white;
+}"></i>
                         </div>
                         <p class="hidden-md hidden-lg">
                            More
@@ -141,7 +117,7 @@
                            <i class="pe-7s-tools"></i> Profile
                            </a>
                         </li>
-
+                       
                         <li>
                            <a href="<?php echo base_url(); ?>adminlogin/profile">
                            <i class="pe-7s-tools"></i> Setting
@@ -160,9 +136,9 @@
             </div>
          </div>
       </nav>
-      <div class="sidebar sidemenu" data-color="purple"  style="margin-top:67px;">
+      <div class="sidebar sidemenu" data-color="purple"  style="margin-top: 67px;">
          <div class="sidebar-wrapper">
-            <ul class="nav">
+            <ul class="nav" style="background-color: #6f3fbc;">
                <li id="dash">
                   <a href="<?php echo base_url(); ?>adminlogin/dashboard">
                      <i class="pe-7s-home"></i>
@@ -277,7 +253,7 @@
                      <ul class="nav">
                          <li id="event2"><a href="<?php echo base_url(); ?>event/create">Add / View Event</a></li>
                         <li id="event1"><a href="<?php echo base_url(); ?>event/home">Event Calender</a></li>
-                          <li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add / View Leave </a></li>
+                          <li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add/ View Leave </a></li>
 
 
                         <!-- <li><a href="<?php echo base_url(); ?>event/view">View Event</a></li> -->

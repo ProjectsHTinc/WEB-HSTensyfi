@@ -49,7 +49,7 @@
 
                             <div class="card card-hidden">
 
-						<?php
+							<?php
                                 $server_url = $_SERVER['HTTP_HOST']; 
 						          $query="SELECT user_pic FROM edu_users WHERE user_type=1";
 								  $objRs=$this->db->query($query);

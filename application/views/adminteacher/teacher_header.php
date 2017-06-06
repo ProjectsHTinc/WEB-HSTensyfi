@@ -49,13 +49,12 @@ margin-bottom:0px;}
 font-weight: 500;
 }
 .abox{border: 1px solid grey;}
-
 </style>
 </head>
 <body>
 
 <div class="wrapper">
-	<nav class="navbar navbar-default" style="background-color:#dfdfdf;">
+	<nav class="navbar navbar-default"style="background-color: #9266d9;">
 			<div class="container-fluid">
 
 				<div class="navbar-header">
@@ -65,29 +64,31 @@ font-weight: 500;
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">ENSYFI Dashboard </a>
+					 <a class="navbar-brand" href="#" style="color: white;margin-left: 10px;">ENSYFI Dashboard </a>
+					
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-					    <li>
-						<img src="http://happysanz.net/final/assets/rain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
-						</li>
-					<li style="padding:08px 10px;">
-							<a href="<?php echo base_url(); ?>teachercommunication/view_circular" class="abox"style="padding:03px 15px;">
-
-								<p style="text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
+					
+					 <!--  <li>
+						<img src="<?php echo base_url(); ?>assets/wrain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
+						</li> -->
+						<li style="padding:08px 10px;">
+							<a href="<?php echo base_url(); ?>teachercommunication/home" class="abox"style="padding:03px 15px;border-color: white;">
+								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
 							</a>
 						</li>
-                   <li style="padding:08px 10px;">
-							<a href="<?php echo base_url(); ?>teacherevent/home" class="abox"style="padding:03px 15px;">
-
-								<p style="text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
+                   <li style="padding: 08px 10px;">
+							<a href="<?php echo base_url(); ?>teacherevent/home" class="abox"style="padding:03px 15px;border-color: white;">
+							
+								<p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
 							</a>
 						</li>
+						
 						<li class="dropdown dropdown-with-icons">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"style="margin:05px;">
 								<div class="photo">
-										<i class="pe-7s-user pe-7x" style="font-size:35px;"></i>
+										 <i class="pe-7s-user pe-7x" style="font-size:35px;color: white;"></i>
 											</div>
 								<p class="hidden-md hidden-lg">
 									More
@@ -120,7 +121,7 @@ font-weight: 500;
 				</div>
 			</div>
 		</nav>
-    <div class="sidebar sidemenu" data-color="purple"  style="">
+    <div class="sidebar sidemenu" data-color="purple"  style="margin-top: 68px;">
 
     	<div class="sidebar-wrapper">
 
@@ -152,12 +153,12 @@ font-weight: 500;
 								<li id="home">
 										<a data-toggle="collapse" href="#homeworkmenu">
 												<i class="pe-7s-flag"></i>
-												<p>Home Work	</p>
+												<p>Home Work / Class Test	</p>
 												<b class="caret"></b>
 										</a>
 										<div class="collapse" id="homeworkmenu">
 											<ul class="nav">
-										<li id="home1"><a href="<?php echo base_url(); ?>homework/home">Home Work</a></li>
+										<li id="home1"><a href="<?php echo base_url(); ?>homework/home">Home Work / Class Test</a></li>
 													<!-- <li><a href=""> Home Work</a></li>
 													<li><a href=""> Class Test</a></li> -->
 

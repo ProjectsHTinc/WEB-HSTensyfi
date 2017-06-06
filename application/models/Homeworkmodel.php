@@ -94,7 +94,7 @@ Class Homeworkmodel extends CI_Model
         //print_r($data);exit;
        }
 	   
-	   function create_test($year_id,$class_id,$user_id,$test_type,$title,$subject_name,$formatted_date,$details)
+	    function create_test($year_id,$class_id,$user_id,$test_type,$title,$subject_name,$formatted_date,$format_date,$details)
 	   {
 		      $check_test_date="SELECT * FROM edu_homework WHERE test_date='$formatted_date' AND subject_id='$subject_name'";
 			  $result=$this->db->query($check_test_date);
@@ -106,7 +106,7 @@ Class Homeworkmodel extends CI_Model
 			  //foreach($row as $rows){}
 			  $teacher_id=$row[0]->teacher_id;
 			  
-			  $query="INSERT INTO edu_homework(year_id,class_id,teacher_id,hw_type,subject_id,title,test_date,hw_details,status, created_at)VALUES('$year_id','$class_id','$teacher_id','$test_type','$subject_name','$title','$formatted_date','$details','A',NOW())";
+			  $query="INSERT INTO edu_homework(year_id,class_id,teacher_id,hw_type,subject_id,title,test_date,due_date,hw_details,status, created_at)VALUES('$year_id','$class_id','$teacher_id','$test_type','$subject_name','$title','$formatted_date','$format_date','$details','A',NOW())";
 			  $resultset=$this->db->query($query);
 			  $data= array("status"=>"success");
 			  return $data;
@@ -198,14 +198,17 @@ Class Homeworkmodel extends CI_Model
 		 $result=$this->db->query($query); 
          return $result->result();	
 	  }
-	  function update_test_details($id,$hw_type,$title,$formatted_date,$test_details,$status)
+	  
+	   function update_test_details($id,$hw_type,$title,$formatted_date,$format_date,$test_details,$status)
 	  {
-		  $query1="UPDATE edu_homework SET hw_type='$hw_type',title='$title',test_date='$formatted_date',hw_details='$test_details',status='$status' WHERE hw_id='$id'";
+		  $query1="UPDATE edu_homework SET hw_type='$hw_type',title='$title',test_date='$formatted_date',due_date='$format_date',hw_details='$test_details',status='$status' WHERE hw_id='$id'";
 		   $result1=$this->db->query($query1); 
            $data= array("status"=>"success");
 		   return $data;
 	  }
 
+
+	  
 	  function get_acdaemicyear()
 		{
 		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";

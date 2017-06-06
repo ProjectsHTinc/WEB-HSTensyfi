@@ -84,6 +84,10 @@ class Homework extends CI_Controller
 	 		$user_id=$this->session->userdata('user_id');
 			//echo $user_id;exit;
 			$test_type=$this->input->post('test_type');
+			
+			//echo $test_type;
+			//exit;
+			
 			$year_id=$this->input->post('year_id');
 			
 			$class_id=$this->input->post('class_id');
@@ -94,9 +98,18 @@ class Homework extends CI_Controller
 			
 			$dateTime = new DateTime($tet_date);
 			$formatted_date=date_format($dateTime,'Y-m-d' );
+             
+             
+            $submission_date=$this->input->post('sub_date');
+			$dateTime = new DateTime($submission_date);
+			$format_date=date_format($dateTime,'Y-m-d' );
+			
 
 			$details=$this->db->escape_str($this->input->post('details'));
-		    $datas=$this->homeworkmodel->create_test($year_id,$class_id,$user_id,$test_type,$title,$subject_name,$formatted_date,$details);
+		    $datas=$this->homeworkmodel->create_test($year_id,$class_id,$user_id,$test_type,$title,$subject_name,$formatted_date,$format_date,$details); 
+		    
+		    
+		
 			// echo'<pre>';
 			// print_r($datas["res"]);
 			// echo'</pre>'; 

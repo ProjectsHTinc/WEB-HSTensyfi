@@ -34,7 +34,6 @@
                               <tbody>
                                 <?php
                                 $i=1;
-                               // print_r($result);
                                 foreach ($result as $rows) {
 													$stu=$rows->status;
                                 ?>

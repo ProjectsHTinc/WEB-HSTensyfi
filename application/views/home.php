@@ -1,71 +1,36 @@
 <style>
-th{text-align: center;}
 .box{
     padding: 12px 0px 66px 0px;
     border: 2px solid #9a8585;
   }
 		.head-count{  text-align: center; border-bottom: 2px solid #9a8585;
     }
-    .abox:hover{
-      color:#fff;
-    }
-    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:not(.btn):hover, .navbar-default .navbar-nav > .active > a:not(.btn):focus, .navbar-default .navbar-nav > li > a:not(.btn):hover, .navbar-default .navbar-nav > li > a:not(.btn):focus{
-      color:grey;
-    }
 		.cnt{font-size: 20px;}
-    /*input[type='radio']:after {
-            height: 25px;
-            width: 25px;
-            border-radius: 15px;
-            top: -2px;
-            left: -1px;
-            position: relative;
-            background-color: #d1d3d1;
-            content: '';
-            display: inline-block;
-            visibility: visible;
-            border: 2px solid white;
-        }
-
-        input[type='radio']:checked:after {
-            height: 25px;
-	          width: 25px;
-            border-radius: 15px;
-            top: -2px;
-            left: -1px;
-            position: relative;
-            background-color: #ffa500;
-            content: '';
-            display: inline-block;
-            visibility: visible;
-            border: 2px solid white;
-        }
-        input[type=radio] {
-    margin: 7px 14px 0;}*/
+   
 .alinks{color: #888282;
-
+    
     font-size: 17px;}
-    td{text-align: center;}
-    .fc-month-button{
-    	display: none;
-    	}
+
+
+	.fc-month-button{
+     display: none;
+     }
     .fc-basicWeek-button{display: none;} .fc-basicDay-button{display: none;}
     .fc-scroller{
       overflow-y: hidden;
-      overflow-x: hidden;
-      height: 265px !important;
-      width:300px;
+overflow-x: hidden;
+height: 265px !important;
+width:300px;
     }
     .fc-toolbar h2{font-size: 20px;}
     .fc-view-container{margin-top: -25px;}
+	
 </style>
 	<div class="main-panel">
         <div class="content">
 					<div class="card">
             <div class="container-fluid">
-							<p style="font-size:20px;">Admin Dashboard</p>
-
-
+							<p style="font-size: 20px;">Admin Dashboard</p>
 
 <div class="">
 	<div class="row">
@@ -74,7 +39,6 @@ th{text-align: center;}
     <div class="card">
                             <form id="" action="#" method="" novalidate="" style="padding-bottom:30px;">
                                 <div class="header" >Search</div>
-
 
                                 <fieldset id="group2" style="padding-left:30px;">
                                     <input type="radio" value="students" id="user_type"  name="user_type" checked="">Students
@@ -108,48 +72,47 @@ th{text-align: center;}
                         </div>
 	</div>
 	<div class="col-md-3">
-    <?php
+	     <?php
     $dt = new DateTime();
     echo $dt->format('d-M-Y');
 ?>
-    <div class="">
+    <div class="card">
                             <div class="header">
-
+                              
                             </div>
                             <div class="content table-full-width">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">#</th>
+                                           
                                             <th>Name</th>
                                             <th>Present</th>
-                                             <th>Absent</th>
-
+                                            <th>Absent</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="text-center">1</td>
+                                            
                                             <td>Teachers</td>
-                                            <td><?php	if(empty($teacher)){
+                                            <td class="text-center"><?php	if(empty($teacher)){
                                         				echo "No data";
                                         			}else{
                                         				foreach ($teacher as $user_to) {}
                                         						echo $user_to->user_count;
                                         			} ?></td>
-                                        <td>0</td>
+                                        <td class="text-center" style="padding-right:0px; ">0</td>
                                         </tr>
-
+                                       
                                         <tr>
-                                            <td class="text-center">3</td>
+                                           
                                             <td>Students</td>
-                                            <td><?php 	if(empty($res)){
+                                            <td class="text-center"><?php 	if(empty($res)){
                                         				echo "No data";
                                         			}else{
                                         				foreach ($res as $user_to) {}
                                         						echo $user_to->user_count;
                                         			}  ?></td>
-                                        			 <td>0</td>
+                                        			 <td class="text-center"style="padding-right:0px; ">0</td>
 
                                         </tr>
 
@@ -159,18 +122,21 @@ th{text-align: center;}
                             </div>
                         </div>
 
+
 		<p></p>
 	</div>
 </div>
 <hr>
+
 <div class="col-md-12">
-    	<div class="col-md-4">
+    
+    <div class="col-md-4">
 		<div class="card ">
-									<div id="fullCalendar"></div>
-
-
-												</div>
+		 <div id="fullCalendar"></div>
+       </div>
 	</div>
+
+
 	<div class="col-md-4">
 		<div class="card ">
 														<div class="header">
@@ -206,6 +172,7 @@ th{text-align: center;}
 
 												</div>
 	</div>
+	
 	<div class="col-md-4">
 		<div class="card ">
                             <div class="header" >
@@ -245,8 +212,7 @@ th{text-align: center;}
 
                         </div>
 	</div>
-
-
+	
 
 
 </div>
@@ -261,50 +227,64 @@ th{text-align: center;}
 			</div>
 
 <script type="text/javascript">
-$(document).ready(function() {
-$('#fullCalendar').fullCalendar({
-  header: {
-    left: 'prev,next today',
-    center: 'title',
-    right: 'month,basicWeek,basicDay'
-  },
-  defaultDate: new Date(),
-  editable: false,
-  eventLimit: true, // allow "more" link when too many events
-  // events:"<?php echo base_url() ?>event/getall_act_event",
-  eventSources: [
-{
- url: '<?php echo base_url() ?>event/getall_act_event',
- color: 'yellow',
- textColor: 'black'
-},
-{
- url: '<?php echo base_url() ?>event/get_all_regularleave',
- color: 'blue',
- textColor: 'white'
-}
-],
-  eventMouseover: function(calEvent, jsEvent) {
-var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background-color:#000;color:#fff;position:absolute;z-index:10001;padding:20px;">' + calEvent.description + '</div>';
-var $tooltip = $(tooltip).appendTo('body');
 
-$(this).mouseover(function(e) {
-    $(this).css('z-index', 10000);
-    $tooltip.fadeIn('500');
-    $tooltip.fadeTo('10', 1.9);
-}).mousemove(function(e) {
-    $tooltip.css('top', e.pageY + 10);
-    $tooltip.css('left', e.pageX + 20);
-});
+	$(document).ready(function() {
+		$('#fullCalendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			defaultDate: new Date(),
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			// events:"<?php echo base_url() ?>event/getall_act_event",
+			eventSources: [
+	 {
+		 url: '<?php echo base_url() ?>event/getall_act_event',
+		 color: 'yellow',
+		 textColor: 'black'
+	 }
+	 ,
+	 {
+		 url: '<?php echo base_url() ?>event/get_all_regularleave',
+		 color: 'blue',
+		 textColor: 'white'
+	 },
+	 {
+		url: '<?php echo base_url() ?>teacherevent/view_all_reminder',
+		color: 'red',
+		textColor: 'white'
+	},
+	{
+	 url: '<?php echo base_url() ?>leavemanage/get_all_special_leave',
+	 color: 'pink',
+	 textColor: 'white'
+ }
+ ],
+			eventMouseover: function(calEvent, jsEvent) {
+		var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background-color:#000;color:#fff;position:absolute;z-index:10001;padding:20px;">' + calEvent.description + '</div>';
+		var $tooltip = $(tooltip).appendTo('body');
+
+		$(this).mouseover(function(e) {
+				$(this).css('z-index', 10000);
+				$tooltip.fadeIn('500');
+				$tooltip.fadeTo('10', 1.9);
+		}).mousemove(function(e) {
+				$tooltip.css('top', e.pageY + 10);
+				$tooltip.css('left', e.pageX + 20);
+		});
 },
 
 eventMouseout: function(calEvent, jsEvent) {
-$(this).css('z-index', 8);
-$('.tooltipevent').remove();
+		$(this).css('z-index', 8);
+		$('.tooltipevent').remove();
 },
 
-});
-});
+		});
+				});
+
+		
 function search_load(){
 
 var ser= $("#search_txt").val();

@@ -564,9 +564,6 @@
 //  var output2 = document.getElementById('output2');
 //  output2.src = URL.createObjectURL(event.target.files[0]);
 // };
-  $('#admissionmenu').addClass('collapse in');
-         $('#admission').addClass('active');
-         $('#admission3').addClass('active');
 
  $(document).ready(function ()
  {
