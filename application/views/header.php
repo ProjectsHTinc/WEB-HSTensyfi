@@ -13,12 +13,7 @@
       <!--  CSS for Demo Purpose, don't include it in your project     -->
       <link href="<?php echo base_url(); ?>assets/css/demo.css" rel="stylesheet" />
 
-	  <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common.min.css"/>
-      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.rtl.min.css"/>
-      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.silver.min.css"/>
-      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.mobile.all.min.css"/>
-      <script src="<?php echo base_url(); ?>assets/js/jquery-1.12.4.min.js" type="text/javascript"></script>
-	  <script src="<?php echo base_url(); ?>assets/js/kendo.all.min.js" type="text/javascript"></script>
+	
 
 
 
