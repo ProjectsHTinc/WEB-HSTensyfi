@@ -5,7 +5,7 @@
 
                         <div class="card">
                             <div class="header">
-                                <legend>Edit Regular Leave  </legend>
+                                <legend>Edit Regular Leave</legend>
 
                             </div>
                             <?php if($this->session->flashdata('msg')): ?>
@@ -49,6 +49,44 @@
                                           </div>
                                       </div>
                                   </fieldset>
+								  
+								   <fieldset id="">
+                                      <div class="form-group">
+                                          <label class="col-sm-2 control-label">Classes</label>
+                                          <div class="col-sm-4">
+                                          <select multiple  name="class_name[]" id="multiple_class" class="selectpicker" data-menu-style="dropdown-blue">
+ 
+	                                       <?php
+                                      		    $sPlatform=$rows->leave_classes;
+                                      			$sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
+                                      			$objRs=$this->db->query($sQuery);
+                                      		  //print_r($objRs);
+                                      		    $row=$objRs->result();
+                                      		  foreach ($row as $rows1)
+                                      		  {
+                                      		  $s= $rows1->class_sec_id;
+                                      		  $sec=$rows1->class;
+                                      		  $clas=$rows1->class_name;
+                                      		  $sec_name=$rows1->sec_name;
+                                      		  $arryPlatform = explode(",", $sPlatform);
+                                      		 $sPlatform_id  = trim($s);
+                                      		 $sPlatform_name  = trim($sec);
+                                      		 if (in_array($sPlatform_id, $arryPlatform )) 
+											 {
+                                              echo "<option  value=\"$sPlatform_id\" selected />$clas-$sec_name</option>";
+                                             }else {
+                                                    echo "<option value=\"$sPlatform_id\"/>$clas-$sec_name</option>"; 
+													}
+                                          }
+                                        ?>
+
+                                  </select>
+
+                                          </div>
+                                      </div>
+                                  </fieldset>
+								  
+								  
                                   <fieldset id="">
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">Days</label>

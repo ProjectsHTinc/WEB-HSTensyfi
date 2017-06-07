@@ -40,7 +40,7 @@ Class Leavemodel extends CI_Model
 
                 $leave_mas_id=$this->db->insert_id();
 
-                $query1="INSERT INTO edu_leaves(leaves_name,leave_date,days,week,leave_mas_id,leave_classes,status,created_at,updated_at) VALUES('$leave_name','$leave_date','$days','$weeks','$leave_mas_id','$class_name','$leave_status',NOW(),NOW())";
+                $query1="INSERT INTO edu_leaves(leaves_name,leave_date,days,week,leave_mas_id,status,created_at,updated_at) VALUES('$leave_name','$leave_date','$days','$weeks','$leave_mas_id','$leave_status',NOW(),NOW())";
                 $resultset2 = $this->db->query($query1);
                   $leave_id=$this->db->insert_id();
                   if($leave_type=="Regular Holiday"){
@@ -106,8 +106,8 @@ Class Leavemodel extends CI_Model
               }
 
               //Update Special Leave
-              function udate_special_leave($leave_type,$leave_id,$leave_mas_id,$leave_date,$leave_name,$leave_status){
-                 $query="UPDATE edu_leavemaster SET status='$leave_status',updated_at=NOW() WHERE leave_id='$leave_id'";
+              function udate_special_leave($leave_type,$leave_id,$leave_mas_id,$leave_date,$class_name,$leave_name,$leave_status){
+                 $query="UPDATE edu_leavemaster SET leave_classes='$class_name', status='$leave_status',updated_at=NOW() WHERE leave_id='$leave_id'";
                  $res=$this->db->query($query);
                 $query1="UPDATE edu_leaves SET leaves_name='$leave_name',leave_date='$leave_date',status='$leave_status',updated_at=NOW() WHERE leave_mas_id='$leave_mas_id'";
                 $res1=$this->db->query($query1);
@@ -123,9 +123,9 @@ Class Leavemodel extends CI_Model
               }
 
 
-              function udate_regular_leave($leave_type,$leave_id,$leave_mas_id,$years,$days,$weeks,$leave_status){
+              function udate_regular_leave($leave_type,$leave_id,$leave_mas_id,$years,$class_name,$days,$weeks,$leave_status){
 
-                 $query="UPDATE edu_leavemaster SET leave_year='$years',status='$leave_status',updated_at=NOW() WHERE leave_id='$leave_id'";
+                 $query="UPDATE edu_leavemaster SET leave_year='$years',leave_classes='$class_name',status='$leave_status',updated_at=NOW() WHERE leave_id='$leave_id'";
 
                 $resultset1 = $this->db->query($query);
 

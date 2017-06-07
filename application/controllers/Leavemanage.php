@@ -153,7 +153,8 @@ class Leavemanage extends CI_Controller {
 		}
 
 
-		public function special_update(){
+		public function special_update()
+		{
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
@@ -162,9 +163,18 @@ class Leavemanage extends CI_Controller {
 			$leave_id=$this->input->post('leave_id');
 			$leave_mas_id=$this->input->post('leave_mas_id');
 			$leave_date=$this->input->post('leave_date');
+			
+			$clas=$this->input->post('class_name');
+				if($clas=='')
+		         {
+			       $class_name ="null";
+				 }else{
+					$class_name = implode(',',$clas);
+				  }
+				  
 			$leave_name=$this->input->post('leave_name');
 			$leave_status=$this->input->post('leave_status');
-			$datas=$this->leavemodel->udate_special_leave($leave_type,$leave_id,$leave_mas_id,$leave_date,$leave_name,$leave_status);
+			$datas=$this->leavemodel->udate_special_leave($leave_type,$leave_id,$leave_mas_id,$leave_date,$class_name,$leave_name,$leave_status);
 			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg', 'Updated Successfully');
 				redirect('leavemanage/view');
@@ -183,21 +193,31 @@ class Leavemanage extends CI_Controller {
 		}
 
 
-			public function update_regular(){
+			public function update_regular()
+			{
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-		 if($user_type==1){
+		    if($user_type==1){
 			 $leave_type=$this->input->post('leave_type');
 			 $leave_id=$this->input->post('leave_id');
 			 $years=$this->input->post('years');
+			 
+			 $clas=$this->input->post('class_name');
+				if($clas=='')
+		         {
+			       $class_name ="null";
+				 }else{
+					$class_name = implode(',',$clas);
+				  }
+				  //echo $class_name;exit;
 			 $days=$this->input->post('days');
 			$weeks=$this->input->post('weeks');
 			$leave_mas_id=$this->input->post('leave_masid');
 
 			 $leave_status=$this->input->post('leave_status');
 
-			$datas=$this->leavemodel->udate_regular_leave($leave_type,$leave_id,$leave_mas_id,$years,$days,$weeks,$leave_status);
+			$datas=$this->leavemodel->udate_regular_leave($leave_type,$leave_id,$leave_mas_id,$years,$class_name,$days,$weeks,$leave_status);
 			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg', 'Updated  Successfully');
 				redirect('leavemanage/view');
