@@ -239,10 +239,9 @@ class Student extends CI_Controller
 			 $datas=$this->session->userdata();
              $user_id=$this->session->userdata('user_id');
              $user_type=$this->session->userdata('user_type');
-		 
-			$data['reg']=$this->studentmodel->get_all_regularleave($user_id);
-			//$s= unset($data);
-			echo json_encode($data['reg']);
+			 $data['reg']=$this->studentmodel->get_all_regularleave($user_id);
+			 //$s= unset($data);
+			 echo json_encode($data['reg']);
 		  }
    
     public function get_all_special_leave()

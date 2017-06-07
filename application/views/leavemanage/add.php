@@ -245,7 +245,7 @@
                                                    window.location.href = "<?php echo base_url(); ?>leavemanage/view";
                                                  });
                                             }
-                                            else if(data=="special already"){
+                                            else if(data=="special leave already Added for this date"){
                                                sweetAlert("Oops...", data, "error");
                                             }else{
                                                sweetAlert("Oops...", "Something went wrong!", "error");

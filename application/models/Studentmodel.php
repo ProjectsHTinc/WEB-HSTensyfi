@@ -210,7 +210,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 			$cls_id=$rows->class_id;
 			//echo $cls_id;exit;
 			
-					$query="SELECT eh.leave_list_date AS start,lm.leave_type AS title,lm.leave_type AS description,lm.leave_classes,lm.status FROM edu_holidays_list_history AS eh LEFT OUTER JOIN edu_leavemaster AS lm ON lm.leave_id=eh.leave_masid WHERE lm.status='A' AND  FIND_IN_SET('$cls_id',lm.leave_classes)";
+					 $query="SELECT eh.leave_list_date AS start,lm.leave_type AS title,lm.leave_type AS description,lm.leave_classes,lm.status FROM edu_holidays_list_history AS eh LEFT OUTER JOIN edu_leavemaster AS lm ON lm.leave_id=eh.leave_masid WHERE lm.status='A' AND  FIND_IN_SET('$cls_id',lm.leave_classes)";
 					$result=$this->db->query($query);
 					return $result->result();
                }

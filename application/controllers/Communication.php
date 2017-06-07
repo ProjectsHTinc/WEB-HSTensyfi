@@ -177,7 +177,7 @@ class Communication extends CI_Controller
 			   
 		  }
 		  public function user_leave_approval($leave_id)
-		{
+		   {
 			$datas=$this->session->userdata();
   	 		$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
@@ -192,7 +192,7 @@ class Communication extends CI_Controller
 	 				redirect('/');
 	 		 }
 			
-		}
+		 }
 		
 		public function update_status()
 		{
@@ -225,6 +225,64 @@ class Communication extends CI_Controller
 			    $this->session->set_flashdata('msg','Falid To Updated');
                 $this->load->view('header');
 				$this->load->view('communication/users_leave',$datas);
+				$this->load->view('footer');	  
+			  }
+			
+		}
+
+
+		public function add_substitution($leave_id)
+		{
+			$datas=$this->session->userdata();
+  	 		$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+		
+			$datas=$this->communicationmodel->get_all_class_list($leave_id);
+			$datas['teachers']=$this->communicationmodel->get_all_teachers_list();
+			$datas['view']=$this->communicationmodel->get_all_view_list($leave_id);
+			//print_r($datas['view']);exit;
+			//$datas['res']=$this->communicationmodel->edit_leave($leave_id);
+			//print_r($datas['res']);exit;
+			 if($user_type==1){
+	 		 $this->load->view('header');
+			 $this->load->view('communication/add_substitution',$datas);
+	 		 $this->load->view('footer');
+	 		 }
+	 		 else{
+	 				redirect('/');
+	 		 }
+
+		}
+		
+		public function create_substition()
+		{
+			$datas=$this->session->userdata();
+  	 		$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			
+			$cls_id=$this->input->post('sub_cls');
+			$teacher_id=$this->input->post('teacher_id');
+			$ldate=$this->input->post('leave_date');
+			
+			$dateTime = new DateTime($ldate);
+            $leave_date=date_format($dateTime,'Y-m-d' );
+	  
+			$sub_teacher=$this->input->post('sub_teacher');
+			$period_id=$this->input->post('period_id');
+			$status=$this->input->post('status');
+			//echo $sub_teacher;
+			$datas['result']=$this->communicationmodel->add_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$status);
+			//print_r($datas['result']);exit;
+			if($datas['status']=="success")
+			  {
+				$this->session->set_flashdata('msg','Added Successfully');
+                $this->load->view('header');
+				$this->load->view('communication/add_substitution',$datas);
+				$this->load->view('footer');
+			  }else{
+			    $this->session->set_flashdata('msg','Falid To Add ');
+                $this->load->view('header');
+				$this->load->view('communication/add_substitution',$datas);
 				$this->load->view('footer');	  
 			  }
 			

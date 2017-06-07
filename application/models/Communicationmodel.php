@@ -129,6 +129,91 @@ Class Communicationmodel extends CI_Model
 			   }
 
 	   }
+	   
+	   function get_all_teachers_list()
+	   {
+		 $que="SELECT * FROM edu_teachers";
+		 $resultset=$this->db->query($que);
+		 $row=$resultset->result();
+		 return $row; 
+	   }
+	   
+	   function get_all_class_list($leave_id)
+	   {
+		   $sql="SELECT leave_id,user_id,leave_date FROM edu_user_leave WHERE leave_id='$leave_id'";
+		   $resultset=$this->db->query($sql);
+		   $row=$resultset->result();
+		   foreach($row as $res){}
+		   $tid=$res->user_id;
+		   $ldate=$res->leave_date;
+		   //return $tid;
+		   //echo $tid;
+		   //exit;
+		   $query="SELECT teacher_id,name,class_teacher,class_name FROM edu_teachers WHERE teacher_id='$tid'";
+		   $resultset1=$this->db->query($query);
+		   $row1=$resultset1->result();
+		   foreach($row1 as $teacher_rows){}
+		   //return $row1;
+		   
+		   $teach_id=$teacher_rows->class_name;
+        $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
+        $objRs=$this->db->query($sQuery);
+        $row=$objRs->result();
+        foreach ($row as $rows1) {
+        $s= $rows1->class_sec_id;
+        $sec=$rows1->class;
+        $clas=$rows1->class_name;
+        $sec_name=$rows1->sec_name;
+        $arryPlatform = explode(",", $teach_id);
+        $sPlatform_id  = trim($s);
+        $sPlatform_name  = trim($sec);
+ 		if(in_array($sPlatform_id, $arryPlatform )) {
+ 		$class_id[]=$s;
+        $class_name[]=$clas;
+        $sec_n[]=$sec_name;
+ 	    }
+ 		}
+         // print_r($sec_n);exit
+	      if(empty($class_id)){
+	        $data= array("status" =>"No Record Found");
+	        return $data;
+	      }else{
+
+        $data= array("class_id" => $class_id,"class_name"=>$class_name,"sec_name"=>$sec_n,"teacher_id"=>$tid,"leave_date"=>$ldate,"status"=>"success");
+        return $data;
+      }
+
+	   }
+	   
+	   function get_all_view_list($leave_id)
+	   {
+		   $sql="SELECT leave_id,user_id,leave_date FROM edu_user_leave WHERE leave_id='$leave_id'";
+		   $resultset=$this->db->query($sql);
+		   $row=$resultset->result();
+		   foreach($row as $res){}
+		   $tid=$res->user_id;
+		   
+		   $query="SELECT s.*,t.teacher_id,t.name FROM edu_substitution AS s,edu_teachers AS t WHERE s.teacher_id='$tid' AND t.teacher_id=s.sub_teacher_id";
+		   $result=$this->db->query($query);
+		   $row=$result->result();
+		   return $row;
+		   
+	   }
+	   
+	   function add_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$status)
+	   {
+		  $sql="INSERT INTO edu_substitution(teacher_id,sub_teacher_id,sub_date,class_id,period_id,status,created_at) VALUES ('$teacher_id','$sub_teacher','$leave_date','$cls_id','$period_id','$status',NOW())";
+		   $resultset=$this->db->query($sql);
+		   if($resultset){
+				 $data= array("status" => "success");
+				 return $data;
+			   }else{
+				 $data= array("status" => "Failed to Update");
+				 return $data;
+			   }
+	 }
+		  
+	   
 
 
 }

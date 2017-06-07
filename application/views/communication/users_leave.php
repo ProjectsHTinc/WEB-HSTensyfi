@@ -32,8 +32,8 @@
                               <?php
                                  $i=1;
                                  foreach($result as $rows) 
-								 { $status=$rows->status;
-								 $type=$rows->leave_date;
+								                   { $status=$rows->status;
+								                      $type=$rows->leave_date;
                                   ?>
                               <tr>
                                  <td><?php   echo $i; ?></td>
@@ -52,24 +52,27 @@
                                  <td><?php echo $rows->type_leave; ?></td>
                                  <td><?php $date=date_create($rows->leave_date);
                                      echo date_format($date,"d-m-Y");?> 
-									 <?php if($type='Permission')
-									 {?>
-									 <?php echo $rows->frm_time; ?> <?php echo $rows->to_time; ?>
-									 <?php }?>
-									 </td>
+                									 <?php if($type='Permission')
+                									 {?>
+                									 <?php echo $rows->frm_time; ?> <?php echo $rows->to_time; ?>
+                									 <?php }?>
+                									 </td>
                                  <td><?php echo $rows->leave_description; ?></td>
 								 
                                  <td><?php if($status=='P'){ ?>
-								 <button class="btn btn-warning btn-fill btn-wd">Pending </button>
-								 <?php }else if($status=='R'){?>
-								 <button class="btn btn-danger btn-fill btn-wd"> Reject</button>
-								 <?php }else{ ?>
-								   <button class="btn btn-success btn-fill btn-wd">Approval</button>
-								 <?php }?>
-								  </td>
-
-                                 <td>
-                           <a href="<?php echo base_url();?>communication/user_leave_approval/<?php echo $rows->leave_id; ?>" title="Edit Details" rel="tooltip" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit" aria-hidden="true"></i> 
+                								 <button class="btn btn-warning btn-fill btn-wd">Pending </button>
+                								 <?php }else if($status=='R'){?>
+                								 <button class="btn btn-danger btn-fill btn-wd"> Reject</button>
+                								 <?php }else{ ?>
+                								   <button class="btn btn-success btn-fill btn-wd">Approval</button>
+                								 <?php }?>
+                								  </td>
+                                   <td><?php //if($status=='A'){ ?>
+								                  <a href="<?php echo base_url(); ?>communication/add_substitution/<?php echo $rows->leave_id; ?>" rel="tooltip" title="Add Substitution" class="btn btn-simple btn-info btn-icon table-action view" >
+								                  <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+								                 <?php //}else{ echo "";} ?>
+                                 <a href="<?php echo base_url();?>communication/user_leave_approval/<?php echo $rows->leave_id; ?>" title="Edit Details" rel="tooltip" class="btn btn-simple btn-warning btn-icon edit">
+                                  <i class="fa fa-edit" aria-hidden="true"></i> 
                                  </td>
                               </tr>
                               <?php $i++;  }  ?>
