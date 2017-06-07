@@ -13,7 +13,7 @@ Class Leavemodel extends CI_Model
 
       ///SAVE Leave
 
-              function create_leave($leave_type,$years,$days,$weeks,$leave_date,$leave_name,$leave_status){
+              function create_leave($leave_type,$years,$days,$weeks,$leave_date,$leave_name,$class_name,$leave_status){
                 if($leave_type=='Regular Holiday'){
                  $check_leave="SELECT * FROM edu_leavemaster AS lm INNER JOIN edu_leaves AS c  ON lm.leave_id=c.leave_mas_id WHERE lm.leave_type='$leave_type' AND c.week='$weeks' AND c.days='$days'";
                  $res12=$this->db->query($check_leave);
@@ -34,13 +34,13 @@ Class Leavemodel extends CI_Model
 
         }
 
-                 $query="INSERT INTO edu_leavemaster (leave_year,leave_type,status,created_at,updated_at) VALUES ('$years','$leave_type','$leave_status',NOW(),NOW())";
+                 $query="INSERT INTO edu_leavemaster (leave_year,leave_type,leave_classes,status,created_at,updated_at) VALUES ('$years','$leave_type','$class_name','$leave_status',NOW(),NOW())";
 
                 $resultset1 = $this->db->query($query);
 
                 $leave_mas_id=$this->db->insert_id();
 
-                $query1="INSERT INTO edu_leaves(leaves_name,leave_date,days,week,leave_mas_id,status,created_at,updated_at) VALUES('$leave_name','$leave_date','$days','$weeks','$leave_mas_id','$leave_status',NOW(),NOW())";
+                $query1="INSERT INTO edu_leaves(leaves_name,leave_date,days,week,leave_mas_id,leave_classes,status,created_at,updated_at) VALUES('$leave_name','$leave_date','$days','$weeks','$leave_mas_id','$class_name','$leave_status',NOW(),NOW())";
                 $resultset2 = $this->db->query($query1);
                   $leave_id=$this->db->insert_id();
                   if($leave_type=="Regular Holiday"){
@@ -218,5 +218,11 @@ Class Leavemodel extends CI_Model
                }
               }
 
+			  function get_all_regularleave()
+			   {
+					$query="SELECT eh.leave_list_date AS start,lm.leave_type AS title,lm.leave_type AS description FROM edu_holidays_list_history AS eh  LEFT OUTER JOIN edu_leavemaster AS lm ON lm.leave_id=eh.leave_masid";
+					$result=$this->db->query($query);
+					return $result->result();
+               }
 }
 ?>

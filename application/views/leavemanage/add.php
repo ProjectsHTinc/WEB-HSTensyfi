@@ -48,6 +48,21 @@
                                           </div>
                                       </div>
                                   </fieldset>
+								  
+								  <fieldset id="leave_class">
+                                      <div class="form-group">
+                                          <label class="col-sm-2 control-label">Class</label>
+                                          <div class="col-sm-4">
+                                            <select multiple name="class_name[]" data-title="Classes" id="leave_class" class="selectpicker" >
+                                          <?php foreach ($getall_class as $rows) {  ?>
+                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>&nbsp; - &nbsp;<?php echo $rows->sec_name; ?></option>
+                                          <?php      } ?>
+                                 </select>
+                                            <p id="errorclass"></p>
+                                          </div>
+                                      </div>
+                                  </fieldset>
+								  
                                   <fieldset id="days">
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">Days</label>
@@ -159,7 +174,8 @@ $(document).ready(function () {
   $('#leaves_name').hide();
   $('#leaves_date').hide();
   $('#weeks').hide();
-$('#leave_years').hide();
+  $('#leave_years').hide();
+  $('#leave_class').hide();
   $('#leave_status').hide();
   $('#days').hide();
   $('#leaves_details').hide();
@@ -169,6 +185,7 @@ $('#leave_years').hide();
         $('#weeks').hide();
         $('#days').hide();
         $('#leave_years').hide();
+		 $('#leave_class').show();
         $('#leaves_name').show();
         $('#leaves_details').show();
         $('#leaves_date').show();
@@ -181,6 +198,7 @@ $('#leave_years').hide();
        $('#weeks').show();
        $('#days').show();
        $('#leave_years').show();
+	   $('#leave_class').show();
          $('#leave_status').show();
       }
       else {
@@ -192,7 +210,7 @@ $('#leave_years').hide();
 function functionleave(){
  var leave_type=$('#leave_type').val();
  if(leave_type==''){
-   $('#errormsg').html('<p style="color:red;">Enter the Leave Type</p>');
+   $('#errormsg').html('<p style="color:red;">Select the Leave Type</p>');
    //alert("type please");
  }
  if(leave_type=='Regular Holiday'){
@@ -203,6 +221,8 @@ function functionleave(){
    var leave_name= $('#leave_name').val();
    var leave_date= $('#leave_date').val();
    var leave_years= $('#leave_years1').val();
+   var leave_class= $('#leave_class').val();
+   //alert(leave_class);
    var status= $('#leave_status1').val();
     if(weeks==''){
       $('#errorweeks').html('<p style="color:red;">Select the Weeks</p>');
@@ -213,6 +233,9 @@ function functionleave(){
      if(leave_years==''){
       $('#erroryears').html('<p style="color:red;">Select the Years</p>');
     }
+	if(leave_class==''){
+      $('#errorclass').html('<p style="color:red;">Select the Classes</p>');
+	}
     if(status==''){
       $('#errorstatus').html('<p style="color:red;">Select the status</p>');
     }
@@ -223,7 +246,7 @@ function functionleave(){
         $('#errordates').html('<p style="color:red;">Enter the Date</p>');
     }
      //alert(weeks);
-    if(weeks=='' && days=='' && leave_years=='' && status==''){
+    if(weeks=='' && days=='' && leave_years=='' && leave_class=='' && status==''){
 
      $('#errormsg').html('<p style="color:red;">Please Enter All the fields</p>');
 
@@ -259,6 +282,7 @@ function functionleave(){
  if(leave_type=='Special Holiday'){
    var leave_name= $('#leave_name').val();
    var leave_date= $('#leave_date').val();
+    var leave_classes= $('#leave_class').val();
    var status= $('#leave_status1').val();
    if(status==''){
      $('#errorstatus').html('<p style="color:red;">Select the status</p>');
@@ -266,11 +290,15 @@ function functionleave(){
    if(leave_name==''){
      $('#errorname').html('<p style="color:red;">Enter the Name</p>');
    }
+   if(leave_classes==''){
+      $('#errorclass').html('<p style="color:red;">Select the Classes</p>');
+	}
    if(leave_date==''){
        $('#errordates').html('<p style="color:red;">Enter the Date</p>');
    }
-   if(leave_name=='' && leave_date=='' && status==''){
-     alert('ERRor');
+   if(leave_name=='' && leave_date=='' && leave_classes=='' && status==''){
+    $('#errormsg').html('<p style="color:red;">Please Enter All the fields</p>');
+	//alert('ERRor');
    }else{
      $.ajax({
               type: "POST",

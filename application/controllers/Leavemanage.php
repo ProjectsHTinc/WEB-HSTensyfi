@@ -8,8 +8,9 @@ class Leavemanage extends CI_Controller {
 		 parent::__construct();
 
 			$this->load->model('leavemodel');
-		  $this->load->helper('url');
-		  $this->load->library('session');
+			$this->load->model('class_manage');
+		    $this->load->helper('url');
+		    $this->load->library('session');
 
 
  }
@@ -36,6 +37,7 @@ class Leavemanage extends CI_Controller {
 	 		 	$datas=$this->session->userdata();
   	 		$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
+				$datas['getall_class']=$this->class_manage->getall_class();
 			 if($user_type==1){
 	 		 $this->load->view('header');
 	 		 $this->load->view('leavemanage/add',$datas);
@@ -53,14 +55,26 @@ class Leavemanage extends CI_Controller {
 			 if($user_type==1){
 			 	$leave_type=$this->input->post('leave_type');
 				$years=$this->input->post('years');
+				$clas=$this->input->post('class_name');
+				
+				if($clas=='')
+		         {
+			       $class_name ="null";
+				 }else{
+					$class_name = implode(',',$clas);
+				  }
+				//echo $class_name;
+				//exit;
 				$days=$this->input->post('days');
 				$weeks=$this->input->post('weeks');
-				 $leave_date=$this->input->post('leave_date');
+				$ldate=$this->input->post('leave_date');
+				$dateTime = new DateTime($ldate);
+                $leave_date=date_format($dateTime,'Y-m-d' );
 
 
 				$leave_name=$this->input->post('leave_name');
 				$leave_status=$this->input->post('leave_status');
-				$datas=$this->leavemodel->create_leave($leave_type,$years,$days,$weeks,$leave_date,$leave_name,$leave_status);
+				$datas=$this->leavemodel->create_leave($leave_type,$years,$days,$weeks,$leave_date,$leave_name,$class_name,$leave_status);
 				if($datas['status']=="success"){
 					echo "success";
 					//$this->session->set_flashdata('msg', 'Added Successfully');
@@ -250,6 +264,12 @@ class Leavemanage extends CI_Controller {
 		}
 
 
+         public function get_all_regularleave()
+		  {
+			$data['reg']=$this->leavemodel->get_all_regularleave();
+			//$s= unset($data);
+			echo json_encode($data['reg']);
+		  }
 
 
 
