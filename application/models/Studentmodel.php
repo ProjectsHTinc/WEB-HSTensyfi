@@ -192,6 +192,51 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 		  $row=$res->result();
 		  return $row;
 	 }
+	 
+	 //--------------------leaves-------------------
+	 function get_all_regularleave($user_id)
+			 {
+		    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
+			$resultset=$this->db->query($query);
+			$row=$resultset->result();
+			$student_id=$row[0]->student_id;
+			//echo $student_id;
+
+			$sql="SELECT * FROM edu_enrollment WHERE admission_id='$student_id'";
+			$resultset=$this->db->query($sql);
+			$row=$resultset->result();
+			foreach($row as $rows){}
+			$enr_id=$rows->enroll_id;
+			$cls_id=$rows->class_id;
+			//echo $cls_id;exit;
+			
+					$query="SELECT eh.leave_list_date AS start,lm.leave_type AS title,lm.leave_type AS description,lm.leave_classes,lm.status FROM edu_holidays_list_history AS eh LEFT OUTER JOIN edu_leavemaster AS lm ON lm.leave_id=eh.leave_masid WHERE lm.status='A' AND  FIND_IN_SET('$cls_id',lm.leave_classes)";
+					$result=$this->db->query($query);
+					return $result->result();
+               }
+			   
+	function get_special_leave_all($user_id)
+	   {
+		   $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
+			$resultset=$this->db->query($query);
+			$row=$resultset->result();
+			$student_id=$row[0]->student_id;
+			//echo $student_id;
+
+			$sql="SELECT * FROM edu_enrollment WHERE admission_id='$student_id'";
+			$resultset=$this->db->query($sql);
+			$row=$resultset->result();
+			foreach($row as $rows){}
+			$enr_id=$rows->enroll_id;
+			$cls_id=$rows->class_id;
+			
+			//$query="SELECT leave_date AS start,leaves_name as title,leave_type AS description FROM edu_leavemaster AS lm INNER JOIN edu_leaves AS c ON lm.leave_id=c.leave_mas_id WHERE lm.leave_type='Special Holiday' AND lm.status='A'";
+			
+			$sql1="SELECT lm.leave_id,lm.leave_type AS description,lm.leave_classes,lm.status,el.leaves_name AS title,el.leave_mas_id,el.leave_date AS start,el.days,el.week FROM edu_leavemaster AS lm,edu_leaves AS el WHERE lm.leave_id=el.leave_mas_id AND lm.leave_type='Special Holiday' AND FIND_IN_SET('$cls_id',lm.leave_classes) AND lm.status='A'";
+			$res=$this->db->query($sql1);
+			return $res->result();
+
+		  }
 
 
 

@@ -9,19 +9,18 @@ class Student extends CI_Controller
 	{
 		 parent::__construct();
 		  $this->load->model('studentmodel');
-      $this->load->model('teachereventmodel');
+          $this->load->model('teachereventmodel');
 		  $this->load->helper('url');
 		  $this->load->library('session');
 		  $this->load->model('class_manage');
-      $this->load->model('adminparentmodel');
+          $this->load->model('adminparentmodel');
 		  $this->load->model('subjectmodel');
-
         }   
 	
 
 	  public function homework_view()
 	   {
-      $datas=$this->session->userdata();
+            $datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			//echo $user_id;
@@ -232,6 +231,29 @@ class Student extends CI_Controller
 		 }
 
 	  }
+	  
+	  //--------------------------Leaves----------------------//
+	  
+	  public function get_all_regularleave()
+		  {
+			 $datas=$this->session->userdata();
+             $user_id=$this->session->userdata('user_id');
+             $user_type=$this->session->userdata('user_type');
+		 
+			$data['reg']=$this->studentmodel->get_all_regularleave($user_id);
+			//$s= unset($data);
+			echo json_encode($data['reg']);
+		  }
+   
+    public function get_all_special_leave()
+	  {
+		     $datas=$this->session->userdata();
+             $user_id=$this->session->userdata('user_id');
+             $user_type=$this->session->userdata('user_type');
+			 
+			$datas['res']=$this->studentmodel->get_special_leave_all($user_id);
+			echo json_encode($datas['res']);
+		}
 
 
 
