@@ -22,7 +22,7 @@
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">Leave Type</label>
                                           <div class="col-sm-4">
-                                              <input type="text" name="leave_date" class="form-control " value="<?php echo $rows->leave_type; ?>" readonly=""/>
+                                              <input type="text" name="leave_type" class="form-control " value="<?php echo $rows->leave_type; ?>" readonly=""/>
                                               <input type="hidden" name="leave_id" class="form-control " value="<?php echo $rows->leave_id; ?>" readonly=""/>
                                                 <input type="hidden" name="leave_mas_id" class="form-control " value="<?php echo $rows->leave_mas_id; ?>" readonly=""/>
 
@@ -133,16 +133,18 @@ $('#leave1').addClass('active');
 $(document).ready(function () {
  $('#eventform').validate({ // initialize the plugin
      rules: {
-         event_date:{required:true },
-         event_details:{required:true },
-         event_name:{required:true },
-         event_status:{required:true }
+         leave_date:{required:true },
+         leave_type:{required:true },
+         leave_name:{required:true },
+         leave_status:{required:true },
+		 "class_name[]":{required:true }
      },
      messages: {
-           event_details: "Enter Event Details",
-           event_date: "Select Event Date",
-           event_name: "Enter Event Name",
-           event_status: "Select Status"
+           leave_date: "Select Leave Date",
+           leave_type: "Select Leave Type",
+           leave_status: "Select Status",
+           leave_name: "Enter Leave Name",
+		   "class_name[]":"Select Classes"
          }
  });
 });

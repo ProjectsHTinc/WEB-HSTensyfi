@@ -165,4 +165,26 @@
 $('#eventmenu').addClass('collapse in');
 $('#event').addClass('active');
 $('#leave1').addClass('active');
+
+$(document).ready(function () {
+ $('#leaveform').validate({ // initialize the plugin
+     rules: {
+         days:{required:true },
+         leave_type:{required:true },
+         weeks:{required:true },
+		 years:{required:true },
+         leave_status:{required:true },
+		 "class_name[]":{required:true }
+     },
+     messages: {
+           days: "Select  Days",
+           leave_type: "Select Leave Type",
+		   years:"Select Years",
+           leave_status: "Select  Status",
+           weeks: "Select Weeks",
+		   "class_name[]":"Select Classes"
+         }
+ });
+});
+
 </script>

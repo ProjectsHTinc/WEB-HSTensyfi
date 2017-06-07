@@ -14,7 +14,7 @@
                             ×</button> <?php echo $this->session->flashdata('msg'); ?>
                             </div>
 
-                     <?php endif; ?>
+                         <?php endif; ?>
                             <div class="content">
                                 <form method="post" class="form-horizontal" enctype="multipart/form-data" id="eventform">
                                   <p style="margin-left:200px;" id="errormsg"></p>
@@ -49,7 +49,7 @@
                                       </div>
                                   </fieldset>
 								  
-								  <fieldset id="leave_class">
+								                   <fieldset id="leave_class">
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">Class</label>
                                           <div class="col-sm-4">
@@ -57,7 +57,7 @@
                                           <?php foreach ($getall_class as $rows) {  ?>
                                           <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>&nbsp; - &nbsp;<?php echo $rows->sec_name; ?></option>
                                           <?php      } ?>
-                                 </select>
+                                          </select>
                                             <p id="errorclass"></p>
                                           </div>
                                       </div>
@@ -170,7 +170,9 @@
 $('#eventmenu').addClass('collapse in');
 $('#event').addClass('active');
 $('#leave1').addClass('active');
+
 $(document).ready(function () {
+	
   $('#leaves_name').hide();
   $('#leaves_date').hide();
   $('#weeks').hide();
@@ -181,11 +183,13 @@ $(document).ready(function () {
   $('#leaves_details').hide();
 
   $('#leave_type').change(function () {
+	   //alert("hi");
       if ($('#leave_type').val() == 'Special Holiday') {
+
         $('#weeks').hide();
         $('#days').hide();
         $('#leave_years').hide();
-		 $('#leave_class').show();
+		    $('#leave_class').show();
         $('#leaves_name').show();
         $('#leaves_details').show();
         $('#leaves_date').show();
@@ -199,22 +203,32 @@ $(document).ready(function () {
        $('#days').show();
        $('#leave_years').show();
 	   $('#leave_class').show();
-         $('#leave_status').show();
+       $('#leave_status').show();
       }
       else {
 
 
       }
   });
+  
 });
+$("#eventform").validate({
+        rules: {
+            value: {
+                required: true
+            }
+        }
+		});
+
 function functionleave(){
  var leave_type=$('#leave_type').val();
+ 
  if(leave_type==''){
    $('#errormsg').html('<p style="color:red;">Select the Leave Type</p>');
    //alert("type please");
  }
  if(leave_type=='Regular Holiday'){
-     $('#errormsg').html(' ');
+   $('#errormsg').html(' ');
    var weeks= $('#leave_weeks').val();
    //alert(weeks);
    var days= $('#leave_days').val();
@@ -226,28 +240,35 @@ function functionleave(){
    var status= $('#leave_status1').val();
     if(weeks==''){
       $('#errorweeks').html('<p style="color:red;">Select the Weeks</p>');
+	  
     }
     if(days==''){
       $('#errordays').html('<p style="color:red;">Select the Days</p>');
+	   
     }
      if(leave_years==''){
       $('#erroryears').html('<p style="color:red;">Select the Years</p>');
+	   
     }
-	if(leave_class==''){
+	  if(leave_class==''){
       $('#errorclass').html('<p style="color:red;">Select the Classes</p>');
-	}
+	  }
     if(status==''){
       $('#errorstatus').html('<p style="color:red;">Select the status</p>');
+	   
     }
     if(leave_name==''){
       $('#errorname').html('<p style="color:red;">Enter the Name</p>');
+	  
     }
     if(leave_date==''){
         $('#errordates').html('<p style="color:red;">Enter the Date</p>');
+		 
     }
      //alert(weeks);
-    if(weeks=='' && days=='' && leave_years=='' && leave_class=='' && status==''){
-
+      
+    if(weeks=='' && days=='' && leave_years=='' && status=='')
+	  {
      $('#errormsg').html('<p style="color:red;">Please Enter All the fields</p>');
 
     }else{
@@ -279,7 +300,7 @@ function functionleave(){
     }
 
  }
- if(leave_type=='Special Holiday'){
+   if(leave_type=='Special Holiday'){
    var leave_name= $('#leave_name').val();
    var leave_date= $('#leave_date').val();
     var leave_classes= $('#leave_class').val();
@@ -324,11 +345,7 @@ function functionleave(){
               }
           });
    }
-
  }
-
-
 }
-
 
 </script>
