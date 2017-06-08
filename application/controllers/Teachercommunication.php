@@ -60,9 +60,14 @@ class Teachercommunication extends CI_Controller
 			 
 			 $dateTime = new DateTime($leave_date);
              $formatted_date=date_format($dateTime,'Y-m-d' );
-
-			 $datas=$this->teachercommunicationmodel->create_leave($user_type,$user_id,$leave_type,$formatted_date,$frm_time,$to_time,$leave_description);
 			 
+			 $tldate=$this->input->post('to_leave_date');
+			 
+			 $dateTime1 = new DateTime($tldate);
+             $to_ldate=date_format($dateTime1,'Y-m-d' );
+              //echo $tldate;exit;   
+			 $datas=$this->teachercommunicationmodel->create_leave($user_type,$user_id,$leave_type,$formatted_date,$to_ldate,$frm_time,$to_time,$leave_description);
+			//print_r($datas);exit;
 			  if($datas['status']=="success")
 			  {
 				$this->session->set_flashdata('msg','Added Successfully');

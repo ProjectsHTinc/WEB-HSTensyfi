@@ -18,7 +18,7 @@
                      <form method="post" action="<?php echo base_url(); ?>communication/update_status" class="form-horizontal" enctype="multipart/form-data" id="myformsection" name="myformsection">
                         <?php foreach($res as $row){  
 						 $id=$row->leave_id;
-						$date1=date_create($row->leave_date);
+						$date1=date_create($row->from_leave_date);
 						$leave=$row->type_leave;
 						} ?>
 
@@ -37,9 +37,9 @@
                               </div>
 							  
 							  
-                              <label class="col-sm-2 control-label">Date</label>
+                              <label class="col-sm-2 control-label">From Leave Date</label>
                                 <div class="col-sm-4">
-                          <input type="text" name="leave_date" readonly value="<?php $date1=date_create($row->leave_date);
+                          <input type="text" name="leave_date" readonly value="<?php $date1=date_create($row->from_leave_date);
                                                  echo date_format($date1,"d-m-Y"); ?>" class="form-control">
 						 <input type="hidden" name="leave_id" value="<?php echo $id;?>" class="form-control "  >
                               </div>
@@ -64,11 +64,16 @@
                         <br/>
                         <fieldset>
                            <div class="form-group">
-                              <label class="col-sm-2 control-label">Leave Description</label>
-                              <div class="col-sm-4">
-                                 <textarea name="leave_description" disabled class="form-control"  rows="4" cols="80"><?php echo $row->leave_description;?></textarea>
-                              </div>
-							  
+						   
+						   
+						   
+						   <label class="col-sm-2 control-label">To Leave Date</label>
+                                <div class="col-sm-4">
+                                   <input type="text" name="tleave_date" readonly value="<?php $date1=date_create($row->to_leave_date);
+                                         echo date_format($date1,"d-m-Y"); ?>" class="form-control">
+								</div>
+								
+                             
 							   <label class="col-sm-2 control-label">Status</label>
                               <div class="col-sm-4">
                                  <select class="form-control" name="status" id="choose" >
@@ -80,10 +85,19 @@
 								</select>
 								<script language="JavaScript">document.myformsection.status.value="<?php echo $row->status; ?>";</script>
                               </div>
+							  
+							   
 							  </div>
 							   </fieldset>
 							  <fieldset>
                            <div class="form-group">
+						   
+						    <label class="col-sm-2 control-label">Leave Description</label>
+                              <div class="col-sm-4">
+                                 <textarea name="leave_description" disabled class="form-control"  rows="4" cols="80"><?php echo $row->leave_description;?></textarea>
+                              </div>
+							  
+							  
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Update</button>

@@ -23,7 +23,8 @@
                               <th>S.no</th>
                               <th>Users Name</th>
                               <th>Leave Type</th>
-                              <th>Leave Date</th>
+                              <th>From Leave Date</th>
+							  <th>To Leave Date</th>
                               <th>Leave Description</th>
                               <th>Status</th>
                               <th>Action</th>
@@ -33,7 +34,7 @@
                                  $i=1;
                                  foreach($result as $rows) 
 								                   { $status=$rows->status;
-								                      $type=$rows->leave_date;
+								                      $type=$rows->type_leave;
                                   ?>
                               <tr>
                                  <td><?php   echo $i; ?></td>
@@ -50,13 +51,15 @@
                                     <?php    echo $name ; ?>
                                  </td>
                                  <td><?php echo $rows->type_leave; ?></td>
-                                 <td><?php $date=date_create($rows->leave_date);
+                                 <td><?php $date=date_create($rows->from_leave_date);
                                      echo date_format($date,"d-m-Y");?> 
                 									 <?php if($type='Permission')
                 									 {?>
                 									 <?php echo $rows->frm_time; ?> <?php echo $rows->to_time; ?>
                 									 <?php }?>
                 									 </td>
+													 <td><?php $date=date_create($rows->to_leave_date);
+                                     echo date_format($date,"d-m-Y");?> </td>
                                  <td><?php echo $rows->leave_description; ?></td>
 								 
                                  <td><?php if($status=='P'){ ?>

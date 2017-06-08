@@ -19,14 +19,13 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Type of Leave</label>
                               <div class="col-sm-4">
-                                <select class="form-control" name="leave_type" id="choose" >
-												<option>Select Type Of Leave</option>
+                                <select class="selectpicker form-control" data-title="Select Type Of Leave" name="leave_type" id="choose" >
 												<option value="Sick Leave">Sick Leave</option>
 												<option value="Leave of Absence">Leave of Absence</option>
 												<option value="Permission">Permission</option>
 								</select>
                               </div>
-                              <label class="col-sm-2 control-label">Date</label>
+                              <label class="col-sm-2 control-label">From Date</label>
                               <div class="col-sm-4">
                                  <input type="text" name="leave_date" class="form-control datepicker" placeholder="Enter Date" >
                               </div>
@@ -50,6 +49,12 @@
                         <br/>
                         <fieldset>
                            <div class="form-group">
+						   
+						   <label class="col-sm-2 control-label">To Date</label>
+                              <div class="col-sm-4">
+                                 <input type="text" name="to_leave_date" class="form-control datepicker" placeholder="Enter Date" >
+                              </div> 
+							  
                               <label class="col-sm-2 control-label">Leave Description</label>
                               <div class="col-sm-4">
                                  <textarea name="leave_description" class="form-control"  rows="4" cols="80"></textarea>
@@ -60,6 +65,7 @@
                               </div>
                            </div>
                         </fieldset>
+					
                      </form>
                   </div>
                </div>
@@ -80,9 +86,9 @@
                         <table id="bootstrap-table" class="table">
                            <thead>
                               <th>S.no</th>
-
                               <th>Leave Type</th>
-                              <th>Leave Date</th>
+                              <th>From Leave Date</th>
+							  <th>To Leave Date</th>
                               <th>Leave Description</th>
                               <th>Status</th>
                               <th></th>
@@ -92,18 +98,21 @@
                                  $i=1;
                                  foreach($result as $rows)
 								 { $status=$rows->status;
-								  $type=$rows->leave_date;
+								  $type=$rows->type_leave;
                                   ?>
                               <tr>
                                  <td><?php   echo $i; ?></td>
-
                                  <td><?php echo $rows->type_leave; ?></td>
-                                 <td><?php $date=date_create($rows->leave_date);
+                                 <td><?php $date=date_create($rows->from_leave_date);
                                      echo date_format($date,"d-m-Y");
 									  if($type='Permission')
 									 {?>
 									 <?php echo $rows->frm_time; ?>  <?php echo $rows->to_time; ?>
 									 <?php }?></td>
+									 <td>
+									 <?php $date=date_create($rows->to_leave_date);
+									 echo date_format($date,"d-m-Y");?></td>
+                                    
                                  <td><?php echo $rows->leave_description; ?></td>
 
                                  <td><?php if($status=='P'){ ?>
@@ -152,6 +161,8 @@
               leave_description:"Enter The Leave Description",
             }
     });
+	
+	
 	demo.initFormExtendedDatetimepickers();
    });
 
