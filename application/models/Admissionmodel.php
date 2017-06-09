@@ -19,32 +19,32 @@ Class Admissionmodel extends CI_Model
             return $data;
           }
 
-          $check_email="SELECT * FROM edu_admission WHERE email='$email'";
-          $result=$this->db->query($check_email);
-          if($result->num_rows()==0){
-          $query="INSERT INTO edu_admission (admisn_year,admisn_no,emsi_num,admisn_date,name,sex,dob,age,nationality,religion,community_class,community,mother_tongue,language,mobile,sec_mobile,email,sec_email,student_pic,last_sch_name,last_studied,qualified_promotion,	transfer_certificate,record_sheet,status,created_at) VALUES ('$admission_year','$admission_no','$emsi_num','$formatted_date','$name','$sex','$dob_date','$age','$nationality','$religion','$community_class','$community','$mother_tongue','$language','$mobile','$sec_mobile','$email','$sec_email','$userFileName','$last_sch','$last_studied','$qual','$tran_cert','$recod_sheet','$status',NOW())";
+            $check_email="SELECT * FROM edu_admission WHERE email='$email'";
+            $result=$this->db->query($check_email);
+            if($result->num_rows()==0){
+            $query="INSERT INTO edu_admission (admisn_year,admisn_no,emsi_num,admisn_date,name,sex,dob,age,nationality,religion,community_class,community,mother_tongue,language,mobile,sec_mobile,email,sec_email,student_pic,last_sch_name,last_studied,qualified_promotion,	transfer_certificate,record_sheet,status,created_at) VALUES ('$admission_year','$admission_no','$emsi_num','$formatted_date','$name','$sex','$dob_date','$age','$nationality','$religion','$community_class','$community','$mother_tongue','$language','$mobile','$sec_mobile','$email','$sec_email','$userFileName','$last_sch','$last_studied','$qual','$tran_cert','$recod_sheet','$status',NOW())";
 
             $resultset1=$this->db->query($query);
-		    $insert_id = $this->db->insert_id();
+		        $insert_id = $this->db->insert_id();
 
-			/* $sql1="SELECT admisn_no,name FROM edu_admission WHERE admission_id='$insert_id'";
-			$resultset1=$this->db->query($sql1);
-            $result1= $resultset1->result();
-			foreach ($result1 as $row)
-                 {
-					$admisn=$row->admisn_no;
-					$aname=$row->name;
-                 } */
+      			/* $sql1="SELECT admisn_no,name FROM edu_admission WHERE admission_id='$insert_id'";
+      			$resultset1=$this->db->query($sql1);
+                  $result1= $resultset1->result();
+      			foreach ($result1 as $row)
+                       {
+      					$admisn=$row->admisn_no;
+      					$aname=$row->name;
+                       } */
 
-			  //   $sql="SELECT count(*) AS student FROM edu_admission" ;
-			  //  $resultsql=$this->db->query($sql);
-        //        $result1= $resultsql->result();
-        //        $cont=$result1[0]->student;
-			  //        $user_id=$cont+400000;
-         //
-         //
-        //     $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_pic,user_type,student_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5(123),'$userFileName','3','$insert_id',NOW(),NOW(),'A')";
-        //     $resultset=$this->db->query($stude_insert);
+      			  //   $sql="SELECT count(*) AS student FROM edu_admission" ;
+      			  //  $resultsql=$this->db->query($sql);
+              //        $result1= $resultsql->result();
+              //        $cont=$result1[0]->student;
+      			  //        $user_id=$cont+400000;
+               //
+               //
+              //     $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_pic,user_type,student_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5(123),'$userFileName','3','$insert_id',NOW(),NOW(),'A')";
+              //     $resultset=$this->db->query($stude_insert);
 
           $data=array("status" => "success","last_id"=>$insert_id);
            return $data;
