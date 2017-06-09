@@ -105,6 +105,7 @@
                           <table id="bootstrap-table" class="table">
                               <thead>
                                 <th>S.no</th>
+								                
 								                <th>Substitution Teacher</th>
                                 <th>Substitution Date</th>
                 								<th>Class</th>

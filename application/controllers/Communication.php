@@ -270,22 +270,19 @@ class Communication extends CI_Controller
 			$period_id=$this->input->post('period_id');
 			$status=$this->input->post('status');
 			//echo $sub_teacher;
-			$datas=$this->communicationmodel->add_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status);
-			$datas=$this->communicationmodel->get_all_class_list($leave_id);
-			$datas['teachers']=$this->communicationmodel->get_all_teachers_list();
-			$datas['view']=$this->communicationmodel->get_all_view_list($leave_id);
-			
+			$datas['res']=$this->communicationmodel->add_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status);
+			//print_r($datas['res']);exit;
 			if($datas['status']=="success")
-			{
+			  {
 				 $this->session->set_flashdata('msg','Added Successfully');
-				 $this->load->view('header');
-				 $this->load->view('communication/add_substitution',$datas);
-				 $this->load->view('footer');
+				 redirect('communication/add_substitution/'.$leave_id.'');
+			  }else if($datas['status']=="Already_Exist")
+			  {
+				$this->session->set_flashdata('msg','Already Exist');
+				redirect('communication/add_substitution/'.$leave_id.'');
 			  }else{
-			    $this->session->set_flashdata('msg','Falid To Add');
-				$this->load->view('header');
-			    $this->load->view('communication/add_substitution',$datas);
-	 		    $this->load->view('footer');
+			     $this->session->set_flashdata('msg','Already Exist');
+				 redirect('communication/add_substitution/'.$leave_id.'');
 			  }
 		}
 		
@@ -330,21 +327,13 @@ class Communication extends CI_Controller
 			//echo $sub_teacher;
 			$datas=$this->communicationmodel->update_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$id,$status);
 			//print_r($datas);exit;
-			$datas=$this->communicationmodel->get_all_class_list($leave_id);
-			$datas['teachers']=$this->communicationmodel->get_all_teachers_list();
-			$datas['view']=$this->communicationmodel->get_all_view_list($leave_id);
-			
 			if($datas['status']=="success")
 			{
 				 $this->session->set_flashdata('msg','Updated Successfully');
-				 $this->load->view('header');
-				 $this->load->view('communication/add_substitution',$datas);
-				 $this->load->view('footer');
+				 redirect('communication/add_substitution/'.$leave_id.'');
 			  }else{
 			    $this->session->set_flashdata('msg','Falid To Update');
-				$this->load->view('header');
-			    $this->load->view('communication/add_substitution',$datas);
-	 		    $this->load->view('footer');
+				 redirect('communication/add_substitution/'.$leave_id.'');
 			  }
 			
 		}

@@ -203,16 +203,20 @@ Class Communicationmodel extends CI_Model
 	   
 	   function add_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status)
 	   {
-		  
+		  $quy="SELECT teacher_id,sub_date,class_id,period_id FROM edu_substitution WHERE teacher_id='$teacher_id' AND sub_date='$leave_date' AND class_id='$cls_id' AND period_id='$period_id' ";
+		  $res1=$this->db->query($quy);
+		  if($res1->num_rows()==0)
+	       {
 		  $sql="INSERT INTO edu_substitution(teacher_id,sub_teacher_id,sub_date,class_id,period_id,status,created_at) VALUES ('$teacher_id','$sub_teacher','$leave_date','$cls_id','$period_id','$status',NOW())";
 		   $resultset=$this->db->query($sql);
 		   if($resultset){
 				 $datas= array("status" => "success");
 				 return $datas;
-			   }else{
-				 $datas= array("status" => "Failed to Update");
-				 return $datas;
 			   }
+		   }else{
+			   $datas= array("status"=>"Already_Exist");
+               return $datas;
+		   }
 	   }
 	   
 	   
@@ -224,24 +228,24 @@ Class Communicationmodel extends CI_Model
 		   $row1=$resultset1->result();
 		   foreach($row1 as $teacher_rows){}
 		   //return $row1;
-		 $teach_id=$teacher_rows->class_name;
-        $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
-        $objRs=$this->db->query($sQuery);
-        $row=$objRs->result();
-        foreach ($row as $rows1) {
-        $s= $rows1->class_sec_id;
-        $sec=$rows1->class;
-        $clas=$rows1->class_name;
-        $sec_name=$rows1->sec_name;
-        $arryPlatform = explode(",", $teach_id);
-        $sPlatform_id  = trim($s);
-        $sPlatform_name  = trim($sec);
- 		if(in_array($sPlatform_id, $arryPlatform )) {
- 		$class_id[]=$s;
-        $class_name[]=$clas;
-        $sec_n[]=$sec_name;
- 	    }
- 		}
+			$teach_id=$teacher_rows->class_name;
+	        $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
+	        $objRs=$this->db->query($sQuery);
+	        $row=$objRs->result();
+	        foreach ($row as $rows1) {
+	        $s= $rows1->class_sec_id;
+	        $sec=$rows1->class;
+	        $clas=$rows1->class_name;
+	        $sec_name=$rows1->sec_name;
+	        $arryPlatform = explode(",", $teach_id);
+	        $sPlatform_id  = trim($s);
+	        $sPlatform_name  = trim($sec);
+	 		if(in_array($sPlatform_id, $arryPlatform )) {
+	 		$class_id[]=$s;
+	        $class_name[]=$clas;
+	        $sec_n[]=$sec_name;
+	 	    }
+	 		}
          // print_r($sec_n);exit
 	      if(empty($class_id)){
 	        $data= array("status" =>"No Record Found");
@@ -254,27 +258,27 @@ Class Communicationmodel extends CI_Model
 
 	   }
 	   
-	   function edit_substitution_list($id)
-	   {
+	    function edit_substitution_list($id)
+	     {
 		   $sql="SELECT * FROM edu_substitution WHERE id='$id'";
 		   $result=$this->db->query($sql);
 		   $row=$result->result();
 		   return $row;
-	   }
-		  
-		 function update_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$id,$status)
+	     }
+	  
+		function update_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$id,$status)
 		 {
 			$sql="UPDATE edu_substitution SET teacher_id='$teacher_id',sub_teacher_id='$sub_teacher',sub_date='$leave_date',class_id='$cls_id',period_id='$period_id',status='$status',updated_at=NOW() WHERE id='$id'";
 			$result=$this->db->query($sql);
 		    //$row=$result->result();
 		    if($result){
-				 $datas= array("status" => "success");
-				 return $datas;
-			   }else{
-				 $datas= array("status" => "Failed to Update");
-				 return $datas;
-			   } 
-		 }
+			$datas= array("status" => "success");
+			return $datas;
+			}else{
+			$datas= array("status" => "Failed to Update");
+			return $datas;
+			} 
+	     }
 	   
 
 

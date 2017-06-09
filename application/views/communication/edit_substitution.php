@@ -49,7 +49,7 @@
 							   
                                 <select class="selectpicker form-control" data-title="Select Substitution Teacher" name="sub_teacher">
                                     <?php
-                                         $tea_name=$res->sub_teacher_id;
+                                          $tea_name=$res->sub_teacher_id;
                                           $sQuery = "SELECT * FROM edu_teachers";
                                           $objRs=$this->db->query($sQuery);
                                           $row=$objRs->result();
