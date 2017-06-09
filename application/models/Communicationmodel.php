@@ -203,11 +203,11 @@ Class Communicationmodel extends CI_Model
 	   
 	   function add_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status)
 	   {
-		  $quy="SELECT teacher_id,sub_date,class_id,period_id FROM edu_substitution WHERE teacher_id='$teacher_id' AND sub_date='$leave_date' AND class_id='$cls_id' AND period_id='$period_id' ";
+		  $quy="SELECT teacher_id,sub_date,class_master_id,period_id FROM edu_substitution WHERE teacher_id='$teacher_id' AND sub_date='$leave_date' AND class_master_id='$cls_id' AND period_id='$period_id' ";
 		  $res1=$this->db->query($quy);
 		  if($res1->num_rows()==0)
 	       {
-		  $sql="INSERT INTO edu_substitution(teacher_id,sub_teacher_id,sub_date,class_id,period_id,status,created_at) VALUES ('$teacher_id','$sub_teacher','$leave_date','$cls_id','$period_id','$status',NOW())";
+		  $sql="INSERT INTO edu_substitution(teacher_id,sub_teacher_id,sub_date,class_master_id,period_id,status,created_at) VALUES ('$teacher_id','$sub_teacher','$leave_date','$cls_id','$period_id','$status',NOW())";
 		   $resultset=$this->db->query($sql);
 		   if($resultset){
 				 $datas= array("status" => "success");
@@ -268,7 +268,7 @@ Class Communicationmodel extends CI_Model
 	  
 		function update_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$id,$status)
 		 {
-			$sql="UPDATE edu_substitution SET teacher_id='$teacher_id',sub_teacher_id='$sub_teacher',sub_date='$leave_date',class_id='$cls_id',period_id='$period_id',status='$status',updated_at=NOW() WHERE id='$id'";
+			$sql="UPDATE edu_substitution SET teacher_id='$teacher_id',sub_teacher_id='$sub_teacher',sub_date='$leave_date',class_master_id='$cls_id',period_id='$period_id',status='$status',updated_at=NOW() WHERE id='$id'";
 			$result=$this->db->query($sql);
 		    //$row=$result->result();
 		    if($result){

@@ -29,7 +29,7 @@
 								                <?php }}?>
 							              	 </select>
                               </div>
-							  
+							  <input type="hidden" name="cls_id" value="<?php echo $res->class_master_id;?>">
                     							  <input type="hidden" name="teacher_id" value="<?php echo $res->teacher_id;?>">
                     								<input type="hidden" name="id" value="<?php echo $res->id;?>">
                     								<input type="hidden" name="lid" value="<?php echo $id;?>">

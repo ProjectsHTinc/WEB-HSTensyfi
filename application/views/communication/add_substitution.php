@@ -124,7 +124,7 @@
                   								   <td><?php   $date=date_create($rows->sub_date);
                                       echo date_format($date,"d-m-Y"); ?></td>
 									                   <?php
-												              $clid=$rows->class_id;
+												              $clid=$rows->class_master_id;
                                       $sql="SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class_sec_id='$clid' AND cm.class = c.class_id AND cm.section = s.sec_id ";
 												              $resultset=$this->db->query($sql);
             											    $row=$resultset->result();
