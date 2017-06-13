@@ -128,6 +128,38 @@ class Student extends CI_Controller
 				 }
 			
 		}
+		//------------------------Fees Status------------------------------//
+		
+		public function fees_status()
+		{
+			
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			//echo $user_id;
+			$user_type=$this->session->userdata('user_type');
+			$datas['fees']=$this->studentmodel->get_fees_status_details($user_id);
+			//echo '<pre>';print_r($datas['fees']);exit;
+			if($user_type==3)
+				 {
+					 $this->load->view('adminstudent/student_header');
+					 $this->load->view('adminstudent/fees_status/fees_status_view',$datas);
+					 $this->load->view('adminstudent/student_footer');
+				 }else{
+						redirect('/');
+				 }
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 //------------------------------------------------------------------------//
 
 	   public function attendance(){

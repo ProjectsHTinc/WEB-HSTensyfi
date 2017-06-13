@@ -193,6 +193,32 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 		  return $row;
 	 }
 	 
+	 //--------------------Fees Status---------------
+	 
+	 function get_fees_status_details($user_id)
+	 {
+		    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
+			$resultset=$this->db->query($query);
+			$row=$resultset->result();
+			$student_id=$row[0]->student_id;
+			//echo $student_id;
+
+			$sql="SELECT * FROM edu_enrollment WHERE admission_id='$student_id'";
+			$resultset=$this->db->query($sql);
+			$row=$resultset->result();
+			foreach($row as $rows){}
+			$enr_id=$rows->enroll_id;
+			$cls_id=$rows->class_id;
+			
+			$sql1="SELECT fs.*,fm.term_id,fm.due_date_from,fm.due_date_to,fm.notes,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name FROM edu_term_fees_status AS fs,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q WHERE fs.student_id='$enr_id' AND fs.class_master_id='$cls_id' AND fs.fees_id=fm.id AND fm.status='Active' AND fm.term_id=t.term_id AND fs.year_id=y.year_id AND fs.quota_id=q.id";
+			$result1=$this->db->query($sql1);
+			$row1=$result1->result();
+			return $row1;
+	 }
+	 
+	 
+	 
+	 
 	 //--------------------leaves-------------------
 	 function get_all_regularleave($user_id)
 			 {

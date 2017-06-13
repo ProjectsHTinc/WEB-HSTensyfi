@@ -167,6 +167,15 @@ font-weight: 500;
 										</a>
 
 								</li>
+								
+								<li>
+										<a href="<?php echo base_url(); ?>adminparent/fees_status">
+												<i class="pe-7s-flag"></i>
+												<p>Fees Status</p>
+
+										</a>
+										
+								</li>
 
 								<li id="exam">
 										<a data-toggle="collapse"  href="#examinationmenu">
