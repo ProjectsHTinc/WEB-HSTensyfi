@@ -64,12 +64,20 @@
                               <tbody>
                                 <?php
                                   $i=1;
-                                  foreach($result as $rows){
+                                  foreach($result as $rows){$stu=$rows->status;
                                 ?>
                                   <tr>
                                     <td><?php  echo $i; ?></td>
                                     <td><?php  echo $rows->quota_name; ?></td>
-									                  <td><?php echo $rows->status;?></td>
+									
+									<td><?php 
+										  if($stu=='Active'){?>
+											<button class="btn btn-success btn-fill btn-wd">Active</button>
+										 <?php  }else{?>
+										  <button class="btn btn-danger btn-fill btn-wd">De Active</button>
+										  <?php } ?></td>
+										  
+									                 
                                     <td class="text-right">
                                       <a href="<?php echo base_url(); ?>quota/edit_quota/<?php echo $rows->id; ?>" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>

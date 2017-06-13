@@ -101,7 +101,7 @@ $(document).ready(function () {
         $('#master').addClass('active');
         $('#masters7').addClass('active');
 
-   $('#feesformsection').validate({ // initialize the plugin
+   $('#groupsformsection').validate({ // initialize the plugin
        rules: {
            groups_name:{required:true },
   		     status:{required:true }

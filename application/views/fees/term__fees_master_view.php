@@ -60,7 +60,7 @@
                   									  <?php } ?></td>
 
                                     <td class="text-left">
-                                        <a href="<?php echo base_url(); ?>feesstructure/view_term_fees/<?php echo $rows->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
+                                        <a href="<?php echo base_url(); ?>feesstructure/view_term_fees/<?php echo $rows->id; ?>" rel="tooltip" title="Fees Status For Students" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-list-ol" aria-hidden="true"></i></a>
                                     </td>
                                   </tr>
                                   <?php $i++;  }  ?>

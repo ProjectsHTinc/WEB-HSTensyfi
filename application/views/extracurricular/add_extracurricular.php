@@ -3,13 +3,13 @@
 <div class="content">
        <div class="container-fluid">
            <div class="row">
-               <div class="col-md-8">
+               <div class="col-md-10">
                    <div class="card">
                        <div class="header"> 
                            <h4 class="title">Add Extra curricular Activities </h4>
                        </div>
                        <div class="content">
-                           <form method="post" action="<?php echo base_url(); ?>extracurricular/create_extracurricular" class="form-horizontal" enctype="multipart/form-data" id="groupsformsection" name="groupsformsection">
+                           <form method="post" action="<?php echo base_url(); ?>extracurricular/create_extracurricular" class="form-horizontal" enctype="multipart/form-data" id="activitiesformsection" name="activitiesformsection">
                                  <fieldset>
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">Activities Name	</label>
@@ -101,13 +101,13 @@ $(document).ready(function () {
         $('#master').addClass('active');
         $('#masters8').addClass('active');
 
-   $('#feesformsection').validate({ // initialize the plugin
+   $('#activitiesformsection').validate({ // initialize the plugin
        rules: {
-           groups_name:{required:true },
+           ext_name:{required:true },
   		     status:{required:true }
        },
        messages: {
-             groups_name:"Please Enter Group Name",
+             ext_name:"Please Enter Activities Name",
   		       status:"select Status"
           }
    });

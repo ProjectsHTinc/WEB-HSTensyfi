@@ -152,9 +152,9 @@
                         <li id="masters4" ><a href="<?php echo base_url(); ?>subjectadd/addsubject">Subjects</a></li>
                         <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
 						<li id="masters9"><a href="<?php echo base_url(); ?>feesstructure/fees_master">Fees</a></li>
-						<li id="masters6"><a href="<?php echo base_url(); ?>quota/home">Add Quota </a></li>
-                        <li id="masters7" ><a href="<?php echo base_url(); ?>groups/home">Add Groups</a></li>
-                        <li id="masters8"><a href="<?php echo base_url(); ?>extracurricular/home">Add Activities</a></li>
+						<li id="masters6"><a href="<?php echo base_url(); ?>quota/home">Quota </a></li>
+                        <li id="masters7" ><a href="<?php echo base_url(); ?>groups/home">Groups</a></li>
+                        <li id="masters8"><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular</a></li>
 
                      </ul>
                   </div>
