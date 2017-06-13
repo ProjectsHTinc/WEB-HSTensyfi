@@ -46,7 +46,11 @@ class Enrollment extends CI_Controller {
 			$datas['getall_class']=$this->class_manage->getall_class();
 			$datas['admisno']=$this->admissionmodel->get_enrollment_admisno();
 			$datas['years']=$this->enrollmentmodel->get_current_years();
-			//print_r($datas['years']);exit;
+			
+			$datas['quota']=$this->enrollmentmodel->get_all_quota_details();
+			$datas['groups']=$this->enrollmentmodel->get_all_groups_details();
+			$datas['activities']=$this->enrollmentmodel->get_all_activities_details();
+			//print_r($datas['quota']);exit;
 			
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
@@ -71,6 +75,10 @@ class Enrollment extends CI_Controller {
 			$datas['getall_class']=$this->class_manage->getall_class();
             $datas['years']=$this->enrollmentmodel->get_current_years();
 		    $datas['res']=$this->enrollmentmodel->add_enrollment($admisn_no);
+			
+			$datas['quota']=$this->enrollmentmodel->get_all_quota_details();
+			$datas['groups']=$this->enrollmentmodel->get_all_groups_details();
+			$datas['activities']=$this->enrollmentmodel->get_all_activities_details();
             //print_r($datas['res']);exit;
 			if($user_type==1)
 			 {
@@ -99,10 +107,15 @@ class Enrollment extends CI_Controller {
 			 $name=$this->input->post('name');
 			 $class=$this->input->post('class_section');
 			 $admission_id=$this->input->post('admission_id');
+			 
+			 $quota_id=$this->input->post('quota_id');
+			 $groups_id=$this->input->post('groups_id');
+			 $activity_id=$this->input->post('activity_id');
+
 			 $status=$this->input->post('status');
 			// $class_name = implode(',',$class);
 			// $section=$this->input->post('section');
-			 $datas=$this->enrollmentmodel->ad_enrollment($admission_id,$admit_year,$formatted_date,$admisn_no,$name,$class,$status);
+			 $datas=$this->enrollmentmodel->ad_enrollment($admission_id,$admit_year,$formatted_date,$admisn_no,$name,$class,$quota_id,$groups_id,$activity_id,$status);
 			 if($datas['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Added Successfully');
 				 redirect('enrollment/view');
@@ -146,6 +159,10 @@ class Enrollment extends CI_Controller {
 			//$datas['clas'] = $this->classmodel->getclass();
 			//$datas['sec'] = $this->sectionmodel->getsection();
 			$datas['res']=$this->enrollmentmodel->get_enrollmentid($admisn_no);
+			$datas['quota']=$this->enrollmentmodel->get_all_quota_details();
+			$datas['groups']=$this->enrollmentmodel->get_all_groups_details();
+			$datas['activities']=$this->enrollmentmodel->get_all_activities_details();
+			
 			//print_r($datas['res']);exit;
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
@@ -173,9 +190,15 @@ class Enrollment extends CI_Controller {
 			 $admisn_no=$this->input->post('admisn_no');
 			 $name=$this->input->post('name');
 			 $class=$this->input->post('class_name');
+			 
+			 $quota_id=$this->input->post('quota_id');
+			 $groups_id=$this->input->post('groups_id');
+			 $activity_id=$this->input->post('activity_id');
+			 
+			 
 			 //$section=$this->input->post('section');
 			 $status=$this->input->post('status');
-			 $datas=$this->enrollmentmodel->save_enrollment($admit_year,$formatted_date,$name,$class,$status,$enroll_id,$admisn_no,$admission_id);
+			 $datas=$this->enrollmentmodel->save_enrollment($admit_year,$formatted_date,$name,$class,$status,$enroll_id,$admisn_no,$quota_id,$groups_id,$activity_id,$admission_id);
 			 if($datas['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Update Successfully');
 				 redirect('enrollment/view');
@@ -229,6 +252,9 @@ class Enrollment extends CI_Controller {
 						echo "Add Enrollment";
 					 }
 		  }
+		  //get all quota name 
+		  
+		
 
 
 }

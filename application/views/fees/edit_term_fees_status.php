@@ -75,15 +75,22 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Quota Name</label>
                                             <div class="col-sm-4">
-												                         <select name="quota_name"  class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                                    <?php foreach ($quota as $row1) {  ?>
-                                                    <option value="<?php echo $row1->id; ?>"><?php echo $row1->quota_name; ?></option>
-                                                   <?php } ?>
-                                                  </select>
-											                             <script language="JavaScript">document.feesform.quota_name.value="<?php echo $rows->quota_id; ?>";</script>
+											 <input type="text" name="quota_name" readonly  value="<?php echo $rows->quota_name;?>" class="form-control" />
+												                       
                                             </div>
                                         </div>
                                     </fieldset>
+									
+									<fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Paid By</label>
+                                            <div class="col-sm-4">
+											 <input type="text" name="paid_by"  value="" class="form-control" />
+												                       
+                                            </div>
+                                        </div>
+                                    </fieldset>
+									
                                    <fieldset>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Status</label>
@@ -92,7 +99,7 @@
                                                   <option value="Paid">Paid</option>
                                                     <option value="Unpaid">Unpaid</option>
                                               </select>
-											                                <script language="JavaScript">document.feesform.paid_status.value="<?php echo $rows->paid_by; ?>";</script>
+											                                <script language="JavaScript">document.feesform.paid_status.value="<?php echo $rows->status; ?>";</script>
                                             
                                             </div>
                                         </div>

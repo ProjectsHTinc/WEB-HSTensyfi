@@ -34,7 +34,7 @@
                                 <?php
                                 $i=1;
                                 foreach ($view as $rows) {
-													       $stu=$rows->paid_by;
+													       $stu=$rows->status;
                                 ?>
                                   <tr>
                                     <td class="text-left"><?php echo $i; ?></td>

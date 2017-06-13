@@ -10,8 +10,8 @@ Class Enrollmentmodel extends CI_Model
   }
 
 //CREATE ADMISSION   ad_enrollment
-
-        function ad_enrollment($admission_id,$admit_year,$formatted_date,$admisn_no,$name,$class,$status){
+                 
+        function ad_enrollment($admission_id,$admit_year,$formatted_date,$admisn_no,$name,$class,$quota_id,$groups_id,$activity_id,$status){
           $check_email="SELECT * FROM edu_enrollment WHERE admisn_no='$admisn_no'";
           $result=$this->db->query($check_email);
           if($result->num_rows()==0){
@@ -25,7 +25,7 @@ Class Enrollmentmodel extends CI_Model
 		      {}
 		        $admisnid=$rows->admission_id;
 				//echo $admisnid;
-            $query="INSERT INTO edu_enrollment (admission_id,admit_year,admit_date,admisn_no,name,class_id,created_at,status) VALUES ('$admisnid','$admit_year','$formatted_date','$admisn_no','$name','$class',NOW(),'$status')";
+            $query="INSERT INTO edu_enrollment (admission_id,admit_year,admit_date,admisn_no,name,class_id,house_id,extra_curicullar_id,quota_idcreated_at,status) VALUES ('$admisnid','$admit_year','$formatted_date','$admisn_no','$name','$class','$groups_id','$activity_id','$quota_id',NOW(),'$status')";
             $resultset=$this->db->query($query);
 
             //Student User Creation
@@ -130,8 +130,8 @@ Class Enrollmentmodel extends CI_Model
 
 //Update enrollment
 
-        function save_enrollment($admit_year,$admit_date,$name,$class,$status,$enroll_id,$admisn_no,$admission_id){
-           $query="UPDATE edu_enrollment SET admit_year='$admit_year',admit_date='$admit_date',name='$name',class_id='$class',status='$status' WHERE enroll_id='$enroll_id' AND admisn_no='$admisn_no'";
+        function save_enrollment($admit_year,$formatted_date,$name,$class,$status,$enroll_id,$admisn_no,$quota_id,$groups_id,$activity_id,$admission_id){
+           $query="UPDATE edu_enrollment SET admit_year='$admit_year',admit_date='$formatted_date',name='$name',class_id='$class',house_id='$groups_id',extra_curicullar_id='$activity_id',quota_id='$quota_id',status='$status' WHERE enroll_id='$enroll_id' AND admisn_no='$admisn_no'";
            $res=$this->db->query($query);
 
 		   $query1="UPDATE edu_admission SET name='$name' WHERE admisn_no='$admisn_no'";
@@ -177,11 +177,42 @@ Class Enrollmentmodel extends CI_Model
 		}
 
 
-		 public function search(Request $request)
+		 function search(Request $request)
            {
               $keywords = $request->get('keywords');
               $suggestions = Search::where('keywords', 'LIKE', '%'.$keywords.'%')->get();
               return $suggestions;
            }
+		   
+		   //get all quota deatis 
+		   
+		   function get_all_quota_details()
+		   {
+			   $query="SELECT * FROM edu_quota WHERE status='Active'";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			   return $res;
+		   }
+		   
+		   //get all groups deatis 
+		   
+		   function get_all_groups_details()
+		   {
+			   $query="SELECT * FROM edu_groups WHERE status='Active'";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			     return $res;
+		   }
+		   
+		   //get all activities deatis 
+		   
+		   function get_all_activities_details()
+		   {
+			   $query="SELECT * FROM edu_extra_curricular WHERE status='Active'";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			     return $res;
+		   }
+		 
 }
 ?>

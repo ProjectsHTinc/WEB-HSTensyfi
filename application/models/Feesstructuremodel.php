@@ -8,46 +8,7 @@ Class Feesstructuremodel extends CI_Model
         parent::__construct();
      }
   
-    function getall_quota_list()
-     {
-    	 $query="SELECT * FROM edu_quota"; 
-    	 $res=$this->db->query($query);
-         $result=$res->result();
-    	 return $result;
-     }
-
-    function create_quota_list($quota_name,$status,$user_id)
-     {
-	     $sql="INSERT INTO edu_quota(quota_name,status,created_by,created_at) VALUES ('$quota_name','$status','$user_id',NOW())";
-       $resultset=$this->db->query($sql);
-       if($resultset)
-        {
-         $data= array("status" => "success");
-         return $data;
-        }
-       
-    }
-
-    function edit_quota_list($id)
-    {
-       $query="SELECT * FROM edu_quota WHERE id='$id'"; 
-       $res=$this->db->query($query);
-       $result=$res->result();
-       return $result;
-
-    }
-
-    function update_quota_list($quota_name,$status,$user_id,$id)
-    {
-
-       $sql="UPDATE edu_quota SET quota_name='$quota_name',status='$status',updated_by='$user_id',updated_at=NOW() WHERE id='$id'";
-       $resultset=$this->db->query($sql);
-       if($resultset)
-        {
-         $data= array("status" => "success");
-         return $data;
-        }
-    }
+    
 	
 	 function get_current_years()
 		{
@@ -76,7 +37,7 @@ Class Feesstructuremodel extends CI_Model
 		function get_all_quota()
 		 {
 		    $sql1="SELECT * FROM edu_quota WHERE status='Active'";
-  		  $res1=$this->db->query($sql1);
+  		   $res1=$this->db->query($sql1);
   		  $result1=$res1->result();
         return $result1;
 		 }
@@ -124,7 +85,7 @@ Class Feesstructuremodel extends CI_Model
 				  $result1=$res->result();
 				  foreach($result1 as $rows){
 				  $stu_id=$rows->enroll_id;
-				  $sql="INSERT INTO edu_term_fees_status(year_id,fees_id,student_id,quota_id,class_master_id,fees_amt, status,paid_by,created_by,created_at) VALUES ('$year_id1','$insert_id','$stu_id','$quota_name1','$class_id1','$fees_amount1','$status1','Unpaid','$user_id',NOW())";
+				  $sql="INSERT INTO edu_term_fees_status(year_id,fees_id,student_id,quota_id,class_master_id,fees_amt, status,paid_by,created_by,created_at) VALUES ('$year_id1','$insert_id','$stu_id','$quota_name1','$class_id1','$fees_amount1','Unpaid','null','$user_id',NOW())";
 				  $resultset=$this->db->query($sql);
 				 }
 			}
@@ -164,7 +125,7 @@ Class Feesstructuremodel extends CI_Model
 				
 				function view_term_fees_status($id)
 				{
-			      $sql="SELECT ts.*,fm.term_id,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,en.class_id FROM edu_term_fees_status AS ts,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_enrollment AS en WHERE ts.fees_id=fm.id AND fm.term_id=t.term_id AND ts.year_id=y.year_id AND ts.quota_id=q.id AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ts.student_id=en.enroll_id AND ts.class_master_id=en.class_id AND ts.fees_id='$id' ";
+			      $sql="SELECT ts.*,fm.term_id,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,en.class_id,en.quota_id FROM edu_term_fees_status AS ts,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_enrollment AS en WHERE ts.fees_id=fm.id AND fm.term_id=t.term_id AND ts.year_id=y.year_id AND ts.quota_id=q.id AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ts.student_id=en.enroll_id AND ts.class_master_id=en.class_id AND ts.quota_id=en.quota_id AND ts.fees_id='$id' ";
       			$result=$this->db->query($sql);
       			$res=$result->result();
       			return $res;
@@ -178,9 +139,9 @@ Class Feesstructuremodel extends CI_Model
       			return $res;
 				}
              
-			 function update_term_fees_status($id,$paid_status,$user_id,$quota_name)
+			 function update_term_fees_status($id,$paid_status,$user_id,$paid_by)
 			 {
-  				 $sql="UPDATE edu_term_fees_status SET paid_by='$paid_status',quota_id='$quota_name',updated_by='$user_id',updated_at=NOW() WHERE id='$id'";
+  				 $sql="UPDATE edu_term_fees_status SET status='$paid_status',paid_by='$paid_by',updated_by='$user_id',updated_at=NOW() WHERE id='$id'";
   				 $result2=$this->db->query($sql);
       		 $data= array("status" => "success");
       		 return $data;

@@ -18,82 +18,7 @@ class Feesstructure extends CI_Controller
 		  
       }   
 		
-    public function home()
-	 {
-			$datas=$this->session->userdata();
-			$user_id=$this->session->userdata('user_id');
-			$datas['result'] = $this->feesstructuremodel->getall_quota_list();
-			$user_type=$this->session->userdata('user_type');
-			 if($user_type==1)
-			 {
-				 $this->load->view('header');
-				 $this->load->view('fees/add_quota',$datas);
-				 $this->load->view('footer');
-			 }
-			 else{
-					redirect('/');
-			 }
-	}
-	
-	public function create_quota()
-	{
-		$datas=$this->session->userdata();
-	    $user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		
-		$quota_name=$this->input->post('quota_name');
-		$status=$this->input->post('status');
-		
-		$datas=$this->feesstructuremodel->create_quota_list($quota_name,$status,$user_id);
-		if($datas['status']=="success")
-		{
-			$this->session->set_flashdata('msg','Added Successfully');
-			redirect('feesstructure/home');
-		}else{
-			$this->session->set_flashdata('msg','Faild To Add');
-			redirect('feesstructure/home');
-		}
-		
-	}
-
-	public function edit_quota($id)
-	{
-        $datas=$this->session->userdata();
-	    $user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-         
-        $datas['edit']=$this->feesstructuremodel->edit_quota_list($id);
-        if($user_type==1)
-			 {
-				 $this->load->view('header');
-				 $this->load->view('fees/edit_quota',$datas);
-				 $this->load->view('footer');
-			 }
-			 else{
-					redirect('/');
-			 }
-	}
-
-	public function update_quota()
-	{
-		$datas=$this->session->userdata();
-	    $user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		
-		$quota_name=$this->input->post('quota_name');
-		$status=$this->input->post('status');
-		$id=$this->input->post('id');
-		
-		$datas=$this->feesstructuremodel->update_quota_list($quota_name,$status,$user_id,$id);
-		if($datas['status']=="success")
-		{
-			$this->session->set_flashdata('msg','Updated Successfully');
-			redirect('feesstructure/home');
-		}else{
-			$this->session->set_flashdata('msg','Faild To Update');
-			redirect('feesstructure/home');
-		}
-	}
+   
 	
 	public function fees_master()
 	{
@@ -320,9 +245,9 @@ class Feesstructure extends CI_Controller
 		
 		$id=$this->input->post('id');
 	    $paid_status=$this->input->post('paid_status');
-		$quota_name=$this->input->post('quota_name');
+		$paid_by=$this->input->post('paid_by');
 		
-		$datas=$this->feesstructuremodel->update_term_fees_status($id,$paid_status,$user_id,$quota_name);
+		$datas=$this->feesstructuremodel->update_term_fees_status($id,$paid_status,$user_id,$paid_by);
 		//print_r($datas);exit;
 		if($datas['status']=="success")
 		     {

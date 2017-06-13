@@ -92,6 +92,54 @@
 
                                         </div>
                                     </fieldset>
+									
+									<fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Quota Name</label>
+                                            <div class="col-sm-4">
+											
+											 <select name="quota_id" class="selectpicker form-control" data-title="Select Quota Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                                    <?php foreach ($quota as $row1) {  ?>
+                                                    <option value="<?php echo $row1->id; ?>"><?php echo $row1->quota_name; ?></option>
+                                              <?php      } ?>
+                                                  </select>
+												  
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+									
+									<fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Groups Name</label>
+                                            <div class="col-sm-4">
+											
+											 <select name="groups_id" class="selectpicker form-control" data-title="Select Groups Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                                    <?php foreach ($groups as $row2) {  ?>
+                                                    <option value="<?php echo $row2->id; ?>"><?php echo $row2->group_name; ?></option>
+                                              <?php      } ?>
+                                                  </select>
+												  
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+									
+									<fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Actvities Name</label>
+                                            <div class="col-sm-4">
+											
+											 <select name="activity_id" class="selectpicker form-control" data-title="Select Actvities Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                                    <?php foreach ($activities as $row3) {  ?>
+                                                    <option value="<?php echo $row3->id; ?>"><?php echo $row3->extra_curricular_name; ?></option>
+                                              <?php      } ?>
+                                                  </select>
+												  
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
 						         <fieldset>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Status</label>

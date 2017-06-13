@@ -6,16 +6,16 @@
                <div class="col-md-8">
                    <div class="card">
                        <div class="header"> 
-                           <h4 class="title">Edit Quota Name </h4>
+                           <h4 class="title">Edit Groups Name </h4>
                        </div>
                        <?php foreach ($edit as  $res) { } ?>
                        <div class="content">
-                           <form method="post" action="<?php echo base_url(); ?>quota/update_quota" class="form-horizontal" enctype="multipart/form-data" id="feesformsection" name="feesformsection">
+                           <form method="post" action="<?php echo base_url(); ?>groups/update_groups" class="form-horizontal" enctype="multipart/form-data" id="feesformsection" name="feesformsection">
                                  <fieldset>
                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Quota Name	</label>
+                                          <label class="col-sm-2 control-label">Groups Name	</label>
                                           <div class="col-sm-4"> 
-										                         <input type="text" name="quota_name" class="form-control"  value="<?php echo $res->quota_name; ?>">
+										                         <input type="text" name="groups_name" class="form-control"  value="<?php echo $res->group_name; ?>">
 
                                               <input type="hidden" name="id" class="form-control"  value="<?php echo $res->id; ?>">
 
@@ -60,11 +60,11 @@ $(document).ready(function () {
 
    $('#feesformsection').validate({ // initialize the plugin
        rules: {
-           quota_name:{required:true },
+           groups_name:{required:true },
   		     status:{required:true }
        },
        messages: {
-             quota_name:"Please Enter Quota Name",
+             groups_name:"Please Enter Group Name",
   		       status:"select Status"
           }
    });
