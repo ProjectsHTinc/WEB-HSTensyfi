@@ -9,7 +9,7 @@
                            <h4 class="title">Add Quota Name </h4>
                        </div>
                        <div class="content">
-                           <form method="post" action="<?php echo base_url(); ?>fees_structure/create_quota" class="form-horizontal" enctype="multipart/form-data" id="feesformsection" name="feesformsection">
+                           <form method="post" action="<?php echo base_url(); ?>feesstructure/create_quota" class="form-horizontal" enctype="multipart/form-data" id="feesformsection" name="feesformsection">
                                  <fieldset>
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">Quota Name	</label>

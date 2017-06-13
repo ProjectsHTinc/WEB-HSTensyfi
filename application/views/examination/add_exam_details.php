@@ -322,7 +322,7 @@ function checksubject(exam_year,class_name)
            dataType: 'json',
 
             success: function(test1) {
-				//alert(test1.status);
+				//alert(test1.subject_name);
 				//console.log(test1);
 				//var test=test1.status;
 				//alert(test);

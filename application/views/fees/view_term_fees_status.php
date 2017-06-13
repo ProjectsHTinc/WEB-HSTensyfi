@@ -16,7 +16,7 @@
                             <div class="content">
 
                                 <div class="fresh-datatables">
-                                  <h4 class="title">List of Fees Master</h4>
+                                  <h4 class="title">List of Fees Status</h4>
 
                           <table id="bootstrap-table" class="table">
                               <thead>
@@ -24,43 +24,37 @@
                                 <th data-field="year" class="text-left" data-sortable="true">Year</th>
                                 <th data-field="term" class="text-left" data-sortable="true">Term Name</th>
                                 <th data-field="class" class="text-left" data-sortable="true">Class</th>
-                                 <th data-field="quota" class="text-left" data-sortable="true">Quota Name</th>
-								                 <th data-field="fees" class="text-left" data-sortable="true">Fees Amount</th>
-                                <th data-field="date_from" class="text-left" data-sortable="true">From Date </th>
-                                <th data-field="date_to" class="text-left" data-sortable="true">To Date </th>
-                                 <!-- <th data-field="notes" class="text-left" data-sortable="true">Notes</th> -->
+                                <th data-field="quota" class="text-left" data-sortable="true">Quota Name</th>
+								                <th data-field="fees" class="text-left" data-sortable="true">Fees Amount</th>
+                                <th data-field="notes" class="text-left" data-sortable="true">Student Name</th>
                                 <th data-field="status" class="text-left" data-sortable="true">Status</th>
 								                <th data-field="Section" class="text-left" data-sortable="true">Action</th>
-
-
                               </thead>
                               <tbody>
                                 <?php
                                 $i=1;
                                 foreach ($view as $rows) {
-													       $stu=$rows->status;
+													       $stu=$rows->paid_by;
                                 ?>
                                   <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
                                     <td class="text-left"><?php echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  ?></td>
                                     <td class="text-left"><?php echo $rows->term_name; ?></td>
                                     <td class="text-left"><?php echo $rows->class_name; ?> - <?php echo $rows->	sec_name; ?></td>
-                    									<td class="text-left"><?php echo $rows->quota_name;?></td>
-                    									<td class="text-left"><?php echo $rows->fees_amount;?></td>
-                    									<td class="text-left"><?php $date=date_create($rows->due_date_from);
-                                                           echo date_format($date,"d-m-Y");?></td>
-                    									<td class="text-left"><?php $date=date_create($rows->due_date_to);
-                                                           echo date_format($date,"d-m-Y");?></td>
-                    									<!-- <td class="text-left"><?php //echo $rows->notes;?></td>-->								 
-                    									 <td><?php 
-                    									  if($stu=='Active'){?>
-                    									   <button class="btn btn-success btn-fill btn-wd">Active</button>
-                    									 <?php  }else{?>
-                    									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button>
-                    									  <?php } ?></td>
+                  									<td class="text-left"><?php echo $rows->quota_name;?></td>
+                  									<td class="text-left"><?php echo $rows->fees_amt;?></td>
+                  									
+                  									<td class="text-left"><?php echo $rows->name;?></td>								 
+                  									 <td><?php 
+                  									  if($stu=='Unpaid'){?>
+                  									  <button class="btn btn-danger btn-fill btn-wd">UnPaid</button>
+                  									 <?php  }else{?>
+                  									   <button class="btn btn-success btn-fill btn-wd">Paid</button>
+                  									 
+                  									  <?php } ?></td>
 
                                     <td class="text-left">
-                                        <a href="<?php echo base_url(); ?>feesstructure/edit_fees_master_status/<?php echo $rows->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                        <a href="<?php echo base_url(); ?>feesstructure/edit_term_fees_status/<?php echo $rows->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                   </tr>
                                   <?php $i++;  }  ?>

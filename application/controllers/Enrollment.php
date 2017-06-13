@@ -206,9 +206,9 @@ class Enrollment extends CI_Controller {
 			 $resultset = $this->enrollmentmodel->getData($admisno);
 			//print_r($datas['status']);
 			 if($resultset!='')
-			{
+			  {
 				echo $resultset;
-			}
+			  }
 			else{
 				echo "Admission Number Not Found";
 			}

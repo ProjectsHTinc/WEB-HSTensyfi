@@ -16,7 +16,7 @@
                      <?php endif; ?>
 
                             <div class="content">
-                                <form method="post" action="<?php echo base_url(); ?>fees_structure/create_fees_structure" class="form-horizontal" enctype="multipart/form-data" id="feesform" name="feesform">
+                                <form method="post" action="<?php echo base_url(); ?>feesstructure/create_fees_structure" class="form-horizontal" enctype="multipart/form-data" id="feesform" name="feesform">
 
                                     <fieldset>
                                         <div class="form-group">
@@ -121,7 +121,7 @@
                                               <select name="status" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
 
                                                   <option value="Active">Active</option>
-                                                    <option value="Deactive">DE-Active</option>
+                                                    <option value="Deactive">DeActive</option>
                                               </select>
                                             
                                             </div>
@@ -206,7 +206,7 @@ $(document).ready(function () {
       var groups = new Array;
       $.ajax({
 			type:'post',
-			url:'<?php echo base_url(); ?>/fees_structure/get_all_section',
+			url:'<?php echo base_url(); ?>/feesstructure/get_all_section',
 			data:'clsid='+class_name,
             dataType: "JSON",
 			cache: false,
