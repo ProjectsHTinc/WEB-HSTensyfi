@@ -16,7 +16,7 @@
                             <div class="content">
 
                                 <div class="fresh-datatables">
-                                  <h4 class="title">List of Fees Status</h4>
+                                  <h4 class="title">Fees Status</h4>
 
                           <table id="bootstrap-table" class="table">
                               <thead>
@@ -85,7 +85,7 @@
  var $table = $('#bootstrap-table');
  
        $().ready(function(){
-         jQuery('#teachermenu').addClass('collapse in');
+        
            $table.bootstrapTable({
                toolbar: ".toolbar",
                clickToSelect: true,

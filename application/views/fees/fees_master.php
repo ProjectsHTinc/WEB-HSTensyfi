@@ -30,6 +30,7 @@
                                               <input type="text" name="year_name"  class="form-control" value="" readonly="">
                                                <?php  } ?>
                                             </div>
+											
                                         </div>
                                     </fieldset>
 
@@ -147,6 +148,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
+ $('#mastersmenu').addClass('collapse in');
+        $('#master').addClass('active');
+        $('#masters9').addClass('active');
 
  $('#feesform').validate({ // initialize the plugin
      rules: {

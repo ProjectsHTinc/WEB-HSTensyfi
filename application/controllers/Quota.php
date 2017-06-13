@@ -22,7 +22,7 @@ class Quota extends CI_Controller
 			 if($user_type==1)
 			 {
 				 $this->load->view('header');
-				 $this->load->view('fees/add_quota',$datas);
+				 $this->load->view('quota/add_quota',$datas);
 				 $this->load->view('footer');
 			 }
 			 else{
@@ -61,7 +61,7 @@ class Quota extends CI_Controller
         if($user_type==1)
 			 {
 				 $this->load->view('header');
-				 $this->load->view('fees/edit_quota',$datas);
+				 $this->load->view('quota/edit_quota',$datas);
 				 $this->load->view('footer');
 			 }
 			 else{

@@ -6,21 +6,21 @@
                <div class="col-md-8">
                    <div class="card">
                        <div class="header"> 
-                           <h4 class="title">Add Extra curricular Activities </h4>
+                           <h4 class="title">Add Quota Name </h4>
                        </div>
                        <div class="content">
-                           <form method="post" action="<?php echo base_url(); ?>extracurricular/create_extracurricular" class="form-horizontal" enctype="multipart/form-data" id="groupsformsection" name="groupsformsection">
+                           <form method="post" action="<?php echo base_url(); ?>quota/create_quota" class="form-horizontal" enctype="multipart/form-data" id="feesformsection" name="feesformsection">
                                  <fieldset>
                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Activities Name	</label>
+                                          <label class="col-sm-2 control-label">Quota Name	</label>
                                           <div class="col-sm-4"> 
-										                         <input type="text" name="ext_name" class="form-control"  value="">
+										                         <input type="text" name="quota_name" class="form-control"  value="">
                                           </div>
                                           <label class="col-sm-2 control-label">Status</label>
                                           <div class="col-sm-4">
                       										   <select name="status"  class="selectpicker form-control" data-title="Status" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                         											  <option value="Active">Active</option>
-                        											  <option value="Deactive">DeActive</option>
+                        											  <option value="Deactive">De-Active</option>
                       											</select>
                                           </div>
                                       </div>
@@ -57,27 +57,21 @@
                           <table id="bootstrap-table" class="table">
                               <thead>
                                 <th>S.no</th>
-                                <th>Activities Name</th>
+                                <th>Quota Name</th>
 								                <th>Status</th>
                                 <th class="disabled-sorting text-right">Actions</th>
                               </thead>
                               <tbody>
                                 <?php
                                   $i=1;
-                                  foreach($result as $rows){$stu=$rows->status;
+                                  foreach($result as $rows){
                                 ?>
                                   <tr>
                                     <td><?php  echo $i; ?></td>
-                                    <td><?php  echo $rows->extra_curricular_name; ?></td>
-									
-									 <td><?php 
-										  if($stu=='Active'){?>
-											<button class="btn btn-success btn-fill btn-wd">Active</button>
-										 <?php  }else{?>
-										  <button class="btn btn-danger btn-fill btn-wd">De Active</button>
-										  <?php } ?></td>
+                                    <td><?php  echo $rows->quota_name; ?></td>
+									                  <td><?php echo $rows->status;?></td>
                                     <td class="text-right">
-                                      <a href="<?php echo base_url(); ?>extracurricular/edit_activities/<?php echo $rows->id; ?>" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                      <a href="<?php echo base_url(); ?>quota/edit_quota/<?php echo $rows->id; ?>" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                   </tr>
 							                  <?php $i++;   } ?>
@@ -99,15 +93,15 @@ $(document).ready(function () {
 
         $('#mastersmenu').addClass('collapse in');
         $('#master').addClass('active');
-        $('#masters8').addClass('active');
+        $('#masters6').addClass('active');
 
    $('#feesformsection').validate({ // initialize the plugin
        rules: {
-           groups_name:{required:true },
+           quota_name:{required:true },
   		     status:{required:true }
        },
        messages: {
-             groups_name:"Please Enter Group Name",
+             quota_name:"Please Enter Quota Name",
   		       status:"select Status"
           }
    });

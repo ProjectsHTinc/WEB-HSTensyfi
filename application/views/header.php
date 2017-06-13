@@ -66,6 +66,13 @@
                    <!-- <li>
 						<img src="<?php echo base_url(); ?>assets/wrain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
 						</li>-->
+						
+						<li style="padding:08px 10px;">
+							<a href="<?php echo base_url(); ?>feesstructure/view_term_fees_master" class="abox"style="padding:03px 15px;border-color: white;">
+								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Fess Status</p>
+							</a>
+						</li>
+						
 						<li style="padding:08px 10px;">
 							<a href="<?php echo base_url(); ?>communication/add_communication" class="abox"style="padding:03px 15px;border-color: white;">
 								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
@@ -143,7 +150,11 @@
                         <li id="masters2"><a href="<?php echo base_url();  ?>years/terms">Academic Terms</a></li>
                         <li id="masters3"><a href="<?php echo base_url(); ?>classadd/addclass">Class & Sections</a></li>
                         <li id="masters4" ><a href="<?php echo base_url(); ?>subjectadd/addsubject">Subjects</a></li>
-                          <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
+                        <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
+						<li id="masters9"><a href="<?php echo base_url(); ?>feesstructure/fees_master">Fees</a></li>
+						<li id="masters6"><a href="<?php echo base_url(); ?>quota/home">Add Quota </a></li>
+                        <li id="masters7" ><a href="<?php echo base_url(); ?>groups/home">Add Groups</a></li>
+                        <li id="masters8"><a href="<?php echo base_url(); ?>extracurricular/home">Add Activities</a></li>
 
                      </ul>
                   </div>
