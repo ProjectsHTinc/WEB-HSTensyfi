@@ -28,7 +28,9 @@ class Teacherprofile extends CI_Controller {
            //print_r($datas['result']);exit;
 		 $datas['resubject'] = $this->subjectmodel->getsubject();
 		 $datas['getall_class']=$this->class_manage->getall_class();
-		if($user_type==1 || $user_type==2 || $user_type==3 ||$user_type==4 ){
+		 $datas['groups']=$this->teacherprofilemodel->get_all_groups_details();
+		 $datas['activities']=$this->teacherprofilemodel->get_all_activities_details();
+		if($user_type==2){
 		$this->load->view('adminteacher/teacher_header',$datas);
 		$this->load->view('adminteacher/profile_update',$datas);
 		$this->load->view('adminteacher/teacher_footer');
@@ -42,7 +44,7 @@ class Teacherprofile extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_name=$this->session->userdata('user_name');
 			$user_type=$this->session->userdata('user_type');
-		 	if($user_type==1 || $user_type==2 || $user_type==3 ||$user_type==4 )
+		 	if($user_type==2)
 			{
 				        $user_id=$this->input->post('user_id');
 			          	//echo $user_id;exit;

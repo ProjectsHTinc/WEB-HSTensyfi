@@ -15,15 +15,6 @@ Class Teacherprofilemodel extends CI_Model
      $query="SELECT ed.*,et.* FROM edu_users AS ed LEFT JOIN edu_teachers AS et ON ed.teacher_id=et.teacher_id WHERE ed.user_id='$user_id'";
      $resultset=$this->db->query($query);
      return $resultset->result();
-
-	    // $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
-      // 		$resultset=$this->db->query($query);
-      // 		$row=$resultset->result();
-      // 		foreach($row as $rows){}
-      // 		$teacher_id=$rows->teacher_id;
-      //    $query="SELECT * FROM edu_teachers WHERE teacher_id='$teacher_id'";
-      //    $resultset=$this->db->query($query);
-      //    return $resultset->result();
    }
 
    function get_teacheruser($user_id)
@@ -68,5 +59,26 @@ Class Teacherprofilemodel extends CI_Model
          return $data;
        }
  }
+ 
+ //get all groups deatis 
+		   
+		   function get_all_groups_details()
+		   {
+			   $query="SELECT * FROM edu_groups WHERE status='Active'";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			     return $res;
+		   }
+		   
+		   //get all activities deatis 
+		   
+		   function get_all_activities_details()
+		   {
+			   $query="SELECT * FROM edu_extra_curricular WHERE status='Active'";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			     return $res;
+		   }
+
 
 }
