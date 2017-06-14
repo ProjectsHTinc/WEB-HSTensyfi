@@ -64,7 +64,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "Class Name";
+					$res["opn"] = "SOMETHING WENT WRONG ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -92,7 +92,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "Section Name";
+					$res["opn"] = "SOMETHING WENT WRONG ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -121,7 +121,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "STUDENTS ";
+					$res["opn"] = "SOMETHING WENT WRONG  ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -153,7 +153,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "STUDENTS";
+					$res["opn"] = "SOMETHING WENT WRONG ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -161,9 +161,6 @@ class Adminapi extends CI_Controller {
 					return;
 				}
 				  $student_id=$this->input->post('student_id');
-
-
-
 				$data['result']=$this->adminapimodel->get_student_details($student_id);
 				$response = $data['result'];
 				echo json_encode($response);
@@ -184,7 +181,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "HOMEWORK ";
+					$res["opn"] = "SOMETHING WENT WRONG  ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -214,7 +211,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "HOMEWORK ";
+					$res["opn"] = "SOMETHING WENT WRONG  ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -244,7 +241,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "CLASSTEST ";
+					$res["opn"] = "SOMETHING WENT WRONG  ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -275,7 +272,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "CLASSTEST";
+					$res["opn"] = "SOMETHING WENT WRONG ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -304,7 +301,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "EXAM";
+					$res["opn"] = "SOMETHING WENT WRONG ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -333,7 +330,7 @@ class Adminapi extends CI_Controller {
 				if($_POST == FALSE)
 				{
 					$res = array();
-					$res["opn"] = "EXAM";
+					$res["opn"] = "SOMETHING WENT WRONG ";
 					$res["scode"] = 204;
 					$res["message"] = "Input error";
 
@@ -349,6 +346,116 @@ class Adminapi extends CI_Controller {
 
 
 
+			// GET ALL TEACHERS
 
+			public function get_all_teachers()
+			{
+				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+				if(!$this->checkMethod())
+				{
+					return FALSE;
+				}
+
+				if($_POST == FALSE)
+				{
+					$res = array();
+					$res["opn"] = "SOMETHING WENT WRONG ";
+					$res["scode"] = 204;
+					$res["message"] = "Input error";
+
+					echo json_encode($res);
+					return;
+				}
+
+				$data['result']=$this->adminapimodel->get_all_teachers();
+				$response = $data['result'];
+				echo json_encode($response);
+			}
+
+
+
+			// GET  TEACHER DETAIlS
+
+			public function get_teacher()
+			{
+				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+				if(!$this->checkMethod())
+				{
+					return FALSE;
+				}
+
+				if($_POST == FALSE)
+				{
+					$res = array();
+					$res["opn"] = "SOMETHING WENT WRONG ";
+					$res["scode"] = 204;
+					$res["message"] = "Input error";
+
+					echo json_encode($res);
+					return;
+				}
+				$teacher_id=$this->input->post('teacher_id');
+				$data['result']=$this->adminapimodel->get_teacher($teacher_id);
+				$response = $data['result'];
+				echo json_encode($response);
+			}
+
+
+			// GET  TEACHER CLASS DETAIlS
+			public function get_teacher_class_details()
+			{
+				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+				if(!$this->checkMethod())
+				{
+					return FALSE;
+				}
+
+				if($_POST == FALSE)
+				{
+					$res = array();
+					$res["opn"] = "SOMETHING WENT WRONG ";
+					$res["scode"] = 204;
+					$res["message"] = "Input error";
+
+					echo json_encode($res);
+					return;
+				}
+				$teacher_id=$this->input->post('teacher_id');
+				$data['result']=$this->adminapimodel->get_teacher_class_details($teacher_id);
+				$response = $data['result'];
+				echo json_encode($response);
+			}
+
+
+
+			// GET  LIST OF PARENTS
+			public function get_list_of_parents()
+			{
+				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+				if(!$this->checkMethod())
+				{
+					return FALSE;
+				}
+
+				if($_POST == FALSE)
+				{
+					$res = array();
+					$res["opn"] = "SOMETHING WENT WRONG ";
+					$res["scode"] = 204;
+					$res["message"] = "Input error";
+
+					echo json_encode($res);
+					return;
+				}
+				$class_id=$this->input->post('class_id');
+				$section_id=$this->input->post('section_id');
+				$data['result']=$this->adminapimodel->get_list_of_parents($class_id,$section_id);
+				$response = $data['result'];
+				echo json_encode($response);
+			}
 
 }
