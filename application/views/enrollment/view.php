@@ -67,11 +67,11 @@
                                      echo date_format($date,"d-m-Y"); ?></td>
                                      <!-- <td><?php echo $rows->status; ?></td> -->
 									 <td><?php 
-									  if($stu=='A'){?>
+									  if($stu=='Active'){?>
 									   <button class="btn btn-success btn-fill btn-wd">Active</button>
 									   
 									 <?php  }else{?>
-									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button><?php }
+									  <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
 									 ?></td>
                                     <td>
                                         <a href="<?php echo base_url(); ?>admission/get_ad_id1/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="View Admission Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">

@@ -12,7 +12,7 @@ Class Teachermodel extends CI_Model
 //CREATE ADMISSION
 
 
-        function teacher_create($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$userFileName)
+        function teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$groups_id,$activity_id,$status,$user_id,$userFileName)
 
 		{
           $check_email="SELECT * FROM edu_teachers WHERE email='$email'";
@@ -20,7 +20,7 @@ Class Teachermodel extends CI_Model
           if($result->num_rows()==0){
 
 
-          $query="INSERT INTO edu_teachers (name,email,sec_email,sex,dob,age,nationality,religion,community_class,community,phone,sec_phone,address,class_teacher,class_name,subject,profile_pic,created_at,update_at,status) VALUES ('$name','$email','$sec_email','$sex','$dob','$age','$nationality','$religion','$community_class','$community','$mobile','$sec_phone','$address','$class_teacher','$class_name','$subject','$userFileName',NOW(),NOW(),'A')";
+          $query="INSERT INTO edu_teachers (name,email,sec_email,sex,dob,age,nationality,religion,community_class,community,phone,sec_phone,address,class_teacher,class_name,subject,house_id,extra_curicullar_id,profile_pic,created_by,created_at,status) VALUES ('$name','$email','$sec_email','$sex','$formatted_date','$age','$nationality','$religion','$community_class','$community','$mobile','$sec_phone','$address','$class_teacher','$class_name','$subject','$groups_id','$activity_id','$userFileName','$user_id',NOW(),'$status')";
 
            $resultset=$this->db->query($query);
            $insert_id = $this->db->insert_id();
@@ -108,8 +108,8 @@ Class Teachermodel extends CI_Model
          }
        }
 
-       function save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$status,$teacher_id){
-            $query="UPDATE edu_teachers SET name='$name',email='$email',sec_email='$sec_email',sex='$sex',age='$age',nationality='$nationality',religion='$religion',community_class='$community_class',community='$community',phone='$mobile',sec_phone='$sec_phone',address='$address',profile_pic='$userFileName',class_teacher='$class_teacher',class_name='$class_name',subject='$subject',status='$status',update_at=NOW() WHERE teacher_id='$teacher_id'";
+       function save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$groups_id,$activity_id,$status,$user_id,$teacher_id){
+            $query="UPDATE edu_teachers SET name='$name',email='$email',sec_email='$sec_email',sex='$sex',age='$age',nationality='$nationality',religion='$religion',community_class='$community_class',community='$community',phone='$mobile',sec_phone='$sec_phone',address='$address',profile_pic='$userFileName',class_teacher='$class_teacher',class_name='$class_name',subject='$subject',house_id='$groups_id',extra_curicullar_id='$activity_id',status='$status',update_at=NOW(),updated_by='$user_id' WHERE teacher_id='$teacher_id'";
              $res=$this->db->query($query);
 			  $query1="UPDATE edu_users SET name='$name',updated_date=NOW() WHERE teacher_id='$teacher_id'";
 			  $res1=$this->db->query($query1);
@@ -134,6 +134,27 @@ Class Teachermodel extends CI_Model
 			      $query = "SELECT * FROM edu_teachers ";
 				  $resultset = $this->db->query($query);
 				  return $resultset->result();
+		   }
+		   
+		   
+		     //get all groups deatis 
+		   
+		   function get_all_groups_details()
+		   {
+			   $query="SELECT * FROM edu_groups WHERE status='Active'";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			     return $res;
+		   }
+		   
+		   //get all activities deatis 
+		   
+		   function get_all_activities_details()
+		   {
+			   $query="SELECT * FROM edu_extra_curricular WHERE status='Active'";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			     return $res;
 		   }
 
 }

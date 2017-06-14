@@ -25,8 +25,8 @@
 
                                 ?>
                                         <div class="col-md-10">
-                                            <h5><?php echo $i; ?>. <?php echo $rows->term_name;  ?> ( <?php $date=date_create($rows->due_date_to);
-                                                           echo date_format($date,"d-m-Y");  ?> ) </h5>
+                                            <h5><?php echo $i; ?>. <?php echo $rows->term_name;  ?> ( <button class="btn btn-social btn-simple btn-linkedin"> Due Date : <?php $date=date_create($rows->due_date_to);
+                                                           echo date_format($date,"d-m-Y");  ?> </button>  ) </h5>
                                             <blockquote>
                                                <p><?php echo $rows->notes; ?><span style="float: right;"> <?php 
 									  if($paid=='Paid'){?>

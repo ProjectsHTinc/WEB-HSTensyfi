@@ -39,6 +39,8 @@ class Teacher extends CI_Controller {
 			$datas['get_all_class_notexist']=$this->class_manage->get_all_class_notexist();
 			 $datas['getall_class']=$this->class_manage->getall_class();
 			$datas['resubject'] = $this->subjectmodel->getsubject();
+			$datas['groups']=$this->teachermodel->get_all_groups_details();
+			$datas['activities']=$this->teachermodel->get_all_activities_details();
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
 	 		 $this->load->view('header');
@@ -58,7 +60,7 @@ class Teacher extends CI_Controller {
  			if($user_type==1)
 			{
 			 $clas=$this->input->post('class_name');
- 			 $class_name = implode(',',$clas);
+ 			 $class_name=implode(',',$clas);
 
 			 $class_teacher=$this->input->post('class_teacher');
 			 $subject=$this->input->post('subject');
@@ -67,20 +69,27 @@ class Teacher extends CI_Controller {
 
 			 $sec_email=$this->input->post('sec_email');
 
-		    $sex=$this->input->post('sex');
+		      $sex=$this->input->post('sex');
 
 			 $dob=$this->input->post('dob');
 			 $dateTime = new DateTime($dob);
-       $formatted_date=date_format($dateTime,'Y-m-d' );
+              $formatted_date=date_format($dateTime,'Y-m-d' );
 
 			 $age=$this->input->post('age');
-		    $nationality=$this->input->post('nationality');
+		     $nationality=$this->input->post('nationality');
 			 $religion=$this->input->post('religion');
 		 	 $community_class=$this->input->post('community_class');
-		    $community=$this->input->post('community');
+		     $community=$this->input->post('community');
 			 $mobile=$this->input->post('mobile');
 
 			 $sec_phone=$this->input->post('sec_phone');
+			 
+			 $groups_id=$this->input->post('groups_id');
+			 $activity=$this->input->post('activity_id');
+			 $activity_id=implode(',',$activity);
+			 
+			 //print_r($activity_id);exit;
+			 $status=$this->input->post('status');
 
 			 $address=$this->input->post('address');
 			 $teacher_pic = $_FILES["teacher_pic"]["name"];
@@ -88,7 +97,7 @@ class Teacher extends CI_Controller {
 			 $uploaddir = 'assets/teachers/';
 			 $profilepic = $uploaddir.$userFileName;
 				move_uploaded_file($_FILES['teacher_pic']['tmp_name'], $profilepic);
-				$datas=$this->teachermodel->teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$userFileName);
+				$datas=$this->teachermodel->teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$groups_id,$activity_id,$status,$user_id,$userFileName);
 
 			//	print_r($datas['status']);exit;
 				if($datas['status']=="success"){
@@ -138,6 +147,8 @@ class Teacher extends CI_Controller {
 		    $datas['getall_class']=$this->class_manage->getall_class();
 		 	$datas['res']=$this->teachermodel->get_teacher_id($teacher_id);
 			$datas['resubject'] = $this->subjectmodel->getsubject();
+			$datas['groups']=$this->teachermodel->get_all_groups_details();
+			$datas['activities']=$this->teachermodel->get_all_activities_details();
 			//echo "<pre>";print_r(	$datas['res']);exit;
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
@@ -177,6 +188,11 @@ class Teacher extends CI_Controller {
 			 $mobile=$this->input->post('mobile');
 			 $address=$this->input->post('address');
 			 $status=$this->input->post('status');
+			 
+			 $groups_id=$this->input->post('groups_id');
+			 $activity=$this->input->post('activity_id');
+			 $activity_id=implode(',',$activity);
+			 
 			 $user_pic_old=$this->input->post('old_pic');
 			 $student_pic = $_FILES["teacher_pic"]["name"];
 			 $userFileName =time().'-'.$student_pic;
@@ -188,7 +204,7 @@ class Teacher extends CI_Controller {
 						$userFileName=$user_pic_old;
 				}
 
-				$datas=$this->teachermodel->save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$status,$teacher_id);
+				$datas=$this->teachermodel->save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$groups_id,$activity_id,$status,$user_id,$teacher_id);
 			//	print_r($datas['status']);exit;
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Updated Successfully');

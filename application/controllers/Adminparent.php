@@ -316,7 +316,6 @@ class Adminparent extends CI_Controller {
 			else{
 				 redirect('/');
 			}
-
 	   }
 
 	   

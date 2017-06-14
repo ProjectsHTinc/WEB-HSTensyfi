@@ -46,7 +46,7 @@
 									 <td class="text-left"><?php echo $rows->class_name;?>-<?php echo $rows->sec_name; ?></td>
 									 
 									 <td><?php 
-									  if($stu=='A'){?>
+									  if($stu=='Active'){?>
 									   <button class="btn btn-success btn-fill btn-wd">Active</button>
 									   
 									 <?php  }else{?>
