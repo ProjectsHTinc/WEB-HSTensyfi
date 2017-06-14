@@ -114,13 +114,29 @@ Class Admissionmodel extends CI_Model
 					$resultset = $this->db->query($query);
 					return  count($resultset->result());
 		   }
-  function get_enrollment_admisno()
-  {
-	   $sql="SELECT admisn_no FROM edu_admission WHERE enrollment=0";
-	   $res=$this->db->query($sql);
-	   return $res->result();
+	  function get_enrollment_admisno()
+	  {
+		   $sql="SELECT admisn_no FROM edu_admission WHERE enrollment=0";
+		   $res=$this->db->query($sql);
+		   return $res->result();
 
-  }
+	  }
 
+	   //sorting 
+
+ 	    function get_sorting_admission_details()
+		{
+		   $sql="SELECT sex FROM edu_admission GROUP BY sex ";
+		   $res=$this->db->query($sql);
+		   return $res->result();
+			
+		}
+		
+		function get_sorting_gender_details($gender)
+		{
+		  $query="SELECT * FROM  edu_admission WHERE sex='$gender' ORDER BY admission_id DESC";
+          $res=$this->db->query($query);
+          return $res->result();
+		}
 }
 ?>

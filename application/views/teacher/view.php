@@ -16,8 +16,23 @@
                             <div class="content">
 
                                 <div class="fresh-datatables">
-                                  <h4 class="title">List of Teacher</h4>
-
+                                  <h4 class="title" style="padding-bottom: 20px;">List of Teacher</h4>
+                               <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
+										 <div class="col-sm-2">
+                                            <select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
+											
+                                       <?php  foreach ($sorting as $rows)
+								          { ?>
+									 <option value="<?php echo $rows->sex; ?>"><?php echo $rows->sex;?>
+                                    </option>
+										<?php } ?>
+                                            </select>
+                                          </div>    
+											
+										 <div class="col-sm-4">
+                                            <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
+                                        </div>
+										</form>
                           <table id="bootstrap-table" class="table">
                               <thead>
 
@@ -34,6 +49,34 @@
                               <tbody>
                                 <?php
                                 $i=1;
+								if(!empty($gender)){
+								foreach ($gender as $rows) {
+									$stu=$rows->status;
+                                ?>
+								 <tr>
+                                    <td class="text-left"><?php echo $i; ?></td>
+                                    <td class="text-left"><?php echo $rows->name; ?></td>
+                                    <td class="text-left"><?php echo $rows->email; ?></td>
+                                    <td class="text-left"><?php echo $rows->phone; ?></td>
+									<td class="text-left"><?php echo $rows->class_name;?>-<?php echo $rows->sec_name; ?></td>
+
+									 <td><?php 
+									  if($stu=='Active'){?>
+									   <button class="btn btn-success btn-fill btn-wd">Active</button>
+									   
+									 <?php  }else{?>
+									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button><?php }
+									 ?></td>
+									 
+                                    
+                                    <td class="text-left">
+
+                                      <a href="<?php echo base_url(); ?>teacher/get_teacher_id/<?php echo $rows->teacher_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+
+                                    </td>
+                                  </tr>
+									
+								<?php $i++; }}else{
                                 foreach ($result as $rows) {
 													$stu=$rows->status;
                                 ?>
@@ -60,7 +103,7 @@
 
                                     </td>
                                   </tr>
-                                  <?php $i++;  }  ?>
+								<?php  $i++;  } } ?>
                               </tbody>
                           </table>
 

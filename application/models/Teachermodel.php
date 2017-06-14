@@ -144,7 +144,7 @@ Class Teachermodel extends CI_Model
 			   $query="SELECT * FROM edu_groups WHERE status='Active'";
      	       $resultset=$this->db->query($query);
 		       $res=$resultset->result(); 
-			     return $res;
+			   return $res;
 		   }
 		   
 		   //get all activities deatis 
@@ -156,6 +156,22 @@ Class Teachermodel extends CI_Model
 		       $res=$resultset->result(); 
 			     return $res;
 		   }
-
+           //---------------Sorting-------------
+		   
+		   function get_sorting_result()
+		   {
+			   $query="SELECT sex FROM edu_teachers GROUP BY sex";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			   return $res;
+		   }
+		   
+		   function get_all_sorting_result($gender)
+		   {
+			   $query="SELECT t.*,cm.class_sec_id,cm.class,cm.section,c.*,s.* FROM edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE t.sex='$gender' AND t.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id ";
+     	       $resultset=$this->db->query($query);
+		       $res=$resultset->result(); 
+			   return $res;
+		   }
 }
 ?>

@@ -116,11 +116,27 @@ Class Enrollmentmodel extends CI_Model
        //GET ALL Admission Form get_enrollmentid
 
        function get_all_enrollment(){
-         $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id ORDER BY enroll_id DESC";
+         $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c,edu_admission AS a WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND e.admission_id=a.admission_id AND e.name=a.name AND e.admisn_no=a.admisn_no ORDER BY enroll_id DESC";
          $res=$this->db->query($query);
          return $res->result();
        }
-
+ 
+     // Sorting 
+	 
+	 function get_all_enrollment_sorting_details()
+	 {
+         $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_admission AS a,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND  e.admission_id=a.admission_id AND e.name=a.name AND e.admisn_no=a.admisn_no Group BY sex ";
+         $res=$this->db->query($query);
+         return $res->result();
+       }
+	   
+	   function get_sorting_details($gender,$cls_mst_id)
+	   {
+		   $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c,edu_admission AS a WHERE e.class_id='$cls_mst_id' AND e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND e.admission_id=a.admission_id AND e.name=a.name AND e.admisn_no=a.admisn_no AND a.sex='$gender' ORDER BY enroll_id DESC";
+           $res=$this->db->query($query);
+           return $res->result();
+	   }
+	   //-------------------
 
        function get_enrollmentid($admisn_no){
          $query="SELECT * FROM edu_enrollment WHERE admisn_no='$admisn_no'";

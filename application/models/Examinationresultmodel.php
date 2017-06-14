@@ -82,7 +82,7 @@ Class Examinationresultmodel extends CI_Model
 			$row=$resultset->result();
 			 foreach($row as $rows){}
 			 $teacher_id=$rows->teacher_id; 
-			 $get_classes="SELECT class_teacher FROM edu_teachers WHERE teacher_id='$teacher_id' AND status='A'";
+			 $get_classes="SELECT class_teacher FROM edu_teachers WHERE teacher_id='$teacher_id' AND status='Active'";
 			 $resultset1=$this->db->query($get_classes);
 			 $res=$resultset1->result();
 			 return $res;

@@ -120,16 +120,38 @@ class Teacher extends CI_Controller {
 // GET ALL ADMISSION DETAILS
 
 		public function view(){
-			$datas=$this->session->userdata();
-		 $user_id=$this->session->userdata('user_id');
-
+		  $datas=$this->session->userdata();
+		  $user_id=$this->session->userdata('user_id');
+          $user_type=$this->session->userdata('user_type');
 		  $datas['getall_class']=$this->class_manage->getall_class();
-			$datas['result'] = $this->teachermodel->get_all_teacher();
-			$datas['resubject'] = $this->subjectmodel->getsubject();
-
-		//print_r(	$datas['resubject']);exit;
-			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
+		  $datas['result'] = $this->teachermodel->get_all_teacher();
+		  $datas['resubject'] = $this->subjectmodel->getsubject();
+		  $datas['sorting'] = $this->teachermodel->get_sorting_result();
+		  //print_r($datas['sorting']);exit;
+		 if($user_type==1){
+		 $this->load->view('header');
+		 $this->load->view('teacher/view',$datas);
+		 $this->load->view('footer');
+		 }
+		 else{
+				redirect('/');
+		 }
+		}
+		
+		public function get_sorting_details(){
+		  $datas=$this->session->userdata();
+		  $user_id=$this->session->userdata('user_id');
+          $user_type=$this->session->userdata('user_type');
+		  
+		  $gender=$this->input->post('gender');
+		  $datas['getall_class']=$this->class_manage->getall_class();
+		  $datas['result'] = $this->teachermodel->get_all_teacher();
+		  $datas['resubject'] = $this->subjectmodel->getsubject();
+		  $datas['sorting'] = $this->teachermodel->get_sorting_result();
+		  
+		  $datas['gender'] = $this->teachermodel->get_all_sorting_result($gender);
+		  //echo'<pre>';print_r($datas['gender']);exit;
+		 if($user_type==1){
 		 $this->load->view('header');
 		 $this->load->view('teacher/view',$datas);
 		 $this->load->view('footer');
@@ -229,20 +251,20 @@ class Teacher extends CI_Controller {
 		}
 
          public function checker()
-                {
-					$email = $this->input->post('email');
+         {
+			$email = $this->input->post('email');
 
-					$numrows = $this->teachermodel->getemail($email);
+			$numrows = $this->teachermodel->getemail($email);
 
-					if ($numrows > 0)
-				     {
-						echo "Email Id already Exit";
-					 }
-					else
-					 {
-						echo "Email Id Available";
-					 }
-                }
+			if ($numrows > 0)
+		     {
+				echo "Email Id already Exit";
+			 }
+			else
+			 {
+				echo "Email Id Available";
+			 }
+        }
 
 
 }

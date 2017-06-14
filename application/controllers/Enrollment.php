@@ -140,8 +140,9 @@ class Enrollment extends CI_Controller {
 		 $datas=$this->session->userdata();
 		 $user_id=$this->session->userdata('user_id');
 		 $datas['result'] = $this->enrollmentmodel->get_all_enrollment();
+		 $datas['sorting'] = $this->enrollmentmodel->get_all_enrollment_sorting_details();
 		 $datas['year'] = $this->yearsmodel->admisn_year();
-			//echo "<pre>";print_r(	$datas['result']);exit;
+			//echo "<pre>";print_r(	$datas['sorting']);exit;
 			$user_type=$this->session->userdata('user_type');
  		 if($user_type==1){
 		 $this->load->view('header');
@@ -252,9 +253,28 @@ class Enrollment extends CI_Controller {
 						echo "Add Enrollment";
 					 }
 		  }
-		  //get all quota name 
+		  //get all sorting Gender 
+		  public function get_sorting_details()
+		  {
+			  $datas=$this->session->userdata();
+			  $user_id=$this->session->userdata('user_id');
+			  $user_type=$this->session->userdata('user_type');
+			  $gender=$this->input->post('gender');
+			  $cls_mst_id=$this->input->post('cls');
+			  
+			  //echo $gender; echo $cls_mst_id; exit;
+		      $datas['gender']=$this->enrollmentmodel->get_sorting_details($gender,$cls_mst_id);
+			  $datas['result'] = $this->enrollmentmodel->get_all_enrollment();
+			  $datas['sorting'] = $this->enrollmentmodel->get_all_enrollment_sorting_details();
+			  $datas['year'] = $this->yearsmodel->admisn_year();
+			   //echo"<pre>";print_r($datas['sorting']);exit;
+		      if($user_type==1){
+				$this->load->view('header');
+				$this->load->view('enrollment/view',$datas);
+				$this->load->view('footer');
+				}else{
+						redirect('/');
+				}
 		  
-		
-
-
+		  }
 }
