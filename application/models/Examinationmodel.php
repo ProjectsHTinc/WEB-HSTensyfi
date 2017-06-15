@@ -7,7 +7,7 @@ Class Examinationmodel extends CI_Model
   {
       parent::__construct();
 
-  }edu_enrollment
+  }
   function get_exam_details()
 	 {
 		$query="SELECT e.*,y.year_id,y.from_month,y.to_month FROM edu_examination AS e,edu_academic_year AS y WHERE e.exam_year=y.year_id  ORDER BY exam_id DESC";
