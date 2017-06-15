@@ -419,6 +419,26 @@ class Apiadminmodel extends CI_Model {
                 }
               }
 
+              //#################### GET TimeTable FOR CLASS  ####################//
+            function get_timetable_for_class($class_id,$section_id){
+              $sql="SELECT class_sec_id FROM edu_classmaster WHERE class='$class_id' AND section='$section_id'";
+              $res=$this->db->query($sql);
+              $result=$res->result();
+              foreach($result as $rows){   }
+              $classid=$rows->class_sec_id;
+              $year_id=$this->getYear();
+              $query="SELECT tt.table_id,tt.class_id,tt.subject_id,COALESCE(s.subject_name,' ') AS subject_name,tt.teacher_id,COALESCE(t.name,' ') AS teacher_name,tt.day,COALESCE(ed.list_day,' ') AS w_days,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id LEFT JOIN edu_days AS ed  ON tt.day=ed.d_id WHERE tt.class_id='$classid' AND tt.year_id='$year_id' ORDER BY tt.table_id ASC";
+              $result_query=$this->db->query($query);
+              if($result_query->num_rows()==0){
+                  $data=array("msg"=>"nodata");
+                  return $data;
+              }else{
+                $result=$result_query->result();
+                $data=array("msg"=>"success","data"=>$result);
+                return $data;
+              }
+            }
+
 }
 
 ?>

@@ -521,32 +521,61 @@ class Apiadmin extends CI_Controller {
 
 
 
-										// GET  LIST OF EXAM FOR A CLASS
-										public function list_of_exams_class()
-										{
-											//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+						// GET  LIST OF EXAM FOR A CLASS
+						public function list_of_exams_class()
+						{
+							//$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
-											if(!$this->checkMethod())
-											{
-												return FALSE;
-											}
+							if(!$this->checkMethod())
+							{
+								return FALSE;
+							}
 
-											if($_POST == FALSE)
-											{
-												$res = array();
-												$res["opn"] = "SOMETHING WENT WRONG ";
-												$res["scode"] = 204;
-												$res["message"] = "Input error";
+							if($_POST == FALSE)
+							{
+								$res = array();
+								$res["opn"] = "SOMETHING WENT WRONG ";
+								$res["scode"] = 204;
+								$res["message"] = "Input error";
 
-												echo json_encode($res);
-												return;
-											}
-											$class_id=$this->input->post('class_id');
-											$section_id=$this->input->post('section_id');
-											$data['result']=$this->apiadminmodel->list_of_exams_class($class_id,$section_id);
-											$response = $data['result'];
-											echo json_encode($response);
-										}
+								echo json_encode($res);
+								return;
+							}
+							$class_id=$this->input->post('class_id');
+							$section_id=$this->input->post('section_id');
+							$data['result']=$this->apiadminmodel->list_of_exams_class($class_id,$section_id);
+							$response = $data['result'];
+							echo json_encode($response);
+						}
+
+
+
+				// GET  Timetable FOR A CLASS
+				public function get_timetable_for_class()
+				{
+					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+					if(!$this->checkMethod())
+					{
+						return FALSE;
+					}
+
+					if($_POST == FALSE)
+					{
+						$res = array();
+						$res["opn"] = "SOMETHING WENT WRONG ";
+						$res["scode"] = 204;
+						$res["message"] = "Input error";
+
+						echo json_encode($res);
+						return;
+					}
+					$class_id=$this->input->post('class_id');
+					$section_id=$this->input->post('section_id');
+					$data['result']=$this->apiadminmodel->get_timetable_for_class($class_id,$section_id);
+					$response = $data['result'];
+					echo json_encode($response);
+				}
 
 
 }
