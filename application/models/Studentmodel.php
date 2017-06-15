@@ -27,7 +27,7 @@ Class Studentmodel extends CI_Model
 			$name=$row2->name;
 			$parnt_guardn_id=$row2->parnt_guardn_id;}
 
-			$query2="SELECT * FROM edu_enrollment WHERE admission_id='$admission_id' AND admisn_no='$admisn_no' AND name='$name' AND status='A'";
+			$query2="SELECT * FROM edu_enrollment WHERE admission_id='$admission_id' AND admisn_no='$admisn_no' AND name='$name' AND status='Active'";
 			$result1=$this->db->query($query2);
 			$row3=$result1->result();
 			foreach($row3 as $row4){

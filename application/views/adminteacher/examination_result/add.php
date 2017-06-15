@@ -11,7 +11,7 @@
             <div class="col-md-12">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">Examination Mark Enter</h4>
+                     <h4 class="title">Examination Name</h4>
                   </div>
                   <div class="content">
                      <div class="row">
@@ -20,8 +20,6 @@
 					   {
 						  $ex_name=$row->exam_name;
 						  $exam_id=$row->exam_id;
-						  //echo $ex_name;
-						 //echo $exam_year;
 					   ?>
                         <div class="col-md-2">
                            <a rel="tooltip" href="<?php echo base_url(); ?>examinationresult/class_section?var=<?php echo $exam_id; ?>"  class="btn btn-wd"><?php echo $ex_name; ?></a>
@@ -33,13 +31,7 @@
                </div>
             </div>
          </div>
-         <!-- row -->
-
-
-
          <!-- end row -->
-
-
       </div>
    </div>
 </div>

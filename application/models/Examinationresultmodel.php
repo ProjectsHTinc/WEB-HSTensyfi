@@ -107,7 +107,7 @@ Class Examinationresultmodel extends CI_Model
 			foreach($row as $rows){}
 			$teacher_id=$rows->teacher_id;
 			//echo $teacher_id;exit;
-		    $sql="SELECT t.teacher_id,t.name,t.subject,t.class_teacher,su.*,en.* FROM edu_subject AS su,edu_teachers AS t,edu_enrollment AS en WHERE t.teacher_id='$teacher_id' AND t.subject=su.subject_id AND en.class_id='$cls_masid'";
+		    $sql="SELECT t.teacher_id,t.name,t.subject,t.class_teacher,su.*,en.* FROM edu_subject AS su,edu_teachers AS t,edu_enrollment AS en WHERE t.teacher_id='$teacher_id' AND t.subject=su.subject_id AND en.class_id='$cls_masid' AND en.status='Active'";
 			$res=$this->db->query($sql);
 			$result=$res->result();
 			return $result;
@@ -170,7 +170,7 @@ Class Examinationresultmodel extends CI_Model
 			//echo $teacher_id;exit;
 		    //$sql="SELECT t.teacher_id,t.class_teacher,t.name,t.subject,en.enroll_id,en.name,en.admisn_no,en.class_id FROM edu_teachers AS t,edu_enrollment AS en WHERE t.teacher_id='$teacher_id' AND en.class_id='$cls_masid'";
 			
-		     $sql="SELECT en.enroll_id,en.name,en.admisn_no,en.class_id,m.subject_id,m.classmaster_id,m.marks FROM edu_enrollment AS en,edu_exam_marks AS m WHERE en.class_id='$cls_masid' AND en.enroll_id=m.stu_id AND m.exam_id='$exam_id' ";
+		     $sql="SELECT en.enroll_id,en.name,en.admisn_no,en.class_id,m.subject_id,m.classmaster_id,m.internal_mark,m.internal_grade,m.external_mark,m.external_grade,m.total_marks,m.total_grade FROM edu_enrollment AS en,edu_exam_marks AS m WHERE en.class_id='$cls_masid' AND en.enroll_id=m.stu_id AND m.exam_id='$exam_id' ";
 			$res=$this->db->query($sql); 
 			$rows=$res->result();
 			return $rows;
@@ -178,25 +178,66 @@ Class Examinationresultmodel extends CI_Model
 	   
 
 	   
-	   function exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$marks)
+	   function exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id)
 	   {
 		    //if(!empty($marks)){
-		       $count_name = count($marks);
-			   //echo $count_name; //exit;
+		       $count_name = count($external_marks);
+			   //echo $count_name; exit;
 			   for($i=0;$i<$count_name;$i++)
 			   {
+				$user_id1=$user_id;
 				$sutid1=$sutid[$i];
 				//print_r($enroll);
 				$subid1=$subid;
 				$clsmastid1=$clsmastid;
 				$teaid1=$teaid;
 				$examid1=$exam_id;
-				$marks1=$marks[$i];
+				if(!empty($internal_marks[$i])){
+				$marks1=$internal_marks[$i];
+				}else{$marks1=0;$grade='null';}
+				//Internal Marks Grade
+				if($marks1>=37 && $marks1<=40){$grade='A1';}
+				if($marks1>=33 && $marks1<=36){$grade='A2';}
+				if($marks1>=29 && $marks1<=32){$grade='B1';}
+				if($marks1>=25 && $marks1<=28){$grade='B2';}
+				if($marks1>=21 && $marks1<=24){$grade='C1';}
+				if($marks1>=17 && $marks1<=20){$grade='C2';}
+				if($marks1>=13 && $marks1<=16){$grade='D';}
+				if($marks1>=9  && $marks1<=12){$grade='E1';}
+				if($marks1<=8){$grade='E2';}
+				
+				//External Mark Grade
+				$marks2=$external_marks[$i];
+				
+				if($marks2>=55 && $marks2<=60){$grade1='A1';}
+				if($marks2>=49 && $marks2<=54){$grade1='A2';}
+				if($marks2>=43 && $marks2<=48){$grade1='B1';}
+				if($marks2>=37 && $marks2<=42){$grade1='B2';}
+				if($marks2>=31 && $marks2<=36){$grade1='C1';}
+				if($marks2>=25 && $marks2<=30){$grade1='C2';}
+				if($marks2>=20 && $marks2<=24){$grade1='D';}
+				if($marks2>=13 && $marks2<=19){$grade1='E1';}
+				if($marks2<=12){$grade1='E2';}
+				
+				//Total Mark Grade
+				$total=$marks1+$marks2;
+				
+				if($total>=91 && $total<=100){$grade2='A1';}
+				if($total>=81 && $total<=90){$grade2='A2';}
+				if($total>=71 && $total<=80){$grade2='B1';}
+				if($total>=61 && $total<=70){$grade2='B2';}
+				if($total>=51 && $total<=60){$grade2='C1';}
+				if($total>=41 && $total<=50){$grade2='C2';}
+				if($total>=31 && $total<=40){$grade2='D';}
+				if($total>=21 && $total<=30){$grade2='E1';}
+				if($total<=20){$grade2='E2';}
+				
+				
 				/* $check="SELECT * FROM edu_exam_marks WHERE exam_id='$examid1' AND subject_id='$subid1' AND classmaster_id='$clsmastid1'";
 				$result1=$this->db->query($check);
 				if($result1->num_rows()==0)
 				{  */
-				  $query="INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,marks,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','$marks1',NOW())";
+				 echo $query="INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','$marks1','$grade','$marks2','$grade1','$total','$grade2','$user_id1',NOW())";
 				  $resultset1=$this->db->query($query);
 				 /* }else{
 					$data= array("status"=>"Already Added");
@@ -272,7 +313,7 @@ Class Examinationresultmodel extends CI_Model
 
 			//SELECT em.*,en.* FROM edu_exam_marks AS em,edu_enrollment AS en WHERE em.teacher_id='5' AND em.subject_id='9' AND em.classmaster_id='12' AND em.exam_id='7' AND em.classmaster_id=en.class_id GROUP BY enroll_id
 			
-			$sql1="SELECT * FROM edu_exam_marks WHERE teacher_id='$teacher_id' AND subject_id='$tsub' AND classmaster_id='$cls_masid' AND exam_id='$exam_id'";
+			 $sql1="SELECT * FROM edu_exam_marks WHERE teacher_id='$teacher_id' AND subject_id='$tsub' AND classmaster_id='$cls_masid' AND exam_id='$exam_id'";
 			 $result1=$this->db->query($sql1);
 			 $row1=$result1->result();
 			 return $row1;
@@ -303,21 +344,57 @@ Class Examinationresultmodel extends CI_Model
 			return $row;
 	   }
 	   
-	   function update_marks_details($teaid,$clsmastid,$exam_id,$subid,$marks,$sutid)
+	   function update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id)
 	   {
-		   $count_name = count($marks);
+		   $count_name = count($external_marks);
 		    //echo $count_name;
            for($i=0;$i<$count_name;$i++)
 		   {
-			$sutid1=$sutid[$i];
-			//print_r($enroll);
+			 $user_id1=$user_id;
+			 $sutid1=$sutid[$i];
 			 $subid1=$subid;
 			 $clsmastid1=$clsmastid;
 			 $teaid1=$teaid;
 			 $examid1=$exam_id;
-			 $marks1=$marks[$i];
-			//print_r($marks1);
-		   $update="UPDATE edu_exam_marks SET marks='$marks1',updated_at=NOW() WHERE exam_id='$examid1' AND teacher_id='$teaid1' AND classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
+
+			 //Internal Marks Grade
+			    $marks1=$internal_marks[$i];
+				if($marks1>=37 && $marks1<=40){$grade='A1';}
+				if($marks1>=33 && $marks1<=36){$grade='A2';}
+				if($marks1>=29 && $marks1<=32){$grade='B1';}
+				if($marks1>=25 && $marks1<=28){$grade='B2';}
+				if($marks1>=21 && $marks1<=24){$grade='C1';}
+				if($marks1>=17 && $marks1<=20){$grade='C2';}
+				if($marks1>=13 && $marks1<=16){$grade='D';}
+				if($marks1>=9  && $marks1<=12){$grade='E1';}
+				if($marks1<=8){$grade='E2';}
+				
+				
+				//External Mark Grade
+				$marks2=$external_marks[$i];
+				if($marks2>=55 && $marks2<=60){$grade1='A1';}
+				if($marks2>=49 && $marks2<=54){$grade1='A2';}
+				if($marks2>=43 && $marks2<=48){$grade1='B1';}
+				if($marks2>=37 && $marks2<=42){$grade1='B2';}
+				if($marks2>=31 && $marks2<=36){$grade1='C1';}
+				if($marks2>=25 && $marks2<=30){$grade1='C2';}
+				if($marks2>=20 && $marks2<=24){$grade1='D';}
+				if($marks2>=13 && $marks2<=19){$grade1='E1';}
+				if($marks2<=12){$grade1='E2';}
+				
+				//Total Mark Grade
+				$total=$marks1+$marks2;
+				if($total>=91 && $total<=100){$grade2='A1';}
+				if($total>=81 && $total<=90){$grade2='A2';}
+				if($total>=71 && $total<=80){$grade2='B1';}
+				if($total>=61 && $total<=70){$grade2='B2';}
+				if($total>=51 && $total<=60){$grade2='C1';}
+				if($total>=41 && $total<=50){$grade2='C2';}
+				if($total>=31 && $total<=40){$grade2='D';}
+				if($total>=21 && $total<=30){$grade2='E1';}
+				if($total<=20){$grade2='E2';}
+			
+		   $update="UPDATE edu_exam_marks SET internal_mark='$marks1',internal_grade='$grade',external_mark='$marks2',external_grade='$grade1',	total_marks='$total',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND teacher_id='$teaid1' AND classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
 		   $resultset=$this->db->query($update);
 		  }
 		  if($resultset){

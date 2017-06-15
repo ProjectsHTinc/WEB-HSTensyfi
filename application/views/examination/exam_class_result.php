@@ -7,6 +7,13 @@
        ×</button> <?php echo $this->session->flashdata('msg'); ?>
          </div>
        <?php endif; ?>
+	    <style>
+		 .grade{color: #1a0edd;padding: 10px;}
+		 .grade1{color: #0d871f;padding: 10px;}
+		 .grade2{color: #c117e3;padding: 10px;}
+		 .space{ padding:05px;}
+		 
+		 </style>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -67,60 +74,63 @@
                                     </thead>
 									
                                     <tbody>
-										<?php
-									if(!empty($stu))
-									{
-										$student_arr = array();
-										$student_array_generate($stu,$student_arr);
-										
-										$i = 1;
-										foreach ($student_arr as $k => $s1)
-										{
-											echo '<tr>';
-											echo '<td>' . $i . '</td>';
-											echo '<td>' . $k . '</td>';
-											$k = 1;
-											foreach ($s1 as $k1 => $s)
-											{
-												'<form name="exam" id="examvalidate">';
-												if(empty($s) === false && $k == 1){
-													echo '<input type="hidden" id="sid" name="sutid[]" value="'.$s->enroll_id.'" />';
-													echo '<input type="hidden" id="cid" name="clsmastid" value="'.$s->class_id.'" />';
-													$k++;
-												}
-												if($status=="Success")
-											   {
-												    echo '<td class="combat"><input type="hidden" required  name="subid" value="'.$k1.'" class="form-control"/>';
-
-													if(!empty($s))
-													{
-                                                      echo $s->marks;
-													//echo '<input style="width:60%;" type="text" required name="marks1" id="tmark" readonly value="'.$s->marks.'" class="form-control"  /></td>';
-
-													}else{
-														echo '<input required style="width:60%;" type="text" id="mark" name="marks" value=""  class="form-control"/>';
-														echo '<input type="hidden" required id="subid" name="subjectid[]" value="'.$k1.'" class="form-control"/>';
-													}
-
-												}
-											}
-										echo '<td class="total-combat">
-						                      </td>';
-												'</form>';
-											 echo '</tr>';
-											$i++;
-										}
-									}else{ echo "<p style=text-align:center;color:red;>No Exam Mark Added</p>"; }
-										?>
-										<?php if(empty($smark))
-									       { ?>
-										<tr>
-										 <td>
-										 <div class="col-sm-10">
-                                             <button type="submit" class="btn btn-info btn-fill center">Approve</button>
-                                          </div> </td>
-										</tr>
-										   <?php }else{ echo""; }?>
+									 <?php
+			 if(!empty($stu))
+			 {
+				$student_arr = array();
+				$student_array_generate($stu,$student_arr);
+				
+				$i = 1;
+				foreach ($student_arr as $k => $s1)
+				{
+					echo '<tr>';
+					echo '<td>' . $i . '</td>';
+					echo '<td>' . $k . '</td>';
+					$k = 1;
+					foreach ($s1 as $k1 => $s)
+					{
+						if(empty($s) === false && $k == 1){
+							echo '<input type="hidden" id="sid" name="sutid[]" value="'.$s->enroll_id.'" />';
+							echo '<input type="hidden" id="cid" name="clsmastid" value="'.$s->class_id.'" />';
+							$k++;
+						}
+						if($status=="Success")
+					   {    echo '<input type="hidden" required  name="subid" value="'.$k1.'" class="form-control"/>';
+							
+			              echo '<td>';
+							if(!empty($s))
+							{
+							 echo '<span class="grade">'; echo $s->internal_mark;   echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
+							 echo '<span class="grade1">'; echo $s->external_mark;   echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>';
+							 echo'<span class="combat">';
+							 echo '<span class="grade2">'; echo $s->total_marks;   echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
+							 echo'</span>';
+							}else{
+								'<form method="post" class="form-horizontal" enctype="multipart/form-data" id="markform">';
+								echo '<input required style="width:50%;" type="text" readonly name="totalmarks" class="form-control"/>';
+								'</form>';
+								echo '<input type="hidden" required id="subid" name="subjectid[]" value="'.$k1.'" class="form-control"/>';
+							}
+							echo '</td>';
+						}
+					}
+				echo '<td class="total-combat">
+								  </td>';
+						
+					 echo '</tr>';
+					$i++;
+				}
+				  if(!empty($smark)){ echo "";}else{ ?>
+				  <tr>
+					 <td>
+						<div class="col-sm-10">
+						   <button type="submit" class="btn btn-info btn-fill center">Approve</button>
+						</div>
+					 </td>
+				  </tr>
+				  <?php }
+					 }else{ echo "<p style=color:red;text-align:center;>No Exam Mark Added</p>"; }
+						?>
                                     </tbody>
                                 </table>
 								</form>
@@ -140,15 +150,15 @@ $('#exam').addClass('active');
 $('#exam3').addClass('active');
 
 $('tr').each(function () {
-       var sum = 0;
-     $(this).find('.combat').each(function () {
-         var combat = $(this).text();
-         if (!isNaN(combat) && combat.length !== 0) {
-             sum += parseFloat(combat);
-         }
-     });
-     $(this).find('.total-combat').html(sum);
-   });
+          var sum = 0;
+        $(this).find('.combat').each(function () {
+            var combat = $(this).text();
+            if (combat !='NA'&& combat.length!==0) {
+                sum += parseInt(combat);
+            }
+        });
+        $(this).find('.total-combat').html(sum);
+      });
    
 $('#markform').validate({ // initialize the plugin
         rules: {

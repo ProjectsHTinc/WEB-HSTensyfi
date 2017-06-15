@@ -53,7 +53,9 @@
 									 <?php  }else{
 										foreach($res as $row)
 										      { }?>
-				<th><?php echo $row->subject_name; ?><input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
+				<th> Internal <?php echo $row->subject_name; ?><input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
+				
+								<th> External <?php echo $row->subject_name; ?><input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
 									<?php
 									  }?>
                                     </thead>
@@ -74,7 +76,8 @@
 											   echo $name->name;
 										?>
 										</td>
-										<td><input style="width:20%;" type="text" readonly name="marks[]" value="<?php echo $rows->marks; ?>" class="form-control"/></td>
+										<td style="width: 30%;"><input style="width:60%;" type="text" readonly name="internal_marks[]" value="<?php echo $rows->internal_mark; ?>" class="form-control"/></td>
+										<td style="width: 30%;"><input style="width:60%;" type="text" readonly name="external_marks[]" value="<?php echo $rows->external_mark; ?>" class="form-control"/></td>
 										</tr>
 										<?php $i++;}
 										}else{
@@ -88,12 +91,17 @@
 										<input type="hidden" name="teaid" value="<?php echo $row->teacher_id; ?>" />
                                         <input type="hidden" name="clsmastid" value="<?php echo $row->class_id; ?>" />
 										</td>
-										<td><input style="width:20%;" type="text" required name="marks[]" value class="form-control"/></td>
+										<td style="width: 30%;">
+										<input style="width:60%;" type="text"  name="internal_marks[]" value class="form-control"/>
+										</td>
+										<td style="width: 30%;">
+										<input style="width:60%;" type="text" required name="external_marks[]" value class="form-control"/>
+										</td>
 										</tr>
 										<?php $i++;}
 										}?>
 										<tr>
-										<td></td><td></td>
+										<td></td><td></td><td></td>
 										<?php if(empty($mark) && !empty($res) ){ ?>
 										<td>
 										 <div class="col-sm-10">

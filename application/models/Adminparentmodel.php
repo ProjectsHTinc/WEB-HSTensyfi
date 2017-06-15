@@ -36,7 +36,7 @@ Class Adminparentmodel extends CI_Model
 		function get_all_homework($enroll_id)
 		{
 
-			$query2="SELECT * FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='A'";
+			$query2="SELECT * FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='Active'";
 			$result1=$this->db->query($query2);
 			$row3=$result1->result();
 			foreach($row3 as $row4){
@@ -54,7 +54,7 @@ Class Adminparentmodel extends CI_Model
 
 		function get_stu_id($enroll_id)
 		{
-			$query2="SELECT name,admisn_no,enroll_id,class_id FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='A'";
+			$query2="SELECT name,admisn_no,enroll_id,class_id FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='Active'";
 			$result1=$this->db->query($query2);
 			$row3=$result1->result();
 			return $row3;
@@ -71,7 +71,7 @@ Class Adminparentmodel extends CI_Model
 
 		function view_exam_name($enroll_id)
 		{
-			$query2="SELECT * FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='A'";
+			$query2="SELECT * FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='Active'";
 			$result1=$this->db->query($query2);
 			$row3=$result1->result();
 			foreach($row3 as $row4){
@@ -98,7 +98,7 @@ Class Adminparentmodel extends CI_Model
 
 	  function get_all_classid($enroll_id)
 	  {
-		    $query2="SELECT enroll_id,class_id,name,admisn_no FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='A'";
+		    $query2="SELECT enroll_id,class_id,name,admisn_no FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='Active'";
 			$result1=$this->db->query($query2);
 			$row3=$result1->result();
 			foreach($row3 as $row4){
@@ -136,7 +136,7 @@ Class Adminparentmodel extends CI_Model
      function get_total_working_days(){
        $query="SELECT abs_date FROM edu_attendance_history GROUP BY CAST(abs_date AS DATE)";
        $resultset1=$this->db->query($query);
- 			 return $resultset1->result();
+ 	  return $resultset1->result();
      }
 	 
 	 function get_fees_status_details($enroll_id)

@@ -22,13 +22,13 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/stroke/css/pe-icon-7-stroke.css">
-		<!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
-		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
-		<script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
-		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
+	<script src="<?php echo base_url(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
 	<!--  Forms Validations Plugin -->
 	<script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/js/jquery.datatables.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/jquery.datatables.js"></script>
 
 <style>
 .navbar{

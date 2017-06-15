@@ -13,7 +13,6 @@ class Examinationresult extends CI_Controller
 		  $this->load->library('session');
 		  $this->load->model('class_manage');
 		  $this->load->model('subjectmodel');
-		
         }
          
        
@@ -25,9 +24,6 @@ class Examinationresult extends CI_Controller
 			    if($user_type==2)
 				 {
 					 $datas['result']=$this->examinationresultmodel->get_teacher_id($user_id);
-					 //echo '<pre>';print_r($datas['result']);exit;
-					 //$datas['result'] = $this->examinationresultmodel->getall_details();
-					 //print_r($datas);
 					 $this->load->view('adminteacher/teacher_header');
 					 $this->load->view('adminteacher/examination_result/add',$datas);
 					 $this->load->view('adminteacher/teacher_footer');
@@ -35,6 +31,27 @@ class Examinationresult extends CI_Controller
 						redirect('/');
 				 }
 	 	}
+		
+		/* public function internal_external_marks()
+		{
+			
+			    $datas=$this->session->userdata();
+  	 		    $user_id=$this->session->userdata('user_id');
+				$user_type=$this->session->userdata('user_type');
+			    if($user_type==2)
+				 {
+					 $datas['result']=$this->examinationresultmodel->get_teacher_id($user_id);
+					 //echo '<pre>';print_r($datas['result']);exit;
+					 //$datas['result'] = $this->examinationresultmodel->getall_details();
+					 //print_r($datas);
+					 $this->load->view('adminteacher/teacher_header');
+					 $this->load->view('adminteacher/examination_result/exam_name',$datas);
+					 $this->load->view('adminteacher/teacher_footer');
+				 }else{
+						redirect('/');
+				 }
+				 
+		} */
 		
 		public function class_section()
 		{
@@ -136,17 +153,18 @@ class Examinationresult extends CI_Controller
 			  $subid=$this->input->post('subjectid');
 			  $sutid=$this->input->post('sutid');
 			  $teaid=$this->input->post('teaid');
-			  $marks=$this->input->post('marks');
+			  $internal_marks=$this->input->post('internal_marks');
+			  $external_marks=$this->input->post('external_marks');
 			  
-			  /* echo $exam_id;echo'</br>';
-			  print_r($subid);echo'</br>';//exit;
+			 /*echo $exam_id;echo'</br>';
+			  print_r($internal_marks);echo'</br>';
+			  print_r($external_marks);echo'</br>';//exit;
 			  echo $teaid;echo'</br>';
 			  print_r($sutid);echo'</br>';
-			  print_r($marks);echo'</br>';
-			  exit;  */
+			  exit;*/
 			
-		   $datas=$this->examinationresultmodel->exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$marks);
-		   //print_r($datas);
+		   $datas=$this->examinationresultmodel->exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id);
+		   //print_r($datas);exit;
 			 if($datas['status']=="success")
 			  {
 				$this->session->set_flashdata('msg','Added Successfully');
@@ -238,9 +256,9 @@ class Examinationresult extends CI_Controller
 			  $user_type=$this->session->userdata('user_type');
 				
 			  $subid=$this->input->get('var1');
-			  
 			  $clsmasid=$this->input->get('var2');
 			  $exam_id=$this->input->get('var3');
+			  
 			  //echo $subid;echo $clsmasid;
 			  $datas['edit']=$this->examinationresultmodel->edit_marks_details($user_id,$subid,$clsmasid,$exam_id);
 			  $datas['mark']=$this->examinationresultmodel->marks_status_details($clsmasid,$exam_id);
@@ -267,9 +285,10 @@ class Examinationresult extends CI_Controller
 			  $sutid=$this->input->post('sutid');
 			 // print_r($sutid);exit;
 			  $teaid=$this->input->post('teaid');
-			  $marks=$this->input->post('marks');
+			  $internal_marks=$this->input->post('internal_marks');
+			  $external_marks=$this->input->post('external_marks');
 			  //echo $exam_id;echo $subid;print_r($sutid);echo $teaid;print_r($marks);exit;
-			  $datas=$this->examinationresultmodel->update_marks_details($teaid,$clsmastid,$exam_id,$subid,$marks,$sutid);
+			  $datas=$this->examinationresultmodel->update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id);
 			 // print_r($datas);exit;
 			  if($datas['status']="success")
 			  {

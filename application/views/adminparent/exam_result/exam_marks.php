@@ -7,6 +7,12 @@
        ×</button> <?php echo $this->session->flashdata('msg'); ?>
          </div>
        <?php endif; ?>
+	   <style>
+.grade{
+	color: #1e20ba;
+}
+
+</style>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -19,8 +25,10 @@
                                 <table class="table table-hover table-striped">
                                     <thead>
 									 <th>Sno</th>
-                                     <th>Subject Name</th>
-									 <th>Marks</th>
+									 <th>Subject Name</th>
+									 <th>Internal Marks</th>
+									 <th>External Marks</th>
+									 <th>Total Marks</th>
                                     </thead>
                                     <tbody>
 									<?php
@@ -37,20 +45,13 @@
 										 $sec=$row[0]->subject_name;
                                              echo $sec;
                     						  ?> </td>
-										 <td>  <div class="col-md-5">
-										 <div class="form-group"><input type="text" disabled name="marks" class="form-control" id="smark"  value="<?php echo $rows->marks; ?>" /> 
-										 </div></div></td>
+						 <td><?php echo $rows->internal_mark; ?> ( <span class="grade"><?php echo $rows->internal_grade; ?>  )</span></td> 
+						 <td><?php echo $rows->external_mark; ?> (  <span class="grade"><?php echo $rows->external_grade; ?>  )</span></td>
+						 <td><?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
 										</tr>
 										 <?php $i++;  } 
 										}else{ echo "No exam added for any class";}	?>
-										<td></td>
-										<?php if(!empty($result)){?>
-										 <td>TOTAL </td>
-										 <td> <div class="col-md-5">
-										 <div class="form-group">
-										 <input type="text" disabled  class="form-control" name="totals"/>
-										 </div></div></td>
-										<?php }else{ echo ""; }?>
+										
                                     </tbody>
                                 </table>
 								</form>

@@ -401,14 +401,12 @@ class Adminparent extends CI_Controller {
 
 	    public function exam_results($exam_id,$stu_id,$cls_id)
 	     {
-		   // echo $exam_id;echo $stu_id;exit;
+		    //echo $exam_id;echo $stu_id;exit;
 		    $datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$datas['result']=$this->adminparentmodel->exam_marks($stu_id,$exam_id,$cls_id);
-
 			//echo '<pre>';print_r($datas['result']);exit;
-
 			if($user_type==4)
 				 {
 					 $this->load->view('adminparent/parent_header');
