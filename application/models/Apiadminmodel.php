@@ -396,6 +396,29 @@ class Apiadminmodel extends CI_Model {
                 }
               }
 
+
+
+
+                //#################### GET LIST OF EXAM FOR CLASS  ####################//
+              function list_of_exams_class($class_id,$section_id){
+                $sql="SELECT class_sec_id FROM edu_classmaster WHERE class='$class_id' AND section='$section_id'";
+                $res=$this->db->query($sql);
+                $result=$res->result();
+                foreach($result as $rows){   }
+                $classid=$rows->class_sec_id;
+                $year_id=$this->getYear();
+                $query="SELECT eed.exam_id,ee.exam_name,ee.exam_year,eac.from_month,eac.to_month FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id LEFT JOIN edu_academic_year AS eac ON ee.exam_year=eac.year_id WHERE eed.classmaster_id='$classid' GROUP BY ee.exam_id";
+                $result_query=$this->db->query($query);
+                if($result_query->num_rows()==0){
+                    $data=array("msg"=>"nodata");
+                    return $data;
+                }else{
+                  $result=$result_query->result();
+                  $data=array("msg"=>"success","data"=>$result);
+                  return $data;
+                }
+              }
+
 }
 
 ?>

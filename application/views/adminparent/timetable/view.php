@@ -52,7 +52,7 @@
                                     $prd= count($restime)/5; //echo  $restime[5]->subject_name; ?>
                                     <?php
 $period = $prd;
-$arr2=array('Mon','Tue','Wednes','Thurs','Friday');
+$arr2=array('Mon','Tue','Wednes','Thurs','Friday','Saturday');
 ?>
 
 <tr>
@@ -63,7 +63,7 @@ $arr2=array('Mon','Tue','Wednes','Thurs','Friday');
 $k=0;
 foreach($arr2 as $day){
 
-  for($i=1;$i <= 5; $i++){
+  for($i=1;$i <= 6; $i++){
 
     ?>
     <tr>

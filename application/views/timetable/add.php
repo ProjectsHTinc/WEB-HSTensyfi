@@ -96,7 +96,7 @@ select{width:100px;}
 </tr></thead>
                                                           <?php
                       $period = 8;
-                      $arr2=array('1','2','3','4','5');
+                      $arr2=array('Mon','Tue','Wed','Thur','Fri','Sat');
                       ?>
 
                       <tr>
