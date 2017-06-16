@@ -28,7 +28,7 @@
 
 										<label class="col-sm-2 control-label">Student Name</label>
 										<div class="col-sm-4">
-				 <select multiple name="teacher[]" class="selectpicker form-control"  >
+				 <select multiple name="stu_name_id[]" class="selectpicker form-control"  >
 
                      <?php
                           $tea_name=$rows->	admission_id;
@@ -37,14 +37,14 @@
                           $row=$objRs->result();
                           foreach ($row as $rows1)
 						  {
-								 $s= $rows1->admission_id;
-								 $sec=$rows1->name;
+								 $stu_id= $rows1->admission_id;
+								 $sname=$rows1->name;
 								 $arryPlatform = explode(",",$tea_name);
-								 $sPlatform_id  = trim($s);
-								 $sPlatform_name  = trim($sec);
+								 $sPlatform_id  = trim($stu_id);
+								 $sPlatform_name  = trim($sname);
 								 if (in_array($sPlatform_id, $arryPlatform ))
 								  {
-                                       echo "<option  value=\"$s\" selected  /> $sec &nbsp;&nbsp; </option>";
+                                       echo "<option value=\"$stu_id\" selected/>$sname&nbsp;</option>";
                                   }
                             }
                        ?>

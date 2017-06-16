@@ -6,8 +6,8 @@ class Examinationresult extends CI_Controller
 
 
 	function __construct()
-	{
-		 parent::__construct();
+	  {
+		  parent::__construct();
 		  $this->load->model('examinationresultmodel');
 		  $this->load->helper('url');
 		  $this->load->library('session');
@@ -18,19 +18,19 @@ class Examinationresult extends CI_Controller
        
 	public function home()
 	 {
-	 		 	$datas=$this->session->userdata();
-  	 		    $user_id=$this->session->userdata('user_id');
-				$user_type=$this->session->userdata('user_type');
-			    if($user_type==2)
-				 {
-					 $datas['result']=$this->examinationresultmodel->get_teacher_id($user_id);
-					 $this->load->view('adminteacher/teacher_header');
-					 $this->load->view('adminteacher/examination_result/add',$datas);
-					 $this->load->view('adminteacher/teacher_footer');
-				 }else{
-						redirect('/');
-				 }
-	 	}
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==2)
+			{
+			$datas['result']=$this->examinationresultmodel->get_teacher_id($user_id);
+			$this->load->view('adminteacher/teacher_header');
+			$this->load->view('adminteacher/examination_result/add',$datas);
+			$this->load->view('adminteacher/teacher_footer');
+			}else{
+			redirect('/');
+			}
+	 }
 		
 		/* public function internal_external_marks()
 		{
@@ -79,7 +79,6 @@ class Examinationresult extends CI_Controller
 			  $datas=$this->session->userdata();
   	 		  $user_id=$this->session->userdata('user_id');
 			  $user_type=$this->session->userdata('user_type');
-				
 			  $cls_masid=$this->input->get('var1');
 			  $exam_id=$this->input->get('var2');
 			  //echo $cls_masid;echo $exam_id;exit;
@@ -163,7 +162,7 @@ class Examinationresult extends CI_Controller
 			  print_r($sutid);echo'</br>';
 			  exit;*/
 			
-		   $datas=$this->examinationresultmodel->exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id);
+		    $datas=$this->examinationresultmodel->exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id);
 		   //print_r($datas);exit;
 			 if($datas['status']=="success")
 			  {
@@ -189,7 +188,7 @@ class Examinationresult extends CI_Controller
 			  $teaid=$this->input->post('teid');
 			  $marks=$this->input->post('mark');
 			  
-			/*   echo $exam_id;echo'</br>';
+			/* echo $exam_id;echo'</br>';
 			  echo $subid;echo'</br>';
 			  echo $teaid;echo'</br>';
 			  echo $sutid;echo'</br>';
@@ -319,10 +318,10 @@ class Examinationresult extends CI_Controller
                 redirect('examinationresult/exam_mark_details_cls_teacher?var1='.$b.'&var2='.$a.'',$datas);
 			   //redirect('add_test');		
 			   }elseif($datas['status']=="Already Added Exam Marks")
-			        { 
-					  $a=$datas['var1']; $b=$datas['var2'];
-					  $this->session->set_flashdata('msg','Already Added Exam Marks');
-					  redirect('examinationresult/exam_mark_details_cls_teacher?var1='.$b.'&var2='.$a.'',$datas);  
+		        { 
+				  $a=$datas['var1']; $b=$datas['var2'];
+				  $this->session->set_flashdata('msg','Already Added Exam Marks');
+				  redirect('examinationresult/exam_mark_details_cls_teacher?var1='.$b.'&var2='.$a.'',$datas);  
 			   }else{$a=$datas['var1']; $b=$datas['var2'];
 				$this->session->set_flashdata('msg','Falid To Approve');
                 redirect('examinationresult/exam_mark_details_cls_teacher?var1='.$b.'&var2='.$a.'',$datas);
@@ -335,7 +334,6 @@ class Examinationresult extends CI_Controller
 		  $datas=$this->session->userdata();
 		  $user_id=$this->session->userdata('user_id');
 		  $user_type=$this->session->userdata('user_type');
-		  
 		  $datas['duty']=$this->examinationresultmodel->exam_duty_details($user_id);
 		 // print_r($datas);exit;
 		  if($user_type==2)

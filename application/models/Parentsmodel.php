@@ -13,11 +13,9 @@ Class Parentsmodel extends CI_Model
 
         function ad_parents($admission_id,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status)
 		{
-
 		$digits = 6;
 		$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
 		//echo $OTP;exit;
-
           $check_email="SELECT * FROM edu_parents WHERE email='$email'";
           $result=$this->db->query($check_email);
           if($result->num_rows()==0)
@@ -30,11 +28,9 @@ Class Parentsmodel extends CI_Model
 			  {
 				$father_name=$guardn_name;
 				$userFileName=$userFileName2;
-
 			  }
-
 			   $sql="SELECT count(*) AS parents FROM edu_parents" ;
-			 // $resultsql=$this->db->query($sql);
+			   //$resultsql=$this->db->query($sql);
 			   $resultsql=$this->db->query($sql);
                $result1= $resultsql->result();
                $cont=$result1[0]->parents;
@@ -115,14 +111,12 @@ Class Parentsmodel extends CI_Model
          return $res->result();
 	   }
 
-	  function update_parents($parent_id,$single,$admission_id,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status)
-	  {
-
-           $query5="UPDATE edu_parents SET admission_id='$admission_id',father_name='$father_name',mother_name='$mother_name',guardn_name='$guardn_name',occupation='$occupation',income='$income',address='$address',email='$email',email1='$email1',home_phone='$home_phone',office_phone='$office_phone',mobile='$mobile',mobile1='$mobile1',father_pic='$userFileName',mother_pic='$userFileName1',guardn_pic='$userFileName2',status='$status',update_at=NOW() WHERE  parent_id='$parent_id'";
-            $res=$this->db->query($query5);
-   // echo $father_name;
-    //echo $guardn_name;
-
+	  function update_parents($stu_name_id,$parent_id,$single,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status)
+	  {      //print_r($stu_name_id);exit;
+           $query5="UPDATE edu_parents SET admission_id='$stu_name_id',father_name='$father_name',mother_name='$mother_name',guardn_name='$guardn_name',occupation='$occupation',income='$income',address='$address',email='$email',email1='$email1',home_phone='$home_phone',office_phone='$office_phone',mobile='$mobile',mobile1='$mobile1',father_pic='$userFileName',mother_pic='$userFileName1',guardn_pic='$userFileName2',status='$status',update_at=NOW() WHERE  parent_id='$parent_id'";
+           $res=$this->db->query($query5);
+			 //echo $father_name;
+			//echo $guardn_name;
 			if(empty($userFileName))
 			  {
 				//$father_name=$guardn_name;

@@ -39,10 +39,8 @@ Class Examinationresultmodel extends CI_Model
 			  foreach($teacher_row as $teacher_rows){}
 			  $teach_id=$teacher_rows->class_name;
 			  $cls_te=$teacher_rows->class_teacher;
-
-			  
-			 $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class,cm.subject FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id  ORDER BY c.class_name";
-			$objRs=$this->db->query($sQuery);
+			  $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class,cm.subject FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id  ORDER BY c.class_name";
+			  $objRs=$this->db->query($sQuery);
 			$row=$objRs->result();
 			foreach ($row as $rows1)
 			{
@@ -180,7 +178,7 @@ Class Examinationresultmodel extends CI_Model
 	   
 	   function exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id)
 	   {
-		    //if(!empty($marks)){
+		   
 		       $count_name = count($external_marks);
 			   //echo $count_name; exit;
 			   for($i=0;$i<$count_name;$i++)
@@ -236,13 +234,13 @@ Class Examinationresultmodel extends CI_Model
 				/* $check="SELECT * FROM edu_exam_marks WHERE exam_id='$examid1' AND subject_id='$subid1' AND classmaster_id='$clsmastid1'";
 				$result1=$this->db->query($check);
 				if($result1->num_rows()==0)
-				{  */
-				 echo $query="INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','$marks1','$grade','$marks2','$grade1','$total','$grade2','$user_id1',NOW())";
+				{ */  
+				  $query="INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','$marks1','$grade','$marks2','$grade1','$total','$grade2','$user_id1',NOW())";
 				  $resultset1=$this->db->query($query);
-				 /* }else{
-					$data= array("status"=>"Already Added");
-					 return $data;
-				}  */
+				/* }else{
+				  $data= array("status"=>"Already Added");
+				  return $data;
+				} */  
 			  }
 			  if($resultset1){
 			  $data= array("status" => "success");

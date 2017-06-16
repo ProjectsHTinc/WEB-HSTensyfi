@@ -330,11 +330,11 @@ class Communication extends CI_Controller
 			//print_r($datas);exit;
 			if($datas['status']=="success")
 			{
-				 $this->session->set_flashdata('msg','Updated Successfully');
-				 redirect('communication/add_substitution/'.$leave_id.'');
-			  }else{
-			    $this->session->set_flashdata('msg','Falid To Update');
-				 redirect('communication/add_substitution/'.$leave_id.'');
+			 $this->session->set_flashdata('msg','Updated Successfully');
+			 redirect('communication/add_substitution/'.$leave_id.'');
+		    }else{
+			 $this->session->set_flashdata('msg','Falid To Update');
+			 redirect('communication/add_substitution/'.$leave_id.'');
 			  }
 			
 		}
