@@ -271,7 +271,7 @@ class Communication extends CI_Controller
 			$period_id=$this->input->post('period_id');
 			$status=$this->input->post('status');
 			//echo $sub_teacher;
-			$datas['res']=$this->communicationmodel->add_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status);
+			$datas['res']=$this->communicationmodel->add_substitution_list($user_id,$cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status);
 			//print_r($datas['res']);exit;
 			if($datas['status']=="success")
 			  {
@@ -326,7 +326,7 @@ class Communication extends CI_Controller
 			$period_id=$this->input->post('period_id');
 			$status=$this->input->post('status');
 			//echo $sub_teacher;
-			$datas=$this->communicationmodel->update_substitution_list($cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$id,$status);
+			$datas=$this->communicationmodel->update_substitution_list($user_id,$cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$id,$status);
 			//print_r($datas);exit;
 			if($datas['status']=="success")
 			{
