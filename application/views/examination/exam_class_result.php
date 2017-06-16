@@ -57,7 +57,7 @@
 								<input type="text" name="class_id" value="<?php echo $rows->classmaster_id; ?>"/> -->
 								<?php //}?>
                                     <thead>
-									 <th>Sno</th>
+									<!-- <th>Sno</th>-->
                                      <th>Name</th>
 								<?php
   								      if($status=="Success")
@@ -84,7 +84,7 @@
 				foreach ($student_arr as $k => $s1)
 				{
 					echo '<tr>';
-					echo '<td>' . $i . '</td>';
+					//echo '<td>' . $i . '</td>';
 					echo '<td>' . $k . '</td>';
 					$k = 1;
 					foreach ($s1 as $k1 => $s)
@@ -123,9 +123,9 @@
 				  if(!empty($smark)){ echo "";}else{ ?>
 				  <tr>
 					 <td>
-						<div class="col-sm-10">
+						
 						   <button type="submit" class="btn btn-info btn-fill center">Approve</button>
-						</div>
+						
 					 </td>
 				  </tr>
 				  <?php }

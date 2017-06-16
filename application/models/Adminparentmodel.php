@@ -80,7 +80,7 @@ Class Adminparentmodel extends CI_Model
 			$class_id=$row4->class_id;
 			}
 
-			 $sql="SELECT m.*,ed.exam_id,ed.exam_year,ed.exam_name FROM edu_exam_marks_status AS m,edu_examination AS ed WHERE m.classmaster_id='$class_id' AND  m.status='A' AND m.exam_id=ed.exam_id";
+			 $sql="SELECT m.*,ed.exam_id,ed.exam_year,ed.exam_name FROM edu_exam_marks_status AS m,edu_examination AS ed WHERE m.classmaster_id='$class_id' AND  m.status='Publish' AND m.exam_id=ed.exam_id";
 			  $resultset1=$this->db->query($sql);
 			 $res=$resultset1->result();
              return $res;

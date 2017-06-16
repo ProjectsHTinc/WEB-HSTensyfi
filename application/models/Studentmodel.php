@@ -83,7 +83,7 @@ Class Studentmodel extends CI_Model
 			$cls_id=$rows->class_id;
             //echo $cls_id;exit;
 			
-			 $sql="SELECT m.*,ed.exam_id,ed.exam_year,ed.exam_name FROM edu_exam_marks_status AS m,edu_examination AS ed WHERE m.classmaster_id='$cls_id' AND  m.status='A' AND m.exam_id=ed.exam_id";
+			 $sql="SELECT m.*,ed.exam_id,ed.exam_year,ed.exam_name FROM edu_exam_marks_status AS m,edu_examination AS ed WHERE m.classmaster_id='$cls_id' AND  m.status='Publish' AND m.exam_id=ed.exam_id";
 			 $resultset1=$this->db->query($sql);
 			 $res=$resultset1->result();
              return $res;
@@ -117,7 +117,7 @@ Class Studentmodel extends CI_Model
 			$cls_id=$rows->class_id;
 			//echo $enr_id;exit;
 
-			 $sql1="SELECT ms.*,em.* FROM edu_exam_marks AS em,edu_exam_marks_status AS ms WHERE ms.status='A' AND em.exam_id='$exam_id' AND ms.exam_id=em.exam_id  AND em.classmaster_id='$cls_id' AND em.classmaster_id=ms.classmaster_id AND em.stu_id='$enr_id'";
+			 $sql1="SELECT ms.*,em.* FROM edu_exam_marks AS em,edu_exam_marks_status AS ms WHERE ms.status='Publish' AND em.exam_id='$exam_id' AND ms.exam_id=em.exam_id  AND em.classmaster_id='$cls_id' AND em.classmaster_id=ms.classmaster_id AND em.stu_id='$enr_id'";
 			 $resultset1=$this->db->query($sql1);
 			 $res1=$resultset1->result();
              return $res1;

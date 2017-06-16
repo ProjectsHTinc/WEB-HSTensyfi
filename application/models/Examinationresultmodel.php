@@ -336,7 +336,7 @@ Class Examinationresultmodel extends CI_Model
 	   function marks_status_details($clsmasid,$exam_id)
 	   {
 		    //echo $clsmasid;
-		    $query="SELECT * FROM edu_exam_marks_status WHERE status='N' OR status='A' AND exam_id='$exam_id' AND classmaster_id='$clsmasid'";
+		    $query="SELECT * FROM edu_exam_marks_status WHERE status='Approved' OR status='Publish' AND exam_id='$exam_id' AND classmaster_id='$clsmasid'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
 			return $row;
@@ -418,7 +418,7 @@ Class Examinationresultmodel extends CI_Model
 				   }
 		   if($resultset1->num_rows()==0)
 			{ 
-			   $sql="INSERT INTO edu_exam_marks_status(exam_id,classmaster_id,status,created_at) VALUES('$exam_id','$clsmastid','N',NOW())";
+			   $sql="INSERT INTO edu_exam_marks_status(exam_id,classmaster_id,status,created_at) VALUES('$exam_id','$clsmastid','Approved',NOW())";
 			   $result=$this->db->query($sql);
 			   
 			   $sql1="SELECT * FROM edu_exam_marks_status WHERE exam_id='$exam_id' AND classmaster_id='$clsmastid'";

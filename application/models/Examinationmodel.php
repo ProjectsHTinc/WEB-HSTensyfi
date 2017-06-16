@@ -166,7 +166,7 @@ Class Examinationmodel extends CI_Model
 	function marks_status_details($clsmasid,$exam_id)
 	   {
 		    //echo $clsmasid;
-		    $query="SELECT * FROM edu_exam_marks_status WHERE status='A' AND exam_id='$exam_id' AND classmaster_id='$clsmasid'";
+		    $query="SELECT * FROM edu_exam_marks_status WHERE status='Publish' AND exam_id='$exam_id' AND classmaster_id='$clsmasid'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
 			return $row;
@@ -223,7 +223,7 @@ Class Examinationmodel extends CI_Model
 	   
 	   function update_exam_status($exid,$cmid)
 	   {
-		       $sql1="SELECT * FROM edu_exam_marks_status WHERE exam_id='$exid' AND classmaster_id='$cmid' AND status='A'";
+		       $sql1="SELECT * FROM edu_exam_marks_status WHERE exam_id='$exid' AND classmaster_id='$cmid' AND status='Publish'";
 			   $res1=$this->db->query($sql1);
 			   $res2=$res1->result();
 			   foreach($res2 as $ans){
@@ -232,7 +232,7 @@ Class Examinationmodel extends CI_Model
 				   }
 		   if($res1->num_rows()==0)
 		   {
-			  $sql="UPDATE edu_exam_marks_status SET status='A',updated_at=NOW() WHERE exam_id='$exid' AND classmaster_id='$cmid'";
+			  $sql="UPDATE edu_exam_marks_status SET status='Publish',updated_at=NOW() WHERE exam_id='$exid' AND classmaster_id='$cmid'";
 			  $res=$this->db->query($sql);
 			   
 			   $sql1="SELECT * FROM edu_exam_marks_status WHERE exam_id='$exid' AND classmaster_id='$cmid'";
