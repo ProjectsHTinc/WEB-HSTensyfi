@@ -309,7 +309,7 @@ class Examinationresult extends CI_Controller
 			  $exam_id=$this->input->post('examid');
 			  $clsmastid=$this->input->post('clsmastid');
 			  //echo $exam_id;echo $clsmastid;//exit;
-			  $datas=$this->examinationresultmodel->marks_status_update($exam_id,$clsmastid);
+			  $datas=$this->examinationresultmodel->marks_status_update($exam_id,$clsmastid,$user_id);
 			 
 			   if($datas['status']=="success")
 			   { 

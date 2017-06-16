@@ -221,7 +221,7 @@ Class Examinationmodel extends CI_Model
 
 	   }
 	   
-	   function update_exam_status($exid,$cmid)
+	   function update_exam_status($exid,$cmid,$user_id)
 	   {
 		       $sql1="SELECT * FROM edu_exam_marks_status WHERE exam_id='$exid' AND classmaster_id='$cmid' AND status='Publish'";
 			   $res1=$this->db->query($sql1);
@@ -232,7 +232,7 @@ Class Examinationmodel extends CI_Model
 				   }
 		   if($res1->num_rows()==0)
 		   {
-			  $sql="UPDATE edu_exam_marks_status SET status='Publish',updated_at=NOW() WHERE exam_id='$exid' AND classmaster_id='$cmid'";
+			  $sql="UPDATE edu_exam_marks_status SET status='Publish',updated_by='$user_id',updated_at=NOW() WHERE exam_id='$exid' AND classmaster_id='$cmid'";
 			  $res=$this->db->query($sql);
 			   
 			   $sql1="SELECT * FROM edu_exam_marks_status WHERE exam_id='$exid' AND classmaster_id='$cmid'";
