@@ -93,6 +93,19 @@
  
 							</ul>
 						</li>
+			
+						<li class="dropdown" style="padding:08px 10px;">
+					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
+						  Masters</a>
+								<ul class="dropdown-menu">
+ <li><a href="<?php echo base_url(); ?>feesstructure/fees_master">Fees</a></li>
+ <li><a href="<?php echo base_url(); ?>quota/home">Quota </a></li> 
+ <li><a href="<?php echo base_url(); ?>groups/home">Groups </a></li>
+ <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li> 
+ 
+							</ul>
+						</li>
+						
                   <li class="dropdown dropdown-with-icons">
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:05px;">
                         <div class="photo">
@@ -151,11 +164,11 @@
                         <li id="masters3"><a href="<?php echo base_url(); ?>classadd/addclass">Class & Sections</a></li>
                         <li id="masters4" ><a href="<?php echo base_url(); ?>subjectadd/addsubject">Subjects</a></li>
                         <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
-						<li id="masters9"><a href="<?php echo base_url(); ?>feesstructure/fees_master">Fees</a></li>
+						<!-- <li id="masters9"><a href="<?php echo base_url(); ?>feesstructure/fees_master">Fees</a></li>
 						<li id="masters6"><a href="<?php echo base_url(); ?>quota/home">Quota </a></li>
                         <li id="masters7" ><a href="<?php echo base_url(); ?>groups/home">Groups</a></li>
                         <li id="masters8"><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular</a></li>
-						<li id="masters10"><a href="<?php echo base_url(); ?>userleavemaster/home">Leave Master</a></li>
+						<li id="masters10"><a href="<?php echo base_url(); ?>userleavemaster/home">Leave Master</a></li>-->
 
                      </ul>
                   </div>

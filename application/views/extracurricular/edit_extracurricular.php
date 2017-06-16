@@ -3,7 +3,7 @@
 <div class="content">
        <div class="container-fluid">
            <div class="row">
-               <div class="col-md-8">
+               <div class="col-md-10">
                    <div class="card">
                        <div class="header"> 
                            <h4 class="title">Edit Activities</h4>
@@ -56,7 +56,7 @@ $(document).ready(function () {
 
         //$('#mastersmenu').addClass('collapse in');
         //$('#master').addClass('active');
-       // $('#masters1').addClass('active');
+       // $('#masters8').addClass('active');
 
    $('#feesformsection').validate({ // initialize the plugin
        rules: {

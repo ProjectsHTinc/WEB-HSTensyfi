@@ -24,6 +24,7 @@
                                             <label class="col-sm-2 control-label">Academic Year</label>
                                             <div class="col-sm-4">
                                               <input type="hidden" name="id"  value="<?php  echo $rows->id; ?>">
+											   <input type="hidden" name="fees_id"  value="<?php  echo $rows->masid; ?>">
                                                 <input type="hidden" name="year_id"  value="<?php  echo $rows->year_id; ?>">
                                                 <input type="text" name="year_name"  class="form-control" value="<?php echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  ?>" readonly="">
                                             </div>
@@ -34,7 +35,7 @@
                                         <div class="form-group">
                                           <label class="col-sm-2 control-label">Terms</label>
                                           <div class="col-sm-4">
-										                       <input type="text" readonly name="terms"  value="<?php echo $rows->term_name;?>" class="form-control"/>
+										     <input type="text" readonly name="terms"  value="<?php echo $rows->term_name;?>" class="form-control"/>
                                           </div>
 
                                         </div>
@@ -47,7 +48,7 @@
                                                <select name="class_name" disabled class="selectpicker" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                                 <option value="<?php  echo $rows->class_master_id; ?>"><?php  echo $rows->class_name; ?> - <?php  echo $rows->sec_name; ?></option>
                                               </select>
-										                            <input type="hidden" name="id" value="<?php  echo $rows->id; ?>">
+					
                                             </div>
 
                                         </div>
@@ -85,7 +86,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Paid By</label>
                                             <div class="col-sm-4">
-											 <input type="text" name="paid_by"  value="" class="form-control" />
+											 <input type="text" name="paid_by"  value="<?php  echo $rows->paid_by;?>" class="form-control" />
 												                       
                                             </div>
                                         </div>
@@ -99,8 +100,7 @@
                                                   <option value="Paid">Paid</option>
                                                     <option value="Unpaid">Unpaid</option>
                                               </select>
-											                                <script language="JavaScript">document.feesform.paid_status.value="<?php echo $rows->status; ?>";</script>
-                                            
+					<script language="JavaScript">document.feesform.paid_status.value="<?php echo $rows->status; ?>";</script>
                                             </div>
                                         </div>
                                     </fieldset>

@@ -139,9 +139,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
-$('#mastersmenu').addClass('collapse in');
+/* $('#mastersmenu').addClass('collapse in');
         $('#master').addClass('active');
-        $('#masters9').addClass('active');
+        $('#masters9').addClass('active'); */
  $('#feesform').validate({ // initialize the plugin
      rules: {
          year_id:{required:true},

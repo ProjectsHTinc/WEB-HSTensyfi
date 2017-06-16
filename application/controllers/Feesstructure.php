@@ -151,8 +151,6 @@ class Feesstructure extends CI_Controller
 			 $duedate=new DateTime($date_from);
              $due_date_from=date_format($duedate,'Y-m-d' );
 			 
-			 
-			 
 			 $date_to=$this->input->post('due_date_to');
 			 $duedateto=new DateTime($date_to);
              $due_date_to=date_format($duedateto,'Y-m-d' );
@@ -177,6 +175,7 @@ class Feesstructure extends CI_Controller
 		  
 	 }
 	 
+	 //---------------------class fees status-------------------------------
 	 
 	public function view_term_fees_master()
 	   {
@@ -197,7 +196,8 @@ class Feesstructure extends CI_Controller
 			 
 	   }
 	
-	 
+	
+	 //---------------------student fees status -----------------------------
 	public function view_term_fees($id)
 	  {
 		
@@ -225,7 +225,7 @@ class Feesstructure extends CI_Controller
 		
 		$datas['edit'] = $this->feesstructuremodel->edit_term_fees_status($id);
 		$datas['quota'] = $this->feesstructuremodel->get_all_quota();
-		//echo '<pre>';print_r($datas['view']);exit;
+		//echo '<pre>';print_r($datas['edit']);exit;
 		if($user_type==1)
 			 {
 				 $this->load->view('header');
@@ -243,19 +243,21 @@ class Feesstructure extends CI_Controller
 	    $user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		
-		$id=$this->input->post('id');
+		$fessid=$this->input->post('id');
 	    $paid_status=$this->input->post('paid_status');
 		$paid_by=$this->input->post('paid_by');
 		
-		$datas=$this->feesstructuremodel->update_term_fees_status($id,$paid_status,$user_id,$paid_by);
+		$id=$this->input->post('fees_id');
+		
+		$datas=$this->feesstructuremodel->update_term_fees_status($fessid,$paid_status,$user_id,$paid_by);
 		//print_r($datas);exit;
 		if($datas['status']=="success")
 		     {
 				$this->session->set_flashdata('msg','Updated Successfully');
-				redirect('feesstructure/view_term_fees_master');
+				redirect('feesstructure/view_term_fees/'.$id.'');
 		     }else{
 				$this->session->set_flashdata('msg','Faild To Update');
-				redirect('feesstructure/view_term_fees_master');
+				redirect('feesstructure/view_term_fees/'.$id.'');
 		       }
 	 }
 

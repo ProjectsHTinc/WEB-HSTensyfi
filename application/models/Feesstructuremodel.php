@@ -124,7 +124,7 @@ Class Feesstructuremodel extends CI_Model
 				
 				function view_term_fees_status($id)
 				{
-			      $sql="SELECT ts.*,fm.term_id,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,en.class_id,en.quota_id FROM edu_term_fees_status AS ts,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_enrollment AS en WHERE ts.fees_id=fm.id AND fm.term_id=t.term_id AND ts.year_id=y.year_id AND ts.quota_id=q.id AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ts.student_id=en.enroll_id AND ts.class_master_id=en.class_id AND ts.quota_id=en.quota_id AND ts.fees_id='$id'";
+			    $sql="SELECT ts.*,fm.term_id,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,en.class_id,en.quota_id FROM edu_term_fees_status AS ts,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_enrollment AS en WHERE ts.fees_id=fm.id AND fm.term_id=t.term_id AND ts.year_id=y.year_id AND ts.quota_id=q.id AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ts.student_id=en.enroll_id AND ts.class_master_id=en.class_id AND ts.quota_id=en.quota_id AND ts.fees_id='$id'";
       			$result=$this->db->query($sql);
       			$res=$result->result();
       			return $res;
@@ -132,15 +132,15 @@ Class Feesstructuremodel extends CI_Model
 				
 				function edit_term_fees_status($id)
 				{
-			      $sql="SELECT ts.*,fm.term_id,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,en.class_id FROM edu_term_fees_status AS ts,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_enrollment AS en WHERE ts.fees_id=fm.id AND fm.term_id=t.term_id AND ts.year_id=y.year_id AND ts.quota_id=q.id AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ts.student_id=en.enroll_id AND ts.class_master_id=en.class_id AND ts.id='$id' ";
+			      $sql="SELECT ts.*,fm.id as masid,fm.term_id,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,en.class_id FROM edu_term_fees_status AS ts,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_enrollment AS en WHERE ts.fees_id=fm.id AND fm.term_id=t.term_id AND ts.year_id=y.year_id AND ts.quota_id=q.id AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ts.student_id=en.enroll_id AND ts.class_master_id=en.class_id AND ts.id='$id' ";
       			$result=$this->db->query($sql);
       			$res=$result->result();
       			return $res;
 				}
              
-			 function update_term_fees_status($id,$paid_status,$user_id,$paid_by)
+			 function update_term_fees_status($fessid,$paid_status,$user_id,$paid_by)
 			 {
-  				 $sql="UPDATE edu_term_fees_status SET status='$paid_status',paid_by='$paid_by',updated_by='$user_id',updated_at=NOW() WHERE id='$id'";
+  				 $sql="UPDATE edu_term_fees_status SET status='$paid_status',paid_by='$paid_by',updated_by='$user_id',updated_at=NOW() WHERE id='$fessid'";
   				 $result2=$this->db->query($sql);
       		 $data= array("status" => "success");
       		 return $data;

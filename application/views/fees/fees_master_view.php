@@ -85,9 +85,9 @@
  var $table = $('#bootstrap-table');
  
        $().ready(function(){
-		   $('#mastersmenu').addClass('collapse in');
+		  /*  $('#mastersmenu').addClass('collapse in');
         $('#master').addClass('active');
-        $('#masters9').addClass('active');
+        $('#masters9').addClass('active'); */
          //jQuery('#teachermenu').addClass('collapse in');
            $table.bootstrapTable({
                toolbar: ".toolbar",

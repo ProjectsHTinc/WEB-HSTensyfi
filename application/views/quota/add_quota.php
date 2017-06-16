@@ -99,9 +99,9 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-        $('#mastersmenu').addClass('collapse in');
+        /* $('#mastersmenu').addClass('collapse in');
         $('#master').addClass('active');
-        $('#masters6').addClass('active');
+        $('#masters6').addClass('active'); */
 
    $('#feesformsection').validate({ // initialize the plugin
        rules: {

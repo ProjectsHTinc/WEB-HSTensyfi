@@ -21,12 +21,13 @@
                           <table id="bootstrap-table" class="table">
                               <thead>
                                  <th data-field="id" class="text-left">S.No</th>
+								  <th data-field="notes" class="text-left" data-sortable="true">Student Name</th>
                                 <th data-field="year" class="text-left" data-sortable="true">Year</th>
                                 <th data-field="term" class="text-left" data-sortable="true">Term Name</th>
                                 <th data-field="class" class="text-left" data-sortable="true">Class</th>
                                 <th data-field="quota" class="text-left" data-sortable="true">Quota Name</th>
 								                <th data-field="fees" class="text-left" data-sortable="true">Fees Amount</th>
-                                <th data-field="notes" class="text-left" data-sortable="true">Student Name</th>
+                               
                                 <th data-field="status" class="text-left" data-sortable="true">Status</th>
 								                <th data-field="Section" class="text-left" data-sortable="true">Action</th>
                               </thead>
@@ -38,13 +39,14 @@
                                 ?>
                                   <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
+									<td class="text-left"><?php echo $rows->name;?></td>
                                     <td class="text-left"><?php echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  ?></td>
                                     <td class="text-left"><?php echo $rows->term_name; ?></td>
                                     <td class="text-left"><?php echo $rows->class_name; ?> - <?php echo $rows->	sec_name; ?></td>
                   									<td class="text-left"><?php echo $rows->quota_name;?></td>
                   									<td class="text-left"><?php echo $rows->fees_amt;?></td>
                   									
-                  									<td class="text-left"><?php echo $rows->name;?></td>								 
+                  																	 
                   									 <td><?php 
                   									  if($stu=='Unpaid'){?>
                   									  <button class="btn btn-danger btn-fill btn-wd">UnPaid</button>

@@ -151,9 +151,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
- $('#mastersmenu').addClass('collapse in');
+ /* $('#mastersmenu').addClass('collapse in');
         $('#master').addClass('active');
-        $('#masters9').addClass('active');
+        $('#masters9').addClass('active'); */
 
  $('#feesform').validate({ // initialize the plugin
      rules: {
@@ -220,7 +220,7 @@ $(document).ready(function () {
 			success:function(test)
 			{
 			    //alert(test);
-			  var len = test.length;
+			    var len = test.length;
 				//alert(len);
 				var secction='';
 				var amount='';
@@ -248,29 +248,4 @@ $(document).ready(function () {
 }
 </script>
 
-<script type="text/javascript">
-  function checknamefun1(val)
-   {//alert(val);
-      $.ajax({
-			type:'post',
-			url:'<?php echo base_url(); ?>/enrollment/checker1',
-			data:'admisno='+val,
 
-			success:function(test1)
-			{
-				//alert(test1);
-				if(test1=="Already Enrollment Added")
-				{
-
-			        $("#msg1").html(test1);
-					$("#msg2").html(test1).hide();
-				}
-				else{
-					$("#msg2").html(test1);
-
-				}
-			}
-	  });
-}
-
-</script>
