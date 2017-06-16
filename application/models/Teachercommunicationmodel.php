@@ -23,26 +23,39 @@ Class Teachercommunicationmodel extends CI_Model
 		 
 	 }
 	 
-	 function create_leave($user_type,$user_id,$leave_type,$formatted_date,$to_ldate,$frm_time,$to_time,$leave_description)
+	 function getall_leaves()
 	 {
-		  /* $check_leave_date="SELECT * FROM edu_user_leave WHERE leave_date='$formatted_date'";
+		 $query="SELECT * FROM edu_user_leave_master "; 
+    	 $res=$this->db->query($query);
+         $result=$res->result();
+    	 return $result;
+	 }
+	 
+	 function create_leave($user_type,$user_id,$leave_type,$formatted_date,$to_ldate,$frm_time,$to_time,$leave_description)
+	 {       $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
+			 $resultset=$this->db->query($query);
+			 $row=$resultset->result();
+			 foreach($row as $rows){}
+			 $teacher_id=$rows->teacher_id;
+			 
+		  $check_leave_date="SELECT * FROM edu_user_leave WHERE from_leave_date='$formatted_date' AND to_leave_date='$to_ldate' AND user_id='$teacher_id'";
           $result=$this->db->query($check_leave_date);
           if($result->num_rows()==0)
-		  { */
+		  { 
 			 $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
 			 $resultset=$this->db->query($query);
 			 $row=$resultset->result();
 			 foreach($row as $rows){}
 			 $teacher_id=$rows->teacher_id;
-			  $sql="INSERT INTO edu_user_leave(user_type,user_id,type_leave,from_leave_date,	to_leave_date,frm_time,to_time,leave_description,status,created_at)VALUES('$user_type','$teacher_id','$leave_type','$formatted_date','$to_ldate','$frm_time','$to_time','$leave_description','P',NOW())";
+			  $sql="INSERT INTO edu_user_leave(user_type,user_id,type_leave,from_leave_date,to_leave_date,frm_time,to_time,leave_description,status,created_at)VALUES('$user_type','$teacher_id','$leave_type','$formatted_date','$to_ldate','$frm_time','$to_time','$leave_description','Pending',NOW())";
 			 $resultset=$this->db->query($sql);
 			
 			 $data= array("status"=>"success");
 			 return $data;
-		  /* }else{
+		 }else{
 			  $data= array("status" => "Leave Date Already Exist");
               return $data;
-		  } */
+		  } 
 	 }
 	 function edit_leave($user_id,$leave_id)
 	 {

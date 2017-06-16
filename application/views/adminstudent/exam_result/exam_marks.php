@@ -48,13 +48,17 @@
 							  
 						 <td><?php echo $rows->internal_mark; ?> ( <span class="grade"><?php echo $rows->internal_grade; ?>  )</span></td> 
 						 <td><?php echo $rows->external_mark; ?> (  <span class="grade"><?php echo $rows->external_grade; ?>  )</span></td>
-						 <td><?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
+						 <td><span class="total"><?php echo $rows->total_marks; ?></span> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
 						
 						</tr>
 						 <?php $i++;  } 
 						}else{ echo "<p style=text-align:center;color:red;>No exam added for any class </p>";}	
 						?>
-						
+						<td></td><td></td><td></td>
+										<?php if(!empty($result)){ ?>
+										 <td>TOTAL</td>
+										 <td class="total-combat"></td>
+										<?php }else{ echo"";}?>
 					</tbody>
 				</table>
 				</form>
@@ -68,19 +72,29 @@
 </div>	
 </body>
 <script type="text/javascript">
-$(window).load(function($) {
+ /* $(window).load(function($) {
 loadmarks();
-});
+}); */
 
-function loadmarks()
+ $('tr').each(function () {
+          var sum = 0;
+        $('.total').each(function () {
+            var combat = $(this).val();
+            if (combat !='NA'&& combat.length!==0) {
+                sum += parseInt(combat);
+            }
+        });
+        $(this).find('.total-combat').html(sum);
+      });
+	   
+ /* function loadmarks()
 {
 var tot=0;
-$("input[name=marks]").each (function() {
+$('#combats').each (function() {
 tot=tot + parseInt($(this).val());
 })
-$("input[name=totals]").val(tot);
-
-}
+$('.total-combat').val(tot);
+}  */
 
 /* $(document).ready(function(e) {
 $("#smark").change(function (){

@@ -26,17 +26,15 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Type of Leave</label>
                               <div class="col-sm-4">
-							   
-                                <select class="form-control" disabled name="leave_type" id="choose" >
-												<option>Select Type Of Leave</option>
-												<option value="Sick Leave">Sick Leave</option>
-												<option value="Leave of Absence">Leave of Absence</option>
-												<option value="Permission">Permission</option>
-								</select>
-			<script language="JavaScript">document.myformsection.leave_type.value="<?php echo $row->type_leave; ?>";</script>
-                              </div>
-							  
-							  
+						
+							   <select class="form-control" disabled name="leaves_type" >
+							  <?php foreach($leaves as $res1){ ?>
+									<option <?php echo $res1->type_leave; ?>><?php echo $res1->leave_title; ?></option>
+									<?php } ?>
+                           </select>
+							
+							  </div>
+							 
                               <label class="col-sm-2 control-label">From Leave Date</label>
                                 <div class="col-sm-4">
                           <input type="text" name="leave_date" readonly value="<?php $date1=date_create($row->from_leave_date);
@@ -46,7 +44,7 @@
                            </div>
                         </fieldset>
 						
-						 <?php if($leave=="Permission"){?>
+						 <?php if($leave==0){?>
 								   <fieldset>
                                         <div class="form-group">
                                           <label class="col-sm-2 control-label">Time</label>
@@ -77,10 +75,9 @@
 							   <label class="col-sm-2 control-label">Status</label>
                               <div class="col-sm-4">
                                  <select class="form-control" name="status" id="choose" >
-												<option>Select </option>
-												<option value="P">Pending</option>
-												<option value="A">Approval</option>
-												<option value="R">Reject</option>
+												<option value="Pending">Pending</option>
+												<option value="Approved">Approval</option>
+												<option value="Rejected">Reject</option>
 												
 								</select>
 								<script language="JavaScript">document.myformsection.status.value="<?php echo $row->status; ?>";</script>

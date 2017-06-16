@@ -155,6 +155,7 @@
 						<li id="masters6"><a href="<?php echo base_url(); ?>quota/home">Quota </a></li>
                         <li id="masters7" ><a href="<?php echo base_url(); ?>groups/home">Groups</a></li>
                         <li id="masters8"><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular</a></li>
+						<li id="masters10"><a href="<?php echo base_url(); ?>userleavemaster/home">Leave Master</a></li>
 
                      </ul>
                   </div>

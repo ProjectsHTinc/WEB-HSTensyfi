@@ -14,7 +14,7 @@
             
                <div class="card">
                   <div class="header">
-                     <legend> Users Leave Details</legend>
+                     <legend>Users Leave Details</legend>
                   </div>
                   <div class="content">
                            <div class="fresh-datatables">
@@ -37,23 +37,12 @@
 								                      $type=$rows->type_leave;
                                   ?>
                               <tr>
-                                 <td><?php   echo $i; ?></td>
-                                  <td>
-                                    <?php 
-                                       $id=$rows->user_id;
-                                       $query="SELECT * FROM edu_teachers WHERE teacher_id='$id'";
-                                       $resultset=$this->db->query($query);
-                                       $row=$resultset->result();
-                                       foreach($row as $rows1)
-                                       {}
-                                       $name=$rows1->name;
-                                       ?>
-                                    <?php    echo $name ; ?>
-                                 </td>
-                                 <td><?php echo $rows->type_leave; ?></td>
+                                 <td><?php echo $i; ?></td>
+                                 <td><?php echo $rows->name ; ?></td>
+                                 <td><?php if($type==0){ echo "Permission"; }else{ echo "Leave"; } ?></td>
                                  <td><?php $date=date_create($rows->from_leave_date);
                                      echo date_format($date,"d-m-Y");?> 
-                									 <?php if($type='Permission')
+                									 <?php if($type==0)
                 									 {?>
                 									 <?php echo $rows->frm_time; ?> <?php echo $rows->to_time; ?>
                 									 <?php }?>
@@ -62,9 +51,9 @@
                                      echo date_format($date,"d-m-Y");?> </td>
                                  <td><?php echo $rows->leave_description; ?></td>
 								 
-                                 <td><?php if($status=='P'){ ?>
+                                 <td><?php if($status=='Pending'){ ?>
                 								 <button class="btn btn-warning btn-fill btn-wd">Pending </button>
-                								 <?php }else if($status=='R'){?>
+                								 <?php }else if($status=='Rejected'){?>
                 								 <button class="btn btn-danger btn-fill btn-wd"> Reject</button>
                 								 <?php }else{ ?>
                 								   <button class="btn btn-success btn-fill btn-wd">Approval</button>

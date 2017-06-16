@@ -20,9 +20,9 @@
                               <label class="col-sm-2 control-label">Type of Leave</label>
                               <div class="col-sm-4">
                                 <select class="selectpicker form-control" data-title="Select Type Of Leave" name="leave_type" id="choose" >
-												<option value="Sick Leave">Sick Leave</option>
-												<option value="Leave of Absence">Leave of Absence</option>
-												<option value="Permission">Permission</option>
+									<?php foreach($leave as $row){?>
+									<option value="<?php echo $row->leave_type; ?>"><?php  echo $row->leave_title; ?></option>
+									<?php } ?>
 								</select>
                               </div>
                               <label class="col-sm-2 control-label">From Date</label>
@@ -102,10 +102,11 @@
                                   ?>
                               <tr>
                                  <td><?php   echo $i; ?></td>
-                                 <td><?php echo $rows->type_leave; ?></td>
+                                 <td><?php if($type==0)
+									 {echo "Permission";}else{echo"Leave";}?></td>
                                  <td><?php $date=date_create($rows->from_leave_date);
                                      echo date_format($date,"d-m-Y");
-									  if($type='Permission')
+									  if($type==0)
 									 {?>
 									 <?php echo $rows->frm_time; ?>  <?php echo $rows->to_time; ?>
 									 <?php }?></td>
@@ -115,11 +116,10 @@
                                     
                                  <td><?php echo $rows->leave_description; ?></td>
 
-                                 <td><?php if($status=='P'){ ?>
+                                 <td><?php if($status=='Pending'){ ?>
 								 <button class="btn btn-warning btn-fill btn-wd">Pending</button>
-								 <?php }elseif($status=='R'){?>
+								 <?php }elseif($status=='Rejected'){?>
 								 <button class="btn btn-danger btn-fill btn-wd">Reject</button>
-
 								 <?php }else{ ?>
 								 <button class="btn btn-success btn-fill btn-wd">Approval</button>
 								 <?php }?>
@@ -209,7 +209,7 @@
 
 $(function () {
         $("#choose").change(function () {
-            if ($(this).val() == "Permission") {
+            if ($(this).val()==0) {
                 $("#permissiontime").show();
 
             } else {

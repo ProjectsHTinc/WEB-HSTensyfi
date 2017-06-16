@@ -99,7 +99,7 @@ Class Communicationmodel extends CI_Model
       
 	   function user_leaves()
 	   {
-		   $query="SELECT * FROM edu_user_leave ORDER BY leave_id desc";
+		   $query="SELECT ul.*,t.teacher_id,t.name FROM edu_user_leave AS ul,edu_teachers AS t WHERE t.teacher_id=ul.user_id ORDER BY ul.leave_id desc";
 		   $resultset=$this->db->query($query);
            $result= $resultset->result();
 		   return $result;
@@ -114,6 +114,14 @@ Class Communicationmodel extends CI_Model
 		 $row=$resultset1->result();
 		 return $row;
 	 	 
+	   }
+	   
+	   function get_all_leave($leave_id)
+	   {
+		 $que="SELECT ul.*,lm.id,lm.leave_title,lm.leave_type FROM edu_user_leave AS ul,edu_user_leave_master AS lm WHERE ul.type_leave=lm.leave_type AND ul.leave_id='$leave_id'";
+		 $resultset1=$this->db->query($que);
+		 $row=$resultset1->result();
+		 return $row;
 	   }
 	 
 	   function update_leave($leave_id,$status)

@@ -15,7 +15,7 @@
                         <div class="card">
                             <div class="content">
                                 <div class="fresh-datatables">
-                                  <h4 class="title"style="padding-bottom: 20px;">List of Admission</h4>
+                                  <h4 class="title" style="padding-bottom: 20px;">List of Admission</h4>
 								  
 								  <form method="post" action="<?php echo base_url(); ?>admission/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
 										 <div class="col-sm-2">

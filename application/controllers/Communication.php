@@ -182,7 +182,8 @@ class Communication extends CI_Controller
   	 		$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$datas['res']=$this->communicationmodel->edit_leave($leave_id);
-			//print_r($datas['res']);exit;
+			$datas['leaves']=$this->communicationmodel->get_all_leave($leave_id);
+			//echo'<pre>';print_r($datas['leaves']);exit;
 			 if($user_type==1){
 	 		 $this->load->view('header');
 			 $this->load->view('communication/user_leave_approval',$datas);

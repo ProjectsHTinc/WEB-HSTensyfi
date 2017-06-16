@@ -18,6 +18,7 @@ class Teachercommunication extends CI_Controller
   	 		 $user_id=$this->session->userdata('user_id');
 			 $user_type=$this->session->userdata('user_type');
 			 $datas['result']=$this->teachercommunicationmodel->getall_details($user_id);
+			 $datas['leave']=$this->teachercommunicationmodel->getall_leaves();
 			 //print_r($datas); exit;
 			 if($user_type==2){
 	 		 $this->load->view('adminteacher/teacher_header');

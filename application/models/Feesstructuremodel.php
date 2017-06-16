@@ -80,7 +80,7 @@ Class Feesstructuremodel extends CI_Model
     					return $data;
 				  } 
 				  
-				  $stu="SELECT enroll_id,admission_id,admisn_no,status,class_id FROM edu_enrollment WHERE class_id='$class_id1' AND status='A' ";
+				  $stu="SELECT enroll_id,admission_id,admisn_no,status,class_id FROM edu_enrollment WHERE class_id='$class_id1' AND status='Active' ";
 				  $res=$this->db->query($stu);
 				  $result1=$res->result();
 				  foreach($result1 as $rows){
@@ -93,8 +93,7 @@ Class Feesstructuremodel extends CI_Model
            return $data;
 			
 		}
-		
-		
+
     		function view_fees_master_details()
     		{
     			$sql="SELECT fe.*,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.* FROM edu_fees_master AS fe,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE fe.year_id=y.year_id AND fe.term_id=t.term_id AND fe.quota_id=q.id AND fe.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id ";
@@ -125,7 +124,7 @@ Class Feesstructuremodel extends CI_Model
 				
 				function view_term_fees_status($id)
 				{
-			      $sql="SELECT ts.*,fm.term_id,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,en.class_id,en.quota_id FROM edu_term_fees_status AS ts,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_enrollment AS en WHERE ts.fees_id=fm.id AND fm.term_id=t.term_id AND ts.year_id=y.year_id AND ts.quota_id=q.id AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ts.student_id=en.enroll_id AND ts.class_master_id=en.class_id AND ts.quota_id=en.quota_id AND ts.fees_id='$id' ";
+			      $sql="SELECT ts.*,fm.term_id,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,en.class_id,en.quota_id FROM edu_term_fees_status AS ts,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_enrollment AS en WHERE ts.fees_id=fm.id AND fm.term_id=t.term_id AND ts.year_id=y.year_id AND ts.quota_id=q.id AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ts.student_id=en.enroll_id AND ts.class_master_id=en.class_id AND ts.quota_id=en.quota_id AND ts.fees_id='$id'";
       			$result=$this->db->query($sql);
       			$res=$result->result();
       			return $res;
