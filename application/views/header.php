@@ -331,6 +331,22 @@
                      </ul>
                   </div>
                </li>
+			   
+			   <li id="onduty">
+                  <a data-toggle="collapse" href="#ondutydetails">
+                     <i class="pe-7s-plugin"></i>
+                     <p>On Duty</p>
+                   <b class="caret"></b> 
+                  </a>
+                  <div class="collapse" id="ondutydetails">
+                     <ul class="nav">
+                        <li id="onduty1"><a href="<?php echo base_url(); ?>onduty/teachers">Teachers</a></li>
+                        <li id="onduty2"><a href="<?php echo base_url(); ?>onduty/students">Students</a></li>
+                     </ul>
+                  </div> 
+               </li>
+			   
+			   
                <!-- <li>
                   <a data-toggle="collapse" href="#componentsExamples">
                   		<i class="pe-7s-plugin"></i>

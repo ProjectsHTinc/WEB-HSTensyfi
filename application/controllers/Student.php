@@ -151,15 +151,6 @@ class Student extends CI_Controller
 			
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 //------------------------------------------------------------------------//
 
 	   public function attendance(){
@@ -285,7 +276,109 @@ class Student extends CI_Controller
 			$datas['res']=$this->studentmodel->get_special_leave_all($user_id);
 			echo json_encode($datas['res']);
 		}
-
+           
+    //---------------------------On Duty--------------------------//
+	
+	public function onduty()
+	 {
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			$datas['result'] = $this->studentmodel->getall_details($user_id,$user_type);
+			
+			 if($user_type==3)
+			 {
+				 $this->load->view('adminstudent/student_header');
+				 $this->load->view('adminstudent/onduty/add_onduty',$datas);
+				 $this->load->view('adminstudent/student_footer');
+			 }
+			 else{
+					redirect('/');
+			 }
+	}
+	
+	public function apply_onduty()
+	{
+		$datas=$this->session->userdata();
+  	    $user_id=$this->session->userdata('user_id');
+	    $user_type=$this->session->userdata('user_type');
+		
+		$reason=$this->input->post('reason');
+		$notes=$this->input->post('notes');
+		
+		$from_date=$this->input->post('fdate');
+		 $dateTime = new DateTime($from_date);
+         $fdate=date_format($dateTime,'Y-m-d' );
+		 
+		$to_date=$this->input->post('tdate');
+		 $dateTime1=new DateTime($to_date);
+         $tdate=date_format($dateTime1,'Y-m-d' );
+		 
+		//$status=$this->input->post('status');
+		$datas=$this->studentmodel->apply_onduty($user_type,$user_id,$reason,$fdate,$tdate,$notes);
+		//print_r($datas);exit;
+		if($datas['status']=="success")
+		{
+			$this->session->set_flashdata('msg','Added Successfully');
+			redirect('student/onduty');
+		}else{
+			$this->session->set_flashdata('msg','Faild To Add');
+			redirect('student/onduty');
+		}
+		
+	}
+	
+	public function edit_onduty($id)
+	{
+		$datas=$this->session->userdata();
+	    $user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+        $datas['edit']=$this->studentmodel->edit_onduty_form($id,$user_type);
+		//echo'<pre>';print_r($datas['edit']);exit;
+        if($user_type==3)
+			 {
+				 $this->load->view('adminstudent/student_header');
+				 $this->load->view('adminstudent/onduty/edit_onduty',$datas);
+				 $this->load->view('adminstudent/student_footer');
+			 }
+			 else{
+					redirect('/');
+			 }
+		
+	}
+	
+	public function update_onduty()
+	{
+		$datas=$this->session->userdata();
+  	    $user_id=$this->session->userdata('user_id');
+	    $user_type=$this->session->userdata('user_type');
+		
+		$reason=$this->input->post('reason');
+		$notes=$this->input->post('notes');
+		
+		$from_date=$this->input->post('fdate');
+		 $dateTime = new DateTime($from_date);
+         $fdate=date_format($dateTime,'Y-m-d' );
+		 
+		$to_date=$this->input->post('tdate');
+		 $dateTime1=new DateTime($to_date);
+         $tdate=date_format($dateTime1,'Y-m-d' );
+		 
+		 $duty_id=$this->input->post('id');
+		
+		$datas=$this->studentmodel->update($duty_id,$user_type,$user_id,$reason,$fdate,$tdate,$notes);
+		//print_r($datas);exit;
+		
+		if($datas['status']=="success")
+		{
+			$this->session->set_flashdata('msg','Updated Successfully');
+			redirect('student/onduty');
+		}else{
+			$this->session->set_flashdata('msg','Faild To Update');
+			redirect('student/onduty');
+		}
+	}
+	
 
 
  }

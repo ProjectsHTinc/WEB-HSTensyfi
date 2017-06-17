@@ -227,14 +227,13 @@ $(document).ready(function () {
 				
 				if(test!='')
 				{       //alert(len);
-						for(var i=0; i<len; i++)
-						{
-							var clsid = test[i].class_sec_id;
-							var sec_name = test[i].sec_name;
-                        
-                        secction += '<input name="subject_name" readonly type="text" required class="form-control"  value="' + sec_name + '"><input name="class_id[]" required type="hidden" class="form-control"  value="' + clsid + '"></br>';
-                        amount += '<input type="text" name="fees_amount[]"  class="form-control" placeholder="Enter Fees Amount"/></br>';
-					  }
+				 for(var i=0; i<len; i++)
+				  {
+					  var clsid = test[i].class_sec_id;
+					  var sec_name = test[i].sec_name;
+					  secction += '<input name="subject_name" readonly type="text" required class="form-control"  value="' + sec_name + '"><input name="class_id[]" required type="hidden" class="form-control"  value="' + clsid + '"></br>';
+					  amount += '<input type="text" name="fees_amount[]"  class="form-control" placeholder="Enter Fees Amount"/></br>';
+			      }
 					  $("#sec").html(secction);
 					  $("#amt").html(amount);
 					  $("#lab").html('Section & Fees Amount');
