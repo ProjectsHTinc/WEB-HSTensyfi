@@ -25,7 +25,7 @@
                         </div>
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-4">
-                           <input type="text" name="email" readonly="" class="form-control " id="email" placeholder="Email Address"  value="<?php echo $rows->email; ?>"/>
+                           <input type="text" name="email" readonly class="form-control" id="email" value="<?php echo $rows->email; ?>"/>
                         </div>
                      </div>
                   </fieldset>
@@ -323,8 +323,7 @@
    rules: {
    
    name:{required:true }, address:{required:true },
-   email:{required:true,email:true
-   },
+   //email:{required:true,email:true},
    sex:{required:true },
    dob:{required:true },
    age:{required:true,number:true,maxlength:2 },
@@ -345,7 +344,7 @@
    admission_date: "Select Admission Date",
    name: "Enter Name",
    "class_name[]":"Select class",
-   email: "Enter Email Address",
+   //email: "Enter Email Address",
    remote: "Email already in use!",
    sex: "Select Gender",
    dob: "Select Date of Birth",
