@@ -75,7 +75,7 @@ Class Enrollmentmodel extends CI_Model
 
 
              
-             $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_type,student_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5($OTP),'3','$admission_id',NOW(),NOW(),'DA')";
+             $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,student_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5($OTP),'3','$admission_id','$admission_id',NOW(),NOW(),'DA')";
              $resultset=$this->db->query($stude_insert);
 
       		 $query2="UPDATE edu_admission SET enrollment='1' WHERE admisn_no='$admisn_no'";

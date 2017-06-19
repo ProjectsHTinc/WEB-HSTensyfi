@@ -17,6 +17,7 @@ class Communication extends CI_Controller
       $user_id=$this->session->userdata('user_id');
       $datas['teacher']=$this->communicationmodel->get_teachers();
       $datas['getall_class']=$this->class_manage->getall_class();
+	  $datas['parents']=$this->communicationmodel->getall_parents();
       $user_type=$this->session->userdata('user_type');
       if($user_type==1)
       {

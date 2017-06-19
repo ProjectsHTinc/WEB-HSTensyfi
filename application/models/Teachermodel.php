@@ -12,16 +12,12 @@ Class Teachermodel extends CI_Model
 //CREATE ADMISSION
 
 
-        function teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$groups_id,$activity_id,$status,$user_id,$userFileName)
-
+        function teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$userFileName)
 		{
           $check_email="SELECT * FROM edu_teachers WHERE email='$email'";
           $result=$this->db->query($check_email);
           if($result->num_rows()==0){
-
-
-          $query="INSERT INTO edu_teachers (name,email,sec_email,sex,dob,age,nationality,religion,community_class,community,phone,sec_phone,address,class_teacher,class_name,subject,house_id,extra_curicullar_id,profile_pic,created_by,created_at,status) VALUES ('$name','$email','$sec_email','$sex','$formatted_date','$age','$nationality','$religion','$community_class','$community','$mobile','$sec_phone','$address','$class_teacher','$class_name','$subject','$groups_id','$activity_id','$userFileName','$user_id',NOW(),'$status')";
-
+         echo $query="INSERT INTO edu_teachers(name,email,sec_email,sex,dob,age,nationality,religion,community_class,community,phone,sec_phone,address,class_teacher,class_name,subject,subject_handling,qualification,house_id,extra_curicullar_id,profile_pic,created_by,created_at,status) VALUES ('$name','$email','$sec_email','$sex','$formatted_date','$age','$nationality','$religion','$community_class','$community','$mobile','$sec_phone','$address','$class_teacher','$class_name','$subject','$multiple_sub','$qualification','$groups_id','$activity_id','$userFileName','$user_id',NOW(),'$status')";
            $resultset=$this->db->query($query);
            $insert_id = $this->db->insert_id();
           $digits = 6;
@@ -69,10 +65,8 @@ Class Teachermodel extends CI_Model
        // Additional headers
        $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
        mail($to,$subject,$htmlContent,$headers);
-
-
-
-            $query="INSERT INTO edu_users (name,user_name,user_password,user_pic,user_type,teacher_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5($OTP),'$userFileName','2','$insert_id',NOW(),NOW(),'A')";
+	   
+        $query="INSERT INTO edu_users (name,user_name,user_password,user_pic,user_type,user_master_id,teacher_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5($OTP),'$userFileName','2','$insert_id','$insert_id',NOW(),NOW(),'A')";
 
           $resultset=$this->db->query($query);
             $data= array("status" => "success");
@@ -108,8 +102,9 @@ Class Teachermodel extends CI_Model
          }
        }
 
-       function save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$groups_id,$activity_id,$status,$user_id,$teacher_id){
-            $query="UPDATE edu_teachers SET name='$name',email='$email',sec_email='$sec_email',sex='$sex',age='$age',nationality='$nationality',religion='$religion',community_class='$community_class',community='$community',phone='$mobile',sec_phone='$sec_phone',address='$address',profile_pic='$userFileName',class_teacher='$class_teacher',class_name='$class_name',subject='$subject',house_id='$groups_id',extra_curicullar_id='$activity_id',status='$status',update_at=NOW(),updated_by='$user_id' WHERE teacher_id='$teacher_id'";
+       function save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$teacher_id)
+	   {
+            $query="UPDATE edu_teachers SET name='$name',email='$email',sec_email='$sec_email',sex='$sex',dob='$dob',age='$age',nationality='$nationality',religion='$religion',community_class='$community_class',community='$community',phone='$mobile',sec_phone='$sec_phone',address='$address',profile_pic='$userFileName',class_teacher='$class_teacher',class_name='$class_name',subject='$subject',subject_handling='$multiple_sub',qualification='$qualification',house_id='$groups_id',extra_curicullar_id='$activity_id',status='$status',update_at=NOW(),updated_by='$user_id' WHERE teacher_id='$teacher_id'";
              $res=$this->db->query($query);
 			  $query1="UPDATE edu_users SET name='$name',updated_date=NOW() WHERE teacher_id='$teacher_id'";
 			  $res1=$this->db->query($query1);

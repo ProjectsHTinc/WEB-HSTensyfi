@@ -111,6 +111,44 @@
                         </div>
                      </div>
                   </fieldset>
+				   <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Qualification</label>
+                        <div class="col-sm-4">
+                           <input type="text" value="<?php echo $rows->qualification; ?>" name="qualification" class="form-control">
+                        </div>
+                        <label class="col-sm-2 control-label">Subject Handling</label>
+                        <div class="col-sm-4">
+                           <select multiple name="subject_multiple[]" id="subject_id"  class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
+                               <?php
+                                 $sub_id=$rows->subject_handling;
+                                 $Query = "SELECT * FROM edu_subject";
+                                 $obj=$this->db->query($Query);
+                                 //print_r($objRs);
+                                 $row=$obj->result();
+                                 foreach ($row as $rows1)
+                                 {
+                                 $sid= $rows1->subject_id;
+                                 $subname=$rows1->subject_name;
+                                 $arryPlatform = explode(",", $sub_id);
+                                 $sPlatform_id  = trim($sid);
+                                
+                                 if (in_array($sPlatform_id, $arryPlatform )) {
+                                 ?>
+                              <?php
+                                 echo "<option  value=\"$sPlatform_id\" selected />$subname</option>";
+                                 ?>
+                              <?php }
+                                 else {
+                                 echo "<option value=\"$sPlatform_id\"/>$subname</option>";
+                                 }
+                                     }
+                                       ?>
+                           </select>
+                           <script language="JavaScript">document.teacherform.subject_multiple.value="<?php echo $rows->subject_handling; ?>";</script>
+                        </div>
+                     </div>
+                  </fieldset>
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Class Teacher</label>
@@ -203,8 +241,6 @@
                                  }
                                      }
                                        ?>
-									   
-									   
                            </select>
                            <script language="JavaScript">document.teacherform.activity_id[].value="<?php echo $rows->activity_id; ?>";</script>	  
                         </div>

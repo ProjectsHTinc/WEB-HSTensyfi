@@ -137,6 +137,50 @@
                               </div>
                            </div>
                         </div>
+						
+						<div class="row">
+                           <div class="col-md-5">
+                              <div class="form-group">
+                                 <label>Qualification</label>
+                                 <input type="text" readonly value="<?php echo $rows->qualification; ?>" name="qualification" class="form-control">
+                         
+                              </div>
+                           </div>
+                           <div class="col-md-7">
+                              <div class="form-group">
+                                 <label for="exampleInputEmail1">Subject Handling</label>
+                                <select multiple name="subject_multiple[]" disabled="" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
+                               <?php
+                                 $sub_id=$rows->subject_handling;
+                                 $Query = "SELECT * FROM edu_subject";
+                                 $obj=$this->db->query($Query);
+                                 //print_r($objRs);
+                                 $row=$obj->result();
+                                 foreach ($row as $rows1)
+                                 {
+                                 $sid= $rows1->subject_id;
+                                 $subname=$rows1->subject_name;
+                                 $arryPlatform = explode(",", $sub_id);
+                                 $sPlatform_id  = trim($sid);
+                                
+                                 if (in_array($sPlatform_id, $arryPlatform )) {
+                                 ?>
+                              <?php
+                                 echo "<option  value=\"$sPlatform_id\" selected />$subname</option>";
+                                 ?>
+                              <?php }
+                                 else {
+                                 echo "<option value=\"$sPlatform_id\"/>$subname</option>";
+                                 }
+                                     }
+                                       ?>
+                           </select>
+                           <script language="JavaScript">document.teacherform.subject_multiple.value="<?php echo $rows->subject_handling; ?>";</script>
+                              </div>
+                           </div>
+                        </div>
+						
+						
                         <div class="row">
                           
                            <div class="col-md-7">

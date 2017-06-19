@@ -25,6 +25,7 @@
                               <div class="col-sm-4">
 							   <button type="button" id="teacher" onclick="myFunction()" class="btn btn-info btn-fill ">Teachers</button>
 							   <button type="button" id="classes" onclick="myFunction1()" class="btn btn-info btn-fill ">Classes</button>
+							   <button type="button" id="parents" onclick="myFunction2()" class="btn btn-info btn-fill ">Parents</button>
                               </div>
                            </div>
                         </fieldset>
@@ -140,6 +141,7 @@ function validates()
            x.style.display = 'none';
        }
        $("#myDIV1").hide();
+	   $("#myDIV2").hide();
    }
 
    function myFunction1() {
@@ -150,6 +152,18 @@ function validates()
            x.style.display = 'none';
        }
        $("#myDIV").hide();
+	   $("#myDIV2").hide();
+   }
+   
+   function myFunction2() {
+       var x = document.getElementById('myDIV2');
+       if (x.style.display === 'none') {
+           x.style.display = 'block';
+       } else {
+           x.style.display = 'none';
+       }
+       $("#myDIV").hide();
+	   $("#myDIV1").hide();
    }
 </script>
 <script type="text/javascript">

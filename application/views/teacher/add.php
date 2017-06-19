@@ -107,6 +107,22 @@
                         </div>
                      </div>
                   </fieldset>
+				   <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Qualification</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Qualification" name="qualification" class="form-control">
+                        </div>
+                        <label class="col-sm-2 control-label">Subject</label>
+                        <div class="col-sm-4">
+                           <select multiple name="subject_multiple[]" id="subject_id"  data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
+                              <?php foreach ($resubject as $rows) {  ?>
+                              <option value="<?php echo $rows->subject_id; ?>"><?php echo $rows->subject_name; ?></option>
+                              <?php      } ?>
+                           </select>
+                        </div>
+                     </div>
+                  </fieldset>
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Class Teacher</label>
@@ -232,7 +248,7 @@
    
    $('#admissionform').validate({ // initialize the plugin
    rules: {
-   	name:{required:true }, address:{required:true },
+ 	/* name:{required:true }, address:{required:true },
    	email:{required:true,email:true},
    	sex:{required:true },
    	dob:{required:true },
@@ -269,7 +285,7 @@
    	mobile:"Enter the mobile Number",
    	groups_id:"Select Groups Name",
    	'activity_id[]':"Select Activity Name",
-   	status:"Select Status Name"
+   	status:"Select Status Name"  */
    }
    }); 
    });

@@ -64,6 +64,12 @@ class Teacher extends CI_Controller {
 
 			 $class_teacher=$this->input->post('class_teacher');
 			 $subject=$this->input->post('subject');
+			 
+			 $subject_multiple=$this->input->post('subject_multiple');
+			 $multiple_sub=implode(',',$subject_multiple);
+			 
+			 $qualification=$this->input->post('qualification');
+			 
 			 $name=$this->input->post('name');
 			 $email=$this->input->post('email');
 
@@ -97,7 +103,7 @@ class Teacher extends CI_Controller {
 			 $uploaddir = 'assets/teachers/';
 			 $profilepic = $uploaddir.$userFileName;
 				move_uploaded_file($_FILES['teacher_pic']['tmp_name'], $profilepic);
-				$datas=$this->teachermodel->teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$groups_id,$activity_id,$status,$user_id,$userFileName);
+				$datas=$this->teachermodel->teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$userFileName);
 
 			//	print_r($datas['status']);exit;
 				if($datas['status']=="success"){
@@ -200,8 +206,17 @@ class Teacher extends CI_Controller {
 			 $sec_email=$this->input->post('sec_email');
 			 $sec_phone=$this->input->post('sec_phone');
 
+			 $subject_multiple=$this->input->post('subject_multiple');
+			 $multiple_sub=implode(',',$subject_multiple);
+			 $qualification=$this->input->post('qualification');
+			 
 		     $sex=$this->input->post('sex');
-			 $dob=$this->input->post('dob');
+			 
+			 $dobdate=$this->input->post('dob');
+			 $dateTime = new DateTime($dobdate);
+              $dob=date_format($dateTime,'Y-m-d' );
+			  
+			 //$dob=$this->input->post('dob');
 			 $age=$this->input->post('age');
 		     $nationality=$this->input->post('nationality');
 			 $religion=$this->input->post('religion');
@@ -216,17 +231,17 @@ class Teacher extends CI_Controller {
 			 $activity_id=implode(',',$activity);
 			 
 			 $user_pic_old=$this->input->post('old_pic');
-			 $student_pic = $_FILES["teacher_pic"]["name"];
-			 $userFileName =time().'-'.$student_pic;
+			 $teacher_pic = $_FILES["teacher_pic"]["name"];
+			 $userFileName =time().'-'.$teacher_pic;
 
 				$uploaddir = 'assets/teachers/';
 				$profilepic = $uploaddir.$userFileName;
 				move_uploaded_file($_FILES['teacher_pic']['tmp_name'], $profilepic);
-				if(empty($student_pic)){
+				if(empty($teacher_pic)){
 						$userFileName=$user_pic_old;
 				}
 
-				$datas=$this->teachermodel->save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$groups_id,$activity_id,$status,$user_id,$teacher_id);
+				$datas=$this->teachermodel->save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$teacher_id);
 			//	print_r($datas['status']);exit;
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Updated Successfully');

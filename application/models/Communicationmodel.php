@@ -11,10 +11,18 @@ Class Communicationmodel extends CI_Model
 
     function get_teachers()
 	 {
-		 $query="SELECT * FROM edu_teachers";
+		 $query="SELECT * FROM edu_teachers WHERE status='Active'";
          $resultset=$this->db->query($query);
          return $resultset->result();
 	 }
+	 
+	 function getall_parents()
+	 {
+		$query="SELECT * FROM edu_teachers";
+        $resultset=$this->db->query($query);
+        return $resultset->result(); 
+	 }
+	 
 
 	 function get_classes()
 	 {
