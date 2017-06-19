@@ -439,6 +439,66 @@ class Apiadminmodel extends CI_Model {
               }
             }
 
+
+
+              //#################### GET FEES MASTER FOR CLASS  ####################//
+            function get_fees_master_class($class_id,$section_id){
+              $sql="SELECT class_sec_id FROM edu_classmaster WHERE class='$class_id' AND section='$section_id'";
+              $res=$this->db->query($sql);
+              $result=$res->result();
+              foreach($result as $rows){   }
+              $classid=$rows->class_sec_id;
+              $year_id=$this->getYear();
+              $query="SELECT efm.id,efm.term_id,DATE_FORMAT(efm.due_date_from,'%d-%m-%Y')AS due_date,DATE_FORMAT(efm.due_date_to,'%d-%m-%Y')AS to_date,
+              DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id WHERE efm.class_master_id='$classid' AND efm.year_id='$year_id' AND efm.status='Active'";
+              $result_query=$this->db->query($query);
+              if($result_query->num_rows()==0){
+                  $data=array("msg"=>"nodata");
+                  return $data;
+              }else{
+                $result=$result_query->result();
+                $data=array("msg"=>"success","data"=>$result);
+                return $data;
+              }
+            }
+
+
+              //#################### GET FEES DETAILS  ####################//
+            function get_fees_details($fees_id){
+              $query="SELECT efm.id,efm.term_id,DATE_FORMAT(efm.due_date_from,'%d-%m-%Y')AS due_date,DATE_FORMAT(efm.due_date_to,'%d-%m-%Y')AS to_date,eq.quota_name,ss.sec_name,c.class_name,efm.notes,eu.name AS created_by,DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id
+              LEFT JOIN edu_quota AS eq ON eq.id=efm.quota_id INNER JOIN edu_classmaster AS cm ON efm.class_master_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id INNER JOIN edu_users AS eu ON eu.user_id=efm.created_by WHERE efm.class_master_id=6 AND efm.id='$fees_id'";
+              $result_query=$this->db->query($query);
+              if($result_query->num_rows()==0){
+                  $data=array("msg"=>"nodata");
+                  return $data;
+              }else{
+                $result=$result_query->result();
+                $data=array("msg"=>"success","data"=>$result);
+                return $data;
+              }
+            }
+
+
+            //#################### GET FEES DETAILS  ####################//
+          function get_fees_status($class_id,$section_id,$fees_id){
+            $sql="SELECT class_sec_id FROM edu_classmaster WHERE class='$class_id' AND section='$section_id'";
+            $res=$this->db->query($sql);
+            $result=$res->result();
+            foreach($result as $rows){   }
+            $classid=$rows->class_sec_id;
+            $year_id=$this->getYear();
+            $query="SELECT etfs.id,eer.name,etfs.student_id,etfs.status,etfs.paid_by,etfs.updated_at  FROM edu_term_fees_status AS etfs LEFT JOIN edu_enrollment AS eer ON eer.enroll_id=etfs.student_id WHERE etfs.fees_id='$fees_id' AND etfs.class_master_id='$classid'";
+            $result_query=$this->db->query($query);
+            if($result_query->num_rows()==0){
+                $data=array("msg"=>"nodata");
+                return $data;
+            }else{
+              $result=$result_query->result();
+              $data=array("msg"=>"success","data"=>$result);
+              return $data;
+            }
+          }
+
 }
 
 ?>
