@@ -379,6 +379,26 @@ class Student extends CI_Controller
 		}
 	}
 	
+	//----------------------Special Class Status-------------------------------------
+	
+	public function special_class_details()
+	{
+		$datas=$this->session->userdata();
+  	    $user_id=$this->session->userdata('user_id');
+	    $user_type=$this->session->userdata('user_type');
+		$datas['view']=$this->studentmodel->special_class_details($user_id,$user_type);
+		//echo'<pre>';print_r($datas['view']);exit;
+        if($user_type==3)
+		 {
+			 $this->load->view('adminstudent/student_header');
+			 $this->load->view('adminstudent/special_class/view_special_cls',$datas);
+			 $this->load->view('adminstudent/student_footer');
+		 }else{
+			redirect('/');
+		 }
+	}
+	
+	
 
 
  }

@@ -9,13 +9,13 @@
                        </div>
 						<?php foreach($edit as $res){}	?>
                        <div class="content">
-                                 <form method="post" action="<?php echo base_url(); ?>onduty/update_onduty" class="form-horizontal" enctype="multipart/form-data" id="ondutysection" name="ondutysection">
+                                 <form method="post" action="<?php echo base_url(); ?>onduty/update_stuonduty" class="form-horizontal" enctype="multipart/form-data" id="ondutysection" name="ondutysection">
                        
                         <fieldset>
                            <div class="form-group">
-						   <label class="col-sm-2 control-label">Teacher Name</label>
+						   <label class="col-sm-2 control-label">Student Name</label>
                               <div class="col-sm-4">
-                                 <input type="text" name="tname" readonly class="form-control" value="<?php echo $res->name; ?>">
+                                 <input type="text" name="tname" readonly class="form-control" value="<?php echo $res->name; ?> ( <?php  echo $res->class_name	; ?> - <?php  echo $res->sec_name; ?> )">
                               </div>
 							  
                               <label class="col-sm-2 control-label">Reason Out</label>
@@ -90,7 +90,6 @@
 			fdate:{required:true },
 			tdate:{required:true },
 			status:{required:true }
-			
         },
         messages: {
               reason: "Enter Reason Out",
@@ -98,8 +97,6 @@
 			   fdate: "Select From Date",
 			   tdate: "Select To Date",
 			   status: "Select Status",
-			   
-			  
             }
     });
 	//demo.initFormExtendedDatetimepickers();

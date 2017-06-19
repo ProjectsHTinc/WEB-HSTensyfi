@@ -85,6 +85,18 @@ font-weight: 500;
 							</a>
 						</li>
 						
+						<li class="dropdown" style="padding:08px 10px;">
+					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
+						  Quick Links</a>
+								<ul class="dropdown-menu">
+								 <li><a href="<?php echo base_url(); ?>teacheronduty/home">On Duty Form</a></li>
+								 <li><a href="<?php echo base_url(); ?>teacheronduty/special_class_details">Special Class </a></li> 
+								<!-- <li><a href="<?php echo base_url(); ?>groups/home">Groups </a></li>
+								 <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li> 
+								 <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> --> 
+							</ul>
+						</li>
+						
 						<li class="dropdown dropdown-with-icons">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"style="margin:05px;">
 								<div class="photo">

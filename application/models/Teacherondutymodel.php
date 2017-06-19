@@ -58,6 +58,23 @@ Class Teacherondutymodel extends CI_Model
          $data= array("status" => "success");
          return $data;
         }
-    } 
+    }
+
+//-------------Special Class--------------------------------\
+		   
+   function special_class_details($user_id,$user_type)
+   {
+		$query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
+	    $resultset=$this->db->query($query);
+	    $row=$resultset->result();
+	    foreach($row as $rows){}
+	    $teacher_id=$rows->teacher_id;
+		
+		
+		$sql1="SELECT sc.*,t.teacher_id,t.name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,su.* FROM edu_special_class AS sc,edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_subject AS su WHERE sc.teacher_id='$teacher_id' AND sc.teacher_id=t.teacher_id AND sc.class_master_id=cm.class_sec_id  AND cm.class=c.class_id AND cm.section=s.sec_id AND sc.subject_id=su.subject_id AND sc.status='Active' ";
+		$result1=$this->db->query($sql1);
+		$res=$result1->result();
+		return $res;
+   }	
 }
 	?>

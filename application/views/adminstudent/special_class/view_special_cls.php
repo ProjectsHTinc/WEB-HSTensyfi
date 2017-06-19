@@ -1,96 +1,7 @@
 
 
 <div class="main-panel">
-   <div class="content">
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-md-10">
-               <div class="card">
-                  <div class="header">
-                     <h4 class="title">Add Special Class</h4>
-                  </div>
-                  <div class="content">
-                     <form method="post" action="<?php echo base_url(); ?>specialclass/add_special_cls" class="form-horizontal" enctype="multipart/form-data" id="specialclasssection" name="specialclasssection">
-                        <fieldset>
-                           <div class="form-group">
-                              <label class="col-sm-2 control-label">Class</label>
-                              <div class="col-sm-4">
-                                 <select  name="class_name" id="multiple-class" onchange="checksubject(this.value)" class="selectpicker" data-title="Select Class" data-menu-style="dropdown-blue">
-                                          <?php foreach ($getall_class as $rows) {  ?>
-                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>&nbsp; - &nbsp;<?php echo $rows->sec_name; ?></option>
-                                          <?php      } ?>
-                                 </select>
-                              </div>
-                              <label class="col-sm-2 control-label">Teacher</label>
-                              <div class="col-sm-4">
-                                <select  name="teacher" class="selectpicker form-control"  id="multiple-teacher" data-title="Select Teacher" data-menu-style="dropdown-blue" >
-                                          <?php foreach ($teacher as $rows) { ?>
-                                          <option value="<?php echo $rows->teacher_id;  ?>"><?php echo $rows->name; ?></option>
-                                          <?php  }?>
-                                   </select>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group">
-                              <label class="col-sm-2 control-label">Subject</label>
-                              <div class="col-sm-4">
-							   <select  name="subject_name" class="form-control" id="ajaxres">
-							   </select>
-								
-                              </div>
-                              <label class="col-sm-2 control-label">Subject Title</label>
-                              <div class="col-sm-4">
-                                 <input type="text" name="sub_topic" required class="form-control"  />
-                              </div>
-                           </div>
-                        </fieldset>
-						 <fieldset>
-                           <div class="form-group">
-                              <label class="col-sm-2 control-label">Date</label>
-                              <div class="col-sm-4">
-                                 <input type="text" name="spe_date" required class="form-control datepicker" value="">
-                              </div>
-                              <label class="col-sm-2 control-label">Start Time</label>
-                              <div class="col-sm-4">
-                                 <input type="text" name="stime" required class="form-control timepicker"  />
-                              </div>
-                           </div>
-                        </fieldset>
-						 <fieldset>
-                           <div class="form-group">
-                              <label class="col-sm-2 control-label">End Time</label>
-                              <div class="col-sm-4">
-                                 <input type="text" name="etime" required class="form-control timepicker" >
-                              </div>
-                              <label class="col-sm-2 control-label">Status</label>
-                              <div class="col-sm-4">
-                                <select name="status"  class="selectpicker form-control" data-title="Status" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-								  <option value="Active">Active</option>
-								  <option value="Deactive">DeActive</option>
-							  </select>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <div class="form-group">
-                           <label class="col-sm-2 control-label">&nbsp;</label>
-                           <div class="col-sm-4">
-                              <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
-                           </div>
-                        </div>
-                        </fieldset>
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <?php if($this->session->flashdata('msg')): ?>
-      <div class="alert alert-success">
-         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-         ×</button> <?php echo $this->session->flashdata('msg'); ?>
-      </div>
-      <?php endif; ?>
+
       <div class="content">
          <div class="container-fluid">
             <div class="row">
@@ -104,22 +15,24 @@
                                  <th>Class</th>
                                  <th>Teacher</th>
                                  <th>Subject</th>
+								 <th>Subject Topic</th>
                                  <th>Date</th>
                                  <th>Start Time</th>
 								  <th>End time</th>
                                  <th>Status</th>
-								 <th>Actions</th>
+								 
                               </thead>
                               <tbody>
                                  <?php
                                     $i=1;
-                                    foreach ($result as $rows) { $stu=$rows->status;
+                                    foreach ($view as $rows) { $stu=$rows->status;
                                      ?>
                                  <tr>
                                     <td><?php  echo $i; ?></td>
                                     <td><?php  echo $rows->class_name; ?> - <?php  echo $rows->sec_name; ?> </td>
                                     <td><?php  echo $rows->name; ?></td>
                                     <td><?php  echo $rows->subject_name	; ?></td>
+									<td><?php  echo $rows->subject_topic	; ?></td>
                                     <td><?php $dateTime=new DateTime($rows->special_class_date); $tdate=date_format($dateTime,'d-m-Y' ); echo $tdate; ?></td>
 									<td><?php  echo $rows->start_time; ?></td>
 									<td><?php  echo $rows->end_time; ?></td>
@@ -129,10 +42,7 @@
                     									 <?php  }else{?>
                     									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button>
                     									  <?php } ?></td>
-                                    <td>
-                                       <a href="<?php echo base_url();  ?>specialclass/edit_specls/<?php echo $rows->id; ?>" class="btn btn-simple btn-warning btn-icon edit">
-									   <i class="fa fa-edit"></i></a>
-                                    </td>
+                                   
                                  </tr>
                                  <?php $i++;  }  ?>
                               </tbody>

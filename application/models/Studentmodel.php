@@ -215,10 +215,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 			$row1=$result1->result();
 			return $row1;
 	 }
-	 
-	 
-	 
-	 
+	  
 	 //--------------------leaves-------------------
 	 function get_all_regularleave($user_id)
 			 {
@@ -314,6 +311,28 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				 return $data;
 				}
 			   
+		   }
+		   
+		   //-------------Special Class--------------------------------\
+		   
+		   function special_class_details($user_id,$user_type)
+		   {
+			    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
+				$resultset=$this->db->query($query);
+				$row=$resultset->result();
+				$student_id=$row[0]->student_id;
+				
+				$sql="SELECT * FROM edu_enrollment WHERE admission_id='$student_id'";
+				$resultset=$this->db->query($sql);
+				$row=$resultset->result();
+				foreach($row as $rows){}
+				$enr_id=$rows->enroll_id;
+				$cls_id=$rows->class_id;
+				
+				$sql1="SELECT sc.*,t.teacher_id,t.name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,su.* FROM edu_special_class AS sc,edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_subject AS su WHERE sc.teacher_id=t.teacher_id AND sc.class_master_id='$cls_id' AND sc.class_master_id=cm.class_sec_id  AND cm.class=c.class_id AND cm.section=s.sec_id AND sc.subject_id=su.subject_id AND sc.status='Active' ";
+				$result1=$this->db->query($sql1);
+			    $res=$result1->result();
+				return $res;
 		   }
 			   
 

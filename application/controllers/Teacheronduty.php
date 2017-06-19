@@ -111,5 +111,24 @@ class Teacheronduty extends CI_Controller
 			redirect('teacheronduty/home');
 		}
 	}
+	
+	//------------------------------Special Class------------------------
+	
+	public function special_class_details()
+	{
+		$datas=$this->session->userdata();
+  	    $user_id=$this->session->userdata('user_id');
+	    $user_type=$this->session->userdata('user_type');
+		$datas['view']=$this->teacherondutymodel->special_class_details($user_id,$user_type);
+		//echo'<pre>';print_r($datas['view']);exit;
+        if($user_type==2)
+		 {
+			 $this->load->view('adminteacher/teacher_header');
+			 $this->load->view('adminteacher/special_class/view_special_cls',$datas);
+			 $this->load->view('adminteacher/teacher_footer');
+		 }else{
+			redirect('/');
+		 }
+	}
  }
 	?>
