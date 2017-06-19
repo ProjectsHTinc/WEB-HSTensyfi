@@ -156,8 +156,8 @@
                                     </td>
                                     <?php
                                        $cid=$sea->classmaster_id;
-                                                                             $cls="SELECT cm.class,cm.section,cm.class_sec_id,c.*,s.* FROM edu_classmaster as cm,edu_class AS c,edu_sections as s WHERE cm.class_sec_id='$cid' AND cm.section=s.sec_id  AND cm.class=c.class_id";
-                                                                             $cls=$this->db->query($cls);
+                                       $cls="SELECT cm.class,cm.section,cm.class_sec_id,c.*,s.* FROM edu_classmaster as cm,edu_class AS c,edu_sections as s WHERE cm.class_sec_id='$cid' AND cm.section=s.sec_id  AND cm.class=c.class_id";
+                                       $cls=$this->db->query($cls);
                                        $clsres=$cls->result();
                                        foreach($clsres as $row2)
                                        {

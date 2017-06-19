@@ -244,8 +244,9 @@ class Examination extends CI_Controller
 			     $exam_year=$this->input->post('eid');
 				 //echo $exam_year; 
 				 $class_name=$this->input->post('class_name');
+				
 				 $subject_name=$this->input->post('subject_name');
-
+                  //echo $subject_name; exit;
 				 $exam_date=$this->input->post('exam_date');
 				 $dateTime = new DateTime($exam_date);
                  $formatted_date=date_format($dateTime,'Y-m-d' );

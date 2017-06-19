@@ -122,11 +122,11 @@ Class Examinationmodel extends CI_Model
 
 	function update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id)
 	{
-	  $check_exam_name="SELECT * FROM edu_exam_details WHERE exam_id='$exam_year' OR subject_id='$subject_name' OR classmaster_id='$class_name' OR exam_date='$formatted_date' OR times='$time'";
+	  $check_exam_name="SELECT * FROM edu_exam_details WHERE exam_id='$exam_year' AND subject_id='$subject_name' AND classmaster_id='$class_name' AND exam_date='$formatted_date' AND times='$time' AND teacher_id='$teacher_id'";
 	  $result=$this->db->query($check_exam_name);
       if($result->num_rows()==0)
 	   {  
-	   $query="UPDATE edu_exam_details SET exam_id='$exam_year',subject_id='$subject_name',exam_date='$formatted_date',times='$time',classmaster_id='$class_name',teacher_id='$teacher_id',updated_at='NOW()' WHERE exam_detail_id='$id' ";
+	    $query="UPDATE edu_exam_details SET exam_id='$exam_year',subject_id='$subject_name',exam_date='$formatted_date',times='$time',classmaster_id='$class_name',teacher_id='$teacher_id',updated_at='NOW()' WHERE exam_detail_id='$id' ";
 		$res=$this->db->query($query);
 		$data= array("status" => "success");
         return $data;
@@ -143,7 +143,8 @@ Class Examinationmodel extends CI_Model
 		return count($res1->result());
 		
 	}
-    
+    //-------------------Exam Class Result------------------------------
+	
 	function exam_name_status()
 	{
 		//$sql="SELECT * FROM edu_exam_marks_status ";

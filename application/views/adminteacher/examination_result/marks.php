@@ -53,7 +53,8 @@
 									 <?php  }else{
 										foreach($res as $row)
 										      { }?>
-				<th> Internal <?php echo $row->subject_name; ?><input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
+				<th> Internal <?php echo $row->subject_name; ?>
+				<input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
 				
 								<th> External <?php echo $row->subject_name; ?><input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
 									<?php
@@ -76,8 +77,8 @@
 											   echo $name->name;
 										?>
 										</td>
-										<td style="width: 30%;"><input style="width:60%;" type="text" readonly name="internal_marks[]" value="<?php echo $rows->internal_mark; ?>" class="form-control"/></td>
-										<td style="width: 30%;"><input style="width:60%;" type="text" readonly name="external_marks[]" value="<?php echo $rows->external_mark; ?>" class="form-control"/></td>
+										<td style="width: 30%;"><?php echo $rows->internal_mark; ?> ( <?php echo $rows->internal_grade; ?> )</td>
+										<td style="width: 30%;"><?php echo $rows->external_mark; ?> ( <?php echo $rows->external_grade; ?> )</td>
 										</tr>
 										<?php $i++;}
 										}else{
@@ -99,10 +100,10 @@
 										</td>
 										</tr>
 										<?php $i++;}
-										}?>
+										}
+										if(empty($mark) && !empty($res) ){ ?>
 										<tr>
 										<td></td><td></td><td></td>
-										<?php if(empty($mark) && !empty($res) ){ ?>
 										<td>
 										 <div class="col-sm-10">
                                              <button type="submit" class="btn btn-info btn-fill center">Save</button>

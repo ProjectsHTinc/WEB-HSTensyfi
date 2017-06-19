@@ -46,7 +46,7 @@
 
 										 <label class="col-sm-2 control-label">Class </label>
                                             <div class="col-sm-4">
-								 <select   name="class_name" id="multiple-class" class="selectpicker" onchange="select_class('classname')" data-menu-style="dropdown-blue">
+								 <select  id="multiple-class" disabled="" class="selectpicker" data-menu-style="dropdown-blue">
 
 										<?php
 												$sPlatform=$rows->classmaster_id;
@@ -77,6 +77,7 @@
                                         ?>
 
                                   </select>
+				<input type="hidden" readonly name="class_name" class="form-control" value="<?php echo $rows->classmaster_id;?>">
                                             </div>
 
 				                     </div>
@@ -87,7 +88,7 @@
 
                                             <label class="col-sm-2 control-label">Select Subject</label>
                                             <div class="col-sm-2">
-                                               <select name="subject_name" class="selectpicker"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                               <select disabled class="selectpicker"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                                   <?php
                           $tea_name=$rows->subject_id;
                           $sQuery = "SELECT * FROM edu_subject";
@@ -110,6 +111,7 @@
                                       }
                                         ?>
                                   </select>
+								 <input type="hidden" readonly name="subject_name" class="form-control" value="<?php echo $rows->subject_id;?>"> 
                                             </div>
 											<div class="col-sm-2">
                             <input type="text" name="exam_date" class="form-control datepicker"  placeholder="Enter Exam Date" value="<?php $date=date_create($rows->exam_date);echo date_format($date,"d-m-Y");?>">

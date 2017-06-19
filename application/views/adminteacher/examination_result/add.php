@@ -16,6 +16,10 @@
                   <div class="content">
                      <div class="row">
                        <?php
+					   if(empty($result))
+						{?>
+							<p style="padding:10px;color:red;text-align:center;">No Exam Added</p>
+						<?php }else{
 					   foreach($result as $row)
 					   {
 						  $ex_name=$row->exam_name;
@@ -24,7 +28,7 @@
                         <div class="col-md-2">
                            <a rel="tooltip" href="<?php echo base_url(); ?>examinationresult/class_section?var=<?php echo $exam_id; ?>"  class="btn btn-wd"><?php echo $ex_name; ?></a>
                         </div>
-					   <?php }?>
+						<?php } }?>
 
                      </div>
                   </div>
