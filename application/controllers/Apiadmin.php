@@ -578,4 +578,87 @@ class Apiadmin extends CI_Controller {
 				}
 
 
+				// GET  FEES MASTER FOR A CLASS
+				public function get_fees_master_class()
+				{
+					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+					if(!$this->checkMethod())
+					{
+						return FALSE;
+					}
+
+					if($_POST == FALSE)
+					{
+						$res = array();
+						$res["opn"] = "SOMETHING WENT WRONG ";
+						$res["scode"] = 204;
+						$res["message"] = "Input error";
+
+						echo json_encode($res);
+						return;
+					}
+					$class_id=$this->input->post('class_id');
+					$section_id=$this->input->post('section_id');
+					$data['result']=$this->apiadminmodel->get_fees_master_class($class_id,$section_id);
+					$response = $data['result'];
+					echo json_encode($response);
+				}
+
+
+				// GET  FEES MASTER FOR A CLASS
+				public function get_fees_details()
+				{
+					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+					if(!$this->checkMethod())
+					{
+						return FALSE;
+					}
+
+					if($_POST == FALSE)
+					{
+						$res = array();
+						$res["opn"] = "SOMETHING WENT WRONG ";
+						$res["scode"] = 204;
+						$res["message"] = "Input error";
+
+						echo json_encode($res);
+						return;
+					}
+					$fees_id=$this->input->post('fees_id');
+					$data['result']=$this->apiadminmodel->get_fees_details($fees_id);
+					$response = $data['result'];
+					echo json_encode($response);
+				}
+
+
+				// GET  FEES STATUS FOR A CLASS
+				public function get_fees_status()
+				{
+					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+					if(!$this->checkMethod())
+					{
+						return FALSE;
+					}
+
+					if($_POST == FALSE)
+					{
+						$res = array();
+						$res["opn"] = "SOMETHING WENT WRONG ";
+						$res["scode"] = 204;
+						$res["message"] = "Input error";
+
+						echo json_encode($res);
+						return;
+					}
+					$class_id=$this->input->post('class_id');
+					$section_id=$this->input->post('section_id');
+					$fees_id=$this->input->post('fees_id');
+					$data['result']=$this->apiadminmodel->get_fees_status($class_id,$section_id,$fees_id);
+					$response = $data['result'];
+					echo json_encode($response);
+				}
+
 }

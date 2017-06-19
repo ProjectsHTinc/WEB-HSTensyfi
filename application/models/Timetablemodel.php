@@ -224,6 +224,29 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
 
                     }
 
+
+
+          function teacher_timetable($user_id){
+            $get_teach_id="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
+            $resultset=$this->db->query($get_teach_id);
+            foreach($resultset->result() as $rows){}
+            $teacher_id=$rows->teacher_id;
+            $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,dd.list_day,tt.period,ss.sec_name,c.class_name
+                FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id
+                INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
+                INNER JOIN edu_days AS dd ON tt.day=dd.d_id WHERE  tt.teacher_id='$teacher_id'";
+            $result=$this->db->query($query);
+            $time=$result->result();
+           if($result->num_rows()==0){
+             $data= array("st" => "no data Found");
+             return $data;
+           }else{
+             $data= array("st" => "success","time"=>$time);
+             return $data;
+           }
+
+                }
+
                 //Delete timetable
 
                 function delete_time($class_sec_id){
