@@ -1,4 +1,4 @@
- <?php
+<?php
 
 Class Examinationresultmodel extends CI_Model
 {
@@ -191,8 +191,6 @@ Class Examinationresultmodel extends CI_Model
         $rows = $res->result();
         return $rows;
     }
-    
-    
     
     function exam_marks_details($exam_id, $subid, $sutid, $clsmastid, $teaid, $internal_marks, $external_marks, $user_id)
     {
@@ -530,7 +528,7 @@ Class Examinationresultmodel extends CI_Model
                 $grade2 = 'E2';
             }
             
-            $update    = "UPDATE edu_exam_marks SET internal_mark='$marks1',internal_grade='$grade',external_mark='$marks2',external_grade='$grade1',    total_marks='$total',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND teacher_id='$teaid1' AND classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
+            $update= "UPDATE edu_exam_marks SET internal_mark='$marks1',internal_grade='$grade',external_mark='$marks2',external_grade='$grade1',total_marks='$total',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND teacher_id='$teaid1' AND classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
             $resultset = $this->db->query($update);
         }
         if ($resultset) {
