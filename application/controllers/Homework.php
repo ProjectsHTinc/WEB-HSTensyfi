@@ -8,9 +8,10 @@ class Homework extends CI_Controller
 	function __construct()
 	{
 		 parent::__construct();
-		  $this->load->model('homeworkmodel');
+		
 		  $this->load->helper('url');
 		  $this->load->library('session');
+		  $this->load->model('homeworkmodel');
 		  $this->load->model('class_manage');
 		  $this->load->model('subjectmodel');
 		
@@ -197,13 +198,18 @@ class Homework extends CI_Controller
 		    $id=$this->input->post('id');
 		    $hw_type=$this->input->post('hw_type');
 			$title=$this->input->post('title');
-			$test_date=$this->input->post('test_date');
 			
+			$test_date=$this->input->post('test_date');
 			$dateTime = new DateTime($test_date);
 			$formatted_date=date_format($dateTime,'Y-m-d' );
+			
+			$submission_date=$this->input->post('sub_date');
+			$dateTime = new DateTime($submission_date);
+			$format_date=date_format($dateTime,'Y-m-d' );
+			
 			$status=$this->input->post('status');
 			
-			$datas= $this->homeworkmodel->update_test_details($id,$hw_type,$title,$formatted_date,$test_details,$status);
+			$datas= $this->homeworkmodel->update_test_details($id,$hw_type,$title,$formatted_date,$format_date,$test_details,$status);
 			  if($datas['status']=="success")
 			  {
 				$this->session->set_flashdata('msg','Update Successfully');

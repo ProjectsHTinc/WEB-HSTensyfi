@@ -67,7 +67,7 @@
                         </div>
                      </div>
                   </fieldset>
-                  <fieldset>
+                  <fieldset>    
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Test Date</label>
                         <div class="col-sm-4">
