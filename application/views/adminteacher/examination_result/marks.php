@@ -93,10 +93,10 @@
                                         <input type="hidden" name="clsmastid" value="<?php echo $row->class_id; ?>" />
 										</td>
 										<td style="width: 30%;">
-										<input style="width:60%;" type="text"  name="internal_marks[]" value class="form-control"/>
+										<input style="width:60%;" type="text" id="inputBox" name="internal_marks[]"  class="form-control"/>
 										</td>
 										<td style="width: 30%;">
-										<input style="width:60%;" type="text" required name="external_marks[]" value class="form-control"/>
+										<input style="width:60%;" type="text" required name="external_marks[]"  class="form-control"/>
 										</td>
 										</tr>
 										<?php $i++;}
@@ -131,4 +131,13 @@
   $('#examinationmenu').addClass('collapse in');
   $('#exam').addClass('active');
   $('#exam1').addClass('active');
+  
+  $("#inputBox").on("keyup keydown", function(e){
+    var currentValue = String.fromCharCode(e.which);
+    var finalValue = $(this).val() + currentValue;
+    if(finalValue > 41){
+        e.preventDefault();
+    }
+});
+
   </script>
