@@ -163,19 +163,19 @@ font-weight: 500;
 								</li>
 
 								<li id="home">
-										<a data-toggle="collapse" href="#homeworkmenu">
+										<a href="<?php echo base_url(); ?>homework/home">
 												<i class="pe-7s-flag"></i>
 												<p>Home Work / Class Test	</p>
-												<b class="caret"></b>
+												
 										</a>
-										<div class="collapse" id="homeworkmenu">
+										<!-- <div class="collapse" id="homeworkmenu">
 											<ul class="nav">
 										<li id="home1"><a href="<?php echo base_url(); ?>homework/home">Home Work / Class Test</a></li>
 													<!-- <li><a href=""> Home Work</a></li>
-													<li><a href=""> Class Test</a></li> -->
+													<li><a href=""> Class Test</a></li> --
 
 											</ul>
-									</div>
+									</div>-->
 								</li>
 								<li id="exam">
 										<a data-toggle="collapse" href="#examinationmenu">
