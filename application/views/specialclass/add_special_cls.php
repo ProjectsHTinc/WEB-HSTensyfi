@@ -35,7 +35,7 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Subject</label>
                               <div class="col-sm-4">
-							   <select  name="subject_name" class="form-control" id="ajaxres">
+							   <select  name="subject_name"  class="form-control" id="ajaxres">
 							   </select>
 								
                               </div>

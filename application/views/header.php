@@ -79,19 +79,19 @@
 							</a>
 						</li>
                    <li style="padding: 08px 10px;">
-							<a href="<?php echo base_url(); ?>event/create" class="abox"style="padding:03px 15px;border-color: white;">
+							<a href="<?php echo base_url(); ?>event/create" class="abox" style="padding:03px 15px;border-color: white;">
 							
 								<p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
 							</a>
 						</li>
-                  <li class="dropdown" style="padding:08px 10px;">
-					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
+                  <li style="padding:08px 10px;">
+					<a href="<?php echo base_url(); ?>communication/view_user_leaves" class="abox"  style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
 						   Teachers Leaves</a>
-								<ul class="dropdown-menu">
+								<!--<ul class="dropdown-menu">
  <li><a href="<?php echo base_url(); ?>communication/view_user_leaves">View Teachers Leaves</a></li>
-<!-- <li><a href="<?php echo base_url(); ?>communication/view">View all Circular</a></li> -->
+<!-- <li><a href="<?php echo base_url(); ?>communication/view">View all Circular</a></li> --
  
-							</ul>
+							</ul>-->
 						</li>
 			
 						<li class="dropdown" style="padding:08px 10px;">

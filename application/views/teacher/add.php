@@ -113,7 +113,7 @@
                         <div class="col-sm-4">
                            <input type="text" placeholder="Qualification" name="qualification" class="form-control">
                         </div>
-                        <label class="col-sm-2 control-label">Subject</label>
+                        <label class="col-sm-2 control-label">SUBJECT HANDLING</label>
                         <div class="col-sm-4">
                            <select multiple name="subject_multiple[]" id="subject_id"  data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
                               <?php foreach ($resubject as $rows) {  ?>
@@ -158,7 +158,7 @@
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Actvities Name</label>
+                        <label class="col-sm-2 control-label">Extra curricular Activities</label>
                         <div class="col-sm-4">
                            <select name="activity_id[]" multiple="multiple" class="selectpicker form-control" data-title="Select Actvities Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <?php foreach ($activities as $row3) {  ?>
@@ -225,9 +225,6 @@
    }else{
    $("#multiple").empty();
    }
-   
-   
-   
    }
    });
    
@@ -248,7 +245,7 @@
    
    $('#admissionform').validate({ // initialize the plugin
    rules: {
- 	/* name:{required:true }, address:{required:true },
+ 	name:{required:true }, address:{required:true },
    	email:{required:true,email:true},
    	sex:{required:true },
    	dob:{required:true },
@@ -260,7 +257,7 @@
    	'class_name[]':{required:true},
    	mobile:{required:true },
    	subject:{required:true },
-   	class_teacher:{required:true },
+   	qualification:{required:true },
    	groups_id:{required:true },
    	'activity_id[]':{required:true},
    	status:{required:true }
@@ -280,12 +277,12 @@
    	community:"Enter the Community",
    	community_class:"Enter the Community Class",
    	mother_tongue:"Enter The Mother tongue",
-   	class_teacher:"Select The Class ",
+   	qualification:"Enter the Qualification ",
    	'class_name[]':"Select class",
    	mobile:"Enter the mobile Number",
    	groups_id:"Select Groups Name",
    	'activity_id[]':"Select Activity Name",
-   	status:"Select Status Name"  */
+   	status:"Select Status Name"  
    }
    }); 
    });
