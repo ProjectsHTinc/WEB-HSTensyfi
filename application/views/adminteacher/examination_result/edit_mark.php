@@ -1,5 +1,4 @@
 
-
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -23,7 +22,10 @@
                            <thead>
                               <th>Sno</th>
                               <th>Name</th>
-                              <?php foreach($edit as $row)
+                              
+                              <?php
+                             
+                              foreach($edit as $row)
                                  {   $sid=$row->subject_id;
                                   $sql="SELECT * FROM edu_subject WHERE subject_id='$sid' ";
                                            $resultset=$this->db->query($sql);
@@ -51,19 +53,20 @@
                                     <input type="hidden" name="teaid" value="<?php echo $row->teacher_id; ?>" />
                                     <input type="hidden" name="clsmastid" value="<?php echo $row->classmaster_id; ?>" />
                                  </td>
-                                 <?php if(!empty($mark)){?>
+                                 <?php if(!empty($mark)){ 
+                                  ?>
                                  <td>
-                                    <input style="width:60%;" type="text" readonly name="internal_marks[]" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
+                                    <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
                                  </td>
                                  <td>
-                                    <input style="width:60%;" type="text" readonly name="external_marks[]" value="<?php echo $row->external_mark; ?>" class="form-control"/>
+                                    <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->external_mark; ?>" class="form-control"/>
                                  </td>
                                  <?php }else{ ?>
                                  <td>
-								   <input style="width:60%;" type="text"  name="internal_marks[]" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
+								   <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
 								 </td>
                                  <td>
-								   <input style="width:60%;" type="text"  name="external_marks[]" value="<?php echo $row->external_mark; ?>" class="form-control"/>
+								   <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control"/>
 								  </td>
                                  <?php } ?>
                               </tr>

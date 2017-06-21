@@ -93,10 +93,10 @@
                                         <input type="hidden" name="clsmastid" value="<?php echo $row->class_id; ?>" />
 										</td>
 										<td style="width: 30%;">
-										<input style="width:60%;" type="text" id="inputBox" name="internal_marks[]"  class="form-control"/>
+										<input style="width:60%;" type="text" maxlength="2" name="internal_marks[]"  class="form-control inputBox"/>
 										</td>
 										<td style="width: 30%;">
-										<input style="width:60%;" type="text" required name="external_marks[]"  class="form-control"/>
+										<input style="width:60%;" type="text" maxlength="2" required name="external_marks[]"  class="form-control inputBox1"/>
 										</td>
 										</tr>
 										<?php $i++;}
@@ -132,10 +132,18 @@
   $('#exam').addClass('active');
   $('#exam1').addClass('active');
   
-  $("#inputBox").on("keyup keydown", function(e){
+  $(".inputBox").on("keyup keydown", function(e){
     var currentValue = String.fromCharCode(e.which);
     var finalValue = $(this).val() + currentValue;
-    if(finalValue > 41){
+    if(finalValue >40){
+        e.preventDefault();
+    }
+});
+
+$(".inputBox1").on("keyup keydown", function(e){
+    var currentValue = String.fromCharCode(e.which);
+    var finalValue = $(this).val() + currentValue;
+    if(finalValue >60){
         e.preventDefault();
     }
 });

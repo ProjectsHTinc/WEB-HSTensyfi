@@ -1,10 +1,8 @@
- 	<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Examinationresult extends CI_Controller
 {
-    
-    
+
     function __construct()
     {
         parent::__construct();
@@ -128,14 +126,14 @@ class Examinationresult extends CI_Controller
        
         
         $datas = $this->examinationresultmodel->exam_marks_details($exam_id, $subid, $sutid, $clsmastid, $teaid, $internal_marks, $external_marks, $user_id);
-        //print_r($datas);exit;
-        if ($datas['status'] == "success") {
+       
+        if ($datas['status']=="success") {
             $this->session->set_flashdata('msg', 'Added Successfully');
-            redirect('examinationresult/view_exam_name_marks', $datas);
-            //redirect('add_test');        
+            redirect('examinationresult/view_exam_name_marks',$datas);
+                 
         } else {
             $this->session->set_flashdata('msg', 'Falid To Added');
-            redirect('examinationresult/view_exam_name_marks', $datas);
+            redirect('examinationresult/view_exam_name_marks',$datas);
         }
     }
     
@@ -235,20 +233,19 @@ class Examinationresult extends CI_Controller
         $clsmastid      = $this->input->post('clsmastid');
         $subid          = $this->input->post('subid');
         $sutid          = $this->input->post('sutid');
-        // print_r($sutid);exit;
         $teaid          = $this->input->post('teaid');
-        $internal_marks = $this->input->post('internal_marks');
-        $external_marks = $this->input->post('external_marks');
-        //echo $exam_id;echo $subid;print_r($sutid);echo $teaid;print_r($marks);exit;
-        $datas          = $this->examinationresultmodel->update_marks_details($teaid, $clsmastid, $exam_id, $subid, $internal_marks, $external_marks, $sutid, $user_id);
-        // print_r($datas);exit;
-        if ($datas['status'] = "success") {
-            $this->session->set_flashdata('msg', 'Updated Successfully');
-            redirect('examinationresult/view_exam_name_marks', $datas);
-            //redirect('add_test');        
-        } else {
-            $this->session->set_flashdata('msg', 'Falid To Updated');
-            redirect('examinationresult/view_exam_name_marks', $datas);
+        $internal_marks= $this->input->post('internal');
+        $external_marks= $this->input->post('external');
+       
+     
+        $datas=$this->examinationresultmodel->update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id);
+       // print_r($datas);exit;
+        if($datas['status']="success"){
+            $this->session->set_flashdata('msg','Updated Successfully');
+            redirect('examinationresult/view_exam_name_marks',$datas);
+        }else{
+           $this->session->set_flashdata('msg','Falid To Updated');
+            redirect('examinationresult/view_exam_name_marks',$datas);
         }
     }
     
@@ -300,4 +297,5 @@ class Examinationresult extends CI_Controller
         
     }
     
-} 
+}
+?>
