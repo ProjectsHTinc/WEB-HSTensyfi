@@ -661,4 +661,97 @@ class Apiadmin extends CI_Controller {
 					echo json_encode($response);
 				}
 
+
+
+				// GET  LIST OF EXAM  FOR A CLASS
+				public function get_list_exam_class()
+				{
+					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+					if(!$this->checkMethod())
+					{
+						return FALSE;
+					}
+
+					if($_POST == FALSE)
+					{
+						$res = array();
+						$res["opn"] = "SOMETHING WENT WRONG ";
+						$res["scode"] = 204;
+						$res["message"] = "Input error";
+
+						echo json_encode($res);
+						return;
+					}
+					$class_id=$this->input->post('class_id');
+					$section_id=$this->input->post('section_id');
+
+					$data['result']=$this->apiadminmodel->get_list_exam_class($class_id,$section_id);
+					$response = $data['result'];
+					echo json_encode($response);
+				}
+
+
+
+				// GET   EXAM  DETAILS FOR A CLASS
+				public function get_exam_details_class()
+				{
+					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+					if(!$this->checkMethod())
+					{
+						return FALSE;
+					}
+
+					if($_POST == FALSE)
+					{
+						$res = array();
+						$res["opn"] = "SOMETHING WENT WRONG ";
+						$res["scode"] = 204;
+						$res["message"] = "Input error";
+
+						echo json_encode($res);
+						return;
+					}
+					$exam_id=$this->input->post('exam_id');
+					$class_id=$this->input->post('class_id');
+
+					$data['result']=$this->apiadminmodel->get_exam_details_class($exam_id,$class_id);
+					$response = $data['result'];
+					echo json_encode($response);
+				}
+
+
+
+
+					// GET   EXAM  MARKS FOR A CLASS
+					public function get_exam_marks_class()
+					{
+						//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+						if(!$this->checkMethod())
+						{
+							return FALSE;
+						}
+
+						if($_POST == FALSE)
+						{
+							$res = array();
+							$res["opn"] = "SOMETHING WENT WRONG ";
+							$res["scode"] = 204;
+							$res["message"] = "Input error";
+
+							echo json_encode($res);
+							return;
+						}
+						$exam_id=$this->input->post('exam_id');
+						$class_id=$this->input->post('class_id');
+						$section_id=$this->input->post('section_id');
+
+						$data['result']=$this->apiadminmodel->get_exam_marks_class($exam_id,$class_id,$section_id);
+						$response = $data['result'];
+						echo json_encode($response);
+					}
+
+
 }
