@@ -425,10 +425,11 @@ Class Examinationresultmodel extends CI_Model
         return $row;
     }
     
-    function update_marks_details($teaid, $clsmastid, $exam_id, $subid, $internal_marks, $external_marks, $sutid, $user_id)
+    function update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id)
     {
+       
         $count_name = count($external_marks);
-        //echo $count_name;
+        
         for ($i = 0; $i < $count_name; $i++) {
             $user_id1   = $user_id;
             $sutid1     = $sutid[$i];
@@ -438,7 +439,8 @@ Class Examinationresultmodel extends CI_Model
             $examid1    = $exam_id;
             
             //Internal Marks Grade
-            $marks1 = $internal_marks[$i];
+            $marks1=$internal_marks[$i];
+            
             if ($marks1 >= 37 && $marks1 <= 40) {
                 $grade = 'A1';
             }
@@ -527,21 +529,16 @@ Class Examinationresultmodel extends CI_Model
             if ($total <= 20) {
                 $grade2 = 'E2';
             }
-            
-            $update= "UPDATE edu_exam_marks SET internal_mark='$marks1',internal_grade='$grade',external_mark='$marks2',external_grade='$grade1',total_marks='$total',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND teacher_id='$teaid1' AND classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
-            $resultset = $this->db->query($update);
+          $update_marks="UPDATE edu_exam_marks SET internal_mark='$marks1',internal_grade='$grade',external_mark='$marks2',external_grade='$grade1',total_marks='$total',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND  classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
+          $resultset=$this->db->query($update_marks);
         }
-        if ($resultset) {
-            $data = array(
-                "status" => "success"
-            );
+        if($resultset) {
+            $data=array("status" => "success");
+        return $data;
+        }else{
+             $data=array("status" => "failure");
             return $data;
-        } else {
-            $data = array(
-                "status" => "failure"
-            );
-            return $data;
-        }
+         }
     }
     
     function marks_status_update($exam_id, $clsmastid, $user_id)
