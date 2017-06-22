@@ -174,7 +174,7 @@ Class Communicationmodel extends CI_Model
 		   //return $row1;
 		   
 		 $teach_id=$teacher_rows->class_name;
-        $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
+        $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id AND cm.status='Active' ORDER BY c.class_name";
         $objRs=$this->db->query($sQuery);
         $row=$objRs->result();
         foreach ($row as $rows1) {
