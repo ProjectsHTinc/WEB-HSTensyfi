@@ -172,7 +172,7 @@
                                </fieldset>
 							   <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Student New Pic</label>
+                                            <label class="col-sm-2 control-label">Student New Picture</label>
                                             <div class="col-sm-4">
                                                 <input type="file" name="student_pic" class="form-control" onchange="loadFile(event)" accept="image/*" >
                                             </div>
@@ -190,7 +190,7 @@
 									
 							   <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">School Studied</label>
+                                            <label class="col-sm-2 control-label">Previous School</label>
                                             <div class="col-sm-10">
                                                 <div class="row">
 												<div class="col-md-4">
@@ -227,8 +227,8 @@
                                             <div class="col-sm-4">
                                               <select name="status" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
 
-                                                  <option value="A">Active</option>
-                                                    <option value="DA">DE-Active</option>
+                                                  <option value="Active">Active</option>
+                                                    <option value="Deactive">DeActive</option>
 
                                               </select>
                                      <script language="JavaScript">document.formadmission.status.value="<?php echo $rows->status; ?>";</script>

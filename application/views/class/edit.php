@@ -19,14 +19,24 @@
 
                           ?>
                        <div class="content">
-                           <form action="<?php echo base_url(); ?>classadd/save_class" method="post" enctype="multipart/form-data" id="myformclass">
+                           <form action="<?php echo base_url(); ?>classadd/save_class" method="post" enctype="multipart/form-data" id="myformclass" name="myformclass">
                                <div class="row">
                                    <div class="col-md-5">
                                        <div class="form-group">
-                                           <label>Name</label>
+                                           <label>Class Name</label>
                                            <input type="text" class="form-control"  placeholder="" id="classname" name="classname" value="<?php  echo $rows->class_name; ?>">
                                             <input type="hidden" class="form-control"  placeholder="" name="class_id" value="<?php  echo $rows->class_id; ?>">
 
+                                       </div>
+                                   </div>
+								    <div class="col-md-5">
+                                       <div class="form-group">
+                                           <label>Status</label>
+                                          <select name="status" class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">DeActive</option>
+												</select>
+											<script language="JavaScript">document.myformclass.status.value="<?php echo $rows->status; ?>";</script>
                                        </div>
                                    </div>
                                </div>

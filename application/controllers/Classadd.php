@@ -49,9 +49,9 @@ class Classadd extends CI_Controller {
 
 		public function createclass(){
 				$classname=$this->input->post('classname');
-				$res = $this->classmodel->addclass($classname);
+				$status=$this->input->post('status');
+				$res = $this->classmodel->addclass($classname,$status);
 				//print_r($res);exit;
-
 				if($res['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Added Successfully');
 				 redirect('classadd/addclass');
@@ -71,7 +71,8 @@ class Classadd extends CI_Controller {
 		public function save_class(){
 			 $class_name=$this->input->post('classname');
 			  $class_id=$this->input->post('class_id');
-			 	$res = $this->classmodel->save_class($class_name,$class_id);
+			  $status=$this->input->post('status');
+			 	$res = $this->classmodel->save_class($class_name,$class_id,$status);
 				if($res['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Update Successfully');
 				 redirect('classadd/addclass');

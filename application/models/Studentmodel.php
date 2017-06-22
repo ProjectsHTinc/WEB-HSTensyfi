@@ -18,7 +18,7 @@ Class Studentmodel extends CI_Model
 			//foreach($row as $rows){}
 			$student_id=$row[0]->student_id;
 			//echo $student_id;exit;
-			$query1="SELECT admission_id,admisn_no,name,parnt_guardn_id FROM edu_admission WHERE admission_id='$student_id' AND status='A'";
+			$query1="SELECT admission_id,admisn_no,name,parnt_guardn_id FROM edu_admission WHERE admission_id='$student_id' AND status='Active'";
 			$result=$this->db->query($query1);
 			$row1=$result->result();
 			foreach($row1 as $row2){
@@ -35,7 +35,7 @@ Class Studentmodel extends CI_Model
 			$name=$row4->name;
 			$class_id=$row4->class_id;
 			}
-			$query3="SELECT h.*,cm.class_sec_id,cm.class,cm.section,c.*,se.* FROM edu_homework AS h,edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE h.class_id='$class_id' AND h.status='A' AND h.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER BY h.hw_id DESC" ;
+			$query3="SELECT h.*,cm.class_sec_id,cm.class,cm.section,c.*,se.* FROM edu_homework AS h,edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE h.class_id='$class_id' AND h.status='Active' AND h.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER BY h.hw_id DESC" ;
 			$result2=$this->db->query($query3);
 			$row4=$result2->result();
 			return $row4;
@@ -49,7 +49,7 @@ Class Studentmodel extends CI_Model
 			$row=$resultset->result();
 			$student_id=$row[0]->student_id;
 
-			$query1="SELECT admission_id,admisn_no,name,parnt_guardn_id FROM edu_admission WHERE admission_id='$student_id' AND status='A'";
+			$query1="SELECT admission_id,admisn_no,name,parnt_guardn_id FROM edu_admission WHERE admission_id='$student_id' AND status='Active'";
 			$result=$this->db->query($query1);
 			$row1=$result->result();
 			foreach($row1 as $row2){
@@ -95,7 +95,7 @@ Class Studentmodel extends CI_Model
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
 			$student_id=$row[0]->student_id; */
-			 $sql1="SELECT * FROM edu_examination WHERE status='A'";
+			 $sql1="SELECT * FROM edu_examination WHERE status='Active'";
 			 $resultset=$this->db->query($sql1);
 			 $res1=$resultset->result();
              return $res1;

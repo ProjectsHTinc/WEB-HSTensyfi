@@ -97,7 +97,7 @@
                         <div class="col-sm-4">
                            <textarea name="address" class="form-control" rows="4" cols="80"></textarea>
                         </div>
-                        <label class="col-sm-2 control-label">Subject</label>
+                        <label class="col-sm-2 control-label">Main Subject</label>
                         <div class="col-sm-4">
                            <select   name="subject" id="subject_id"  data-title="Select Subject" class="selectpicker" data-style=" btn-block" onchange="getListClass()"  data-menu-style="dropdown-blue">
                               <?php foreach ($resubject as $rows) {  ?>
@@ -113,7 +113,7 @@
                         <div class="col-sm-4">
                            <input type="text" placeholder="Qualification" name="qualification" class="form-control">
                         </div>
-                        <label class="col-sm-2 control-label">SUBJECT HANDLING</label>
+                        <label class="col-sm-2 control-label">SUBJECT</label>
                         <div class="col-sm-4">
                            <select multiple name="subject_multiple[]" id="subject_id"  data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
                               <?php foreach ($resubject as $rows) {  ?>
@@ -125,7 +125,7 @@
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Class Teacher</label>
+                        <label class="col-sm-2 control-label">Class Tutor</label>
                         <div class="col-sm-4">
                            <select   name="class_teacher"  id="class_teacher" data-title="Select Class" class="selectpicker" data-style=" btn-block"  data-menu-style="dropdown-blue">
                               <?php foreach ($get_all_class_notexist as $rows) {  ?>
@@ -142,11 +142,11 @@
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Teacher  Pic</label>
+                        <label class="col-sm-2 control-label">Teacher Picture</label>
                         <div class="col-sm-4">
                            <input type="file" name="teacher_pic" class="form-control" onchange="loadFile(event)" accept="image/*" >
                         </div>
-                        <label class="col-sm-2 control-label">Groups Name</label>
+                        <label class="col-sm-2 control-label">House Groups</label>
                         <div class="col-sm-4">
                            <select name="groups_id" class="selectpicker form-control" data-title="Select Groups Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <?php foreach ($groups as $row2) {  ?>
@@ -158,7 +158,7 @@
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Extra curricular Activities</label>
+                        <label class="col-sm-2 control-label">Extra curricular </label>
                         <div class="col-sm-4">
                            <select name="activity_id[]" multiple="multiple" class="selectpicker form-control" data-title="Select Actvities Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <?php foreach ($activities as $row3) {  ?>

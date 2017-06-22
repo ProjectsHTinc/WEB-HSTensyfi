@@ -53,11 +53,9 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-
-        //$('#mastersmenu').addClass('collapse in');
-        //$('#master').addClass('active');
-       // $('#masters8').addClass('active');
-
+$('#curricular').addClass('collapse in');
+$('#activities').addClass('active');
+$('#curricular1').addClass('active');
    $('#feesformsection').validate({ // initialize the plugin
        rules: {
            groups_name:{required:true },

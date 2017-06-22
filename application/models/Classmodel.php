@@ -19,11 +19,11 @@ Class Classmodel extends CI_Model
 
 
 //CREATE CLASS NAME
-       function addclass($classname){
+       function addclass($classname,$status){
            $check_class="SELECT * FROM edu_class WHERE class_name='$classname'";
            $res=$this->db->query($check_class);
            if($res->num_rows()==0){
-           $query="INSERT INTO edu_class (class_name) VALUES ('$classname')";
+           $query="INSERT INTO edu_class (class_name,status) VALUES ('$classname','$status')";
            $resultset=$this->db->query($query);
            $data= array("status" => "success");
             return $data;
@@ -45,11 +45,11 @@ Class Classmodel extends CI_Model
 
 
 //UPDATE CLASS NAME
-       function save_class($classname,$class_id){
-         $check_class="SELECT * FROM edu_class WHERE class_name='$classname'";
+       function save_class($classname,$class_id,$status){
+         $check_class="SELECT * FROM edu_class WHERE class_name='$classname' AND status='$status'";
          $res=$this->db->query($check_class);
          if($res->num_rows()==0){
-          $query="UPDATE edu_class SET class_name='$classname' WHERE class_id='$class_id'";
+          $query="UPDATE edu_class SET class_name='$classname',status='$status' WHERE class_id='$class_id'";
           $resultset=$this->db->query($query);
           $data= array("status" => "success");
           return $data;

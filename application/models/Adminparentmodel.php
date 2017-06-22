@@ -44,7 +44,7 @@ Class Adminparentmodel extends CI_Model
 			$name=$row4->name;
 			$class_id=$row4->class_id;
 			}
-			$query3="SELECT h.*,cm.class_sec_id,cm.class,cm.section,c.*,se.* FROM edu_homework AS h,edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE h.class_id='$class_id' AND h.status='A' AND h.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER BY h.hw_id DESC" ;
+			$query3="SELECT h.*,cm.class_sec_id,cm.class,cm.section,c.*,se.* FROM edu_homework AS h,edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE h.class_id='$class_id' AND h.status='Active' AND h.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER BY h.hw_id DESC" ;
 			$result2=$this->db->query($query3);
 			$row4=$result2->result();
 			return $row4;
@@ -117,7 +117,7 @@ Class Adminparentmodel extends CI_Model
 	  function view_exam_calender($enroll_id)
 	  {
 		   
-			$sql1="SELECT * FROM edu_examination WHERE status='A'";
+			$sql1="SELECT * FROM edu_examination WHERE status='Active'";
 			$resultset1=$this->db->query($sql1);
 			$row1=$resultset1->result();
 			return $row1;

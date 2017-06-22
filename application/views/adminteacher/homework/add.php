@@ -60,6 +60,7 @@
                                  $sta=$rows->mark_status;
 								 $hw=$rows->hw_type;
 								 $status=$rows->status;
+								// echo $status;
 
                                   ?>
                               <tr>
@@ -81,7 +82,7 @@
                                     echo date_format($date,"d-m-Y");
                                     ?></td>
                                  <!--<td><?php//echo $rows->hw_details; ?></td>-->
-                                 <td><?php if($status=='A'){?>
+                                 <td><?php if($status=='Active'){?>
 								 <button class="btn btn-success btn-fill btn-wd">Active</button>
 								 <?php }else{?>
 								  <button class="btn btn-danger btn-fill btn-wd">Deactive</button>
@@ -108,7 +109,7 @@
             <!-- end col-md-12 -->
          </div>
          <!-- end row -->
-         <!--<div id="test" style="display: none" >  </div>-->
+         <!--<div id="test" style="display: none" ></div>-->
          <div class="modal fade" id="addmodel" role="dialog" >
             <div class="modal-dialog">
                <!-- Modal content-->

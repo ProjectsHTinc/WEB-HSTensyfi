@@ -66,7 +66,7 @@ Class Homeworkmodel extends CI_Model
 			  //foreach($row as $rows){}
 			  $teacher_id=$row[0]->teacher_id;
 			  
-			  $query="INSERT INTO edu_homework(year_id,class_id,teacher_id,hw_type,subject_id,title,test_date,due_date,hw_details,status, created_at)VALUES('$year_id','$class_id','$teacher_id','$test_type','$subject_name','$title','$formatted_date','$format_date','$details','A',NOW())";
+			  $query="INSERT INTO edu_homework(year_id,class_id,teacher_id,hw_type,subject_id,title,test_date,due_date,hw_details,status, created_at)VALUES('$year_id','$class_id','$teacher_id','$test_type','$subject_name','$title','$formatted_date','$format_date','$details','Active',NOW())";
 			  $resultset=$this->db->query($query);
 			  $data= array("status"=>"success");
 			  return $data;
@@ -86,13 +86,13 @@ Class Homeworkmodel extends CI_Model
 			$id=$row[0]->teacher_id;
 			 
 		  //$query="SELECT * FROM edu_homework ";
-		   $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,c.*,s.*,su.* FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s WHERE eh.teacher_id='$id' AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id ORDER BY eh.hw_id DESC";
+		   $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,su.subject_id,su.subject_name FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s WHERE eh.teacher_id='$id' AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id ORDER BY eh.hw_id DESC";
           $result=$this->db->query($query);
           return $result->result();
 	   }
 	  function get_stu_details($hw_id)
 	  { 
-		  $query="SELECT eh.*,cm.*,c.*,s.*,su.*,ed.* FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_enrollment AS ed WHERE ed.class_id=eh.class_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id And eh.hw_id='$hw_id'";
+		  $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,cm.subject,c.class_id,c.class_name,s.sec_id,s.sec_name,su.subject_id,su.subject_name,ed.* FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_enrollment AS ed WHERE ed.class_id=eh.class_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id And eh.hw_id='$hw_id'";
 		  $result=$this->db->query($query);
           return $result->result();
 		  
@@ -154,7 +154,7 @@ Class Homeworkmodel extends CI_Model
 	  }
 	  function edit_test_details($hw_id)
 	  {
-		  $query="SELECT eh.*,su.* FROM edu_homework AS eh,edu_subject AS su WHERE hw_id='$hw_id' AND eh.subject_id=su.subject_id";
+		  $query="SELECT eh.*,su.subject_id,su.subject_name FROM edu_homework AS eh,edu_subject AS su WHERE hw_id='$hw_id' AND eh.subject_id=su.subject_id";
 		 $result=$this->db->query($query); 
          return $result->result();	
 	  }

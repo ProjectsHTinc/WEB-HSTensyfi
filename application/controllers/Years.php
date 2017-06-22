@@ -78,6 +78,7 @@ class Years extends CI_Controller {
 			  {
 			    $from_month=$this->input->post('from_month');
 			    $end_month=$this->input->post('end_month');
+				$status=$this->input->post('status');
 
                 $dateTime = new DateTime($from_month);
 				$formatted_date=date_format($dateTime,'Y-m-d' );
@@ -85,7 +86,7 @@ class Years extends CI_Controller {
 				$dateTime1 = new DateTime($end_month);
 				$formatted_date1=date_format($dateTime1,'Y-m-d' );
 
-				$datas=$this->yearsmodel->add_years($formatted_date,$formatted_date1);
+				$datas=$this->yearsmodel->add_years($formatted_date,$formatted_date1,$status);
 
 				// print_r($datas['status']);exit;
 			    //print_r($data['exam_name']);exit;
@@ -120,19 +121,19 @@ class Years extends CI_Controller {
 			  {
 				$year_id=$this->input->post('year_id');
 				$terms=$this->input->post('terms');
-
+                $status=$this->input->post('status');
 			    $from_month=$this->input->post('from_month');
 
 				$dateTime = new DateTime($from_month);
 				$formatted_date=date_format($dateTime,'Y-m-d' );
 
-
+                   
 			    $end_month=$this->input->post('end_month');
 
 				$dateTime1 = new DateTime($end_month);
 				$formatted_date1=date_format($dateTime1,'Y-m-d' );
 
-				 $datas=$this->yearsmodel->add_terms($year_id,$terms,$formatted_date,$formatted_date1);
+				 $datas=$this->yearsmodel->add_terms($year_id,$terms,$formatted_date,$formatted_date1,$status);
 
 				//print_r($datas['status']);exit;
 			    //print_r($data['exam_name']);exit;
@@ -210,7 +211,7 @@ class Years extends CI_Controller {
 				          if($user_type==1)
 				            {
 								$year_id=$this->input->post('year_id');
-
+                                $status=$this->input->post('status');
 								$from_month=$this->input->post('from_month');
 								$dateTime = new DateTime($from_month);
 				                $formatted_date=date_format($dateTime,'Y-m-d' );
@@ -219,7 +220,7 @@ class Years extends CI_Controller {
 								$dateTime = new DateTime($end_month);
 				                $formatted_date1=date_format($dateTime,'Y-m-d' );
 
-								$datas=$this->yearsmodel->update_years($year_id,$formatted_date,$formatted_date1);
+								$datas=$this->yearsmodel->update_years($year_id,$formatted_date,$formatted_date1,$status);
                               if($datas['status']=="success"){
 								$this->session->set_flashdata('msg','Updated Successfully');
 								redirect('years/home');
@@ -249,6 +250,7 @@ class Years extends CI_Controller {
 								$terms_id=$this->input->post('terms_id');
 								$year_id=$this->input->post('year_id');
 								$terms=$this->input->post('terms');
+								$status=$this->input->post('status');
 
 								$from_month=$this->input->post('from_month');
 								$dateTime = new DateTime($from_month);
@@ -258,7 +260,7 @@ class Years extends CI_Controller {
 								$dateTime = new DateTime($end_month);
 				                $formatted_date1=date_format($dateTime,'Y-m-d' );
 
-					$datas=$this->yearsmodel->update_terms($terms_id,$year_id,$terms,$formatted_date,$formatted_date1);
+					$datas=$this->yearsmodel->update_terms($terms_id,$year_id,$terms,$formatted_date,$formatted_date1,$status);
 
 								 if($datas['status']=="success")
 				                     {

@@ -53,7 +53,15 @@ class Teachercommunication extends CI_Controller
   	 		 $user_id=$this->session->userdata('user_id');
 			 $user_type=$this->session->userdata('user_type');
 			 //echo $user_type;exit;
-			 $leave_type=$this->input->post('leave_type');
+			 $leavetype=$this->input->post('leave_type');
+			 //echo $leavetype; echo '</br>';
+			 $leave_type=strstr($leavetype,'-',true);
+			 $leave_masid=strstr($leavetype,'-');
+            // echo $leave_type; echo '</br>';
+			 //echo $leave_masid;echo '</br>';
+			$leave_master_id=str_replace("-","",$leave_masid);
+			//echo $leave_master_id;exit;
+			
 			 $leave_date=$this->input->post('leave_date');
 			 $frm_time=$this->input->post('frm_time');
 			 $to_time=$this->input->post('to_time');
@@ -67,7 +75,7 @@ class Teachercommunication extends CI_Controller
 			 $dateTime1 = new DateTime($tldate);
              $to_ldate=date_format($dateTime1,'Y-m-d' );
               //echo $tldate;exit;   
-			 $datas=$this->teachercommunicationmodel->create_leave($user_type,$user_id,$leave_type,$formatted_date,$to_ldate,$frm_time,$to_time,$leave_description);
+			 $datas=$this->teachercommunicationmodel->create_leave($user_type,$user_id,$leave_master_id,$leave_type,$formatted_date,$to_ldate,$frm_time,$to_time,$leave_description);
 			//print_r($datas);exit;
 			  if($datas['status']=="success")
 			  {

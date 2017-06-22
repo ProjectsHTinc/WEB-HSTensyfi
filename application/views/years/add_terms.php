@@ -57,7 +57,13 @@
                                   </fieldset>
                                         <div class="form-group">
 
-
+                                        <label class="col-sm-2 control-label">Status</label>
+                                          <div class="col-sm-4">
+										   <select name="status"  class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">De-Active</option>
+											</select>
+                                          </div>
 											<label class="col-sm-2 control-label">&nbsp;</label>
 
                                             <div class="col-sm-4">
@@ -99,13 +105,14 @@
                                 <th>FROM DATE</th>
 								<th>To DATE</th>
 								<th>TERMS</th>
-                                <th class="disabled-sorting text-right">Actions</th>
+								<th>Status</th>
+                                <th>Actions</th>
                               </thead>
                               <tbody>
                                 <?php
                                $i=1;
-                              foreach ($terms as $rows) {
-
+                              foreach ($terms as $rows) { 
+							         $sta=$rows->status;
 								     $yrdata=$rows->from_date;
                                      $month4= strtotime($yrdata);
 
@@ -144,12 +151,18 @@
 										  }
 										?>
 
-
-
                                     <td><?php  echo date('M-Y',$month4); ?></td>
 									 <td><?php  echo date('M-Y',$month5) ; ?></td>
 									 <td><?php  echo $rows->term_name; ?></td>
-                                    <td class="text-right">
+									 <td>
+										<?php 
+										if($sta=='Active'){?>
+										<button class="btn btn-success btn-fill btn-wd">Active</button>
+										<?php  }else{?>
+										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+										<?php } ?>
+									</td>
+                                    <td>
 								<!--	<a href="<?php // echo base_url(); ?>examination/add_exam_subject/<?php //echo $rows->exam_id; ?>" rel="tooltip" title="Added Exam Details" class="btn btn-simple btn-info btn-icon table-action view" >
 									<i class="fa fa-id-card-o" aria-hidden="true"></i></a> -->
 

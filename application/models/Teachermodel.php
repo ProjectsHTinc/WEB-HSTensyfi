@@ -66,7 +66,7 @@ Class Teachermodel extends CI_Model
        $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
        mail($to,$subject,$htmlContent,$headers);
 	   
-        $query="INSERT INTO edu_users (name,user_name,user_password,user_pic,user_type,user_master_id,teacher_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5($OTP),'$userFileName','2','$insert_id','$insert_id',NOW(),NOW(),'A')";
+        $query="INSERT INTO edu_users (name,user_name,user_password,user_pic,user_type,user_master_id,teacher_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5($OTP),'$userFileName','2','$insert_id','$insert_id',NOW(),NOW(),'$status')";
 
           $resultset=$this->db->query($query);
             $data= array("status" => "success");

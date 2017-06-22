@@ -42,6 +42,15 @@
                                             </select>
                                           </div>
                                     </div>
+									<div class="form-group">
+									<label class="col-sm-4 control-label">Status</label>
+                                          <div class="col-sm-8">
+										   <select name="status"  class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">De-Active</option>
+											</select>
+                                          </div>
+										</div>  
 
 
                                     <div class="form-group">
@@ -80,18 +89,23 @@
                             <th data-field="id" class="text-left">ID</th>
                             <th data-field="name" class="text-left" data-sortable="true">Class</th>
                             <th data-field="Section" class="text-left" data-sortable="true">Section</th>
-
+							 <th data-field="status" class="text-left" data-sortable="true">status</th>
                             <th data-field="actions" class="td-actions text-left" data-events="operateEvents">Actions</th>
                           </thead>
                           <tbody>
-                            <?php $i=1; foreach ($getall_class as $rowsclass) { ?>
+                            <?php $i=1; foreach ($getall_class as $rowsclass) { $sta=$rowsclass->status; ?>
                               <tr>
-
-                                  <td><?php echo $i;  ?></td>
-
+                                 <td><?php echo $i;  ?></td>
                                 <td><?php echo $rowsclass->class_name;  ?></td>
                                 <td><?php echo $rowsclass->sec_name;  ?></td>
-
+                                 <td>
+									<?php 
+									if($sta=='Active'){?>
+									<button class="btn btn-success btn-fill btn-wd">Active</button>
+									<?php  }else{?>
+									<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+									<?php } ?>
+								</td>
                                 <td>
                                   <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>classmanage/editcs/<?php  echo $rowsclass->class_sec_id; ?>">
                                      <i class="fa fa-edit"></i></a>

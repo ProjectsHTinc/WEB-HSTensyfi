@@ -25,7 +25,7 @@
                                 <th data-field="year" class="text-left" data-sortable="true">Year</th>
                                 <th data-field="term" class="text-left" data-sortable="true">Term Name</th>
                                 <th data-field="class" class="text-left" data-sortable="true">Class</th>
-                                <th data-field="quota" class="text-left" data-sortable="true">Quota Name</th>
+                                <th data-field="quota" class="text-left" data-sortable="true">Quota</th>
 								                <th data-field="fees" class="text-left" data-sortable="true">Fees Amount</th>
                                
                                 <th data-field="status" class="text-left" data-sortable="true">Status</th>
@@ -81,6 +81,9 @@
  var $table = $('#bootstrap-table');
  
        $().ready(function(){
+		   $('#feesmenu').addClass('collapse in');
+        $('#payment').addClass('active');
+        $('#fees1').addClass('active'); 
          //jQuery('#teachermenu').addClass('collapse in');
            $table.bootstrapTable({
                toolbar: ".toolbar",

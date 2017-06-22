@@ -28,7 +28,15 @@
 
                                       </div>
                                   </fieldset>
+								   <fieldset>
                                         <div class="form-group">
+										<label class="col-sm-2 control-label">Status</label>
+                                          <div class="col-sm-4">
+										   <select name="status"  class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">De-Active</option>
+											</select>
+                                          </div>
 											<label class="col-sm-2 control-label">&nbsp;</label>
                                             <div class="col-sm-4">
 											<input type="submit" id="save" class="btn btn-info btn-fill center"  value="Save">
@@ -62,13 +70,14 @@
                                 <th>S.no</th>
                                 <th>FROM YEAR</th>
 								<th>To YEAR</th>
-                                <th class="disabled-sorting text-right">Actions</th>
+								<th>Status</th>
+                                <th>Actions</th>
                               </thead>
                               <tbody>
                                 <?php
                                 $i=1;
                                 foreach ($result as $rows)
-								{
+								{ $sta=$rows->status;
 								 $yrdata=$rows->from_month;
                                  $month= strtotime($yrdata);
 								 $endmonth=$rows->to_month;
@@ -78,7 +87,13 @@
                                     <td><?php  echo $i; ?></td>
                                     <td><?php  echo date('M-Y',$month); ?></td>
 									<td><?php echo date('M-Y',$month1); ?></td>
-                                    <td class="text-right">
+									<td><?php 
+										  if($sta=='Active'){?>
+											<button class="btn btn-success btn-fill btn-wd">Active</button>
+										 <?php  }else{?>
+										  <button class="btn btn-danger btn-fill btn-wd">De Active</button>
+										  <?php } ?></td>
+                                    <td>
                              <a href="<?php echo base_url(); ?>years/edit_years/<?php echo $rows->year_id; ?>" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                       </td>
                                   </tr>

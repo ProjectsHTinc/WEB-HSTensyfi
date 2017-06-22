@@ -14,9 +14,18 @@
                                <div class="row">
                                    <div class="col-md-5">
                                        <div class="form-group">
-                                           <label>Name</label>
+                                           <label>Subject Name</label>
                                            <input type="text" class="form-control"  placeholder="" name="subjectname" id="subjectname" value="">
 
+                                       </div>
+                                   </div>
+								   <div class="col-md-5">
+                                       <div class="form-group">
+                                           <label class="col-sm-2 control-label">Status</label>
+										   <select name="status"  class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">DeActive</option>
+											</select>
                                        </div>
                                    </div>
                                </div>
@@ -43,18 +52,13 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="content">
-
                                 <div class="fresh-datatables">
-
-
                           <table id="bootstrap-table" class="table">
                               <thead>
-
                                 <th>S.no</th>
                                 <th>Section</th>
-                                <th class="disabled-sorting text-right">Actions</th>
-
-
+								<th>Status</th>
+                                <th>Actions</th>
                               </thead>
                               <tbody>
                                 <?php
@@ -64,9 +68,15 @@
                                   <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->subject_name; ?></td>
-
-                                    <td class="text-right">
-
+                                   <td>
+										<?php $sta=$rows->status;
+										if($sta=='Active'){?>
+										<button class="btn btn-success btn-fill btn-wd">Active</button>
+										<?php  }else{?>
+										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+										<?php } ?>
+									</td>
+                                    <td>
                                       <a href="<?php echo base_url();  ?>subjectadd/updatesubject/<?php echo $rows->subject_id; ?>" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                         </td>
                                   </tr>

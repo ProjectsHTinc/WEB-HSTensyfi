@@ -18,7 +18,7 @@ Class Examinationresultmodel extends CI_Model
         foreach ($row as $rows) {
         }
         $teacher_id = $rows->teacher_id;
-        $sql        = "SELECT * FROM edu_examination WHERE status='A'";
+        $sql        = "SELECT * FROM edu_examination WHERE status='Active'";
         $resultset1 = $this->db->query($sql);
         $res        = $resultset1->result();
         return $res;

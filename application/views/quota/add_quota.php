@@ -6,13 +6,13 @@
                <div class="col-md-8">
                    <div class="card">
                        <div class="header"> 
-                           <h4 class="title">Add Quota Name </h4>
+                           <h4 class="title">Add Quota</h4>
                        </div>
                        <div class="content">
                            <form method="post" action="<?php echo base_url(); ?>quota/create_quota" class="form-horizontal" enctype="multipart/form-data" id="feesformsection" name="feesformsection">
                                  <fieldset>
                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Quota Name	</label>
+                                          <label class="col-sm-2 control-label">Quota</label>
                                           <div class="col-sm-4"> 
 										                         <input type="text" name="quota_name" class="form-control"  value="">
                                           </div>
@@ -57,7 +57,7 @@
                           <table id="bootstrap-table" class="table">
                               <thead>
                                 <th>S.no</th>
-                                <th>Quota Name</th>
+                                <th>Quota</th>
 								                <th>Status</th>
                                 <th class="disabled-sorting text-right">Actions</th>
                               </thead>
@@ -99,9 +99,9 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-        /* $('#mastersmenu').addClass('collapse in');
-        $('#master').addClass('active');
-        $('#masters6').addClass('active'); */
+       $('#feesmenu').addClass('collapse in');
+        $('#payment').addClass('active');
+        $('#fees2').addClass('active'); 
 
    $('#feesformsection').validate({ // initialize the plugin
        rules: {

@@ -10,7 +10,7 @@ class Userrolemanage extends CI_Controller {
 		  $this->load->model('usermodel');
 		  $this->load->helper('url');
 		  $this->load->library('session');
-			$this->load->helper('menu');
+		  $this->load->helper('menu');
 
 
  }

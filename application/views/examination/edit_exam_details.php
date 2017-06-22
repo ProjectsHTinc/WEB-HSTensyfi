@@ -173,7 +173,14 @@
 
 									 <fieldset>
                                         <div class="form-group">
-
+									<label class="col-sm-2 control-label">Status</label>
+									<div class="col-sm-4">
+									   <select name="status" class="selectpicker form-control">
+										  <option value="Active">Active</option>
+										  <option value="Deactive">DeActive</option>
+										</select>
+									<script language="JavaScript">document.examform.status.value="<?php echo $rows->status; ?>";</script>
+									</div>
 											<label class="col-sm-2 control-label">&nbsp;</label>
 
                                             <div class="col-sm-4">

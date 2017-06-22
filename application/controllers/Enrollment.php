@@ -110,7 +110,8 @@ class Enrollment extends CI_Controller {
 			 
 			 $quota_id=$this->input->post('quota_id');
 			 $groups_id=$this->input->post('groups_id');
-			 $activity_id=$this->input->post('activity_id');
+			 $act_id=$this->input->post('activity_id');
+			 $activity_id=implode(',',$act_id);
 
 			 $status=$this->input->post('status');
 			// $class_name = implode(',',$class);
@@ -194,7 +195,8 @@ class Enrollment extends CI_Controller {
 			 
 			 $quota_id=$this->input->post('quota_id');
 			 $groups_id=$this->input->post('groups_id');
-			 $activity_id=$this->input->post('activity_id');
+			 $act_id=$this->input->post('activity_id');
+			 $activity_id=implode(',',$act_id);
 			 
 			 
 			 //$section=$this->input->post('section');

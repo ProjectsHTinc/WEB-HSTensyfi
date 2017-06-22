@@ -19,6 +19,16 @@
 
                                        </div>
                                    </div>
+								   
+								   <div class="col-md-5">
+                                       <div class="form-group">
+									  <label class="col-sm-2 control-label">Status</label>
+										   <select name="status"  class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">DeActive</option>
+											</select>
+                                       </div>
+                                   </div>
                                </div>
                            <button type="submit" class="btn btn-info btn-fill pull-left">Save</button>
                                <div class="clearfix"></div>
@@ -51,21 +61,28 @@
 
                                 <th>S.no</th>
                                 <th>Section</th>
-
-                                <th class="disabled-sorting text-right">Actions</th>
-
+                                <th>Status</th>
+                                <th>Actions</th>
 
                               </thead>
                               <tbody>
                                 <?php
                                 $i=1;
-                                foreach ($result as $rows) {
+                                foreach ($result as $rows) { $sta=$rows->status;
                                 ?>
                                   <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->sec_name; ?></td>
+									<td>
+										<?php 
+										if($sta=='Active'){?>
+										<button class="btn btn-success btn-fill btn-wd">Active</button>
+										<?php  }else{?>
+										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+										<?php } ?>
+								  </td>
 
-                                    <td class="text-right">
+                                    <td>
 
                                       <a href="<?php echo base_url();  ?>sectionadd/updatesection/<?php echo $rows->sec_id; ?>" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                       </td>

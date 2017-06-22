@@ -74,7 +74,7 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Quota Name</label>
+                                            <label class="col-sm-2 control-label">Quota</label>
                                             <div class="col-sm-4">
 											 <input type="text" name="quota_name" readonly  value="<?php echo $rows->quota_name;?>" class="form-control" />
 												                       
@@ -124,7 +124,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
-
+$('#feesmenu').addClass('collapse in');
+        $('#payment').addClass('active');
+        $('#fees1').addClass('active'); 
  $('#feesform').validate({ // initialize the plugin
      rules: {
          year_id:{required:true},

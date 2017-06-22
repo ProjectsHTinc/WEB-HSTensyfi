@@ -12,7 +12,7 @@
 {
 }	?>
                        <div class="content">
-                           <form method="post" action="<?php echo base_url(); ?>years/update_year" class="form-horizontal" enctype="multipart/form-data" id="myformsection">
+                           <form method="post" action="<?php echo base_url(); ?>years/update_year" class="form-horizontal" enctype="multipart/form-data" name="myformsection" id="myformsection">
 					<input type="hidden" name="year_id" class="form-control" value="<?php echo $row->year_id; ?>">
                                  <fieldset>
                                       <div class="form-group">
@@ -33,8 +33,14 @@
                                       </div>
                                   </fieldset>
                                         <div class="form-group">
-
-
+								<label class="col-sm-2 control-label">Status</label>
+									<div class="col-sm-4">
+										<select name="status" class="selectpicker form-control">
+											<option value="Active">Active</option>
+											<option value="Deactive">DeActive</option>
+										</select>
+									<script language="JavaScript">document.myformsection.status.value="<?php echo $row->status; ?>";</script>
+									</div>
 											<label class="col-sm-2 control-label">&nbsp;</label>
 
                                             <div class="col-sm-4">

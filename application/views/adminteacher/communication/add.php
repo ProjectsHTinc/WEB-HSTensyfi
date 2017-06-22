@@ -21,7 +21,7 @@
                               <div class="col-sm-4">
                                 <select class="selectpicker form-control" data-title="Select Type Of Leave" name="leave_type" id="choose" >
 									<?php foreach($leave as $row){?>
-									<option value="<?php echo $row->leave_type; ?>"><?php  echo $row->leave_title; ?></option>
+									<option value="<?php echo $row->leave_type; ?>-<?php echo $row->id; ?>"><?php  echo $row->leave_title; ?></option>
 									<?php } ?>
 								</select>
                               </div>
@@ -32,7 +32,7 @@
                            </div>
                         </fieldset>
 
-						 <div id="permissiontime" style="display: none">
+						 <!--<div id="permissiontime" style="display: none">-->
 								   <fieldset>
                                         <div class="form-group">
                                           <label class="col-sm-2 control-label">Time</label>
@@ -44,7 +44,7 @@
                                             </div>
                                         </div>
                                     </fieldset>
-                           </div>
+                           <!--</div>-->
 
                         <br/>
                         <fieldset>
@@ -161,8 +161,6 @@
               leave_description:"Enter The Leave Description",
             }
     });
-	
-	
 	demo.initFormExtendedDatetimepickers();
    });
 
@@ -195,10 +193,8 @@
                      detailClose: 'fa fa-minus-circle'
                  }
              });
-
              //activate the tooltips after the data table is initialized
              $('[rel="tooltip"]').tooltip();
-
              $(window).resize(function () {
                  $table.bootstrapTable('resetView');
              });
@@ -211,7 +207,6 @@ $(function () {
         $("#choose").change(function () {
             if ($(this).val()==0) {
                 $("#permissiontime").show();
-
             } else {
            $("#permissiontime").hide();
 

@@ -94,7 +94,7 @@
 									
 									<fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Quota Name</label>
+                                            <label class="col-sm-2 control-label">Quota</label>
                                             <div class="col-sm-4">
 											
 											 <select name="quota_id" class="selectpicker form-control" data-title="Select Quota Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
@@ -110,7 +110,7 @@
 									
 									<fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Groups Name</label>
+                                            <label class="col-sm-2 control-label">House Groups</label>
                                             <div class="col-sm-4">
 											
 											 <select name="groups_id" class="selectpicker form-control" data-title="Select Groups Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
@@ -126,10 +126,10 @@
 									
 									<fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Actvities Name</label>
+                                            <label class="col-sm-2 control-label">Extra curricular Activities</label>
                                             <div class="col-sm-4">
 											
-											 <select name="activity_id" class="selectpicker form-control" data-title="Select Actvities Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+											 <select multiple name="activity_id[]" class="selectpicker form-control" data-title="Select Actvities Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                                     <?php foreach ($activities as $row3) {  ?>
                                                     <option value="<?php echo $row3->id; ?>"><?php echo $row3->extra_curricular_name; ?></option>
                                               <?php      } ?>

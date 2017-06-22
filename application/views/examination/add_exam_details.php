@@ -75,6 +75,14 @@
                         </fieldset>
                         <fieldset>
                            <div class="form-group">
+						   <label class="col-sm-2 control-label">Status</label>
+							  <div class="col-sm-4">
+							   <select name="status"  class="selectpicker form-control">
+									  <option value="Active">Active</option>
+									  <option value="Deactive">DeActive</option>
+								</select>
+							  </div>
+										  
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
@@ -121,10 +129,11 @@
                               <thead>
                                  <th data-field="id">ID</th>
                                  <th data-field="name" data-sortable="true"> Subject</th>
-                                 <th data-field="email" data-sortable="true">Exam Date</th>
-                                 <th data-field="mobile"  data-sortable="true">Class/Section</th>
-                                 <th data-field="Section"  data-sortable="true">Teacher</th>
-                                 <th class="text-center">Action</th>
+                                 <th data-field="edate" data-sortable="true">Exam Date</th>
+                                 <th data-field="section"  data-sortable="true">Class/Section</th>
+                                 <th data-field="teacher"  data-sortable="true">Teacher</th>
+								 <th data-field="Status"  data-sortable="true">Status</th>
+                                 <th>Action</th>
                               </thead>
                               <tbody>
                                  <?php
@@ -182,6 +191,14 @@
                                     <td>
                                        <?php echo $name; ?>
                                     </td>
+									<td>
+										<?php $sta=$sea->status;
+										if($sta=='Active'){?>
+										<button class="btn btn-success btn-fill btn-wd">Active</button>
+										<?php  }else{?>
+										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+										<?php } ?>
+									</td>
                                     <td>
                                        <a href="<?php echo base_url(); ?>examination/edit_exam_details/<?php echo $sea->exam_detail_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
@@ -225,6 +242,14 @@
                                     <td>
                                        <?php echo $name; ?>
                                     </td>
+									<td>
+										<?php $sta=$rows->status;
+										if($sta=='Active'){?>
+										<button class="btn btn-success btn-fill btn-wd">Active</button>
+										<?php  }else{?>
+										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+										<?php } ?>
+									</td>
                                     <td>
                                        <a href="<?php echo base_url(); ?>examination/edit_exam_details/<?php echo $rows->exam_detail_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>

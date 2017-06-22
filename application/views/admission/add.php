@@ -153,7 +153,7 @@
 
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Student Pic</label>
+                                            <label class="col-sm-2 control-label">Student Picture</label>
                                             <div class="col-sm-4">
                                                 <input type="file" name="student_pic" class="form-control" onchange="loadFile(event)" accept="image/*" >
                                             </div>
@@ -170,12 +170,12 @@
                                             <div class="col-sm-10">
                                                 <div class="row">
 												<div class="col-md-4">
-                                                        <input type="text" name="sch_name" placeholder="Name of last school" class="form-control">
+                                                        <input type="text" name="sch_name" placeholder="Previous School" class="form-control">
                                                     </div>
 
                                                     <div class="col-md-4">
 
-				<select name="class_name" class="selectpicker" data-title="Standard Last studied" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+				<select name="class_name" class="selectpicker" data-title="Pass Out From" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
 
                              <?php foreach ($class as $clas) {  ?>
                     <option value="<?php  echo $clas->class_id; ?>"><?php  echo $clas->class_name; ?></option>
@@ -210,8 +210,8 @@
                                             <div class="col-sm-4">
                                               <select name="status" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
 
-                                                  <option value="A">Active</option>
-                                                    <option value="DA">DE-Active</option>
+                                                  <option value="Active">Active</option>
+                                                    <option value="Deactive">DeActive</option>
 
                                               </select>
                                             </div>

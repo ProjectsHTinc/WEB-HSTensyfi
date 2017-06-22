@@ -98,8 +98,8 @@
 						 <label class="col-sm-2 control-label">Status</label>
 						<div class="col-sm-4">
 						<select name="status" class="selectpicker form-control" data-style="btn-default btn-block" >
-                                                <option value="A">Active</option>
-                                                <option value="DA">Deactive</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Deactive">Deactive</option>
                         </select>
                           <script language="JavaScript">document.testform.status.value="<?php echo $rows->status; ?>";</script>
 					 </div>

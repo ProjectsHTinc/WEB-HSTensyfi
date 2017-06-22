@@ -19,7 +19,7 @@
 
                           ?>
                        <div class="content">
-                           <form action="<?php echo base_url(); ?>subjectadd/save_subject" method="post" enctype="multipart/form-data" id="myformsub">
+                           <form action="<?php echo base_url(); ?>subjectadd/save_subject" method="post" enctype="multipart/form-data" id="myformsub" name="myformsub">
                                <div class="row">
                                    <div class="col-md-5">
                                        <div class="form-group">
@@ -27,6 +27,16 @@
                                            <input type="text" class="form-control"  placeholder="" name="subjectname" id="subjectname" value="<?php  echo $rows->subject_name; ?>">
                                            <input type="hidden" class="form-control"  placeholder="" name="subject_id" value="<?php  echo $rows->subject_id; ?>">
 
+                                       </div>
+                                   </div>
+								    <div class="col-md-5">
+                                       <div class="form-group">
+                                           <label>Status</label>
+                                          <select name="status" class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">DeActive</option>
+												</select>
+											<script language="JavaScript">document.myformsub.status.value="<?php echo $rows->status; ?>";</script>
                                        </div>
                                    </div>
                                </div>

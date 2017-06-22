@@ -31,7 +31,7 @@ Class Teachercommunicationmodel extends CI_Model
     	 return $result;
 	 }
 	 
-	 function create_leave($user_type,$user_id,$leave_type,$formatted_date,$to_ldate,$frm_time,$to_time,$leave_description)
+	 function create_leave($user_type,$user_id,$leave_master_id,$leave_type,$formatted_date,$to_ldate,$frm_time,$to_time,$leave_description)
 	 {       $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
 			 $resultset=$this->db->query($query);
 			 $row=$resultset->result();
@@ -47,7 +47,7 @@ Class Teachercommunicationmodel extends CI_Model
 			 $row=$resultset->result();
 			 foreach($row as $rows){}
 			 $teacher_id=$rows->teacher_id;
-			  $sql="INSERT INTO edu_user_leave(user_type,user_id,type_leave,from_leave_date,to_leave_date,frm_time,to_time,leave_description,status,created_at)VALUES('$user_type','$teacher_id','$leave_type','$formatted_date','$to_ldate','$frm_time','$to_time','$leave_description','Pending',NOW())";
+			 $sql="INSERT INTO edu_user_leave(user_type,user_id,leave_master_id,type_leave,from_leave_date,to_leave_date,frm_time,to_time,leave_description,status,created_at)VALUES('$user_type','$teacher_id','$leave_master_id','$leave_type','$formatted_date','$to_ldate','$frm_time','$to_time','$leave_description','Pending',NOW())";
 			 $resultset=$this->db->query($sql);
 			
 			 $data= array("status"=>"success");

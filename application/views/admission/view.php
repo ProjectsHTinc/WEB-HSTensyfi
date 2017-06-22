@@ -56,7 +56,7 @@
                                     <td><?php echo $rows->mobile; ?></td>
 									<td><?php echo $rows->sex; ?></td>
 									<td><?php 
-									  if($stu=='A'){?>
+									  if($stu=='Active'){?>
 									   <button class="btn btn-success btn-fill btn-wd">Active</button>
 									   
 									 <?php  }else{?>
@@ -125,11 +125,11 @@
                                     <td><?php echo $rows->mobile; ?></td>
 									<td><?php echo $rows->sex; ?></td>
 									<td><?php 
-									  if($stu=='A'){?>
+									  if($stu=='Active'){?>
 									   <button class="btn btn-success btn-fill btn-wd">Active</button>
 									   
 									 <?php  }else{?>
-									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button><?php }
+									  <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
 									 ?></td>
 									
 

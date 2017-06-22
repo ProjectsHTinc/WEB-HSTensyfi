@@ -49,7 +49,8 @@ class Subjectadd extends CI_Controller {
 
 		public function createsubject(){
 				$subjectname=$this->input->post('subjectname');
-				$res = $this->subjectmodel->addsubject($subjectname);
+				$status=$this->input->post('status');
+				$res = $this->subjectmodel->addsubject($subjectname,$status);
 				if($res['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Added Successfully');
 				 redirect('subjectadd/addsubject');
@@ -70,7 +71,8 @@ class Subjectadd extends CI_Controller {
 		{
 			  $subject_name=$this->input->post('subjectname');
 			  $subject_id=$this->input->post('subject_id');
-			  $data = $this->subjectmodel->save_subject($subject_name,$subject_id);
+			  $status=$this->input->post('status');
+			  $data = $this->subjectmodel->save_subject($subject_name,$subject_id,$status);
 				if($data['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Update Successfully');
 				 redirect('subjectadd/addsubject');

@@ -12,7 +12,7 @@
 {
 }	?>
                        <div class="content">
-                            <form method="post" action="<?php echo base_url(); ?>years/update_term" class="form-horizontal" enctype="multipart/form-data" id="myformsection">
+                            <form method="post" action="<?php echo base_url(); ?>years/update_term" class="form-horizontal" enctype="multipart/form-data" id="myformsection" name="myformsection">
 						      			<input type="hidden" name="terms_id" required class="form-control" value="<?php echo $row->term_id?>">
 						           <fieldset>
                                       <div class="form-group">
@@ -50,27 +50,7 @@
 										  }
 														?>
                                   </select>
-
-
-
-
-
-												 <!--<?php /* foreach($result as $rows)
-												  {
-												    $fyear=$rows->from_month;
-													$month= strtotime($fyear);
-
-													$eyear=$rows->to_month;
-													$month1= strtotime($eyear);
- */
-  												  ?>
-     <option value="<?php // echo $rows->year_id; ?>"><?php // echo  date('Y',$month); ?> (To) <?php // echo  date('Y',$month1); ?></option>
-                                              <?php //} ?>
-
-                                          </select> -->
-<?php foreach($res as $row)
-{
-}	?>
+											<?php foreach($res as $row){}	?>
                                           </div>
                                           <label class="col-sm-2 control-label">TERMS</label>
                                           <div class="col-sm-4">
@@ -100,7 +80,14 @@ echo date_format($date,"d-m-Y");  ?>" name="end_month" required class="form-cont
                                   </fieldset>
                                         <div class="form-group">
 
-
+								<label class="col-sm-2 control-label">Status</label>
+								<div class="col-sm-4">
+								   <select name="status" class="selectpicker form-control">
+									  <option value="Active">Active</option>
+									  <option value="Deactive">DeActive</option>
+									</select>
+								<script language="JavaScript">document.myformsection.status.value="<?php echo $row->status; ?>";</script>
+                                 </div>
 											<label class="col-sm-2 control-label">&nbsp;</label>
 
                                             <div class="col-sm-4">

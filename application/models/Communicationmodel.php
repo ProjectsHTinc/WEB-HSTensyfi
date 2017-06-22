@@ -226,12 +226,12 @@ Class Communicationmodel extends CI_Model
 		  $sql="INSERT INTO edu_substitution(teacher_id,sub_teacher_id,sub_date,class_master_id,period_id,status,created_by,created_at) VALUES ('$teacher_id','$sub_teacher','$leave_date','$cls_id','$period_id','$status','$user_id',NOW())";
 		   $resultset=$this->db->query($sql);
 		   if($resultset){
-				 $datas= array("status" => "success");
-				 return $datas;
+				 $data= array("status"=>"success");
+				 return $data;
 			   }
 		   }else{
-			   $datas= array("status"=>"Already_Exist");
-               return $datas;
+			   $data= array("status"=>"Already_Exist");
+               return $data;
 		   }
 	   }
 	   

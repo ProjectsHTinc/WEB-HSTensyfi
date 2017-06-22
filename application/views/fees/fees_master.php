@@ -78,7 +78,7 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Quota Name</label>
+                                            <label class="col-sm-2 control-label">Quota</label>
                                             <div class="col-sm-4">
 											                            <select name="quota_name"  class="selectpicker form-control" data-title="Select quota name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                                     <?php foreach ($quota as $rows) {  ?>
@@ -91,7 +91,7 @@
                                     </fieldset>
 									                  <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Due Date From</label>
+                                            <label class="col-sm-2 control-label">Due Date (From)</label>
                                             <div class="col-sm-4">
                                                 <input type="text" name="due_date_from"  class="form-control datepicker" placeholder=" Select Due Date"/>
                                             </div>
@@ -99,7 +99,7 @@
                                     </fieldset>
 									                 <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Due Date To</label>
+                                            <label class="col-sm-2 control-label">Due Date (To)</label>
                                             <div class="col-sm-4">
                                                 <input type="text" name="due_date_to"  class="form-control datepicker" placeholder=" Select Due Date"/>
 
@@ -151,9 +151,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
- /* $('#mastersmenu').addClass('collapse in');
-        $('#master').addClass('active');
-        $('#masters9').addClass('active'); */
+ $('#feesmenu').addClass('collapse in');
+        $('#payment').addClass('active');
+        $('#fees').addClass('active'); 
 
  $('#feesform').validate({ // initialize the plugin
      rules: {

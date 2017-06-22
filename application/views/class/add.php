@@ -14,9 +14,16 @@
                                <div class="row">
                                    <div class="col-md-5">
                                        <div class="form-group">
-                                           <label>Class</label>
+                                           <label class="col-sm-2 control-label">Class</label>
                                            <input type="text" class="form-control"  placeholder="" id="classname" name="classname" value="">
-
+                                      </div></div>
+									  <div class="col-md-5">
+                                       <div class="form-group">
+									  <label class="col-sm-2 control-label">Status</label>
+										   <select name="status"  class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">DeActive</option>
+											</select>
                                        </div>
                                    </div>
                                </div>
@@ -50,19 +57,27 @@
 
                                  <th>ID</th>
                                 <th>Class</th>
-                                <th class="disabled-sorting text-right">Action</th>
-
-
+								<th>Status</th>
+                                <th>Action</th>
                               </thead>
                               <tbody>
                                 <?php
                                 $i=1;
-                                foreach ($result as $rows) {
+                                foreach($result as $rows){$sta=$rows->status;
                                 ?>
                                   <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->class_name; ?></td>
-                                    <td class="text-right">
+									<td>
+										<?php 
+										if($sta=='Active'){?>
+										<button class="btn btn-success btn-fill btn-wd">Active</button>
+										<?php  }else{?>
+										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+										<?php } ?>
+								   </td>
+
+                                    <td>
                                       <a href="<?php echo base_url();  ?>classadd/updateclass/<?php echo $rows->class_id; ?>" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                       <!-- <a href="<?php echo base_url();  ?>classadd/delete_class/<?php echo $rows->class_id; ?>" class="btn btn-simple btn-danger btn-icon "><i class="fa fa-times"></i></a> -->
 

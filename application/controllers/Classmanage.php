@@ -59,7 +59,8 @@ class Classmanage extends CI_Controller {
 				$class_id=$this->input->post('class_name');
 				$sub=$this->input->post('subject');
 				$subject = implode(',',$sub);
-				$data=$this->class_manage->assign($sec_id,$class_id,$subject);
+				$status=$this->input->post('status');
+				$data=$this->class_manage->assign($sec_id,$class_id,$subject,$status);
 				if($data['status']=="success"){
 						$this->session->set_flashdata('msg', 'Successfully Added');
 						redirect('classmanage/home');
@@ -104,7 +105,8 @@ class Classmanage extends CI_Controller {
 				$class_sec_id=$this->input->post('class_sec_id');
 				$class=$this->input->post('class_name');
 				$section=$this->input->post('section_name');
-				$datas=$this->class_manage->save_cs($class_sec_id,$class,$section,$subject);
+				$status=$this->input->post('status');
+				$datas=$this->class_manage->save_cs($class_sec_id,$class,$section,$subject,$status);
 			//	print_r($datas);exit;
 				if($datas['status']=="success"){
 						$this->session->set_flashdata('msg', 'Successfully Updated');

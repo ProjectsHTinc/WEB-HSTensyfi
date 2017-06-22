@@ -75,7 +75,7 @@ Class Parentsmodel extends CI_Model
 
 
 		 // $userFileName;
-			 $query1="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$father_name','$user_id',md5($OTP),'4','$insert_id','$insert_id',NOW(),NOW(),'A')";
+			 $query1="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$father_name','$user_id',md5($OTP),'4','$insert_id','$insert_id',NOW(),NOW(),'$status')";
 
 			$resultset=$this->db->query($query1);
 

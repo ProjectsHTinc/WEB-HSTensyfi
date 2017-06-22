@@ -9,7 +9,7 @@ Class Yearsmodel extends CI_Model
 
   }
 
-		 function add_years($formatted_date,$formatted_date1)
+		 function add_years($formatted_date,$formatted_date1,$status)
 		 {
 			 
               $fy = date('Y',strtotime($formatted_date));
@@ -23,7 +23,7 @@ Class Yearsmodel extends CI_Model
 			  $result=$this->db->query($check_month);
 			  if($result->num_rows()==0)
 			  {
-			  $query="INSERT INTO edu_academic_year(from_month,to_month,status,created_date)VALUES('$formatted_date','$formatted_date1','A',NOW())";
+			  $query="INSERT INTO edu_academic_year(from_month,to_month,status,created_date)VALUES('$formatted_date','$formatted_date1','$status',NOW())";
 			  $resultset=$this->db->query($query);
 			  $data= array("status"=>"success");
 			  return $data;
@@ -37,7 +37,7 @@ Class Yearsmodel extends CI_Model
 			  } 
 		 }
 
-		 function add_terms($year_id,$terms,$formatted_date,$formatted_date1)
+		 function add_terms($year_id,$terms,$formatted_date,$formatted_date1,$status)
 		 {
 			  $fd = date('Y-m',strtotime($formatted_date));
               //echo $fy;
@@ -49,7 +49,7 @@ Class Yearsmodel extends CI_Model
 			 $result=$this->db->query($check_month); 
 			 if($result->num_rows()==0)
 			  {
-			  $query="INSERT INTO edu_terms(year_id,from_date,to_date,term_name,status,created_date)VALUES('$year_id','$formatted_date','$formatted_date1','$terms','A',NOW())";
+			  $query="INSERT INTO edu_terms(year_id,from_date,to_date,term_name,status,created_date)VALUES('$year_id','$formatted_date','$formatted_date1','$terms','$status',NOW())";
 			  $resultset=$this->db->query($query);
 			  $data= array("status"=>"success");
 			  return $data;
@@ -81,7 +81,7 @@ Class Yearsmodel extends CI_Model
 
 
 
-		 function update_years($year_id,$formatted_date,$formatted_date1)
+		 function update_years($year_id,$formatted_date,$formatted_date1,$status)
 		 {
              $fy = date('Y',strtotime($formatted_date));
 			 $ty = date('Y',strtotime($formatted_date1));
@@ -91,7 +91,7 @@ Class Yearsmodel extends CI_Model
 			  $result=$this->db->query($check_month);
 			  if($result->num_rows()==0)
 			  { */
-			   $query="UPDATE edu_academic_year SET from_month='$formatted_date',to_month='$formatted_date1' WHERE year_id='$year_id'";
+			   $query="UPDATE edu_academic_year SET from_month='$formatted_date',to_month='$formatted_date1',status='$status' WHERE year_id='$year_id'";
 		        $res=$this->db->query($query);
 			    $data= array("status"=>"success");
 			  return $data;
@@ -107,11 +107,11 @@ Class Yearsmodel extends CI_Model
 		 }
 
 
-		 function update_terms($terms_id,$year_id,$terms,$formatted_date,$formatted_date1)
+		 function update_terms($terms_id,$year_id,$terms,$formatted_date,$formatted_date1,$status)
 		 {
 			 //UPDATE `edu_terms` SET `term_id`=[value-1],`year_id`=[value-2],`from_date`=[value-3],`to_date`=[value-4],`term_name`=[value-5],`status`=[value-6],`created_date`=[value-7] WHERE 1
 
-			 $query="UPDATE edu_terms SET year_id='$year_id',from_date='$formatted_date',to_date='$formatted_date1',term_name='$terms' WHERE term_id='$terms_id'";
+			 $query="UPDATE edu_terms SET year_id='$year_id',from_date='$formatted_date',to_date='$formatted_date1',term_name='$terms',status='$status' WHERE term_id='$terms_id'";
 		     $res=$this->db->query($query);
 		//return $res->result();
 				if($res){
@@ -133,7 +133,7 @@ Class Yearsmodel extends CI_Model
 //GET ALL Years
 
        function getall_years(){
-         $query="SELECT * FROM edu_academic_year";
+         $query="SELECT * FROM edu_academic_year ";
           $result=$this->db->query($query);
           return $result->result();
        }

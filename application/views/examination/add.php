@@ -16,7 +16,7 @@
                                         <div class="form-group">
 
                                             <label class="col-sm-2 control-label">Exam Year</label>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-6">
              <select name="exam_year" required class="selectpicker" data-title="Select From & To Year" data-menu-style="dropdown-blue">
                                                   <?php
 												  $query= "SELECT * FROM edu_academic_year";
@@ -43,8 +43,20 @@
                                     <fieldset>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Exam Name</label>
-                                           <div class="col-sm-4">
+                                           <div class="col-sm-6">
                                                 <input type="text" name="exam_name" class="form-control" placeholder="Enter Exam Name" required value="">
+                                            </div>
+				                     </div>
+                                    </fieldset>
+									
+									<fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Status</label>
+                                           <div class="col-sm-6">
+                                                 <select name="status"  class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">DeActive</option>
+											</select>
                                             </div>
 				                     </div>
                                     </fieldset>
@@ -108,7 +120,7 @@
                                     <td><?php  echo  date('Y',$month); ?> (To) <?php  echo  date('Y',$month1); ?></td>
 									 <td><?php echo $rows->exam_name; ?></td>
 									 
-									 <td><?php if($status=='A'){?>
+									 <td><?php if($status=='Active'){?>
 								 <button class="btn btn-success btn-fill btn-wd">Active</button>
 								 <?php }else{?>
 								  <button class="btn btn-danger btn-fill btn-wd">Deactive</button>

@@ -65,13 +65,13 @@
                <ul class="nav navbar-nav navbar-right">
                    <!-- <li>
 						<img src="<?php echo base_url(); ?>assets/wrain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
-						</li>-->
+						</li>
 						
 						<li style="padding:08px 10px;">
 							<a href="<?php echo base_url(); ?>feesstructure/view_term_fees_master" class="abox"style="padding:03px 15px;border-color: white;">
 								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Fess Status</p>
 							</a>
-						</li>
+						</li>-->
 						
 						<li style="padding:08px 10px;">
 							<a href="<?php echo base_url(); ?>communication/add_communication" class="abox"style="padding:03px 15px;border-color: white;">
@@ -98,10 +98,10 @@
 					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
 						  Quick Links</a>
 								<ul class="dropdown-menu">
- <li><a href="<?php echo base_url(); ?>feesstructure/fees_master">Fees</a></li>
- <li><a href="<?php echo base_url(); ?>quota/home">Quota </a></li> 
- <li><a href="<?php echo base_url(); ?>groups/home">Groups </a></li>
- <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li> 
+
+ 
+ <li><a href="<?php echo base_url(); ?>userleavemaster/home">Create User Leave</a></li>
+ 
  <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> 
  
 							</ul>
@@ -229,6 +229,23 @@
                      </ul>
                   </div>
                </li>
+			   
+			   <li id="activities">
+                  <a data-toggle="collapse" href="#curricular">
+                     <i class="pe-7s-users"></i>
+                     <p>Extra-Co curricular</p>
+                     <b class="caret"></b>
+                  </a>
+                  <div class="collapse" id="curricular">
+                     <ul class="nav">
+                        <li id="curricular1"><a href="<?php echo base_url(); ?>extracurricular/home">Extra-Co curricular  </a></li>
+                        <li id="curricular2"><a href="<?php echo base_url(); ?>groups/home">House Groups</a></li>
+					
+                     </ul>
+                  </div>
+               </li>
+			   
+			   
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
                      <i class="pe-7s-study"></i>
@@ -255,6 +272,23 @@
                      </ul>
                   </div>
                </li>
+			   
+			    <li id="payment">
+                  <a data-toggle="collapse" href="#feesmenu">
+                     <i class="pe-7s-users"></i>
+                     <p>Payment</p>
+                     <b class="caret"></b>
+                  </a>
+                  <div class="collapse" id="feesmenu">
+                     <ul class="nav">
+                        <li id="fees"><a href="<?php echo base_url(); ?>feesstructure/fees_master">Fees Structure</a></li>
+                        <li id="fees1"><a href="<?php echo base_url(); ?>feesstructure/view_term_fees_master">Fee Status</a></li>
+						<li id="fees2"><a href="<?php echo base_url(); ?>quota/home">Quota</a></li>
+                     </ul>
+                  </div>
+               </li>
+			   
+
                <li id="event">
                   <a data-toggle="collapse" href="#eventmenu">
                      <i class="pe-7s-gym"></i>

@@ -6,14 +6,14 @@
                <div class="col-md-8">
                    <div class="card">
                        <div class="header"> 
-                           <h4 class="title">Edit Quota Name </h4>
+                           <h4 class="title">Edit Quota</h4>
                        </div>
                        <?php foreach ($edit as  $res) { } ?>
                        <div class="content">
                            <form method="post" action="<?php echo base_url(); ?>quota/update_quota" class="form-horizontal" enctype="multipart/form-data" id="feesformsection" name="feesformsection">
                                  <fieldset>
                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Quota Name	</label>
+                                          <label class="col-sm-2 control-label">Quota </label>
                                           <div class="col-sm-4"> 
 										                         <input type="text" name="quota_name" class="form-control"  value="<?php echo $res->quota_name; ?>">
 
@@ -54,9 +54,9 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-        //$('#mastersmenu').addClass('collapse in');
-        //$('#master').addClass('active');
-       // $('#masters6').addClass('active');
+       $('#feesmenu').addClass('collapse in');
+        $('#payment').addClass('active');
+        $('#fees2').addClass('active'); 
 
    $('#feesformsection').validate({ // initialize the plugin
        rules: {

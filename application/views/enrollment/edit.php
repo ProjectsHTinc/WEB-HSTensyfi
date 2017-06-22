@@ -125,7 +125,7 @@ echo date_format($date,"d-m-Y");  ?>" />
 									
 									<fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Quota Name</label>
+                                            <label class="col-sm-2 control-label">Quota</label>
                                             <div class="col-sm-4">
 											
 											 <select name="quota_id" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
@@ -142,7 +142,7 @@ echo date_format($date,"d-m-Y");  ?>" />
 									
 									<fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Groups Name</label>
+                                            <label class="col-sm-2 control-label">House Groups</label>
                                             <div class="col-sm-4">
 											
 											 <select name="groups_id" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
@@ -159,13 +159,35 @@ echo date_format($date,"d-m-Y");  ?>" />
 									
 									<fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Actvities Name</label>
+                                            <label class="col-sm-2 control-label">Extra curricular Activities</label>
                                             <div class="col-sm-4">
 											
-											 <select name="activity_id" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                                    <?php foreach ($activities as $row3) {  ?>
-                                                    <option value="<?php echo $row3->id; ?>"><?php echo $row3->extra_curricular_name; ?></option>
-                                              <?php      } ?>
+											 <select multiple name="activity_id[]" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                     <?php
+                                 $activity_id=$rows->extra_curicullar_id;
+                                 $Query = "SELECT * FROM edu_extra_curricular";
+                                 $obj=$this->db->query($Query);
+                                 //print_r($objRs);
+                                 $row=$obj->result();
+                                 foreach ($row as $rows1)
+                                 {
+                                 $aid= $rows1->id;
+                                 $activityname=$rows1->extra_curricular_name;
+                                 $arryPlatform = explode(",", $activity_id);
+                                 $sPlatform_id  = trim($aid);
+                                
+                                 if (in_array($sPlatform_id, $arryPlatform )) {
+                                 ?>
+                              <?php
+                                 echo "<option  value=\"$sPlatform_id\" selected />$activityname</option>";
+                                 ?>
+                              <?php }
+                                 else {
+                                 echo "<option value=\"$sPlatform_id\"/>$activityname</option>";
+                                 }
+                                     }
+                                       ?>
+
                                                   </select>
 												<script language="JavaScript">document.enrollform.activity_id.value="<?php echo $rows->extra_curicullar_id; ?>";</script>  
                                             </div>

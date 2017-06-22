@@ -49,7 +49,8 @@ class Sectionadd extends CI_Controller {
 
 		public function createsection(){
 				$sectionname=$this->input->post('sectionname');
-				$res = $this->sectionmodel->addsection($sectionname);
+				$status=$this->input->post('status');
+				$res = $this->sectionmodel->addsection($sectionname,$status);
 				if($res['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Added Successfully');
 				 redirect('sectionadd/addsection');
@@ -68,8 +69,9 @@ class Sectionadd extends CI_Controller {
 
 		public function save_section(){
 			 $sec_name=$this->input->post('sectionname');
+			 $status=$this->input->post('status');
 			  $sec_id=$this->input->post('sec_id');
-			 	$res = $this->sectionmodel->save_section($sec_name,$sec_id);
+			 	$res = $this->sectionmodel->save_section($sec_name,$sec_id,$status);
 				if($res['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Update Successfully');
 				 redirect('sectionadd/addsection');

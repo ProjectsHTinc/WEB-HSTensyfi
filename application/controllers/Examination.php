@@ -63,9 +63,7 @@ class Examination extends CI_Controller
 			
 	 		$datas['year'] = $this->examinationmodel->get_exam_details();
 			$datas['result1'] = $this->examinationmodel->get_details_view1();
-						
 			$datas['result'] = $this->examinationmodel->get_details_view();
-
 			$datas['sec'] = $this->subjectmodel->getsubject();
 			$datas['class'] = $this->classmodel->getclass();
 			$datas['getall_class']=$this->class_manage->getall_class();
@@ -104,8 +102,9 @@ class Examination extends CI_Controller
 			  {
 			     $exam_year=$this->input->post('exam_year');
 				 $exam_name=$this->input->post('exam_name');
+				 $status=$this->input->post('status');
 
-				 $datas=$this->examinationmodel->exam_details($exam_year,$exam_name);
+				 $datas=$this->examinationmodel->exam_details($exam_year,$exam_name,$status);
 
 		     	 //print_r($datas['status']);exit;
 			    //print_r($data['exam_name']);exit;
@@ -194,8 +193,9 @@ class Examination extends CI_Controller
 				 $time=$this->input->post('time');
 				 //print_r($time);exit;
 				 $teacher_id=$this->input->post('teacher_id');
+				 $status=$this->input->post('status');
 				 //print_r($notes);exit;
-           $datas=$this->examinationmodel->add_exam_details($exam_year,$class_name,$subject_name,$exdate,$time,$teacher_id);
+           $datas=$this->examinationmodel->add_exam_details($exam_year,$class_name,$subject_name,$exdate,$time,$teacher_id,$status);
 			 if($datas['status']=="success"){
 					$this->session->set_flashdata('msg','Added Successfully');
                     redirect('examination/add_exam_detail');
@@ -252,10 +252,11 @@ class Examination extends CI_Controller
                  $formatted_date=date_format($dateTime,'Y-m-d' );
 				 
 				 $time=$this->input->post('time');
+				 $status=$this->input->post('status');
 
 				 $teacher_id=$this->input->post('teacher_id');
 
-				 $datas=$this->examinationmodel->update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id);
+				 $datas=$this->examinationmodel->update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id,$status);
 
 				 if($datas['status']=="success")
 					 {

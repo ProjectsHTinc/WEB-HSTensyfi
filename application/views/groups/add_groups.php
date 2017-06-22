@@ -6,13 +6,13 @@
                <div class="col-md-8">
                    <div class="card">
                        <div class="header"> 
-                           <h4 class="title">Add Groups Name </h4>
+                           <h4 class="title">Add House Groups  </h4>
                        </div>
                        <div class="content">
                            <form method="post" action="<?php echo base_url(); ?>groups/create_groups" class="form-horizontal" enctype="multipart/form-data" id="groupsformsection" name="groupsformsection">
                                  <fieldset>
                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Groups Name	</label>
+                                          <label class="col-sm-2 control-label">House Groups</label>
                                           <div class="col-sm-4"> 
 										                         <input type="text" name="groups_name" class="form-control"  value="">
                                           </div>
@@ -57,7 +57,7 @@
                           <table id="bootstrap-table" class="table">
                               <thead>
                                 <th>S.no</th>
-                                <th>Groups Name</th>
+                                <th>House Groups</th>
 								                <th>Status</th>
                                 <th class="disabled-sorting text-right">Actions</th>
                               </thead>
@@ -97,9 +97,9 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-        /* $('#mastersmenu').addClass('collapse in');
-        $('#master').addClass('active');
-        $('#masters7').addClass('active'); */
+$('#curricular').addClass('collapse in');
+$('#activities').addClass('active');
+$('#curricular2').addClass('active'); 
 
    $('#groupsformsection').validate({ // initialize the plugin
        rules: {

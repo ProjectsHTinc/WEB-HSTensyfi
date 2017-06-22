@@ -19,7 +19,7 @@
 
                           ?>
                        <div class="content">
-                           <form action="<?php echo base_url(); ?>sectionadd/save_section" method="post" enctype="multipart/form-data" id="myformsection">
+                           <form action="<?php echo base_url(); ?>sectionadd/save_section" method="post" enctype="multipart/form-data" id="myformsection" name="myformsection">
                                <div class="row">
                                    <div class="col-md-5">
                                        <div class="form-group">
@@ -29,6 +29,18 @@
 
                                        </div>
                                    </div>
+								   
+								    <div class="col-md-5">
+                                       <div class="form-group">
+                                           <label>Status</label>
+                                          <select name="status" class="selectpicker form-control">
+												  <option value="Active">Active</option>
+												  <option value="Deactive">DeActive</option>
+												</select>
+											<script language="JavaScript">document.myformsection.status.value="<?php echo $rows->status; ?>";</script>
+                                       </div>
+                                   </div>
+								   
                                </div>
                            <button type="submit" class="btn btn-info btn-fill pull-left">Update</button>
                                <div class="clearfix"></div>

@@ -68,7 +68,7 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Quota Name</label>
+                                            <label class="col-sm-2 control-label">Quota</label>
                                             <div class="col-sm-4">
 												                    <select name="quota_name"  class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                                 <?php foreach ($quota as $row1) {  ?>
@@ -82,7 +82,7 @@
                                     </fieldset>
 									                  <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Due Date From</label>
+                                            <label class="col-sm-2 control-label">Due Date (From)</label>
                                             <div class="col-sm-4">
                                                 <input type="text" name="due_date_from" value="<?php $date=date_create($rows->due_date_from);
                                                         echo date_format($date,"d-m-Y");?>"  class="form-control datepicker" placeholder=" Select Due Date"/>
@@ -91,7 +91,7 @@
                                     </fieldset>
 									                 <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Due Date To</label>
+                                            <label class="col-sm-2 control-label">Due Date (To)</label>
                                             <div class="col-sm-4">
                                                 <input type="text" name="due_date_to" value="<?php $date=date_create($rows->due_date_to);
                                                  echo date_format($date,"d-m-Y");?>" class="form-control datepicker" placeholder=" Select Due Date"/>
@@ -139,9 +139,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
-/* $('#mastersmenu').addClass('collapse in');
-        $('#master').addClass('active');
-        $('#masters9').addClass('active'); */
+$('#feesmenu').addClass('collapse in');
+        $('#payment').addClass('active');
+        $('#fees').addClass('active'); 
  $('#feesform').validate({ // initialize the plugin
      rules: {
          year_id:{required:true},

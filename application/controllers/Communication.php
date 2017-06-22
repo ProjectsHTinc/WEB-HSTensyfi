@@ -278,7 +278,7 @@ class Communication extends CI_Controller
 			  {
 				 $this->session->set_flashdata('msg','Added Successfully');
 				 redirect('communication/add_substitution/'.$leave_id.'');
-			  }else if($datas['status']=="Already_Exist")
+			  }elseif($datas['status']=="Already_Exist")
 			  {
 				$this->session->set_flashdata('msg','Already Exist');
 				redirect('communication/add_substitution/'.$leave_id.'');
