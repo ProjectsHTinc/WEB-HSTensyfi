@@ -7371,8 +7371,8 @@ star {
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
 .dropdown-menu > li.selected > a {
-  background-color: #F5F5F5;
-  color: #333333;
+  background-color: #6f3fbc;
+  color: #fff;
   opacity: 1;
   text-decoration: none;
 }

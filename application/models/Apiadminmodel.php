@@ -51,7 +51,7 @@ class Apiadminmodel extends CI_Model {
     $sql="SELECT ec.class_name,ec.class_id FROM edu_classmaster AS ecm LEFT JOIN edu_class AS ec ON ec.class_id=ecm.class GROUP BY ec.class_name";
     $res=$this->db->query($sql);
     if($res->num_rows()==0){
-        $data=array("msg"=>"nodata","status"=>"error");
+        $data=array("status"=>"error","msg"=>"nodata");
         return $data;
     }else{
       $result=$res->result();
@@ -67,7 +67,7 @@ class Apiadminmodel extends CI_Model {
       $sql="SELECT es.sec_name,es.sec_id FROM edu_classmaster AS ecm LEFT JOIN edu_sections AS es ON ecm.section=es.sec_id WHERE ecm.class='$class_id'";
       $res=$this->db->query($sql);
       if($res->num_rows()==0){
-          $data=array("msg"=>"nodata","status"=>"error");
+          $data=array("status"=>"error","msg"=>"nodata");
           return $data;
       }else{
         $result=$res->result();
@@ -90,7 +90,7 @@ class Apiadminmodel extends CI_Model {
             $res_stu=$this->db->query($stu_list);
               $result_stud=$res_stu->result();
             if($res->num_rows()==0){
-                $data=array("msg"=>"nodata","status"=>"error");
+                $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result=$res->result();
@@ -104,21 +104,29 @@ class Apiadminmodel extends CI_Model {
         //#################### GET STUDENT & PARENTS DETAILS ####################//
 
           function get_student_details($student_id){
-            $sql="SELECT er.admission_id,ea.name,ea.sex,DATE_FORMAT(dob,'%d-%m-%Y') AS dob,ea.nationality,ea.religion,ea.community_class,ea.community,ea.language,ea.mobile,ea.email,ea.parents_status FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
+            $sql="SELECT er.admission_id,ea.name,ea.sex,DATE_FORMAT(dob,'%d-%m-%Y') AS dob,ea.nationality,ea.religion,ea.community_class,ea.community,ea.language,ea.student_pic,ea.mobile,ea.email,ea.parents_status FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
             $res_stu=$this->db->query($sql);
-            $fees_sql="SELECT er.admission_id,ep.* FROM edu_enrollment AS er LEFT JOIN edu_parents AS ep ON er.admission_id=ep.admission_id WHERE er.enroll_id='$student_id'";
-            $res_pat=$this->db->query($fees_sql);
+            $par_de_sql="SELECT er.admission_id,ep.* FROM edu_enrollment AS er LEFT JOIN edu_parents AS ep ON er.admission_id=ep.admission_id WHERE er.enroll_id='$student_id'";
+            $res_pat=$this->db->query($par_de_sql);
                 if($res_pat->num_rows()==0){
                     $res_parents="NO Parents Details";
                 }else{
                       $res_parents=$res_pat->result();
                 }
+            $year_id=$this->getYear();
+            $fees_sql="SELECT efm.term_id,et.term_name,etfs.status,etfs.paid_by FROM edu_term_fees_status AS etfs LEFT JOIN edu_fees_master AS efm ON etfs.fees_id=efm.id LEFT JOIN edu_terms AS et ON et.term_id=efm.term_id WHERE etfs.student_id='$student_id' AND etfs.year_id='$year_id'";
+            $stu_fees_stat=$this->db->query($fees_sql);
+                if($stu_fees_stat->num_rows()==0){
+                    $stude_fees="NoRecord";
+                }else{
+                      $stude_fees=$stu_fees_stat->result();
+                }
             if($res_stu->num_rows()==0){
-                $data=array("msg"=>"nodata","status"=>"error");
+                $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result=$res_stu->result();
-              $data=array("status"=>"success","msg"=>"success","data"=>$result,"parents_details"=>$res_parents);
+              $data=array("status"=>"success","msg"=>"success","studentData"=>$result,"parents_details"=>$res_parents,"studentFees"=>$stude_fees);
               return $data;
             }
           }
@@ -136,7 +144,7 @@ class Apiadminmodel extends CI_Model {
           $get_all_hw="SELECT eh.hw_type,eh.hw_id,eh.subject_id,eh.title,es.subject_name,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.class_id='$classid' AND eh.year_id='$year_id' AND eh.status='A' AND hw_type='HW' ORDER BY eh.test_date DESC";
           $result_hw=$this->db->query($get_all_hw);
           if($result_hw->num_rows()==0){
-              $data=array("msg"=>"nodata","status"=>"error");
+              $data=array("status"=>"error","msg"=>"nodata");
               return $data;
           }else{
             $result_home=$result_hw->result();
@@ -152,7 +160,7 @@ class Apiadminmodel extends CI_Model {
           $get_all_hw="SELECT eh.title,eh.hw_type,eh.subject_id,es.subject_name,eh.hw_details,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.hw_id='$hw_id'";
           $result_hw=$this->db->query($get_all_hw);
           if($result_hw->num_rows()==0){
-              $data=array("msg"=>"nodata","status"=>"error");
+              $data=array("status"=>"error","msg"=>"nodata");
               return $data;
           }else{
             $result_home=$result_hw->result();
@@ -175,7 +183,7 @@ class Apiadminmodel extends CI_Model {
             $get_all_hw="SELECT eh.hw_type,eh.hw_id,eh.subject_id,eh.title,es.subject_name,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.class_id='$classid' AND eh.year_id='$year_id' AND eh.status='A' AND hw_type='CT' ORDER BY eh.test_date DESC";
             $result_hw=$this->db->query($get_all_hw);
             if($result_hw->num_rows()==0){
-                $data=array("msg"=>"nodata","status"=>"error");
+                $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result_home=$result_hw->result();
@@ -191,7 +199,7 @@ class Apiadminmodel extends CI_Model {
               $get_all_hw="SELECT eh.title,eh.hw_type,eh.subject_id,es.subject_name,eh.hw_details,eh.test_date,eh.mark_status FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.hw_id='$hw_id'";
               $result_hw=$this->db->query($get_all_hw);
               if($result_hw->num_rows()==0){
-                  $data=array("msg"=>"nodata","status"=>"error");
+                  $data=array("status"=>"error","msg"=>"nodata");
                   return $data;
               }else{
                 $result_home=$result_hw->result();
@@ -209,7 +217,7 @@ class Apiadminmodel extends CI_Model {
               $sql="SELECT exam_id,exam_name FROM edu_examination WHERE exam_year='$year_id' AND STATUS='Active'";
               $result=$this->db->query($sql);
               if($result->num_rows()==0){
-                  $data=array("msg"=>"nodata","status"=>"error");
+                  $data=array("status"=>"error","msg"=>"nodata");
                   return $data;
               }else{
                 $exam_result=$result->result();
@@ -231,7 +239,7 @@ class Apiadminmodel extends CI_Model {
               $exam_sql="SELECT eed.subject_id,es.subject_name,DATE_FORMAT(eed.exam_date,'%d-%m-%Y')AS exam_date,eed.times FROM edu_exam_details AS eed LEFT JOIN edu_subject AS es ON es.subject_id=eed.subject_id WHERE eed.classmaster_id='$classid' AND eed.exam_id='$exam_id' AND eed.status='A' ORDER BY exam_date ASC";
               $ex_result=$this->db->query($exam_sql);
               if($ex_result->num_rows()==0){
-                  $data=array("msg"=>"nodata","status"=>"error");
+                  $data=array("status"=>"error","msg"=>"nodata");
                   return $data;
               }else{
                 $exam_result=$ex_result->result();
@@ -249,7 +257,7 @@ class Apiadminmodel extends CI_Model {
               AS et INNER JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON  cm.section=s.sec_id INNER JOIN edu_subject AS esu ON et.subject=esu.subject_id WHERE et.status='Active'";
               $res=$this->db->query($sql);
               if($res->num_rows()==0){
-                  $data=array("msg"=>"nodata","status"=>"error");
+                  $data=array("status"=>"error","msg"=>"nodata");
                   return $data;
               }else{
                 $result=$res->result();
@@ -294,7 +302,7 @@ class Apiadminmodel extends CI_Model {
              }
 
               if($res->num_rows()==0){
-                  $data=array("msg"=>"nodata","status"=>"error");
+                  $data=array("status"=>"error","msg"=>"nodata");
                   return $data;
               }else{
                 $result=$res_detail->result();
@@ -349,7 +357,7 @@ class Apiadminmodel extends CI_Model {
                 $stu_list="SELECT eer.name,eer.admisn_no,ea.sex,ea.admisn_year,ep.father_name,ep.mother_name,ep.guardn_name,ep.parent_id FROM edu_enrollment AS eer LEFT JOIN edu_admission AS ea ON ea.admisn_no=eer.admisn_no LEFT JOIN edu_parents AS ep ON eer.admission_id=ep.admission_id WHERE eer.class_id='$classid' AND eer.admit_year='$year_id' AND eer.status='Active'";
                 $res_stu=$this->db->query($stu_list);
                 if($res_stu->num_rows()==0){
-                    $data=array("msg"=>"nodata","status"=>"error");
+                    $data=array("status"=>"error","msg"=>"nodata");
                     return $data;
                 }else{
                   $result_stud=$res_stu->result();
@@ -364,7 +372,7 @@ class Apiadminmodel extends CI_Model {
                 $sql="SELECT ep.* FROM edu_parents AS ep WHERE ep.parent_id='$parent_id'";
                 $res=$this->db->query($sql);
                 if($res->num_rows()==0){
-                    $data=array("msg"=>"nodata","status"=>"error");
+                    $data=array("status"=>"error","msg"=>"nodata");
                     return $data;
                 }else{
                   $result=$res->result();
@@ -387,7 +395,7 @@ class Apiadminmodel extends CI_Model {
                 $query="SELECT et.name,et.subject,es.subject_name FROM edu_teachers AS et LEFT JOIN edu_subject AS es ON et.subject=es.subject_id WHERE FIND_IN_SET('$classid',et.class_name) AND et.status='Active'";
                 $result_query=$this->db->query($query);
                 if($result_query->num_rows()==0){
-                    $data=array("msg"=>"nodata","status"=>"error");
+                    $data=array("status"=>"error","msg"=>"nodata");
                     return $data;
                 }else{
                   $result=$result_query->result();
@@ -410,7 +418,7 @@ class Apiadminmodel extends CI_Model {
                 $query="SELECT eed.exam_id,ee.exam_name,ee.exam_year,eac.from_month,eac.to_month FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id LEFT JOIN edu_academic_year AS eac ON ee.exam_year=eac.year_id WHERE eed.classmaster_id='$classid' GROUP BY ee.exam_id";
                 $result_query=$this->db->query($query);
                 if($result_query->num_rows()==0){
-                    $data=array("msg"=>"nodata","status"=>"error");
+                    $data=array("status"=>"error","msg"=>"nodata");
                     return $data;
                 }else{
                   $result=$result_query->result();
@@ -430,7 +438,7 @@ class Apiadminmodel extends CI_Model {
               $query="SELECT tt.table_id,tt.class_id,tt.subject_id,COALESCE(s.subject_name,' ') AS subject_name,tt.teacher_id,COALESCE(t.name,' ') AS teacher_name,tt.day,COALESCE(ed.list_day,' ') AS w_days,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id LEFT JOIN edu_days AS ed  ON tt.day=ed.d_id WHERE tt.class_id='$classid' AND tt.year_id='$year_id' ORDER BY tt.table_id ASC";
               $result_query=$this->db->query($query);
               if($result_query->num_rows()==0){
-                  $data=array("msg"=>"nodata","status"=>"error");
+                  $data=array("status"=>"error","msg"=>"nodata");
                   return $data;
               }else{
                 $result=$result_query->result();
@@ -453,7 +461,7 @@ class Apiadminmodel extends CI_Model {
               DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id WHERE efm.class_master_id='$classid' AND efm.year_id='$year_id' AND efm.status='Active'";
               $result_query=$this->db->query($query);
               if($result_query->num_rows()==0){
-                  $data=array("msg"=>"nodata","status"=>"error");
+                  $data=array("status"=>"error","msg"=>"nodata");
                   return $data;
               }else{
                 $result=$result_query->result();
@@ -469,7 +477,7 @@ class Apiadminmodel extends CI_Model {
               LEFT JOIN edu_quota AS eq ON eq.id=efm.quota_id INNER JOIN edu_classmaster AS cm ON efm.class_master_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id INNER JOIN edu_users AS eu ON eu.user_id=efm.created_by WHERE efm.class_master_id=6 AND efm.id='$fees_id'";
               $result_query=$this->db->query($query);
               if($result_query->num_rows()==0){
-                  $data=array("msg"=>"nodata","status"=>"error");
+                  $data=array("status"=>"error","msg"=>"nodata");
                   return $data;
               }else{
                 $result=$result_query->result();
@@ -490,7 +498,7 @@ class Apiadminmodel extends CI_Model {
             $query="SELECT etfs.id,eer.name,etfs.student_id,etfs.status,etfs.paid_by,etfs.updated_at  FROM edu_term_fees_status AS etfs LEFT JOIN edu_enrollment AS eer ON eer.enroll_id=etfs.student_id WHERE etfs.fees_id='$fees_id' AND etfs.class_master_id='$classid'";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
-                $data=array("msg"=>"nodata","status"=>"error");
+                $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result=$result_query->result();
@@ -510,7 +518,7 @@ class Apiadminmodel extends CI_Model {
             $query="SELECT eed.exam_detail_id,eed.exam_id,ee.exam_name,eed.classmaster_id FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id WHERE classmaster_id='$classid' AND ee.status='Active'";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
-                $data=array("msg"=>"nodata","status"=>"error");
+                $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result=$result_query->result();
@@ -526,7 +534,7 @@ class Apiadminmodel extends CI_Model {
             FROM edu_exam_details AS eed LEFT JOIN edu_teachers AS et ON et.teacher_id=eed.teacher_id LEFT JOIN edu_subject AS es ON es.subject_id=eed.subject_id WHERE eed.classmaster_id='$class_id' AND eed.exam_id='$exam_id' AND eed.status='Active'";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
-                $data=array("msg"=>"nodata","status"=>"error");
+                $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result=$result_query->result();
@@ -547,7 +555,7 @@ class Apiadminmodel extends CI_Model {
        $query="SELECT en.enroll_id,en.name,en.admisn_no,en.class_id,m.subject_id,m.classmaster_id,m.internal_mark,m.internal_grade,m.external_mark,m.external_grade,m.total_marks,m.total_grade FROM edu_enrollment AS en,edu_exam_marks AS m WHERE en.class_id='$class_mas_id' AND en.enroll_id=m.stu_id AND m.exam_id='$exam_id'";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
-                $data=array("msg"=>"nodata","status"=>"error");
+                $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result=$result_query->result();
