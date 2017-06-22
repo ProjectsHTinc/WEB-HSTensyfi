@@ -117,8 +117,8 @@
                         <label class="col-sm-2 control-label">Leave Status</label>
                         <div class="col-sm-4">
                            <select name="leave_status" id="leave_status1" class="selectpicker form-control" data-title="Status" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                              <option value="A">Active</option>
-                              <option value="DA">De-Active</option>
+                              <option value="Active">Active</option>
+                              <option value="Deactive">De-Active</option>
                            </select>
                            <p id="errorstatus"></p>
                         </div>

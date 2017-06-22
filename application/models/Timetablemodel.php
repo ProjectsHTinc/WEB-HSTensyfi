@@ -30,7 +30,7 @@ Class Timetablemodel extends CI_Model
                     $yearid=$year_id;
                     $subjectid=$subject_id[$i];
                     $teacherid=$teacher_id[$i];
-                    $query = "INSERT INTO edu_timetable (year_id,term_id,class_id,subject_id,teacher_id,day,period,status,created_at,updated_at) VALUES ('$yearid','$termid','$classid','$subjectid','$teacherid','$day','$period','A',NOW(),NOW())";
+                    $query = "INSERT INTO edu_timetable (year_id,term_id,class_id,subject_id,teacher_id,day,period,status,created_at,updated_at) VALUES ('$yearid','$termid','$classid','$subjectid','$teacherid','$day','$period','Active',NOW(),NOW())";
                     $resultset=$this->db->query($query);
 
                   }
@@ -171,7 +171,7 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
               //Save Review
 
               function save_review($class_id,$user_id,$user_type,$subject_id,$cur_date,$comments){
-               $query="INSERT INTO edu_timetable_review (time_date,class_id,subject_id,user_type,user_id,comments,status,created_at,update_at) VALUES ('$cur_date','$class_id','$subject_id','$user_type','$user_id','$comments','A',NOW(),NOW())";
+               $query="INSERT INTO edu_timetable_review (time_date,class_id,subject_id,user_type,user_id,comments,status,created_at,update_at) VALUES ('$cur_date','$class_id','$subject_id','$user_type','$user_id','$comments','Active',NOW(),NOW())";
                  $resultset=$this->db->query($query);
                  if($resultset){
                    $data= array("status" => "success");

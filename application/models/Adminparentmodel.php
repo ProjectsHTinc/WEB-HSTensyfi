@@ -113,23 +113,23 @@ Class Adminparentmodel extends CI_Model
 		  return $row;
 
 	  }
-	  
+
 	  function view_exam_calender($enroll_id)
 	  {
-		   
+
 			$sql1="SELECT * FROM edu_examination WHERE status='Active'";
 			$resultset1=$this->db->query($sql1);
 			$row1=$resultset1->result();
 			return $row1;
 	  }
- 
+
      function view_exam_calender_details($exam_id,$cls_id)
 	 {
 		 $sql1="SELECT ed.*,en.exam_id,en.exam_year,en.exam_name,su.* FROM edu_exam_details AS ed,edu_examination AS en,edu_subject AS su WHERE ed.exam_id='$exam_id' AND ed.classmaster_id='$cls_id' AND ed.exam_id=en.exam_id AND ed.subject_id=su.subject_id ";
 			$resultset1=$this->db->query($sql1);
 			$row1=$resultset1->result();
 			return $row1;
-			
+
 	 }
 
     // GET TOTAL WORKING DAYS
@@ -138,17 +138,17 @@ Class Adminparentmodel extends CI_Model
        $resultset1=$this->db->query($query);
  	  return $resultset1->result();
      }
-	 
+
 	 function get_fees_status_details($enroll_id)
 	 {
-		   
+
 			$sql="SELECT * FROM edu_enrollment WHERE admission_id='$enroll_id'";
 			$resultset=$this->db->query($sql);
 			$row=$resultset->result();
 			foreach($row as $rows){}
 			$enr_id=$rows->enroll_id;
 			$cls_id=$rows->class_id;
-			
+
 			$sql1="SELECT fs.*,fm.term_id,fm.due_date_from,fm.due_date_to,fm.notes,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name FROM edu_term_fees_status AS fs,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q WHERE fs.student_id='$enr_id' AND fs.class_master_id='$cls_id' AND fs.fees_id=fm.id AND fm.status='Active' AND fm.term_id=t.term_id AND fs.year_id=y.year_id AND fs.quota_id=q.id";
 			$result1=$this->db->query($sql1);
 			$row1=$result1->result();

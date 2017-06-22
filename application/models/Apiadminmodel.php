@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+'Active'<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Apiadminmodel extends CI_Model {
 
@@ -28,7 +28,7 @@ class Apiadminmodel extends CI_Model {
 
 	public function getYear()
 	{
-		$sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'A'";
+		$sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
 		$year_result = $this->db->query($sqlYear);
 		$ress_year = $year_result->result();
 
@@ -141,7 +141,7 @@ class Apiadminmodel extends CI_Model {
           foreach($result as $rows){   }
           $classid=$rows->class_id;
           $year_id=$this->getYear();
-          $get_all_hw="SELECT eh.hw_type,eh.hw_id,eh.subject_id,eh.title,es.subject_name,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.class_id='$classid' AND eh.year_id='$year_id' AND eh.status='A' AND hw_type='HW' ORDER BY eh.test_date DESC";
+          $get_all_hw="SELECT eh.hw_type,eh.hw_id,eh.subject_id,eh.title,es.subject_name,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.class_id='$classid' AND eh.year_id='$year_id' AND eh.status='Active' AND hw_type='HW' ORDER BY eh.test_date DESC";
           $result_hw=$this->db->query($get_all_hw);
           if($result_hw->num_rows()==0){
               $data=array("status"=>"error","msg"=>"nodata");
@@ -180,7 +180,7 @@ class Apiadminmodel extends CI_Model {
             foreach($result as $rows){   }
             $classid=$rows->class_id;
             $year_id=$this->getYear();
-            $get_all_hw="SELECT eh.hw_type,eh.hw_id,eh.subject_id,eh.title,es.subject_name,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.class_id='$classid' AND eh.year_id='$year_id' AND eh.status='A' AND hw_type='CT' ORDER BY eh.test_date DESC";
+            $get_all_hw="SELECT eh.hw_type,eh.hw_id,eh.subject_id,eh.title,es.subject_name,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.class_id='$classid' AND eh.year_id='$year_id' AND eh.status='Active' AND hw_type='CT' ORDER BY eh.test_date DESC";
             $result_hw=$this->db->query($get_all_hw);
             if($result_hw->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");
@@ -236,7 +236,7 @@ class Apiadminmodel extends CI_Model {
               $result=$res->result();
               foreach($result as $rows){   }
               $classid=$rows->class_id;
-              $exam_sql="SELECT eed.subject_id,es.subject_name,DATE_FORMAT(eed.exam_date,'%d-%m-%Y')AS exam_date,eed.times FROM edu_exam_details AS eed LEFT JOIN edu_subject AS es ON es.subject_id=eed.subject_id WHERE eed.classmaster_id='$classid' AND eed.exam_id='$exam_id' AND eed.status='A' ORDER BY exam_date ASC";
+              $exam_sql="SELECT eed.subject_id,es.subject_name,DATE_FORMAT(eed.exam_date,'%d-%m-%Y')AS exam_date,eed.times FROM edu_exam_details AS eed LEFT JOIN edu_subject AS es ON es.subject_id=eed.subject_id WHERE eed.classmaster_id='$classid' AND eed.exam_id='$exam_id' AND eed.status='Active' ORDER BY exam_date ASC";
               $ex_result=$this->db->query($exam_sql);
               if($ex_result->num_rows()==0){
                   $data=array("status"=>"error","msg"=>"nodata");

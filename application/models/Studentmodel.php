@@ -9,7 +9,7 @@ Class Studentmodel extends CI_Model
 
   }
 
-//GET ALL    
+//GET ALL
 		function get_stu_homework_details($user_id)
 		{
 			$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
@@ -82,13 +82,13 @@ Class Studentmodel extends CI_Model
 			$enr_id=$rows->enroll_id;
 			$cls_id=$rows->class_id;
             //echo $cls_id;exit;
-			
+
 			 $sql="SELECT m.*,ed.exam_id,ed.exam_year,ed.exam_name FROM edu_exam_marks_status AS m,edu_examination AS ed WHERE m.classmaster_id='$cls_id' AND  m.status='Publish' AND m.exam_id=ed.exam_id";
 			 $resultset1=$this->db->query($sql);
 			 $res=$resultset1->result();
              return $res;
 		}
-		
+
 		function get_all_exam_views($user_id)
 		{
 			/* $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
@@ -123,7 +123,7 @@ Class Studentmodel extends CI_Model
              return $res1;
 		}
 
-		
+
 		function exam_calender_details($user_id,$exams_id)
 		{
 			$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
@@ -139,12 +139,12 @@ Class Studentmodel extends CI_Model
 			$enr_id=$rows->enroll_id;
 			$cls_id=$rows->class_id;
 			//echo $cls_id; exit;
-			
+
 			$sql1="SELECT ed.*,en.exam_id,en.exam_year,en.exam_name,su.* FROM edu_exam_details AS ed,edu_examination AS en,edu_subject AS su WHERE ed.exam_id='$exams_id' AND ed.classmaster_id='$cls_id' AND ed.exam_id=en.exam_id AND ed.subject_id=su.subject_id ";
 			$resultset1=$this->db->query($sql1);
 			$row1=$resultset1->result();
 			return $row1;
-			
+
 		}
 
 
@@ -192,9 +192,9 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 		  $row=$res->result();
 		  return $row;
 	 }
-	 
+
 	 //--------------------Fees Status---------------
-	 
+
 	 function get_fees_status_details($user_id)
 	 {
 		    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
@@ -209,13 +209,13 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 			foreach($row as $rows){}
 			$enr_id=$rows->enroll_id;
 			$cls_id=$rows->class_id;
-			
+
 			$sql1="SELECT fs.*,fm.term_id,fm.due_date_from,fm.due_date_to,fm.notes,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name FROM edu_term_fees_status AS fs,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q WHERE fs.student_id='$enr_id' AND fs.class_master_id='$cls_id' AND fs.fees_id=fm.id AND fm.status='Active' AND fm.term_id=t.term_id AND fs.year_id=y.year_id AND fs.quota_id=q.id";
 			$result1=$this->db->query($sql1);
 			$row1=$result1->result();
 			return $row1;
 	 }
-	  
+
 	 //--------------------leaves-------------------
 	 function get_all_regularleave($user_id)
 			 {
@@ -232,12 +232,12 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 			$enr_id=$rows->enroll_id;
 			$cls_id=$rows->class_id;
 			//echo $cls_id;exit;
-			
-					 $query="SELECT eh.leave_list_date AS start,lm.leave_type AS title,lm.leave_type AS description,lm.leave_classes,lm.status FROM edu_holidays_list_history AS eh LEFT OUTER JOIN edu_leavemaster AS lm ON lm.leave_id=eh.leave_masid WHERE lm.status='A' AND  FIND_IN_SET('$cls_id',lm.leave_classes)";
+
+					 $query="SELECT eh.leave_list_date AS start,lm.leave_type AS title,lm.leave_type AS description,lm.leave_classes,lm.status FROM edu_holidays_list_history AS eh LEFT OUTER JOIN edu_leavemaster AS lm ON lm.leave_id=eh.leave_masid WHERE lm.status='Active' AND  FIND_IN_SET('$cls_id',lm.leave_classes)";
 					$result=$this->db->query($query);
 					return $result->result();
                }
-			   
+
 	function get_special_leave_all($user_id)
 	   {
 		    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
@@ -252,37 +252,37 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 			foreach($row as $rows){}
 			$enr_id=$rows->enroll_id;
 			$cls_id=$rows->class_id;
-			
+
 			//$query="SELECT leave_date AS start,leaves_name as title,leave_type AS description FROM edu_leavemaster AS lm INNER JOIN edu_leaves AS c ON lm.leave_id=c.leave_mas_id WHERE lm.leave_type='Special Holiday' AND lm.status='A'";
-			
-			$sql1="SELECT lm.leave_id,lm.leave_type AS description,lm.leave_classes,lm.status,el.leaves_name AS title,el.leave_mas_id,el.leave_date AS start,el.days,el.week FROM edu_leavemaster AS lm,edu_leaves AS el WHERE lm.leave_id=el.leave_mas_id AND lm.leave_type='Special Holiday' AND FIND_IN_SET('$cls_id',lm.leave_classes) AND lm.status='A'";
+
+			$sql1="SELECT lm.leave_id,lm.leave_type AS description,lm.leave_classes,lm.status,el.leaves_name AS title,el.leave_mas_id,el.leave_date AS start,el.days,el.week FROM edu_leavemaster AS lm,edu_leaves AS el WHERE lm.leave_id=el.leave_mas_id AND lm.leave_type='Special Holiday' AND FIND_IN_SET('$cls_id',lm.leave_classes) AND lm.status='Active'";
 			$res=$this->db->query($sql1);
 			return $res->result();
 
 		  }
-		  
+
 		  //------------------------On Duty-----------------------------
-		  
+
 		   function getall_details($user_id,$user_type)
 	         {
 				$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 				$resultset=$this->db->query($query);
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
-					 
+
 				 $query="SELECT * FROM edu_on_duty WHERE user_id='$student_id' AND user_type='$user_type'";
 				 $resultset1=$this->db->query($query);
 				 return $resultset1->result();
 	       }
-		   
+
 		   function apply_onduty($user_type,$user_id,$reason,$fdate,$tdate,$notes)
 		   {
-			   
+
 			    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 				$resultset=$this->db->query($query);
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
-				
+
 				 $sql="INSERT INTO edu_on_duty(user_type,user_id,od_for,from_date,to_date,notes,status,created_by,created_at)VALUES('$user_type','$student_id','$reason','$fdate','$tdate','$notes','Pending','$user_id',NOW())";
 				 $result1=$this->db->query($sql);
 				 //$res=$result1->result();
@@ -291,16 +291,16 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 					 $data= array("status" => "success");
 					 return $data;
 				 }
-		 
+
 		   }
-		   
+
 		   function edit_onduty_form($id,$user_type)
 		   {
 			   $query="SELECT * FROM edu_on_duty WHERE id='$id' AND user_type='$user_type'";
 			   $resultset=$this->db->query($query);
 			   return $resultset->result();
 		   }
-		   
+
 		   function update($duty_id,$user_type,$user_id,$reason,$fdate,$tdate,$notes)
 		   {
 			   $sql="UPDATE edu_on_duty SET od_for='$reason',from_date='$fdate',to_date='$tdate',notes='$notes',updated_by='$user_id',updated_at=NOW() WHERE id='$duty_id' AND user_type='$user_type'";
@@ -310,31 +310,31 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				 $data= array("status" => "success");
 				 return $data;
 				}
-			   
+
 		   }
-		   
+
 		   //-------------Special Class--------------------------------\
-		   
+
 		   function special_class_details($user_id,$user_type)
 		   {
 			    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 				$resultset=$this->db->query($query);
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
-				
+
 				$sql="SELECT * FROM edu_enrollment WHERE admission_id='$student_id'";
 				$resultset=$this->db->query($sql);
 				$row=$resultset->result();
 				foreach($row as $rows){}
 				$enr_id=$rows->enroll_id;
 				$cls_id=$rows->class_id;
-				
+
 				$sql1="SELECT sc.*,t.teacher_id,t.name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,su.* FROM edu_special_class AS sc,edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_subject AS su WHERE sc.teacher_id=t.teacher_id AND sc.class_master_id='$cls_id' AND sc.class_master_id=cm.class_sec_id  AND cm.class=c.class_id AND cm.section=s.sec_id AND sc.subject_id=su.subject_id AND sc.status='Active' ";
 				$result1=$this->db->query($sql1);
 			    $res=$result1->result();
 				return $res;
 		   }
-			   
+
 
 
 

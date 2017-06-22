@@ -36,7 +36,7 @@
                       <td><?php echo $rows->leave_year; ?></td>
                       <td><?php echo $rows->days; ?></td>
                         <td><?php echo $rows->week; ?></td>
-                      <td><?php  if($rows->status=='A'){ ?>
+                      <td><?php  if($rows->status=='Active'){ ?>
                         <button class="btn btn-success btn-fill btn-wd">Active</button>
                     <?php  }else{  ?>
                       <button class="btn btn-danger btn-fill btn-wd">De-Active</button>
@@ -86,7 +86,7 @@
                       <td><?php $date=date_create($rows->leave_date);
                       echo date_format($date,"d-m-Y");  ?></td>
                         <td><?php echo $rows->leaves_name; ?></td>
-                        <td><?php  if($rows->status=='A'){ ?>
+                        <td><?php  if($rows->status=='Active'){ ?>
                           <button class="btn btn-success btn-fill btn-wd">Active</button>
                       <?php  }else{  ?>
                         <button class="btn btn-danger btn-fill btn-wd">De-Active</button>

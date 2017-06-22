@@ -15,7 +15,7 @@
                      </div>
 
                      <?php endif; ?>
-                    
+
                             <div class="content">
                                 <form method="post" action="<?php echo base_url(); ?>event/sub_event_update" class="form-horizontal" enctype="multipart/form-data" id="eventform" name="eventform">
 								 <?php foreach ($res as $rows) {   } ?>
@@ -30,8 +30,8 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Coordinator Name</label>
                                         <div class="col-md-4">
-										
-										
+
+
 										<select   name="co_name" required class="selectpicker" data-style=" btn-block"  data-menu-style="dropdown-blue">
 
                                         <?php
@@ -64,14 +64,14 @@
                                             <label class="col-sm-3 control-label">Status</label>
                                             <div class="col-sm-4">
                                               <select name="status" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                                  <option value="A">Active</option>
-                                                  <option value="DA">DE-Active</option>
+                                                  <option value="Active">Active</option>
+                                                  <option value="Deactive">DE-Active</option>
                                               </select>
                      <script language="JavaScript">document.eventform.status.value="<?php echo $rows->status; ?>";</script>
                                             </div>
 
                                         </div>
-									
+
                                     <div class="form-group">
                                         <label class="col-md-3"></label>
                                         <div class="col-md-9">

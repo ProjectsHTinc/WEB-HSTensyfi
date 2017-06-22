@@ -162,7 +162,7 @@ Class Leavemodel extends CI_Model
 
               // GET SPECIAL LEAVE ON CALENDER
               function get_special_leave_all(){
-                $query="SELECT leave_date AS start,leaves_name as title,leave_type AS description FROM edu_leavemaster AS lm INNER JOIN edu_leaves AS c  ON lm.leave_id=c.leave_mas_id WHERE lm.leave_type='Special Holiday' AND lm.status='A'";
+                $query="SELECT leave_date AS start,leaves_name as title,leave_type AS description FROM edu_leavemaster AS lm INNER JOIN edu_leaves AS c  ON lm.leave_id=c.leave_mas_id WHERE lm.leave_type='Special Holiday' AND lm.status='Active'";
                 $res=$this->db->query($query);
                 return $res->result();
 

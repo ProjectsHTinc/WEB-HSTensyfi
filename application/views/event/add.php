@@ -52,8 +52,8 @@
                                             <label class="col-sm-2 control-label">Event Status</label>
                                             <div class="col-sm-4">
                                               <select name="event_status" class="selectpicker form-control" data-title="Status" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                                <option value="A">Active</option>
-                                                <option value="DA">De-Active</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Deactive">De-Active</option>
 
                                               </select>
 
@@ -117,7 +117,7 @@
                                             <!-- <td><?php echo $rows->event_details; ?></td> -->
 
 
-                                              <td><?php if($rows->status=='A'){  ?>
+                                              <td><?php if($rows->status=='Active'){  ?>
                                               <button class="btn btn-success btn-fill btn-wd">Active</button>
                                                                                           <?php  } else{  ?>
                                               <button class="btn btn-danger btn-fill btn-wd">De-Active</button>
@@ -181,7 +181,7 @@
 										<select   id="co_name"  data-title="Select Teacher" class="selectpicker" data-style=" btn-block"  data-menu-style="dropdown-blue">
                                                     <?php
 
-													$query = "SELECT * FROM edu_teachers WHERE status='A'";
+													$query = "SELECT * FROM edu_teachers WHERE status='Active'";
 				                                    $resultset = $this->db->query($query);
 													$teacher=$resultset->result();
 													foreach($teacher as $row){  ?>
@@ -197,8 +197,8 @@
                                         <div class="col-md-9">
 										 <select id="status" class="selectpicker form-control" data-title="Select Status"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
 
-                                                  <option value="A">Active</option>
-                                                    <option value="DA">DE-Active</option>
+                                                  <option value="Active">Active</option>
+                                                    <option value="Deactive">DE-Active</option>
 
                                               </select>
 											 <input type="hidden" id="event_id"  class="form-control" value="<?php ?>"/>

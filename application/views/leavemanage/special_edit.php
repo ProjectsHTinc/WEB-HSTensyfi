@@ -35,7 +35,7 @@
                                           <label class="col-sm-2 control-label">Classes</label>
                                           <div class="col-sm-4">
                                           <select multiple  name="class_name[]" id="multiple_class" class="selectpicker" data-menu-style="dropdown-blue">
- 
+
 	                                       <?php
                                       		    $sPlatform=$rows->leave_classes;
                                       			$sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
@@ -51,11 +51,11 @@
                                       		  $arryPlatform = explode(",", $sPlatform);
                                       		 $sPlatform_id  = trim($s);
                                       		 $sPlatform_name  = trim($sec);
-                                      		 if (in_array($sPlatform_id, $arryPlatform )) 
+                                      		 if (in_array($sPlatform_id, $arryPlatform ))
 											                       {
                                               echo "<option  value=\"$sPlatform_id\" selected />$clas-$sec_name</option>";
                                              }else {
-                                                    echo "<option value=\"$sPlatform_id\"/>$clas-$sec_name</option>"; 
+                                                    echo "<option value=\"$sPlatform_id\"/>$clas-$sec_name</option>";
 											                           		}
                                           }
                                         ?>
@@ -65,7 +65,7 @@
                                           </div>
                                       </div>
                                   </fieldset>
-								  
+
                                     <fieldset  id="leaves_date">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Leave Date</label>
@@ -93,8 +93,8 @@
                                             <label class="col-sm-2 control-label">Leave Status</label>
                                             <div class="col-sm-4">
                                               <select name="leave_status" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                                <option value="A">Active</option>
-                                                <option value="DA">De-Active</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Deactive">De-Active</option>
 
                                               </select>
                                    <script language="JavaScript">document.specialleaveform.leave_status.value="<?php echo $rows->status; ?>";</script>

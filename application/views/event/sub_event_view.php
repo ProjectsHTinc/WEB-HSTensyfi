@@ -16,7 +16,7 @@
 
 
                             <div class="content">
-                             
+
                               <h4 class="title">List of Coordinator  <button style="float: right;" onclick="history.go(-1);" class="btn btn-wd btn-default">Go Back</button></h4>
 
 
@@ -54,7 +54,7 @@
                                     <td><?php echo $rows->sub_event_name; ?></td>
 									<td><?php echo $row->name; ?></td>
 									<td>
-									<?php if($rows->status=='A') {?>
+									<?php if($rows->status=='Active') {?>
 									<button class="btn btn-success btn-fill btn-wd">Active</button>
 									<?php }else{?>
 									<button class="btn btn-danger btn-fill btn-wd">Deactive</button>

@@ -55,8 +55,8 @@
                                             <label class="col-sm-2 control-label">Event Status</label>
                                             <div class="col-sm-4">
                                               <select name="event_status" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                                <option value="A">Active</option>
-                                                <option value="DA">De-Active</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Deactive">De-Active</option>
 
                                               </select>
                                               <script language="JavaScript">document.eventform.event_status.value="<?php echo $rows->status; ?>";</script>
