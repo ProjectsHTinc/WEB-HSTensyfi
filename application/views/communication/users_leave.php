@@ -14,7 +14,9 @@
             
                <div class="card">
                   <div class="header">
-                     <legend>Users Leave Details</legend>
+                     <legend>Users Leave Details
+					  <a href="<?php echo base_url(); ?>userleavemaster/home" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Create Leave Master</a>
+					  </legend>
                   </div>
                   <div class="content">
                            <div class="fresh-datatables">

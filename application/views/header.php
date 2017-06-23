@@ -71,7 +71,7 @@
 							<a href="<?php echo base_url(); ?>feesstructure/view_term_fees_master" class="abox"style="padding:03px 15px;border-color: white;">
 								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Fess Status</p>
 							</a>
-						</li>-->
+						</li>--
 						
 						<li style="padding:08px 10px;">
 							<a href="<?php echo base_url(); ?>communication/add_communication" class="abox"style="padding:03px 15px;border-color: white;">
@@ -91,16 +91,13 @@
  <li><a href="<?php echo base_url(); ?>communication/view_user_leaves">View Teachers Leaves</a></li>
 <!-- <li><a href="<?php echo base_url(); ?>communication/view">View all Circular</a></li> --
  
-							</ul>-->
-						</li>
+							</ul>--
+						</li>-->
 			
 						<li class="dropdown" style="padding:08px 10px;">
 					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
 						  Quick Links</a>
 								<ul class="dropdown-menu">
-
- 
- <li><a href="<?php echo base_url(); ?>userleavemaster/home">Create User Leave</a></li>
  
  <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> 
  
