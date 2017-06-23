@@ -65,7 +65,7 @@ class Adminlogin extends CI_Controller {
 								$datas['das_users']=$this->dashboard->dash_users();
 								$datas['dash_comm']=$this->dashboard->dash_comm();
 								$datas['class']=$this->dashboard->get_all_class_sec();
-								print_r($datas['class']);exit;
+								//print_r($datas['class']);exit;
 								$this->load->view('header',$datas);
 								$this->load->view('home',$datas);
 								$this->load->view('footer');
