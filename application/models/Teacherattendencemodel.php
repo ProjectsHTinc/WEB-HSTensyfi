@@ -206,32 +206,7 @@ Class Teacherattendencemodel extends CI_Model
        }
 
 
-
-//        function get_atten_val($class_id){
-//          $dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
-//          $cur_d=$dateTime->format("Y-m-d");
-// //         $get_atten="SELECT ee.name,ea.a_status,ea.a_day ,ea.abs_date FROM edu_enrollment AS ee LEFT JOIN edu_attendence AS ea ON ee.enroll_id=ea.student_id
-// // WHERE ee.class_id='$class_id'";
-//
-//       echo    $get_atten="SELECT * FROM (
-//         SELECT ee.enroll_id, ee.name, ea.abs_date, ea.a_day, ea.a_status
-//         FROM edu_enrollment AS ee
-//         LEFT JOIN edu_attendence AS ea ON ee.enroll_id=ea.student_id AND ea.abs_date = '$cur_d'
-//         WHERE ea.attend_id IS NULL AND ee.class_id ='$class_id'
-//         UNION
-//         SELECT ee.enroll_id, ee.name, ea.abs_date, ea.a_day, ea.a_status
-//         FROM edu_enrollment AS ee
-//         INNER JOIN edu_attendence AS ea ON ee.enroll_id=ea.student_id
-//         WHERE ee.class_id='$class_id' AND ea.abs_date = '$cur_d') AS X
-//         ORDER BY x.name";
-// exit;
-//
-//          $get_year=$this->db->query($get_atten);
-//          return $get_year->result();
-//         //  echo "<pre>";
-//         //  print_r($get_year->result());
-//         //  exit;
-//        }
+      
 
 
 
