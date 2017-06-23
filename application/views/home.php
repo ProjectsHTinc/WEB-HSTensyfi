@@ -20,6 +20,29 @@
    }
    .fc-toolbar h2{font-size: 20px;}
    .fc-view-container{margin-top: -25px;}
+   .img
+   {   
+	   background: url(<?php echo base_url(); ?>assets/img/circular.png);
+	   width: 175px;
+       height: 130px;
+   }
+   .img1
+   {   
+	   background: url(<?php echo base_url(); ?>assets/img/events.png);
+	   width: 175px;
+       height: 130px;
+   }
+   .imgs
+   {   
+	   background: url(<?php echo base_url(); ?>assets/img/tecahers.png);
+	   width: 175px;
+       height: 130px;
+   }
+   .design{
+	 color: white;
+    font-size:30px;
+  
+   }
 </style>
 <div class="main-panel">
 <div class="content">
@@ -117,23 +140,82 @@
                      <p></p>
                   </div>
                <!---                      -->
-			   
-			     <div class="col-md-12">
-				 <div class="col-md-3" >
-                     <div class="card">
-                          <img src="<?php echo base_url(); ?>assets/img/ensyfi icon.png" style="width:171px;height:130px;">
-                      </div>  
-                   </div>
-				   <div class="col-md-3" style="padding:0px 50px;" >
-                     <div class="card">
-                          <img src="<?php echo base_url(); ?>assets/img/ensyfi icon.png" style="width:171px;height:130px;">
-                      </div>  
-                   </div>
-				   <div class="col-md-3" style="padding:0px 50px;">
-                     <div class="card">
-                          <img src="<?php echo base_url(); ?>assets/img/ensyfi icon.png" style="width:171px;height:130px;">
-                      </div>  
-                   </div>
+			     <div class="col-md-9" style="padding-left:30px;">
+				 <div class="col-md-4">
+                     <div class="card" style="box-shadow:none;">
+					 <div class="img">
+					  <ul style="padding-left:33px;">
+					  <li style="padding-top:45px;list-style-type:none;">
+					 <a href="<?php echo base_url(); ?>communication/add_communication" class="design">Circular</a>
+					 </li>
+					 </ul>
+					 </div>
+					</div>
+					 </div>
+					 <div class="col-md-4">
+                     <div class="card" style="box-shadow:none;">
+					 <div class="img1">
+					 <ul style="padding-left:40px;">
+					  <li style="padding-top:45px;list-style-type:none;">
+					   <a href="<?php echo base_url(); ?>event/create" class="design">Events</a>
+					 </li>
+					 </ul>
+					 </div>
+					 </div>
+					 </div>
+					 <div class="col-md-4" >
+                     <div class="card" style="box-shadow:none;">
+					 <div class="imgs">
+					  <ul style="padding-left:7px;">
+					  <li style="padding-top:25px;list-style-type:none;text-align:center;">
+					 <a href="<?php echo base_url(); ?>communication/view_user_leaves" class="design">Teachers Leave</a>
+					 </li>
+					 </ul>
+					 </div>
+					 </div>
+					 </div>
+					 
+					 </div>
+
+				    <div class="col-md-3">
+                     <div class="card" style="box-shadow:0 1px 2px rgba(33, 29, 29, 0.97), 0 0 0 1px rgba(1, 1, 16, 0.98);height:130px;">
+                        <div class="header" style="padding:0px;">
+                        </div>
+                        <div class="content table-full-width">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th>Name</th>
+                                    <th>Present</th>
+                                    <th>Absent</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>Teachers</td>
+                                    <td class="text-center"><?php	if(empty($teacher)){
+                                       echo "No data";
+                                       }else{
+                                       foreach ($teacher as $user_to) {}
+                                       		echo $user_to->user_count;
+                                       } ?></td>
+                                    <td class="text-center" style="padding-right:0px; ">0</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Students</td>
+                                    <td class="text-center"><?php 	if(empty($res)){
+                                       echo "No data";
+                                       }else{
+                                       foreach ($res as $user_to) {}
+                                       		echo $user_to->user_count;
+                                       }  ?></td>
+                                    <td class="text-center"style="padding-right:0px; ">0</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <p></p>
                   </div>
 				  
 			   
