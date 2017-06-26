@@ -29,7 +29,7 @@
       <style>
          .navbar{
          margin-bottom:0px;}
-         .sidemenu{margin-top:78px;}
+
          .caret{
          position: relative;
          top: -20px;
@@ -46,12 +46,16 @@
          margin-top: 0px;
          }
          .abox{border: 1px solid grey;}
+         .title_ensyfi{
+           color:#fff!important; margin-left: 10px!important; padding-left: 175px !important;
+         }
       </style>
    </head>
    <body>
       <div class="wrapper">
       <nav class="navbar navbar-default" style="background-color: #9266d9;height: 70px;">
-         <div class="container-fluid">
+         <div class="container">
+
             <div class="navbar-header">
                <button type="button" class="navbar-toggle" data-toggle="collapse">
                <span class="sr-only">Toggle navigation</span>
@@ -59,51 +63,22 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand" href="#" style="color: white;margin-left: 10px;"><?php   echo $this->session->userdata('name'); ?> </a>
+               <a class="navbar-brand title_ensyfi" href="#" ><?php   echo $this->session->userdata('name'); ?> </a>
             </div>
             <div class="collapse navbar-collapse">
                <ul class="nav navbar-nav navbar-right">
-                   <!-- <li>
-						<img src="<?php echo base_url(); ?>assets/wrain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
-						</li>
-						
-						<li style="padding:08px 10px;">
-							<a href="<?php echo base_url(); ?>feesstructure/view_term_fees_master" class="abox"style="padding:03px 15px;border-color: white;">
-								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Fess Status</p>
-							</a>
-						</li>--
-						
-						<li style="padding:08px 10px;">
-							<a href="<?php echo base_url(); ?>communication/add_communication" class="abox"style="padding:03px 15px;border-color: white;">
-								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
-							</a>
-						</li>
-                   <li style="padding: 08px 10px;">
-							<a href="<?php echo base_url(); ?>event/create" class="abox" style="padding:03px 15px;border-color: white;">
-							
-								<p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
-							</a>
-						</li>
-                  <li style="padding:08px 10px;">
-					<a href="<?php echo base_url(); ?>communication/view_user_leaves" class="abox"  style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
-						   Teachers Leaves</a>
-								<!--<ul class="dropdown-menu">
- <li><a href="<?php echo base_url(); ?>communication/view_user_leaves">View Teachers Leaves</a></li>
-<!-- <li><a href="<?php echo base_url(); ?>communication/view">View all Circular</a></li> --
- 
-							</ul>--
-						</li>-->
-			
+
+
 						<li class="dropdown" style="padding:08px 10px;">
 					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
 						  Quick Links</a>
 								<ul class="dropdown-menu">
- 
- <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> 
- 
+
+ <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
+
 							</ul>
 						</li>
-						
+
                   <li class="dropdown dropdown-with-icons">
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:05px;">
                         <div class="photo">
@@ -121,7 +96,7 @@
                            <i class="pe-7s-tools"></i> Profile
                            </a>
                         </li>
-                       
+
                         <li>
                            <a href="<?php echo base_url(); ?>adminlogin/profile">
                            <i class="pe-7s-tools"></i> Setting
@@ -140,7 +115,7 @@
             </div>
          </div>
       </nav>
-      <div class="sidebar sidemenu" data-color="purple"  style="margin-top: 67px;">
+      <div class="sidebar sidemenu" data-color="purple">
          <div class="sidebar-wrapper">
             <ul class="nav" style="background-color: #6f3fbc;">
                <li id="dash">
@@ -162,52 +137,13 @@
                         <li id="masters3"><a href="<?php echo base_url(); ?>classadd/addclass">Class & Sections</a></li>
                         <li id="masters4" ><a href="<?php echo base_url(); ?>subjectadd/addsubject">Subjects</a></li>
                         <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
-					
+
 
                      </ul>
                   </div>
                </li>
 
-               <!-- <li id="years">
-                  <a data-toggle="collapse" href="#yearsmenu" id="years">
-                     <i class="pe-7s-date"></i>
-                     <p>Years & Terms</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="yearsmenu">
-                     <ul class="nav">
-                        <li id="years1"><a href="<?php echo base_url();  ?>years/home">Add / View Years</a></li>
-                        <li id="years2"><a href="<?php echo base_url();  ?>years/terms">Add / View Terms</a></li>
 
-                     </ul>
-                  </div>
-               </li> -->
-               <!-- <li  id="class">
-                  <a data-toggle="collapse" href="#classmenu" id="">
-                     <i class="pe-7s-note2"></i>
-                     <p>Class/Section	</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="classmenu">
-                     <ul class="nav">
-                        <li id="class1"><a href="<?php echo base_url(); ?>classadd/addclass"> Add / View Class</a></li>
-                        <li id="class2"><a href="<?php echo base_url(); ?>sectionadd/addsection">Add / View Section </a></li>
-                        <li id="class3"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
-                     </ul>
-                  </div>
-               </li> -->
-               <!-- <li id="subject">
-                  <a data-toggle="collapse" href="#subjectmenu">
-                     <i class="pe-7s-ribbon"></i>
-                     <p>Subject	</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="subjectmenu">
-                     <ul class="nav">
-                        <li id="subject1" ><a href="<?php echo base_url(); ?>subjectadd/addsubject">Add / View Subject</a></li>
-                     </ul>
-                  </div>
-               </li> -->
                <li id="admission">
                   <a data-toggle="collapse" href="#admissionmenu">
                      <i class="pe-7s-add-user"></i>
@@ -222,7 +158,7 @@
                      </ul>
                   </div>
                </li>
-			   
+
 			   <li id="activities">
                   <a data-toggle="collapse" href="#curricular">
                      <i class="pe-7s-users"></i>
@@ -233,12 +169,12 @@
                      <ul class="nav">
                         <li id="curricular1"><a href="<?php echo base_url(); ?>extracurricular/home">Extra-Co curricular  </a></li>
                         <li id="curricular2"><a href="<?php echo base_url(); ?>groups/home">House Groups</a></li>
-					
+
                      </ul>
                   </div>
                </li>
-			   
-			   
+
+
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
                      <i class="pe-7s-study"></i>
@@ -265,7 +201,7 @@
                      </ul>
                   </div>
                </li>
-			   
+
 			    <li id="payment">
                   <a data-toggle="collapse" href="#feesmenu">
                      <i class="pe-7s-users"></i>
@@ -280,7 +216,7 @@
                      </ul>
                   </div>
                </li>
-			   
+
 
                <li id="event">
                   <a data-toggle="collapse" href="#eventmenu">
@@ -326,25 +262,7 @@
                      </ul>
                   </div>
                </li>
-               <!--<li>
-                  <a data-toggle="collapse" href="#componentsExamples">
-                  		<i class="pe-7s-plugin"></i>
-                  		<p>Promotions	</p>
-                  </a>
-                  </li> -->
-               <!-- <li id="commun">
-                  <a data-toggle="collapse" href="#communcicationmenu">
-                     <i class="pe-7s-note"></i>
-                     <p>Communications</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="communcicationmenu">
-                     <ul class="nav">
-                        <li id="communication1"><a href="<?php echo base_url(); ?>communication/add_communication">Add Communications </a></li>
-                        <li id="communication2"><a href="<?php echo base_url(); ?>communication/view">View Communications </a></li>
-                     </ul>
-                  </div>
-               </li> -->
+
                <li id="communication">
                   <a data-toggle="collapse" href="#communcicationmenu">
                      <i class="pe-7s-plugin"></i>
@@ -359,28 +277,23 @@
                      </ul>
                   </div>
                </li>
-			   
+
 			   <li id="onduty">
                   <a data-toggle="collapse" href="#ondutydetails">
                      <i class="pe-7s-plugin"></i>
                      <p>On Duty</p>
-                   <b class="caret"></b> 
+                   <b class="caret"></b>
                   </a>
                   <div class="collapse" id="ondutydetails">
                      <ul class="nav">
                         <li id="onduty1"><a href="<?php echo base_url(); ?>onduty/teachers">Teachers</a></li>
                         <li id="onduty2"><a href="<?php echo base_url(); ?>onduty/students">Students</a></li>
                      </ul>
-                  </div> 
+                  </div>
                </li>
-			   
-			   
-               <!-- <li>
-                  <a data-toggle="collapse" href="#componentsExamples">
-                  		<i class="pe-7s-plugin"></i>
-                  		<p>Leave Management	</p>
-                  </a>
-                  </li> -->
+
+
+
                <li id="user">
                   <a data-toggle="collapse" href="#usermanagement">
                      <i class="pe-7s-settings"></i>

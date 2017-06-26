@@ -47,11 +47,12 @@
                                   </thead>
 
                                     <?php
-                                  //  print_r($data['restime']['time']);exit;
+                                // print_r($data['restime']['time']);exit;
                                   // print_r($restime);
 
                                     $prd= count($restime)/6; //echo  $restime[5]->subject_name;
-                                  echo $m=count($restime); ?>
+                                //  echo $m=count($restime);
+                                ?>
                                     <?php
 
 $period = 8;
