@@ -121,6 +121,9 @@ class Specialclass extends CI_Controller
 		{
 			$this->session->set_flashdata('msg','Updated Successfully');
 			redirect('specialclass/home');
+		}else if($datas['status']=="Already Exist"){
+			$this->session->set_flashdata('msg','Already Exist');
+			redirect('specialclass/home');
 		}else{
 			$this->session->set_flashdata('msg','Faild To Update');
 			redirect('specialclass/home');

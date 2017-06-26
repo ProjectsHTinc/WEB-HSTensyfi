@@ -47,10 +47,21 @@
                     						  ?> </td>
 						 <td><?php echo $rows->internal_mark; ?> ( <span class="grade"><?php echo $rows->internal_grade; ?>  )</span></td> 
 						 <td><?php echo $rows->external_mark; ?> (  <span class="grade"><?php echo $rows->external_grade; ?>  )</span></td>
-						 <td><?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
+						 <td>
+						  <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
+						  <?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
 										</tr>
 										 <?php $i++;  } 
 										}else{ echo "No exam added for any class";}	?>
+										<td></td><td></td><td></td>
+										<?php if(!empty($result)){ ?>
+										 <td>TOTAL</td>
+										<td>
+										  <div class="col-md-2">
+										  <div class="form-group">
+										 <input type="text" class="form-control" disabled id="totals"/>
+										  </div></div></td>
+										<?php }else{ echo"";}?>
 										
                                     </tbody>
                                 </table>
@@ -74,7 +85,7 @@ function loadmarks()
 		$("input[name=marks]").each (function() {
 			tot=tot + parseInt($(this).val());
 		})
-	$("input[name=totals]").val(tot);
+	$("#totals").val(tot);
 	
 }
  $(document).ready(function () {
