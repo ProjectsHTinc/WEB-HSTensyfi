@@ -59,13 +59,13 @@ class Adminlogin extends CI_Controller {
 								$datas['res']=$this->dashboard->get_user_count_student();
 								$datas['parents']=$this->dashboard->get_user_count_parents();
 								$datas['teacher']=$this->dashboard->dash_teacher_users();
-	                            $datas['pending_leave']=$this->dashboard->pending_leave();
+	              $datas['pending_leave']=$this->dashboard->pending_leave();
 								//print_r($datas['pending_leave']);
 								$datas['das_events']=$this->dashboard->dash_events();
 								$datas['das_users']=$this->dashboard->dash_users();
 								$datas['dash_comm']=$this->dashboard->dash_comm();
 								$datas['class']=$this->dashboard->get_all_class_sec();
-								//print_r($datas['class']);exit;
+							// print_r($datas['class']);exit;
 								$this->load->view('header',$datas);
 								$this->load->view('home',$datas);
 								$this->load->view('footer');
