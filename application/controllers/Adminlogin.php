@@ -59,13 +59,14 @@ class Adminlogin extends CI_Controller {
 								$datas['res']=$this->dashboard->get_user_count_student();
 								$datas['parents']=$this->dashboard->get_user_count_parents();
 								$datas['teacher']=$this->dashboard->dash_teacher_users();
-	              $datas['pending_leave']=$this->dashboard->pending_leave();
+	                            $datas['pending_leave']=$this->dashboard->pending_leave();
 								//print_r($datas['pending_leave']);
 								$datas['das_events']=$this->dashboard->dash_events();
 								$datas['das_users']=$this->dashboard->dash_users();
 								$datas['dash_comm']=$this->dashboard->dash_comm();
+								$datas['dash_reminder']=$this->dashboard->dash_reminder($user_id);
 								$datas['class']=$this->dashboard->get_all_class_sec();
-							// print_r($datas['class']);exit;
+							   //print_r($datas['class']);exit;
 								$this->load->view('header',$datas);
 								$this->load->view('home',$datas);
 								$this->load->view('footer');
@@ -101,23 +102,17 @@ class Adminlogin extends CI_Controller {
 							$datas['user_details']=$this->dashboard->dash_parents($user_id);
 							$datas['stud_details']=$this->dashboard->get_students($user_id);
 							$datas['res']=$this->dashboard->stud_details($user_id);
-
 							$this->load->view('adminparent/parent_header',$datas);
 							$this->load->view('adminparent/home');
 							$this->load->view('adminparent/parent_footer');
 							break;
-
 						}
-
-
 	 			}
 				elseif($msg=="Password Wrong"){
 					$datas['user_data']=array("status"=>$result['status'],"msg"=>$result['msg']);
-					 $this->session->set_flashdata('msg', 'Password Wrong');
-						redirect('/');
-
+					$this->session->set_flashdata('msg', 'Password Wrong');
+					redirect('/');
 				}
-
 				else{
 					$datas['user_data']=array("status"=>$result['status'],"msg"=>$result['msg']);
 					$this->session->set_flashdata('msg', ' Email invalid');
@@ -125,8 +120,7 @@ class Adminlogin extends CI_Controller {
 				}
 
 
-	 // 		if($user_type==1){
-		//
+	    // if($user_type==1){
 		// 		$user_name=$result['user_name'];$msg=$result['msg'];$name=$result['name'];$user_type=$result['user_type'];$status=$result['status'];$user_id=$result['user_id'];$user_pic=$result['user_pic'];
 		// 		$datas['user_data'] = array("user_name"=>$user_name, "msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
 		// 		 //$this->session->userdata($user_name);
@@ -138,8 +132,8 @@ class Adminlogin extends CI_Controller {
 		//
 		// elseif($msg=="Password Wrong"){
 		// 	$datas['user_data']=array("status"=>$result['status'],"msg"=>$result['msg']);
-		// 	 $this->session->set_flashdata('msg', 'Password Wrong');
-		// 		redirect('/');
+		// 	$this->session->set_flashdata('msg', 'Password Wrong');
+		// 	redirect('/');
 		//
 		// }
 		//
@@ -150,8 +144,6 @@ class Adminlogin extends CI_Controller {
 		// }
 
 }
-
-
 
 	public function profile(){
 		 $datas=$this->session->userdata();
@@ -168,14 +160,10 @@ class Adminlogin extends CI_Controller {
 			}
 }
 
-
 	public function forgotpassword(){
-
 		$username=$this->input->post('username');
 		$datas=$this->dashboard->forgotpassword($username);
 	}
-
-
 
 	public function dashboard(){
 		 $datas=$this->session->userdata();
@@ -189,6 +177,8 @@ class Adminlogin extends CI_Controller {
 			 $datas['das_events']=$this->dashboard->dash_events();
 			 $datas['das_users']=$this->dashboard->dash_users();
 			 $datas['dash_comm']=$this->dashboard->dash_comm();
+			 $datas['dash_reminder']=$this->dashboard->dash_reminder($user_id);
+			 
 			 $datas['pending_leave']=$this->dashboard->pending_leave();
 			 $datas['class']=$this->dashboard->get_all_class_sec();
 			 //echo'<pre>'; print_r($datas['class']);exit;

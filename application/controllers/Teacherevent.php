@@ -53,7 +53,6 @@ class Teacherevent extends CI_Controller {
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
-
 			 $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/event/teachercalender',$datas);
 			 $this->load->view('adminteacher/teacher_footer');
@@ -71,8 +70,9 @@ class Teacherevent extends CI_Controller {
 			 	$to_do_date=$this->input->post('to_do_date');
  				$to_do_list=$this->input->post('to_do_list');
  				$to_do_notes=$this->input->post('to_do_notes');
+				$status=$this->input->post('status');
  		 		$to_user=$user_id;
-				$datas=$this->teachereventmodel->save_to_do_list($to_do_date,$to_do_list,$to_do_notes,$to_user);
+				$datas=$this->teachereventmodel->save_to_do_list($to_do_date,$to_do_list,$to_do_notes,$to_user,$user_type,$status);
 				if($datas['status']=="success"){
 					echo "success";
 				}else{

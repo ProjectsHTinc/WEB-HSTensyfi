@@ -187,7 +187,11 @@ $(document).ready(function () {
          name:{required:true },
          admit_date:{required:true },
          class:{required:true },
-         section:{required:true }
+         section:{required:true },
+		  quota_id:{required:true },
+		 groups_id:{required:true },
+		 "activity_id[]":{required:true },
+		  status:{required:true }
 
      },
      messages: {
@@ -199,7 +203,11 @@ $(document).ready(function () {
            name: "Enter Name",
             admit_date: "Select The Date",
            class: "Select Class",
-           section: "Select Section"
+           section: "Select Section",
+		    quota_id: "Select Quota",
+            groups_id: "Select House Groups ",
+           "activity_id[]": "Select Extra Curricular  ",
+           status: "Select Status"
 
          }
  });

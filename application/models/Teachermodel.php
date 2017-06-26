@@ -17,7 +17,7 @@ Class Teachermodel extends CI_Model
           $check_email="SELECT * FROM edu_teachers WHERE email='$email'";
           $result=$this->db->query($check_email);
           if($result->num_rows()==0){
-         echo $query="INSERT INTO edu_teachers(name,email,sec_email,sex,dob,age,nationality,religion,community_class,community,phone,sec_phone,address,class_teacher,class_name,subject,subject_handling,qualification,house_id,extra_curicullar_id,profile_pic,created_by,created_at,status) VALUES ('$name','$email','$sec_email','$sex','$formatted_date','$age','$nationality','$religion','$community_class','$community','$mobile','$sec_phone','$address','$class_teacher','$class_name','$subject','$multiple_sub','$qualification','$groups_id','$activity_id','$userFileName','$user_id',NOW(),'$status')";
+         $query="INSERT INTO edu_teachers(name,email,sec_email,sex,dob,age,nationality,religion,community_class,community,phone,sec_phone,address,class_teacher,class_name,subject,subject_handling,qualification,house_id,extra_curicullar_id,profile_pic,created_by,created_at,status) VALUES ('$name','$email','$sec_email','$sex','$formatted_date','$age','$nationality','$religion','$community_class','$community','$mobile','$sec_phone','$address','$class_teacher','$class_name','$subject','$multiple_sub','$qualification','$groups_id','$activity_id','$userFileName','$user_id',NOW(),'$status')";
            $resultset=$this->db->query($query);
            $insert_id = $this->db->insert_id();
           $digits = 6;

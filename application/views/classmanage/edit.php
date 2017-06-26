@@ -51,35 +51,34 @@
                             <?php
                             $sPlatform=$rows->subject;
                             $sQuery = "SELECT * FROM edu_subject";
-                             $objRs=$this->db->query($sQuery);
-                          //print_r($objRs);
-                          $row=$objRs->result();
-                          foreach ($row as $rows1) {
-                          $s= $rows1->subject_id;
-                          $sec=$rows1->subject_name;
-                          // $clas=$rows1->class_name;
-                          //   $sec_name=$rows1->sec_name;
-                          $arryPlatform = explode(",", $sPlatform);
-                         $sPlatform_id  = trim($s);
-                         $sPlatform_name  = trim($sec);
-                         if (in_array($sPlatform_id, $arryPlatform )) {
-                  ?>
-
-                      <?php
-                           echo "<option  value=\"$sPlatform_id\" selected  /> $sec&nbsp; </option>";
-                       ?>
-
-                    <?php }
+                            $objRs=$this->db->query($sQuery);
+							  $row=$objRs->result();
+							  foreach ($row as $rows1) {
+							  $s= $rows1->subject_id;
+							  $sec=$rows1->subject_name;
+							  $arryPlatform = explode(",", $sPlatform);
+							 $sPlatform_id  = trim($s);
+							 $sPlatform_name  = trim($sec);
+							 if (in_array($sPlatform_id, $arryPlatform )) {
+                           echo "<option  value=\"$sPlatform_id\" selected  />$sec</option>";}
                       else {
-                    echo "<option value=\"$sPlatform_id\" />$sec&nbsp;</option>";
-                     }
-
-                          }
-                            ?>
+                    echo "<option value=\"$sPlatform_id\" />$sec</option>";
+                     }}?>
                       </select>
                     </div>
                     </div>
-
+                     
+					  <div class="form-group">
+                                <label class="col-md-4 control-label">Status</label>
+                                <div class="col-md-6">
+                                 <select name="status" class="selectpicker form-control">
+									  <option value="Active">Active</option>
+									  <option value="Deactive">DeActive</option>
+								</select>
+                                <script language="JavaScript">document.edit_cs.status.value="<?php echo $rows->	status; ?>";</script>
+                                </div>
+                            </div>
+							
 
                             <div class="form-group">
                                 <label class="col-md-4"></label>

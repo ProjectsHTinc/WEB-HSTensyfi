@@ -44,11 +44,14 @@ Class Dashboard extends CI_Model
       return  $result->result();
     }
 
-
-
-
     function dash_comm(){
       $query="SELECT * FROM edu_communication WHERE STATUS='A' ORDER BY commu_id DESC LIMIT 5";
+      $result=$this->db->query($query);
+      return  $result->result();
+    }
+	
+	function dash_reminder($user_id){
+      $query="SELECT * FROM edu_reminder WHERE user_id='$user_id' AND STATUS='Active' ORDER BY id DESC LIMIT 5";
       $result=$this->db->query($query);
       return  $result->result();
     }

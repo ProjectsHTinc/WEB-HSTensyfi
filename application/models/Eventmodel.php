@@ -131,11 +131,29 @@ Class Eventmodel extends CI_Model
           }
 	}
 
-  function get_all_regularleave(){
-    $query="SELECT eh.leave_list_date AS start,lm.leave_type AS title,lm.leave_type AS description FROM edu_holidays_list_history AS eh  LEFT OUTER JOIN edu_leavemaster AS lm ON lm.leave_id=eh.leave_masid";
-    $result=$this->db->query($query);
-    return $result->result();
-  }
+		  function get_all_regularleave(){
+			$query="SELECT eh.leave_list_date AS start,lm.leave_type AS title,lm.leave_type AS description FROM edu_holidays_list_history AS eh  LEFT OUTER JOIN edu_leavemaster AS lm ON lm.leave_id=eh.leave_masid";
+			$result=$this->db->query($query);
+			return $result->result();
+		  }
+		  
+		  function save_to_do_list($to_do_date,$to_do_list,$to_do_notes,$to_user,$user_type,$status){
+				  $query="INSERT INTO edu_reminder(user_id,to_do_date,to_do_title,to_do_description,status,created_by,created_at,updated_by,updated_at) VALUES ('$to_user','$to_do_date','$to_do_list','$to_do_notes','$status','$user_type',NOW(),'$user_type',NOW())";
+				  $resultset=$this->db->query($query);
+				  if($resultset){
+					$data= array("status" => "success");
+					return $data;
+				  }else{
+					$data= array("status" => "failure");
+					return $data;
+				  }
+				}
+		
+		function view_all_reminder($user_id){
+          $query="SELECT to_do_date AS start,to_do_title AS title,to_do_description AS description FROM edu_reminder AS eh WHERE user_id='$user_id' AND status='Active'";
+          $result=$this->db->query($query);
+          return $result->result();
+        }
 
 }
 ?>

@@ -20,13 +20,45 @@
 										<center>
 											<div class="card card-calendar">
 													<div class="content">
-
-															<div id="fullCalendar"></div>
-
+													  <div id="fullCalendar"></div>
 													</div>
 											</div>
 										</center>
 									</div>
+									
+											<div class="col-md-4">
+
+										<div class="card">
+                            <div class="header">Add to Reminder</div>
+                            <div class="content">
+                                <form method="post" action="#" id="to_do_form">
+                                    <div class="form-group">
+                                        <label>Pick Date</label>
+                                        <input type="text" name="to_do_date" placeholder="" class="form-control datepicker">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>To Do List</label>
+                                        <input type="text" name="to_do_list" placeholder="To Do List" class="form-control">
+                                    </div>
+								<div class="form-group">
+                                        <label>Notes</label>
+                                        <textarea id="comments" name="to_do_notes" name="comments" class="form-control"></textarea>
+                                    </div>
+
+									 <div class="form-group">
+                                        <label>Status</label>
+                                       <select name="status"  class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+											  <option value="Active">Active</option>
+											  <option value="Deactive">DeActive</option>
+										</select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-fill btn-info">Save</button>
+                                </form>
+                            </div>
+                        </div>
+								</div> <!-- end card -->
+									
 							</div>
 					</div>
 			</div>
@@ -59,7 +91,12 @@ $('#event1').addClass('active');
 		 url: '<?php echo base_url() ?>event/get_all_regularleave',
 		 color: 'blue',
 		 textColor: 'white'
-	 }
+	 },
+	  {
+		url: '<?php echo base_url() ?>event/view_all_reminder',
+		color: 'red',
+		textColor: 'white'
+	}
  ],
 			eventMouseover: function(calEvent, jsEvent) {
     var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background-color:#000;color:#fff;position:absolute;z-index:10001;padding:20px;">' + calEvent.description + '</div>';
@@ -82,9 +119,60 @@ eventMouseout: function(calEvent, jsEvent) {
 
 		});
 
+	});
+	
+		$('#to_do_form').validate({ // initialize the plugin
+	    rules: {
+	        to_do_date:{required:true },
+	        to_do_list:{required:true },
+					to_do_notes:{required:true },
+	    },
+	    messages: {
+	          to_do_date: "Select date",
+	          to_do_list:"Enter To Do List",
+						to_do_notes:"Enter Some Notes"
 
-
-
+	        },
+	      submitHandler: function(form) {
+	        //alert("hi");
+	        swal({
+	                      title: "Are you sure?",
+	                      text: "You Want Confrim this form",
+	                      type: "success",
+	                      showCancelButton: true,
+	                      confirmButtonColor: '#DD6B55',
+	                      confirmButtonText: 'Yes, I am sure!',
+	                      cancelButtonText: "No, cancel it!",
+	                      closeOnConfirm: false,
+	                      closeOnCancel: false
+	                  },
+	                  function(isConfirm) {
+	                      if (isConfirm) {
+	       $.ajax({
+	           url: "<?php echo base_url(); ?>event/todolist",
+	            type:'POST',
+	           data: $('#to_do_form').serialize(),
+	           success: function(response) {
+	               if(response=="success"){
+	                //  swal("Success!", "Thanks for Your Note!", "success");
+	                  $('#to_do_form')[0].reset();
+	                  swal({
+	           title: "Wow!",
+	           text: "Message!",
+	           type: "success"
+	       }, function() {
+	           window.location = "<?php echo base_url(); ?>event/home";
+	       });
+	               }else{
+	                 sweetAlert("Oops...", "Something went wrong!", "error");
+	               }
+	           }
+	       });
+	     }else{
+	         swal("Cancelled", "Process Cancel :)", "error");
+	     }
+	   });
+	}
 	});
 
 		    </script>

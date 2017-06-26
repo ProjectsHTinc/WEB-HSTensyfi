@@ -25,7 +25,7 @@ Class Enrollmentmodel extends CI_Model
 		      {}
 		        $admisnid=$rows->admission_id;
 				//echo $admisnid;
-            $query="INSERT INTO edu_enrollment (admission_id,admit_year,admit_date,admisn_no,name,class_id,house_id,extra_curicullar_id,quota_idcreated_at,status) VALUES ('$admisnid','$admit_year','$formatted_date','$admisn_no','$name','$class','$groups_id','$activity_id','$quota_id',NOW(),'$status')";
+            $query="INSERT INTO edu_enrollment (admission_id,admit_year,admit_date,admisn_no,name,class_id,house_id,extra_curicullar_id,quota_id,created_at,status) VALUES ('$admisnid','$admit_year','$formatted_date','$admisn_no','$name','$class','$groups_id','$activity_id','$quota_id',NOW(),'$status')";
             $resultset=$this->db->query($query);
 
             //Student User Creation

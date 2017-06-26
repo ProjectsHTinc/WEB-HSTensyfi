@@ -82,7 +82,7 @@ class Classmanage extends CI_Controller {
 			$datas['res']=$this->class_manage->edit_cs($class_sec_id);
 			//echo "<pre>"; print_r($datas['res']);exit;
 			$datas['sec'] = $this->sectionmodel->getsection();
-			$datas['clas'] = $this->classmodel->getclass();
+			$datas['clas'] = $this->class_manage->getclass();
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
 			$this->load->view('header');

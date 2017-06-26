@@ -15,7 +15,7 @@
                         <div class="card">
                             <div class="content">
                                 <div class="fresh-datatables">
-                                  <h4 class="title">Fees Status  (<?php  foreach ($fees as $rows){ } echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  ?> ) </h4>
+                                  <h4 class="title">Fees Status  (<?php  if(empty($fees)){ echo "";}else{ foreach ($fees as $rows){ } echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  }?> ) </h4>
                                 <div class="dtypo-line" style="padding:30px;">
                                     <div class="row">
                                        <?php

@@ -62,8 +62,8 @@ LEFT JOIN edu_events AS es ON es.event_id=ec.event_id WHERE ec.event_id='$event_
         }
 
 
-        function save_to_do_list($to_do_date,$to_do_list,$to_do_notes,$to_user){
-          $query="INSERT INTO edu_reminder (user_id,to_do_date,to_do_title,to_do_description,created_at,updated_at) VALUES ('$to_user','$to_do_date','$to_do_list','$to_do_notes',NOW(),NOW())";
+        function save_to_do_list($to_do_date,$to_do_list,$to_do_notes,$to_user,$user_type,$status){
+          $query="INSERT INTO edu_reminder(user_id,to_do_date,to_do_title,to_do_description,status,created_by,created_at,updated_by,updated_at) VALUES ('$to_user','$to_do_date','$to_do_list','$to_do_notes','$status','$user_type',NOW(),'$user_type',NOW())";
           $resultset=$this->db->query($query);
           if($resultset){
             $data= array("status" => "success");
@@ -75,7 +75,7 @@ LEFT JOIN edu_events AS es ON es.event_id=ec.event_id WHERE ec.event_id='$event_
         }
 
         function view_all_reminder($user_id){
-          $query="SELECT to_do_date AS start,to_do_title AS title,to_do_description AS description FROM edu_reminder AS eh WHERE user_id='$user_id'";
+          $query="SELECT to_do_date AS start,to_do_title AS title,to_do_description AS description FROM edu_reminder AS eh WHERE user_id='$user_id' AND status='Active'";
           $result=$this->db->query($query);
           return $result->result();
         }

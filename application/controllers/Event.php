@@ -262,7 +262,37 @@ class Event extends CI_Controller {
 			}
 			}
 
-
+           public function todolist(){
+				$datas=$this->session->userdata();
+				$user_id=$this->session->userdata('user_id');
+				$user_type=$this->session->userdata('user_type');
+			 if($user_type==1){
+					$to_do_date=$this->input->post('to_do_date');
+					$to_do_list=$this->input->post('to_do_list');
+					$to_do_notes=$this->input->post('to_do_notes');
+					$status=$this->input->post('status');
+					$to_user=$user_id;
+					$datas=$this->eventmodel->save_to_do_list($to_do_date,$to_do_list,$to_do_notes,$to_user,$user_type,$status);
+					if($datas['status']=="success"){
+						echo "success";
+					}else{
+						echo "failed";
+					}
+			 }
+			 else{
+					redirect('/');
+			 }
+		}
+		
+		public function view_all_reminder()
+		{
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			$data['reg']=$this->eventmodel->view_all_reminder($user_id);
+			//$s= unset($data);
+			echo json_encode($data['reg']);
+		}
 
 
 

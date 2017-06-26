@@ -49,6 +49,7 @@
          .title_ensyfi{
            color:#fff!important; margin-left: 10px!important; padding-left: 175px !important;
          }
+		 .stu{background: url(<?php echo base_url(); ?>assets/img/icons/Stu.png) 0 0;}
       </style>
    </head>
    <body>
@@ -63,11 +64,10 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand title_ensyfi" href="#" ><?php   echo $this->session->userdata('name'); ?> </a>
+               <a class="navbar-brand title_ensyfi" href="#" ><?php  echo $this->session->userdata('name'); ?> </a>
             </div>
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" style="float:right;">
                <ul class="nav navbar-nav navbar-right">
-
 
 						<li class="dropdown" style="padding:08px 10px;">
 					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
@@ -75,20 +75,32 @@
 								<ul class="dropdown-menu">
 
  <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
+  <li><a href="<?php echo base_url(); ?>event/home">Add Reminder</a></li> 
 
 							</ul>
 						</li>
 
                   <li class="dropdown dropdown-with-icons">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:05px;">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:3px;">
                         <div class="photo">
-                           <i class="pe-7s-user pe-7x" style="font-size:35px;color: white;
-}"></i>
+						<?php
+					  $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $row=$objRs->result();
+					  foreach ($row as $rows1)
+					  {
+						  $pic=$rows1->user_pic;
+						  if($pic!='')
+						  {?>
+			<img src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" class="img-circle" style="width:40px;height:40px;" > 
+			        <?php }else{
+				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" />
+						 <?php }} ?>
                         </div>
-                        <p class="hidden-md hidden-lg">
-                           More
-                           <b class="caret"></b>
-                        </p>
+                        
+                           <b class="caret" style="margin-left:55px;color:white;"></b>
                      </a>
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>
@@ -116,7 +128,42 @@
          </div>
       </nav>
       <div class="sidebar sidemenu" data-color="purple">
+	   <div class="logo">
+            <a href="" class="logo-text">
+              Logo Here
+            </a>
+        </div>
+		
          <div class="sidebar-wrapper">
+		 
+		 <div class="user">
+                <div class="photo" style="margin:0px;float:left;margin-left:20px;width:70px;height:70px;">
+				<?php
+					  $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $row=$objRs->result();
+					  foreach ($row as $rows1)
+					  {
+						  $pic=$rows1->user_pic;
+						  if($pic!='')
+						  {?>
+					<img src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" > 
+			        <?php }else{
+				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" />
+						 <?php }} ?>
+                </div>
+                <div class="info" class="logo-text">
+                    <a  href="" style="padding-top: 25px;">
+					<?php  $user_type=$this->session->userdata('user_type');
+					       if($user_type==1)
+						   {echo "<p> Welcome Admin </p>";}else { echo "Welcome";}?>
+                     
+                    </a>
+                </div>
+            </div>
+			
             <ul class="nav" style="background-color: #6f3fbc;">
                <li id="dash">
                   <a href="<?php echo base_url(); ?>adminlogin/dashboard">
@@ -146,6 +193,7 @@
 
                <li id="admission">
                   <a data-toggle="collapse" href="#admissionmenu">
+				 <!-- <img src="<?php echo base_url(); ?>assets/img/icons/Stu.png"/>-->	
                      <i class="pe-7s-add-user"></i>
                      <p>Student's Admission	</p>
                      <b class="caret"></b>

@@ -50,7 +50,7 @@
                             <div class="card card-hidden">
 
 								<?php
-                                $server_url = $_SERVER['HTTP_HOST']; 
+                                  $server_url = $_SERVER['HTTP_HOST']; 
 						          $query="SELECT user_pic FROM edu_users WHERE user_type=1";
 								  $objRs=$this->db->query($query);
 								  $row=$objRs->result();
@@ -62,11 +62,9 @@
 								?>
                                   <div class="header text-center">
 					                <img src="http://<?php echo $server_url; ?>/institute_logo/<?php echo $pic; ?>" class="img-circle" style="width:150px;height: 150px;"> </div>
-						 <?php }else
-						 {
+						 <?php }else{
 							   ?><div class="header text-center">Login</div>
-						 <?php }
-}						 ?>
+						 <?php }} ?>
                                 <div class="content">
 								<!-- <div class="form-group">
 										<label>School ID</label>

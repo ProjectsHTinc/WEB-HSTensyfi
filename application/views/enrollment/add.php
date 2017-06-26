@@ -47,8 +47,6 @@
                                                 <option value="<?php echo $row->admisn_no; ?>"><?php echo $row->admisn_no; ?></option>
                                               <?php      } ?>
                                                   </select>
-            <!-- <input type="hidden" class="form-control" name="admisn_no" id="admission_no" onkeyup="checknamefun(this.value)"> 
-                 <p id="msg1" style="color:red;"></p>  <p id="msg2" style="color:green;"></p>-->
                                           </div>
 
                                         </div>
@@ -183,7 +181,11 @@ $(document).ready(function () {
          name:{required:true },
          admit_date:{required:true },
          class_section:{required:true },
-         section:{required:true }
+         section:{required:true },
+		 quota_id:{required:true },
+		 groups_id:{required:true },
+		 "activity_id[]":{required:true },
+		  status:{required:true }
 
      },
      messages: {
@@ -194,7 +196,11 @@ $(document).ready(function () {
            name: "Enter Name",
             admit_date: "Select The Date",
            class_section: "Select Class",
-           section: "Select Section"
+           section: "Select Section",
+		    quota_id: "Select Quota",
+            groups_id: "Select House Groups ",
+           "activity_id[]": "Select Extra Curricular  ",
+           status: "Select Status"
 
          }
  });

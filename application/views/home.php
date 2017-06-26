@@ -43,6 +43,10 @@
     font-size:30px;
   
    }
+   .setcolor{
+    background-color: #333333;
+   }
+   .rem{color:white;font-size:18px;text-transform: capitalize;}
 </style>
 <div class="main-panel">
 <div class="content">
@@ -55,11 +59,7 @@
                   <div class="col-md-9">
                      <div class="card">
                         <form id="" action="#" method="" novalidate="" style="padding-bottom:30px;">
-                           <!--  <div class="header" >Search</div><fieldset id="group2" style="padding-left:30px;">
-                              <input type="radio" value="students" id="user_type"  name="user_type" >Students
-                              <!-- <input type="radio" value="parents" id="user_type1"  name="user_type">Parents --
-                              <input type="radio" value="teachers" id="user_type2"  name="user_type">Teachers
-                              </fieldset>-->
+                        
                            <fieldset id="group2" style="padding-top:20px;">
                               <div class="form-group">
                                  <div class="col-sm-12">
@@ -181,7 +181,7 @@
                      <div class="card" style="box-shadow:0 1px 2px rgba(33, 29, 29, 0.97), 0 0 0 1px rgba(1, 1, 16, 0.98);height:130px;">
                         <div class="header" style="padding:0px;">
                         </div>
-                        <div class="content table-full-width">
+                        <div class="content table-full-width" style="padding-top:5px;">
                            <table class="table table-striped">
                               <thead>
                                  <tr>
@@ -199,7 +199,7 @@
                                        foreach ($teacher as $user_to) {}
                                        		echo $user_to->user_count;
                                        } ?></td>
-                                    <td class="text-center" style="padding-right:0px; ">0</td>
+                                    <td class="text-center" style="padding-right:0px;">0</td>
                                  </tr>
                                  <tr>
                                     <td>Students</td>
@@ -223,19 +223,19 @@
                <hr>
                <div class="col-md-12">
                   <div class="col-md-4">
-                     <div class="card ">
+                     <!-- <div class="card ">
                         <div id="fullCalendar"></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="card ">
-                        <div class="header">
-                           <h4 class="title" style="float:left;"> Reminder</h4>
-                           <span class="pull-right "><a href="<?php echo base_url(); ?>communication/add_communication" class="alinks">Set Reminder</a></span>
-                        </div>
-                        <div class="content">
+                     </div>-->
+					  <div class="card">
+                        <!-- <div class="header">
+                           <h4 class="title" style="float:left;">Reminder</h4>
+                        </div>-->
+                        <div class="content" style="padding-top:1px;">
                            <div class="table-full-width">
                               <table class="table">
+							   <thead class="setcolor">
+                                    <th colspan="2"><span class="rem">Circular</span></th>
+								</thead>
                                  <tbody>
                                     <?php  if(empty($dash_comm)){
                                        } else {
@@ -257,14 +257,44 @@
                      </div>
                   </div>
                   <div class="col-md-4">
-                     <div class="card ">
-                        <div class="header" >
-                           <h4 class="title" style="float:left;">Task & Events</h4>
-                           <span class="pull-right alinks"><a href="<?php echo base_url(); ?>event/create" class="alinks">Create Task</a></span>
-                        </div>
-                        <div class="content">
+                     <div class="card">
+                        <!-- <div class="header">
+                           <h4 class="title" style="float:left;">Reminder</h4>
+                        </div>-->
+                        <div class="content" style="padding-top:1px;">
                            <div class="table-full-width">
                               <table class="table">
+							   <thead class="setcolor">
+                                    <th colspan="2"><span class="rem"> Reminder</span></th>
+								</thead>
+                                 <tbody>
+                                    <?php  if(empty($dash_reminder)){
+                                       } else {
+                                       	 $i=1;
+                                       	foreach ($dash_reminder as $rows1) { ?>
+                                    <tr>
+                                       <td>
+                                          <label class="checkbox">
+                                          <?php echo $i; ?>
+                                          </label>
+                                       </td>
+                                       <td><?php echo $rows1->to_do_title;  ?> </td>
+                                    </tr>
+                                    <?php  $i++; } 	}?>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="card">
+                        <div class="content" style="padding-top:1px;">
+                           <div class="table-full-width">
+                              <table class="table">
+							   <thead class="setcolor">
+                                    <th colspan="2"><span class="rem">Task & Events</span></th>
+								</thead>
                                  <tbody>
                                     <?php  if(empty($das_events)){
                                        } else {
