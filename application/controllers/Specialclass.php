@@ -61,9 +61,11 @@ class Specialclass extends CI_Controller
 		$status=$this->input->post('status');
 		
 		$datas=$this->specialclassmodel->create_special_class($class_name,$teacher,$subject_name,$sub_topic,$spe_date,$stime,$etime,$status,$user_id);
-		if($datas['status']=="success")
-		{
+		if($datas['status']=="success"){
 			$this->session->set_flashdata('msg','Added Successfully');
+			redirect('specialclass/home');
+		}else if($datas['status']=="Already Exist"){
+			$this->session->set_flashdata('msg','Already Exist');
 			redirect('specialclass/home');
 		}else{
 			$this->session->set_flashdata('msg','Faild To Add');

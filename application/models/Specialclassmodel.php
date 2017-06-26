@@ -25,6 +25,9 @@ Class Specialclassmodel extends CI_Model
 
     function create_special_class($class_name,$teacher,$subject_name,$sub_topic,$spe_date,$stime,$etime,$status,$user_id)
      {
+	   $check_name="SELECT * FROM edu_special_class WHERE class_master_id='$class_name' AND subject_id='$subject_name' AND special_class_date='$spe_date'";
+	   $result=$this->db->query($check_name);
+	   if($result->num_rows()==0){
 	   $sql="INSERT INTO edu_special_class(class_master_id,teacher_id,subject_id,subject_topic,special_class_date,start_time,end_time,status,created_by,created_at)VALUES('$class_name','$teacher','$subject_name','$sub_topic','$spe_date','$stime','$etime','$status','$user_id',NOW())";
        $resultset=$this->db->query($sql);
        if($resultset)
@@ -32,6 +35,10 @@ Class Specialclassmodel extends CI_Model
          $data= array("status" => "success");
          return $data;
         }
+	   }else{
+		 $data= array("status" => "Already Exist");
+         return $data;
+	   }
        
     }
 
