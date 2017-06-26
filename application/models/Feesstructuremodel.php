@@ -45,19 +45,18 @@ Class Feesstructuremodel extends CI_Model
 		function get_section($classid)
 		{
 			$query="SELECT cm.class_sec_id,cm.class,cm.section,se.* FROM edu_classmaster AS cm,edu_sections AS se WHERE class='$classid' AND cm.section=se.sec_id ";
-      $resultset=$this->db->query($query);
+            $resultset=$this->db->query($query);
 			$row=$resultset->result();
 			return $row;
-			
 		}
 		
 		function add_fees_details($year_id,$terms,$class_id,$fees_amount,$quota_name,$due_date_from,$due_date_to,$notes,$status,$user_id)
 		{
-      $count_name = count($class_id);
-      //echo $count_name; exit;
-      for($i=0;$i<$count_name;$i++)
-        {
-              //print_r($exam_year);exit;
+          $count_name = count($class_id);
+		  //echo $count_name; exit;
+		  for($i=0;$i<$count_name;$i++)
+          {
+           //print_r($exam_year);exit;
           $year_id1=$year_id;
           $terms1=$terms;
           $class_id1=$class_id[$i];
@@ -142,8 +141,8 @@ Class Feesstructuremodel extends CI_Model
 			 {
   				 $sql="UPDATE edu_term_fees_status SET status='$paid_status',paid_by='$paid_by',updated_by='$user_id',updated_at=NOW() WHERE id='$fessid'";
   				 $result2=$this->db->query($sql);
-      		 $data= array("status" => "success");
-      		 return $data;
+				 $data= array("status" => "success");
+				 return $data;
 			 }
   
   

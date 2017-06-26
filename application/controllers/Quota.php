@@ -44,6 +44,9 @@ class Quota extends CI_Controller
 		{
 			$this->session->set_flashdata('msg','Added Successfully');
 			redirect('quota/home');
+		}else if($datas['status']=="Name Already Exist"){
+			$this->session->set_flashdata('msg','Name Already Exist');
+			redirect('quota/home');
 		}else{
 			$this->session->set_flashdata('msg','Faild To Add');
 			redirect('quota/home');

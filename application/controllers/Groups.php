@@ -40,9 +40,11 @@ class Groups extends CI_Controller
 			$status=$this->input->post('status');
 			
 			$datas=$this->groupsmodel->create_group_list($groups_name,$status,$user_id);
-			if($datas['status']=="success")
-			{
+			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg','Added Successfully');
+				redirect('groups/home');
+			}if($datas['status']=="Name Already Exist"){
+				$this->session->set_flashdata('msg','Name Already Exist');
 				redirect('groups/home');
 			}else{
 				$this->session->set_flashdata('msg','Faild To Add');

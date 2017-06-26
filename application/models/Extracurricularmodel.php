@@ -18,13 +18,20 @@ Class Extracurricularmodel extends CI_Model
 
      function create($ext_name,$status,$user_id)
      {
-	     $sql="INSERT INTO edu_extra_curricular(extra_curricular_name,status,created_by,created_at) VALUES ('$ext_name','$status','$user_id',NOW())";
+	   $check_name="SELECT * FROM edu_extra_curricular WHERE extra_curricular_name='$ext_name'";
+	   $result=$this->db->query($check_name);
+	  if($result->num_rows()==0){
+	   $sql="INSERT INTO edu_extra_curricular(extra_curricular_name,status,created_by,created_at) VALUES ('$ext_name','$status','$user_id',NOW())";
        $resultset=$this->db->query($sql);
        if($resultset)
         {
          $data= array("status" => "success");
          return $data;
         }
+	  }else{
+		   $data= array("status" => "Name Already Exist");
+           return $data;
+	  }
        
     }
 

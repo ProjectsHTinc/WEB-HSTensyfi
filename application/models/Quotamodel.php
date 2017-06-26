@@ -18,14 +18,20 @@ Class Quotamodel extends CI_Model
 
     function create_quota_list($quota_name,$status,$user_id)
      {
-	     $sql="INSERT INTO edu_quota(quota_name,status,created_by,created_at) VALUES ('$quota_name','$status','$user_id',NOW())";
+	   $check_name="SELECT * FROM edu_quota WHERE quota_name='$quota_name'";
+	   $result=$this->db->query($check_name);
+	   if($result->num_rows()==0){
+	   $sql="INSERT INTO edu_quota(quota_name,status,created_by,created_at) VALUES ('$quota_name','$status','$user_id',NOW())";
        $resultset=$this->db->query($sql);
        if($resultset)
         {
          $data= array("status" => "success");
          return $data;
         }
-       
+       }else{
+		   $data= array("status" => "Name Already Exist");
+           return $data;
+	   }
     }
 
     function edit_quota_list($id)

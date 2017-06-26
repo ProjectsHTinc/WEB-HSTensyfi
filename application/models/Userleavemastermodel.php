@@ -17,7 +17,10 @@ Class Userleavemastermodel extends CI_Model
      }
 
      function create_leave($leave_name,$leave_type,$status,$user_id)
-     {
+     {     
+	   $check_name="SELECT * FROM edu_user_leave_master WHERE leave_title='$leave_name' AND leave_type='$leave_type'";
+	   $result=$this->db->query($check_name);
+	   if($result->num_rows()==0){
 	     $sql="INSERT INTO edu_user_leave_master(leave_title,leave_type,status,created_by,created_at) VALUES ('$leave_name','$leave_type','$status','$user_id',NOW())";
          $resultset=$this->db->query($sql);
          if($resultset)
@@ -25,6 +28,10 @@ Class Userleavemastermodel extends CI_Model
 			 $data= array("status" => "success");
 			 return $data;
          }
+	   }else{
+		   $data= array("status" => "Name Already Exist");
+		   return $data;
+	   }
        
     }
 

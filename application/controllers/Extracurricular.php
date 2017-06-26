@@ -44,6 +44,9 @@ class Extracurricular extends CI_Controller
 		{
 			$this->session->set_flashdata('msg','Added Successfully');
 			redirect('extracurricular/home');
+		}else if($datas['status']=="Name Already Exist"){
+			$this->session->set_flashdata('msg','Name Already Exist');
+			redirect('extracurricular/home');
 		}else{
 			$this->session->set_flashdata('msg','Faild To Add');
 			redirect('extracurricular/home');

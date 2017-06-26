@@ -41,9 +41,11 @@ class Userleavemaster extends CI_Controller
 		$status=$this->input->post('status');
 		
 		$datas=$this->userleavemastermodel->create_leave($leave_name,$leave_type,$status,$user_id);
-		if($datas['status']=="success")
-		{
+		if($datas['status']=="success"){
 			$this->session->set_flashdata('msg','Added Successfully');
+			redirect('userleavemaster/home');
+		}else if($datas['status']=="Name Already Exist"){
+			$this->session->set_flashdata('msg','Name Already Exist');
 			redirect('userleavemaster/home');
 		}else{
 			$this->session->set_flashdata('msg','Faild To Add');

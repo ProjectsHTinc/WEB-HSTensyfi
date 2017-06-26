@@ -18,13 +18,20 @@ Class Groupsmodel extends CI_Model
 
      function create_group_list($groups_name,$status,$user_id)
      {
-	     $sql="INSERT INTO edu_groups(group_name,status,created_by,created_at) VALUES ('$groups_name','$status','$user_id',NOW())";
+	   $check_name="SELECT * FROM edu_groups WHERE group_name='$groups_name'";
+	   $result=$this->db->query($check_name);
+	   if($result->num_rows()==0){
+	   $sql="INSERT INTO edu_groups(group_name,status,created_by,created_at) VALUES ('$groups_name','$status','$user_id',NOW())";
        $resultset=$this->db->query($sql);
        if($resultset)
         {
          $data= array("status" => "success");
          return $data;
         }
+	   }else{
+		   $data= array("status" => "Name Already Exist");
+           return $data;
+	   }
        
     }
 
