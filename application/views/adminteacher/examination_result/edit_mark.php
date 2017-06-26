@@ -63,10 +63,10 @@
                                  </td>
                                  <?php }else{ ?>
                                  <td>
-								   <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
+								   <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox"/>
 								 </td>
                                  <td>
-								   <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control"/>
+								   <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control inputBox1"/>
 								  </td>
                                  <?php } ?>
                               </tr>
@@ -94,5 +94,21 @@
    $('#examinationmenu').addClass('collapse in');
    			$('#exam').addClass('active');
    			$('#exam2').addClass('active'); 
+			
+			 $(".inputBox").on("keyup keydown", function(e){
+    var currentValue = String.fromCharCode(e.which);
+    var finalValue = $(this).val() + currentValue;
+    if(finalValue >40){
+        e.preventDefault();
+    }
+});
+
+$(".inputBox1").on("keyup keydown", function(e){
+    var currentValue = String.fromCharCode(e.which);
+    var finalValue = $(this).val() + currentValue;
+    if(finalValue >60){
+        e.preventDefault();
+    }
+});
 </script>
 
