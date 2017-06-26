@@ -48,7 +48,9 @@
 							  
 						 <td><?php echo $rows->internal_mark; ?> ( <span class="grade"><?php echo $rows->internal_grade; ?>  )</span></td> 
 						 <td><?php echo $rows->external_mark; ?> (  <span class="grade"><?php echo $rows->external_grade; ?>  )</span></td>
-						 <td><span class="total"><?php echo $rows->total_marks; ?></span> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
+						 <td>
+						  <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
+						  <span class="total"><?php echo $rows->total_marks; ?></span> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
 						
 						</tr>
 						 <?php $i++;  } 
@@ -57,7 +59,11 @@
 						<td></td><td></td><td></td>
 										<?php if(!empty($result)){ ?>
 										 <td>TOTAL</td>
-										 <td class="total-combat"></td>
+										<td>
+										  <div class="col-md-2">
+										  <div class="form-group">
+										 <input type="text" class="form-control" disabled id="totals"/>
+										  </div></div></td>
 										<?php }else{ echo"";}?>
 					</tbody>
 				</table>
@@ -72,11 +78,22 @@
 </div>	
 </body>
 <script type="text/javascript">
- /* $(window).load(function($) {
-loadmarks();
-}); */
 
- $('tr').each(function () {
+$(window).load(function($) {
+    loadmarks();
+});
+	
+function loadmarks()
+{
+		var tot=0;
+		$("input[name=marks]").each (function() {
+			tot=tot + parseInt($(this).val());
+		})
+	$("#totals").val(tot);
+	
+}
+
+ /* $('tr').each(function () {
           var sum = 0;
         $('.total').each(function () {
             var combat = $(this).val();
@@ -87,7 +104,7 @@ loadmarks();
         $(this).find('.total-combat').html(sum);
       });
 	   
- /* function loadmarks()
+ function loadmarks()
 {
 var tot=0;
 $('#combats').each (function() {

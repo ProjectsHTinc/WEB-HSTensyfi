@@ -52,7 +52,9 @@ Class Specialclassmodel extends CI_Model
 
     function update($class_name,$teacher,$subject_name,$sub_topic,$spe_date,$stime,$etime,$status,$user_id,$specls_id)
     {
-
+       $check_name="SELECT * FROM edu_special_class WHERE class_master_id='$class_name' AND subject_id='$subject_name' AND special_class_date='$spe_date'";
+	   $result=$this->db->query($check_name);
+	   if($result->num_rows()==0){
        $sql="UPDATE edu_special_class SET class_master_id='$class_name',teacher_id='$teacher',subject_id='$subject_name',subject_topic='$sub_topic',special_class_date='$spe_date',start_time='$stime',end_time='$etime',status='$status',updated_by='$user_id',updated_at=NOW() WHERE id='$specls_id'";
        $resultset=$this->db->query($sql);
        if($resultset)
@@ -60,6 +62,10 @@ Class Specialclassmodel extends CI_Model
          $data= array("status" => "success");
          return $data;
         }
+	 }else{
+		 $data= array("status" => "Already Exist");
+         return $data;
+	   }
     }
 }
 	?>
