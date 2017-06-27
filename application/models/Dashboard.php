@@ -9,7 +9,6 @@ Class Dashboard extends CI_Model
 
   }
 
-
     function get_user_count_student(){
         $query="SELECT COUNT(enroll_id) AS user_count FROM  edu_enrollment WHERE admit_year=1";
         $result=$this->db->query($query);
@@ -18,20 +17,20 @@ Class Dashboard extends CI_Model
     }
 
     function get_user_count_parents(){
-        $query="SELECT COUNT(parent_id) AS user_count FROM  edu_parents WHERE STATUS='A'";
+        $query="SELECT COUNT(parent_id) AS user_count FROM  edu_parents WHERE STATUS='Active'";
         $result=$this->db->query($query);
         return  $result->result();
 
     }
     function dash_teacher_users(){
-      $query="SELECT COUNT(teacher_id) AS user_count FROM  edu_teachers WHERE STATUS='A'";
+      $query="SELECT COUNT(teacher_id) AS user_count FROM  edu_teachers WHERE STATUS='Active'";
       $result=$this->db->query($query);
       return  $result->result();
     }
 
 
     function dash_events(){
-      $query="SELECT * FROM edu_events WHERE STATUS='A' AND  event_date>=NOW() ORDER BY event_id DESC LIMIT 5";
+      $query="SELECT * FROM edu_events WHERE STATUS='Active' AND  event_date>=NOW() ORDER BY event_id DESC LIMIT 5";
       $result=$this->db->query($query);
       return  $result->result();
 
@@ -39,7 +38,7 @@ Class Dashboard extends CI_Model
 
 
     function dash_users(){
-      $query="SELECT * FROM edu_users WHERE STATUS='A' ORDER BY user_id DESC LIMIT 5";
+      $query="SELECT * FROM edu_users WHERE STATUS='Active' ORDER BY user_id DESC LIMIT 5";
       $result=$this->db->query($query);
       return  $result->result();
     }
