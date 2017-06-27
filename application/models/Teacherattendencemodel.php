@@ -149,7 +149,7 @@ Class Teacherattendencemodel extends CI_Model
          }else{
             $a_period="1";
          }
-
+        // $add_att_cal="INSERT INTO edu_attendence_cal ";
           $check_leave="SELECT * FROM edu_leaves WHERE leave_date='$cur_d'";
           $get_le=$this->db->query($check_leave);
           if($get_le->num_rows()==0){
@@ -206,7 +206,7 @@ Class Teacherattendencemodel extends CI_Model
        }
 
 
-      
+
 
 
 
