@@ -1,10 +1,10 @@
-<!-- <footer class="footer">
+<footer class="footer">
           <div class="container-fluid">
 
               <p class="copyright pull-right">
                   &copy; 2017 <a href="">ENSIFY</a> </p>
           </div>
-      </footer> -->
+      </footer>
 </div>
 
 </body>

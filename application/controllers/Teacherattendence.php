@@ -94,11 +94,7 @@ class Teacherattendence extends CI_Controller {
 						$this->load->view('adminteacher/attendence/attendence',$datas);
 						$this->load->view('adminteacher/teacher_footer');
 					}
-					// else if(){
-					// 	$this->load->view('adminteacher/teacher_header');
-					// 	$this->load->view('adminteacher/attendence/attendence',$datas);
-					// 	$this->load->view('adminteacher/teacher_footer');
-					// }
+
 
 				}else if($datas['status']=="special"){
 					$datas['status']="This Day is marked AS Special Leave";

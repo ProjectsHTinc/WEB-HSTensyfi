@@ -17,6 +17,11 @@
 							<div class="card">
 								<div class="row">
 
+				
+
+
+
+
                     <div class="col-md-8 col-md-offset-2">
                         <h4 class="title text-center" style="padding-top:20px;">Personal Information</h4>
                         <br>
@@ -182,7 +187,7 @@
 							                                    </table>
 							                                </div>
 							                            </div>
-																					
+
 
 
 							                        </div>

@@ -234,7 +234,7 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
             $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,dd.list_day,tt.period,ss.sec_name,c.class_name
                 FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id
                 INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
-                INNER JOIN edu_days AS dd ON tt.day=dd.d_id WHERE  tt.teacher_id='$teacher_id'";
+                INNER JOIN edu_days AS dd ON tt.day=dd.d_id WHERE  tt.teacher_id='$teacher_id' ORDER BY tt.period ASC";
             $result=$this->db->query($query);
             $time=$result->result();
            if($result->num_rows()==0){

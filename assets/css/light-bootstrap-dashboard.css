@@ -8126,7 +8126,7 @@ star {
 .wrapper {
   position: relative;
   top: 0;
-  height: 100%! important;
+  height: 100%;
 }
 .wrapper:after {
   display: table;

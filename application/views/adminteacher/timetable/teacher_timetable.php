@@ -24,6 +24,9 @@
 
       </div>
 
+
+
+
       <div class="content">
         <div class="row">
           <div class="col-md-12">
@@ -52,7 +55,7 @@
 
                                     $prd= count($restime)/6; //echo  $restime[5]->subject_name;
                                 $m=count($restime);
-                              echo $encrypt = $this->encryption->encode($m);
+                               //$encrypt = $this->encryption->encode($m);
                             //  echo $decrypt = $this->encryption->decode($m);
                                 ?>
                                     <?php
@@ -82,19 +85,15 @@ foreach($arr2 as $day){ ?>
             <td>
               <?php
 
-
-
-
                  $d=$day;
                   $b=$restime[$i]->list_day;
-                    echo $restime[$i]->period;
-                  if($d==$b){
+                    $b=$restime[$i]->period;  //echo $restime[$i]->day;
+                      //echo $i;  echo $b;
+                  if($i==$b){
+                    echo $b;
 
-               echo $restime[$i]->class_name.''.$restime[$i]->sec_name;
                   }
-              // if($web=$b){
-              //    echo $restime[$i]->list_day;
-              // }
+
 
                ?>
             </td>

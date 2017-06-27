@@ -98,14 +98,19 @@ Class Teacherattendencemodel extends CI_Model
            }else{
                $at_val=count($attendence_val);
            }
-          $dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
+           $dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
+
+
           $cur_d=$dateTime->format("Y-m-d H:i:s");
           $a_pe=$dateTime->format("A");
+
           if($a_pe=="AM"){
             $a_period="0";
           }else{
             $a_period="1";
           }
+            $add_att_cal="INSERT INTO edu_attendance_calendar(Date,class_master_id) VALUES('$cur_d',$class_id)";
+            $att_add=$this->db->query($add_att_cal);
             $total_present=$student_count-$at_val;
             //print_r($a_taken);
              $query="INSERT INTO edu_attendence (ac_year,class_id,class_total,no_of_present,no_of_absent,attendence_period,created_by,created_at,status) VALUES('$get_academic','$class_id','$student_count','$total_present','$at_val','$a_period','$a_taken','$cur_d','A')";
@@ -149,7 +154,7 @@ Class Teacherattendencemodel extends CI_Model
          }else{
             $a_period="1";
          }
-        // $add_att_cal="INSERT INTO edu_attendence_cal ";
+
           $check_leave="SELECT * FROM edu_leaves WHERE leave_date='$cur_d'";
           $get_le=$this->db->query($check_leave);
           if($get_le->num_rows()==0){

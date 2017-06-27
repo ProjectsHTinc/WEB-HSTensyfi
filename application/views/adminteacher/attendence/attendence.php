@@ -104,6 +104,7 @@ function submitAttendence(){
             type:'POST',
            data: $('#takeattendence').serialize(),
            success: function(response) {
+            // alert(response);
                if(response=="success"){
                 //  swal("Success!", "Thanks for Your Note!", "success");
                   $('#takeattendence')[0].reset();
