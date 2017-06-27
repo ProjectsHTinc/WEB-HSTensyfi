@@ -12,7 +12,7 @@ class Teachertimetable extends CI_Controller {
 			$this->load->model('class_manage');
 		  $this->load->helper('url');
 			$this->load->model('subjectmodel');
-
+			$this->load->library('encryption');
 			//$this->load->library('encrypt');
 		  $this->load->library('session');
 

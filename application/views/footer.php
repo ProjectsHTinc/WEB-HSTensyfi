@@ -2,7 +2,7 @@
           <div class="container-fluid">
 
               <p class="copyright pull-right">
-                  &copy; 2017 <a href="">Happy Sanz Tech</a> </p>
+                  &copy; 2017 <a href="">ENSIFY</a> </p>
           </div>
       </footer> -->
 </div>

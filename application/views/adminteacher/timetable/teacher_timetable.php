@@ -51,7 +51,9 @@
                                   // print_r($restime);
 
                                     $prd= count($restime)/6; //echo  $restime[5]->subject_name;
-                                //  echo $m=count($restime);
+                                $m=count($restime);
+                              echo $encrypt = $this->encryption->encode($m);
+                            //  echo $decrypt = $this->encryption->decode($m);
                                 ?>
                                     <?php
 
