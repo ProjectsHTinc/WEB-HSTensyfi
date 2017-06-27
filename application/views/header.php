@@ -94,9 +94,9 @@
 						  $pic=$rows1->user_pic;
 						  if($pic!='')
 						  {?>
-			<img src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" class="img-circle" style="width:40px;height:40px;" > 
+					  <img style="width:40px;height:40px;" src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" class="img-circle"/> 
 			        <?php }else{
-				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" />
+				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" style="width:40px;height:40px;"  />
 						 <?php }} ?>
                         </div>
                         
@@ -164,7 +164,7 @@
                 </div>
             </div>
 			
-            <ul class="nav" style="background-color: #6f3fbc;">
+            <ul class="nav" style="background-color:#6f3fbc;">
                <li id="dash">
                   <a href="<?php echo base_url(); ?>adminlogin/dashboard">
                      <i class="pe-7s-home"></i>
@@ -221,8 +221,6 @@
                      </ul>
                   </div>
                </li>
-
-
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
                      <i class="pe-7s-study"></i>
