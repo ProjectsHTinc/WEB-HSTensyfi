@@ -55,6 +55,7 @@
 
                                     $prd= count($restime)/6; //echo  $restime[5]->subject_name;
                                 $m=count($restime);
+
                                //$encrypt = $this->encryption->encode($m);
                             //  echo $decrypt = $this->encryption->decode($m);
                                 ?>
@@ -88,11 +89,9 @@ foreach($arr2 as $day){ ?>
                  $d=$day;
                   $b=$restime[$i]->list_day;
                     $b=$restime[$i]->period;  //echo $restime[$i]->day;
-                      //echo $i;  echo $b;
-                  if($i==$b){
-                    echo $b;
-
-                  }
+                      //echo $i;
+                      //echo $day;
+                      if($i=$d){ echo "hi"; }
 
 
                ?>
