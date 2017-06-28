@@ -32,9 +32,9 @@
 											 <div class="col-sm-2">  
 											   <select name="cls" style="margin-top:30px;" data-title="Select Class" class="selectpicker">
 											
-                                       <?php  foreach ($sorting as $rows)
+                                       <?php  foreach ($sortclass as $rows1)
 								          { ?>
-									 <option value="<?php echo $rows->class_id; ?>"><?php echo $rows->class_name;?> - <?php echo $rows->sec_name;?>
+									 <option value="<?php echo $rows1->class_id; ?>"><?php echo $rows1->class_name;?> - <?php echo $rows1->sec_name;?>
                                     </option>
 										<?php } ?>
                                             </select>

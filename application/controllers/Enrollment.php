@@ -142,8 +142,9 @@ class Enrollment extends CI_Controller {
 		 $user_id=$this->session->userdata('user_id');
 		 $datas['result'] = $this->enrollmentmodel->get_all_enrollment();
 		 $datas['sorting'] = $this->enrollmentmodel->get_all_enrollment_sorting_details();
+		  $datas['sortclass'] = $this->enrollmentmodel->get_all_enrollment_sorting_class();
 		 $datas['year'] = $this->yearsmodel->admisn_year();
-			//echo "<pre>";print_r(	$datas['sorting']);exit;
+			//echo "<pre>";print_r(	$datas['sortclass']);exit;
 			$user_type=$this->session->userdata('user_type');
  		 if($user_type==1){
 		 $this->load->view('header');
@@ -268,6 +269,7 @@ class Enrollment extends CI_Controller {
 		      $datas['gender']=$this->enrollmentmodel->get_sorting_details($gender,$cls_mst_id);
 			  $datas['result'] = $this->enrollmentmodel->get_all_enrollment();
 			  $datas['sorting'] = $this->enrollmentmodel->get_all_enrollment_sorting_details();
+			   $datas['sortclass'] = $this->enrollmentmodel->get_all_enrollment_sorting_class();
 			  $datas['year'] = $this->yearsmodel->admisn_year();
 			   //echo"<pre>";print_r($datas['sorting']);exit;
 		      if($user_type==1){

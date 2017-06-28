@@ -111,7 +111,7 @@
 
                                     </td>
                                   </tr>
-								<?php  }
+								<?php  $i++;  }
 									
 								}else{
                                 foreach ($result as $rows)

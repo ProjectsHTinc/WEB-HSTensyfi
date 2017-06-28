@@ -31,11 +31,12 @@ Class Enrollmentmodel extends CI_Model
             $resultset=$this->db->query($query);
 
             //Student User Creation
-             $sql="SELECT count(*) AS student FROM edu_admission" ;
+             $sql="SELECT COUNT(admission_id) AS student FROM edu_admission" ;
              $resultsql=$this->db->query($sql);
              $result1= $resultsql->result();
              $cont=$result1[0]->student;
-             $user_id=$cont+400000;
+			// echo $cont;exit;
+             $user_id=$admisnid+400000;
                $getmail="select email from edu_admission WHERE admisn_no='".$admisn_no."'";
      	      $resultset12 = $this->db->query($getmail);
               
@@ -125,6 +126,13 @@ Class Enrollmentmodel extends CI_Model
 	 function get_all_enrollment_sorting_details()
 	 {
          $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_admission AS a,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND  e.admission_id=a.admission_id AND e.name=a.name AND e.admisn_no=a.admisn_no Group BY sex ";
+         $res=$this->db->query($query);
+         return $res->result();
+       }
+	   
+	   function get_all_enrollment_sorting_class()
+	   {
+         $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id GROUP BY e.class_id";
          $res=$this->db->query($query);
          return $res->result();
        }

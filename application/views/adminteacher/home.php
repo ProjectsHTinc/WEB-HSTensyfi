@@ -69,7 +69,7 @@ font-weight: bold;}
 		    <ul class="nav nav-icons" role="tablist">
                      <li class="active">
                         <a href="#description-logo" role="tab" data-toggle="tab">
-                      <img src="<?php echo base_url(); ?>assets/img/teachericons/profile.png" class="img-responsive imgstyle" />
+						<i class="fa fa-user" aria-hidden="true"></i><br>
                         Profile
                         </a>
                      </li>
@@ -81,14 +81,14 @@ font-weight: bold;}
                      </li>
                      <li class="">
                         <a href="#legal-logo" role="tab" data-toggle="tab">
-						 <img src="<?php echo base_url(); ?>assets/img/teachericons/Contact.png" class="img-responsive imgstyle" />
-                       
+						<i class="fa fa-phone-square" aria-hidden="true"></i><br>
                         Contact
                         </a>
                      </li>
                      <li class="">
                         <a href="#help-logo" role="tab" data-toggle="tab">
-						 <img src="<?php echo base_url(); ?>assets/img/teachericons/Details.png" class="img-responsive imgstyle" />
+						<i class="fa fa-file-text-o" aria-hidden="true"></i><br>
+
                        
                         Details
                         </a>
@@ -112,7 +112,7 @@ font-weight: bold;}
 		     <ul class="nav nav-icons" role="tablist">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
-                      <img src="<?php echo base_url(); ?>assets/img/teachericons/profile.png" class="img-responsive imgstyle" />
+                     <i class="fa fa-user" aria-hidden="true"></i><br>
                         Profile
                         </a>
                      </li>
@@ -166,7 +166,7 @@ font-weight: bold;}
 		      <ul class="nav nav-icons" role="tablist">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
-                      <img src="<?php echo base_url(); ?>assets/img/teachericons/profile.png" class="img-responsive imgstyle" />
+                      <i class="fa fa-user" aria-hidden="true"></i><br>
                         Profile
                         </a>
                      </li>
@@ -211,7 +211,7 @@ font-weight: bold;}
 		     <ul class="nav nav-icons" role="tablist">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
-                      <img src="<?php echo base_url(); ?>assets/img/teachericons/profile.png" class="img-responsive imgstyle" />
+                      <i class="fa fa-user" aria-hidden="true"></i><br>
                         Profile
                         </a>
                      </li>
@@ -253,7 +253,7 @@ font-weight: bold;}
                   <div class="table-full-width">
                      <table class="table">
 					 <thead class="setcolor">
-						<th colspan="2" style="padding-bottom: 8px;"><span class="rem"> UpComing Events <a href="<?php echo base_url(); ?>event/home" >
+						<th colspan="2" style="padding-bottom: 8px;"><span class="rem"> UpComing Events <a href="<?php echo base_url(); ?>teacherevent/home" >
 						<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/plus.png"/></a></span></th>
 								</thead>
                         <tbody>
