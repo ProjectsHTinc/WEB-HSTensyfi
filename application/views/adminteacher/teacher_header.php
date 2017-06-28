@@ -53,6 +53,8 @@ font-weight: 500;
          }
 .abox{border: 1px solid grey;}
  .topbar{background-color:#642160 ;height:70px;}
+ .imgclass{margin:0px;float:left;}
+ .imgstyle1{width:40px;height:40px;}
 </style>
 </head>
 <body>
@@ -76,7 +78,7 @@ font-weight: 500;
 					
 					 <!--  <li>
 						<img src="<?php echo base_url(); ?>assets/wrain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
-						</li> -->
+						</li> 
 						<li style="padding:08px 10px;">
 							<a href="<?php echo base_url(); ?>teachercommunication/home" class="abox"style="padding:03px 15px;border-color: white;">
 								<p style="color: white;text-transform:uppercase;font-size:12px;padding-left:0px;">Circular</p>
@@ -87,7 +89,7 @@ font-weight: 500;
 							
 								<p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
 							</a>
-						</li>
+						</li>-->
 						
 						<li class="dropdown" style="padding:08px 10px;">
 					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
@@ -102,15 +104,27 @@ font-weight: 500;
 						</li>
 						
 						<li class="dropdown dropdown-with-icons">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"style="margin:05px;">
-								<div class="photo">
-										 <i class="pe-7s-user pe-7x" style="font-size:35px;color: white;"></i>
-											</div>
-								<p class="hidden-md hidden-lg">
-									More
-									<b class="caret"></b>
-								</p>
-							</a>
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:3px;">
+                        <div class="photo">
+						<?php
+					  $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $row=$objRs->result();
+					  foreach ($row as $rows1)
+					  {
+						  $pic=$rows1->user_pic;
+						  if($pic!='')
+						  {?>
+					  <img src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/> 
+			        <?php }else{
+				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" />
+						 <?php }} ?>
+                        </div>
+                        
+                           <b class="caret" style="margin-left:55px;color:white;"></b>
+                     </a>
 							<ul class="dropdown-menu dropdown-with-icons">
 								<li>
 									<a href="<?php echo base_url(); ?>teacherprofile/profilepic">
@@ -138,7 +152,42 @@ font-weight: 500;
 			</div>
 		</nav>
     <div class="sidebar sidemenu">
+ <div class="logo"  style="padding:0px 70px;height:115px">
+            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:130px;"  />
+        </div>
     	<div class="sidebar-wrapper">
+		<div class="user" style="margin-top:10px;padding-bottom:22px;">
+                 <div class="imgclass photo" style="margin-left:20px;">
+				<?php
+					  $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $row=$objRs->result();
+					  foreach ($row as $rows1)
+					  {
+						  $pic=$rows1->user_pic;
+						  if($pic!='')
+						  {?>
+					<img class="img-responsive" style="width:80px;height:80px;" src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $pic; ?>" > 
+			        <?php }else{
+				   ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
+						 <?php }} ?>
+                </div>
+                <div class="info">
+                   <a  href="" style="padding-top:25px;">
+					<?php 
+					   $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT name FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $rows=$objRs->result();
+					  foreach ($rows as $rows2)
+					  { }echo '<p>'; echo"Welcome, "; echo $rows2->name; echo '</p>';?>
+                    </a>
+                   
+                </div>
+            </div>
             <ul class="nav">
                 <li class="" id="dash">
                     <a href="<?php echo base_url(); ?>">
