@@ -9,27 +9,20 @@ Class Usermodel extends CI_Model
 
   }
 
-		 function get_parents()
-		 {
-
-       $query="SELECT ep.email,eu.* FROM edu_users as eu left join edu_parents as ep on eu.parent_id=ep.parent_id where eu.user_type='4'";
-       $result=$this->db->query($query);
-       return $result->result();
-
-
-		 }
+	 function get_parents()
+	 {
+	   $query="SELECT ep.email,eu.* FROM edu_users as eu left join edu_parents as ep on eu.parent_id=ep.parent_id where eu.user_type='4'";
+	   $result=$this->db->query($query);
+	   return $result->result();
+	 }
      function get_staff()
      {
-
         $query="SELECT ep.email,eu.* FROM edu_users as eu left join edu_teachers as ep on eu.teacher_id=ep.teacher_id where eu.user_type='2'";
         $result=$this->db->query($query);
         return $result->result();
-
-
      }
      function get_student()
      {
-
         $query="SELECT ep.email,eu.* FROM edu_users as eu left join edu_admission as ep on eu.student_id=ep.admission_id where eu.user_type='3'";
         $result=$this->db->query($query);
         return $result->result();

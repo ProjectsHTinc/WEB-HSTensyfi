@@ -33,7 +33,7 @@
 <style>
 .navbar{
 margin-bottom:0px;}
-.sidemenu{margin-top:78px;}
+
 
 .caret{
 		position: relative;
@@ -48,14 +48,18 @@ margin-bottom:0px;}
 	color: red;
 font-weight: 500;
 }
+ .title_ensyfi{
+           color:#fff!important; margin-left: 10px!important; padding-left: 175px !important;
+         }
 .abox{border: 1px solid grey;}
+ .topbar{background-color:#642160 ;height:70px;}
 </style>
 </head>
 <body>
 
 <div class="wrapper">
-	<nav class="navbar navbar-default"style="background-color: #9266d9;">
-			<div class="container-fluid">
+	<nav class="navbar navbar-default topbar">
+			<div class="container">
 
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse">
@@ -64,10 +68,10 @@ font-weight: 500;
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					 <a class="navbar-brand" href="#" style="color: white;margin-left: 10px;">ENSYFI Dashboard </a>
+					 <a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px;"><?php  echo $this->session->userdata('name'); ?></a>
 					
 				</div>
-				<div class="collapse navbar-collapse">
+				<div class="collapse navbar-collapse"  style="float:right;">
 					<ul class="nav navbar-nav navbar-right">
 					
 					 <!--  <li>
@@ -75,7 +79,7 @@ font-weight: 500;
 						</li> -->
 						<li style="padding:08px 10px;">
 							<a href="<?php echo base_url(); ?>teachercommunication/home" class="abox"style="padding:03px 15px;border-color: white;">
-								<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
+								<p style="color: white;text-transform:uppercase;font-size:12px;padding-left:0px;">Circular</p>
 							</a>
 						</li>
                    <li style="padding: 08px 10px;">
@@ -133,11 +137,8 @@ font-weight: 500;
 				</div>
 			</div>
 		</nav>
-    <div class="sidebar sidemenu" data-color="purple"  style="margin-top: 68px;">
-
+    <div class="sidebar sidemenu">
     	<div class="sidebar-wrapper">
-
-
             <ul class="nav">
                 <li class="" id="dash">
                     <a href="<?php echo base_url(); ?>">

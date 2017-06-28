@@ -218,7 +218,7 @@
            //alert("hi");
            swal({
                          title: "Are you sure?",
-                         text: "You Want Confrim this form",
+                         text: "You Want Confirm this form",
                          type: "success",
                          showCancelButton: true,
                          confirmButtonColor: '#DD6B55',

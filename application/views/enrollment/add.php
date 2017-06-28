@@ -47,6 +47,7 @@
                                                 <option value="<?php echo $row->admisn_no; ?>"><?php echo $row->admisn_no; ?></option>
                                               <?php      } ?>
                                                   </select>
+												   
                                           </div>
 
                                         </div>

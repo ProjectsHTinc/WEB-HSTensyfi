@@ -35,7 +35,7 @@
                                    <div class="col-md-7">
                                        <div class="form-group">
                                            <label for="exampleInputEmail1"> Name</label>
-                                           <input type="text" class="form-control" readonly name="name" placeholder="Email" value="<?php echo $rows->name; ?>">
+                                           <input type="text" class="form-control" readonly name="name" placeholder="Enter Name" value="<?php echo $rows->name; ?>">
                                        </div>
                                    </div>
                                </div>

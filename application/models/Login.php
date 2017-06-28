@@ -14,7 +14,7 @@ Class Login extends CI_Model
          $query = "SELECT * FROM edu_users WHERE  user_name = '$email'";
           $resultset=$this->db->query($query);
           if($resultset->num_rows()==1){
-            $pwdcheck="SELECT * FROM edu_users WHERE user_name='$email' AND user_password='$password'";
+             $pwdcheck="SELECT * FROM edu_users WHERE user_name='$email' AND user_password='$password'";
             $res=$this->db->query($pwdcheck);
 
             if($res->num_rows()==1){
@@ -32,7 +32,7 @@ Class Login extends CI_Model
                       // break;
                     case "DA":
 
-                            $data= array("status" => "DA","msg" => "Your Account Is De-Activated");
+                            $data= array("status" => "Deactive","msg" => "Your Account Is De-Activated");
                             return $data;
                       break;
 

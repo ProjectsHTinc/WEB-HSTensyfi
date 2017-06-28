@@ -29,7 +29,6 @@
       <style>
          .navbar{
          margin-bottom:0px;}
-
          .caret{
          position: relative;
          top: -20px;
@@ -46,15 +45,21 @@
          margin-top: 0px;
          }
          .abox{border: 1px solid grey;}
+		
          .title_ensyfi{
            color:#fff!important; margin-left: 10px!important; padding-left: 175px !important;
          }
 		 .stu{background: url(<?php echo base_url(); ?>assets/img/icons/Stu.png) 0 0;}
+		 .topbar{background-color:#642160 ;height:70px;}
+		 .imgclass{margin:0px;float:left;}
+		 .imgstyle{width:40px;height:40px;}
+	
+		 
       </style>
    </head>
    <body>
       <div class="wrapper">
-      <nav class="navbar navbar-default" style="background-color: #9266d9;height: 70px;">
+      <nav class="navbar navbar-default topbar">
          <div class="container">
 
             <div class="navbar-header">
@@ -68,15 +73,12 @@
             </div>
             <div class="collapse navbar-collapse" style="float:right;">
                <ul class="nav navbar-nav navbar-right">
-
 						<li class="dropdown" style="padding:08px 10px;">
 					<a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
 						  Quick Links</a>
 								<ul class="dropdown-menu">
-
- <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
-  <li><a href="<?php echo base_url(); ?>event/home">Add Reminder</a></li> 
-
+								  <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
+								  <li><a href="<?php echo base_url(); ?>event/home">Add Reminder</a></li> 
 							</ul>
 						</li>
 
@@ -94,9 +96,9 @@
 						  $pic=$rows1->user_pic;
 						  if($pic!='')
 						  {?>
-					  <img style="width:40px;height:40px;" src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" class="img-circle"/> 
+					  <img src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle"/> 
 			        <?php }else{
-				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" style="width:40px;height:40px;"  />
+				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle" />
 						 <?php }} ?>
                         </div>
                         
@@ -127,17 +129,13 @@
             </div>
          </div>
       </nav>
-      <div class="sidebar sidemenu" data-color="purple">
-	   <div class="logo">
-            <a href="" class="logo-text">
-              Logo Here
-            </a>
+      <div class="sidebar sidemenu">
+	   <div class="logo" style="padding:0px 70px;height:115px">
+            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:130px;"  />
         </div>
-		
          <div class="sidebar-wrapper">
-		 
-		 <div class="user">
-                <div class="photo" style="margin:0px;float:left;margin-left:20px;width:70px;height:70px;">
+		 <div class="user" style="margin-top:10px;">
+                <div class="imgclass photo" style="margin-left:20px;">
 				<?php
 					  $user_id=$this->session->userdata('user_id');
 					  $user_type=$this->session->userdata('user_type');
@@ -149,22 +147,20 @@
 						  $pic=$rows1->user_pic;
 						  if($pic!='')
 						  {?>
-					<img src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" > 
+					<img class="img-responsive" src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" > 
 			        <?php }else{
-				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" />
+				   ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
 						 <?php }} ?>
                 </div>
                 <div class="info" class="logo-text">
-                    <a  href="" style="padding-top: 25px;">
+                    <a  href="" style="padding-top:25px;">
 					<?php  $user_type=$this->session->userdata('user_type');
 					       if($user_type==1)
 						   {echo "<p> Welcome Admin </p>";}else { echo "Welcome";}?>
-                     
                     </a>
                 </div>
             </div>
-			
-            <ul class="nav" style="background-color:#6f3fbc;">
+            <ul class="nav" >
                <li id="dash">
                   <a href="<?php echo base_url(); ?>adminlogin/dashboard">
                      <i class="pe-7s-home"></i>
@@ -184,12 +180,9 @@
                         <li id="masters3"><a href="<?php echo base_url(); ?>classadd/addclass">Class & Sections</a></li>
                         <li id="masters4" ><a href="<?php echo base_url(); ?>subjectadd/addsubject">Subjects</a></li>
                         <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
-
-
                      </ul>
                   </div>
                </li>
-
 
                <li id="admission">
                   <a data-toggle="collapse" href="#admissionmenu">
@@ -338,12 +331,10 @@
                   </div>
                </li>
 
-
-
                <li id="user">
                   <a data-toggle="collapse" href="#usermanagement">
                      <i class="pe-7s-settings"></i>
-                     <p>Control Panel	</p>
+                     <p>Control Panel</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="usermanagement">

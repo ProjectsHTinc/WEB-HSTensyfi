@@ -37,7 +37,7 @@ class Adminlogin extends CI_Controller {
 	 $msg=$result['msg'];
 	//echo  $msg1=$result['status'];exit;
 
-			if($result['status']=='DA'){
+			if($result['status']=='Deactive'){
 				$datas['user_data']=array("status"=>$result['status'],"msg"=>$result['msg']);
 				$this->session->set_flashdata('msg', ' Account Deactivated');
 				 redirect('/');
@@ -49,7 +49,7 @@ class Adminlogin extends CI_Controller {
 			}
 			$user_type=$this->session->userdata('user_type');
 			$user_type1=$result['user_type'];
-					if($result['status']=='A'){
+					if($result['status']=='Active'){
 						switch($user_type1){
 							case '1':
 								$user_name=$result['user_name'];$msg=$result['msg'];$name=$result['name'];$user_type=$result['user_type'];$status=$result['status'];$user_id=$result['user_id'];$user_pic=$result['user_pic'];

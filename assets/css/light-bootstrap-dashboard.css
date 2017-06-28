@@ -4397,13 +4397,13 @@ h1 .subtitle {
 }
 .sidebar:after,
 .bootstrap-navbar:after {
-  background: #6f3fbc;
-  background: -moz-linear-gradient(top, #6f3fbc 0%, rgba(111, 63, 188, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6f3fbc), color-stop(100%, rgba(111, 63, 188, 1)));
-  background: -webkit-linear-gradient(top, #6f3fbc 0%, rgba(111, 63, 188, 1) 100%);
-  background: -o-linear-gradient(top, #6f3fbc 0%, rgba(111, 63, 188, 1) 100%);
-  background: -ms-linear-gradient(top, #6f3fbc 0%, rgba(111, 63, 188, 1) 100%);
-  background: linear-gradient(to bottom, #6f3fbc 0%, rgba(111, 63, 188, 1) 100%);
+  background: #323546;
+  background: -moz-linear-gradient(top, #323546 0%, rgba(111, 63, 188, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #323546), color-stop(100%, rgba(111, 63, 188, 1)));
+  background: -webkit-linear-gradient(top, #323546 0%, rgba(111, 63, 188, 1) 100%);
+  background: -o-linear-gradient(top, #323546 0%, rgba(111, 63, 188, 1) 100%);
+  background: -ms-linear-gradient(top, #323546 0%, rgba(111, 63, 188, 1) 100%);
+  background: linear-gradient(to bottom, #323546 0%, rgba(111, 63, 188, 1) 100%);
   background-size: 150% 150%;
   z-index: 3;
   opacity: 1;
@@ -9384,7 +9384,7 @@ star {
 }
 .nav-text > li.active a,
 .nav-icons > li.active a {
-  color: #23CCEF;
+  color:#642160;
 }
 
 .nav-icons > li {

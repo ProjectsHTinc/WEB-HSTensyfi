@@ -34,10 +34,10 @@ class Userrolemanage extends CI_Controller {
 
 		 public function parents()
 		 {
-	 		 	$datas=$this->session->userdata();
+	 		  $datas=$this->session->userdata();
 	 		  $user_id=$this->session->userdata('user_id');
-			   $user_type=$this->session->userdata('user_type');
-				 $datas['parents']=$this->usermodel->get_parents();
+			  $user_type=$this->session->userdata('user_type');
+			  $datas['parents']=$this->usermodel->get_parents();
 				 //print_r($datas['parents']);exit;
 			 if($user_type==1)
 			 {

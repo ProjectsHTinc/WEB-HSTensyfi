@@ -38,13 +38,17 @@
 	   width: 175px;
        height: 130px;
    }
+   .plusicon
+   {   
+	  display:inline-block;float: right;
+   }
    .design{
 	 color: white;
     font-size:30px;
   
    }
    .setcolor{
-    background-color: #333333;
+    background-color: #323546;
    }
    .rem{color:white;font-size:18px;text-transform: capitalize;}
 </style>
@@ -73,7 +77,7 @@
                                     </span>
                                     <div class="col-sm-4" style="float:right;margin-right:110px;padding-top:10px;">
                                        <select name="cls_sex" class="form-control" id="class_sec" style="padding:05px;height:30px;">
-                                          <option value="">Single Select</option>
+                                          <option value="">Select Class</option>
 										  <?php foreach($class as $rows){?>
                                           <option value="<?php echo $rows->class_sec_id;?>"><?php echo $rows->class_name;?> - <?php echo $rows->sec_name;?></option>
 										  <?php } ?>
@@ -234,7 +238,9 @@
                            <div class="table-full-width">
                               <table class="table">
 							   <thead class="setcolor">
-                                    <th colspan="2"><span class="rem">Circular</span></th>
+                                    <th colspan="2" style="padding-bottom: 8px;"><span class="rem">Circular <a href="<?php echo base_url(); ?>communication/add_communication" >
+									<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/plus.png"/></a></span>
+									</th>
 								</thead>
                                  <tbody>
                                     <?php  if(empty($dash_comm)){
@@ -258,14 +264,12 @@
                   </div>
                   <div class="col-md-4">
                      <div class="card">
-                        <!-- <div class="header">
-                           <h4 class="title" style="float:left;">Reminder</h4>
-                        </div>-->
                         <div class="content" style="padding-top:1px;">
                            <div class="table-full-width">
                               <table class="table">
 							   <thead class="setcolor">
-                                    <th colspan="2"><span class="rem"> Reminder</span></th>
+                                    <th colspan="2" style="padding-bottom: 8px;"><span class="rem"> Reminder <a href="<?php echo base_url(); ?>event/home" >
+									<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/plus.png"/></a></span></th>
 								</thead>
                                  <tbody>
                                     <?php  if(empty($dash_reminder)){
@@ -293,7 +297,8 @@
                            <div class="table-full-width">
                               <table class="table">
 							   <thead class="setcolor">
-                                    <th colspan="2"><span class="rem">Task & Events</span></th>
+                                    <th colspan="2" style="padding-bottom: 8px;"><span class="rem">Task & Events <a href="<?php echo base_url(); ?>event/create" >
+									<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/plus.png"/></a></span></th>
 								</thead>
                                  <tbody>
                                     <?php  if(empty($das_events)){
