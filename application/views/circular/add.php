@@ -31,7 +31,8 @@
                               <label class="col-sm-2 control-label"></label>
                               <div class="col-sm-4">
                           <div id="myDIV">
-                                 <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" onchange="select_class('teacher')" data-menu-style="dropdown-blue" >
+                                 <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue" >
+								 
                                           <?php foreach ($teacher as $rows) { ?>
                                           <option value="<?php echo $rows->teacher_id;  ?>"><?php echo $rows->name; ?></option>
                                           <?php  }?>
@@ -40,17 +41,38 @@
 							  <p id="erid" style="color:red;"> </p>
 							   <div id="myDIV1" style="display:none">
 							  <select  name="class_name[]" id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
+							      <option>Select Class Name</option>
                                           <?php foreach ($getall_class as $rows) {  ?>
-                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>&nbsp; - &nbsp;<?php echo $rows->sec_name; ?></option>
+                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
                                           <?php      } ?>
                                  </select>
-								 
-								  <select  name="stu_name" multiple  class="form-control" id="ajaxres" onchange="getparentlist(this.value)">
-								
+								 <div id="msg1"></div>
+								 <div id="sname" style="display:none;padding-top:10px;">
+								  <select  name="stu_name"   class="form-control" id="ajaxres" onchange="getparentlist(this.value)">
 							   </select>
+							   </div>
+							   <div id="msg2"></div>
+							   <div id="pname" style="display:none;padding-top:10px;">
 							    <select  name="parent_name"  class="form-control" id="ajaxres1">
 							   </select>
+							   </div>
 								 </div>
+								 
+								  <div id="myDIV2" style="display:none">
+							  <select  name="class_name[]" id="multiple-class" class="selectpicker" onchange="getstulist1(this.value)"  data-menu-style="dropdown-blue">
+							   <option>Select Class Name</option>
+                                          <?php foreach ($getall_class as $rows) {  ?>
+                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>  - <?php echo $rows->sec_name; ?></option>
+                                          <?php      } ?>
+                                 </select>
+								<div id="msg"></div>
+								 <div id="stname" style="display:none;padding-top:20px;">
+								  <select  name="stu_name"   class="form-control" id="ajaxres5" onchange="getparentlist(this.value)">
+							   </select>
+							   </div>
+								 </div>
+								 
+								 
                               </div>
                            </div>
                         </fieldset>
@@ -191,12 +213,50 @@ $.ajax({
 			   stuname +='<option value="">select Student Name</option>';
 			   for (i=0;i<len;i++) {
 				    stuname +='<option value="'+stu[i].admission_id+'">'+stu[i].name+'</option>';
+					$("#sname").show();
+					$('#msg1').hide();
 				    $("#ajaxres").html(stuname);
 			  }
 				 
 		   } else {
-			    //$('#msg').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
+			    $('#msg1').html('<span style="color:red;text-align:center;">Student Not Found</p>');
 				$("#ajaxres").html('');
+				//alert("Error");
+		   }
+	}
+});
+}
+
+ function getstulist1(cid) {
+  //alert(cid);//exit;
+$.ajax({
+	url:'<?php echo base_url(); ?>circular/get_stu_list',
+	type:'post',
+	data:{classid:cid},
+	dataType:"JSON",
+    cache: false,
+	success: function(data) {
+		 var test=data.status;
+		// alert(test);
+	   if(test=="success"){
+			   var res=data.res;
+			   var len=res.length;
+               //alert(len);
+			   var stu=data.res;
+			   // alert(stu);			   
+			   var i;
+			   var stuname='';
+			   stuname +='<option value="">select Student Name</option>';
+			   for (i=0;i<len;i++) {
+				    stuname +='<option value="'+stu[i].admission_id+'">'+stu[i].name+'</option>';
+					$("#stname").show();
+					$('#msg').hide();
+				    $("#ajaxres5").html(stuname);
+			  }
+				 
+		   } else {
+			    $('#msg').html('<span style="color:red;text-align:center;">Student Not Found</p>');
+				$("#ajaxres5").html('');
 				//alert("Error");
 		   }
 	}
@@ -226,10 +286,12 @@ $.ajax({
 			   parentname +='<option value="">select Parent Name</option>';
 			   for (i=0;i<len;i++) {
 				    parentname +='<option value="'+parent[i].parent_id+'">'+parent[i].father_name+ parent[i].guardn_name+ '</option>';
+					$("#pname").show();
+					$('#msg2').hide();
 				    $("#ajaxres1").html(parentname);
 			  }
 		   } else {
-			    //$('#msg').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
+			    $('#msg2').html('<span style="color:red;text-align:center;">Parents Not Found</p>');
 				$("#ajaxres1").html('');
 				alert("Error");
 		   }

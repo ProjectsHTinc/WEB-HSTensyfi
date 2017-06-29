@@ -79,7 +79,7 @@
 											  }
  											 ?>
 <input type="text" name="" class="form-control" value="<?php echo $a ;  ?>,<?php foreach($res as $row){ echo $row->admisn_no; }?>">
-<input type="text" name="stu_name_id" class="form-control"  value="<?php echo $rows->admission_id ; ?>,<?php foreach($res as $row){ echo $row->admission_id; }?>">
+<input type="hidden" name="stu_name_id" class="form-control"  value="<?php echo $rows->admission_id ; ?>,<?php foreach($res as $row){ echo $row->admission_id; }?>">
 
 <input type="hidden" name="single" class="form-control"  value="<?php foreach($res as $row){ echo $row->admission_id; }?>">
 								<?php   ?>
@@ -276,6 +276,15 @@
                                             <label class="col-sm-2 control-label">Secondary Mobile</label>
                                             <div class="col-sm-4">
                                                 <input type="text" placeholder="Mobile Number" value="<?php echo $rows->mobile; ?>" name="mobile1" class="form-control">
+                                            </div>
+											
+											<label class="col-sm-2 control-label">Status</label>
+                                            <div class="col-sm-4">
+                                              <select name="status" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                                  <option value="Active">Active</option>
+                                                  <option value="Deactive">DeActive</option>
+                                              </select>
+                                    
                                             </div>
 
                                         </div>

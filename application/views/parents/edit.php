@@ -21,14 +21,14 @@
                      }
 					 ?>
                             <div class="content">
-                                <form method="post" action="<?php echo base_url(); ?>parents/update_parents" class="form-horizontal" onsubmit="return validates()" enctype="multipart/form-data" id="admissionform" name="formadmission">
+                                <form method="post" action="<?php echo base_url(); ?>parents/update_parents1" class="form-horizontal" onsubmit="return validates()" enctype="multipart/form-data" id="admissionform" name="formadmission">
                                    <fieldset>
                                         <div class="form-group">
 										<p id="erid" style="color:red;"></p>
 
 										<label class="col-sm-2 control-label">Student Name</label>
 										<div class="col-sm-4">
-				 <select multiple name="" class="selectpicker form-control"  >
+				 <select multiple name="stu_name_id1[]" class="selectpicker form-control"  >
 
                      <?php
                           $tea_name=$rows->	admission_id;
