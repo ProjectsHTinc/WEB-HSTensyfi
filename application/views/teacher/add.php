@@ -218,7 +218,6 @@
    var len=res.length;
    
    for (i = 0; i < len; i++) {
-   
    $('<option>').val(res[i].class_sec_id).text(res[i].class_name + res[i].sec_name).appendTo('#multiple');
    }
    

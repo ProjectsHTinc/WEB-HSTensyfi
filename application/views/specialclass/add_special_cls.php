@@ -232,7 +232,7 @@ $.ajax({
 	//cache: false,
 	success: function(test1) {
 		//var test=test1.status;
-		//alert(test);
+		//alert(test1);
 		 if (test1.status=='Success') {
 			   var sub = test1.subject_name;
 			   //alert(sub.length);
@@ -242,7 +242,6 @@ $.ajax({
 			   var i;
 			   var name='';
 			   for (i = 0; i < len; i++) {
-				//$("#child_selection").append("<option value=""+array_list[i].value+"">"+array_list[i].display+"</option>");
 				   name +='<option value="'+sub_id[i]+'">'+sub[i]+'</option>';
 				  $("#ajaxres").html(name);
 			   }

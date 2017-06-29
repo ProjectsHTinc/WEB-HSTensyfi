@@ -16,7 +16,8 @@
 
                      <?php endif; ?>
 
-                     <?php foreach ($res1 as $rows) {
+                     <?php foreach ($res1 as $rows) {$stu1=$rows->admission_id;
+					
 						 $a=$rows->father_name ;
 						 $b=$rows->mother_name ;
 
@@ -77,8 +78,8 @@
 												 $a=$row1->admisn_no;
 											  }
  											 ?>
-       <input type="text" name="" class="form-control" value="<?php echo $a ;  ?>,<?php foreach($res as $row){ echo $row->admisn_no; }?>">
-<input type="hidden" name="admission_no" class="form-control"  value="<?php echo $rows->admission_id ; ?>,<?php foreach($res as $row){ echo $row->admission_id; }?>">
+<input type="text" name="" class="form-control" value="<?php echo $a ;  ?>,<?php foreach($res as $row){ echo $row->admisn_no; }?>">
+<input type="text" name="stu_name_id" class="form-control"  value="<?php echo $rows->admission_id ; ?>,<?php foreach($res as $row){ echo $row->admission_id; }?>">
 
 <input type="hidden" name="single" class="form-control"  value="<?php foreach($res as $row){ echo $row->admission_id; }?>">
 								<?php   ?>

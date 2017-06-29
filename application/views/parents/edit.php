@@ -28,7 +28,7 @@
 
 										<label class="col-sm-2 control-label">Student Name</label>
 										<div class="col-sm-4">
-				 <select multiple name="stu_name_id[]" class="selectpicker form-control"  >
+				 <select multiple name="" class="selectpicker form-control"  >
 
                      <?php
                           $tea_name=$rows->	admission_id;
@@ -51,7 +51,7 @@
                    </select>
 					</div>
 											</div>
-<input type="hidden" name="admission_no" class="form-control" placeholder="" value="<?php echo $rows->admission_id ; ?>">	
+<input type="hidden" name="stu_name_id" class="form-control" placeholder="" value="<?php echo $rows->admission_id ; ?>">	
 <input type="hidden" name="parent_id" class="form-control" placeholder="" value="<?php echo $rows->parent_id ; ?>">
 								</fieldset>
 

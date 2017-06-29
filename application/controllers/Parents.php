@@ -170,7 +170,7 @@ class Parents extends CI_Controller {
 							redirect('/');
 					 }
 					}
-
+					
 		    public function update_parents()
 			{
 				 $datas=$this->session->userdata();
@@ -199,9 +199,9 @@ class Parents extends CI_Controller {
 					
 					$status=$this->input->post('status');
 					
-					$stu_id=$this->input->post('stu_name_id');
-					$stu_name_id=implode(',',$stu_id);
-					//print_r($stu_name_id);exit;
+					$stu_name_id=$this->input->post('stu_name_id');
+					//$stu_name_id=implode(',',$stu_id);
+					//echo $stu_name_id;exit;
 					
 					$father_pic_old=$this->input->post('old_father_pic');
 					$mother_pic_old=$this->input->post('old_mother_pic');

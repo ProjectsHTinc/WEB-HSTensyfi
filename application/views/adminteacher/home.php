@@ -18,7 +18,7 @@ ul li a img:active {
     background-color: yellow;
 }
 .test{padding-top: 15px;text-align: center;padding-left:0px}
-.name{padding-left:40px;
+.name{padding-left:20px;
 font-size: 30px;
 font-weight: bold;}
  .plusicon
@@ -51,10 +51,10 @@ font-weight: bold;}
                            <div class="col-md-3" >
                               <?php $pic= $rows->user_pic; if(empty($pic)){
                                  } else{  ?>
-                              <img src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $rows->user_pic; ?>" class="img-responsive img-circle" style="width:150px;">
+                              <img src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $rows->user_pic; ?>" class="img-responsive img-circle" style="width:125px;">
 							  <p class="name"> <?php echo $rows->name; }?> </p>
                            </div>
-                           <div class="col-md-3" style="padding-top: 20px;">
+                           <div class="col-md-3" style="padding-top:20px;">
                               <div class="">
                                 
                                  <p> Gender :<?php echo $rows->sex; ?></p>
