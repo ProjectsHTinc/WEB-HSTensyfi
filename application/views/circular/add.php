@@ -18,10 +18,12 @@
 						 <fieldset>
                            <div class="form-group">
                               <label class="col-sm-2 control-label"></label>
-                              <div class="col-sm-4">
+                              <div class="col-sm-6">
 							   <button type="button" id="teacher" onclick="myFunction()" class="btn btn-info btn-fill ">Teachers</button>
 							   <button type="button" id="classes" onclick="myFunction1()" class="btn btn-info btn-fill ">Parents</button>
 							   <button type="button" id="parents" onclick="myFunction2()" class="btn btn-info btn-fill ">Students</button>
+							   <button type="button" id="all" onclick="myFunction3()" class="btn btn-info btn-fill ">All</button>
+							    <!-- <a rel="tooltip" href="" data-toggle="modal" data-target="#addmodel"  class="btn btn-info btn-fill">All</a> -->
                               </div>
                            </div>
                         </fieldset>
@@ -31,8 +33,7 @@
                               <label class="col-sm-2 control-label"></label>
                               <div class="col-sm-4">
                           <div id="myDIV">
-                                 <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue" >
-								 
+                                 <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
                                           <?php foreach ($teacher as $rows) { ?>
                                           <option value="<?php echo $rows->teacher_id;  ?>"><?php echo $rows->name; ?></option>
                                           <?php  }?>
@@ -49,6 +50,7 @@
 								 <div id="msg1"></div>
 								 <div id="sname" style="display:none;padding-top:10px;">
 								  <select  name="stu_name"   class="form-control" id="ajaxres" onchange="getparentlist(this.value)">
+								  <option></option>
 							   </select>
 							   </div>
 							   <div id="msg2"></div>
@@ -71,11 +73,45 @@
 							   </select>
 							   </div>
 								 </div>
-								 
-								 
                               </div>
                            </div>
                         </fieldset>
+						 <div id="allid" style="display:none">
+						<fieldset>
+                           <div class="form-group">
+						   <label class="col-sm-2 control-label">Students</label>
+                              <div class="col-sm-4">
+                                 <select  name="class_name[]" multiple id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
+								  <?php foreach ($getall_class as $rows) {  ?>
+								  <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
+								  <?php      } ?>
+                                 </select>
+                              </div>
+							  
+                              <label class="col-sm-2 control-label">Teachers</label>
+                              <div class="col-sm-4">
+                                 <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
+                                          <?php foreach ($teacher as $rows) { ?>
+                                          <option value="<?php echo $rows->teacher_id;  ?>"><?php echo $rows->name; ?></option>
+                                          <?php  }?>
+                                   </select> 
+                              </div>
+							  </div>
+							   </fieldset>
+							  <fieldset>
+                           <div class="form-group">
+                              <label class="col-sm-2 control-label">Parents</label>
+                              <div class="col-sm-4">
+                                 <select  name="class_name[]" multiple id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
+							     
+                                          <?php foreach ($getall_class as $rows) {  ?>
+                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
+                                          <?php      } ?>
+                                 </select>
+                              </div>
+                           </div>
+                        </fieldset>
+						</div>
 
                         <fieldset>
                            <div class="form-group">
@@ -103,6 +139,82 @@
                            </div>
                         </fieldset>
                      </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+		 
+		 
+		 <div class="modal fade" id="addmodel" role="dialog" >
+            <div class="modal-dialog">
+               <!-- Modal content-->
+               <div class="modal-content">
+                  <div class="modal-header" style="padding:10px;">
+                     <button type="button" class="close" style="margin:25px;" data-dismiss="modal">&times;</button>
+                     <h4 class="title">Circular</h4>
+                  </div>
+                  <div class="modal-body">
+                     <p id="msg" style="text-align:center;"></p>
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="card">
+                              <div class="content">
+                              <form method="post" action="<?php echo base_url(); ?>circular/create" class="form-horizontal" enctype="multipart/form-data" id="classsection">
+                                    <fieldset>
+                                       <div class="form-group">
+                                          <label class="col-sm-2 control-label">Teachers</label>
+                                          <div class="col-sm-6">
+                                    <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue" >
+								 
+                                          <?php foreach ($teacher as $rows) { ?>
+                                          <option value="<?php echo $rows->teacher_id;  ?>"><?php echo $rows->name; ?></option>
+                                          <?php  }?>
+                                   </select>                                          </div>
+                                       </div>
+                                    </fieldset>
+                                    <fieldset>
+                                       <div class="form-group">
+                                          <label class="col-sm-2 control-label">Parents</label>
+                                          <div class="col-sm-6">
+                                           <select  name="class_name[]" multiple id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
+							      <option>Select Class Name</option>
+                                          <?php foreach ($getall_class as $rows) {  ?>
+                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
+                                          <?php      } ?>
+                                 </select>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                    <fieldset>
+                                       <div class="form-group">
+                                          <label class="col-sm-2 control-label">Students</label>
+                                          <div class="col-sm-6">
+                                               <select  name="class_name[]" multiple id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
+							      <option>Select Class Name</option>
+                                          <?php foreach ($getall_class as $rows) {  ?>
+                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
+                                          <?php      } ?>
+                                 </select>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                       <div class="form-group">
+                                          <label class="col-sm-2 control-label">&nbsp;</label>
+                                          <div class="col-sm-10">
+                                             <button type="submit" class="btn btn-info btn-fill center">Save </button>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </form>
+                              </div>
+                           </div>
+                           <!--  end card  -->
+                        </div>
+                        <!-- end col-md-12 -->
+                     </div>
+                     <!-- end row -->
                   </div>
                </div>
             </div>
@@ -167,6 +279,7 @@ function validates()
        }
        $("#myDIV1").hide();
 	   $("#myDIV2").hide();
+	   $("#allid").hide();
    }
 
    function myFunction1() {
@@ -178,6 +291,7 @@ function validates()
        }
        $("#myDIV").hide();
 	   $("#myDIV2").hide();
+	   $("#allid").hide();
    }
    
    function myFunction2() {
@@ -189,6 +303,19 @@ function validates()
        }
        $("#myDIV").hide();
 	   $("#myDIV1").hide();
+	   $("#allid").hide();
+   }
+   
+   function myFunction3() {
+       var x = document.getElementById('allid');
+       if (x.style.display === 'none') {
+           x.style.display = 'block';
+       } else {
+           x.style.display = 'none';
+       }
+       $("#myDIV").hide();
+	   $("#myDIV1").hide();
+	   $("#myDIV2").hide();
    }
    
  function getstulist(cid) {

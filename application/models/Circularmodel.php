@@ -22,8 +22,6 @@ Class Circularmodel extends CI_Model
         $resultset=$this->db->query($query);
         return $resultset->result(); 
 	 }
-	 
-
 	 function get_classes()
 	 {
 		 $query="SELECT * FROM  edu_class";
@@ -42,11 +40,9 @@ Class Circularmodel extends CI_Model
          }else{
              $res=$resultset1->result();
              $data=array("status"=>"success","res"=>$res);
-               return $data;
+             return $data;
 		 }
-		 
 	 }
-	 
 	 
 	 function get_parent_name($studentid)
 	 {

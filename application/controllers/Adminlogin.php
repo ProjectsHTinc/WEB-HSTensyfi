@@ -31,10 +31,10 @@ class Adminlogin extends CI_Controller {
 	{
 
  // 	$schoolid=$this->input->post('school_id');
-	$email=$this->input->post('email');
-	$password=md5($this->input->post('password'));
-	 $result = $this->login->login($email,$password);
-	 $msg=$result['msg'];
+	  $email=$this->input->post('email');
+	  $password=md5($this->input->post('password'));
+	  $result = $this->login->login($email,$password);
+	  $msg=$result['msg'];
 	//echo  $msg1=$result['status'];exit;
 
 			if($result['status']=='Deactive'){

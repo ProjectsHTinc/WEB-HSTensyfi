@@ -46,9 +46,9 @@
                               <th>S.no</th>
                               <th>Class/Section</th>
                               <th>Subject</th>
-                              <th>Homework Type</th>
+                              <th>Test Type</th>
                               <th>Title</th>
-                              <th>Test DATE</th>
+                              <th>Due DATE</th>
 							  <th>Status</th>
                               <th class="disabled-sorting text-right">Actions</th>
                            </thead>

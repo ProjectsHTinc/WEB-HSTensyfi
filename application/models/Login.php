@@ -24,13 +24,13 @@ Class Login extends CI_Model
                 // return $resultset->result();
                  $status= $rows->status;
                  switch($status){
-                    case "A":
+                    case "Active":
                       $data = array("user_name"  => $rows->user_name,"msg"  =>"success","name"=>$rows->name, "school_id" => $rows->school_id,"user_type"=>$rows->user_type,"status"=>$rows->status,"user_id"=>$rows->user_id,"user_pic"=>$rows->user_pic);
                       return $data;
                       //break;
                      print_r($data);exit;
                       // break;
-                    case "DA":
+                    case "Deactive":
 
                             $data= array("status" => "Deactive","msg" => "Your Account Is De-Activated");
                             return $data;
