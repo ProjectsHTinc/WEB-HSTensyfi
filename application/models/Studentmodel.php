@@ -42,30 +42,29 @@ Class Studentmodel extends CI_Model
 
 		}
 
-		function view_homework_marks($user_id,$hw_id)
+			function view_homework_marks($user_id,$hw_id)
 		{
 			$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
 			$student_id=$row[0]->student_id;
-
-			$query1="SELECT admission_id,admisn_no,name,parnt_guardn_id FROM edu_admission WHERE admission_id='$student_id' AND status='Active'";
+             //echo $student_id;
+			$query1="SELECT enroll_id,admission_id,name,admisn_no FROM edu_enrollment WHERE admission_id='$student_id' AND status='Active'";
 			$result=$this->db->query($query1);
 			$row1=$result->result();
 			foreach($row1 as $row2){
-			$admission_id=$row2->admission_id;
+			$admission_id=$row2->enroll_id;
 			$admisn_no=$row2->admisn_no;
 			$name=$row2->name;
-			$parnt_guardn_id=$row2->parnt_guardn_id;}
+		}
 
-			$query="SELECT * FROM edu_class_marks WHERE hw_mas_id='$hw_id' AND enroll_mas_id='$student_id'";
+			$query="SELECT * FROM edu_class_marks WHERE hw_mas_id='$hw_id' AND enroll_mas_id='$admission_id'";
 		    $result=$this->db->query($query);
             $marks=$result->result();
 			return $marks;
 
 
 		}
-
 		/// Examination Result Models
 
 		function get_all_exam($user_id)

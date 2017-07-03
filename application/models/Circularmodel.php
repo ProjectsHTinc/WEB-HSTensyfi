@@ -31,7 +31,7 @@ Class Circularmodel extends CI_Model
 
 	 function get_stu_name($classid)
 	 {
-		 $sql="SELECT enroll_id,admission_id,admisn_no,name,class_id,quota_id,status FROM edu_enrollment WHERE class_id='$classid'";
+		 $sql="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,e.quota_id,e.status,u.user_id,u.name,u.user_type,u.user_master_id FROM edu_enrollment AS e,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=u.user_master_id AND user_type=3 AND  e.status='Active'";
 		 $resultset1=$this->db->query($sql);
         // $rows=$resultset1->result();
 		 if($resultset1->num_rows()==0){
@@ -57,13 +57,55 @@ Class Circularmodel extends CI_Model
                return $data;
 		 }
 	 }
-	 function communication_create($title,$notes,$formatted_date,$teacher,$class_name)
+	 
+	 function getall_roles()
 	 {
-
-		 $query="INSERT INTO edu_communication(commu_title,commu_details,commu_date,teacher_id,class_id,status,created_at,updated_at) VALUES ('$title','$notes','$formatted_date','$teacher','$class_name','A',NOW(),NOW())";
+		 $sql1="SELECT * FROM edu_role";
+		 $resultset3=$this->db->query($sql1);
+		 $res2=$resultset3->result();
+		 return $res2;
+		 
+		 
+	 }
+	 function circular_create($title,$notes,$circulardate,$users_id,$user_id)
+	 {
+        //echo $users_id;
+	    $sql="SELECT count(*) as total FROM edu_users WHERE user_type='$users_id'";
+		$tot=$this->db->query($sql);
+		$res2=$tot->result();
+		$cont=$res2[0]->total;
+		echo $cont;
+		 
+			$sql1="SELECT * FROM edu_users WHERE user_type='$users_id'";
+			$res=$this->db->query($sql1);
+			
+			$result1=$res->result();
+			foreach($result1 as $rows){
+			$userid=$rows->user_id; 
+			//echo $userid;
+			$uid=$userid[$i];
+			
+			$title1=$title;
+            $notes1=$notes;
+            $circulardate1=$circulardate;
+            $users_id1=$users_id;
+			$user_id1=$user_id;
+			
+		 $query="INSERT INTO edu_circular(user_type,user_id,title,notes,date,circular_type,status,created_by,created_at) VALUES ('$users_id1','$userid','$title1','$notes1','$circulardate1','Test','Active','$user_id1',NOW())";
 		 $resultset=$this->db->query($query);
-		 $data= array("status" => "success");
-         return $data;
+		  
+		 }		 
+		  if ($resultset) {
+            $data = array(
+                "status" => "success"
+            );
+            return $data;
+        } else {
+            $data = array(
+                "status" => "failure"
+            );
+            return $data;
+        }
 	 }
 
 	 function view()
@@ -75,41 +117,7 @@ Class Circularmodel extends CI_Model
 		 //return $result1[0]->teaher_id;
 	 }
 
-	 function get_class_id($user_id)
-	 {
-		/* $query="SELECT * FROM edu_communication where commu_id='$user_id'";
-         $res=$this->db->query($query);
-         $result1=$res->result();
-		// return $result1;
-		 return $result1[0]->teacher_id; */
-	 }
-
-	 function get_class_name($class_id)
-	 {
-
-			  /*  $query="SELECT name FROM edu_teachers WHERE teacher_id IN ($class_id) ";
-			   $resultset2=$this->db->query($query);
-			   //$result2= $resultset2->result();
-			   foreach($resultset2->result() as $rows)
-		        {
-					 $name[]=$rows->name;
-					//print_r($name);
-					//return $name;
-		       }
-			  // $a=$result2[1]->name; */
-
-	 }
-	  function convert_id_name($cls_id)
-        {
-           /*
-				// $query="select cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='".$id->class."' AND c.class_id=cm.class AND s.sec_id=cm.section";
-               $query="select cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='".$id->class."' AND c.class_id=cm.class AND s.sec_id=cm.section";
-               $resultset2=$this->db->query($query);
-               $result2= $resultset2->result();
-
-            return $result2; */
-        }
-
+	
 
    function edit_data($commu_id)
    {

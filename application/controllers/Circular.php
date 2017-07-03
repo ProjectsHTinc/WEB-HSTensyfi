@@ -18,6 +18,8 @@ class Circular extends CI_Controller
 		  $datas['teacher']=$this->circularmodel->get_teachers();
 		  $datas['getall_class']=$this->class_manage->getall_class();
 		  $datas['parents']=$this->circularmodel->getall_parents();
+		  $datas['role']=$this->circularmodel->getall_roles();
+		  //print_r( $datas['role']);exit;
 		  $user_type=$this->session->userdata('user_type');
 		  if($user_type==1)
 		  {
@@ -52,16 +54,17 @@ class Circular extends CI_Controller
       $user_type=$this->session->userdata('user_type');
       if($user_type==1)
       {
-      $teacher_name=$this->input->post('teacher');
+      $users=$this->input->post('users');
       //$teacher = implode(',',$teacher_name);
       $clas=$this->input->post('class_name');
      // $class_name = implode(',',$clas);
+	  $parents=$this->input->post('parents_name');
      
-      if($teacher_name=='')
+      if($users=='')
 		{
-			 $teacher ="null";
+			 $users_id ="null";
 		}else{
-			$teacher = implode(',',$teacher_name);
+			$users_id = implode(',',$users);
 		}
 		if($clas=='')
 		{
@@ -69,21 +72,27 @@ class Circular extends CI_Controller
 		}else{
 			 $class_name = implode(',',$clas);
 		}
+		if($parents=='')
+		{
+			 $parents_name ="null";
+		}else{
+			 $parents_name = implode(',',$parents);
+		}
      
       $title=$this->input->post('title');
       $date=$this->input->post('date');
       $dateTime = new DateTime($date);
-      $formatted_date=date_format($dateTime,'Y-m-d' );
+      $circulardate=date_format($dateTime,'Y-m-d' );
       $notes=$this->input->post('notes');
-      $datas=$this->circularmodel->communication_create($title,$notes,$formatted_date,$teacher,$class_name);
+      $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$user_id);
       if($datas['status']=="success")
       {
       $this->session->set_flashdata('msg', 'Added Successfully');
-      redirect('communication/view');
+      redirect('circular/add_circular');
       }
       else{
       $this->session->set_flashdata('msg', 'Failed to Add');
-      redirect('communication/view');
+      redirect('circular/add_circular');
       }
       }
       }

@@ -14,7 +14,7 @@
                      <legend> Circular Details</legend>
                   </div>
                   <div class="content">
-                     <form method="post" action="<?php echo base_url(); ?>communication/create" class="form-horizontal" enctype="multipart/form-data" onsubmit="return validates()" name="form" id="myformsection">
+                     <form method="post" action="<?php echo base_url(); ?>circular/create" class="form-horizontal" enctype="multipart/form-data" onsubmit="return validates()" name="form" id="myformsection">
 						 <fieldset>
                            <div class="form-group">
                               <label class="col-sm-2 control-label"></label>
@@ -33,7 +33,7 @@
                               <label class="col-sm-2 control-label"></label>
                               <div class="col-sm-4">
                           <div id="myDIV">
-                                 <select multiple name="userid[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
+                                 <select multiple name="tuserid[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
                                           <?php foreach ($teacher as $rows) { ?>
                                           <option value="<?php echo $rows->user_id;  ?>"><?php echo $rows->name; ?></option>
                                           <?php  }?>
@@ -54,8 +54,8 @@
 							   </select>
 							   </div>
 							   <div id="msg2"></div>
-							   <div id="pname" style="display:none;padding-top:10px;">
-							    <select  name="parent_name"  class="form-control" id="ajaxres1">
+							   <div id="pname" style="display:none;padding-top:10px;" >
+							    <select  name="parent_name" class="form-control" id="ajaxres1">
 							   </select>
 							   </div>
 								 </div>
@@ -69,7 +69,7 @@
                                  </select>
 								<div id="msg"></div>
 								 <div id="stname" style="display:none;padding-top:20px;">
-								  <select  name="stu_name"   class="form-control" id="ajaxres5" onchange="getparentlist(this.value)">
+								  <select  name="stu_userid"   class="form-control" id="ajaxres5" onchange="getparentlist(this.value)">
 							   </select>
 							   </div>
 								 </div>
@@ -79,38 +79,16 @@
 						 <div id="allid" style="display:none">
 						<fieldset>
                            <div class="form-group">
-						   <label class="col-sm-2 control-label">Students</label>
+                              <label class="col-sm-2 control-label">ALL</label>
                               <div class="col-sm-4">
-                                 <select  name="class_name[]" multiple id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
-								  <?php foreach ($getall_class as $rows) {  ?>
-								  <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
-								  <?php      } ?>
-                                 </select>
-                              </div>
-							  
-                              <label class="col-sm-2 control-label">Teachers</label>
-                              <div class="col-sm-4">
-                                 <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
-                                          <?php foreach ($teacher as $rows) { ?>
-                                          <option value="<?php echo $rows->teacher_id;  ?>"><?php echo $rows->name; ?></option>
+                                 <select  name="users[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
+                                          <?php foreach ($role as $row) { ?>
+                                          <option value="<?php echo $row->role_id;?>"><?php echo $row->user_type_name; ?></option>
                                           <?php  }?>
                                    </select> 
                               </div>
 							  </div>
 							   </fieldset>
-							  <fieldset>
-                           <div class="form-group">
-                              <label class="col-sm-2 control-label">Parents</label>
-                              <div class="col-sm-4">
-                                 <select  name="class_name[]" multiple id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
-							     
-                                          <?php foreach ($getall_class as $rows) {  ?>
-                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
-                                          <?php      } ?>
-                                 </select>
-                              </div>
-                           </div>
-                        </fieldset>
 						</div>
 
                         <fieldset>
