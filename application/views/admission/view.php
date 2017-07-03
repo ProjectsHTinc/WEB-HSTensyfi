@@ -31,6 +31,7 @@
 											
 										 <div class="col-sm-4">
                                             <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
+											<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
                                         </div>
 										</form>
                           <table id="bootstrap-table" class="table">
@@ -199,6 +200,28 @@
 </div>
 
 <script type="text/javascript">
+
+function generatefromtable() {
+				var data = [], fontSize = 12, height = 0, doc;
+				doc = new jsPDF('p', 'pt', 'a4', true);
+				doc.setFont("times", "normal");
+				doc.setFontSize(fontSize);
+				doc.text(40, 20, "Student List");
+				data = [];
+				data = doc.tableToJson('bootstrap-table');
+				height = doc.drawTable(data, {
+					xstart : 30,
+					ystart : 10,
+					tablestart : 40,
+					marginleft : 10,
+					xOffset : 10,
+					yOffset : 15
+				});
+				//doc.text(50, height + 20, 'hi world');
+				doc.save("student.pdf");
+			}
+			
+			
  var $table = $('#bootstrap-table');
        $().ready(function(){
          jQuery('#admissionmenu').addClass('collapse in');

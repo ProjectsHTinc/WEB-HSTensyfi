@@ -25,7 +25,7 @@ Class Teachercommunicationmodel extends CI_Model
 	 
 	 function getall_leaves()
 	 {
-		 $query="SELECT * FROM edu_user_leave_master "; 
+		 $query="SELECT * FROM edu_user_leave_master WHERE status='Active'"; 
     	 $res=$this->db->query($query);
          $result=$res->result();
     	 return $result;

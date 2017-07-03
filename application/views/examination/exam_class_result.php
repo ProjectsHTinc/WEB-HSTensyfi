@@ -18,7 +18,10 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">View Exam Marks<button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
+                                <h4 class="title">View Exam Marks
+								<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+								
+								<button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
                                 <p class="category"></p>
                             </div>
                             <div class="content table-responsive table-full-width">
@@ -50,7 +53,7 @@
                                 <input type="hidden" name="exams_id" value="<?php echo $exam_id; ?>"/> 
 								<input type="hidden" name="cls_id" value="<?php echo $cls_id; ?>"/> 
 								
-                                <table class="table table-hover table-striped">
+                                <table class="table table-hover table-striped" id="result">
 								<?php //foreach($cls as $rows){?>
 								<!--<input type="text" name="msta_id" value="<?php echo $rows->exam_status_id; ?>"/> 
 								<input type="text" name="exam_id" value="<?php echo $rows->exam_id; ?>"/> 
@@ -145,6 +148,26 @@
 
 <script type="text/javascript">
 
+function generatefromtable() {
+				var data = [], fontSize = 12, height = 0, doc;
+				doc = new jsPDF('p', 'pt', 'a4', true);
+				doc.setFont("times", "normal");
+				doc.setFontSize(fontSize);
+				doc.text(50,20, "Exam Result");
+				data = [];
+				data = doc.tableToJson('result');
+				height = doc.drawTable(data, {
+					xstart : 30,
+					ystart : 10,
+					tablestart : 40,
+					marginleft : 10,
+					xOffset : 10,
+					yOffset : 15
+				});
+				//doc.text(50, height + 20, 'hi world');
+				doc.save("Result.pdf");
+			}
+			
 $('#exammenu').addClass('collapse in');
 $('#exam').addClass('active');
 $('#exam3').addClass('active');

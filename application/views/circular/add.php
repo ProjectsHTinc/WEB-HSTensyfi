@@ -33,9 +33,9 @@
                               <label class="col-sm-2 control-label"></label>
                               <div class="col-sm-4">
                           <div id="myDIV">
-                                 <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
+                                 <select multiple name="userid[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
                                           <?php foreach ($teacher as $rows) { ?>
-                                          <option value="<?php echo $rows->teacher_id;  ?>"><?php echo $rows->name; ?></option>
+                                          <option value="<?php echo $rows->user_id;  ?>"><?php echo $rows->name; ?></option>
                                           <?php  }?>
                                    </select>
                               </div>
@@ -167,7 +167,7 @@
                                     <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue" >
 								 
                                           <?php foreach ($teacher as $rows) { ?>
-                                          <option value="<?php echo $rows->teacher_id;  ?>"><?php echo $rows->name; ?></option>
+                                          <option value="<?php echo $rows->user_id;  ?>"><?php echo $rows->name; ?></option>
                                           <?php  }?>
                                    </select>                                          </div>
                                        </div>

@@ -11,14 +11,14 @@ Class Circularmodel extends CI_Model
 
     function get_teachers()
 	 {
-		 $query="SELECT * FROM edu_teachers WHERE status='Active'";
+		 $query="SELECT u.user_id,u.name,u.user_type,u.user_master_id,u.status,t.teacher_id,t.name FROM edu_users AS u,edu_teachers AS t WHERE user_type=2 AND u.user_master_id=t.teacher_id AND u.status='Active'";
          $resultset=$this->db->query($query);
          return $resultset->result();
 	 }
 	 
 	 function getall_parents()
 	 {
-		$query="SELECT * FROM edu_teachers";
+		$query="SELECT * FROM edu_parents";
         $resultset=$this->db->query($query);
         return $resultset->result(); 
 	 }

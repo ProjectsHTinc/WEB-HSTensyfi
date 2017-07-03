@@ -22,6 +22,12 @@
       <script src="<?php echo base_url(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
+	  
+	  <!-- PDF -->
+	   <script src="<?php echo base_url(); ?>assets/js/jspdf.min.js" type="text/javascript"></script>
+	   <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
+		<script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
+		<script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
 
       <!--  Forms Validations Plugin -->
       <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>

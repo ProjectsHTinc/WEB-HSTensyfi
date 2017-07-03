@@ -15,7 +15,7 @@
                         <div class="card">
                             <div class="content">
                                 <div class="fresh-datatables">
-                                  <h4 class="title">List of Parents Details</h4>
+                                  <h4 class="title">List of Parents Details <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
 
                           <table id="bootstrap-table" class="table">
                               <thead>
@@ -85,6 +85,28 @@
 </div>
 
 <script type="text/javascript">
+
+function generatefromtable() {
+				var data = [], fontSize = 12, height = 0, doc;
+				doc = new jsPDF('p', 'pt', 'a4', true);
+				doc.setFont("times", "normal");
+				doc.setFontSize(fontSize);
+				doc.text(60,20, "Parents List");
+				data = [];
+				data = doc.tableToJson('bootstrap-table');
+				height = doc.drawTable(data, {
+					xstart : 30,
+					ystart : 10,
+					tablestart : 40,
+					marginleft : 10,
+					xOffset : 10,
+					yOffset : 15
+				});
+				//doc.text(50, height + 20, 'hi world');
+				doc.save("Parents.pdf");
+			}
+			
+			
  var $table = $('#bootstrap-table');
        $().ready(function(){
            $table.bootstrapTable({

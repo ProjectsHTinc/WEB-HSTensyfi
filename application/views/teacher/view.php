@@ -11,7 +11,7 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="card">
-                     <div class="content">
+                     <div class="content" id="content1">
                         <div class="fresh-datatables">
                            <h4 class="title" style="padding-bottom: 20px;">List of Teacher</h4>
                            <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
@@ -25,7 +25,8 @@
                                  </select>
                               </div>
                               <div class="col-sm-4">
-                                 <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
+                        <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
+						<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
                               </div>
                            </form>
                            <table id="bootstrap-table" class="table">
@@ -88,6 +89,7 @@
                            </table>
                         </div>
                      </div>
+					 <div id="editor"></div>
                      <!-- end content-->
                   </div>
                   <!--  end card  -->
@@ -99,7 +101,30 @@
       </div>
    </div>
 </div>
+
+
 <script type="text/javascript">
+
+function generatefromtable() {
+				var data = [], fontSize = 12, height = 0, doc;
+				doc = new jsPDF('p', 'pt', 'a4', true);
+				doc.setFont("times", "normal");
+				doc.setFontSize(fontSize);
+				doc.text(40, 20, "Teachers List");
+				data = [];
+				data = doc.tableToJson('bootstrap-table');
+				height = doc.drawTable(data, {
+					xstart : 30,
+					ystart : 10,
+					tablestart : 40,
+					marginleft : 10,
+					xOffset : 10,
+					yOffset : 15
+				});
+				//doc.text(50, height + 20, 'hi world');
+				doc.save("teacher.pdf");
+			}
+
    var $table = $('#bootstrap-table');
     $('#teachermenu').addClass('collapse in');
    $('#teacher').addClass('active');
