@@ -88,8 +88,6 @@ font-weight: bold;}
                      <li class="">
                         <a href="#help-logo" role="tab" data-toggle="tab">
 						<i class="fa fa-file-text-o" aria-hidden="true"></i><br>
-
-                       
                         Details
                         </a>
                      </li>
@@ -124,14 +122,14 @@ font-weight: bold;}
                      </li>
                      <li>
                         <a href="#legal-logo" role="tab" data-toggle="tab">
-						 <img src="<?php echo base_url(); ?>assets/img/teachericons/Contact.png" class="img-responsive imgstyle" />
+						<i class="fa fa-phone-square" aria-hidden="true"></i><br>
                        
                         Contact
                         </a>
                      </li>
                      <li>
                         <a href="#help-logo" role="tab" data-toggle="tab">
-						 <img src="<?php echo base_url(); ?>assets/img/teachericons/Details.png" class="img-responsive imgstyle" />
+						 <i class="fa fa-file-text-o" aria-hidden="true"></i><br>
                        
                         Details
                         </a>
@@ -178,15 +176,13 @@ font-weight: bold;}
                      </li>
                      <li class="active">
                         <a href="#legal-logo" role="tab" data-toggle="tab">
-						 <img src="<?php echo base_url(); ?>assets/img/teachericons/Contact.png" class="img-responsive imgstyle" />
-                       
+						<i class="fa fa-phone-square" aria-hidden="true"></i><br>
                         Contact
                         </a>
                      </li>
                      <li>
                         <a href="#help-logo" role="tab" data-toggle="tab">
-						 <img src="<?php echo base_url(); ?>assets/img/teachericons/Details.png" class="img-responsive imgstyle" />
-                       
+						<i class="fa fa-file-text-o" aria-hidden="true"></i><br>
                         Details
                         </a>
                      </li>
@@ -223,15 +219,13 @@ font-weight: bold;}
                      </li>
                      <li class="">
                         <a href="#legal-logo" role="tab" data-toggle="tab">
-						 <img src="<?php echo base_url(); ?>assets/img/teachericons/Contact.png" class="img-responsive imgstyle" />
-                       
+					<i class="fa fa-phone-square" aria-hidden="true"></i><br>
                         Contact
                         </a>
                      </li>
                      <li class="active">
                         <a href="#help-logo" role="tab" data-toggle="tab">
-						 <img src="<?php echo base_url(); ?>assets/img/teachericons/Details.png" class="img-responsive imgstyle" />
-                       
+						<i class="fa fa-file-text-o" aria-hidden="true"></i><br>
                         Details
                         </a>
                      </li>

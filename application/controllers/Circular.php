@@ -31,7 +31,27 @@ class Circular extends CI_Controller
 		  redirect('/');
 		  }
       }
-	  
+	  public function view_circular()
+      {
+		  $datas=$this->session->userdata();
+		  $user_id=$this->session->userdata('user_id');
+		  $user_type=$this->session->userdata('user_type');
+		  $datas['all_circulars']=$this->circularmodel->get_all_circular();
+		  //echo '<pre>'; print_r($datas['all_circulars']);exit;
+		   $datas['parents']=$this->circularmodel->get_parents_circular();
+		   $datas['students']=$this->circularmodel->get_students_circular();
+		  /*$datas['teachers']=$this->circularmodel->get_teachers_circular();
+		   */
+		  if($user_type==1)
+		  {
+		  $this->load->view('header');
+		  $this->load->view('circular/view',$datas);
+		  $this->load->view('footer');
+		  }
+		  else{
+		  redirect('/');
+		  }
+      }
 	  public function get_stu_list()
 	  {
 		   $classid = $this->input->post('classid');
@@ -54,37 +74,21 @@ class Circular extends CI_Controller
       $user_type=$this->session->userdata('user_type');
       if($user_type==1)
       {
-      $users=$this->input->post('users');
-      //$teacher = implode(',',$teacher_name);
-      $clas=$this->input->post('class_name');
-     // $class_name = implode(',',$clas);
-	  $parents=$this->input->post('parents_name');
-     
-      if($users=='')
-		{
-			 $users_id ="null";
-		}else{
-			$users_id = implode(',',$users);
-		}
-		if($clas=='')
-		{
-			 $class_name ="null";
-		}else{
-			 $class_name = implode(',',$clas);
-		}
-		if($parents=='')
-		{
-			 $parents_name ="null";
-		}else{
-			 $parents_name = implode(',',$parents);
-		}
-     
+      $users_id=$this->input->post('users');
+	  $tusers_id=$this->input->post('tusers');
+	  $pusers_id=$this->input->post('pusers');
+      $stusers_id=$this->input->post('stusers');
+    
       $title=$this->input->post('title');
       $date=$this->input->post('date');
       $dateTime = new DateTime($date);
       $circulardate=date_format($dateTime,'Y-m-d' );
       $notes=$this->input->post('notes');
-      $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$user_id);
+	  
+	   $citrcular_type=$this->input->post('citrcular_type');
+	   $status=$this->input->post('status'); 
+	   
+      $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id);
       if($datas['status']=="success")
       {
       $this->session->set_flashdata('msg', 'Added Successfully');

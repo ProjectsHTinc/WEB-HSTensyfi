@@ -24,10 +24,9 @@ Class Parentsmodel extends CI_Model
             $resultset=$this->db->query($query);
 			      $insert_id = $this->db->insert_id();
 
-			if(empty($father_name && $userFileName))
+			if(empty($father_name))
 			  {
 				$father_name=$guardn_name;
-				$userFileName=$userFileName2;
 			  }
 			   $sql="SELECT count(*) AS parents FROM edu_parents" ;
 			   //$resultsql=$this->db->query($sql);
@@ -72,9 +71,7 @@ Class Parentsmodel extends CI_Model
        $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
        mail($to,$subject,$htmlContent,$headers);
 
-
-
-		 // $userFileName;
+		 // User Details;
 			 $query1="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$father_name','$user_id',md5($OTP),'4','$insert_id','$insert_id',NOW(),NOW(),'$status')";
 
 			$resultset=$this->db->query($query1);

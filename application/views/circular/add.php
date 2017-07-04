@@ -19,76 +19,63 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label"></label>
                               <div class="col-sm-6">
+							   <button type="button" id="all" onclick="myFunction3()" class="btn btn-info btn-fill ">All</button>
 							   <button type="button" id="teacher" onclick="myFunction()" class="btn btn-info btn-fill ">Teachers</button>
 							   <button type="button" id="classes" onclick="myFunction1()" class="btn btn-info btn-fill ">Parents</button>
 							   <button type="button" id="parents" onclick="myFunction2()" class="btn btn-info btn-fill ">Students</button>
-							   <button type="button" id="all" onclick="myFunction3()" class="btn btn-info btn-fill ">All</button>
-							    <!-- <a rel="tooltip" href="" data-toggle="modal" data-target="#addmodel"  class="btn btn-info btn-fill">All</a> -->
                               </div>
                            </div>
                         </fieldset>
-
+ 
 						 <fieldset>
+						
                            <div class="form-group">
-                              <label class="col-sm-2 control-label"></label>
+                              <label class="col-sm-2 control-label"> </label>
                               <div class="col-sm-4">
+							   <p id="erid" style="color:red;"> </p>
                           <div id="myDIV">
-                                 <select multiple name="tuserid[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
+						  
+                                 <select multiple name="tusers[]" class="selectpicker form-control" data-title="Select Teachers" id="multiple-teacher" data-menu-style="dropdown-blue">
                                           <?php foreach ($teacher as $rows) { ?>
                                           <option value="<?php echo $rows->user_id;  ?>"><?php echo $rows->name; ?></option>
                                           <?php  }?>
                                    </select>
                               </div>
-							  <p id="erid" style="color:red;"> </p>
+
 							   <div id="myDIV1" style="display:none">
-							  <select  name="class_name[]" id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
-							      <option>Select Class Name</option>
+							  <select  multiple name="pusers[]" id="multiple-parents" data-title="Select Parents" class="selectpicker" data-menu-style="dropdown-blue">
                                           <?php foreach ($getall_class as $rows) {  ?>
                                           <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
                                           <?php      } ?>
                                  </select>
-								 <div id="msg1"></div>
-								 <div id="sname" style="display:none;padding-top:10px;">
-								  <select  name="stu_name"   class="form-control" id="ajaxres" onchange="getparentlist(this.value)">
-								  <option></option>
-							   </select>
-							   </div>
-							   <div id="msg2"></div>
-							   <div id="pname" style="display:none;padding-top:10px;" >
-							    <select  name="parent_name" class="form-control" id="ajaxres1">
-							   </select>
-							   </div>
-								 </div>
+							 </div>
 								 
 								  <div id="myDIV2" style="display:none">
-							  <select  name="class_name[]" id="multiple-class" class="selectpicker" onchange="getstulist1(this.value)"  data-menu-style="dropdown-blue">
-							   <option>Select Class Name</option>
+							  <select multiple name="stusers[]" id="multiple-students" data-title="Select Students" class="selectpicker"  data-menu-style="dropdown-blue">
+							
                                           <?php foreach ($getall_class as $rows) {  ?>
                                           <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>  - <?php echo $rows->sec_name; ?></option>
                                           <?php      } ?>
                                  </select>
-								<div id="msg"></div>
-								 <div id="stname" style="display:none;padding-top:20px;">
-								  <select  name="stu_userid"   class="form-control" id="ajaxres5" onchange="getparentlist(this.value)">
-							   </select>
-							   </div>
 								 </div>
                               </div>
                            </div>
                         </fieldset>
+						
 						 <div id="allid" style="display:none">
 						<fieldset>
                            <div class="form-group">
                               <label class="col-sm-2 control-label">ALL</label>
                               <div class="col-sm-4">
-                                 <select  name="users[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue">
+                                 <select  name="users" class="selectpicker" data-title="Select" id="multiple-admin" data-menu-style="dropdown-blue">
+								  
                                           <?php foreach ($role as $row) { ?>
                                           <option value="<?php echo $row->role_id;?>"><?php echo $row->user_type_name; ?></option>
                                           <?php  }?>
                                    </select> 
                               </div>
 							  </div>
-							   </fieldset>
+					  </fieldset>
 						</div>
 
                         <fieldset>
@@ -103,7 +90,27 @@
                               </div>
                            </div>
                         </fieldset>
-                        <br/>
+						
+						 <fieldset>
+                           <div class="form-group">
+                              <label class="col-sm-2 control-label">Circular Type</label>
+                              <div class="col-sm-4">
+                                <select name="citrcular_type" data-title="Select Circular Type" class="selectpicker form-control">
+									  <option value="Immediate">Immediate</option>
+									  <option value="Normal">Normal</option>
+								</select>
+                              </div>
+                              <label class="col-sm-2 control-label">Status</label>
+							  <div class="col-sm-4">
+							   <select name="status"  class="selectpicker form-control">
+									  <option value="Active">Active</option>
+									  <option value="Deactive">De-Active</option>
+								</select>
+							  </div>
+                           </div>
+                        </fieldset>
+						
+                        
                         <fieldset>
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Notes</label>
@@ -117,82 +124,6 @@
                            </div>
                         </fieldset>
                      </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-		 
-		 
-		 <div class="modal fade" id="addmodel" role="dialog" >
-            <div class="modal-dialog">
-               <!-- Modal content-->
-               <div class="modal-content">
-                  <div class="modal-header" style="padding:10px;">
-                     <button type="button" class="close" style="margin:25px;" data-dismiss="modal">&times;</button>
-                     <h4 class="title">Circular</h4>
-                  </div>
-                  <div class="modal-body">
-                     <p id="msg" style="text-align:center;"></p>
-                     <div class="row">
-                        <div class="col-md-12">
-                           <div class="card">
-                              <div class="content">
-                              <form method="post" action="<?php echo base_url(); ?>circular/create" class="form-horizontal" enctype="multipart/form-data" id="classsection">
-                                    <fieldset>
-                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Teachers</label>
-                                          <div class="col-sm-6">
-                                    <select multiple name="teacher[]" class="selectpicker form-control"  id="multiple-teacher" data-menu-style="dropdown-blue" >
-								 
-                                          <?php foreach ($teacher as $rows) { ?>
-                                          <option value="<?php echo $rows->user_id;  ?>"><?php echo $rows->name; ?></option>
-                                          <?php  }?>
-                                   </select>                                          </div>
-                                       </div>
-                                    </fieldset>
-                                    <fieldset>
-                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Parents</label>
-                                          <div class="col-sm-6">
-                                           <select  name="class_name[]" multiple id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
-							      <option>Select Class Name</option>
-                                          <?php foreach ($getall_class as $rows) {  ?>
-                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
-                                          <?php      } ?>
-                                 </select>
-                                          </div>
-                                       </div>
-                                    </fieldset>
-                                    <fieldset>
-                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Students</label>
-                                          <div class="col-sm-6">
-                                               <select  name="class_name[]" multiple id="multiple-class" class="selectpicker" onchange="getstulist(this.value)"  data-menu-style="dropdown-blue">
-							      <option>Select Class Name</option>
-                                          <?php foreach ($getall_class as $rows) {  ?>
-                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
-                                          <?php      } ?>
-                                 </select>
-                                          </div>
-                                       </div>
-                                    </fieldset>
-
-                                    <fieldset>
-                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">&nbsp;</label>
-                                          <div class="col-sm-10">
-                                             <button type="submit" class="btn btn-info btn-fill center">Save </button>
-                                          </div>
-                                       </div>
-                                    </fieldset>
-                                 </form>
-                              </div>
-                           </div>
-                           <!--  end card  -->
-                        </div>
-                        <!-- end col-md-12 -->
-                     </div>
-                     <!-- end row -->
                   </div>
                </div>
             </div>
@@ -212,6 +143,8 @@
    		 title:{required:true },
    		 date:{required:true },
    		 notes:{required:true },
+		 citrcular_type:{required:true },
+		 status:{required:true }
         },
         messages: {
 		  teacher:"Select Teachers",
@@ -219,6 +152,8 @@
 		  title:"Enter Title",
 		  date:"Enter Date",
 		  notes:"Enter The Details",
+		  citrcular_type:"Select Circular Type",
+		  status:"Select Status"
                }
     }); 
 	
@@ -230,10 +165,12 @@
 function validates()
 {
 		var tea = document.getElementById("multiple-teacher").value;
-		var cls = document.getElementById("multiple-class").value;
-	if(tea=="" && cls=="")
+		var par = document.getElementById("multiple-parents").value;
+		var cls = document.getElementById("multiple-students").value;
+		var admin = document.getElementById("multiple-admin").value;
+	if(tea=="" && par=="" && cls=="" && admin=="")
      {
-		 $("#erid").html("Please Select Teachers Or Class");
+		 $("#erid").html("Please Select Admin Or Teachers Or Parents Or Students  ");
 		 //alert( "Please Select Teachers Or Class" );
 		 document.form.teacher.focus() ;
 		 return false;

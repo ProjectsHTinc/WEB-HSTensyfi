@@ -67,97 +67,148 @@ Class Circularmodel extends CI_Model
 		 
 		 
 	 }
-	 function circular_create($title,$notes,$circulardate,$users_id,$user_id)
+	 function circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id)
 	 {
-        //echo $users_id;
-	    $sql="SELECT count(*) as total FROM edu_users WHERE user_type='$users_id'";
-		$tot=$this->db->query($sql);
-		$res2=$tot->result();
-		$cont=$res2[0]->total;
-		echo $cont;
-		 
-			$sql1="SELECT * FROM edu_users WHERE user_type='$users_id'";
-			$res=$this->db->query($sql1);
+		  //-----------------------------Students----------------------
+		  print_r($stusers_id);
+		  if($stusers_id!='')
+		  {
+			 $scountid=count($stusers_id);
+			echo $scountid; 
+			 for ($i=0;$i<$scountid;$i++) 
+			 {
+				$classid=$stusers_id[$i];
+				//echo $classid; 
+				$title1=$title;
+				$notes1=$notes;
+				$ctype=$citrcular_type;
+				$status1=$status;
+				$circulardate1=$circulardate;
+				$user_id1=$user_id;
 			
+			$stud="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.name,u.student_id, u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=3 AND a.admission_id=u.user_master_id AND a.admission_id=u.student_id AND u.status='Active'";
+				$stu_id=$this->db->query($stud);
+				$res1=$stu_id->result();
+			    foreach($res1 as $row1)
+				{
+				  $sid=$row1->user_id;
+				  echo $sid; 
+				  $query1="INSERT INTO edu_circular(user_type,user_id,title,notes,date,circular_type,status,created_by,created_at) VALUES ('3','$sid','$title1','$notes1','$circulardate1','$ctype','$status1','$user_id1',NOW())";
+		          $students=$this->db->query($query1);
+				 }
+			
+		    }
+			if ($students){
+				  $data = array("status" => "success");
+				return $data; } 
+			  
+		  }
+		 
+		  //-----------------------------Parents----------------------
+		  //print_r($pusers_id);exit;
+		  if($pusers_id!='')
+		  {
+			$pcountid=count($pusers_id);
+			 for ($i=0;$i<$pcountid;$i++) 
+			 {
+				$classid=$pusers_id[$i];
+				$title1=$title;
+				$notes1=$notes;
+				$ctype=$citrcular_type;
+				$status1=$status;
+				$circulardate1=$circulardate;
+				$user_id1=$user_id;
+			
+				$class="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.parent_id,u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=4 AND a.parnt_guardn_id=u.user_master_id AND a.parnt_guardn_id=u.parent_id AND  u.status='Active' GROUP  BY u.user_id";
+				$stu_cls=$this->db->query($class);
+				$res=$stu_cls->result();
+			    foreach($res as $row)
+				{
+				  $pid=$row->user_id;
+				  $query="INSERT INTO edu_circular(user_type,user_id,title,notes,date,circular_type,status,created_by,created_at) VALUES ('4','$pid','$title1','$notes1','$circulardate1','$ctype','$status1','$user_id1',NOW())";
+		          $parents=$this->db->query($query);
+				 }
+			
+		    }
+			if ($parents){
+				  $data = array("status" => "success");
+				return $data; }
+		  }
+           //-----------------------------Teacher----------------------
+			if($tusers_id!='')
+			{
+			 $countid=count($tusers_id);
+			//echo $countid; echo "HI"; exit;
+			 for ($i=0;$i<$countid;$i++) {
+				$userid=$tusers_id[$i];
+				$title1=$title;
+				$notes1=$notes;
+				$ctype=$citrcular_type;
+				$status1=$status;
+				$circulardate1=$circulardate;
+				$user_id1=$user_id;
+				
+				$query="INSERT INTO edu_circular(user_type,user_id,title,notes,date,circular_type,status,created_by,created_at) VALUES ('2','$userid','$title1','$notes1','$circulardate1','$ctype','$status1','$user_id1',NOW())";
+		        $teacher=$this->db->query($query);
+			 }
+			 if ($teacher){
+				  $data = array("status" => "success");
+				return $data; }
+			}
+			//------------------------------Admin-----------------------
+			if($users_id!=''){
+				//echo $users_id;exit;
+			$sql1="SELECT * FROM edu_users WHERE user_type='$users_id' AND status='Active'";
+			$res=$this->db->query($sql1);
 			$result1=$res->result();
 			foreach($result1 as $rows){
 			$userid=$rows->user_id; 
-			//echo $userid;
-			$uid=$userid[$i];
-			
 			$title1=$title;
             $notes1=$notes;
+			$ctype=$citrcular_type;
+			$status1=$status;
             $circulardate1=$circulardate;
             $users_id1=$users_id;
 			$user_id1=$user_id;
-			
-		 $query="INSERT INTO edu_circular(user_type,user_id,title,notes,date,circular_type,status,created_by,created_at) VALUES ('$users_id1','$userid','$title1','$notes1','$circulardate1','Test','Active','$user_id1',NOW())";
+		 $query="INSERT INTO edu_circular(user_type,user_id,title,notes,date,circular_type,status,created_by,created_at) VALUES ('$users_id1','$userid','$title1','$notes1','$circulardate1','$ctype','$status1','$user_id1',NOW())";
 		 $resultset=$this->db->query($query);
-		  
 		 }		 
-		  if ($resultset) {
-            $data = array(
-                "status" => "success"
-            );
-            return $data;
-        } else {
-            $data = array(
-                "status" => "failure"
-            );
-            return $data;
-        }
+		  if ($resultset){
+			  $data = array("status" => "success");
+            return $data;}
+			}
+    	
 	 }
 
-	 function view()
+	 function get_all_circular()
 	 {
-		 $query="SELECT * FROM edu_communication ORDER BY commu_id DESC";
+		 $query="SELECT c.*,u.user_id,u.name FROM edu_circular AS c,edu_users AS u WHERE c.user_id=u.user_id ";
          $res=$this->db->query($query);
          $result1=$res->result();
 		 return $result1;
 		 //return $result1[0]->teaher_id;
 	 }
+	 
+	 function get_parents_circular()
+	 {
+		 $query="SELECT c.*,u.user_id,u.user_type,u.user_master_id,u.parent_id,a.admission_id,a.parnt_guardn_id,a.admisn_no,e.admission_id,e.admisn_no,e.class_id FROM edu_circular AS c,edu_users AS u,edu_admission AS a,edu_enrollment AS e WHERE c.user_type=4 AND u.user_type=c.user_type AND c.user_id=u.user_id AND u.user_master_id=a.parnt_guardn_id AND u.parent_id=a.parnt_guardn_id AND a.admission_id=e.admission_id AND a.admisn_no=e.admisn_no GROUP BY e.class_id ";
+         $res=$this->db->query($query);
+         $result1=$res->result();
+		 return $result1;
+		
+	 }
+	 
+	 function get_students_circular()
+	 {
+		$query="SELECT c.*,u.user_id,u.user_type,u.user_master_id,u.student_id,a.admission_id,a.admisn_no,e.admission_id,e.admisn_no,e.class_id FROM edu_circular AS c,edu_users AS u,edu_admission AS a,edu_enrollment AS e WHERE c.user_type=3 AND u.user_type=c.user_type AND c.user_id=u.user_id AND u.user_master_id=a.admission_id AND u.student_id=a.admission_id AND a.admission_id=e.admission_id AND a.admisn_no=e.admisn_no GROUP BY e.class_id";
+         $res=$this->db->query($query);
+         $result1=$res->result();
+		 return $result1; 
+	 }
 
 	
 
-   function edit_data($commu_id)
-   {
-	         $query1="SELECT * FROM edu_communication WHERE commu_id='$commu_id'";
-             $res=$this->db->query($query1);
-             return $res->result();
-   }
-
-	 function communication_update($id,$title,$notes,$date,$teacher,$class_name)
-	 {
-	  $query="UPDATE edu_communication SET commu_title='$title',commu_details='$notes',commu_date='$date',teacher_id='$teacher',class_id='$class_name' WHERE commu_id='$id'";
-	 $res=$this->db->query($query);
-	 if($res){
-				 $data= array("status" => "success");
-				 return $data;
-			   }else{
-				 $data= array("status" => "Failed to Update");
-				 return $data;
-			   }
-	 }
-      
-	   function user_leaves()
-	   {
-		   $query="SELECT ul.*,t.teacher_id,t.name FROM edu_user_leave AS ul,edu_teachers AS t WHERE t.teacher_id=ul.user_id ORDER BY ul.leave_id desc";
-		   $resultset=$this->db->query($query);
-           $result= $resultset->result();
-		   return $result;
-		   
-	   }
-
-	  
-	   function edit_leave($leave_id)
-	   {
-		 $que="SELECT * FROM edu_user_leave WHERE leave_id='$leave_id'";
-		 $resultset1=$this->db->query($que);
-		 $row=$resultset1->result();
-		 return $row;
-	 	 
-	   }
-	   
+   
 	   function get_all_leave($leave_id)
 	   {
 		 $que="SELECT ul.*,lm.id,lm.leave_title,lm.leave_type FROM edu_user_leave AS ul,edu_user_leave_master AS lm WHERE ul.type_leave=lm.leave_type AND ul.leave_id='$leave_id'";
