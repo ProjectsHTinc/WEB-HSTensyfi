@@ -301,8 +301,9 @@ class Adminparent extends CI_Controller {
 				 $datas['stud_details']=$this->dashboard->get_students($user_id);
 					 foreach ($datas['stud_details'] as $rows) {}
 					 $enroll_id= $rows->enroll_id;
-					//echo $enroll_id;exit;
-					 $datas['fees']=$this->adminparentmodel->get_fees_status_details($enroll_id);
+					//echo $enroll_id;
+					$datas['fees']=$this->adminparentmodel->get_fees_status_details_single($enroll_id);
+					//echo'<pre>';print_r($datas['fees']);exit;
 					$this->load->view('adminparent/parent_header');
 					$this->load->view('adminparent/fees_status/fees_status_view',$datas);
 					$this->load->view('adminparent/parent_footer');
@@ -324,9 +325,10 @@ class Adminparent extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$enroll_id=$this->input->get('var');
-			//echo $enroll_id; exit;
+		//	echo $enroll_id; exit;
 			if($user_type==4){
 					 $datas['fees']=$this->adminparentmodel->get_fees_status_details($enroll_id);
+				//	echo'<pre>'; print_r($datas['fees']);exit;
 					$this->load->view('adminparent/parent_header');
 					$this->load->view('adminparent/fees_status/fees_status_view',$datas);
 					$this->load->view('adminparent/parent_footer');

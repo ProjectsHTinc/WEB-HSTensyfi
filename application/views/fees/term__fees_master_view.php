@@ -30,7 +30,7 @@
                                 <th data-field="date_to" class="text-left" data-sortable="true">To Date </th>
                                  <!-- <th data-field="notes" class="text-left" data-sortable="true">Notes</th> -->
                                 <th data-field="status" class="text-left" data-sortable="true">Status</th>
-								                <th data-field="Section" class="text-left" data-sortable="true">Action</th>
+								<th data-field="Section" class="text-left" data-sortable="true">Action</th>
 
 
                               </thead>
@@ -56,7 +56,7 @@
                   									  if($stu=='Active'){?>
                   									   <button class="btn btn-success btn-fill btn-wd">Active</button>
                   									 <?php  }else{?>
-                  									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button>
+                  									  <button class="btn btn-danger btn-fill btn-wd">De-Active</button>
                   									  <?php } ?></td>
 
                                     <td class="text-left">

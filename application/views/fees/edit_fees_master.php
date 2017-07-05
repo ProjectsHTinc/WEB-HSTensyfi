@@ -115,7 +115,7 @@
                                             <div class="col-sm-4">
                                               <select name="status" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                                   <option value="Active">Active</option>
-                                                    <option value="Deactive">DE-Active</option>
+                                                    <option value="Deactive">De-Active</option>
                                               </select>
 											                          <script language="JavaScript">document.feesform.status.value="<?php echo $rows->status; ?>";</script>
                                             </div>

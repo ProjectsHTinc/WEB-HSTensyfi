@@ -105,7 +105,7 @@
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
                                     <td>
-                                       <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> -->
                                     </td>
                                  </tr>
 									<?php $i++;  } }  ?>

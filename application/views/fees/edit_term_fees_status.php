@@ -17,7 +17,7 @@
                             foreach($edit as $rows ){	} ?>
 
                             <div class="content">
-                                <form method="post" action="<?php echo base_url(); ?>feesstructure/update_term_fees_status" class="form-horizontal" enctype="multipart/form-data" id="feesform" name="feesform">
+                                <form method="post" action="<?php echo base_url(); ?>feesstructure/update_term_fees_status" class="form-horizontal" enctype="multipart/form-data" id="feesform" name="feesform1">
 
                                     <fieldset>
                                         <div class="form-group">
@@ -50,7 +50,6 @@
                                               </select>
 					
                                             </div>
-
                                         </div>
                                     </fieldset>
 									
@@ -59,7 +58,7 @@
                                             <label class="col-sm-2 control-label">Student Name</label>
                       							         <div class="col-sm-4">
                       				                    <input type="text" name="stu_name" readonly  value="<?php echo $rows->name;?>" class="form-control" />
-                      											  </div>
+                      								</div>
                                         </div>
                                     </fieldset>
 									
@@ -86,7 +85,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Paid By</label>
                                             <div class="col-sm-4">
-											 <input type="text" name="paid_by"  value="<?php  echo $rows->paid_by;?>" class="form-control" />
+											 <input type="text" name="paid_by" required value="<?php  echo $rows->paid_by;?>" class="form-control" />
 												                       
                                             </div>
                                         </div>
@@ -100,7 +99,7 @@
                                                   <option value="Paid">Paid</option>
                                                     <option value="Unpaid">Unpaid</option>
                                               </select>
-					<script language="JavaScript">document.feesform.paid_status.value="<?php echo $rows->status; ?>";</script>
+					<script language="JavaScript">document.feesform1.paid_status.value="<?php echo $rows->status; ?>";</script>
                                             </div>
                                         </div>
                                     </fieldset>

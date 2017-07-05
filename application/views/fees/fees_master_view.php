@@ -24,13 +24,13 @@
                                 <th data-field="year" class="text-left" data-sortable="true">Year</th>
                                 <th data-field="term" class="text-left" data-sortable="true">Term Name</th>
                                 <th data-field="class" class="text-left" data-sortable="true">Class</th>
-                                 <th data-field="quota" class="text-left" data-sortable="true">Quota</th>
-								                 <th data-field="fees" class="text-left" data-sortable="true">Fees Amount</th>
+                                <th data-field="quota" class="text-left" data-sortable="true">Quota</th>
+								<th data-field="fees" class="text-left" data-sortable="true">Fees Amount</th>
                                 <th data-field="date_from" class="text-left" data-sortable="true">From Date </th>
                                 <th data-field="date_to" class="text-left" data-sortable="true">To Date </th>
                                  <!-- <th data-field="notes" class="text-left" data-sortable="true">Notes</th> -->
                                 <th data-field="status" class="text-left" data-sortable="true">Status</th>
-								                <th data-field="Section" class="text-left" data-sortable="true">Action</th>
+								<th data-field="Section" class="text-left" data-sortable="true">Action</th>
 
 
                               </thead>
@@ -38,7 +38,7 @@
                                 <?php
                                 $i=1;
                                 foreach ($view as $rows) {
-													       $stu=$rows->status;
+									$stu=$rows->status;
                                 ?>
                                   <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
@@ -56,7 +56,7 @@
                     									  if($stu=='Active'){?>
                     									   <button class="btn btn-success btn-fill btn-wd">Active</button>
                     									 <?php  }else{?>
-                    									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button>
+                    									  <button class="btn btn-danger btn-fill btn-wd">De-Active</button>
                     									  <?php } ?></td>
 
                                     <td class="text-left">

@@ -35,7 +35,7 @@
                                 <?php
                                 $i=1;
                                 foreach ($view as $rows) {
-													       $stu=$rows->status;
+									 $stu=$rows->status;
                                 ?>
                                   <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
@@ -46,7 +46,6 @@
                   									<td class="text-left"><?php echo $rows->quota_name;?></td>
                   									<td class="text-left"><?php echo $rows->fees_amt;?></td>
                   									
-                  																	 
                   									 <td><?php 
                   									  if($stu=='Unpaid'){?>
                   									  <button class="btn btn-danger btn-fill btn-wd">UnPaid</button>

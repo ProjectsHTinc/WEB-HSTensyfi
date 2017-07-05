@@ -38,10 +38,9 @@ class Circular extends CI_Controller
 		  $user_type=$this->session->userdata('user_type');
 		  $datas['all_circulars']=$this->circularmodel->get_all_circular();
 		  //echo '<pre>'; print_r($datas['all_circulars']);exit;
-		   $datas['parents']=$this->circularmodel->get_parents_circular();
-		   $datas['students']=$this->circularmodel->get_students_circular();
-		  /*$datas['teachers']=$this->circularmodel->get_teachers_circular();
-		   */
+		 $datas['parents']=$this->circularmodel->get_parents_circular();
+		 $datas['students']=$this->circularmodel->get_students_circular();
+
 		  if($user_type==1)
 		  {
 		  $this->load->view('header');
@@ -76,10 +75,11 @@ class Circular extends CI_Controller
       {
       $users_id=$this->input->post('users');
 	  $tusers_id=$this->input->post('tusers');
+	  //print_r($tusers_id);
 	  $pusers_id=$this->input->post('pusers');
       $stusers_id=$this->input->post('stusers');
     
-      $title=$this->input->post('title');
+      $title=$this->input->post('title'); 	
       $date=$this->input->post('date');
       $dateTime = new DateTime($date);
       $circulardate=date_format($dateTime,'Y-m-d' );
@@ -89,7 +89,8 @@ class Circular extends CI_Controller
 	   $status=$this->input->post('status'); 
 	   
       $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id);
-      if($datas['status']=="success")
+      //print_r($datas);exit;
+	  if($datas['status']=="success")
       {
       $this->session->set_flashdata('msg', 'Added Successfully');
       redirect('circular/add_circular');

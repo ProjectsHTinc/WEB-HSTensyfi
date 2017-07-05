@@ -96,9 +96,7 @@ class Feesstructure extends CI_Controller
 		$user_type=$this->session->userdata('user_type');
 		
 		$datas['view'] = $this->feesstructuremodel->view_fees_master_details();
-		
-		//echo '<pre>';
-		//print_r($datas['view']);exit;
+		//echo '<pre>';print_r($datas['view']);exit;
 		if($user_type==1)
 			 {
 				 $this->load->view('header');

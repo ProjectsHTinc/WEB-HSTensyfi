@@ -75,17 +75,12 @@
                         </div><!--  end card  -->
                     </div> <!-- end col-md-12 -->
                 </div> <!-- end row -->
-
             </div>
         </div>
-
    </div>
-
-
 </div>
 
 <script type="text/javascript">
-
 function generatefromtable() {
 				var data = [], fontSize = 12, height = 0, doc;
 				doc = new jsPDF('p', 'pt', 'a4', true);
@@ -105,7 +100,6 @@ function generatefromtable() {
 				//doc.text(50, height + 20, 'hi world');
 				doc.save("Parents.pdf");
 			}
-			
 			
  var $table = $('#bootstrap-table');
        $().ready(function(){
@@ -136,15 +130,12 @@ function generatefromtable() {
                    detailClose: 'fa fa-minus-circle'
                }
            });
-
            //activate the tooltips after the data table is initialized
            $('[rel="tooltip"]').tooltip();
 
            $(window).resize(function () {
                $table.bootstrapTable('resetView');
            });
-
-
        });
        $('#admissionmenu').addClass('collapse in');
        $('#admission').addClass('active');

@@ -15,11 +15,11 @@
                         <div class="card">
                             <div class="content">
                                 <div class="fresh-datatables">
-                                  <h4 class="title">Fees Status  (<?php  foreach ($fees as $rows){ } echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  ?> ) </h4>
+                                  <h4 class="title">Fees Status(<?php  if(empty($fees)){ echo " Fees Status Not Found";}else{  foreach ($fees as $rows){ } echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month)); } ?> ) </h4>
                                 <div class="dtypo-line" style="padding:30px;">
                                     <div class="row">
                                        <?php
-									   if(empty($fees)){ echo "Status Not Found";}else{
+									   if(empty($fees)){ echo "Fees Status Not Found";}else{
                                 $i=1;
                                 foreach ($fees as $rows){$paid=$rows->status;
 

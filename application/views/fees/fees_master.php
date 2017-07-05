@@ -66,14 +66,16 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="form-group">
+                                             
                                             <label class="col-sm-2 control-label" id="lab"></label>
-											<div id="msg"></div>
+											
                                             <div class="col-sm-2">
-											                          <div id="sec"></div>
+											 <div id="sec"></div>
                                             </div>
-                      											 <div class="col-sm-2">
-                      											    <div id="amt"></div>
-                      											  </div>
+                      					   <div class="col-sm-2">
+                      					        <div id="msg"></div>
+                      						  <div id="amt"></div>
+                      						</div>
                                         </div>
                                     </fieldset>
                                     <fieldset>
@@ -237,9 +239,18 @@ $(document).ready(function () {
 					  $("#sec").html(secction);
 					  $("#amt").html(amount);
 					  $("#lab").html('Section & Fees Amount');
+					  $("#sec").show();
+					 $("#amt").show();
+					 $("#lab").show();
+					 $("#msg").hide();
 				}else{
 				   //alert('Faild');
 					$("#msg").html('<p style="color: red;">Section Not Found</p>');
+					 $("#sec").hide();
+					 $("#amt").hide();
+					 $("#lab").hide();
+					 $("#msg").show();
+					 
 				}
 				 
 			}
