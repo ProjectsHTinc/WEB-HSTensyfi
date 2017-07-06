@@ -35,7 +35,6 @@
                                  <th class="text-left" data-sortable="true">Circular Type</th>
 								 <th class="text-left" data-sortable="true">Status</th> 
                                  <th class="text-left" data-sortable="true">Circular Date</th>
-								 <th class="text-left" data-sortable="true">Action</th>
                               </thead>
 							  
                               <tbody>
@@ -48,16 +47,16 @@
                                  <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
                                     <td class="text-left"><?php echo $rows->name;  ?></td>
-                                   <td class="text-left"><?php echo $rows->title;?></td>
+                                   <td class="text-left"><?php echo $rows->circular_title;?></td>
 								     <!--<td class="text-left"><?php echo $rows->notes;?></td>-->
 									 <td class="text-left"><?php echo $rows->circular_type;?></td>
 									  <td class="text-left"><?php echo $rows->status;?></td>
                                     <td class="text-left"><?php $date=date_create($rows->circular_date);
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
-                                    <td>
-                                       <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                    </td>
+                                   <!--<td>
+                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> 
+                                    </td>-->
                                  </tr>
 									<?php $i++;  } }  ?>
                               </tbody>
@@ -70,14 +69,13 @@
                         <div class="fresh-datatables">
                            <table id="bootstrap-table" class="table">
                               <thead>
-                                 <th class="text-left">S.No</th>
+                                <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <th class="text-left" data-sortable="true">Notes</th> 
+								 <!-- <th class="text-left" data-sortable="true">Notes</th> --> 
                                  <th class="text-left" data-sortable="true">Circular Type</th>
 								 <th class="text-left" data-sortable="true">Status</th> 
                                  <th class="text-left" data-sortable="true">Circular Date</th>
-								 <th class="text-left" data-sortable="true">Action</th>
                               </thead>
 							  
                               <tbody>
@@ -97,16 +95,15 @@
                                  <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
                                     <td class="text-left"><?php echo $cs; ?> <?php echo $se; ?></td>
-                                   <td class="text-left"><?php echo $rows1->title;?></td>
-								    <td class="text-left"><?php echo $rows1->notes;?></td>
+                                   <td class="text-left"><?php echo $rows1->circular_title;?></td>
 									 <td class="text-left"><?php echo $rows1->circular_type;?></td>
 									  <td class="text-left"><?php echo $rows1->status;?></td>
                                     <td class="text-left"><?php $date=date_create($rows1->circular_date);
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
-                                    <td>
-                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> -->
-                                    </td>
+                                    <!--<td>
+                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> 
+                                    </td>-->
                                  </tr>
 									<?php $i++;  } }  ?>
                               </tbody>
@@ -120,14 +117,13 @@
                         <div class="fresh-datatables">
                            <table id="bootstrap-table" class="table">
                               <thead>
-                                 <th class="text-left">S.No</th>
+                                <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <th class="text-left" data-sortable="true">Notes</th> 
+								 <!-- <th class="text-left" data-sortable="true">Notes</th> --> 
                                  <th class="text-left" data-sortable="true">Circular Type</th>
 								 <th class="text-left" data-sortable="true">Status</th> 
                                  <th class="text-left" data-sortable="true">Circular Date</th>
-								 <th class="text-left" data-sortable="true">Action</th>
                               </thead>
 							  
                               <tbody>
@@ -147,16 +143,16 @@
                                  <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
                                      <td class="text-left"><?php echo $cs; ?> <?php echo $se; ?></td>
-                                   <td class="text-left"><?php echo $rows->title;?></td>
+                                   <td class="text-left"><?php echo $rows->circular_title;?></td>
 								    <td class="text-left"><?php echo $rows->notes;?></td>
 									 <td class="text-left"><?php echo $rows->circular_type;?></td>
 									  <td class="text-left"><?php echo $rows->status;?></td>
                                     <td class="text-left"><?php $date=date_create($rows->circular_date);
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
-                                    <td>
-                                       <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                    </td>
+                                   <!--<td>
+                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> 
+                                    </td>-->
                                  </tr>
 									<?php $i++;  } }  ?>
                               </tbody>

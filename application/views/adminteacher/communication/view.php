@@ -20,7 +20,7 @@
                                 <div class="dtypo-line" style="padding:30px;">
                                     <div class="row">
                                        <?php
-									   if(empty($circular)){ echo "No Circular";}else{
+									   if(empty($circular)){ echo "No Circular Found";}else{
                                 $i=1;
                                 foreach ($circular as $rows) {
 

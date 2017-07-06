@@ -95,8 +95,15 @@ Class Teachercommunicationmodel extends CI_Model
 		 $row=$resultset->result();
 		 foreach($row as $rows){}
 		 $teacher_id=$rows->teacher_id;
+		 
+		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
+		  
 
-		 $com="SELECT user_type,user_id,title,notes,circular_date,circular_type,status FROM edu_circular WHERE user_id='$user_id' AND user_type=2 AND status='Active'";
+		 $com="SELECT user_type,user_id,title,notes,circular_date,circular_type,status FROM edu_circular WHERE user_id='$user_id' AND user_type=2 AND '$current_year' AND status='Active'";
 		 //$sql="SELECT * FROM edu_communication WHERE status='A' AND FIND_IN_SET('$teacher_id',teacher_id) ";
 		 $resultset=$this->db->query($com);
 		 $row=$resultset->result();

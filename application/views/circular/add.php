@@ -68,7 +68,6 @@
                               <label class="col-sm-2 control-label">ALL</label>
                               <div class="col-sm-4">
                                  <select  name="users" class="selectpicker" data-title="Select" id="multiple-admin" data-menu-style="dropdown-blue">
-								  
                                           <?php foreach ($role as $row) { ?>
                                           <option value="<?php echo $row->role_id;?>"><?php echo $row->user_type_name; ?></option>
                                           <?php  }?>
@@ -87,10 +86,20 @@
 								<?php foreach($cmaster as $res){ ?>
 									  <option value="<?php echo $res->circular_type; ?>"><?php echo $res->circular_type; ?></option>
 								<?php } ?>
-								 <option value="create">Other Create</option>
+								 <!-- <option value="create">Other Create</option> -->
 								</select>
                               </div>
-							  <label class="col-sm-2 control-label">Title</label>
+							 <label class="col-sm-2 control-label">Date</label>
+                              <div class="col-sm-4">
+                                 <input type="text" name="date" id="date" class="form-control datepicker" placeholder="Enter Date" >
+                              </div>
+                           </div>
+                        </fieldset>
+						
+						 <fieldset>
+                           <div class="form-group">
+                             
+							   <label class="col-sm-2 control-label">Title</label>
 							  <div class="col-sm-4">
 							  <div id="tnone">
 							  <select name="ctitle" id="cititle" class="form-control" onchange="circulardescription(this)">
@@ -101,15 +110,7 @@
                                  <input type="text" name="title" id="title" class="form-control"  placeholder="Enter Title" >
                               </div>
                              </div> 
-                           </div>
-                        </fieldset>
-						
-						 <fieldset>
-                           <div class="form-group">
-                             <label class="col-sm-2 control-label">Date</label>
-                              <div class="col-sm-4">
-                                 <input type="text" name="date" id="date" class="form-control datepicker" placeholder="Enter Date" >
-                              </div>
+							 
                               <label class="col-sm-2 control-label">Status</label>
 							  <div class="col-sm-4">
 							   <select name="status"  class="selectpicker form-control">
@@ -151,6 +152,7 @@
          teacher:{required:true },
    		 class_name:{required:true },
    		 title:{required:true },
+		 ctitle:{required:true },
    		 date:{required:true },
    		 notes:{required:true },
 		 citrcular_type:{required:true },
@@ -159,6 +161,7 @@
         messages: {
 		  teacher:"Select Teachers",
 		  class_name:"Select Classes",
+		  ctitle:"Enter Title",
 		  title:"Enter Title",
 		  date:"Enter Date",
 		  notes:"Enter The Details",
