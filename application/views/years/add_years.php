@@ -1,5 +1,5 @@
-<div class="main-panel">
 
+<div class="main-panel">
 <div class="content">
        <div class="container-fluid">
            <div class="row">
@@ -58,7 +58,7 @@
 </div>
 
 <?php endif; ?>
-       <div class="content">
+       
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -108,11 +108,8 @@
                 </div> <!-- end row -->
 
             </div>
-        </div>
-
+        
    </div>
-
-
 </div>
 
 

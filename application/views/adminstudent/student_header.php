@@ -7,28 +7,34 @@
 	<title>ENSYFI</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
-    <!-- Bootstrap core CSS     -->
-    <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" />
+      <meta name="viewport" content="width=device-width" />
+      <!-- Bootstrap core CSS     -->
+      <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" />
+      <!--  Light Bootstrap Dashboard core CSS    -->
+      <link href="<?php echo base_url(); ?>assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+      <!--  CSS for Demo Purpose, don't include it in your project     -->
+      <link href="<?php echo base_url(); ?>assets/css/demo.css" rel="stylesheet" />
 
-    <!--  Light Bootstrap Dashboard core CSS    -->
-    <link href="<?php echo base_url(); ?>assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="<?php echo base_url(); ?>assets/css/demo.css" rel="stylesheet" />
+      <!--     Fonts and icons     -->
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+      <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href="<?php echo base_url(); ?>assets/stroke/css/pe-icon-7-stroke.css">
+      <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
+      <script src="<?php echo base_url(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
+      <script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
+      <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
+	  
+	  <!-- PDF -->
+	   <script src="<?php echo base_url(); ?>assets/js/jspdf.min.js" type="text/javascript"></script>
+	   <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
+		<script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
+		<script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
 
-    <!--     Fonts and icons     -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/stroke/css/pe-icon-7-stroke.css">
-		<!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
-		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
-		<script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
-		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
-	<!--  Forms Validations Plugin -->
-	<script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
-	  <script src="<?php echo base_url(); ?>assets/js/jquery.datatables.js"></script>
-
+      <!--  Forms Validations Plugin -->
+      <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
+      <script src="<?php echo base_url(); ?>assets/js/jquery.datatables.js"></script>
+		
 <style>
 .navbar{
 margin-bottom:0px;}

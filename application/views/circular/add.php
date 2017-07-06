@@ -11,7 +11,7 @@
                <?php endif; ?>
                <div class="card">
                   <div class="header">
-                     <legend> Circular Details</legend>
+                     <legend> Circular Details  <a href="<?php echo base_url(); ?>circular/view_circular" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">View Circular</a></legend>
                   </div>
                   <div class="content">
                      <form method="post" action="<?php echo base_url(); ?>circular/create" class="form-horizontal" enctype="multipart/form-data" onsubmit="return validates()" name="form" id="myformsection">
@@ -80,25 +80,35 @@
 
                         <fieldset>
                            <div class="form-group">
-                              <label class="col-sm-2 control-label">Title</label>
+                             
+							   <label class="col-sm-2 control-label">Circular Type</label>
                               <div class="col-sm-4">
+                                <select name="citrcular_type" id="citrcular_type" onchange="circulartitle(this)"  data-title="Select Circular Type" class="selectpicker form-control">
+								<?php foreach($cmaster as $res){ ?>
+									  <option value="<?php echo $res->circular_type; ?>"><?php echo $res->circular_type; ?></option>
+								<?php } ?>
+								 <option value="create">Other Create</option>
+								</select>
+                              </div>
+							  <label class="col-sm-2 control-label">Title</label>
+							  <div class="col-sm-4">
+							  <div id="tnone">
+							  <select name="ctitle" id="cititle" class="form-control" onchange="circulardescription(this)">
+							  
+								</select>
+								</div>
+							  <div id="cirtitle" style="display:none;">
                                  <input type="text" name="title" id="title" class="form-control"  placeholder="Enter Title" >
                               </div>
-                              <label class="col-sm-2 control-label">Date</label>
-                              <div class="col-sm-4">
-                                 <input type="text" name="date" id="date" class="form-control datepicker" placeholder="Enter Date" >
-                              </div>
+                             </div> 
                            </div>
                         </fieldset>
 						
 						 <fieldset>
                            <div class="form-group">
-                              <label class="col-sm-2 control-label">Circular Type</label>
+                             <label class="col-sm-2 control-label">Date</label>
                               <div class="col-sm-4">
-                                <select name="citrcular_type" data-title="Select Circular Type" class="selectpicker form-control">
-									  <option value="Immediate">Immediate</option>
-									  <option value="Normal">Normal</option>
-								</select>
+                                 <input type="text" name="date" id="date" class="form-control datepicker" placeholder="Enter Date" >
                               </div>
                               <label class="col-sm-2 control-label">Status</label>
 							  <div class="col-sm-4">
@@ -110,12 +120,12 @@
                            </div>
                         </fieldset>
 						
-                        
                         <fieldset>
                            <div class="form-group">
-                              <label class="col-sm-2 control-label">Notes</label>
+							   <label class="col-sm-2 control-label">Description</label>
                               <div class="col-sm-4">
-                                 <textarea name="notes" id="notes" class="form-control"  rows="4" cols="80"></textarea>
+							  <div id="msg"></div>
+							  <textarea name="notes" class="form-control"  id="descriptions" rows="4" cols="80"></textarea>
                               </div>
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">
@@ -136,7 +146,7 @@
      $('#communcicationmenu').addClass('collapse in');
      $('#communication').addClass('active');
      $('#communication1').addClass('active');
-	  $('#myformsection').validate({ // initialize the plugin
+	 $('#myformsection').validate({ // initialize the plugin
        rules: {
          teacher:{required:true },
    		 class_name:{required:true },
@@ -171,7 +181,6 @@ function validates()
 	if(tea=="" && par=="" && cls=="" && admin=="")
      {
 		 $("#erid").html("Please Select Admin Or Teachers Or Parents Or Students  ");
-		 //alert( "Please Select Teachers Or Class" );
 		 document.form.teacher.focus() ;
 		 return false;
      }
@@ -233,113 +242,85 @@ function validates()
 	   $("#myDIV2").hide();
    }
    
- function getstulist(cid) {
-  //alert(cid);//exit;
+  
+ function circulartitle(selectObject) {
+	 var ct = selectObject.value; 
+    //alert(ct);//exit;
+	if(ct=='create'){
+		 alert("Hi");
+		 $("#cirtitle").show();
+		 $("#tnone").hide();
+		 $("#descriptions").html('');
+	}else{
 $.ajax({
-	url:'<?php echo base_url(); ?>circular/get_stu_list',
+	url:'<?php echo base_url(); ?>circular/get_circular_title_list',
 	type:'post',
-	data:{classid:cid},
+	data:{ctype:ct},
 	dataType:"JSON",
     cache: false,
 	success: function(data) {
 		 var test=data.status;
-		// alert(test);
+          //alert(test);
 	   if(test=="success"){
-			   var res=data.res;
-			   var len=res.length;
+			   var stu=data.res1;
+			   var len=stu.length;
                //alert(len);
-			   var stu=data.res;
+			   var stu=data.res1;
 			   // alert(stu);			   
 			   var i;
-			   var stuname='';
-			   stuname +='<option value="">select Student Name</option>';
+			   var ctitle='';
+			   ctitle +='<option value="">select Circular Title</option>';
 			   for (i=0;i<len;i++) {
-				    stuname +='<option value="'+stu[i].admission_id+'">'+stu[i].name+'</option>';
-					$("#sname").show();
-					$('#msg1').hide();
-				    $("#ajaxres").html(stuname);
+				    ctitle +='<option value="'+stu[i].circular_title+'">'+stu[i].circular_title+'</option>';
+					$("#cirtitle").hide();
+					$("#tnone").show();
+				    $("#cititle").html(ctitle);
 			  }
 				 
 		   } else {
-			    $('#msg1').html('<span style="color:red;text-align:center;">Student Not Found</p>');
-				$("#ajaxres").html('');
+			    $('#msg1').html('<span style="color:red;text-align:center;">Circular Title</p>');
+				$("#cititle").html('');
 				//alert("Error");
 		   }
 	}
 });
+	}
 }
 
- function getstulist1(cid) {
-  //alert(cid);//exit;
+ function circulardescription(cde1) {
+   var cde=document.getElementById('cititle').value; 
+   //alert(cde);
 $.ajax({
-	url:'<?php echo base_url(); ?>circular/get_stu_list',
+	url:'<?php echo base_url(); ?>circular/get_description_list',
 	type:'post',
-	data:{classid:cid},
+	data:{ctitle:cde},
 	dataType:"JSON",
     cache: false,
-	success: function(data) {
-		 var test=data.status;
-		// alert(test);
+	success: function(test1) {
+		 var test=test1.status1;
+		 //alert(test);
 	   if(test=="success"){
-			   var res=data.res;
+			   var res=test1.res2;
 			   var len=res.length;
                //alert(len);
-			   var stu=data.res;
-			   // alert(stu);			   
+			   var cdescription=test1.res2;
 			   var i;
-			   var stuname='';
-			   stuname +='<option value="">select Student Name</option>';
+			   var description='';
+			    var description1='';
 			   for (i=0;i<len;i++) {
-				    stuname +='<option value="'+stu[i].admission_id+'">'+stu[i].name+'</option>';
-					$("#stname").show();
-					$('#msg').hide();
-				    $("#ajaxres5").html(stuname);
+				    description +=''+cdescription[i].circular_description+'';
+				    $("#descriptions").html(description);
 			  }
-				 
 		   } else {
-			    $('#msg').html('<span style="color:red;text-align:center;">Student Not Found</p>');
-				$("#ajaxres5").html('');
-				//alert("Error");
+			    $('#msg').html('<span style="color:red;text-align:center;">Description Not Found</p>');
+				$("#descriptions").html('');
 		   }
 	}
 });
 }
 
 
-function getparentlist(pid) {
-  //alert(pid);//exit;
-$.ajax({
-	url:'<?php echo base_url(); ?>circular/get_parent_list',
-	type:'post',
-	data:{studentid:pid},
-	dataType:"JSON",
-    cache: false,
-	success: function(data) {
-		 var test=data.status;
-		// alert(test);
-	   if(test=="success"){
-			   var res=data.res1;
-			   var len=res.length;
-               //alert(len);
-			   var parent=data.res1;
-			   // alert(stu);			   
-			   var i;
-			   var parentname='';
-			   parentname +='<option value="">select Parent Name</option>';
-			   for (i=0;i<len;i++) {
-				    parentname +='<option value="'+parent[i].parent_id+'">'+parent[i].father_name+ parent[i].guardn_name+ '</option>';
-					$("#pname").show();
-					$('#msg2').hide();
-				    $("#ajaxres1").html(parentname);
-			  }
-		   } else {
-			    $('#msg2').html('<span style="color:red;text-align:center;">Parents Not Found</p>');
-				$("#ajaxres1").html('');
-				alert("Error");
-		   }
-	}
-});
-}
+
 			
 </script>
 <script type="text/javascript">

@@ -35,7 +35,7 @@ class Teachercommunication extends CI_Controller
   	 		 $user_id=$this->session->userdata('user_id');
 			 $user_type=$this->session->userdata('user_type');
 			 $datas['circular']=$this->teachercommunicationmodel->getall_circular_details($user_id);
-			 //print_r($datas['circular']);exit;
+			 //echo'<pre>';print_r($datas['circular']);exit;
 			 if($user_type==2){
 	 		 $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/communication/view',$datas);

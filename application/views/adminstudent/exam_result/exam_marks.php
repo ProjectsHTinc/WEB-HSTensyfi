@@ -18,12 +18,12 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="header">
-				<h4 class="title">Exam Marks <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
+				<h4 class="title">Exam Marks <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button><button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
 				<p class="category"></p>
 			</div>
 			<div class="content table-responsive table-full-width">
 	<form method="post" action="<?php echo base_url(); ?>examinationresult/marks_details" class="form-horizontal" enctype="multipart/form-data" id="markform">
-				<table class="table table-hover table-striped">
+				<table id="resulttable" class="table table-hover table-striped">
 					<thead>
 					 <th>Sno</th>
 					 <th>Subject Name</th>
@@ -92,36 +92,26 @@ function loadmarks()
 	$("#totals").val(tot);
 	
 }
-
- /* $('tr').each(function () {
-          var sum = 0;
-        $('.total').each(function () {
-            var combat = $(this).val();
-            if (combat !='NA'&& combat.length!==0) {
-                sum += parseInt(combat);
-            }
-        });
-        $(this).find('.total-combat').html(sum);
-      });
-	   
- function loadmarks()
-{
-var tot=0;
-$('#combats').each (function() {
-tot=tot + parseInt($(this).val());
-})
-$('.total-combat').val(tot);
-}  */
-
-/* $(document).ready(function(e) {
-$("#smark").change(function (){
-var tot=0;
-$("input[name=marks]").each (function() {
-tot=tot + parseInt($(this).val());
-})
-$("input[name=totals]").val(tot);
-});
-}); */
+function generatefromtable() {
+				var data = [], fontSize = 12, height = 0, doc;
+				doc = new jsPDF('p', 'pt', 'a4', true);
+				doc.setFont("times", "normal");
+				doc.setFontSize(fontSize);
+				doc.text(40, 20, "Exam  Marks Result");
+				data = [];
+				data = doc.tableToJson('resulttable');
+				height = doc.drawTable(data, {
+					xstart : 30,
+					ystart : 10,
+					tablestart : 40,
+					marginleft : 10,
+					xOffset : 10,
+					yOffset : 15
+				});
+				//doc.text(50, height + 20, 'hi world');
+				doc.save("examresult.pdf");
+			}
+ 
 </script>
 
 <script type="text/javascript">

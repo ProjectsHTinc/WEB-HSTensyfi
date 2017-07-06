@@ -104,43 +104,11 @@
                      </div>
                   </div>
                   <div class="col-md-3">
-                     <div class="card" style="box-shadow: 0 1px 2px rgba(33, 29, 29, 0.97), 0 0 0 1px rgba(1, 1, 16, 0.98);">
-                        <div class="header" style="padding:0px;">
-                        </div>
-                        <div class="content table-full-width">
-                           <table class="table table-striped">
-                              <thead>
-                                 <tr>
-                                    <th>Name</th>
-                                    <th>Present</th>
-                                    <th>Absent</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Teachers</td>
-                                    <td class="text-center"><?php	if(empty($teacher)){
-                                       echo "No data";
-                                       }else{
-                                       foreach ($teacher as $user_to) {}
-                                       		echo $user_to->user_count;
-                                       } ?></td>
-                                    <td class="text-center" style="padding-right:0px; ">0</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Students</td>
-                                    <td class="text-center"><?php 	if(empty($res)){
-                                       echo "No data";
-                                       }else{
-                                       foreach ($res as $user_to) {}
-                                       		echo $user_to->user_count;
-                                       }  ?></td>
-                                    <td class="text-center"style="padding-right:0px; ">0</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
+                    
+                          <div id="simple-calendar" style="border-radius: 50px;
+    padding-left: 03px;"></div> 
+                        
+                 
                      <p></p>
                   </div>
                <!---                      -->
@@ -328,60 +296,11 @@
 </div>
 <script type="text/javascript">
    $(document).ready(function() {
-   	$('#fullCalendar').fullCalendar({
-   		header: {
-   			left: 'prev,next today',
-   			center: 'title',
-   			right: 'month,basicWeek,basicDay'
-   		},
-   		defaultDate: new Date(),
-   		editable: false,
-   		eventLimit: true, // allow "more" link when too many events
-   		// events:"<?php echo base_url() ?>event/getall_act_event",
-   		eventSources: [
-    {
-   	 url: '<?php echo base_url() ?>event/getall_act_event',
-   	 color: 'yellow',
-   	 textColor: 'black'
-    }
-    ,
-    {
-   	 url: '<?php echo base_url() ?>event/get_all_regularleave',
-   	 color: 'blue',
-   	 textColor: 'white'
-    },
-    {
-   	url: '<?php echo base_url() ?>teacherevent/view_all_reminder',
-   	color: 'red',
-   	textColor: 'white'
-   },
-   {
-    url: '<?php echo base_url() ?>leavemanage/get_all_special_leave',
-    color: 'pink',
-    textColor: 'white'
-   }
-   ],
-   		eventMouseover: function(calEvent, jsEvent) {
-   	var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background-color:#000;color:#fff;position:absolute;z-index:10001;padding:20px;">' + calEvent.description + '</div>';
-   	var $tooltip = $(tooltip).appendTo('body');
-   
-   	$(this).mouseover(function(e) {
-   			$(this).css('z-index', 10000);
-   			$tooltip.fadeIn('500');
-   			$tooltip.fadeTo('10', 1.9);
-   	}).mousemove(function(e) {
-   			$tooltip.css('top', e.pageY + 10);
-   			$tooltip.css('left', e.pageX + 20);
-   	});
-   },
-   
-   eventMouseout: function(calEvent, jsEvent) {
-   	$(this).css('z-index', 8);
-   	$('.tooltipevent').remove();
-   },
-   
-   	});
-   			});
+	  $('#simple-calendar').DatePicker({
+	  mode: 'single',
+	  inline: true,
+	  date: new Date() });
+});
    
    	
    function search_load(){
@@ -413,7 +332,6 @@
    
    }
    }
-   
-   
+    
 </script>
 

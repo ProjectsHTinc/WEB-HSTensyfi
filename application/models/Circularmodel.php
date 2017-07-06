@@ -67,6 +67,60 @@ Class Circularmodel extends CI_Model
 
 	 }
 	 
+	 function cmaster_type()
+	 {
+		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
+		  
+	     $query2="SELECT * FROM edu_circular_master WHERE academic_year_id='$current_year' AND status='Active'";
+         $res=$this->db->query($query2);
+         $result3=$res->result();
+		 return $result3;
+	 }
+	 
+	  function get_circular_title_lists($ctype)
+	 {
+		 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
+		  
+		 $query2="SELECT id,academic_year_id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_type='$ctype' AND academic_year_id='$current_year' AND status='Active'";
+         $resultset1=$this->db->query($query2);
+         if($resultset1->num_rows()==0){
+           $data= array("status" =>"nodata");
+           return $data;
+         }else{
+             $res=$resultset1->result();
+             $data=array("status"=>"success","res1"=>$res);
+               return $data;
+		 }
+	 } 
+	 
+	 function get_circular_description_lists($ctitle)
+	 {//   echo $ctitle;exit;
+		 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
+		  
+		  $query5="SELECT id,academic_year_id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_title='$ctitle' AND academic_year_id='$current_year' AND status='Active'";
+         $resultset3=$this->db->query($query5);
+         if($resultset3->num_rows()==0){
+           $data= array("status" =>"nodata");
+           return $data;
+         }else{
+             $res3=$resultset3->result();
+             $data=array("status1"=>"success","res2"=>$res3);
+               return $data;
+		 }
+	 }
+	 
 	 function circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id)
 	 {
 		  //-----------------------------Students----------------------
@@ -209,9 +263,64 @@ Class Circularmodel extends CI_Model
          $result1=$res->result();
 		 return $result1; 
 	 } 
+	 
+	 function get_current_years()
+		{
+		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  if($result1->num_rows()==0){
+			$data= array("status" => "no data Found");
+			return $data;
+		  }else{
+			$all_year= $result1->result();
+			$data= array("status" => "success","all_years"=>$all_year);
+			return $data;
+			//print_r($all_year);
+		  }
 
+		}
+		
+    function get_all_result()
+	{
+		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
+		  
+	     $query2="SELECT * FROM edu_circular_master WHERE academic_year_id='$current_year'";
+         $res=$this->db->query($query2);
+         $result3=$res->result();
+		 return $result3;
+	}
 	
-
+	function edit_all_result($id)
+	{
+		$query2="SELECT * FROM edu_circular_master WHERE id='$id'";
+         $res=$this->db->query($query2);
+         $result3=$res->result();
+		 return $result3;
+	}
+	
+	function create_circular_masters($year_id,$ctype,$ctile,$cdescription,$status,$user_id)
+	{
+		$sql1="INSERT INTO edu_circular_master(academic_year_id,circular_title,circular_type,circular_description,status, created_by,created_at) VALUES ('$year_id','$ctile','$ctype','$cdescription','$status','$user_id',NOW())";
+		$resultset=$this->db->query($sql1);
+		  if($resultset){
+			  $data = array("status" => "success");
+              return $data;}else{$data = array("status" => "Failed");
+			  return $data;}
+	}
+     
+	function update_circular_masters($cid,$year_id,$ctype,$ctile,$cdescription,$status,$user_id)
+	{
+		$sql2="UPDATE edu_circular_master SET circular_title='$ctile',circular_type='$ctype',circular_description='$cdescription',status='$status',updated_by='$user_id',updated_at=NOW() WHERE id='$cid'";
+		$resultset1=$this->db->query($sql2);
+		if($resultset1){
+		 $data = array("status" => "success");
+           return $data;}else{$data = array("status" => "Failed");
+		return $data;}
+	}
    
 	   
 	 

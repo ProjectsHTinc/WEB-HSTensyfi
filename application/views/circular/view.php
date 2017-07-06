@@ -31,7 +31,7 @@
                                  <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <th class="text-left" data-sortable="true">Notes</th> 
+								 <!-- <th class="text-left" data-sortable="true">Notes</th> --> 
                                  <th class="text-left" data-sortable="true">Circular Type</th>
 								 <th class="text-left" data-sortable="true">Status</th> 
                                  <th class="text-left" data-sortable="true">Circular Date</th>
@@ -49,7 +49,7 @@
                                     <td class="text-left"><?php echo $i; ?></td>
                                     <td class="text-left"><?php echo $rows->name;  ?></td>
                                    <td class="text-left"><?php echo $rows->title;?></td>
-								    <td class="text-left"><?php echo $rows->notes;?></td>
+								     <!--<td class="text-left"><?php echo $rows->notes;?></td>-->
 									 <td class="text-left"><?php echo $rows->circular_type;?></td>
 									  <td class="text-left"><?php echo $rows->status;?></td>
                                     <td class="text-left"><?php $date=date_create($rows->circular_date);

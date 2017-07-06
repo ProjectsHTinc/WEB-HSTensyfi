@@ -28,7 +28,12 @@
 	   <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
 		<script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
 		<script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
-
+        
+		<!-- Calender 
+	    <script src="<?php echo base_url(); ?>assets/js/datepicker.js" type="text/javascript"></script>
+	    <link href="<?php echo base_url(); ?>assets/css/clean.css" rel="stylesheet" />
+	    <link href="<?php echo base_url(); ?>assets/css/base.css" rel="stylesheet" />---->
+		
       <!--  Forms Validations Plugin -->
       <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/jquery.datatables.js"></script>
@@ -59,11 +64,13 @@
 		 .topbar{background-color:#642160 ;height:70px;}
 		 .imgclass{margin:0px;float:left;}
 		 .imgstyle{width:40px;height:40px;}
-	
+	     .bodystyle{position: absolute;
+					height: 100%;
+					width: 100%;}
 		 
       </style>
    </head>
-   <body>
+   <body class="bodystyle">
       <div class="wrapper">
       <nav class="navbar navbar-default topbar">
          <div class="container">
@@ -84,7 +91,8 @@
 						  Quick Links</a>
 								<ul class="dropdown-menu">
 								  <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
-								  <li><a href="<?php echo base_url(); ?>event/home">Add Reminder</a></li> 
+								  <li><a href="<?php echo base_url(); ?>event/home">Add Reminder</a></li>
+                                  <li><a href="<?php echo base_url(); ?>circular/create_circular_master">Circular Master</a></li>
 							</ul>
 						</li>
 
@@ -311,13 +319,13 @@
                <li id="communication">
                   <a data-toggle="collapse" href="#communcicationmenu">
                      <i class="pe-7s-plugin"></i>
-                     <p>Communications</p>
+                     <p>Circular</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="communcicationmenu">
                      <ul class="nav">
-                       <li id="communication1"><a href="<?php echo base_url(); ?>communication/add_communication">Add Circular </a></li>
-                       <li id="communication2"><a href="<?php echo base_url(); ?>communication/view">View Circular </a></li>
+                       <li id="communication1"><a href="<?php echo base_url(); ?>circular/add_circular">Add Circular </a></li>
+                       <li id="communication2"><a href="<?php echo base_url(); ?>circular/view_circular">View Circular </a></li>
 					   <li id="communication3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
                      </ul>
                   </div>
