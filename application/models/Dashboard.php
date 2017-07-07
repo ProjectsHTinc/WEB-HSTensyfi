@@ -47,13 +47,15 @@ Class Dashboard extends CI_Model
 	{
 		 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 		  $result1=$this->db->query($get_year);
-		  $all_year= $result1->result();
-		  foreach($all_year as $cyear){}
-		  $current_year=$cyear->year_id;
-		  
-       $query="SELECT c.id,c.circular_master_id,c.circular_date,cm.id,cm.circular_title,cm.status,cm.academic_year_id FROM edu_circular AS c,edu_circular_master AS cm WHERE cm.status='Active' AND c.circular_master_id=cm.id AND cm.academic_year_id='$current_year' ORDER BY c.id DESC LIMIT 5";
-      $result=$this->db->query($query);
-      return  $result->result();
+		   $all_year= $result1->result();
+		  if($result1->num_rows()==0){ 
+           }else{
+          foreach($all_year as $cyear){}
+	      $current_year=$cyear->year_id;
+           $query="SELECT c.id,c.circular_master_id,c.circular_date,cm.id,cm.circular_title,cm.status,cm.academic_year_id FROM edu_circular AS c,edu_circular_master AS cm WHERE cm.status='Active' AND c.circular_master_id=cm.id AND cm.academic_year_id='$current_year' ORDER BY c.id DESC LIMIT 5";
+          $result=$this->db->query($query);
+          return  $result->result();
+          }
     }
 	
 	function dash_reminder($user_id){
@@ -463,19 +465,19 @@ INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON
 
 function get_students_circular($user_id)
   {
-        $user_id=$this->session->userdata('user_id');
-        $get_enroll_id="SELECT ed.name,ed.student_id,ea.admisn_year,ea.admisn_no,ee.enroll_id,ee.class_id FROM edu_users AS ed LEFT JOIN edu_admission AS ea ON ed.student_id=ea.admission_id
-       LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_id='$user_id'";
+	   $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  if($result1->num_rows()==0){ }else{
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
 
-        $results=$this->db->query($get_enroll_id);
-        foreach($results->result() as $rows){}
-        //$class_id=$rows->class_id;
-		$clas_id=$rows->class_id;
-
-		$sql="SELECT * FROM edu_communication  WHERE status='A' AND FIND_IN_SET('$clas_id',class_id) AND commu_date>= NOW() LIMIT 5 ";
-		  $res=$this->db->query($sql);
-		  $row=$res->result();
-		   return $row;
+		  $com="SELECT c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.id,cm.academic_year_id,cm.circular_title,cm.circular_type,cm.circular_description,cm.status FROM edu_circular AS c,edu_circular_master AS cm WHERE c.user_id='$user_id' AND c.user_type=3 AND cm.academic_year_id='$current_year' AND c.circular_master_id=cm.id AND cm.status='Active' LIMIT 5 ";
+		 //$sql="SELECT * FROM edu_communication WHERE status='A' AND FIND_IN_SET('$teacher_id',teacher_id) ";
+		 $resultset=$this->db->query($com);
+		 $row=$resultset->result();
+		 return $row;
+		  }
   }
 
 }

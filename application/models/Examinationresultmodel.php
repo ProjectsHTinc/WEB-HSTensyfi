@@ -194,7 +194,10 @@ Class Examinationresultmodel extends CI_Model
     
     function exam_marks_details($exam_id, $subid, $sutid, $clsmastid, $teaid, $internal_marks, $external_marks, $user_id)
     {
-        
+        $check="SELECT * FROM edu_exam_marks WHERE exam_id='$exam_id' AND subject_id='$subid' AND classmaster_id='$clsmastid'";
+		$result1=$this->db->query($check);
+		if($result1->num_rows()==0)
+		{ 
         $count_name = count($external_marks);
         //echo $count_name; exit;
         for ($i = 0; $i < $count_name; $i++) {
@@ -302,30 +305,19 @@ Class Examinationresultmodel extends CI_Model
                 $grade2 = 'E2';
             }
             
-            
-            /* $check="SELECT * FROM edu_exam_marks WHERE exam_id='$examid1' AND subject_id='$subid1' AND classmaster_id='$clsmastid1'";
-            $result1=$this->db->query($check);
-            if($result1->num_rows()==0)
-            { */
             $query      = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','$marks1','$grade','$marks2','$grade1','$total','$grade2','$user_id1',NOW())";
             $resultset1 = $this->db->query($query);
-            /* }else{
+        }
+		  }else{
             $data= array("status"=>"Already Added");
             return $data;
-            } */
-        }
+            } 
         if ($resultset1) {
-            $data = array(
-                "status" => "success"
-            );
-            return $data;
-        } else {
-            $data = array(
-                "status" => "failure"
-            );
-            return $data;
+            $data = array("status" => "success");return $data;
+        }else{
+            $data = array("status" => "failure");return $data;
         }
-        //}          
+                 
         
     }
     
@@ -393,7 +385,7 @@ Class Examinationresultmodel extends CI_Model
         
         //SELECT em.*,en.* FROM edu_exam_marks AS em,edu_enrollment AS en WHERE em.teacher_id='5' AND em.subject_id='9' AND em.classmaster_id='12' AND em.exam_id='7' AND em.classmaster_id=en.class_id GROUP BY enroll_id
         
-        $sql1    = "SELECT * FROM edu_exam_marks WHERE teacher_id='$teacher_id' AND subject_id='$tsub' AND classmaster_id='$cls_masid' AND exam_id='$exam_id'";
+         $sql1 = "SELECT * FROM edu_exam_marks WHERE teacher_id='$teacher_id' AND subject_id='$tsub' AND classmaster_id='$cls_masid' AND exam_id='$exam_id'";
         $result1 = $this->db->query($sql1);
         $row1    = $result1->result();
         return $row1;

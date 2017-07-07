@@ -123,15 +123,15 @@
 			 
  $('#myformsection').validate({ // initialize the plugin
      rules: {
-         from_year:{required:true }
-		 to_year:{required:true },
+         from_year:{required:true },
+		 to_year:{required:true }
      },
      messages: {
            from_year:"Please Enter From Year",
 		   to_year:"Please Enter To Year"
          }
  });
-});
+
  
 var $table = $('#bootstrap-table');
       $().ready(function(){

@@ -182,14 +182,24 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
      }
 
      }
-
+  //--------------------------Circular----------------------// 
+  
 	 function get_circular($user_id){
-		 $cid=$this->get_class_id_user();
-        //echo $cid;exit;
-		  $sql="SELECT * FROM edu_communication WHERE status='A' AND FIND_IN_SET('$cid',class_id) ORDER BY commu_id DESC ";
-		  $res=$this->db->query($sql);
-		  $row=$res->result();
-		  return $row;
+		 //$cid=$this->get_class_id_user();
+        //echo $user_id;exit;
+		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  if($result1->num_rows()==0){ }else{
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
+
+		  $com="SELECT c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.id,cm.academic_year_id,cm.circular_title,cm.circular_type,cm.circular_description,cm.status FROM edu_circular AS c,edu_circular_master AS cm WHERE c.user_id='$user_id' AND c.user_type=3 AND cm.academic_year_id='$current_year' AND c.circular_master_id=cm.id AND cm.status='Active'";
+		 //$sql="SELECT * FROM edu_communication WHERE status='A' AND FIND_IN_SET('$teacher_id',teacher_id) ";
+		 $resultset=$this->db->query($com);
+		 $row=$resultset->result();
+		 return $row;
+		   }
 	 }
 
 	 //--------------------Fees Status---------------

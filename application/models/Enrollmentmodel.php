@@ -18,7 +18,7 @@ Class Enrollmentmodel extends CI_Model
 			  
 			  $digits = 6;
 		      $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
-			  echo $OTP; 
+			  //echo $OTP; 
               $md5pwd=md5($OTP);
 		
 			  $admisn="select name,admission_id from edu_admission WHERE admisn_no='".$admisn_no."'";

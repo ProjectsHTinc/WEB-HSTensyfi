@@ -123,15 +123,17 @@ class Examinationresult extends CI_Controller
         $internal_marks = $this->input->post('internal_marks');
         $external_marks = $this->input->post('external_marks');
         
-       
-        
+		
         $datas = $this->examinationresultmodel->exam_marks_details($exam_id, $subid, $sutid, $clsmastid, $teaid, $internal_marks, $external_marks, $user_id);
-       
+      // print_r($datas);exit;
         if ($datas['status']=="success") {
             $this->session->set_flashdata('msg', 'Added Successfully');
             redirect('examinationresult/view_exam_name_marks',$datas);
                  
-        } else {
+        }if($datas['status']=="Already Added"){
+			$this->session->set_flashdata('msg', 'Already Added');
+            redirect('examinationresult/exam_mark_details?var1='.$clsmastid.'&var2='.$exam_id.'',$datas);
+		}else {
             $this->session->set_flashdata('msg', 'Falid To Added');
             redirect('examinationresult/view_exam_name_marks',$datas);
         }

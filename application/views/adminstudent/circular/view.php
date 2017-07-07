@@ -25,13 +25,12 @@
 
                                 ?>
                                         <div class="col-md-10">
-                                            <h5><?php echo $i; ?>. <?php echo $rows->commu_title; ?></h5>
+                                            <h5><?php echo $i; ?>. <?php echo $rows->circular_title; ?> ( <?php echo $rows->circular_type; ?> )</h5>
                                             <blockquote>
-                                               <p><?php echo $rows->commu_details; ?></p>
+                                               <p><?php echo $rows->circular_description; ?></p>
                                                <small>
-
                                                   <cite title="Source Title">
-	<?php $dateTime=new DateTime($rows->commu_date); $fdate=date_format($dateTime,'d-m-Y' ); echo $fdate; ?></cite>
+	<?php $dateTime=new DateTime($rows->circular_date); $fdate=date_format($dateTime,'d-m-Y' ); echo $fdate; ?></cite>
                                                </small>
                                             </blockquote>
                                         </div>

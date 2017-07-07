@@ -38,8 +38,6 @@
 <style>
 .navbar{
 margin-bottom:0px;}
-.sidemenu{margin-top:78px;}
-
 .caret{
 		position: relative;
 		top: -20px;
@@ -53,13 +51,24 @@ margin-bottom:0px;}
 	color: red;
 font-weight: 500;
 }
+.title_ensyfi{
+           color:#fff!important; margin-left: 10px!important; padding-left: 175px !important;
+         }
 .abox{border: 1px solid grey;}
+.topbar{background-color:#642160 ;height:70px;}
+ .imgclass{margin:0px;float:left;}
+ .imgstyle1{width:40px;height:40px;}
+ body{position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: whitesmoke;}
+	.sidemenubcolor{background-color: #1e202c;}
 </style>
 </head>
 <body>
 
 <div class="wrapper">
-	<nav class="navbar navbar-default" style="background-color: #9266d9;">
+	<nav class="navbar navbar-default topbar">
 			<div class="container-fluid">
 
 				<div class="navbar-header">
@@ -69,9 +78,9 @@ font-weight: 500;
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#" style="color: white;margin-left:10px;margin-top: 13px;">ENSYFI Dashboard </a>
+					<a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px;"><?php  echo $this->session->userdata('name'); ?></a>
 				</div>
-				<div class="collapse navbar-collapse">
+				<div class="collapse navbar-collapse" style="float:right;">
 					<ul class="nav navbar-nav navbar-right">
 					
 					 <!-- <li>
@@ -140,11 +149,43 @@ font-weight: 500;
 		</nav>
 
 
-    <div class="sidebar sidemenu" data-color="purple"  style="">
-
-    	<div class="sidebar-wrapper">
-
-
+    <div class="sidebar sidemenu" data-color="purple" >
+	<div class="logo sidemenubcolor"  style="padding:0px 70px;height:115px">
+            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:130px;"  />
+        </div>
+    	<div class="sidebar-wrapper" style="background-color: #1e202c;">
+		<div class="user" style="margin-top:10px;padding-bottom:22px;">
+                 <div class="imgclass photo" style="margin-left:20px;">
+				<?php
+					  $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $row=$objRs->result();
+					  foreach ($row as $rows1)
+					  {
+						  $pic=$rows1->user_pic;
+						  if($pic!='')
+						  {?>
+					<img class="img-responsive" style="width:80px;height:80px;" src="<?php echo base_url(); ?>assets/students/profile/<?php echo $pic; ?>" > 
+			        <?php }else{
+				   ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
+						 <?php }} ?>
+                </div>
+                <div class="info">
+                   <a  href="" style="padding-top:25px;">
+					<?php 
+					   $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT name FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $rows=$objRs->result();
+					  foreach ($rows as $rows2)
+					  { }echo '<p>'; echo"Welcome, "; echo $rows2->name; echo '</p>';?>
+                    </a>
+                   
+                </div>
+            </div>
             <ul class="nav">
                 <li class="">
                     <a href="<?php echo base_url(); ?>">
