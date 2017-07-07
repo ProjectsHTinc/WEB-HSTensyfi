@@ -171,7 +171,7 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
               //Save Review
 
               function save_review($class_id,$user_id,$user_type,$subject_id,$cur_date,$comments){
-               $query="INSERT INTO edu_timetable_review (time_date,class_id,subject_id,user_type,user_id,comments,status,created_at,update_at) VALUES ('$cur_date','$class_id','$subject_id','$user_type','$user_id','$comments','Active',NOW(),NOW())";
+               $query="INSERT INTO edu_timetable_review (time_date,class_id,subject_id,user_type,user_id,comments,status,created_at,updated_at) VALUES ('$cur_date','$class_id','$subject_id','$user_type','$user_id','$comments','Active',NOW(),NOW())";
                  $resultset=$this->db->query($query);
                  if($resultset){
                    $data= array("status" => "success");
@@ -188,7 +188,7 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
               function view_review($user_id){
                  $query="SELECT etr.class_id,c.class_name,s.sec_name,etr.subject_id,etr.time_date,esu.subject_name,etr.comments,etr.remarks FROM edu_timetable_review AS etr
                 INNER JOIN edu_classmaster AS cm ON etr.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id
-                INNER JOIN edu_subject AS esu ON etr.subject_id=esu.subject_id  WHERE user_id ='$user_id' ORDER BY update_at ASC";
+                INNER JOIN edu_subject AS esu ON etr.subject_id=esu.subject_id  WHERE user_id ='$user_id' ORDER BY etr.updated_at ASC";
                  $resultset=$this->db->query($query);
                  return $resultset->result();
                 }
@@ -212,7 +212,7 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
 
 
                     function save_user_review($timetable_id,$remarks){
-                      $query="UPDATE edu_timetable_review SET remarks='$remarks',update_at=NOW() WHERE timetable_id='$timetable_id'";
+                      $query="UPDATE edu_timetable_review SET remarks='$remarks',updated_at=NOW() WHERE timetable_id='$timetable_id'";
                       $resultset=$this->db->query($query);
                       if($resultset){
                         $data= array("status" => "success");
@@ -231,7 +231,7 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
             $resultset=$this->db->query($get_teach_id);
             foreach($resultset->result() as $rows){}
             $teacher_id=$rows->teacher_id;
-            $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,dd.list_day,tt.period,ss.sec_name,c.class_name
+             $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,dd.list_day,tt.period,ss.sec_name,c.class_name
                 FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id
                 INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
                 INNER JOIN edu_days AS dd ON tt.day=dd.d_id WHERE  tt.teacher_id='$teacher_id' ORDER BY tt.period ASC";

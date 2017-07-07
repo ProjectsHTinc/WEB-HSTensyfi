@@ -24,9 +24,6 @@
 
       </div>
 
-
-
-
       <div class="content">
         <div class="row">
           <div class="col-md-12">
@@ -36,7 +33,6 @@
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-
                                       <tr><th>Days</th>
                                     	<th>I</th>
                                     	<th>II</th>
@@ -48,88 +44,55 @@
                                       <th>VIII</th>
                                     </tr>
                                   </thead>
-
-                                    <?php
-                                // print_r($data['restime']['time']);exit;
-                                  // print_r($restime);
-
-                                    $prd= count($restime)/6; //echo  $restime[5]->subject_name;
-                                $m=count($restime);
-
-                               //$encrypt = $this->encryption->encode($m);
-                            //  echo $decrypt = $this->encryption->decode($m);
-                                ?>
                                     <?php
 
+                                  $prd= count($restime)/6; //echo  $restime[5]->subject_name; ?>
+                                    <?php
 $period = 8;
-$arr2=array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-
+$arr2=array('Mon','Tue','Wednes','Thurs','Friday','Saturday');
+$arr1=array('1','2','3','4','5','6');
 ?>
 
-<?php
 
-$k=0; ?>
-
-<?php
-foreach($arr2 as $day){ ?>
-
-<?php  for($i=1;$i <= 6; $i++){
-    ?>
-
-    <tr>
-
-        <th><?php   echo $day;
-        ?></th>
-        <?php
-        for($i=1;$i <= $period; $i++){
-            ?>
-            <td>
               <?php
+              $k=0;
 
-                 $d=$day;
-                  $b=$restime[$i]->list_day;
-                    $b=$restime[$i]->period;  //echo $restime[$i]->day;
-                      //echo $i;
-                      //echo $day;
-                      if($i=$d){ echo "hi"; }
+              foreach($arr1 as $day){
+              
+                for($i=1;$i <= 6; $i++){
+                  ?>
+                      <tr>
+                          <th><?php echo $day; ?></th>
+                          <?php
+                          for($i=1;$i <= $period; $i++){
+                              ?>
+                  <td>
+                    <?php
+                            // echo  $restime[$k]->period;
+                            if($day=="2"){
+                              echo  $restime[$k]->class_name;
+                            }
 
+                     ?>
 
-               ?>
-            </td>
-            <?php
-$k++;
-        }
+                  </td>
+                      <?php
+                  $k++;
+                          }
+                        }
 
-        }
-        }
-
-
-
-        ?>
-        </tr>
-
-    <?php
-
-
-?>
-
-
+                  }
+                          ?>
+                          </tr>
                                 </table>
-
                             </div>
-
-                                                        <!-- </form> -->
                         </div>
-          </div>
-          </div>
-      </div>
-
-
-
-
-    </div>
-  </div>
-</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 <script>
 $('#timetablemenu').addClass('collapse in');
 $('#timetable').addClass('active');
