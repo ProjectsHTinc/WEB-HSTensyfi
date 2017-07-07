@@ -4229,7 +4229,8 @@ h1 .subtitle {
   position: relative;
   z-index: 4;
   width: 260px;
-  height: calc(100vh - 64px);
+  height: 100%;
+  background-color: #4f3a7e;
 }
 .sidebar .sidebar-wrapper > .nav {
   margin-top: 20px;
