@@ -64,13 +64,13 @@
 		 .topbar{background-color:#642160 ;height:70px;}
 		 .imgclass{margin:0px;float:left;}
 		 .imgstyle{width:40px;height:40px;}
-	     .bodystyle{position: absolute;
+	     body{position: absolute;
 					height: 100%;
-					width: 100%;}
+					width: 100%;background-color: whitesmoke;}
 		 
       </style>
    </head>
-   <body class="bodystyle">
+   <body>
       <div class="wrapper">
       <nav class="navbar navbar-default topbar">
          <div class="container">

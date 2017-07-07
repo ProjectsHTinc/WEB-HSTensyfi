@@ -270,7 +270,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
 
-				 $query="SELECT * FROM edu_on_duty WHERE user_id='$student_id' AND user_type='$user_type'";
+				 $query="SELECT * FROM edu_on_duty WHERE user_id='$user_id' AND user_type='$user_type'";
 				 $resultset1=$this->db->query($query);
 				 return $resultset1->result();
 	       }
@@ -283,7 +283,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
 
-				 $sql="INSERT INTO edu_on_duty(user_type,user_id,od_for,from_date,to_date,notes,status,created_by,created_at)VALUES('$user_type','$student_id','$reason','$fdate','$tdate','$notes','Pending','$user_id',NOW())";
+				 $sql="INSERT INTO edu_on_duty(user_type,user_id,od_for,from_date,to_date,notes,status,created_by,created_at)VALUES('$user_type','$user_id','$reason','$fdate','$tdate','$notes','Pending','$user_id',NOW())";
 				 $result1=$this->db->query($sql);
 				 //$res=$result1->result();
 				 if($resultset)

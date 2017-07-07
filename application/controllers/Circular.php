@@ -190,22 +190,23 @@ class Circular extends CI_Controller
 	  $pusers_id=$this->input->post('pusers');
       $stusers_id=$this->input->post('stusers');
     
-      $ctitle=$this->input->post('ctitle'); 
-	  $ctitle1=$this->input->post('title'); 
-	  if($ctitle==''){
-		  $title=$ctitle1;
-	  }
-	  else{
-		   $title=$ctitle;
-	  }
-      //echo $title;exit;	  
-      $date=$this->input->post('date');
+      $title=$this->input->post('ctitle'); 
+	 // $ctitle1=$this->input->post('title'); 
+	  //if($ctitle==''){
+	//	  $title=$ctitle1;
+	  //}
+	 // else{
+		//   $title=$ctitle;
+	//  }
+	  $date=$this->input->post('date');
       $dateTime = new DateTime($date);
       $circulardate=date_format($dateTime,'Y-m-d' );
       $notes=$this->input->post('notes');
-	  
 	   $citrcular_type=$this->input->post('citrcular_type');
 	   $status=$this->input->post('status'); 
+	   
+      //echo $title; echo $notes;  echo $citrcular_type;  exit;	  
+     
 	   
       $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id);
       //print_r($datas);exit;

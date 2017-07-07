@@ -34,13 +34,7 @@
                               <div class="col-sm-4">
                                  <textarea rows="4" cols="80" name="notes" class="form-control"></textarea>
                               </div>
-                             <!-- <label class="col-sm-2 control-label">Status</label>
-                              <div class="col-sm-4">
-                                <select name="status"  class="selectpicker form-control" data-title="Status" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-								  <option value="Active">Active</option>
-								  <option value="Deactive">DeActive</option>
-							  </select>
-                              </div> -->
+                            
                            </div>
                         </fieldset>
 						 <fieldset>
@@ -105,9 +99,9 @@
 								 <?php }?>
 								  </td>
 								  
-                                    <td>
+                                    <td><?php if($stu=='Approved' || $stu=='Rejected'){echo"-";}else{ ?>
                                        <a href="<?php echo base_url();  ?>teacheronduty/edit_onduty/<?php echo $rows->id; ?>" class="btn btn-simple btn-warning btn-icon edit">
-									   <i class="fa fa-edit"></i></a>
+									<i class="fa fa-edit"></i></a><?php }?>
                                     </td>
                                  </tr>
                                  <?php $i++;  }  ?>

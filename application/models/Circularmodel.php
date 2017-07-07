@@ -123,6 +123,11 @@ Class Circularmodel extends CI_Model
 	 
 	 function circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id)
 	 {
+		  $master="SELECT id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_type='$citrcular_type' AND circular_description='$notes' AND status='Active'";
+		   $resultset=$this->db->query($master);
+		   $res=$resultset->result();
+		   foreach($res as $rows){}
+		   $cm=$rows->id;
 		 
 		  //-----------------------------Students----------------------
 		 // print_r($stusers_id);
@@ -130,11 +135,7 @@ Class Circularmodel extends CI_Model
 		  {
 			 $scountid=count($stusers_id);
 			//echo $scountid; 
-			$master="SELECT id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_type='$citrcular_type' AND circular_description='$notes' AND status='Active'";
-		   $resultset=$this->db->query($master);
-		   $res=$resultset->result();
-		   foreach($res as $rows){}
-		   $cm=$rows->id;
+			
 			 for ($i=0;$i<$scountid;$i++) 
 			 {
 				$classid=$stusers_id[$i];
@@ -169,11 +170,7 @@ Class Circularmodel extends CI_Model
 		  if($pusers_id!='')
 		  {
 			$pcountid=count($pusers_id);
-			$master="SELECT id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_type='$citrcular_type' AND circular_description='$notes' AND status='Active'";
-		 $resultset=$this->db->query($master);
-		 $res=$resultset->result();
-		 foreach($res as $rows){}
-		  $cm=$rows->id;
+			
 			 for ($i=0;$i<$pcountid;$i++) 
 			 {
 				$classid=$pusers_id[$i];
@@ -205,11 +202,7 @@ Class Circularmodel extends CI_Model
 			{
 			 $countid=count($tusers_id);
 			 //echo $countid; 
-			 $master="SELECT id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_type='$citrcular_type' AND circular_description='$notes' AND status='Active'";
-		 $resultset=$this->db->query($master);
-		 $res=$resultset->result();
-		 foreach($res as $rows){}
-		  $cm=$rows->id;
+			 
 			 for ($i=0;$i<$countid;$i++) {
 				$userid=$tusers_id[$i];
 				
@@ -228,11 +221,7 @@ Class Circularmodel extends CI_Model
 			//------------------------------Admin-----------------------
 			if($users_id!=''){
 			//echo $users_id;
-			$master="SELECT id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_type='$citrcular_type' AND circular_description='$notes' AND status='Active'";
-		 $resultset=$this->db->query($master);
-		 $res=$resultset->result();
-		 foreach($res as $rows){}
-		  $cm=$rows->id;
+			
 			$sql1="SELECT * FROM edu_users WHERE user_type='$users_id' AND status='Active'";
 			$res=$this->db->query($sql1);
 			$result1=$res->result();

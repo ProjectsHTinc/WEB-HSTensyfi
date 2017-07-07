@@ -10,13 +10,13 @@ Class Teacherondutymodel extends CI_Model
   
     function getall_details($user_id,$user_type)
 	 {
-		 $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
+		   $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
 			 foreach($row as $rows){}
 			 $teacher_id=$rows->teacher_id;
 			 
-		 $query="SELECT * FROM edu_on_duty WHERE user_id='$teacher_id' AND user_type='$user_type'";
+		 $query="SELECT * FROM edu_on_duty WHERE user_id='$user_id' AND user_type='$user_type'";
          $resultset1=$this->db->query($query);
          return $resultset1->result();
 	 }
@@ -29,7 +29,7 @@ Class Teacherondutymodel extends CI_Model
 		  foreach($row as $rows){}
 		  $teacher_id=$rows->teacher_id;
 			 
-		 $sql="INSERT INTO edu_on_duty(user_type,user_id,od_for,from_date,to_date,notes,status,created_by,created_at)VALUES('$user_type','$teacher_id','$reason','$fdate','$tdate','$notes','Pending','$user_id',NOW())";
+		 $sql="INSERT INTO edu_on_duty(user_type,user_id,od_for,from_date,to_date,notes,status,created_by,created_at)VALUES('$user_type','$user_id','$reason','$fdate','$tdate','$notes','Pending','$user_id',NOW())";
          $result1=$this->db->query($sql);
          //$res=$result1->result();
 		 if($resultset)

@@ -99,9 +99,9 @@
 								 <?php }?>
 								  </td>
 								  
-                                    <td>
+                                    <td><?php if($stu=='Approved' || $stu=='Rejected' ){echo"-";}else{ ?>
                                        <a href="<?php echo base_url();  ?>student/edit_onduty/<?php echo $rows->id; ?>" class="btn btn-simple btn-warning btn-icon edit">
-									   <i class="fa fa-edit"></i></a>
+									<i class="fa fa-edit"></i></a><?php }?>
                                     </td>
                                  </tr>
                                  <?php $i++;  }  ?>
