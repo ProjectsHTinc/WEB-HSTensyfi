@@ -1,4 +1,8 @@
-<style>
+<!-- Calender ---->
+	    <script src="<?php echo base_url(); ?>assets/js/datepicker.js" type="text/javascript"></script>
+	    <link href="<?php echo base_url(); ?>assets/css/clean.css" rel="stylesheet" />
+	    <link href="<?php echo base_url(); ?>assets/css/base.css" rel="stylesheet" />
+		<style>
    .box{
    padding: 12px 0px 66px 0px;
    border: 2px solid #9a8585;
@@ -221,7 +225,7 @@
                                           <?php echo $i; ?>
                                           </label>
                                        </td>
-                                       <td><?php echo $rows->commu_title;  ?> </td>
+                                       <td><?php echo $rows->circular_title;  ?> </td>
                                     </tr>
                                     <?php  $i++; } 	}?>
                                  </tbody>

@@ -64,6 +64,7 @@ class Adminlogin extends CI_Controller {
 								$datas['das_events']=$this->dashboard->dash_events();
 								$datas['das_users']=$this->dashboard->dash_users();
 								$datas['dash_comm']=$this->dashboard->dash_comm();
+								// print_r($datas['dash_comm']);exit;
 								$datas['dash_reminder']=$this->dashboard->dash_reminder($user_id);
 								$datas['class']=$this->dashboard->get_all_class_sec();
 							   //print_r($datas['class']);exit;
@@ -177,6 +178,7 @@ class Adminlogin extends CI_Controller {
 			 $datas['das_events']=$this->dashboard->dash_events();
 			 $datas['das_users']=$this->dashboard->dash_users();
 			 $datas['dash_comm']=$this->dashboard->dash_comm();
+			// print_r($datas['dash_comm']);exit;
 			 $datas['dash_reminder']=$this->dashboard->dash_reminder($user_id);
 			 
 			 $datas['pending_leave']=$this->dashboard->pending_leave();

@@ -43,8 +43,15 @@ Class Dashboard extends CI_Model
       return  $result->result();
     }
 
-    function dash_comm(){
-      $query="SELECT * FROM edu_communication WHERE STATUS='A' ORDER BY commu_id DESC LIMIT 5";
+    function dash_comm()
+	{
+		 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
+		  
+       $query="SELECT c.id,c.circular_master_id,c.circular_date,cm.id,cm.circular_title,cm.status,cm.academic_year_id FROM edu_circular AS c,edu_circular_master AS cm WHERE cm.status='Active' AND c.circular_master_id=cm.id AND cm.academic_year_id='$current_year' ORDER BY c.id DESC LIMIT 5";
       $result=$this->db->query($query);
       return  $result->result();
     }

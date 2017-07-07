@@ -26,9 +26,9 @@
 
                                 ?>
                                         <div class="col-md-10">
-                                            <h5><?php echo $i; ?>. <?php echo $rows->title; ?></h5>
+                                            <h5><?php echo $i; ?>. <?php echo $rows->circular_title; ?></h5>
                                             <blockquote>
-                                               <p><?php echo $rows->notes; ?></p>
+                                               <p><?php echo $rows->circular_description; ?></p>
                                                <small>
 
                                                   <cite title="Source Title">

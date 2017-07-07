@@ -55,6 +55,10 @@ font-weight: 500;
  .topbar{background-color:#642160 ;height:70px;}
  .imgclass{margin:0px;float:left;}
  .imgstyle1{width:40px;height:40px;}
+ body{position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: whitesmoke;}
 </style>
 </head>
 <body>
