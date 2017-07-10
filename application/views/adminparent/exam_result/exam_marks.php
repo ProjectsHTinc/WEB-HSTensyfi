@@ -56,11 +56,7 @@
 										<td></td><td></td><td></td>
 										<?php if(!empty($result)){ ?>
 										 <td>TOTAL</td>
-										<td>
-										  <div class="col-md-2">
-										  <div class="form-group">
-										 <input type="text" class="form-control" disabled id="totals"/>
-										  </div></div></td>
+										<td> <p id="totals"> </p> </td>
 										<?php }else{ echo"";}?>
 										
                                     </tbody>
@@ -85,7 +81,7 @@ function loadmarks()
 		$("input[name=marks]").each (function() {
 			tot=tot + parseInt($(this).val());
 		})
-	$("#totals").val(tot);
+	$("#totals").html(tot);
 	
 }
  $(document).ready(function () {

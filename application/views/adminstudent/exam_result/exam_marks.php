@@ -43,13 +43,13 @@
 						 $sql = "SELECT * FROM edu_subject WHERE subject_id='$subid' ";
 						 $result=$this->db->query($sql);
 						 $row=$result->result();
-						 $sec=$row[0]->subject_name;echo $sec;
+						 $sec=$row[0]->subject_name; echo $sec;
 						?> </td>
 							  
 						 <td><?php echo $rows->internal_mark; ?> ( <span class="grade"><?php echo $rows->internal_grade; ?>  )</span></td> 
 						 <td><?php echo $rows->external_mark; ?> (  <span class="grade"><?php echo $rows->external_grade; ?>  )</span></td>
 						 <td>
-						  <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
+						  <input type="hidden" style="width:30%;" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
 						  <span class="total"><?php echo $rows->total_marks; ?></span> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
 						
 						</tr>
@@ -60,10 +60,8 @@
 										<?php if(!empty($result)){ ?>
 										 <td>TOTAL</td>
 										<td>
-										  <div class="col-md-2">
-										  <div class="form-group">
-										 <input type="text" class="form-control" disabled id="totals"/>
-										  </div></div></td>
+										      <p id="totals"></p>
+										  </td>
 										<?php }else{ echo"";}?>
 					</tbody>
 				</table>
@@ -78,7 +76,6 @@
 </div>	
 </body>
 <script type="text/javascript">
-
 $(window).load(function($) {
     loadmarks();
 });
@@ -87,10 +84,8 @@ function loadmarks()
 {
 		var tot=0;
 		$("input[name=marks]").each (function() {
-			tot=tot + parseInt($(this).val());
-		})
-	$("#totals").val(tot);
-	
+			tot=tot + parseInt($(this).val());})
+	$("#totals").html(tot);
 }
 function generatefromtable() {
 				var data = [], fontSize = 12, height = 0, doc;
@@ -109,7 +104,7 @@ function generatefromtable() {
 					yOffset : 15
 				});
 				//doc.text(50, height + 20, 'hi world');
-				doc.save("examresult.pdf");
+				doc.save("<?php  echo $this->session->userdata('name'); ?>.pdf");
 			}
  
 </script>

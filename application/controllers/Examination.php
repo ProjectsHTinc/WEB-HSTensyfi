@@ -365,7 +365,7 @@ class Examination extends CI_Controller
 			  
 			  $exid=$this->input->post('exams_id');
 			  $cmid=$this->input->post('cls_id');
-			  //echo $cmid;exit;
+			  //echo $exid; echo $cmid;exit;
 			  $datas=$this->examinationmodel->update_exam_status($exid,$cmid,$user_id);
 			 
 			 // print_r($datas);exit;

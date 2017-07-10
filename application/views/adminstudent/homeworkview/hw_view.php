@@ -80,9 +80,9 @@
 </div>
 <script type="text/javascript">
    $(document).ready(function () {
-   $('#mastersmenu').addClass('collapse in');
-   $('#master').addClass('active');
-   $('#masters2').addClass('active');
+   $('#homework').addClass('collapse in');
+   $('#homework').addClass('active');
+   $('#homework').addClass('active');
     $('#classsection').validate({ // initialize the plugin
         rules: {
             test_type:{required:true },

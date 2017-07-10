@@ -5,25 +5,17 @@
          <div class="row">
              <div class="col-md-12">
                  <div class="card">
-
                      <div class="content">
  <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button>
                          <div class="fresh-datatables">
-
-
                    <table id="bootstrap-table" class="table">
                        <thead>
-
-                           <th data-field="id" class="text-center">S.no</th>
+                         <th data-field="id" class="text-center">S.no</th>
                          <th data-field="name" class="text-center" data-sortable="true">Class/Section</th>
-
                          <th data-field="Subject" class="text-center" data-sortable="true">Subject</th>
                          <th data-field="comments" class="text-center" data-sortable="true">Comments</th>
-                          <th data-field="DateTime" class="text-center" data-sortable="true">DateTime</th>
-                          <th data-field="Remarks" class="text-center" data-sortable="true">Remarks</th>
-
-
-
+                         <th data-field="DateTime" class="text-center" data-sortable="true">DateTime</th>
+                         <th data-field="Remarks" class="text-center" data-sortable="true">Remarks</th>
                        </thead>
                        <tbody>
                          <?php
@@ -57,9 +49,10 @@ echo $cls_date->format('d-m-Y H:i A');  ?></td>
 </div>
 
 <script>
-$('#timetablemenu').addClass('collapse in');
+$('#timetable').addClass('collapse in');
 $('#timetable').addClass('active');
-$('#timetable2').addClass('active');
+$('#timetable').addClass('active');
+
  var $table = $('#bootstrap-table');
        $().ready(function(){
            $table.bootstrapTable({

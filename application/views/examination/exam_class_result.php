@@ -12,7 +12,7 @@
 		 .grade1{color: #0d871f;padding: 10px;}
 		 .grade2{color: #c117e3;padding: 10px;}
 		 .space{ padding:05px;}
-		 
+
 		 </style>
                 <div class="row">
                     <div class="col-md-12">
@@ -27,7 +27,6 @@
                             <div class="content table-responsive table-full-width">
 							<!--<?php //echo base_url(); ?>examinationresult/marks_details-->
 					<form method="post" action="<?php echo base_url(); ?>examination/marks_status_update" class="form-horizontal" enctype="multipart/form-data" id="markform">
-
             <?php  
                    $cls_id=$this->input->get('var1');
 				   $exam_id=$this->input->get('var2');
@@ -47,20 +46,18 @@
 					}
 				}
 			}
-		}
-
-?>
+}?>
                                 <input type="hidden" name="exams_id" value="<?php echo $exam_id; ?>"/> 
 								<input type="hidden" name="cls_id" value="<?php echo $cls_id; ?>"/> 
 								
-                                <table class="table table-hover table-striped" id="result">
+                        <table id="bootstrap-table" class="table table-hover table-striped">
 								<?php //foreach($cls as $rows){?>
 								<!--<input type="text" name="msta_id" value="<?php echo $rows->exam_status_id; ?>"/> 
 								<input type="text" name="exam_id" value="<?php echo $rows->exam_id; ?>"/> 
 								<input type="text" name="class_id" value="<?php echo $rows->classmaster_id; ?>"/> -->
 								<?php //}?>
                                     <thead>
-									<!-- <th>Sno</th>-->
+									 <th>Sno</th>
                                      <th>Name</th>
 								<?php
   								      if($status=="Success")
@@ -87,7 +84,7 @@
 				foreach ($student_arr as $k => $s1)
 				{
 					echo '<tr>';
-					//echo '<td>' . $i . '</td>';
+					echo '<td>' . $i . '</td>';
 					echo '<td>' . $k . '</td>';
 					$k = 1;
 					foreach ($s1 as $k1 => $s)
@@ -124,11 +121,9 @@
 					$i++;
 				}
 				  if(!empty($smark)){ echo "";}else{ ?>
-				  <tr>
+				  <tr><td></td>
 					 <td>
-						
-						   <button type="submit" class="btn btn-info btn-fill center">Approve</button>
-						
+					  <button type="submit" class="btn btn-info btn-fill center">Approve</button>
 					 </td>
 				  </tr>
 				  <?php }
@@ -145,7 +140,12 @@
             </div>
         </div>
 	</div>
-
+<?php  $cls_id=$this->input->get('var1');
+         $sql="SELECT cm.*,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE cm.class_sec_id='$cls_id' AND cm.class=c.class_id AND cm.section=se.sec_id";
+         $resultset=$this->db->query($sql);
+         $row=$resultset->result();
+         foreach ($row as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
+		// echo $cls; echo $sec; ?> 
 <script type="text/javascript">
 
 function generatefromtable() {
@@ -155,7 +155,7 @@ function generatefromtable() {
 				doc.setFontSize(fontSize);
 				doc.text(50,20, "Exam Result");
 				data = [];
-				data = doc.tableToJson('result');
+				data = doc.tableToJson('bootstrap-table');
 				height = doc.drawTable(data, {
 					xstart : 30,
 					ystart : 10,
@@ -165,9 +165,48 @@ function generatefromtable() {
 					yOffset : 15
 				});
 				//doc.text(50, height + 20, 'hi world');
-				doc.save("Result.pdf");
+				doc.save("<?php echo $cls; echo $sec; ?>.pdf");
 			}
-			
+			var $table = $('#bootstrap-table');
+         $().ready(function(){
+           jQuery('#teachermenu').addClass('collapse in');
+             $table.bootstrapTable({
+                 toolbar: ".toolbar",
+                 clickToSelect: true,
+                 showRefresh: true,
+                 search: true,
+                 showToggle: true,
+                 showColumns: true,
+                 pagination: true,
+                 searchAlign: 'left',
+                 pageSize: 8,
+                 clickToSelect: false,
+                 pageList: [8,10,25,50,100],
+   
+                 formatShowingRows: function(pageFrom, pageTo, totalRows){
+                     //do nothing here, we don't want to show the text "showing x of y from..."
+                 },
+                 formatRecordsPerPage: function(pageNumber){
+                     return pageNumber + " rows visible";
+                 },
+                 icons: {
+                     refresh: 'fa fa-refresh',
+                     toggle: 'fa fa-th-list',
+                     columns: 'fa fa-columns',
+                     detailOpen: 'fa fa-plus-circle',
+                     detailClose: 'fa fa-minus-circle'
+                 }
+             });
+   
+             //activate the tooltips after the data table is initialized
+             $('[rel="tooltip"]').tooltip();
+   
+             $(window).resize(function () {
+                 $table.bootstrapTable('resetView');
+             });
+   
+   
+         });
 $('#exammenu').addClass('collapse in');
 $('#exam').addClass('active');
 $('#exam3').addClass('active');
@@ -229,4 +268,6 @@ $('#markform').validate({ // initialize the plugin
 				}
 		  });
 	}
+	
+	
 </script>

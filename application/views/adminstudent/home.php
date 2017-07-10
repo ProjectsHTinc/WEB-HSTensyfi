@@ -8,10 +8,10 @@
    .fc-today-button,.fc-month-button,.fc-basicWeek-button,.fc-basicDay-button{display:none;}
    .fc-month-button{display: none;}
 
-   .textborder{height:120px;
+.textborder{height:130px;
 padding-left: 0px;
 margin-left: -25px;
-border-left: 5px solid #eee;
+border-left:3px solid #1e202c;
 float: left;}
 .imgstyle{padding-bottom: 10px;}
 ul li a img:active {
@@ -103,7 +103,7 @@ font-weight: bold;}
                            <p class="category"><?php echo $rows->mobile; ?></p>
                         </div>
                      </div>
-						 <div  class="textborder" style="height:70px;"></div>
+						 <div  class="textborder" style="height:65px;"></div>
 						 <div class="col-md-6" style="padding-top:5px;text-align: center;padding-left:0px;">
 		     <ul class="nav nav-icons" role="tablist">
                      <li>
@@ -142,7 +142,7 @@ font-weight: bold;}
                               <p class="category"><?php echo $rows->mother_tongue; ?></p>
                            </div>
                         </div>
-                        <div  class="textborder" style="height: 70px;"></div>
+                        <div  class="textborder" style="height:65px;"></div>
 						 <div class="col-md-6" style="padding-top:5px;text-align: center;padding-left:0px;">
 		      <ul class="nav nav-icons" role="tablist">
                      <li>
@@ -221,8 +221,10 @@ font-weight: bold;}
 </div>
 <script>
    $(document).ready(function() {
+    $('#dashboard').addClass('collapse in');
+   $('#dashboard').addClass('active');
+   $('#dashboard').addClass('active');
    
-   	$('#dash').addClass('active');
    
    
    $('#fullCalendar').fullCalendar({

@@ -57,9 +57,9 @@ $e_year = $event_date->format('Y');
 </div>
 </div>
 <script>
-$('#calendermenu').addClass('collapse in');
-$('#calendar').addClass('active');
-$('#calendar1').addClass('active');
+$('#events').addClass('collapse in');
+$('#events').addClass('active');
+$('#events').addClass('active');
 
 </script>
 <style>

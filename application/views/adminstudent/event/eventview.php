@@ -45,9 +45,9 @@
 </div>
 </div>
 <script>
-$('#calendermenu').addClass('collapse in');
-$('#calendar').addClass('active');
-$('#calendar2').addClass('active');
+$('#events').addClass('collapse in');
+$('#events').addClass('active');
+$('#events').addClass('active');
 </script>
 <style>
 .info a{color: #000;}
