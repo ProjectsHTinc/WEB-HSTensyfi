@@ -102,6 +102,7 @@ class Adminlogin extends CI_Controller {
 							$session_data=$this->session->set_userdata($datas);
 							$datas['user_details']=$this->dashboard->dash_parents($user_id);
 							$datas['stud_details']=$this->dashboard->get_students($user_id);
+							$datas['parents_circular']=$this->dashboard->get_parents_circular($user_id);
 							$datas['res']=$this->dashboard->stud_details($user_id);
 							$this->load->view('adminparent/parent_header',$datas);
 							$this->load->view('adminparent/home');
@@ -208,9 +209,9 @@ class Adminlogin extends CI_Controller {
 		}else if($user_type==4){
 			$datas['user_details']=$this->dashboard->dash_parents($user_id);
 			$datas['stud_details']=$this->dashboard->get_students($user_id);
+			$datas['parents_circular']=$this->dashboard->get_parents_circular($user_id);
 			$datas['res']=$this->dashboard->stud_details($user_id);
-
-
+            //echo '<pre>'; print_r($datas['parents_circular']);exit;
 			//print_r($datas['stud_details']);
 			$this->load->view('adminparent/parent_header',$datas);
 			$this->load->view('adminparent/home',$datas);

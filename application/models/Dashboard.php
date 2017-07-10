@@ -479,6 +479,23 @@ function get_students_circular($user_id)
 		 return $row;
 		  }
   }
+  
+  
+  function get_parents_circular($user_id)
+  {
+	      $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  if($result1->num_rows()==0){ }else{
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
+
+		  $com="SELECT c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.id,cm.academic_year_id,cm.circular_title,cm.circular_type,cm.circular_description,cm.status FROM edu_circular AS c,edu_circular_master AS cm WHERE c.user_id='$user_id' AND c.user_type=4 AND cm.academic_year_id='$current_year' AND c.circular_master_id=cm.id AND cm.status='Active' LIMIT 5 ";
+		 $resultset=$this->db->query($com);
+		 $row=$resultset->result();
+		 return $row;
+		  }
+  }
 
 }
 ?>

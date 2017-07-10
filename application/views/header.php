@@ -58,7 +58,7 @@
          .abox{border: 1px solid grey;}
 		
          .title_ensyfi{
-           color:#fff!important; margin-left: 10px!important; padding-left: 175px !important;
+           color:#fff!important; margin-left: 10px!important; padding-left: 185px !important;
          }
 		 .stu{background: url(<?php echo base_url(); ?>assets/img/icons/Stu.png) 0 0;}
 		 .topbar{background-color:#642160 ;height:70px;}
@@ -144,10 +144,10 @@
          </div>
       </nav>
       <div class="sidebar sidemenu">
-	   <div class="logo" style="padding:0px 70px;height:115px">
+	   <div class="logo" style="padding:0px 70px;height:115px;background-color:#1e202c;">
             <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:130px;"  />
         </div>
-         <div class="sidebar-wrapper">
+         <div class="sidebar-wrapper" style="background-color:#1e202c;">
 		 <div class="user" style="margin-top:10px;">
                 <div class="imgclass photo" style="margin-left:20px;">
 				<?php

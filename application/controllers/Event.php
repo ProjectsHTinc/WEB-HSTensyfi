@@ -153,7 +153,6 @@ class Event extends CI_Controller {
 		public function getall_act_event()
 		{
 			$data['res']=$this->eventmodel->getall_act_event();
-
 			echo json_encode($data['res']);
 		}
 

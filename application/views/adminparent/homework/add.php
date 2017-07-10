@@ -35,7 +35,9 @@
 <script type="text/javascript">
 
 $(document).ready(function () {
-  $('#classmenu').addClass('collapse in');
+ $('#homework').addClass('collapse in');
+   $('#homework').addClass('active');
+   $('#homework').addClass('active');
 
  $('#myformclassmange').validate({ // initialize the plugin
      rules: {

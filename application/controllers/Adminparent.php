@@ -6,12 +6,15 @@ class Adminparent extends CI_Controller {
 
 	function __construct() {
 		 parent::__construct();
+		  $this->load->helper('url');
+		  $this->load->library('session');
 		  $this->load->model('timetablemodel');
 		  $this->load->model('dashboard');
 		  $this->load->model('studentmodel');
 		  $this->load->model('adminparentmodel');
-		   $this->load->helper('url');
-		   $this->load->library('session');
+		  $this->load->model('eventmodel');
+		  $this->load->model('leavemodel');
+		   
  }
 	/**
 	 * Index Page for this controller.
@@ -498,7 +501,7 @@ class Adminparent extends CI_Controller {
 		
 	  //---------------Circular---------------------
 
-        public function circular()
+       /*  public function circular()
 	   {
 		    $datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
@@ -530,17 +533,15 @@ class Adminparent extends CI_Controller {
 			}
 
 	   }
-
+ */
 	  public function view_circular(){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
+			//echo $user_id;exit;
 			$user_type=$this->session->userdata('user_type');
-			$enroll_id=$this->input->get('var');
-			//echo $enroll_id; exit;
 			if($user_type==4){
-					 $datas['circular']=$this->adminparentmodel->get_all_classid($enroll_id);
-					// $datas['stu_id']=$this->adminparentmodel->get_stu_id($enroll_id);
-					//echo print_r($datas['circular']);exit;
+					 $datas['circular']=$this->adminparentmodel->get_all_classid($user_id);
+					//echo '<pre>'; print_r($datas['circular']);exit;
 					$this->load->view('adminparent/parent_header');
 					$this->load->view('adminparent/circular/view_circular',$datas);
 					$this->load->view('adminparent/parent_footer');

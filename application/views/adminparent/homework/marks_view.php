@@ -83,9 +83,9 @@ var loadFile = function(event) {
 
 $(document).ready(function () {
 
-$('#teachermenu').addClass('collapse in');
-$('#teacher').addClass('active');
-$('#teacher2').addClass('active');
+   $('#homework').addClass('collapse in');
+   $('#homework').addClass('active');
+   $('#homework').addClass('active');
  $('#admissionform').validate({ // initialize the plugin
      rules: {
 

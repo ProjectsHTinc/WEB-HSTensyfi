@@ -57,9 +57,9 @@ echo $cls_date->format('d-m-Y H:i A');  ?></td>
 </div>
 
 <script>
-$('#timetablemenu').addClass('collapse in');
-$('#timetable').addClass('active');
-$('#timetable2').addClass('active');
+   $('#timetable').addClass('collapse in');
+   $('#timetable').addClass('active');
+   $('#timetable').addClass('active');
  var $table = $('#bootstrap-table');
        $().ready(function(){
            $table.bootstrapTable({

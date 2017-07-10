@@ -51,7 +51,8 @@ class Specialclass extends CI_Controller
 		$class_name=$this->input->post('class_name');
 		$teacher=$this->input->post('teacher');
 		$subject_name=$this->input->post('subject_name');
-		$sub_topic=$this->input->post('sub_topic');
+		$sub_topic=$this->db->escape_str($this->input->post('sub_topic'));
+		//echo $sub_topic;
 		$special_date=$this->input->post('spe_date');
 		 $dateTime = new DateTime($special_date);
          $spe_date=date_format($dateTime,'Y-m-d' );
@@ -104,7 +105,8 @@ class Specialclass extends CI_Controller
 		$class_name=$this->input->post('class_name');
 		$teacher=$this->input->post('teacher');
 		$subject_name=$this->input->post('subject_name');
-		$sub_topic=$this->input->post('sub_topic');
+		$sub_topic=$this->db->escape_str($this->input->post('sub_topic'));
+		//echo $subject_name; exit;
 		$special_date=$this->input->post('spe_date');
 		$dateTime = new DateTime($special_date);
         $spe_date=date_format($dateTime,'Y-m-d' );

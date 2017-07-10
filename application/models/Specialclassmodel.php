@@ -17,14 +17,14 @@ Class Specialclassmodel extends CI_Model
 	 
 	 function getall_details()
 	 {
-		 $query="SELECT sc.*,t.teacher_id,t.name,cm.class_sec_id,cm.class,cm.section,cm.subject,c.*,s.*,su.* FROM edu_special_class AS sc,edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_subject AS su WHERE sc.teacher_id=t.teacher_id AND sc.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND sc.subject_id=su.subject_id";
+		 $query="SELECT sc.*,t.teacher_id,t.name,cm.class_sec_id,cm.class,cm.section,cm.subject,c.class_id,c.class_name,su.subject_id,su.subject_name,s.sec_id,s.sec_name FROM edu_special_class AS sc,edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_subject AS su WHERE sc.teacher_id=t.teacher_id AND sc.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND sc.subject_id=su.subject_id  ORDER BY id DESC";
          $resultset=$this->db->query($query);
          return $resultset->result();
 	 }
 		 
 
     function create_special_class($class_name,$teacher,$subject_name,$sub_topic,$spe_date,$stime,$etime,$status,$user_id)
-     {
+     {    //echo  $sub_topic;
 	   $check_name="SELECT * FROM edu_special_class WHERE class_master_id='$class_name' AND subject_id='$subject_name' AND special_class_date='$spe_date'";
 	   $result=$this->db->query($check_name);
 	   if($result->num_rows()==0){
@@ -44,7 +44,7 @@ Class Specialclassmodel extends CI_Model
 
     function edit_special_class($id)
     {
-       $query="SELECT sc.*,t.teacher_id,t.name,cm.class_sec_id,cm.class,cm.section,c.*,s.*,su.* FROM edu_special_class AS sc,edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_subject AS su WHERE sc.teacher_id=t.teacher_id AND sc.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND sc.subject_id=su.subject_id AND sc.id='$id'";
+       $query="SELECT sc.*,t.teacher_id,t.name,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,su.subject_id,su.subject_name,s.sec_id,s.sec_name FROM edu_special_class AS sc,edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_subject AS su WHERE sc.teacher_id=t.teacher_id AND sc.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND sc.subject_id=su.subject_id AND sc.id='$id'";
        $resultset=$this->db->query($query);
        return $resultset->result();
 
@@ -52,9 +52,9 @@ Class Specialclassmodel extends CI_Model
 
     function update($class_name,$teacher,$subject_name,$sub_topic,$spe_date,$stime,$etime,$status,$user_id,$specls_id)
     {
-       $check_name="SELECT * FROM edu_special_class WHERE class_master_id='$class_name' AND subject_id='$subject_name' AND special_class_date='$spe_date'";
-	   $result=$this->db->query($check_name);
-	   if($result->num_rows()==0){
+       //$check_name="SELECT * FROM edu_special_class WHERE class_master_id='$class_name' AND subject_id='$subject_name' AND special_class_date='$spe_date'";
+	  // $result=$this->db->query($check_name);
+	  // if($result->num_rows()==0){
        $sql="UPDATE edu_special_class SET class_master_id='$class_name',teacher_id='$teacher',subject_id='$subject_name',subject_topic='$sub_topic',special_class_date='$spe_date',start_time='$stime',end_time='$etime',status='$status',updated_by='$user_id',updated_at=NOW() WHERE id='$specls_id'";
        $resultset=$this->db->query($sql);
        if($resultset)
@@ -62,10 +62,10 @@ Class Specialclassmodel extends CI_Model
          $data= array("status" => "success");
          return $data;
         }
-	 }else{
+	 /*} else{
 		 $data= array("status" => "Already Exist");
          return $data;
-	   }
+	   } */
     }
 }
 	?>

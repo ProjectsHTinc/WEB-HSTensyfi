@@ -61,9 +61,9 @@
 </div>
 <script type="text/javascript">
    $(document).ready(function () {
-   $('#mastersmenu').addClass('collapse in');
-   $('#master').addClass('active');
-   $('#masters2').addClass('active');
+    $('#fees').addClass('collapse in');
+   $('#fees').addClass('active');
+   $('#fees').addClass('active');
     $('#classsection').validate({ // initialize the plugin
         rules: {
             test_type:{required:true },

@@ -79,7 +79,7 @@ Class Feesstructuremodel extends CI_Model
     					return $data;
 				  } 
 				  
-				  $stu="SELECT enroll_id,admission_id,admisn_no,status,class_id FROM edu_enrollment WHERE class_id='$class_id1' AND status='Active' ";
+				  $stu="SELECT enroll_id,admission_id,admisn_no,status,class_id,quota_id FROM edu_enrollment WHERE class_id='$class_id1' AND quota_id='$quota_name1' AND  status='Active' ";
 				  $res=$this->db->query($stu);
 				  $result1=$res->result();
 				  foreach($result1 as $rows){

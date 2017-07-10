@@ -66,7 +66,9 @@
 				<script>
 
 	$(document).ready(function() {
-
+$('#attendence').addClass('collapse in');
+ $('#attendence').addClass('active');
+ $('#attendence').addClass('active');
 		$('#fullCalendar').fullCalendar({
 			header: {
 				left: 'prev,next today',

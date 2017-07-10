@@ -11,7 +11,7 @@
    .textborder{height:120px;
 padding-left: 0px;
 margin-left: -25px;
-border-left: 5px solid #eee;
+border-left: 3px solid #1e202c;
 float: left;}
 .imgstyle{padding-bottom: 10px;}
 ul li a img:active {

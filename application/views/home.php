@@ -60,7 +60,7 @@
 <div class="content">
    <div class="card">
       <div class="container-fluid">
-         <p style="font-size:25px;">Admin Dashboard</p>
+         <p style="font-size:25px;padding-left:16px;">Admin Dashboard</p>
          <div class="">
             <div class="row">
                <div class="col-md-12">
@@ -108,15 +108,11 @@
                      </div>
                   </div>
                   <div class="col-md-3">
-                    
-                          <div id="simple-calendar" style="border-radius: 50px;
-    padding-left: 03px;"></div> 
-                        
-                 
+                          <div id="simple-calendar" style="border-radius: 50px;padding-left: 03px;"></div> 
                      <p></p>
                   </div>
                <!---                      -->
-			     <div class="col-md-9" style="padding-left:30px;">
+			     <div class="col-md-9" style="padding-left:43px;">
 				 <div class="col-md-4">
                      <div class="card" style="box-shadow:none;">
 					 <div class="img">
@@ -215,9 +211,7 @@
 									</th>
 								</thead>
                                  <tbody>
-                                    <?php  if(empty($dash_comm)){
-                                       } else {
-                                       	 $i=1;
+                                    <?php  if(empty($dash_comm)){} else {$i=1;
                                        	foreach ($dash_comm as $rows) { ?>
                                     <tr>
                                        <td>
@@ -225,7 +219,7 @@
                                           <?php echo $i; ?>
                                           </label>
                                        </td>
-                                       <td><?php echo $rows->circular_title;  ?> </td>
+                                       <td><?php echo $rows->circular_title;  ?></td>
                                     </tr>
                                     <?php  $i++; } 	}?>
                                  </tbody>

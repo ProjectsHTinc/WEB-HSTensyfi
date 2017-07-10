@@ -96,21 +96,21 @@ Class Adminparentmodel extends CI_Model
 		}
 
 
-	  function get_all_classid($enroll_id)
-	  {
-		    $query2="SELECT enroll_id,class_id,name,admisn_no FROM edu_enrollment WHERE enroll_id='$enroll_id' AND status='Active'";
-			$result1=$this->db->query($query2);
-			$row3=$result1->result();
-			foreach($row3 as $row4){
-			$admisn_no=$row4->admisn_no;
-			$name=$row4->name;
-			$cls_id=$row4->class_id;
-			}
+	  function get_all_classid($user_id)
+	  {   //echo $user_id;
+		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  if($result1->num_rows()==0){ }else{
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id;
 
-		  $sql="SELECT * FROM edu_communication WHERE status='A' AND FIND_IN_SET('$cls_id',class_id) ORDER BY commu_id DESC ";
-		  $res=$this->db->query($sql);
-		  $row=$res->result();
-		  return $row;
+		   $com="SELECT c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.id,cm.academic_year_id,cm.circular_title,cm.circular_type,cm.circular_description,cm.status FROM edu_circular AS c,edu_circular_master AS cm WHERE c.user_id='7' AND c.user_type=4 AND cm.academic_year_id='1' AND c.circular_master_id=cm.id AND cm.status='Active'";
+		 $resultset=$this->db->query($com);
+		 $row=$resultset->result();
+		 return $row;
+		   }
+		   
 
 	  }
 
