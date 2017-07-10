@@ -144,8 +144,9 @@ class Teacherattendence extends CI_Controller {
 			  $student_id=$this->input->post('student_id');
 			 $class_id=$this->input->post('class_id');
 			 $attendence_val=$this->input->post('attendence_val');
-			 //print_r($attendence_val);
+			 //print_r($attendence_val);exit;
 			 $a_taken=$this->input->post('user_id');
+
 
 		   $datas=$this->teacherattendencemodel->get_attendence_class($class_id,$student_id,$attendence_val,$a_taken,$student_count,$get_academic);
 			 //print_r($datas['status']);exit;

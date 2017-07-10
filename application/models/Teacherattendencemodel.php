@@ -91,16 +91,14 @@ Class Teacherattendencemodel extends CI_Model
 
        function get_attendence_class($class_id,$student_id,$attendence_val,$a_taken,$student_count,$get_academic){
 
-           $len=count($student_id);
-
+            $len=count($student_id);
+            //print_r($attendence_val);exit;
            if(empty($attendence_val)){
              $at_val=0;
            }else{
-               $at_val=count($attendence_val);
+                $at_val=count($attendence_val);
            }
            $dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
-
-
           $cur_d=$dateTime->format("Y-m-d H:i:s");
           $a_pe=$dateTime->format("A");
 
@@ -113,8 +111,9 @@ Class Teacherattendencemodel extends CI_Model
             $att_add=$this->db->query($add_att_cal);
             $total_present=$student_count-$at_val;
             //print_r($a_taken);
-             $query="INSERT INTO edu_attendence (ac_year,class_id,class_total,no_of_present,no_of_absent,attendence_period,created_by,created_at,status) VALUES('$get_academic','$class_id','$student_count','$total_present','$at_val','$a_period','$a_taken','$cur_d','A')";
+              $query="INSERT INTO edu_attendence (ac_year,class_id,class_total,attendence_period,created_by,created_at,status) VALUES('$get_academic','$class_id','$student_count','$a_period','$a_taken','$cur_d','Active')";
              $resultset=$this->db->query($query);
+             $atten_id = $this->db->insert_id();
              if(empty($attendence_val)){
                $data= array("status" =>"success");
                return $data;
@@ -125,14 +124,37 @@ Class Teacherattendencemodel extends CI_Model
                $sp=array_chunk($myArray,3);
                $at_len=count($attendence_val);
                for ($i=0; $i <$at_len; $i++) {
-                 $a_status= $sp[$i][0];
+                  $a_status= $sp[$i][0];
                  $stu_id= $sp[$i][1];
                  $a_day= $sp[$i][2];
+                  //print_r($a_day);
              //echo count($stu_id);
-             $add_att="INSERT INTO edu_attendance_history(attend_id,class_id,student_id,abs_date,a_status,attend_period,a_val,a_taken_by,created_at,status) VALUES('$last_id','$class_id','$stu_id','$cur_d','$a_status','$a_period','0.5','$a_taken',NOW(),'A')";
-             $resultset=$this->db->query($add_att);
+             if($a_status!="P"){
+               $add_att="INSERT INTO edu_attendance_history(attend_id,class_id,student_id,abs_date,a_status,attend_period,a_val,a_taken_by,created_at,status) VALUES('$last_id','$class_id','$stu_id','$cur_d','$a_status','$a_period','1','$a_taken',NOW(),'Active')";
+                $resultset=$this->db->query($add_att);
+             }
+
+
+
+
           }
+          $att_co="SELECT count(attend_id) as absentcount FROM edu_attendance_history WHERE attend_id='$atten_id' AND a_status='L'";
+          $res_att=$this->db->query($att_co);
+          foreach($res_att->result() as $rwos){}
+          $leav_count= $rwos->absentcount;
+           $att_co1="SELECT count(attend_id) as absentcount FROM edu_attendance_history WHERE attend_id='$atten_id' AND a_status='A'";
+          $res_att1=$this->db->query($att_co1);
+          foreach($res_att1->result() as $rwos){}
+          $leav_count= $rwos->absentcount;
+           $abs_count=$leav_count+$leav_count;
+           $no_prese=$at_val-$abs_count;
+           $update_class_present="UPDATE edu_attendence SET no_of_present='$no_prese',no_of_absent='$abs_count' WHERE at_id='$atten_id'";
+           $res_update=$this->db->query($update_class_present);
+
              if($resultset){
+               $delte="DELETE FROM edu_attendance_history WHERE a_status='P'";
+               $resultdelete=$this->db->query($delte);
+
                $data= array("status" =>"success");
                return $data;
              }else{

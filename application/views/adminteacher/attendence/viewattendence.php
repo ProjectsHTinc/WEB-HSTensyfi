@@ -26,7 +26,7 @@
     <table id="bootstrap-table" class="table">
         <thead>
 
-                  <th data-field="id" class="text-center">S.No</th>
+                  <th data-field="id" class="text-center"  data-sortable="true">S.No</th>
                 <th data-field="date" class="text-center" data-sortable="true">Name</th>
                 <th data-field="year" class="text-center" data-sortable="true">Status </th>
 
@@ -43,7 +43,17 @@
               <td class="text-center"><?php echo $i;  ?></td>
               <td class="text-center  txt" ><?php echo $rows->name; ?></td>
                <td class="text-center"><?php $stat=$rows->a_status;
-                 if(empty($stat)){ ?> <button class="btn btn-success btn-fill btn-wd">Present</button> <?php }else{ ?> <button class="btn btn-danger btn-fill btn-wd">Absent</button> <?php }
+                 if($stat=="OD"){ ?>
+                   <button class="btn btn-info btn-fill btn-wd">OD</button>
+                    <?php }else if($stat=="A"){ ?>
+                      <button class="btn btn-danger btn-fill btn-wd">ABSENT</button>
+                    <?php }
+                    else if($stat=="L"){ ?>
+                      <button class="btn btn-warning btn-fill btn-wd">LEAVE</button>
+                    <?php }
+                    else{  ?>
+                         <button class="btn btn-success btn-fill btn-wd">PRESENT</button>
+                  <?php  }
                 ?></td>
             </tr>
             <?php $i++;  }  ?>
@@ -54,7 +64,7 @@
       </div><!-- end content-->
   </div><!--  end card  -->
 
-            
+
 
                                </tbody>
 
