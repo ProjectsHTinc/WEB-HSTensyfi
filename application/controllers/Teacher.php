@@ -133,7 +133,7 @@ class Teacher extends CI_Controller {
 		  $datas['result'] = $this->teachermodel->get_all_teacher();
 		  $datas['resubject'] = $this->subjectmodel->getsubject();
 		  $datas['sorting'] = $this->teachermodel->get_sorting_result();
-		  //print_r($datas['sorting']);exit;
+		  //echo '<pre>';print_r($datas['result']);exit;
 		 if($user_type==1){
 		 $this->load->view('header');
 		 $this->load->view('teacher/view',$datas);

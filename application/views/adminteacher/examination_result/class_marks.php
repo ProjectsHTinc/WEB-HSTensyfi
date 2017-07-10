@@ -258,7 +258,7 @@
 					yOffset : 15
 				});
 				//doc.text(50, height + 20, 'hi world');
-				doc.save("<?php echo $cls; echo $sec; ?>.pdf");
+				doc.save("<?php  echo $this->session->userdata('name'); ?>( <?php echo $cls; echo $sec; ?> ).pdf");
 			}
 		 
 </script>
