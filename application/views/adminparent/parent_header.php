@@ -42,7 +42,7 @@ margin-bottom:0px;}
 font-weight: 500;
 }
 .title_ensyfi{
-           color:#fff!important; margin-left: 10px!important; padding-left: 175px !important;
+           color:#fff!important; margin-left: 105px!important; padding-left: 175px !important;
          }
 .abox{border: 1px solid grey;}
 .topbar{background-color:#642160 ;height:70px;}
