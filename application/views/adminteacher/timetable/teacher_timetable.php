@@ -45,7 +45,7 @@
                                     </tr>
                                   </thead>
                                     <?php
-
+                                    //print_r($restime);
                                   $prd= count($restime)/6; //echo  $restime[5]->subject_name; ?>
                                     <?php
 $period = 8;
@@ -55,23 +55,35 @@ $arr1=array('1','2','3','4','5','6');
 
 
               <?php
-              $k=0;
+              $k=1;
+              $a=$restime[$k]->period;
+              $b= $restime[$k]->subject_name;
+              $day="1";
+              echo $c=count($restime);
 
+              if($day==$b){
+              echo $b;
+              }
               foreach($arr1 as $day){
-              
+
                 for($i=1;$i <= 6; $i++){
                   ?>
                       <tr>
                           <th><?php echo $day; ?></th>
                           <?php
+
                           for($i=1;$i <= $period; $i++){
+
+
                               ?>
+
+
                   <td>
                     <?php
                             // echo  $restime[$k]->period;
-                            if($day=="2"){
-                              echo  $restime[$k]->class_name;
-                            }
+                              // echo $i; echo "<br>";
+                              // echo $day;
+
 
                      ?>
 

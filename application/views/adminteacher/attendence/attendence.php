@@ -38,8 +38,26 @@
           <input type="hidden" name="user_id" value="<?php echo $user_id=$this->session->userdata('user_id'); ?>">
 
                                        </td>
-
-                                        <td class="text-center">
+                                       <td><select name="attendence_val[]">
+                                         <option value="P,<?php echo $rows->enroll_id; ?>,<?php
+ $dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
+ echo $dateTime->format("A");
+ ?>">Present</option>
+                                        <option value="A,<?php echo $rows->enroll_id; ?>,<?php
+$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
+echo $dateTime->format("A");
+?>">Absent</option>
+                                        <option value="L,<?php echo $rows->enroll_id; ?>,<?php
+$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
+echo $dateTime->format("A");
+?>">Leave</option>
+                                        <option value="OD,<?php echo $rows->enroll_id; ?>,<?php
+$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
+echo $dateTime->format("A");
+?>">On-Duty</option>
+                                       </select>
+                                       </td>
+                                        <!-- <td class="text-center">
                                            <div class="switch"
                                                 data-on-label=""
                                                 data-off-label="">
@@ -48,7 +66,7 @@ $dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
 echo $dateTime->format("A");
 ?>"/>
                                            </div>
-                                       </td>
+                                       </td> -->
                                    </tr>
 
                             <?php
@@ -104,7 +122,7 @@ function submitAttendence(){
             type:'POST',
            data: $('#takeattendence').serialize(),
            success: function(response) {
-            // alert(response);
+             //alert(response);
                if(response=="success"){
                 //  swal("Success!", "Thanks for Your Note!", "success");
                   $('#takeattendence')[0].reset();
