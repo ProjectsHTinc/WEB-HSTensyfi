@@ -37,8 +37,8 @@ class Teacheronduty extends CI_Controller
   	    $user_id=$this->session->userdata('user_id');
 	    $user_type=$this->session->userdata('user_type');
 		
-		$reason=$this->db->escape_str($this->input->post('reason'));
-		$notes=$this->db->escape_str($this->input->post('notes'));
+		$reason=$this->input->post('reason');
+		$notes=$this->input->post('notes');
 		
 		$from_date=$this->input->post('fdate');
 		 $dateTime = new DateTime($from_date);
@@ -86,8 +86,8 @@ class Teacheronduty extends CI_Controller
   	    $user_id=$this->session->userdata('user_id');
 	    $user_type=$this->session->userdata('user_type');
 		
-		$reason=$this->db->escape_str($this->input->post('reason'));
-		$notes=$this->db->escape_str($this->input->post('notes'));
+		$reason=$this->input->post('reason');
+		$notes=$this->input->post('notes');
 		
 		$from_date=$this->input->post('fdate');
 		 $dateTime = new DateTime($from_date);

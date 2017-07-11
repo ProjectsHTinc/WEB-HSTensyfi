@@ -36,7 +36,7 @@ class Groups extends CI_Controller
 		    $user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			
-			$groups_name=$this->db->escape_str($this->input->post('groups_name'));
+			$groups_name=$this->input->post('groups_name');
 			$status=$this->input->post('status');
 			
 			$datas=$this->groupsmodel->create_group_list($groups_name,$status,$user_id);
@@ -77,7 +77,7 @@ class Groups extends CI_Controller
 	    $user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		
-		$groups_name=$this->db->escape_str($this->input->post('groups_name'));
+		$groups_name=$this->input->post('groups_name');
 		$status=$this->input->post('status');
 		$id=$this->input->post('id');
 		

@@ -89,8 +89,8 @@ Class Circularmodel extends CI_Model
 		  foreach($all_year as $cyear){}
 		  $current_year=$cyear->year_id;
 		  
-		  $query2="SELECT id,academic_year_id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_type='$ctype' AND academic_year_id='$current_year' AND status='Active'";
-        $resultset1=$this->db->query($query2);
+		 $query2="SELECT id,academic_year_id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_type='$ctype' AND academic_year_id='$current_year' AND status='Active'";
+         $resultset1=$this->db->query($query2);
          if($resultset1->num_rows()==0){
            $data= array("status" =>"nodata");
            return $data;

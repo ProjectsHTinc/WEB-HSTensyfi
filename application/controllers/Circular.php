@@ -37,11 +37,11 @@ class Circular extends CI_Controller
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			//$sub_topic=$this->db->escape_str($this->input->post('sub_topic'));
+			
 			$year_id=$this->input->post('year_id');
-			$ctype=$this->db->escape_str($this->input->post('ctype'));
-			$ctile=$this->db->escape_str($this->input->post('ctitle'));
-			$cdescription=$this->db->escape_str($this->input->post('cdescription'));
+			$ctype=$this->input->post('ctype');
+			$ctile=$this->input->post('ctitle');
+			$cdescription=$this->input->post('cdescription');
 	        $status=$this->input->post('status'); 
 			
 			  $datas=$this->circularmodel->create_circular_masters($year_id,$ctype,$ctile,$cdescription,$status,$user_id);
@@ -83,9 +83,9 @@ class Circular extends CI_Controller
 		
 		$year_id=$this->input->post('year_id');
 		$cid=$this->input->post('cid');
-		$ctype=$this->db->escape_str($this->input->post('ctype'));
-		$ctile=$this->db->escape_str($this->input->post('ctitle'));
-		$cdescription=$this->db->escape_str($this->input->post('cdescription'));
+		$ctype=$this->input->post('ctype');
+		$ctile=$this->input->post('ctitle');
+		$cdescription=$this->input->post('cdescription');
 		$status=$this->input->post('status'); 
 		
 		  $datas=$this->circularmodel->update_circular_masters($cid,$year_id,$ctype,$ctile,$cdescription,$status,$user_id);
@@ -147,15 +147,15 @@ class Circular extends CI_Controller
 	  
 	  public  function get_circular_title_list()
 	  {
-		    $ctype=$this->db->escape_str($this->input->post('ctype'));
-		    //echo $ctype;exit;
+		    $ctype=$this->input->post('ctype');
+		   //echo $ctype;exit;
 		   $data=$this->circularmodel->get_circular_title_lists($ctype);
 		   echo json_encode($data);
 	  }
 	  
 	  public function get_description_list()
 	  {
-		   $ctitle=$this->db->escape_str($this->input->post('ctitle'));
+		   $ctitle=$this->input->post('ctitle');
 		   //echo $ctype;exit;
 		   $data=$this->circularmodel->get_circular_description_lists($ctitle);
 		   echo json_encode($data);
@@ -190,13 +190,19 @@ class Circular extends CI_Controller
 	  $pusers_id=$this->input->post('pusers');
       $stusers_id=$this->input->post('stusers');
     
-      $title=$this->db->escape_str($this->input->post('ctitle')); 
-	
+      $title=$this->input->post('ctitle'); 
+	 // $ctitle1=$this->input->post('title'); 
+	  //if($ctitle==''){
+	//	  $title=$ctitle1;
+	  //}
+	 // else{
+		//   $title=$ctitle;
+	//  }
 	  $date=$this->input->post('date');
       $dateTime = new DateTime($date);
       $circulardate=date_format($dateTime,'Y-m-d' );
-      $notes=$this->db->escape_str($this->input->post('notes'));
-	   $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
+      $notes=$this->input->post('notes');
+	   $citrcular_type=$this->input->post('citrcular_type');
 	   $status=$this->input->post('status'); 
 	   
       //echo $title; echo $notes;  echo $citrcular_type;  exit;	  
