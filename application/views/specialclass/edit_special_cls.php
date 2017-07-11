@@ -5,7 +5,7 @@
                <div class="col-md-10">
                    <div class="card">
                        <div class="header">
-                           <h4 class="title">Update Terms</h4>
+                           <h4 class="title">Update Special Class</h4>
 
                        </div>
 <?php foreach($edit as $res)
