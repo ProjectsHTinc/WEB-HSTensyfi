@@ -340,12 +340,59 @@ class Adminparent extends CI_Controller {
 				}
 		}
 
+        //-------------Onduty---------------------------onduty
 
 
+		public function view_onduty()
+	   {
+		    $datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==4){
+			 $datas['res']=$this->dashboard->stud_details($user_id);
+			 $stu= count($datas['res']);
+			//echo $stu;exit;
 
-
-
-
+			 if($stu==1){
+				 $datas['stud_details']=$this->dashboard->get_students($user_id);
+					 foreach ($datas['stud_details'] as $rows) {}
+					 $enroll_id= $rows->enroll_id;
+					//echo $enroll_id;
+					$datas['result']=$this->adminparentmodel->get_onduty_status_details($enroll_id);
+					//echo'<pre>';print_r($datas['fees']);exit;
+					$this->load->view('adminparent/parent_header');
+					$this->load->view('adminparent/onduty/onduty_view',$datas);
+					$this->load->view('adminparent/parent_footer');
+			 }else{
+				 $datas['stud_details']=$this->dashboard->get_students($user_id);
+				 $this->load->view('adminparent/parent_header');
+				 $this->load->view('adminparent/onduty/add',$datas);
+				 $this->load->view('adminparent/parent_footer');
+			 }
+			}
+			else{
+				 redirect('/');
+			}
+	   }
+	   
+	   public function view_onduty_status(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			$enroll_id=$this->input->get('var');
+			//echo $enroll_id; exit;
+			if($user_type==4){
+					 $datas['result']=$this->adminparentmodel->get_onduty_status_details($enroll_id);
+				     //echo'<pre>'; print_r($datas['result']);exit;
+					$this->load->view('adminparent/parent_header');
+					$this->load->view('adminparent/onduty/onduty_view',$datas);
+					$this->load->view('adminparent/parent_footer');
+				}else{
+						 redirect('/');
+				}
+		}
+	   
+	   
 	   //----------Examination Result------------------
 
 	   public function exam_result()

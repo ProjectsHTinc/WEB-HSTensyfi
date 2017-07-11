@@ -45,26 +45,31 @@ font-weight: bold;}
                   <div class="tab-pane active" id="description-logo">
                      <div class="" style="border:none;box-shadow: none;">
                            <div class="col-md-3" >
-						    <?php $pic= $rows->father_pic; if(empty($pic)){
-                              } else{  ?>
-                           <img src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $rows->user_pic; ?>" class="img-responsive img-circle" style="width:125px;">
-                           <?php 	}?>
-						 <?php 
-					   $user_id=$this->session->userdata('user_id');
+						   
+						   <?php
+					  $user_id=$this->session->userdata('user_id');
 					  $user_type=$this->session->userdata('user_type');
-					  $query="SELECT name FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $query="SELECT user_pic,name FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
 					  $objRs=$this->db->query($query);
-					  $rows3=$objRs->result();
-					  foreach ($rows3 as $rows2)
-					  { }?><p class="name"><?php echo $rows2->name; ?></p>
+					  $row=$objRs->result();
+					  foreach ($row as $rows1)
+					  {}
+						  $pic=$rows1->user_pic;
+						  if($pic!='')
+						  {?>
+					<img class="img-responsive img-circle" style="width:100px;height:90px;" src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $pic; ?>" > 
+			        <?php }else{
+				   ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
+						 <?php } 
+					  ?><p class="name"><?php echo $rows1->name; ?></p>
                            </div>
                            <div class="col-md-3" style="padding-top:15px;">
                               <div class="">
 							   <?php if(empty($rows->guardn_name)){  ?>
-                              <p> Mr. :<?php echo $rows->father_name; ?></p>
-                              <p>  Mrs. <span>:<?php echo $rows->mother_name; ?></span></p>
+                              <p> <b>Mr. </b>:<?php echo $rows->father_name; ?></p>
+                              <p>  <b>Mrs. </b><span>:<?php echo $rows->mother_name; ?></span></p>
                               <?php	} else{  ?>
-                              <p>  Guardian name <span>:<?php echo $rows->guardn_name; ?></span></p>
+                              <p><b>Guardian name</b> <span> : <?php echo $rows->guardn_name; ?></span></p>
                               <?php 	}?>                           
 							  </div>
 							  

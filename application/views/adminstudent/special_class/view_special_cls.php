@@ -19,7 +19,6 @@
                                  <th>Date</th>
                                  <th>Start Time</th>
 								  <th>End time</th>
-                                 <th>Status</th>
 								 
                               </thead>
                               <tbody>
@@ -36,12 +35,7 @@
                                     <td><?php $dateTime=new DateTime($rows->special_class_date); $tdate=date_format($dateTime,'d-m-Y' ); echo $tdate; ?></td>
 									<td><?php  echo $rows->start_time; ?></td>
 									<td><?php  echo $rows->end_time; ?></td>
-									<td><?php 
-                    									  if($stu=='Active'){?>
-                    									   <button class="btn btn-success btn-fill btn-wd">Active</button>
-                    									 <?php  }else{?>
-                    									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button>
-                    									  <?php } ?></td>
+									
                                    
                                  </tr>
                                  <?php $i++;  }  ?>

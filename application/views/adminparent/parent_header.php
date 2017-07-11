@@ -79,8 +79,8 @@ font-weight: 500;
                      </a>
                   </li>-->
                   <li style="padding: 08px 10px;">
-                     <a href="<?php echo base_url(); ?>teacherevent/home" class="abox"style="padding:03px 15px;border-color: white;">
-                        <p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
+                     <a href="<?php echo base_url(); ?>adminparent/view_onduty" class="abox"style="padding:03px 15px;border-color: white;">
+                        <p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Onduty</p>
                      </a>
                   </li>
                   <li class="dropdown dropdown-with-icons">
@@ -192,6 +192,7 @@ font-weight: 500;
                      <p>Fees Status</p>
                   </a>
                </li>
+			   
                <li id="exam">
                   <a data-toggle="collapse"  href="#examinationmenu">
                      <i class="pe-7s-note2"></i>

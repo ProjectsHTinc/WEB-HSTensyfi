@@ -31,7 +31,7 @@ Class Circularmodel extends CI_Model
 
 	 function get_stu_name($classid)
 	 {
-		 $sql="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,e.quota_id,e.status,u.user_id,u.name,u.user_type,u.user_master_id FROM edu_enrollment AS e,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=u.user_master_id AND user_type=3 AND  e.status='Active'";
+		 $sql="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,e.quota_id,e.status,u.user_id,u.name,u.user_type,u.user_master_id FROM edu_enrollment AS e,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=u.user_master_id AND user_type=3 AND e.status='Active'";
 		 $resultset1=$this->db->query($sql);
         // $rows=$resultset1->result();
 		 if($resultset1->num_rows()==0){

@@ -157,7 +157,7 @@ Class Adminparentmodel extends CI_Model
 	 
     function get_fees_status_details_single($enroll_id)
 	 {      //echo $enroll_id; 
-			 $sql="SELECT enroll_id,class_id,admission_id,quota_id FROM edu_enrollment WHERE enroll_id='$enroll_id'";
+			$sql="SELECT enroll_id,class_id,admission_id,quota_id FROM edu_enrollment WHERE enroll_id='$enroll_id'";
 			$resultset=$this->db->query($sql);
 			$row=$resultset->result();
 			foreach($row as $rows){}
@@ -170,6 +170,37 @@ Class Adminparentmodel extends CI_Model
 			$row1=$result1->result();
 			return $row1;
 	 }
-
+ 
+ 
+      function get_onduty_status_details($enroll_id)
+	  {
+		    $sql="SELECT enroll_id,class_id,admission_id,quota_id FROM edu_enrollment WHERE enroll_id='$enroll_id'";
+			$resultset=$this->db->query($sql);
+			$row=$resultset->result();
+			foreach($row as $rows){}
+			$enr_id=$rows->admission_id;
+			//echo $enr_id;
+			
+		    $sql="SELECT user_master_id,user_id,user_type FROM edu_users WHERE user_master_id='$enr_id' AND user_type='3'";
+			$resultset=$this->db->query($sql);
+			$row=$resultset->result();
+			foreach($row as $rows){}
+			$stu_user_id=$rows->user_id;
+			//echo $stu_user_id;
+			
+			  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+			  $result1=$this->db->query($get_year);
+			  $all_year= $result1->result();
+			  if($result1->num_rows()==0){ }else{
+			  foreach($all_year as $cyear){}
+			  $current_year=$cyear->year_id;
+		      // echo $current_year;exit;
+			
+			$sql1="SELECT * FROM edu_on_duty WHERE user_type='3' AND user_id='$stu_user_id' AND year_id='$current_year'";
+			$result1=$this->db->query($sql1);
+			$row1=$result1->result();
+			return $row1;
+			  }
+	  }
 }
 ?>
