@@ -71,7 +71,7 @@ class Feesstructure extends CI_Controller
 			 $duedateto=new DateTime($date_to);
              $due_date_to=date_format($duedateto,'Y-m-d' );
 			
-			 $notes=$this->input->post('notes');
+			 $notes=$this->db->escape_str($this->input->post('notes'));
 			 $status=$this->input->post('status');
 			 $datas=$this->feesstructuremodel->add_fees_details($year_id,$terms,$class_id,$fees_amount,$quota_name,$due_date_from,$due_date_to,$notes,$status,$user_id);
 			// print_r($datas);exit;
@@ -155,7 +155,7 @@ class Feesstructure extends CI_Controller
 			 
 			// echo $due_date_from;echo $due_date_to;exit;
 			 
-			 $notes=$this->input->post('notes');
+			 $notes=$this->db->escape_str($this->input->post('notes'));
 			 $status=$this->input->post('status');
 			 
 			 $datas=$this->feesstructuremodel->update_fees_details($id,$year_id,$terms,$class_id,$fees_amount,$quota_name,$due_date_from,$due_date_to,$notes,$status,$user_id);

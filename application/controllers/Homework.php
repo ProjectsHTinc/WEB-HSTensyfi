@@ -65,7 +65,7 @@ class Homework extends CI_Controller
 			$hwid=$this->input->post('hwid');
 			$marks=$this->input->post('marks');
 			//print_r($enroll);exit;
-			$remarks=$this->input->post('remarks');
+			$remarks=$this->db->escape_str($this->input->post('remarks'));
 			$datas = $this->homeworkmodel->enter_marks($enroll,$hwid,$marks,$remarks);
 			  if($datas['status']=="success")
 			  {
@@ -92,7 +92,7 @@ class Homework extends CI_Controller
 			$year_id=$this->input->post('year_id');
 			
 			$class_id=$this->input->post('class_id');
-			$title=$this->input->post('title');
+			$title=$this->db->escape_str($this->input->post('title'));
 			$subject_name=$this->input->post('subject_name');
 			//echo $subject_name;exit;
 			$tet_date=$this->input->post('tet_date');
@@ -158,7 +158,7 @@ class Homework extends CI_Controller
 			$hwid=$this->input->post('hwid');
 			$marks=$this->input->post('marks');
 			//print_r($enroll);exit;
-			$remarks=$this->input->post('remarks');
+			$remarks=$this->db->escape_str($this->input->post('remarks'));
 			$datas = $this->homeworkmodel->update_marks($enroll,$hwid,$marks,$remarks);
 			  if($datas['status']=="success")
 			  {
@@ -197,7 +197,7 @@ class Homework extends CI_Controller
 		    $test_details=$this->db->escape_str($this->input->post('test_details'));
 		    $id=$this->input->post('id');
 		    $hw_type=$this->input->post('hw_type');
-			$title=$this->input->post('title');
+			$title=$this->db->escape_str($this->input->post('title'));
 			
 			$test_date=$this->input->post('test_date');
 			$dateTime = new DateTime($test_date);
