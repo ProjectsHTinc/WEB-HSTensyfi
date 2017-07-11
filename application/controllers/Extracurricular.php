@@ -36,7 +36,7 @@ class Extracurricular extends CI_Controller
 	    $user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		
-		$ext_name=$this->input->post('ext_name');
+		$ext_name=$this->db->escape_str($this->input->post('ext_name'));
 		$status=$this->input->post('status');
 		
 		$datas=$this->extracurricularmodel->create($ext_name,$status,$user_id);
@@ -78,7 +78,7 @@ class Extracurricular extends CI_Controller
 	    $user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		
-		$ext_name=$this->input->post('ext_name');
+		$ext_name=$this->db->escape_str($this->input->post('ext_name'));
 		$status=$this->input->post('status');
 		$id=$this->input->post('id');
 		
