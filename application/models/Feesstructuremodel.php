@@ -95,7 +95,7 @@ Class Feesstructuremodel extends CI_Model
 
     		function view_fees_master_details()
     		{
-    			$sql="SELECT fe.*,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_fees_master AS fe,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE fe.year_id=y.year_id AND fe.term_id=t.term_id AND fe.quota_id=q.id AND fe.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id ";
+    			$sql="SELECT fe.*,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_fees_master AS fe,edu_academic_year AS y,edu_terms AS t,edu_quota AS q,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE fe.year_id=y.year_id AND fe.term_id=t.term_id AND fe.quota_id=q.id AND fe.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id  ORDER BY fe.id DESC ";
     			$result=$this->db->query($sql);
     			$res=$result->result();
     			return $res;

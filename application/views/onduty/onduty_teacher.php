@@ -23,7 +23,7 @@
                                  <th>Reason Out</th>
                                  <th>From Date</th>
                                  <th>To Date</th>
-                                 <th>Notes</th>
+                                
                                  <th>Status</th>
 								 <th>Actions</th>
                            </thead>
@@ -38,7 +38,7 @@
 						<td><?php  echo $rows->od_for; ?></td>
 						<td><?php $dateTime=new DateTime($rows->from_date); $fdate=date_format($dateTime,'d-m-Y' ); echo $fdate; ?></td>
 						<td><?php $dateTime=new DateTime($rows->to_date); $tdate=date_format($dateTime,'d-m-Y' ); echo $tdate; ?></td>
-						<td><?php  echo $rows->notes; ?></td>
+					
 					<td><?php if($stu=='Pending'){ ?>
 					 <button class="btn btn-warning btn-fill btn-wd">Pending</button>
 					 <?php }elseif($stu=='Rejected'){?>
