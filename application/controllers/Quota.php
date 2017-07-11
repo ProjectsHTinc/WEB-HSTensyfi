@@ -36,7 +36,7 @@ class Quota extends CI_Controller
 	    $user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		
-		$quota_name=$this->db->escape_str($this->input->post('quota_name'));
+		$quota_name=$this->input->post('quota_name');
 		$status=$this->input->post('status');
 		
 		$datas=$this->quotamodel->create_quota_list($quota_name,$status,$user_id);
@@ -78,7 +78,7 @@ class Quota extends CI_Controller
 	    $user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		
-		$quota_name=$this->db->escape_str($this->input->post('quota_name'));
+		$quota_name=$this->input->post('quota_name');
 		$status=$this->input->post('status');
 		$id=$this->input->post('id');
 		
