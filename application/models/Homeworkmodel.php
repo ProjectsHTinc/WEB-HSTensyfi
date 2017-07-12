@@ -54,19 +54,19 @@ Class Homeworkmodel extends CI_Model
         //print_r($data);exit;
        }
 	   
-	    function create_test($year_id,$class_id,$user_id,$test_type,$title,$subject_name,$formatted_date,$format_date,$details)
+	    function create_test($year_id,$class_id,$user_id,$user_type,$test_type,$title,$subject_name,$formatted_date,$format_date,$details)
 	   {
 		      $check_test_date="SELECT * FROM edu_homework WHERE test_date='$formatted_date' AND subject_id='$subject_name'";
 			  $result=$this->db->query($check_test_date);
 			  if($result->num_rows()==0)
 			  {
-			  $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
+			  $query="SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type' ";
 			  $resultset=$this->db->query($query);
 			  $row=$resultset->result();
 			  //foreach($row as $rows){}
-			  $teacher_id=$row[0]->teacher_id;
+			  $teacher_id=$row[0]->user_master_id;
 			  
-			  $query="INSERT INTO edu_homework(year_id,class_id,teacher_id,hw_type,subject_id,title,test_date,due_date,hw_details,status, created_at)VALUES('$year_id','$class_id','$teacher_id','$test_type','$subject_name','$title','$formatted_date','$format_date','$details','Active',NOW())";
+			  $query="INSERT INTO edu_homework(year_id,class_id,teacher_id,hw_type,subject_id,title,test_date,due_date,hw_details,status,	created_by,created_at)VALUES('$year_id','$class_id','$teacher_id','$test_type','$subject_name','$title','$formatted_date','$format_date','$details','Active','$user_id',NOW())";
 			  $resultset=$this->db->query($query);
 			  $data= array("status"=>"success");
 			  return $data;
@@ -77,16 +77,16 @@ Class Homeworkmodel extends CI_Model
 				   
 	   }
 	   
-	   function getall_details($user_id)
+	   function getall_details($user_id,$user_type)
 	   {
-		    $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
+		    $query="SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type' ";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
 			//foreach($row as $rows){}
-			$id=$row[0]->teacher_id;
+			$id=$row[0]->user_master_id;
 			 
 		  //$query="SELECT * FROM edu_homework ";
-		   $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,su.subject_id,su.subject_name FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s WHERE eh.teacher_id='$id' AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id ORDER BY eh.hw_id DESC";
+		    $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,su.subject_id,su.subject_name FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s WHERE eh.teacher_id='$id' AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id ORDER BY eh.hw_id DESC";
           $result=$this->db->query($query);
           return $result->result();
 	   }
@@ -99,7 +99,7 @@ Class Homeworkmodel extends CI_Model
 
 	  }
 	  
-	  function enter_marks($enroll,$hwid,$marks,$remarks)
+	  function enter_marks($enroll,$hwid,$marks,$remarks,$user_id,$user_type)
 	  {
 		   $count_name = count($marks);
 		  //echo $count_name; exit;
@@ -110,7 +110,7 @@ Class Homeworkmodel extends CI_Model
 			$hwid1=$hwid;
 			$marks1=$marks[$i];
 			$remarks1=$remarks[$i];
-		  $query="INSERT INTO edu_class_marks(enroll_mas_id,hw_mas_id,marks,remarks,status,created_at) VALUES ('$enroll1','$hwid1','$marks1','$remarks1','A',NOW())";
+		  $query="INSERT INTO edu_class_marks(enroll_mas_id,hw_mas_id,marks,remarks,status,created_by,created_at) VALUES ('$enroll1','$hwid1','$marks1','$remarks1','Active','$user_id',NOW())";
 		  $result=$this->db->query($query);
 		  
 		  $sql="UPDATE edu_homework SET mark_status='1' WHERE hw_id='$hwid1'";
@@ -130,7 +130,7 @@ Class Homeworkmodel extends CI_Model
          return $result->result();		 
 	  }
 	 
-	  function update_marks($enroll,$hwid,$marks,$remarks)
+	  function update_marks($enroll,$hwid,$marks,$remarks,$user_id,$user_type)
 	  {
 		  
 		  $count_name = count($marks);
@@ -142,7 +142,7 @@ Class Homeworkmodel extends CI_Model
 			$hwid1=$hwid;
 			$marks1=$marks[$i];
 			$remarks1=$remarks[$i];
-		  $query="UPDATE edu_class_marks SET enroll_mas_id='$enroll1',hw_mas_id='$hwid1',marks='$marks1',remarks='$remarks1',updated_at=NOW() WHERE hw_mas_id='$hwid1' AND enroll_mas_id='$enroll1'";
+		  $query="UPDATE edu_class_marks SET enroll_mas_id='$enroll1',hw_mas_id='$hwid1',marks='$marks1',remarks='$remarks1',updated_by='$user_id',updated_at=NOW() WHERE hw_mas_id='$hwid1' AND enroll_mas_id='$enroll1'";
 		  $result=$this->db->query($query);
 		  
           //return $result->result();
@@ -158,10 +158,10 @@ Class Homeworkmodel extends CI_Model
 		 $result=$this->db->query($query); 
          return $result->result();	
 	  }
-	  
-	   function update_test_details($id,$hw_type,$title,$formatted_date,$format_date,$test_details,$status)
+	
+	   function update_test_details($id,$hw_type,$title,$formatted_date,$format_date,$test_details,$status,$user_id,$user_type)
 	   {
-		   $query1="UPDATE edu_homework SET hw_type='$hw_type',title='$title',test_date='$formatted_date',due_date='$format_date',hw_details='$test_details',status='$status' WHERE hw_id='$id'";
+		   $query1="UPDATE edu_homework SET hw_type='$hw_type',title='$title',test_date='$formatted_date',due_date='$format_date',hw_details='$test_details',status='$status',updated_by='$user_id',updated_at=NOW() WHERE hw_id='$id'";
 		   $result1=$this->db->query($query1); 
            $data= array("status"=>"success");
 		   return $data;
