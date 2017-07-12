@@ -29,6 +29,8 @@ class Feesstructure extends CI_Controller
 		$datas['terms']=$this->feesstructuremodel->get_terms();
 		$datas['getall_class']=$this->class_manage->getall_class();
 		$datas['class'] = $this->classmodel->getclass();
+		$datas['enr_cls']=$this->feesstructuremodel->get_all_enr_cls();
+		//echo"<pre>";print_r($datas['enr_cls']);exit;
 		$datas['quota'] = $this->feesstructuremodel->get_all_quota();
 		
 		if($user_type==1)
@@ -74,14 +76,17 @@ class Feesstructure extends CI_Controller
 			 $notes=$this->db->escape_str($this->input->post('notes'));
 			 $status=$this->input->post('status');
 			 $datas=$this->feesstructuremodel->add_fees_details($year_id,$terms,$class_id,$fees_amount,$quota_name,$due_date_from,$due_date_to,$notes,$status,$user_id);
-			// print_r($datas);exit;
+			//print_r($datas);exit;
 			 if($datas['status']=="success")
 		     {
 				$this->session->set_flashdata('msg','Added Successfully');
 				redirect('feesstructure/view_fees_master');
-		     }else{
+		     }else if($datas['status']=="Date"){
+				 $this->session->set_flashdata('msg','To Date Should Be Grater Than From Date');
+				redirect('feesstructure/fees_master');
+			 }else{
 				$this->session->set_flashdata('msg','Faild To Add');
-				redirect('feesstructure/view_fees_master');
+				redirect('feesstructure/fees_master');
 		       }
 			 
 		  }

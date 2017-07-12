@@ -130,9 +130,9 @@ class Circular extends CI_Controller
 		  $user_id=$this->session->userdata('user_id');
 		  $user_type=$this->session->userdata('user_type');
 		  $datas['all_circulars']=$this->circularmodel->get_all_circular();
-		  //echo '<pre>'; print_r($datas['all_circulars']);exit;
 		 $datas['parents']=$this->circularmodel->get_parents_circular();
 		 $datas['students']=$this->circularmodel->get_students_circular();
+		 //echo '<pre>'; print_r($datas['students']);exit;
 
 		  if($user_type==1)
 		  {

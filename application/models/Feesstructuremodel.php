@@ -25,6 +25,17 @@ Class Feesstructuremodel extends CI_Model
 		  }
 
 		}
+		
+		function get_all_enr_cls()
+		{
+			$cls="SELECT en.class_id,en.enroll_id,en.admission_id,cm.class_sec_id,cm.class,c.class_id,c.class_name FROM edu_enrollment AS en INNER JOIN edu_classmaster AS cm ON cm.class_sec_id=en.class_id INNER JOIN edu_class AS c ON cm.class=c.class_id GROUP BY c.class_name";
+			$result=$this->db->query($cls);
+			$all_cls=$result->result();
+			return $all_cls;
+			
+			
+		}
+		
            
     function get_terms()
 	    {	 
@@ -52,7 +63,8 @@ Class Feesstructuremodel extends CI_Model
 		
 		function add_fees_details($year_id,$terms,$class_id,$fees_amount,$quota_name,$due_date_from,$due_date_to,$notes,$status,$user_id)
 		{
-          $count_name = count($class_id);
+           if($due_date_from<$due_date_to){
+		  $count_name = count($class_id);
 		  //echo $count_name; exit;
 		  for($i=0;$i<$count_name;$i++)
           {
@@ -90,6 +102,10 @@ Class Feesstructuremodel extends CI_Model
 			}
            	$data= array("status"=>"success");
            return $data;
+		   }else{
+			   $data= array("status"=>"Date");
+               return $data;
+		   }
 			
 		}
 
