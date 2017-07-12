@@ -25,7 +25,7 @@ class Homework extends CI_Controller
 			 $user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
 			 $datas=$this->homeworkmodel->get_teacher_id($user_id);
-			 $datas['result']=$this->homeworkmodel->getall_details($user_id);
+			 $datas['result']=$this->homeworkmodel->getall_details($user_id,$user_type);
 			 $datas['ayear']=$this->homeworkmodel->get_acdaemicyear();
 			 //echo'<pre>';
 	         //print_r($datas['result']);exit;
@@ -60,13 +60,15 @@ class Homework extends CI_Controller
 		
 	  public function marks()
 		{
-			
+			$datas=$this->session->userdata();
+	 		$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
 			$enroll=$this->input->post('enroll');
 			$hwid=$this->input->post('hwid');
 			$marks=$this->input->post('marks');
 			//print_r($enroll);exit;
 			$remarks=$this->db->escape_str($this->input->post('remarks'));
-			$datas = $this->homeworkmodel->enter_marks($enroll,$hwid,$marks,$remarks);
+			$datas = $this->homeworkmodel->enter_marks($enroll,$hwid,$marks,$remarks,$user_id,$user_type);
 			  if($datas['status']=="success")
 			  {
 				$this->session->set_flashdata('msg','Added Successfully');
@@ -83,6 +85,7 @@ class Homework extends CI_Controller
 		{ 
 	 		$datas=$this->session->userdata();
 	 		$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
 			//echo $user_id;exit;
 			$test_type=$this->input->post('test_type');
 			
@@ -100,14 +103,13 @@ class Homework extends CI_Controller
 			$dateTime = new DateTime($tet_date);
 			$formatted_date=date_format($dateTime,'Y-m-d' );
              
-             
             $submission_date=$this->input->post('sub_date');
 			$dateTime = new DateTime($submission_date);
 			$format_date=date_format($dateTime,'Y-m-d' );
 			
 
 			$details=$this->db->escape_str($this->input->post('details'));
-		    $datas=$this->homeworkmodel->create_test($year_id,$class_id,$user_id,$test_type,$title,$subject_name,$formatted_date,$format_date,$details); 
+		    $datas=$this->homeworkmodel->create_test($year_id,$class_id,$user_id,$user_type,$test_type,$title,$subject_name,$formatted_date,$format_date,$details); 
 		    
 		    
 		
@@ -154,12 +156,16 @@ class Homework extends CI_Controller
 	
        public function update()
 	   {
+		    $datas=$this->session->userdata();
+	 		$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			
 		    $enroll=$this->input->post('enroll');
 			$hwid=$this->input->post('hwid');
 			$marks=$this->input->post('marks');
 			//print_r($enroll);exit;
 			$remarks=$this->db->escape_str($this->input->post('remarks'));
-			$datas = $this->homeworkmodel->update_marks($enroll,$hwid,$marks,$remarks);
+			$datas = $this->homeworkmodel->update_marks($enroll,$hwid,$marks,$remarks,$user_id,$user_type);
 			  if($datas['status']=="success")
 			  {
 				$this->session->set_flashdata('msg','Update Successfully');
@@ -194,6 +200,10 @@ class Homework extends CI_Controller
 	   
 	   public function update_test()
 	   {
+		        $datas=$this->session->userdata();
+  	 		    $user_id=$this->session->userdata('user_id');
+				$user_type=$this->session->userdata('user_type'); 
+				
 		    $test_details=$this->db->escape_str($this->input->post('test_details'));
 		    $id=$this->input->post('id');
 		    $hw_type=$this->input->post('hw_type');
@@ -209,7 +219,7 @@ class Homework extends CI_Controller
 			
 			$status=$this->input->post('status');
 			
-			$datas= $this->homeworkmodel->update_test_details($id,$hw_type,$title,$formatted_date,$format_date,$test_details,$status);
+			$datas= $this->homeworkmodel->update_test_details($id,$hw_type,$title,$formatted_date,$format_date,$test_details,$status,$user_id,$user_type);
 			  if($datas['status']=="success")
 			  {
 				$this->session->set_flashdata('msg','Update Successfully');
