@@ -44,6 +44,7 @@ Class Teacherondutymodel extends CI_Model
 			 $data= array("status" => "success");
 			 return $data;
          }
+
 		 }else{
 			  $data= array("status" => "Date");
 			 return $data;
