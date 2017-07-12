@@ -9,6 +9,8 @@ class Teacherattendence extends CI_Controller {
 
 			$this->load->model('teacherattendencemodel');
 			$this->load->model('class_manage');
+			$this->load->model('adminattendancemodel');
+
 		  $this->load->helper('url');
 			$this->load->library('encryption');
 		  $this->load->library('session');
@@ -201,18 +203,59 @@ class Teacherattendence extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
-				 //$list=array();
-				  $datas['result']=$this->teacherattendencemodel->get_atten_val($class_id);
-					$datas['res']=$this->teacherattendencemodel->get_studentin_class($class_id);
+				  // $datas['result']=$this->teacherattendencemodel->get_atten_val($class_id);
+					// $datas['res']=$this->teacherattendencemodel->get_studentin_class($class_id);
+					$datas['result']=$this->adminattendancemodel->get_month_class($class_id);
+					$datas['result_month']=$this->adminattendancemodel->get_year_class($class_id);
+					$datas['get_name_class']=$this->class_manage->edit_cs($class_id);
+					$datas['class_id']=$class_id;
 					//print_r($datas['res']);exit;
 				 $this->load->view('adminteacher/teacher_header');
-				 $this->load->view('adminteacher/attendence/month',$datas);
+				 $this->load->view('adminteacher/attendence/select_month',$datas);
 				 $this->load->view('adminteacher/teacher_footer');
 			 }else{
-
+				 redirect('/');
 			 }
 		}
 
+		public function attendance_month_view(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			 if($user_type==2){
+			$class_master_id=$this->input->post('class_master_id');
+			$month_id=$this->input->post('month_id');
+			$year_class=$this->input->post('year_class');
+			$query_date = $year_class.'-'.$month_id.'-'.'01';
+			$first= date('Y-m-01', strtotime($query_date));
+			$last= date('Y-m-t', strtotime($query_date));
+			$datas['month']=$month_id;
+			$datas['year']=$year_class;
+			$datas['res']=$this->adminattendancemodel->get_monthview_class($first,$last,$class_master_id);
+			$datas['get_name_class']=$this->class_manage->edit_cs($class_master_id);
+			  $this->load->view('adminteacher/teacher_header');
+			 $this->load->view('adminteacher/attendence/attendance_month_view',$datas);
+			 $this->load->view('adminteacher/teacher_footer');
+		 }else{
+			 redirect('/');
+		}
+		}
+
+		public function view_dates_id(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+		 if($user_type==2){
+			 $month_id=$this->input->post('month_id');
+			 $year_id=$this->input->post('year_id');
+			 $student_id=$this->input->post('student_id');
+			 $datas['result']=$this->adminattendancemodel->get_leave_dates($student_id,$month_id,$year_id);
+			 echo json_encode($datas['result']);
+		 }
+		 else{
+				redirect('/');
+		 }
+		}
 
 		public function monthview(){
 				$datas=$this->session->userdata();

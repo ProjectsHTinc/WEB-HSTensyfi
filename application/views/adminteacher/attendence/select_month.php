@@ -15,7 +15,7 @@
 
                   </legend>
                   <div class="content">
-                     <form action="<?php echo base_url(); ?>adminattendance/get_month_class" method="post" class="form-horizontal" id="select_month">
+                     <form action="<?php echo base_url(); ?>teacherattendence/attendance_month_view" method="post" class="form-horizontal" id="select_month">
                        <fieldset>
                           <div class="form-group">
                              <label class="col-sm-2 control-label">Select Year</label>
@@ -61,21 +61,23 @@
 </div>
 </div>
 <script type="text/javascript">
+   $('#attendmenu').addClass('collapse in');
+   $('#atten').addClass('active');
+   $('#atten3').addClass('active');
+   $(document).ready(function () {
 
-   $('#select_month').validate({ // initialize the plugin
-       rules: {
-           year_class:{required:true },
-           month_id:{required:true }
 
-       },
-       messages: {
-             year_class: "Select year",
-             month_id: "Select Month"
+    $('#select_month').validate({ // initialize the plugin
+        rules: {
+            year_class:{required:true },
+            month_id:{required:true }
 
-           }
+        },
+        messages: {
+              year_class: "Select year",
+              month_id: "Select Month"
+
+            }
+    });
    });
-  });
-  $('#attend').addClass('collapse in');
-  $('#attendance').addClass('active');
-  $('#attend2').addClass('active');
 </script>

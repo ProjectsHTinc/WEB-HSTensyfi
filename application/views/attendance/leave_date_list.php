@@ -11,7 +11,7 @@
                <div class="card">
                   <div class="content">
                      <legend>
-                       <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:10px;">Go Back</button>  
+                       <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:10px;">Go Back</button>
                      </legend>
                      <h4 class="title"> List of Record for  <?php foreach($res as $rows){} echo $rows->name;  ?></h4>
                      <div class="fresh-datatables">

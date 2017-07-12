@@ -16,12 +16,15 @@
                                    for($i=0;$i<$cnt;$i++){
                                    ?>
                                <div class="col-md-2">
-                                     <a href="<?php echo  base_url(); ?>teacherattendence/month/<?php echo $class_id[$i]; ?>" class="btn btn-wd"><?php echo $class_name[$i]."-".$sec_name[$i]; ?></a></div>
+                                     <a href="<?php echo  base_url(); ?>teacherattendence/month/<?php echo $class_id[$i]; ?>" class="btn btn-wd"><?php echo $class_name[$i]."-".$sec_name[$i]; ?></a>
+                                   </div>
 
 
                               <?php  } }  ?>
                               </div>
                             </div>
+
+
                         </div> <!-- end card -->
 
           </div>
@@ -32,6 +35,8 @@
 <script type="text/javascript">
 
 
-
+$('#attendmenu').addClass('collapse in');
+$('#atten').addClass('active');
+$('#atten3').addClass('active');
 
 </script>

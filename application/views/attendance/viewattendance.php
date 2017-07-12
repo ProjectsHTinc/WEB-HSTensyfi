@@ -87,7 +87,7 @@
 
 
          });
-         $('#attendmenu').addClass('collapse in');
-         $('#atten').addClass('active');
-         $('#atten2').addClass('active');
+         $('#attend').addClass('collapse in');
+         $('#attendance').addClass('active');
+         $('#attend1').addClass('active');
 </script>

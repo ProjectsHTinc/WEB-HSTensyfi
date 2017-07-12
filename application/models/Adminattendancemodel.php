@@ -109,9 +109,9 @@ Class Adminattendancemodel extends CI_Model
       //
       // }
 
-      // Get Student Name
+      // Get Student Leave Days
       function get_leave_dates($student_id,$month_id,$year_id){
-         $query="SELECT abs_date,a_status FROM edu_attendance_history WHERE MONTH(abs_date) = '$month_id' AND YEAR(abs_date) = '$year_id' AND student_id='$student_id'";
+         $query="SELECT DATE_FORMAT(abs_date,'%d-%m-%Y')AS abs_date,a_status FROM edu_attendance_history WHERE MONTH(abs_date) = '$month_id' AND YEAR(abs_date) = '$year_id' AND student_id='$student_id'";
         $res=$this->db->query($query);
         if($res->num_rows()==0){
           $data= array("status" => "nodata");

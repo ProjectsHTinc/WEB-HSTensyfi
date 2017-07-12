@@ -48,9 +48,9 @@
 </div>
 </div>
 <script type="text/javascript">
-   $('#attendmenu').addClass('collapse in');
-   $('#atten').addClass('active');
-   $('#atten2').addClass('active');
+$('#attend').addClass('collapse in');
+$('#attendance').addClass('active');
+$('#attend1').addClass('active');
    var $table = $('#bootstrap-table');
          $().ready(function(){
              $table.bootstrapTable({
