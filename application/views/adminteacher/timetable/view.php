@@ -154,7 +154,7 @@ $k++;
 <script>
 $('#timetablemenu').addClass('collapse in');
 $('#timetable').addClass('active');
-$('#timetable2').addClass('active');
+$('#timetable1').addClass('active');
 $('#timetablereviewform').validate({ // initialize the plugin
     rules: {
         subject_id:{required:true },

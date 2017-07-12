@@ -1,6 +1,8 @@
-<style>th{width:150px;} .txt{background-color: greenyellow;
-   color: red;
-   font-weight: 700;}
+<style>
+.tablwidth{
+  margin-right: 16px;
+  border:1px solid grey;
+}
 </style>
 <div class="main-panel">
 <div class="content">
@@ -14,15 +16,16 @@
 </div>
 <div class="content">
    <div class="col-md-12">
-      <div class="card">
+      <div class="container">
          <div class="header">
             <legend>Time Table<button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> <a href="<?php echo base_url(); ?>teachertimetable/reviewview" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go To Review</a></legend>
          </div>
          <div class="content">
             <div class="row">
                <div class="col-md-12">
-                  <div class="card">
-                    <div class="col-md-2">
+                   <div class=" ">
+                  <div class="container">
+                    <div class="col-md-2 tablwidth">
                     <center>Monday</center>
                     <table id="" class="table">
                        <thead>
@@ -49,7 +52,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 tablwidth">
                   <center>Tuesday</center>
                 <table id="" class="table">
                    <thead>
@@ -76,7 +79,7 @@
                 </tbody>
               </table>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 tablwidth">
               <center>Wednesday</center>
             <table id="" class="table">
                <thead>
@@ -104,7 +107,7 @@
           </table>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2 tablwidth">
           <center>Thursday</center>
         <table id="" class="table">
            <thead>
@@ -131,7 +134,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 tablwidth">
       <center>Friday</center>
     <table id="" class="table">
        <thead>
@@ -158,7 +161,7 @@
     </tbody>
   </table>
 </div>
-<div class="col-md-2">
+<div class="col-md-2 tablwidth tablwidth">
   <center>Saturday</center>
 <table id="" class="table">
    <thead>
@@ -187,6 +190,7 @@
 </div>
 
                      </div>
+                     </div>
 
                   </div>
                </div>
@@ -198,7 +202,7 @@
 <script>
    $('#timetablemenu').addClass('collapse in');
    $('#timetable').addClass('active');
-   $('#timetable2').addClass('active');
+   $('#timetable1').addClass('active');
    $('#timetablereviewform').validate({ // initialize the plugin
        rules: {
            subject_id:{required:true },

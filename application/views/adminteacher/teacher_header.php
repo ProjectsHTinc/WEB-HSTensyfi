@@ -248,7 +248,8 @@
                   </a>
                   <div class="collapse" id="timetablemenu">
                      <ul class="nav">
-                        <li id="timetable1"><a href="<?php echo base_url(); ?>teachertimetable/home">Time Table</a></li>
+                        <li id="timetable1"><a href="<?php echo base_url(); ?>teachertimetable/teachertimetable">Teacher Time Table</a></li>
+                        <li id="timetable2"><a href="<?php echo base_url(); ?>teachertimetable/home">Time Table</a></li>
                         <li id="timetable2"><a href="<?php echo base_url(); ?>teachertimetable/reviewview">Reviews</a></li>
                      </ul>
                   </div>
