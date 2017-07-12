@@ -15,8 +15,8 @@ class Student extends CI_Controller
 		  $this->load->model('class_manage');
           $this->load->model('adminparentmodel');
 		  $this->load->model('subjectmodel');
-        }   
-	
+        }
+
 
 	  public function homework_view()
 	   {
@@ -92,7 +92,7 @@ class Student extends CI_Controller
 						redirect('/');
 				 }
 		}
-		
+
 		public function exam_name_calender()
 		{
 			    $datas=$this->session->userdata();
@@ -109,7 +109,7 @@ class Student extends CI_Controller
 						redirect('/');
 				 }
 		}
-		
+
 		public function exam_calender($exams_id)
 		{
 			$datas=$this->session->userdata();
@@ -126,13 +126,13 @@ class Student extends CI_Controller
 				 }else{
 						redirect('/');
 				 }
-			
+
 		}
 		//------------------------Fees Status------------------------------//
-		
+
 		public function fees_status()
 		{
-			
+
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			//echo $user_id;
@@ -147,10 +147,10 @@ class Student extends CI_Controller
 				 }else{
 						redirect('/');
 				 }
-			
-			
+
+
 		}
-		
+
 //------------------------------------------------------------------------//
 
 	   public function attendance(){
@@ -159,7 +159,7 @@ class Student extends CI_Controller
        $user_type=$this->session->userdata('user_type');
        if($user_type==3)
           {
-            $datas['total']=$this->adminparentmodel->get_total_working_days();
+            $datas['total']=$this->adminparentmodel->get_total_working_days($user_id);
             $this->load->view('adminstudent/student_header');
             $this->load->view('adminstudent/attendance/calender',$datas);
             $this->load->view('adminstudent/student_footer');
@@ -236,7 +236,7 @@ class Student extends CI_Controller
            redirect('/');
         }
      }
-    //--------------------------Circular----------------------// 
+    //--------------------------Circular----------------------//
 	  public function view_all_circular()
 	   {
 		 $datas=$this->session->userdata();
@@ -252,9 +252,9 @@ class Student extends CI_Controller
             $this->load->view('adminstudent/student_footer');
 		 }
 	  }
-	  
+
 	  //--------------------------Leaves----------------------//
-	  
+
 	  public function get_all_regularleave()
 		  {
 			 $datas=$this->session->userdata();
@@ -264,26 +264,26 @@ class Student extends CI_Controller
 			 //$s= unset($data);
 			 echo json_encode($data['reg']);
 		  }
-   
+
     public function get_all_special_leave()
 	  {
 		     $datas=$this->session->userdata();
              $user_id=$this->session->userdata('user_id');
              $user_type=$this->session->userdata('user_type');
-			 
+
 			$datas['res']=$this->studentmodel->get_special_leave_all($user_id);
 			echo json_encode($datas['res']);
 		}
-           
+
     //---------------------------On Duty--------------------------//
-	
+
 	public function onduty()
 	 {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$datas['result'] = $this->studentmodel->getall_details($user_id,$user_type);
-			
+
 			 if($user_type==3)
 			 {
 				 $this->load->view('adminstudent/student_header');
@@ -294,24 +294,24 @@ class Student extends CI_Controller
 					redirect('/');
 			 }
 	}
-	
+
 	public function apply_onduty()
 	{
 		$datas=$this->session->userdata();
   	    $user_id=$this->session->userdata('user_id');
 	    $user_type=$this->session->userdata('user_type');
-		
+
 		$reason=$this->db->escape_str($this->input->post('reason'));
 		$notes=$this->db->escape_str($this->input->post('notes'));
-		
+
 		$from_date=$this->input->post('fdate');
 		 $dateTime = new DateTime($from_date);
          $fdate=date_format($dateTime,'Y-m-d' );
-		 
+
 		$to_date=$this->input->post('tdate');
 		 $dateTime1=new DateTime($to_date);
          $tdate=date_format($dateTime1,'Y-m-d' );
-		 
+
 		//$status=$this->input->post('status');
 		$datas=$this->studentmodel->apply_onduty($user_type,$user_id,$reason,$fdate,$tdate,$notes);
 		//print_r($datas);exit;
@@ -326,9 +326,9 @@ class Student extends CI_Controller
 			$this->session->set_flashdata('msg','Faild To Add');
 			redirect('student/onduty');
 		}
-		
+
 	}
-	
+
 	public function edit_onduty($id)
 	{
 		$datas=$this->session->userdata();
@@ -345,31 +345,31 @@ class Student extends CI_Controller
 			 else{
 					redirect('/');
 			 }
-		
+
 	}
-	
+
 	public function update_onduty()
 	{
 		$datas=$this->session->userdata();
   	    $user_id=$this->session->userdata('user_id');
 	    $user_type=$this->session->userdata('user_type');
-		
+
 		$reason=$this->db->escape_str($this->input->post('reason'));
 		$notes=$this->db->escape_str($this->input->post('notes'));
-		
+
 		$from_date=$this->input->post('fdate');
 		 $dateTime = new DateTime($from_date);
          $fdate=date_format($dateTime,'Y-m-d' );
-		 
+
 		$to_date=$this->input->post('tdate');
 		 $dateTime1=new DateTime($to_date);
          $tdate=date_format($dateTime1,'Y-m-d' );
-		 
+
 		 $duty_id=$this->input->post('id');
-		
+
 		$datas=$this->studentmodel->update($duty_id,$user_type,$user_id,$reason,$fdate,$tdate,$notes);
 		//print_r($datas);exit;
-		
+
 		if($datas['status']=="success")
 		{
 			$this->session->set_flashdata('msg','Updated Successfully');
@@ -379,9 +379,9 @@ class Student extends CI_Controller
 			redirect('student/onduty');
 		}
 	}
-	
+
 	//----------------------Special Class Status-------------------------------------
-	
+
 	public function special_class_details()
 	{
 		$datas=$this->session->userdata();
@@ -398,8 +398,8 @@ class Student extends CI_Controller
 			redirect('/');
 		 }
 	}
-	
-	
+
+
 
 
  }

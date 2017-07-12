@@ -152,7 +152,7 @@ Class Studentmodel extends CI_Model
 LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_id=$user_id";
         $results=$this->db->query($get_enroll_id);
         foreach($results->result() as $rows){}  $enroll_id=$rows->enroll_id;
-      $query="SELECT abs_date AS start,CASE WHEN attend_period = 0 THEN 'MORNING' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id'";
+      $query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0 THEN 'MORNING' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id'";
        $resultset1=$this->db->query($query);
 			 return $resultset1->result();
      }
@@ -182,8 +182,8 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
      }
 
      }
-  //--------------------------Circular----------------------// 
-  
+  //--------------------------Circular----------------------//
+
 	 function get_circular($user_id){
 		 //$cid=$this->get_class_id_user();
         //echo $user_id;exit;
@@ -279,13 +279,13 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				$resultset=$this->db->query($query);
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
-                   
+
 				 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 				  $result1=$this->db->query($get_year);
 				  $all_year= $result1->result();
 				  foreach($all_year as $cyear){}
 				  $current_year=$cyear->year_id;
-		  
+
 				 $query="SELECT * FROM edu_on_duty WHERE user_id='$user_id' AND user_type='$user_type' AND year_id='$current_year'";
 				 $resultset1=$this->db->query($query);
 				 return $resultset1->result();
@@ -298,13 +298,13 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				$resultset=$this->db->query($query);
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
-		
+
 				 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 				  $result1=$this->db->query($get_year);
 				  $all_year= $result1->result();
 				  foreach($all_year as $cyear){}
 				  $current_year=$cyear->year_id;
-				  
+
 				 $sql="INSERT INTO edu_on_duty(user_type,user_id,year_id,od_for,from_date,to_date,notes,status,created_by,created_at)VALUES('$user_type','$user_id','$current_year','$reason','$fdate','$tdate','$notes','Pending','$user_id',NOW())";
 				 $result1=$this->db->query($sql);
 				 //$res=$result1->result();

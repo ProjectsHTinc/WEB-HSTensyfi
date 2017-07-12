@@ -236,14 +236,14 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
                 INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
                 INNER JOIN edu_days AS dd ON tt.day=dd.d_id WHERE  tt.teacher_id='$teacher_id' ORDER BY tt.period ASC";
             $result=$this->db->query($query);
-            $time=$result->result();
-           if($result->num_rows()==0){
-             $data= array("st" => "no data Found");
-             return $data;
-           }else{
-             $data= array("st" => "success","time"=>$time);
-             return $data;
-           }
+            return $result->result();
+          //  if($result->num_rows()==0){
+          //    $data= array("st" => "no data Found");
+          //    return $data;
+          //  }else{
+          //    $data= array("st" => "success","time"=>$time);
+          //    return $data;
+          //  }
 
                 }
 

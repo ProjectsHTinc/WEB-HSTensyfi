@@ -13,7 +13,7 @@ Class Adminparentmodel extends CI_Model
 		 {
 
 
-			$query="SELECT abs_date AS start,CASE WHEN attend_period = 0 THEN 'MORNING' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id'";
+			$query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0 THEN 'MORNING' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id'";
 			$resultset1=$this->db->query($query);
 			return $resultset1->result();
 		 }
@@ -110,7 +110,7 @@ Class Adminparentmodel extends CI_Model
 		 $row=$resultset->result();
 		 return $row;
 		   }
-		   
+
 
 	  }
 
@@ -133,14 +133,20 @@ Class Adminparentmodel extends CI_Model
 	 }
 
     // GET TOTAL WORKING DAYS
-     function get_total_working_days(){
-       $query="SELECT abs_date FROM edu_attendance_history GROUP BY CAST(abs_date AS DATE)";
+     function get_total_working_days($user_id){
+       $get_class_name="SELECT eu.user_id,ee.class_id FROM edu_users AS eu LEFT JOIN edu_admission AS ea ON eu.user_master_id=ea.admission_id
+       LEFT JOIN edu_enrollment AS ee ON ee.admission_id=eu.user_master_id WHERE eu.user_id='$user_id'";
+       $resultset=$this->db->query($get_class_name);
+ 			$row=$resultset->result();
+ 			foreach($row as $rows){}
+      $class_id=$rows->class_id;
+       $query="SELECT Date AS total FROM edu_attendance_calendar WHERE class_master_id='$class_id'  GROUP BY CAST(total AS DATE)";
        $resultset1=$this->db->query($query);
  	  return $resultset1->result();
      }
 
 	 function get_fees_status_details($enroll_id)
-	 {      //echo $enroll_id; 
+	 {      //echo $enroll_id;
 		    $sql="SELECT enroll_id,class_id,admission_id,quota_id FROM edu_enrollment WHERE enroll_id='$enroll_id'";
 			$resultset=$this->db->query($sql);
 			$row=$resultset->result();
@@ -148,15 +154,15 @@ Class Adminparentmodel extends CI_Model
 			$enr_id=$rows->enroll_id;
 			$cls_id=$rows->class_id;
 			$qid=$rows->quota_id;
-		
+
 			$sql1="SELECT fs.*,fm.term_id,fm.due_date_from,fm.due_date_to,fm.notes,y.year_id,y.from_month,y.to_month,t.term_id,t.term_name,q.quota_name FROM edu_term_fees_status AS fs,edu_fees_master AS fm,edu_academic_year AS y,edu_terms AS t,edu_quota AS q WHERE fs.student_id='$enr_id' AND fs.class_master_id='$cls_id' AND fs.quota_id='$qid' AND fs.fees_id=fm.id AND fm.status='Active' AND fm.term_id=t.term_id AND fs.year_id=y.year_id AND fs.quota_id=q.id";
 		    $result1=$this->db->query($sql1);
 			$row1=$result1->result();
 			return $row1;
 	 }
-	 
+
     function get_fees_status_details_single($enroll_id)
-	 {      //echo $enroll_id; 
+	 {      //echo $enroll_id;
 			$sql="SELECT enroll_id,class_id,admission_id,quota_id FROM edu_enrollment WHERE enroll_id='$enroll_id'";
 			$resultset=$this->db->query($sql);
 			$row=$resultset->result();
@@ -170,8 +176,8 @@ Class Adminparentmodel extends CI_Model
 			$row1=$result1->result();
 			return $row1;
 	 }
- 
- 
+
+
       function get_onduty_status_details($enroll_id)
 	  {
 		    $sql="SELECT enroll_id,class_id,admission_id,quota_id FROM edu_enrollment WHERE enroll_id='$enroll_id'";
@@ -180,14 +186,14 @@ Class Adminparentmodel extends CI_Model
 			foreach($row as $rows){}
 			$enr_id=$rows->admission_id;
 			//echo $enr_id;
-			
+
 		    $sql="SELECT user_master_id,user_id,user_type FROM edu_users WHERE user_master_id='$enr_id' AND user_type='3'";
 			$resultset=$this->db->query($sql);
 			$row=$resultset->result();
 			foreach($row as $rows){}
 			$stu_user_id=$rows->user_id;
 			//echo $stu_user_id;
-			
+
 			  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 			  $result1=$this->db->query($get_year);
 			  $all_year= $result1->result();
@@ -195,7 +201,7 @@ Class Adminparentmodel extends CI_Model
 			  foreach($all_year as $cyear){}
 			  $current_year=$cyear->year_id;
 		      // echo $current_year;exit;
-			
+
 			$sql1="SELECT * FROM edu_on_duty WHERE user_type='3' AND user_id='$stu_user_id' AND year_id='$current_year'";
 			$result1=$this->db->query($sql1);
 			$row1=$result1->result();
