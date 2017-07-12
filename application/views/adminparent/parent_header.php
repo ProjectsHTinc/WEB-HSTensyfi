@@ -84,14 +84,26 @@ font-weight: 500;
                      </a>
                   </li>
                   <li class="dropdown dropdown-with-icons">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:05px;">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:3px;">
                         <div class="photo">
-                           <i class="pe-7s-user pe-7x" style="font-size:35px;color: white;"></i>
+						<?php
+					  $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $row=$objRs->result();
+					  foreach ($row as $rows1)
+					  {
+						  $pic=$rows1->user_pic;
+						  if($pic!='')
+						  {?>
+					  <img src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/> 
+			        <?php }else{
+				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" />
+						 <?php }} ?>
                         </div>
-                        <p class="hidden-md hidden-lg">
-                           More
-                           <b class="caret"></b>
-                        </p>
+                        
+                           <b class="caret" style="margin-left:55px;color:white;"></b>
                      </a>
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>

@@ -83,7 +83,7 @@
                      </a>
                   </li>-->
 				  
-                     <li style="padding:0px 10px; padding-top:15px;">
+                     <li style="padding:0px 10px; padding-top:11px;">
                      
                      	<a href="<?php echo base_url(); ?>student/view_all_circular" class="abox"style="padding:03px 15px;border-color: white;">
                      		<p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
@@ -91,7 +91,7 @@
                      
                      </li>
                   
-                  <li class="dropdown" style="padding:15px 10px;">
+                  <li class="dropdown" style="padding:11px 10px;">
                      <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
                      Quick Links</a>
                      <ul class="dropdown-menu">
@@ -103,14 +103,26 @@
                      </ul>
                   </li>
                   <li class="dropdown dropdown-with-icons">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:3px;">
                         <div class="photo">
-                           <i class="pe-7s-user pe-7x"style="font-size:35px;color: white;"></i>
+						<?php
+					  $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
+					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+					  $objRs=$this->db->query($query);
+					  $row=$objRs->result();
+					  foreach ($row as $rows1)
+					  {
+						  $pic=$rows1->user_pic;
+						  if($pic!='')
+						  {?>
+					  <img src="<?php echo base_url(); ?>assets/students/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/> 
+			        <?php }else{
+				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" />
+						 <?php }} ?>
                         </div>
-                        <p class="hidden-md hidden-lg">
-                           More
-                           <b class="caret"></b>
-                        </p>
+                        
+                           <b class="caret" style="margin-left:55px;color:white;"></b>
                      </a>
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>

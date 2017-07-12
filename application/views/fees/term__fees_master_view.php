@@ -17,7 +17,6 @@
 
                                 <div class="fresh-datatables">
                                   <h4 class="title">Fees Status</h4>
-
                           <table id="bootstrap-table" class="table">
                               <thead>
                                  <th data-field="id" class="text-left">S.No</th>
@@ -28,17 +27,16 @@
 								                 <th data-field="fees" class="text-left" data-sortable="true">Fees Amount</th>
                                 <th data-field="date_from" class="text-left" data-sortable="true">From Date </th>
                                 <th data-field="date_to" class="text-left" data-sortable="true">To Date </th>
-                                 <!-- <th data-field="notes" class="text-left" data-sortable="true">Notes</th> -->
+                                <!-- <th data-field="notes" class="text-left" data-sortable="true">Notes</th> -->
                                 <th data-field="status" class="text-left" data-sortable="true">Status</th>
 								<th data-field="Section" class="text-left" data-sortable="true">Action</th>
-
-
                               </thead>
                               <tbody>
                                 <?php
                                 $i=1;
                                 foreach ($view as $rows) {
-												        	$stu=$rows->status;
+								   $stu=$rows->status;
+
                                 ?>
                                   <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
