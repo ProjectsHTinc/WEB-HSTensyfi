@@ -247,8 +247,8 @@ font-weight: 500;
 												<b class="caret"></b>
 										</a>
 										<div class="collapse" id="examinationmenu">
-											<ul class="nav">
-								<li id="exam3"><a href="<?php echo base_url(); ?>examinationresult/exam_duty"> Exam Duty</a></li>
+											<ul class="nav"> 
+								<li id="exam3"><a href="<?php echo base_url(); ?>examinationresult/exam_namefor_duty"> Exam Duty</a></li>
 										<li id="exam1"><a href="<?php echo base_url(); ?>examinationresult/home">Add Exam Marks</a></li>
 										<li id="exam2"><a href="<?php echo base_url(); ?>examinationresult/view_exam_name_marks">Edit Exam Marks</a></li>
 

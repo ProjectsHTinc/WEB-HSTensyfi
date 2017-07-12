@@ -15,9 +15,9 @@ Class Examinationresultmodel extends CI_Model
         $query     = "SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
         $resultset = $this->db->query($query);
         $row       = $resultset->result();
-        foreach ($row as $rows) {
-        }
+        foreach ($row as $rows) {}
         $teacher_id = $rows->teacher_id;
+		
         $sql        = "SELECT * FROM edu_examination WHERE status='Active'";
         $resultset1 = $this->db->query($sql);
         $res        = $resultset1->result();
@@ -582,7 +582,7 @@ Class Examinationresultmodel extends CI_Model
         }
     }
     
-    function exam_duty_details($user_id)
+    function exam_duty_details($user_id,$exam_id)
     {
         $query     = "SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
         $resultset = $this->db->query($query);
@@ -591,7 +591,7 @@ Class Examinationresultmodel extends CI_Model
         }
         $teacher_id = $rows->teacher_id;
         //ORDER By ed.exam_detail_id DESC
-        $sql        = "SELECT ed.*,ex.exam_id,ex.exam_year,ex.exam_name,t.teacher_id,t.name,s.*,cm.class_sec_id,cm.class,cm.section,c.*,se.* FROM edu_exam_details AS ed,edu_examination As ex,edu_subject AS s,edu_teachers AS t,edu_classmaster AS cm, edu_class AS c,edu_sections AS se WHERE ed.teacher_id='$teacher_id' AND ex.exam_id=ed.exam_id AND t.teacher_id=ed.teacher_id AND ed.subject_id=s.subject_id AND cm.class_sec_id=ed.classmaster_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER By ed.exam_date DESC ";
+        $sql        = "SELECT ed.*,ex.exam_id,ex.exam_year,ex.exam_name,t.teacher_id,t.name,s.subject_id,s.	subject_name,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_exam_details AS ed,edu_examination As ex,edu_subject AS s,edu_teachers AS t,edu_classmaster AS cm, edu_class AS c,edu_sections AS se WHERE ed.teacher_id='$teacher_id' AND ex.exam_id='$exam_id' AND ex.exam_id=ed.exam_id AND t.teacher_id=ed.teacher_id AND ed.subject_id=s.subject_id AND cm.class_sec_id=ed.classmaster_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER By ed.exam_date DESC ";
         $result     = $this->db->query($sql);
         $res        = $result->result();
         return $res;

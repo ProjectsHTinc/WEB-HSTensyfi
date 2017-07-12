@@ -30,6 +30,21 @@ class Examinationresult extends CI_Controller
         }
     }
     
+	
+	 public function exam_namefor_duty()
+    {
+        $datas     = $this->session->userdata();
+        $user_id   = $this->session->userdata('user_id');
+        $user_type = $this->session->userdata('user_type');
+        if ($user_type == 2) {
+            $datas['result'] = $this->examinationresultmodel->get_teacher_id($user_id);
+            $this->load->view('adminteacher/teacher_header');
+            $this->load->view('adminteacher/examination_result/exam_duty_name', $datas);
+            $this->load->view('adminteacher/teacher_footer');
+        } else {
+            redirect('/');
+        }
+    }
    
     
     public function class_section()
@@ -287,7 +302,9 @@ class Examinationresult extends CI_Controller
         $datas         = $this->session->userdata();
         $user_id       = $this->session->userdata('user_id');
         $user_type     = $this->session->userdata('user_type');
-        $datas['duty'] = $this->examinationresultmodel->exam_duty_details($user_id);
+		$exam_id  = $this->input->get('var');
+		//echo $exam_id;exit;
+        $datas['duty'] = $this->examinationresultmodel->exam_duty_details($user_id,$exam_id);
         // print_r($datas);exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');

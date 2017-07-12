@@ -65,12 +65,18 @@ font-weight: bold;}
                            </div>
                            <div class="col-md-3" style="padding-top:15px;">
                               <div class="">
-							   <?php if(empty($rows->guardn_name)){  ?>
+							   <?php 
+							    if(!empty($rows->father_name) && !empty($rows->mother_name) && !empty($rows->guardn_name) ){?>
+								   <p> <b>Mr. </b>:<?php echo $rows->father_name; ?></p>
+                              <p>  <b>Mrs. </b><span>:<?php echo $rows->mother_name; ?></span></p>
+							  <p><b>Guardian name</b> <span> : <?php echo $rows->guardn_name; ?></span></p>
+							 <?php }elseif(empty($rows->guardn_name)){
+							       ?>
                               <p> <b>Mr. </b>:<?php echo $rows->father_name; ?></p>
                               <p>  <b>Mrs. </b><span>:<?php echo $rows->mother_name; ?></span></p>
-                              <?php	} else{  ?>
+                              <?php	}else{  ?>
                               <p><b>Guardian name</b> <span> : <?php echo $rows->guardn_name; ?></span></p>
-                              <?php 	}?>                           
+							 <?php 	} ?>  
 							  </div>
 							  
                            </div>
