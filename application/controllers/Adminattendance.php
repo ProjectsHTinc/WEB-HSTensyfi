@@ -65,23 +65,67 @@ class Adminattendance extends CI_Controller {
 		}
 
 
-		//
+
 		public function month_view_class($class_id){
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 			 if($user_type==1){
-						$datas['res']=$this->adminattendancemodel->get_month_class($class_id);
-						echo $datas['class_id']=$class_id;
-						exit;
+						$datas['result']=$this->adminattendancemodel->get_month_class($class_id);
+						$datas['result_month']=$this->adminattendancemodel->get_year_class($class_id);
+						$datas['get_name_class']=$this->class_manage->edit_cs($class_id);
+						$datas['class_id']=$class_id;
 						$this->load->view('header');
-						$this->load->view('attendance/monthclass',$datas);
+						$this->load->view('attendance/month_for_class',$datas);
 						$this->load->view('footer');
 			 }
 			 else{
 					redirect('/');
 			 }
 		}
+
+
+
+				public function get_month_class(){
+						$datas=$this->session->userdata();
+						$user_id=$this->session->userdata('user_id');
+						$user_type=$this->session->userdata('user_type');
+					 if($user_type==1){
+							 $class_master_id=$this->input->post('class_master_id');
+							 $month_id=$this->input->post('month_id');
+							 $year_class=$this->input->post('year_class');
+							 $query_date = $year_class.'-'.$month_id.'-'.'01';
+				       $first= date('Y-m-01', strtotime($query_date));
+						   $last= date('Y-m-t', strtotime($query_date));
+							 $datas['month']=$month_id;
+							 $datas['year']=$year_class;
+						 	 $datas['res']=$this->adminattendancemodel->get_monthview_class($first,$last,$class_master_id);
+							 $datas['get_name_class']=$this->class_manage->edit_cs($class_master_id);
+								$this->load->view('header');
+								$this->load->view('attendance/month_view_for_class',$datas);
+								$this->load->view('footer');
+					 }
+					 else{
+							redirect('/');
+					 }
+				}
+
+
+				public function view_dates_id(){
+					$datas=$this->session->userdata();
+					$user_id=$this->session->userdata('user_id');
+					$user_type=$this->session->userdata('user_type');
+				 if($user_type==1){
+					 $month_id=$this->input->post('month_id');
+					 $year_id=$this->input->post('year_id');
+					 $student_id=$this->input->post('student_id');
+					 $datas['result']=$this->adminattendancemodel->get_leave_dates($student_id,$month_id,$year_id);
+					 echo json_encode($datas['result']);
+				 }
+				 else{
+						redirect('/');
+				 }
+				}
 
 
 		public function daywise($class_id){
