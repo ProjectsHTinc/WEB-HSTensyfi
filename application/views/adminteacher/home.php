@@ -17,7 +17,7 @@ float: left;}
 ul li a img:active {
     background-color: yellow;
 }
-.test{padding-top: 15px;text-align: center;padding-left:0px}
+.test{padding-top:05px;text-align: center;padding-left:0px}
 .name{padding-left:20px;
 font-size: 30px;
 font-weight: bold;}
@@ -63,10 +63,10 @@ font-weight: bold;}
                               </div>
 							  
                            </div>
-                        <div  class="textborder"></div>
+                        <div  class="textborder" style="height:162px;"></div>
 						   
 						   <div class="col-md-6 test">
-		    <ul class="nav nav-icons" role="tablist">
+		    <ul class="nav nav-icons" style="padding-top: 35px;" role="tablist">
                      <li class="active">
                         <a href="#description-logo" role="tab" data-toggle="tab">
 						<i class="fa fa-user" aria-hidden="true"></i><br>
@@ -99,12 +99,12 @@ font-weight: bold;}
                   <div class="tab-pane" id="map-logo">
                     
                         <div class="col-md-6" >
-                           <div class="header">
+                           <div class="header" style="padding-top:0px;">
                               <h4 class="title">Address</h4>
                               <p class="category"><?php echo $rows->address; ?></p>
                            </div>
                         </div>
-						 <div  class="textborder" style="height: 70px;"></div>
+						 <div  class="textborder" style="height:63px;"></div>
 						 <div class="col-md-6" style="padding-top:5px;text-align: center;padding-left:0px;">
 						   
 		     <ul class="nav nav-icons" role="tablist">
@@ -159,9 +159,9 @@ font-weight: bold;}
                               <p class="category"><?php echo $rows->sec_phone; ?></p>
                            </div>
                         </div>
-						 <div  class="textborder"></div>
+						 <div  class="textborder" style="height:140px;"></div>
 						 <div class="col-md-5 test">
-		      <ul class="nav nav-icons" role="tablist">
+		      <ul class="nav nav-icons" style="padding-top:30px;" role="tablist">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
                       <i class="fa fa-user" aria-hidden="true"></i><br>
@@ -192,17 +192,19 @@ font-weight: bold;}
                   </div>
                   <div class="tab-pane" id="help-logo">
                     
-                        <div class="col-md-6" style="padding-bottom: 25px; ">
+                        <div class="col-md-3" style="padding-bottom:25px; ">
                            <div class="header">
                               <h4 class="title">Class Teacher </h4>
                               <p class="category"><a> <?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></a></p>
                            </div>
+						   </div>
+						   <div class="col-md-3" style="padding-bottom:25px; ">
 						    <div class="header">
                               <h4 class="title">Subject Handle</h4>
                               <p class="category"><?php echo $rows->subject_name; ?></p>
                            </div>
                         </div>
-                        <div  class="textborder"></div>
+                        <div  class="textborder" style="height:77px;"></div>
 						<div class="col-md-5 test">
 		     <ul class="nav nav-icons" role="tablist">
                      <li>

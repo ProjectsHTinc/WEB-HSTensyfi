@@ -55,6 +55,10 @@ class Teacheronduty extends CI_Controller
 		{
 			$this->session->set_flashdata('msg','Added Successfully');
 			redirect('teacheronduty/home');
+		}else if($datas['status']=="Date"){
+			$this->session->set_flashdata('msg','From Date Should be Less Than To Date');
+			redirect('teacheronduty/home');
+
 		}else{
 			$this->session->set_flashdata('msg','Faild To Add');
 			redirect('teacheronduty/home');

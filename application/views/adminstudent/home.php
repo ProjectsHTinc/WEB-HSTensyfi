@@ -46,8 +46,9 @@ font-weight: bold;}
                   <div class="tab-pane active" id="description-logo">
                      <div class="" style="border:none;box-shadow: none;">
                            <div class="col-md-3" >
-                              <?php $pic= $rows->user_pic; if(empty($pic)){
-                                 }else{  ?>
+                              <?php $pic= $rows->user_pic; if(empty($pic)){?>
+								 <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" /> 
+                               <?php  }else{  ?>
                               <img src="<?php echo base_url(); ?>assets/students/profile/<?php echo $rows->user_pic; ?>" class="img-responsive img-circle" style="width:125px;">
 							  <p class="name"> <?php echo $rows->name; }?> </p>
                            </div>
@@ -103,9 +104,9 @@ font-weight: bold;}
                            <p class="category"><?php echo $rows->mobile; ?></p>
                         </div>
                      </div>
-						 <div  class="textborder" style="height:65px;"></div>
-						 <div class="col-md-6" style="padding-top:5px;text-align: center;padding-left:0px;">
-		     <ul class="nav nav-icons" role="tablist">
+						 <div  class="textborder" style="height:55px;"></div>
+						 <div class="col-md-6" style="text-align:center;padding-left:0px;">
+		     <ul class="nav nav-icons" role="tablist" style="padding-top:5px;">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
                      <i class="fa fa-user" aria-hidden="true"></i><br>
@@ -142,9 +143,9 @@ font-weight: bold;}
                               <p class="category"><?php echo $rows->mother_tongue; ?></p>
                            </div>
                         </div>
-                        <div  class="textborder" style="height:65px;"></div>
-						 <div class="col-md-6" style="padding-top:5px;text-align: center;padding-left:0px;">
-		      <ul class="nav nav-icons" role="tablist">
+                        <div  class="textborder" style="height:55px;"></div>
+						 <div class="col-md-6" style="text-align: center;padding-left:0px;">
+		      <ul class="nav nav-icons" role="tablist" style="padding-top:5px;">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
                      <i class="fa fa-user" aria-hidden="true"></i><br>

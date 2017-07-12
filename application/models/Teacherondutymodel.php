@@ -23,6 +23,7 @@ Class Teacherondutymodel extends CI_Model
 	 
 	 function apply_onduty($user_type,$user_id,$reason,$fdate,$tdate,$notes)
 	 {
+		 if($fdate < $tdate || $fdate==$tdate){
 		  $query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
 		  $resultset=$this->db->query($query);
 		  $row=$resultset->result();
@@ -43,6 +44,10 @@ Class Teacherondutymodel extends CI_Model
 			 $data= array("status" => "success");
 			 return $data;
          }
+		 }else{
+			  $data= array("status" => "Date");
+			 return $data;
+		 }
 		
 	 }
 

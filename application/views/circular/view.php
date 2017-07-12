@@ -66,7 +66,7 @@
 				</div> 
 						<!-- Parents---->
 						
-							 <div id="parents1" style="display:none">
+					<div id="parents1" style="display:none">
                         <div class="fresh-datatables">
                            <table id="bootstrap-table" class="table">
                               <thead>

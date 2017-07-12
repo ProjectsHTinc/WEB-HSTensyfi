@@ -319,6 +319,9 @@ class Student extends CI_Controller
 		{
 			$this->session->set_flashdata('msg','Added Successfully');
 			redirect('student/onduty');
+		}else if($datas['status']=="Date"){
+			$this->session->set_flashdata('msg','From Date Should be Less Than To Date');
+			redirect('student/onduty');
 		}else{
 			$this->session->set_flashdata('msg','Faild To Add');
 			redirect('student/onduty');

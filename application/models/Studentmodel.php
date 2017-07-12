@@ -293,7 +293,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 
 		   function apply_onduty($user_type,$user_id,$reason,$fdate,$tdate,$notes)
 		   {
-
+                if($fdate < $tdate || $fdate==$tdate){
 			    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 				$resultset=$this->db->query($query);
 				$row=$resultset->result();
@@ -313,6 +313,8 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 					 $data= array("status" => "success");
 					 return $data;
 				 }
+				}else{$data= array("status" => "Date");
+					 return $data;}
 
 		   }
 
