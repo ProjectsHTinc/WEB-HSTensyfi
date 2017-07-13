@@ -1,14 +1,34 @@
 <div class="main-panel">
 <div class="content">
-
-
-<div class="">
-  <!-- <h5>List of Event You have Been Allocated as Co-Ordinator</h5> -->
   <div class="row">
     <div class="container" style="padding-right:110px;padding-bottom:20px;">
       <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right">Go Back</button>
     </div>
   </div>
+  <div class="card">
+    <?php  $sat=$res['status'];  if($sat=="success"){ foreach($res['event_li'] as $rows) {} ?>
+    <div class="typo-line1">
+
+                                      <blockquote>
+                                        <h5><?php echo $rows->event_name; ?></h5>
+                                       <p>
+                                  <?php echo $rows->event_details; ?>   </p>
+                                       <small>
+                                      <?php echo $new_date = date('d-m-Y', strtotime($rows->event_date)); ?>
+                                       </small>
+                                      </blockquote>
+                                  </div>
+                                  <?php }else{
+                                    
+                                  } ?>
+
+
+
+
+  </div>
+<div class="">
+  <!-- <h5>List of Event You have Been Allocated as Co-Ordinator</h5> -->
+
 <div class="row">
 
 

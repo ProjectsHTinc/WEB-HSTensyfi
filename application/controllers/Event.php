@@ -282,7 +282,7 @@ class Event extends CI_Controller {
 					redirect('/');
 			 }
 		}
-		
+
 		public function view_all_reminder()
 		{
 			$datas=$this->session->userdata();

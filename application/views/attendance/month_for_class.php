@@ -74,7 +74,7 @@
 
            }
    });
-  });
+
   $('#attend').addClass('collapse in');
   $('#attendance').addClass('active');
   $('#attend2').addClass('active');
