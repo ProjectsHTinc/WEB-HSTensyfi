@@ -28,7 +28,7 @@ Class Adminparentmodel extends CI_Model
 
         function get_event_list_all($event_id)
 		{
-		   $query="SELECT ec.sub_event_name,ec.co_name_id,eu.name,ev.* FROM edu_events AS ev LEFT JOIN edu_event_coordinator AS ec ON ev.event_id=ec.event_id LEFT JOIN edu_users AS eu ON ec.co_name_id=eu.user_id WHERE ev.event_id='$event_id'";
+		   $query="SELECT ec.sub_event_name,ec.co_name_id,eu.name,ev.* FROM edu_events AS ev LEFT JOIN edu_event_coordinator AS ec ON ev.event_id=ec.event_id LEFT JOIN edu_teachers AS eu ON ec.co_name_id=eu.teacher_id WHERE ev.event_id='$event_id'";
 		   $resultset1=$this->db->query($query);
 		   return $resultset1->result();
         }
