@@ -50,9 +50,9 @@
                                   <div class="form-group">
                                         <label>Status</label>
                                        <select name="status"  class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-											  <option value="Active">Active</option>
-											  <option value="Deactive">DeActive</option>
-										</select>
+																				  <option value="Active">Active</option>
+																				  <option value="Deactive">DeActive</option>
+																			</select>
                                     </div>
 
                                     <button type="submit" class="btn btn-fill btn-info">Save</button>

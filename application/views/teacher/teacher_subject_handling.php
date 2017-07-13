@@ -13,82 +13,46 @@
                   <div class="card">
                      <div class="content" id="content1">
                         <div class="fresh-datatables">
-                           <!-- <h4 class="title" style="padding-bottom: 20px;">List of Teacher</h4> -->
-                           <legend>List of Teacher<a href="<?php echo base_url(); ?>teacher/view_subject_handling" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Teacher Handling Subjects</a></legend>
-
+                           <h4 class="title" style="padding-bottom: 20px;">List of Teacher Handling Subject</h4>
                            <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
-                              <div class="col-sm-2">
-                                 <select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
-                                    <?php  foreach ($sorting as $rows)
-                                       { ?>
-                                    <option value="<?php echo $rows->sex; ?>"><?php echo $rows->sex;?>
-                                    </option>
-                                    <?php } ?>
-                                 </select>
-                              </div>
+
                               <div class="col-sm-4">
-                        <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
-						<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+
+						                    <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
                               </div>
                            </form>
                            <table id="bootstrap-table" class="table">
                               <thead>
-                                 <th data-field="id" class="text-left">S.No</th>
-                                 <th data-field="name" class="text-left" data-sortable="true">Name</th>
-                                 <th data-field="email" class="text-left" data-sortable="true">Email</th>
-                                 <th data-field="mobile" class="text-left" data-sortable="true">Mobile</th>
-                                 <th data-field="class" class="text-left" data-sortable="true">Class Teacher</th>
-                                 <th data-field="status" class="text-left" data-sortable="true">Status</th>
-                                 <th data-field="Section" class="text-left" data-sortable="true">Action</th>
+                                 <th data-field="id" class="text-center">S.No</th>
+                                 <th data-field="name" class="text-center" data-sortable="true">Name</th>
+                                 <th data-field="email" class="text-center" data-sortable="true">Class</th>
+                                 <th data-field="mobile" class="text-center" data-sortable="true">Subject</th>
+
+                                 <th data-field="status" class="text-center" data-sortable="true">Status</th>
+                                 <th data-field="Section" class="text-center" data-sortable="true">Action</th>
                               </thead>
                               <tbody>
-                                 <?php
-                                    $i=1;
-                                    if(!empty($gender)){
-                                    foreach ($gender as $rows) {
-                                    $stu=$rows->status;
-                                    ?>
+                                <?php $i=1; foreach($res as $rows){ ?>
                                  <tr>
-                                    <td class="text-left"><?php echo $i; ?></td>
-                                    <td class="text-left"><?php echo $rows->name; ?></td>
-                                    <td class="text-left"><?php echo $rows->email; ?></td>
-                                    <td class="text-left"><?php echo $rows->phone; ?></td>
-                                    <td class="text-left"><?php echo $rows->class_name;?>-<?php echo $rows->sec_name; ?></td>
+                                    <td class="text-center"><?php echo $i; ?></td>
+                                    <td class="text-center"><?php echo $rows->name; ?></td>
+                                    <td class="text-center"><?php echo $rows->class_name;?>-<?php echo $rows->sec_name; ?></td>
+                                    <td class="text-center"><?php echo $rows->subject_name; ?></td>
+
                                     <td><?php
-                                       if($stu=='Active'){?>
+                                       if($rows->status=='Active'){?>
                                        <button class="btn btn-success btn-fill btn-wd">Active</button>
                                        <?php  }else{?>
                                        <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
                                           ?>
                                     </td>
-                                    <td class="text-left">
+                                    <td class="text-center">
                                        <a href="<?php echo base_url(); ?>teacher/get_teacher_id/<?php echo $rows->teacher_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
-                                 <?php $i++; }}else{
-                                    foreach ($result as $rows) {
-                                    $stu=$rows->status;
+                                 <?php $i++; }
                                     ?>
-                                 <tr>
-                                    <td class="text-left"><?php echo $i; ?></td>
-                                    <td class="text-left"><?php echo $rows->name; ?></td>
-                                    <td class="text-left"><?php echo $rows->email; ?></td>
-                                    <td class="text-left"><?php echo $rows->phone; ?></td>
-                                    <td class="text-left"><?php echo $rows->class_name;?>-<?php echo $rows->sec_name; ?></td>
-                                    <td><?php
-                                       if($stu=='Active'){?>
-                                       <button class="btn btn-success btn-fill btn-wd">Active</button>
-                                       <?php  }else{?>
-                                       <button class="btn btn-danger btn-fill btn-wd">DE-Active</button><?php }
-                                          ?>
-                                    </td>
-                                    <td class="text-left">
-                                       <a href="<?php echo base_url(); ?>teacher/get_teacher_id/<?php echo $rows->teacher_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                       <a rel="tooltip" href="#myModal" data-id="<?php echo $rows->teacher_id; ?>" title="Add Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit" style="color:#eb34ff;" data-toggle="modal" data-target="#myModal"   >
-                                    <i class="fa fa-user-plus">  </i></a>
-                                    </td>
-                                 </tr>
-                                 <?php  $i++;  } } ?>
+
                               </tbody>
                            </table>
                            <div id="myModal" class="modal fade" role="dialog">
@@ -250,10 +214,7 @@ $('#subject_handling_form').validate({ // initialize the plugin
 
 
 
-$(document).on("click", ".open-AddBookDialog", function () {
-     var eventId = $(this).data('id');
-     $(".modal-body #teacher_id").val( eventId );
-});
+
 
 
 function generatefromtable() {
@@ -261,7 +222,7 @@ function generatefromtable() {
 				doc = new jsPDF('p', 'pt', 'a4', true);
 				doc.setFont("times", "normal");
 				doc.setFontSize(fontSize);
-				doc.text(40, 20, "Teachers List");
+				doc.text(40, 20, "Teachers Handling Subject");
 				data = [];
 				data = doc.tableToJson('bootstrap-table');
 				height = doc.drawTable(data, {

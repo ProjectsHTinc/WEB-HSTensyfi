@@ -43,7 +43,8 @@ class Teacherattendence extends CI_Controller {
 			 if($user_type==2){
 				 $datas['res']=$this->teacherattendencemodel->get_cur_year();
 				 if($datas['res']['status']=="success"){
-					  $datas=$this->teacherattendencemodel->get_teacher_id($user_id);
+					  $datas['res']=$this->teacherattendencemodel->get_teacher_id($user_id);
+
 					  $this->load->view('adminteacher/teacher_header');
 					  $this->load->view('adminteacher/attendence/add',$datas);
 					  $this->load->view('adminteacher/teacher_footer');
@@ -67,7 +68,7 @@ class Teacherattendence extends CI_Controller {
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
-			 $datas=$this->teacherattendencemodel->get_teacher_id($user_id);
+			 $datas['res']=$this->teacherattendencemodel->get_teacher_id($user_id);
 
 			 //print_r($datas);
 			 $this->load->view('adminteacher/teacher_header');
@@ -262,7 +263,7 @@ class Teacherattendence extends CI_Controller {
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
-			 $datas=$this->teacherattendencemodel->get_teacher_id($user_id);
+			 $datas['res']=$this->teacherattendencemodel->get_teacher_id($user_id);
 
 			 //print_r($datas['res']);exit;
 			 $this->load->view('adminteacher/teacher_header');
