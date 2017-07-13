@@ -146,7 +146,7 @@ Class Circularmodel extends CI_Model
 				$circulardate1=$circulardate;
 				$user_id1=$user_id;
 			
-			$stud="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.name,u.student_id, u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=3 AND a.admission_id=u.user_master_id AND a.admission_id=u.student_id AND u.status='Active'";
+			    $stud="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.name,u.student_id, u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=3 AND a.admission_id=u.user_master_id AND a.admission_id=u.student_id AND u.status='Active'";
 				$stu_id=$this->db->query($stud);
 				$res1=$stu_id->result();
 			    foreach($res1 as $row1)
@@ -232,9 +232,9 @@ Class Circularmodel extends CI_Model
             $circulardate1=$circulardate;
             $users_id1=$users_id;
 			$user_id1=$user_id;
-		  $query4="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_date,status,created_by,created_at) VALUES ('$users_id1','$userid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
-		 $resultset=$this->db->query($query4);
-		 }	 
+			$query4="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_date,status,created_by,created_at) VALUES ('$users_id1','$userid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
+			$resultset=$this->db->query($query4);
+			 }	 
 		  if($resultset){
 			  $data = array("status" => "success");
               return $data;}else{$data = array("status" => "Failed");
@@ -327,20 +327,6 @@ Class Circularmodel extends CI_Model
 		return $data;}
 	}
    
-	   
-	 
-	   
-	   
-	   
- 		
-        
-	   
-	   
-	   
-	  
-	   
-	   
-
 
 }
 ?>

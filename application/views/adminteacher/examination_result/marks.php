@@ -8,6 +8,7 @@
        ×</button> <?php echo $this->session->flashdata('msg'); ?>
          </div>
        <?php endif; ?>
+	   <?php if(empty($edate)){ echo "<p style=color:red;>Exam Couldn't Complete</p>";}else{ ?>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -53,10 +54,10 @@
 									 <?php  }else{
 										foreach($res as $row)
 										      { }?>
-				<th> Internal <?php echo $row->subject_name; ?>
+				<th> Internal <?php echo $row->subject_name; ?> Marks
 				<input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
 				
-								<th> External <?php echo $row->subject_name; ?><input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
+								<th> External <?php echo $row->subject_name; ?> Marks<input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
 									<?php
 									  }?>
                                     </thead>
@@ -64,8 +65,7 @@
 										<?php
 										$i=1;
 										if(!empty($mark)){
-										foreach($mark as $rows){
-										       ?>
+										foreach($mark as $rows){?>
 										<tr>
 										<td><?php echo $i;?></td>
 										<td style="">
@@ -121,8 +121,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
+	   <?php } ?>
 
             </div>
         </div>

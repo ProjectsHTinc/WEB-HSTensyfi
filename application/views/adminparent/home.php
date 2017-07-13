@@ -18,7 +18,7 @@ ul li a img:active {
     background-color: yellow;
 }
 .test{padding-top: 15px;text-align: center;padding-left:0px}
-.name{padding-left:30px;
+.name{padding-left:15px;
 font-size:25px;
 font-weight: bold;}
  .plusicon
@@ -59,7 +59,7 @@ font-weight: bold;}
 						  {?>
 					<img class="img-responsive img-circle" style="width:100px;height:90px;" src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $pic; ?>" > 
 			        <?php }else{
-				   ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
+				   ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png" style="width:100px;height:90px;"  />
 						 <?php } 
 					  ?><p class="name"><?php echo $rows1->name; ?></p>
                            </div>

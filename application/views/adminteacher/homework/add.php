@@ -22,8 +22,6 @@
                            <a rel="tooltip" href="" onclick="changeText(<?php echo $class_id[$i]; ?>)" data-toggle="modal" data-target="#addmodel" data-id="<?php echo $class_id[$i]; ?>"  class=" open-AddBookDialog  btn btn-wd"><?php echo $class_name[$i]."-".$sec_name[$i]; ?></a>
                         </div>
                         <?php  } }  ?>
-
-
                      </div>
                   </div>
                </div>
@@ -49,7 +47,7 @@
                               <th>Test Type</th>
                               <th>Title</th>
                               <th>Due DATE</th>
-							  <th>Status</th>
+							                <th>Status</th>
                               <th class="disabled-sorting text-right">Actions</th>
                            </thead>
                            <tbody>
@@ -58,24 +56,24 @@
                                  foreach ($result as $rows) {
                                  $type=$rows->hw_type;
                                  $sta=$rows->mark_status;
-								 $hw=$rows->hw_type;
-								 $status=$rows->status;
-								// echo $status;
-
+                								 $hw=$rows->hw_type;
+                								 $status=$rows->status;
+                								// echo $status;
                                   ?>
                               <tr>
                                  <td><?php   echo $i; ?></td>
 
-								 <?php         $cid=$rows->class_id;
-                                               $query="SELECT * FROM edu_class WHERE class_id='$cid'";
-											   $resultset=$this->db->query($query);
-											   $row123=$resultset->result();
-											   //foreach($row as $rows1)
-											   //{}?>
+								               <?php         
+                                  $cid=$rows->class_id;
+                                  $query="SELECT * FROM edu_class WHERE class_id='$cid'";
+        											   $resultset=$this->db->query($query);
+        											   $row123=$resultset->result();
+        											   //foreach($row as $rows1)
+        											   //{}?>
                                  <td><?php echo $row123[0]->class_name; ?> - <?php echo $rows->sec_name ?></td>
                                  <td><?php echo $rows->subject_name; ?></td>
                                  <td><?php if($hw=="HT")
-								 {echo "Class Test";}else{ echo "Home Work";}?></td>
+								                 {echo "Class Test";}else{ echo "Home Work";}?></td>
 
                                  <td><?php echo $rows->title; ?></td>
                                  <td><?php $date=date_create($rows->test_date);
@@ -83,11 +81,11 @@
                                     ?></td>
                                  <!--<td><?php//echo $rows->hw_details; ?></td>-->
                                  <td><?php if($status=='Active'){?>
-								 <button class="btn btn-success btn-fill btn-wd">Active</button>
-								 <?php }else{?>
-								  <button class="btn btn-danger btn-fill btn-wd">Deactive</button>
-								 <?php }
-								 //echo $status; ?></td>
+                    								 <button class="btn btn-success btn-fill btn-wd">Active</button>
+                    								 <?php }else{?>
+                    								  <button class="btn btn-danger btn-fill btn-wd">Deactive</button>
+                    								 <?php }
+                    								 //echo $status; ?></td>
                                  <td class="text-right">
                                     <?php if($sta==0 && $type=="HT")
                                        {?>
@@ -125,16 +123,15 @@
                            <div class="card">
                               <div class="content">
                               <form method="post" action="<?php echo base_url(); ?>homework/create" class="form-horizontal" enctype="multipart/form-data" id="classsection">
-
-									 <fieldset>
+									              <fieldset>
                                        <div class="form-group">
                                           <label class="col-sm-2 control-label">Academic Year</label>
                                           <div class="col-sm-6">
                                             <?php
-					          	foreach($ayear as $academic)
-						          {} // echo $academic->year_id;?>
-			 <input type="hidden" name="year_id"  value="<?php  echo $academic->year_id; ?>">
-             <input type="text" name="year_name"  class="form-control" value="<?php echo date('Y', strtotime($academic->from_month));  echo "-"; echo date('Y', strtotime( $academic->to_month));  ?>" readonly="">
+                          					          	foreach($ayear as $academic)
+                          						          {} // echo $academic->year_id;?>
+                          			                    <input type="hidden" name="year_id"  value="<?php  echo $academic->year_id; ?>">
+                                                    <input type="text" name="year_name"  class="form-control" value="<?php echo date('Y', strtotime($academic->from_month));  echo "-"; echo date('Y', strtotime( $academic->to_month));  ?>" readonly="">
                                           </div>
                                        </div>
                                     </fieldset>
@@ -145,14 +142,14 @@
                                           <label class="col-sm-2 control-label">Type of Test</label>
                                           <div class="col-sm-10">
 										  
-										  <label class="radio">
+										                      <label class="radio">
                                                     <input type="radio" data-toggle="radio" name="test_type" value="HT" checked onclick="myFunction1()">Class Test
                                                 </label>
 
                                                 <label class="radio">
                                                     <input type="radio" data-toggle="radio" name="test_type" value="HW" onclick="myFunction()">Home Work
                                                 </label>
-                                     <input type="hidden" id="event_id" name="class_id" class="form-control" value="<?php ?>"/>
+                                             <input type="hidden" id="event_id" name="class_id" class="form-control" value="<?php ?>"/>
 
                                           </div>
                                        </div>
@@ -185,7 +182,7 @@
                                     </fieldset>
                                     
                                     <div id="submission" style="display:none">
-									 <fieldset>
+									                  <fieldset>
                                        <div class="form-group">
                                           <label class="col-sm-2 control-label">Submission Date</label>
                                           <div class="col-sm-6">
@@ -193,7 +190,7 @@
                                           </div>
                                        </div>
                                     </fieldset>
-									</div>
+									                </div>
 									
                                     <fieldset>
                                        <div class="form-group">
@@ -333,33 +330,27 @@
            dataType: 'json',
 
             success: function(test1)
-      {
+              {
+               if (test1.status=='Success') {
 
+                   var sub = test1.subject_name;
+ 		             	//alert(sub.length);
+                   var sub_id = test1.subject_id;
+                   var len=sub.length;
+ 			            //alert(len);
+                   var i;
+                   var name = '';
 
-                 if (test1.status=='Success') {
-
-                     var sub = test1.subject_name;
-   			//alert(sub.length);
-                     var sub_id = test1.subject_id;
-                     var len=sub.length;
-   			//alert(len);
-                     var i;
-                     var name = '';
-
-                     for (i = 0; i < len; i++) {
-                         name += '<option value='+ sub_id[i] +'>'+ sub[i] + '</option> ';
-                         $("#ajaxres").html(name);
-                         $('#msg').html('');
-                     }
-                 } else {
-
-   			$('#msg').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
-   			  $("#ajaxres").html('');
-
-                 }
+                   for (i = 0; i < len; i++) {
+                       name += '<option value='+ sub_id[i] +'>'+ sub[i] + '</option> ';
+                       $("#ajaxres").html(name);
+                       $('#msg').html('');
+                   }
+               } else {
+         			  $('#msg').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
+         			  $("#ajaxres").html('');
+               }
              }
-
-
    });
    }
 

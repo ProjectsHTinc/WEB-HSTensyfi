@@ -107,17 +107,29 @@ Class Examinationresultmodel extends CI_Model
         $res        = $resultset1->result();
         return $res;
     }
-    
-    function getall_cls_sec_stu($user_id, $cls_masid, $exam_id)
-    {
-        $query     = "SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
+    function exam_date_check($user_id,$cls_masid,$exam_id,$user_type)
+	{
+		$query     = "SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
         $resultset = $this->db->query($query);
         $row       = $resultset->result();
-        foreach ($row as $rows) {
-        }
-        $teacher_id = $rows->teacher_id;
+        foreach ($row as $rows) {}
+        $teacher_id = $rows->user_master_id;
+        //echo $teacher_id;exit; 
+		
+		 $edate="SELECT t.teacher_id,t.name,t.subject,ex.exam_detail_id,ex.exam_id,ex.subject_id,ex.exam_date,ex.classmaster_id,ex.status FROM edu_teachers AS t,edu_enrollment AS en,edu_exam_details AS ex WHERE t.teacher_id='$teacher_id' AND ex.subject_id=t.subject AND ex.classmaster_id='$cls_masid' AND ex.exam_id='$exam_id' AND ex.exam_date<NOW() AND ex.status='Active' GROUP BY ex.subject_id";
+		$resultset3= $this->db->query($edate);
+        $res2        = $resultset3->result();
+        return $res2;
+	}
+    function getall_cls_sec_stu($user_id,$cls_masid, $exam_id,$user_type)
+    {
+        $query     = "SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+        $resultset = $this->db->query($query);
+        $row       = $resultset->result();
+        foreach ($row as $rows) {}
+        $teacher_id = $rows->user_master_id;
         //echo $teacher_id;exit;
-        $sql        = "SELECT t.teacher_id,t.name,t.subject,t.class_teacher,su.*,en.* FROM edu_subject AS su,edu_teachers AS t,edu_enrollment AS en WHERE t.teacher_id='$teacher_id' AND t.subject=su.subject_id AND en.class_id='$cls_masid' AND en.status='Active'";
+        $sql        = "SELECT t.teacher_id,t.name,t.subject,t.class_teacher,su.subject_id,su.subject_name,en.* FROM edu_subject AS su,edu_teachers AS t,edu_enrollment AS en WHERE t.teacher_id='$teacher_id' AND t.subject=su.subject_id AND en.class_id='$cls_masid' AND en.status='Active'";
         $res        = $this->db->query($sql);
         $result     = $res->result();
         return $result;

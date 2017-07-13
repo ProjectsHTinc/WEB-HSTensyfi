@@ -105,20 +105,19 @@
                   <li class="dropdown dropdown-with-icons">
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:3px;">
                         <div class="photo">
-						<?php
-					  $user_id=$this->session->userdata('user_id');
-					  $user_type=$this->session->userdata('user_type');
-					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
-					  $objRs=$this->db->query($query);
-					  $row=$objRs->result();
-					  foreach ($row as $rows1)
-					  {
+   						<?php
+   					  $user_id=$this->session->userdata('user_id');
+   					  $user_type=$this->session->userdata('user_type');
+   					  $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+   					  $objRs=$this->db->query($query);
+   					  $row=$objRs->result();
+   					  foreach ($row as $rows1)
+   					  {
 						  $pic=$rows1->user_pic;
 						  if($pic!='')
 						  {?>
 					  <img src="<?php echo base_url(); ?>assets/students/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/> 
-			        <?php }else{
-				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" />
+			        <?php }else{ ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" />
 						 <?php }} ?>
                         </div>
                         

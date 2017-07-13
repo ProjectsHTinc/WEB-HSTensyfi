@@ -8,20 +8,20 @@
    .fc-today-button,.fc-month-button,.fc-basicWeek-button,.fc-basicDay-button{display:none;}
    .fc-month-button{display: none;}
 
-.textborder{height:130px;
-padding-left: 0px;
-margin-left: -25px;
-border-left:3px solid #1e202c;
-float: left;}
-.imgstyle{padding-bottom: 10px;}
-ul li a img:active {
-    background-color: yellow;
-}
-.test{padding-top: 15px;text-align: center;padding-left:0px}
-.name{padding-left:20px;
-font-size: 30px;
-font-weight: bold;}
- .plusicon
+   .textborder{height:130px;
+   padding-left: 0px;
+   margin-left: -25px;
+   border-left:3px solid #1e202c;
+   float: left;}
+   .imgstyle{padding-bottom: 10px;}
+   ul li a img:active {
+       background-color: yellow;
+   }
+   .test{padding-top: 15px;text-align: center;padding-left:0px}
+   .name{padding-left:20px;
+   font-size: 30px;
+   font-weight: bold;}
+  .plusicon
    {   
 	  display:inline-block;float:right;
    }
@@ -47,26 +47,30 @@ font-weight: bold;}
                      <div class="" style="border:none;box-shadow: none;">
                            <div class="col-md-3" >
                               <?php $pic= $rows->user_pic; if(empty($pic)){?>
-								 <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" /> 
+								         <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" /> 
                                <?php  }else{  ?>
                               <img src="<?php echo base_url(); ?>assets/students/profile/<?php echo $rows->user_pic; ?>" class="img-responsive img-circle" style="width:125px;">
-							  <p class="name"> <?php echo $rows->name; }?> </p>
+							          <p class="name"> <?php echo $rows->name; }?> </p>
                            </div>
                            <div class="col-md-3" style="padding-top:05px;">
                               <div class="">
 							   <?php
-                                 $dateTime=new DateTime($rows->dob); $fdate=date_format($dateTime,'d-m-Y' ); ?>
-                                 <p> Name :<?php echo $rows->name; ?></p>
+                                 $dateTime=new DateTime($rows->dob); $fdate=date_format($dateTime,'d-m-Y' );
+         								 $dob1=$rows->dob;
+         								 $from = new DateTime($dob1);
+         								 $to   = new DateTime('today');
+         								 $currentage=$from->diff($to)->y;?>
+                              <p> Name :<?php echo $rows->name; ?></p>
                               <p> Gender :<?php echo $rows->sex; ?></p>
                               <p>Date Of Birth :<?php echo $fdate; ?></p>
-                              <p> AGE :<?php echo $rows->age; ?></p>
+                              <p> AGE :<?php echo $currentage; ?></p>
                               </div>
 							  
                            </div>
                         <div  class="textborder"></div>
 						   
 						   <div class="col-md-6 test">
-		    <ul class="nav nav-icons" role="tablist">
+		            <ul class="nav nav-icons" role="tablist">
                   <li class="active">
                      <a href="#description-logo" role="tab" data-toggle="tab">
                     <i class="fa fa-user" aria-hidden="true"></i><br>
@@ -85,7 +89,7 @@ font-weight: bold;}
                      Details
                      </a>
                   </li>
-               </ul>
+                </ul>
 						   </div>
                      
                      </div>
@@ -106,7 +110,7 @@ font-weight: bold;}
                      </div>
 						 <div  class="textborder" style="height:55px;"></div>
 						 <div class="col-md-6" style="text-align:center;padding-left:0px;">
-		     <ul class="nav nav-icons" role="tablist" style="padding-top:5px;">
+		           <ul class="nav nav-icons" role="tablist" style="padding-top:5px;">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
                      <i class="fa fa-user" aria-hidden="true"></i><br>
@@ -145,7 +149,7 @@ font-weight: bold;}
                         </div>
                         <div  class="textborder" style="height:55px;"></div>
 						 <div class="col-md-6" style="text-align: center;padding-left:0px;">
-		      <ul class="nav nav-icons" role="tablist" style="padding-top:5px;">
+		             <ul class="nav nav-icons" role="tablist" style="padding-top:5px;">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
                      <i class="fa fa-user" aria-hidden="true"></i><br>
@@ -225,7 +229,6 @@ font-weight: bold;}
     $('#dashboard').addClass('collapse in');
    $('#dashboard').addClass('active');
    $('#dashboard').addClass('active');
-   
    
    
    $('#fullCalendar').fullCalendar({

@@ -56,10 +56,15 @@ font-weight: bold;}
                            </div>
                            <div class="col-md-3" style="padding-top:20px;">
                               <div class="">
-                                
+                                <?php  
+										$dateTime=new DateTime($rows->dob); $dobdate=date_format($dateTime,'d-m-Y' ); 
+										$dob1=$rows->dob;
+      								    $from = new DateTime($dob1);
+										$to   = new DateTime('today');
+									     $currentage=$from->diff($to)->y;?>
                                  <p> Gender :<?php echo $rows->sex; ?></p>
-                                 <p>Date Of Birth :<?php echo $rows->dob; ?></p>
-                                 <p> AGE :<?php echo $rows->age; ?></p>
+                                 <p>Date Of Birth :<?php echo $dobdate; ?></p>
+                                 <p> AGE :<?php echo $currentage; ?></p>
                               </div>
 							  
                            </div>

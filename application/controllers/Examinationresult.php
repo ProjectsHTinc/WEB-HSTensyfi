@@ -77,9 +77,12 @@ class Examinationresult extends CI_Controller
         $datas['cla_tea_id'] = $this->examinationresultmodel->get_cls_teacher_id($user_id);
         $datas['stu']        = $this->examinationresultmodel->getall_stuname($user_id, $cls_masid, $exam_id);
         $datas['result']     = $this->examinationresultmodel->getall_exam_details($exam_id);
-        $datas['res']        = $this->examinationresultmodel->getall_cls_sec_stu($user_id, $cls_masid, $exam_id);
+        $datas['res']        = $this->examinationresultmodel->getall_cls_sec_stu($user_id, $cls_masid, $exam_id,$user_type);
+		
+		$datas['edate']        = $this->examinationresultmodel->exam_date_check($user_id,$cls_masid,$exam_id,$user_type);
+		
         $datas['mark']       = $this->examinationresultmodel->getall_marks($user_id, $cls_masid, $exam_id);
-       
+       //echo'<pre>'; print_r($datas['edate'] );exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examination_result/marks', $datas);
