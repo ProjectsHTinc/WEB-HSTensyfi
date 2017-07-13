@@ -48,7 +48,7 @@ Class Dashboard extends CI_Model
 		 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 		  $result1=$this->db->query($get_year);
 		   $all_year= $result1->result();
-		  if($result1->num_rows()==0){ 
+		  if($result1->num_rows()==0){
            }else{
           foreach($all_year as $cyear){}
 	      $current_year=$cyear->year_id;
@@ -57,7 +57,7 @@ Class Dashboard extends CI_Model
           return  $result->result();
           }
     }
-	
+
 	function dash_reminder($user_id){
       $query="SELECT * FROM edu_reminder WHERE user_id='$user_id' AND STATUS='Active' ORDER BY id DESC LIMIT 5";
       $result=$this->db->query($query);
@@ -72,7 +72,7 @@ Class Dashboard extends CI_Model
      }
 
 	 // Get All Class And Section
-	 
+
 	 function get_all_class_sec()
 	 {
 		 $sql="SELECT c.class_name,c.class_id,s.sec_name,s.sec_id,cm.class_sec_id,cm.class,cm.section,cm.status FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id AND cm.status='Active' ORDER BY c.class_name";
@@ -300,7 +300,7 @@ Class Dashboard extends CI_Model
      </tr>
     ';
          } echo $output;}
-		   
+
 	   }
        }else if($user_type=="parents"){
         $query="SELECT et.teacher_id,et.name,et.phone,et.email,c.class_name,s.sec_name,et.status FROM edu_teachers AS et JOIN edu_classmaster AS cm, edu_sections AS s,edu_class AS c WHERE et.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND et.name LIKE '$ser_txt%'";
@@ -321,7 +321,7 @@ Class Dashboard extends CI_Model
      <th>phone No</th>
      <th>Class Teacher</th>
      <th>Email </th>
-   
+
 	 <th>Edit</th>
     </tr>
   ';
@@ -332,7 +332,7 @@ Class Dashboard extends CI_Model
       <td>'.$row->phone.'</td>
       <td>'.$row->class_name.'-'.$row->sec_name.'</td>
       <td>'.$row->email.'</td>
-    
+
 	  <td><a href="'. base_url().'teacher/get_teacher_id/'.$row->teacher_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
      </tr>
     ';
@@ -351,7 +351,7 @@ Class Dashboard extends CI_Model
      <th>phone No</th>
      <th>Class Teacher</th>
      <th>Email </th>
-   
+
 	 <th>Edit</th>
     </tr>
   ';
@@ -362,7 +362,7 @@ Class Dashboard extends CI_Model
       <td>'.$row->phone.'</td>
       <td>'.$row->class_name.'-'.$row->sec_name.'</td>
       <td>'.$row->email.'</td>
-    
+
 	  <td><a href="'. base_url().'teacher/get_teacher_id/'.$row->teacher_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
      </tr>
     ';
@@ -373,8 +373,8 @@ Class Dashboard extends CI_Model
        }
 
    }
-   
-   //Notifications 
+
+   //Notifications
 
  function pending_leave(){
         $query="SELECT l.leave_id,l.user_id,et.name FROM edu_user_leave AS l LEFT JOIN edu_teachers  AS et ON et.teacher_id=l.user_id WHERE l.status='P' LIMIT 5";
@@ -384,8 +384,9 @@ Class Dashboard extends CI_Model
 //Admin  Teacher
 
     function dash_teacher($user_id){
-  $query="SELECT ed.teacher_id,ed.*,et.*,c.class_name,s.sec_name,esu.subject_name FROM edu_users  AS ed LEFT JOIN edu_teachers AS et ON  et.teacher_id=ed.teacher_id INNER JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id
-INNER JOIN edu_sections AS s ON cm.section=s.sec_id INNER JOIN edu_subject AS esu ON et.subject=esu.subject_id WHERE ed.user_id='$user_id'";
+   $query="SELECT ed.teacher_id,ed.*,et.*,c.class_name,s.sec_name,esu.subject_name FROM edu_users  AS ed LEFT JOIN edu_teachers AS et ON  et.teacher_id=ed.teacher_id LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id
+LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_subject AS esu ON et.subject=esu.subject_id WHERE ed.user_id='$user_id'";
+
   $result12=$this->db->query($query);
   return  $result12->result();
 
@@ -479,8 +480,8 @@ function get_students_circular($user_id)
 		 return $row;
 		  }
   }
-  
-  
+
+
   function get_parents_circular($user_id)
   {
 	      $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";

@@ -65,7 +65,7 @@ Class Teachermodel extends CI_Model
        // Additional headers
        $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
        mail($to,$subject,$htmlContent,$headers);
-	   
+
         $query="INSERT INTO edu_users (name,user_name,user_password,user_pic,user_type,user_master_id,teacher_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5($OTP),'$userFileName','2','$insert_id','$insert_id',NOW(),NOW(),'$status')";
 
           $resultset=$this->db->query($query);
@@ -82,8 +82,8 @@ Class Teachermodel extends CI_Model
        //GET ALL Admission Form
 
        function get_all_teacher(){
-         $query="SELECT tt.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_name FROM edu_teachers AS tt  INNER JOIN edu_classmaster AS cm ON tt.class_teacher=cm.class_sec_id
-         INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id ORDER BY teacher_id DESC";
+         $query="SELECT tt.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_name FROM edu_teachers AS tt  LEFT JOIN edu_classmaster AS cm ON tt.class_teacher=cm.class_sec_id
+         LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id ORDER BY teacher_id DESC";
          $res=$this->db->query($query);
          return $res->result();
        }
@@ -130,42 +130,42 @@ Class Teachermodel extends CI_Model
 				  $resultset = $this->db->query($query);
 				  return $resultset->result();
 		   }
-		   
-		   
-		     //get all groups deatis 
-		   
+
+
+		     //get all groups deatis
+
 		   function get_all_groups_details()
 		   {
 			   $query="SELECT * FROM edu_groups WHERE status='Active'";
      	       $resultset=$this->db->query($query);
-		       $res=$resultset->result(); 
+		       $res=$resultset->result();
 			   return $res;
 		   }
-		   
-		   //get all activities deatis 
-		   
+
+		   //get all activities deatis
+
 		   function get_all_activities_details()
 		   {
 			   $query="SELECT * FROM edu_extra_curricular WHERE status='Active'";
      	       $resultset=$this->db->query($query);
-		       $res=$resultset->result(); 
+		       $res=$resultset->result();
 			     return $res;
 		   }
            //---------------Sorting-------------
-		   
+
 		   function get_sorting_result()
 		   {
 			   $query="SELECT sex FROM edu_teachers GROUP BY sex";
      	       $resultset=$this->db->query($query);
-		       $res=$resultset->result(); 
+		       $res=$resultset->result();
 			   return $res;
 		   }
-		   
+
 		   function get_all_sorting_result($gender)
 		   {
 			   $query="SELECT t.*,cm.class_sec_id,cm.class,cm.section,c.*,s.* FROM edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE t.sex='$gender' AND t.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id ";
      	       $resultset=$this->db->query($query);
-		       $res=$resultset->result(); 
+		       $res=$resultset->result();
 			   return $res;
 		   }
 }
