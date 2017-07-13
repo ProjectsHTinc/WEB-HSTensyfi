@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="card">
-    <?php  foreach($res['event_li'] as $rows1) {} ?>
+    <?php $sat=$res['status'];  if($sat=="success"){ foreach($res['event_li'] as $rows1) {} ?>
     <div class="typo-line1">
 
                                       <blockquote>
@@ -18,6 +18,9 @@
                                        </small>
                                       </blockquote>
                                   </div>
+                                  <?php }else{
+                                    
+                                  } ?>
 
 
 
