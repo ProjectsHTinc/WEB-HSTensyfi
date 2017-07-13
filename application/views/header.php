@@ -150,7 +150,7 @@
                       $pic=$rows1->user_pic;
                       if($pic!='')
                       {?>
-                  <img class="img-responsive" src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" >
+                  <img class="img-responsive" style="height: 75px;" src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" >
                   <?php }else{
                      ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
                   <?php }} ?>

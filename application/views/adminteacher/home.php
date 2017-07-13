@@ -255,7 +255,7 @@ font-weight: bold;}
                      <table class="table">
 					 <thead class="setcolor">
 						<th colspan="2" style="padding-bottom: 8px;"><span class="rem"> UpComing Events <a href="<?php echo base_url(); ?>teacherevent/home" >
-						<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/plus.png"/></a></span></th>
+						<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/view1.png"/></a></span></th>
 								</thead>
                         <tbody>
                            <?php  if(empty($das_events)){

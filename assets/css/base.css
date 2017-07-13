@@ -31,6 +31,7 @@ div.datepicker {
 }
 div.datepicker table {
   border-collapse:collapse;
+  background: linear-gradient(rgba(128, 128, 128, 0.19),rgba(128, 128, 128, 0.25),rgba(128, 128, 128, 0.64));
  
 }
 div.datepicker a {
@@ -148,6 +149,7 @@ table.datepickerViewYears tbody.datepickerDays,
 table.datepickerViewYears tbody.datepickerMonths,
 table.datepickerViewYears tr.datepickerDoW {
   display: none;
+
 }
 td.datepickerDisabled a,
 td.datepickerDisabled.datepickerNotInMonth a{

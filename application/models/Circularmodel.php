@@ -180,7 +180,7 @@ Class Circularmodel extends CI_Model
 				$circulardate1=$circulardate;
 				$user_id1=$user_id;
 			
-				$class="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.parent_id,u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=4 AND a.parnt_guardn_id=u.user_master_id AND a.parnt_guardn_id=u.parent_id AND  u.status='Active' GROUP  BY u.user_id";
+				$class="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.parent_id,u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=4 AND a.parnt_guardn_id=u.user_master_id AND a.parnt_guardn_id=u.parent_id AND u.status='Active' GROUP  BY u.user_id";
 				$stu_cls=$this->db->query($class);
 				$res=$stu_cls->result();
 			    foreach($res as $row)
@@ -254,7 +254,8 @@ Class Circularmodel extends CI_Model
 	 
 	 function get_parents_circular()
 	 {
-		 $query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.	circular_date,cm.*,u.user_id,u.user_type,u.user_master_id,u.name FROM edu_circular AS c,edu_users AS u,edu_circular_master AS cm WHERE c.user_type=4 AND u.user_type=c.user_type AND cm.id=c.circular_master_id AND c.user_id=u.user_id AND cm.status='Active'";
+		 //$query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.	circular_date,cm.*,u.user_id,u.user_type,u.user_master_id,u.name FROM edu_circular AS c,edu_users AS u,edu_circular_master AS cm WHERE c.user_type=4 AND u.user_type=c.user_type AND cm.id=c.circular_master_id AND c.user_id=u.user_id AND cm.status='Active'";
+		 $query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.	circular_date,cm.*,u.user_id,u.user_type,u.user_master_id,u.parent_id,a.admission_id,a.parnt_guardn_id,a.admisn_no,e.admission_id,e.admisn_no,e.class_id FROM edu_circular AS c,edu_users AS u,edu_admission AS a,edu_enrollment AS e,edu_circular_master AS cm WHERE c.user_type=4 AND u.user_type=c.user_type AND cm.id=c.circular_master_id AND c.user_id=u.user_id AND u.user_master_id=a.parnt_guardn_id AND u.parent_id=a.parnt_guardn_id AND a.admission_id=e.admission_id AND a.admisn_no=e.admisn_no AND cm.status='Active' GROUP BY e.class_id,cm.circular_title";
          $res=$this->db->query($query);
          $result1=$res->result();
 		 return $result1;
