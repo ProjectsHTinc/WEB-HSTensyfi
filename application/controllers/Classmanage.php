@@ -41,6 +41,7 @@ class Classmanage extends CI_Controller {
 			$datas['class'] = $this->classmodel->getclass();
 			$datas['getall_class']=$this->class_manage->getall_class();
 			$datas['subres'] = $this->subjectmodel->getsubject();
+			$datas['resubject'] = $this->subjectmodel->getsubject();
 			//print_r($datas['getall_class']);exit;
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
@@ -53,6 +54,22 @@ class Classmanage extends CI_Controller {
 	 		 }
 	 	}
 
+
+		public function subject_to_class(){
+			$user_id=$this->session->userdata('user_id');
+			$subject_id=$this->input->post('subject_id');
+		 	$class_master_id=$this->input->post('class_master_id');
+		 	$exam_flag=$this->input->post('exam_flag');
+			$status=$this->input->post('status');
+			$datas=$this->class_manage->subject_to_class($user_id,$subject_id,$class_master_id,$exam_flag,$status);
+			if($datas['status']=="success"){
+				echo "success";
+			}else if($datas['status']=="already"){
+				echo "Already Assigned";
+			}else{
+				echo "failed";
+			}
+		}
 
 		public function assign(){
 			 	$sec_id=$this->input->post('section_name');
