@@ -43,7 +43,7 @@
                                 <script language="JavaScript">document.edit_cs.section_name.value="<?php echo $rows->sec_id; ?>";</script>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                             <label class="col-sm-4 control-label">Subject </label>
                             <div class="col-sm-6">
                              <select multiple  name="subject[]" id="multiple-class" class="selectpicker" data-style="btn-block" onchange="select_class('classname')" data-menu-style="dropdown-blue">
@@ -66,8 +66,8 @@
                      }}?>
                       </select>
                     </div>
-                    </div>
-                     
+                    </div> -->
+
 					  <div class="form-group">
                                 <label class="col-md-4 control-label">Status</label>
                                 <div class="col-md-6">
@@ -78,7 +78,7 @@
                                 <script language="JavaScript">document.edit_cs.status.value="<?php echo $rows->	status; ?>";</script>
                                 </div>
                             </div>
-							
+
 
                             <div class="form-group">
                                 <label class="col-md-4"></label>
@@ -106,13 +106,13 @@ $('#myformclassmange').validate({ // initialize the plugin
     rules: {
 
          class_name:{required:true },
-         "subject[]":{required:true },
+
         section_name:{required:true },
     },
     messages: {
           class_name: "Select Class Name",
-          section_name:"Select Section Name",
-          "subject[]":"Select Subjects To Class"
+          section_name:"Select Section Name"
+
 
         }
 });

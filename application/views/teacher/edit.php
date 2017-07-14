@@ -117,7 +117,7 @@
                         <div class="col-sm-4">
                            <input type="text" value="<?php echo $rows->qualification; ?>" name="qualification" class="form-control">
                         </div>
-                        <label class="col-sm-2 control-label">Subject Handling</label>
+                        <!-- <label class="col-sm-2 control-label">Subject Handling</label>
                         <div class="col-sm-4">
                            <select multiple name="subject_multiple[]" id="subject_id"  class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
                                <?php
@@ -132,7 +132,7 @@
                                  $subname=$rows1->subject_name;
                                  $arryPlatform = explode(",", $sub_id);
                                  $sPlatform_id  = trim($sid);
-                                
+
                                  if (in_array($sPlatform_id, $arryPlatform )) {
                                  ?>
                               <?php
@@ -146,11 +146,7 @@
                                        ?>
                            </select>
                            <script language="JavaScript">document.teacherform.subject_multiple.value="<?php echo $rows->subject_handling; ?>";</script>
-                        </div>
-                     </div>
-                  </fieldset>
-                  <fieldset>
-                     <div class="form-group">
+                        </div> -->
                         <label class="col-sm-2 control-label">Class Teacher</label>
                         <div class="col-sm-4">
                            <select   name="class_teacher"  class="selectpicker" data-style="btn-block"  data-menu-style="dropdown-blue">
@@ -160,7 +156,12 @@
                            </select>
                            <script language="JavaScript">document.teacherform.class_teacher.value="<?php echo $rows->class_teacher; ?>";</script>
                         </div>
-                        <label class="col-sm-2 control-label">Class </label>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+
+                        <!-- <label class="col-sm-2 control-label">Class </label>
                         <div class="col-sm-4">
                            <select multiple  name="class_name[]" id="multiple-class" class="" data-style="btn-block"  data-menu-style="dropdown-blue">
                            <?php
@@ -184,7 +185,7 @@
                               }
                               ?>
                            </select>
-                        </div>
+                        </div> -->
                      </div>
                   </fieldset>
                   <fieldset>
@@ -229,7 +230,7 @@
                                  $activityname=$rows1->extra_curricular_name;
                                  $arryPlatform = explode(",", $activity_id);
                                  $sPlatform_id  = trim($aid);
-                                
+
                                  if (in_array($sPlatform_id, $arryPlatform )) {
                                  ?>
                               <?php
@@ -242,7 +243,7 @@
                                      }
                                        ?>
                            </select>
-                           <script language="JavaScript">document.teacherform.activity_id[].value="<?php echo $rows->activity_id; ?>";</script>	  
+                           <script language="JavaScript">document.teacherform.activity_id[].value="<?php echo $rows->activity_id; ?>";</script>
                         </div>
                         <label class="col-sm-2 control-label">Status</label>
                         <div class="col-sm-4">
@@ -275,7 +276,7 @@
 </div>
 <script type="text/javascript">
    function getListClass(){
-   
+
    var subject_id=$('#subject_id').val();
    //alert(subject_id);
    $.ajax({
@@ -292,36 +293,36 @@
    var res=data.res;
    //alert(res.length);
    var len=res.length;
-   
+
    for (i = 0; i < len; i++) {
-   
+
    $('<option>').val(res[i].class_sec_id).text(res[i].class_name + res[i].sec_name).appendTo('#multiple-class');
    }
-   
+
    }else{
    $("#multiple-class").empty();
    }
-   
-   
-   
+
+
+
    }
    });
-   
+
    }
    var loadFile = function(event) {
    var output = document.getElementById('output');
    output.src = URL.createObjectURL(event.target.files[0]);
    };
-   
-   
+
+
    $(document).ready(function () {
-   
+
    $('#teachermenu').addClass('collapse in');
    $('#teacher').addClass('active');
    $('#teacher2').addClass('active');
    $('#admissionform').validate({ // initialize the plugin
    rules: {
-   
+
    name:{required:true }, address:{required:true },
    //email:{required:true,email:true},
    sex:{required:true },
@@ -336,10 +337,10 @@
    'activity_id[]':{required:true},
    status:{required:true },
    mobile:{required:true }
-   
+
    },
    messages: {
-   
+
    address: "Enter Address",
    admission_date: "Select Admission Date",
    name: "Enter Name",
@@ -358,10 +359,9 @@
    groups_id:"Select Groups Name",
    'activity_id[]':"Select Activity Name",
    status:"Select Status Name"
-   
+
    }
    });
    });
-   
-</script>
 
+</script>

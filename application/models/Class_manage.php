@@ -48,6 +48,40 @@ Class Class_manage extends CI_Model
        }
 
 
+       //View subject for class
+       function view_subjects($class_sec_id){
+         $query="SELECT estc.subject_id,estc.class_master_id,estc.class_master_id,c.class_name,s.sec_name,esu.subject_name,estc.status,estc.id FROM edu_subject_to_class AS estc
+         LEFT JOIN edu_classmaster AS cm ON estc.class_master_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id
+         LEFT JOIN edu_subject AS esu ON estc.subject_id=esu.subject_id WHERE estc.class_master_id='$class_sec_id'";
+         $resultset=$this->db->query($query);
+        return $resultset->result();
+
+       }
+
+       //View subject for class
+       function edit_subjects_class($id){
+         $query="SELECT estc.exam_flag,estc.subject_id,estc.class_master_id,estc.class_master_id,c.class_name,s.sec_name,esu.subject_name,estc.status,estc.id FROM edu_subject_to_class AS estc
+         LEFT JOIN edu_classmaster AS cm ON estc.class_master_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id
+         LEFT JOIN edu_subject AS esu ON estc.subject_id=esu.subject_id WHERE estc.id='$id'";
+         $resultset=$this->db->query($query);
+         return $resultset->result();
+
+       }
+
+
+      //  Save Subject for Class
+      function save_subject($id,$exam_flag,$status){
+         $query="UPDATE edu_subject_to_class SET exam_flag='$exam_flag',status='$status' WHERE id='$id'";
+        $resultset=$this->db->query($query);
+        if($resultset){
+          $data= array("status" => "success");
+          return $data;
+         }else{
+          $data= array("status" => "failure");
+          return $data;
+        }
+      }
+
           function getclass(){
 			 $query="SELECT class_id,class_name FROM edu_class ORDER BY class_id DESC";
 			 $resultset=$this->db->query($query);
