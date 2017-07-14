@@ -59,7 +59,7 @@ class Examination extends CI_Controller
                 
 		   $class_name = $this->input->post('class_id');
 		   $datas['filter'] = $this->examinationmodel->search_details_view($class_name);
-		  // print_r($datas['filter']);exit;
+		   //echo'<pre>';print_r($datas['filter']);exit;
 			
 	 		$datas['year'] = $this->examinationmodel->get_exam_details();
 			$datas['result1'] = $this->examinationmodel->get_details_view1();
@@ -85,7 +85,7 @@ class Examination extends CI_Controller
                {
 					 $classid = $this->input->post('classid');
 					//echo $classid;exit;
-					 $data=$this->class_manage->get_subject($classid);
+					 $data=$this->examinationmodel->get_subject($classid);
 					 echo json_encode($data);
                }
 

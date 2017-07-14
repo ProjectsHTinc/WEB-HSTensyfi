@@ -17,7 +17,7 @@ Class Examinationmodel extends CI_Model
 
 	  function get_details_view()
 	   {
-		 $query="select ex.exam_detail_id,ex.subject_id,ex.exam_date,ex.times,ex.classmaster_id,ex.exam_id,cm.class_sec_id,ex.teacher_id,ex.status,s.subject_name,c.class_name,se.sec_name FROM edu_exam_details AS ex,edu_classmaster AS cm,edu_subject AS s,edu_class AS c,edu_sections AS se WHERE  ex.subject_id=s.subject_id AND ex.classmaster_id=cm.	class_sec_id AND c.class_id =cm.class AND se.sec_id=cm.section ORDER BY ex.exam_detail_id DESC";
+		 $query="select ex.exam_detail_id,ex.subject_id,ex.exam_date,ex.times,ex.classmaster_id,ex.exam_id,cm.class_sec_id,ex.teacher_id,ex.status,s.subject_name,s.subject_id,c.class_name,se.sec_name FROM edu_exam_details AS ex,edu_classmaster AS cm,edu_subject AS s,edu_class AS c,edu_sections AS se WHERE  ex.subject_id=s.subject_id AND ex.classmaster_id=cm.	class_sec_id AND c.class_id =cm.class AND se.sec_id=cm.section ORDER BY ex.exam_detail_id DESC";
 		 
          $resultset=$this->db->query($query);
          return $resultset->result();
@@ -26,7 +26,7 @@ Class Examinationmodel extends CI_Model
 
 	  function search_details_view($class_name)
 	  {
-		 $query="select ex.* FROM edu_exam_details AS ex WHERE ex.classmaster_id='$class_name'";
+		 $query="select ex.*,s.subject_name,s.subject_id,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_exam_details AS ex,edu_subject AS s,edu_classmaster AS cm, edu_class AS c,edu_sections AS se  WHERE ex.classmaster_id='$class_name' AND ex.subject_id=s.subject_id AND ex.classmaster_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id";
          $resultset=$this->db->query($query);
          return $resultset->result();  
 	  }
@@ -254,10 +254,28 @@ Class Examinationmodel extends CI_Model
 		   }else{
 			   $data= array("status" => "Already Approved Exam Marks","var1"=>$a,"var2"=>$b);
 			  return $data;
-				   
 		   }
-	  
 	   }
+	   
+	     function get_subject($classid)
+         {
+			$sql1="SELECT estc.id,estc.class_master_id,estc.subject_id,estc.exam_flag,estc.status,su.subject_id,su.subject_name FROM edu_subject_to_class AS estc,edu_subject AS su WHERE estc.class_master_id='$classid' AND estc.subject_id=su.subject_id AND estc.exam_flag='0' AND  estc.status='Active' ";
+			$resultset3=$this->db->query($sql1);
+			$res1=$resultset3->result();
+			if(empty($res1))
+			 {
+			   $data=array("status" =>"Subject Not Found");
+				return $data;
+			 }else
+			 {
+			foreach($res1 as $rows1){
+			$sub_id[]=$rows1->subject_id;$sub_name[]=$rows1->subject_name;}
+			$data=array("status" =>"Success","subject_id" =>$sub_id,"subject_name" =>$sub_name);
+		    //return $data;
+			//echo "<pre>"; print_r($data);			
+			return $data; 
+			 }
+      }
 	   
 }
 ?>
