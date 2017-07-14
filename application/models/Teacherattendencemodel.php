@@ -151,11 +151,11 @@ Class Teacherattendencemodel extends CI_Model
            $att_co1="SELECT count(attend_id) as absentcount FROM edu_attendance_history WHERE attend_id='$atten_id' AND a_status='A'";
           $res_att1=$this->db->query($att_co1);
           foreach($res_att1->result() as $rwos){}
-          $leav_count= $rwos->absentcount;
-           $abs_count=$leav_count+$leav_count;
+          $abs_cnt= $rwos->absentcount;
+           $abs_count=$leav_count+$abs_cnt;
            $no_prese=$at_val-$abs_count;
-           $update_class_present="UPDATE edu_attendence SET no_of_present='$no_prese',no_of_absent='$abs_count' WHERE at_id='$atten_id'";
-           $res_update=$this->db->query($update_class_present);
+            $update_class_present="UPDATE edu_attendence SET no_of_present='$no_prese',no_of_absent='$abs_count' WHERE at_id='$atten_id'";
+          $res_update=$this->db->query($update_class_present);
 
              if($resultset){
                $delte="DELETE FROM edu_attendance_history WHERE a_status='P'";

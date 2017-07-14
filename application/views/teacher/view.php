@@ -225,10 +225,10 @@
                    $('#subject_handling_form')[0].reset();
                    swal({
             title: "Wow!",
-            text: "Message!",
+            text: "Added Successfully!",
             type: "success"
         }, function() {
-            window.location = "<?php echo base_url(); ?>teacher/view";
+          $('#myModal').modal('hide');
         });
                 }else{
                   sweetAlert("Oops...",response, "error");

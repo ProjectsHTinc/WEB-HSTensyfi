@@ -189,7 +189,7 @@ class Teacherattendence extends CI_Controller {
 			$user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
 				$datas['result']=$this->teacherattendencemodel->get_list_record($at_id,$class_id);
-
+				$datas['get_name_class']=$this->class_manage->edit_cs($class_id);
 				 $this->load->view('adminteacher/teacher_header');
 				 $this->load->view('adminteacher/attendence/viewattendence',$datas);
 				 $this->load->view('adminteacher/teacher_footer');
