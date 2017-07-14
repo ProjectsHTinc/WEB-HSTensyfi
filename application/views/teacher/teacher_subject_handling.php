@@ -13,7 +13,9 @@
                   <div class="card">
                      <div class="content" id="content1">
                         <div class="fresh-datatables">
-                           <h4 class="title" style="padding-bottom: 20px;">List of Teacher Handling Subject  <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
+                           <h4 class="title" style="padding-bottom: 20px;">List of Teacher Handling Subject  <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+                            <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button>
+                          </h4>
                            <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
 
                               <div class="col-sm-4">

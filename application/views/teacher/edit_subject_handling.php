@@ -3,7 +3,7 @@
   <div class="card">
     <div class="toolbar">
       <div class="header">
-          <legend>Edit Subject  <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
+          <legend>Edit Teacher Subject  <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
 
       </div>
     </div>
@@ -154,7 +154,7 @@ function getListClass(){
         });
 
 }
-$('#mastersmenu').addClass('collapse in');
-$('#master').addClass('active');
-$('#masters5').addClass('active');
+$('#teachermenu').addClass('collapse in');
+$('#teacher').addClass('active');
+$('#teacher2').addClass('active');
 </script>
