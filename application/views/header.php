@@ -134,7 +134,7 @@
       </nav>
       <div class="sidebar sidemenu">
          <div class="logo" style="padding:0px 70px;height:115px;background-color:#1e202c;">
-            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:130px;"  />
+            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:115px;"  />
          </div>
          <div class="sidebar-wrapper" style="background-color:#1e202c;">
             <div class="user" style="margin-top:10px;">

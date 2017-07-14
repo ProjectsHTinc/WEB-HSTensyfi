@@ -264,7 +264,7 @@ font-weight: bold;}
                <div class="header" style="background-color:#1e202c;padding:10px;">
                      <h4 class="title" style="color: white;">Circular 
 					 <a href="<?php echo base_url();?>adminparent/view_circular" >
-						<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/plus.png"/></a></h4>
+						<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/view1.png"/></a></h4>
                   </div>
                   <div class="content content-full-width">
                      <div class="panel-group" id="accordion">
