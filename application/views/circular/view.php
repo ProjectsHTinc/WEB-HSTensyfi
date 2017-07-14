@@ -48,7 +48,7 @@
                                     <td class="text-left"><?php echo $i; ?></td>
                                     <td class="text-left"><?php echo $rows->name;  ?></td>
                                    <td class="text-left"><?php echo $rows->circular_title;?></td>
-								     <!--<td class="text-left"><?php echo $rows->notes;?></td>-->
+								 
 									 <td class="text-left"><?php echo $rows->circular_type;?></td>
 									  <td class="text-left"><?php echo $rows->status;?></td>
                                     <td class="text-left"><?php $date=date_create($rows->circular_date);
@@ -144,15 +144,12 @@
                                     <td class="text-left"><?php echo $i; ?></td>
                                      <td class="text-left"><?php echo $cs; ?> <?php echo $se; ?></td>
                                    <td class="text-left"><?php echo $rows->circular_title;?></td>
-								    <td class="text-left"><?php echo $rows->notes;?></td>
+								 
 									 <td class="text-left"><?php echo $rows->circular_type;?></td>
 									  <td class="text-left"><?php echo $rows->status;?></td>
                                     <td class="text-left"><?php $date=date_create($rows->circular_date);
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
-                                   <!--<td>
-                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> 
-                                    </td>-->
                                  </tr>
 									<?php $i++;  } }  ?>
                               </tbody>
