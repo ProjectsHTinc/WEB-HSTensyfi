@@ -89,11 +89,7 @@
 		 color: 'yellow',
 		 textColor: 'black'
 	 },
-	 {
-		 url: '<?php echo base_url() ?>event/get_all_regularleave',
-		 color: 'blue',
-		 textColor: 'white'
-	 },
+
 	 {
 		url: '<?php echo base_url() ?>teacherevent/view_all_reminder',
 		color: 'red',
