@@ -25,31 +25,37 @@
    .fc-toolbar h2{font-size: 20px;}
    .fc-view-container{margin-top: -25px;}
    .img
-   {   
+   {
 	   background: url(<?php echo base_url(); ?>assets/img/circular.png);
 	   width: 175px;
        height: 130px;
    }
    .img1
-   {   
+   {
 	   background: url(<?php echo base_url(); ?>assets/img/events.png);
 	   width: 175px;
        height: 130px;
    }
    .imgs
-   {   
+   {
 	   background: url(<?php echo base_url(); ?>assets/img/tecahers.png);
 	   width: 175px;
        height: 130px;
    }
+	 .img4{
+
+		 background: url(<?php echo base_url(); ?>assets/img/attendance.png);
+		width: 175px;
+			 height: 130px;
+	 }
    .plusicon
-   {   
+   {
 	  display:inline-block;float: right;
    }
    .design{
 	 color: white;
     font-size:30px;
-  
+
    }
    .setcolor{
     background-color: #323546;
@@ -67,7 +73,7 @@
                   <div class="col-md-9">
                      <div class="card">
                         <form id="" action="#" method="" novalidate="" style="padding-bottom:30px;">
-                        
+
                            <fieldset id="group2" style="padding-top:20px;">
                               <div class="form-group">
                                  <div class="col-sm-12">
@@ -108,12 +114,12 @@
                      </div>
                   </div>
                   <div class="col-md-3">
-                          <div id="simple-calendar" style="border-radius: 50px;padding-left: 03px;"></div> 
+                          <div id="simple-calendar" style="border-radius: 50px;padding-left: 03px;"></div>
                      <p></p>
                   </div>
                <!---                      -->
-			     <div class="col-md-9" style="padding-left:43px;">
-				 <div class="col-md-4">
+			     <div class="col-md-12" style="padding-left:43px;">
+				 <div class="col-md-3">
                      <div class="card" style="box-shadow:none;">
 					 <div class="img">
 					  <ul style="padding-left:33px;">
@@ -124,9 +130,9 @@
 					 </div>
 					</div>
 					 </div>
-					 <div class="col-md-4">
+					 <div class="col-md-3">
                      <div class="card" style="box-shadow:none;">
-					 <div class="img1">
+					 <div class="img4">
 					 <ul style="padding-left:40px;">
 					  <li style="padding-top:45px;list-style-type:none;">
 					   <a href="<?php echo base_url(); ?>event/create" class="design">Events</a>
@@ -135,7 +141,7 @@
 					 </div>
 					 </div>
 					 </div>
-					 <div class="col-md-4" >
+					 <div class="col-md-3" >
                      <div class="card" style="box-shadow:none;">
 					 <div class="imgs">
 					  <ul style="padding-left:7px;">
@@ -146,10 +152,21 @@
 					 </div>
 					 </div>
 					 </div>
-					 
+					 <div class="col-md-3" >
+											<div class="card" style="box-shadow:none;">
+					 <div class="img4">
+						<ul style="padding-left:7px;">
+						<li style="padding-top:25px;list-style-type:none;text-align:center;">
+					 <a href="<?php echo base_url(); ?>adminattendance/monthclass" class="design">Month Attendance</a>
+					 </li>
+					 </ul>
+					 </div>
+					 </div>
 					 </div>
 
-				    <div class="col-md-3">
+					 </div>
+
+				    <!-- <div class="col-md-3">
                      <div class="card" style="box-shadow:0 1px 2px rgba(33, 29, 29, 0.97), 0 0 0 1px rgba(1, 1, 16, 0.98);height:130px;">
                         <div class="header" style="padding:0px;">
                         </div>
@@ -189,8 +206,8 @@
                      </div>
                      <p></p>
                   </div>
-				  
-			   
+
+			    -->
 				</div>
                <hr>
                <div class="col-md-12">
@@ -299,15 +316,15 @@
 	  inline: true,
 	  date: new Date() });
 });
-   
-   	
+
+
    function search_load(){
-   
+
    var ser= $("#search_txt").val();
    var user_type=$('input[name=user_type]:checked').val();
    var cls_sec= $("#class_sec").val();
    //alert(cls_sec);
-   
+
    if(!ser && !user_type && !cls_sec){
    // alert("enter Text");
    $('#result').html('<center style="color:red;">Enter The Text in Search Box</center>');
@@ -326,10 +343,9 @@
 
        }
       });
-   
-   
-   }
-   }
-    
-</script>
 
+
+   }
+   }
+
+</script>

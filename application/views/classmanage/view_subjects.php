@@ -93,7 +93,7 @@ function generatefromtable() {
 				doc = new jsPDF('p', 'pt', 'a4', true);
 				doc.setFont("times", "normal");
 				doc.setFontSize(fontSize);
-				doc.text(60,20, "Parents Role List");
+				doc.text(60,20, "Subjects");
 				data = [];
 				data = doc.tableToJson('bootstrap-table');
 				height = doc.drawTable(data, {
@@ -105,7 +105,7 @@ function generatefromtable() {
 					yOffset : 15
 				});
 				//doc.text(50, height + 20, 'hi world');
-				doc.save("Parentsrole.pdf");
+				doc.save("pdf.pdf");
 			}
 
 

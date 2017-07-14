@@ -238,7 +238,7 @@ $('#subject_handling_form').validate({ // initialize the plugin
          text: "Message!",
          type: "success"
      }, function() {
-         window.location = "<?php echo base_url(); ?>classmanage/home";
+           $('#myModal').modal('hide');
      });
              }else{
                sweetAlert("Oops...",response, "error");
