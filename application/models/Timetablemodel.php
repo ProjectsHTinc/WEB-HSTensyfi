@@ -121,7 +121,7 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
                         $sPlatform=   $rows->subject;
                         $sQuery = "SELECT estc.subject_id,estc.class_master_id,c.class_name,s.sec_name,esu.subject_name FROM edu_subject_to_class AS estc
                         LEFT JOIN edu_classmaster AS cm ON estc.class_master_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id
-                        LEFT JOIN edu_subject AS esu ON estc.subject_id=esu.subject_id WHERE estc.class_master_id='$class_sec_id'";
+                        LEFT JOIN edu_subject AS esu ON estc.subject_id=esu.subject_id WHERE estc.class_master_id='$class_sec_id'  AND estc.status='Active'";
                         $objRs=$this->db->query($sQuery);
                         $res=$objRs->result();
                         if($result->num_rows()==0){

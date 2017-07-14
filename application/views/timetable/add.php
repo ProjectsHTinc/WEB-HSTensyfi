@@ -192,8 +192,6 @@ function getSubject(){
     success:function(data)
     {
       var stat=data.status;
-
-
         $(".subject_id").empty();
       if(stat=="success"){
         var res=data.res;
