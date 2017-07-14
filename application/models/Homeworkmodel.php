@@ -9,8 +9,47 @@ Class Homeworkmodel extends CI_Model
 
   }
 
-//GET ALL SECTION
+//GET ALL SECTION get_subject($classid,$user_id,$user_type)
 
+//---------------New--------------------------------
+	function get_teacher_class_sec($user_id,$user_type)
+	{
+		$query="SELECT user_id,user_type,user_master_id,teacher_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+		$resultset=$this->db->query($query);
+		$row=$resultset->result();
+		 foreach($row as $rows){}
+		 $teacher_id=$rows->user_master_id;
+		 //echo  $teacher_id;exit;
+		 
+		 $sql="SELECT ts.id,ts.subject_id,ts.teacher_id,ts.class_master_id,ts.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_teacher_handling_subject AS ts,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE ts.teacher_id='$teacher_id'  AND ts.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id  AND ts.status='Active' GROUP BY ts.class_master_id ";
+		 $resultset=$this->db->query($sql);
+         $res1=$resultset->result();
+         return $res1;
+	}
+	
+	function get_subject($classid,$user_id,$user_type)
+	{
+		$query="SELECT user_id,user_type,user_master_id,teacher_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+		$resultset=$this->db->query($query);
+		$row=$resultset->result();
+		foreach($row as $rows){}
+		$teacher_id=$rows->user_master_id;
+		
+		$sql="SELECT ts.id,ts.subject_id,ts.teacher_id,ts.class_master_id,ts.status,su.subject_id,su.subject_name FROM edu_teacher_handling_subject AS ts,edu_subject AS su WHERE ts.teacher_id='$teacher_id' AND ts.class_master_id='$classid' AND ts.subject_id=su.subject_id AND ts.status='Active' ";
+        $resultset1=$this->db->query($sql);
+        //$res=$resultset1->result();
+        //return $res;
+		if($resultset1->num_rows()==0){
+           $data= array("status" => "nodata");
+           return $data;
+         }else{
+             $res1=$resultset1->result();
+             $data=array("status"=>"success","res2"=>$res1);
+             return $data;
+		 }
+
+	}
+//--------------------------------------------------
 		 function get_teacher_id($user_id)
 		 {
 			$query="SELECT teacher_id FROM edu_users WHERE user_id='$user_id'";
@@ -55,8 +94,8 @@ Class Homeworkmodel extends CI_Model
        }
 	   
 	    function create_test($year_id,$class_id,$user_id,$user_type,$test_type,$title,$subject_name,$formatted_date,$format_date,$details)
-	   {
-		      $check_test_date="SELECT * FROM edu_homework WHERE test_date='$formatted_date' AND subject_id='$subject_name'";
+	   {      
+		      $check_test_date="SELECT * FROM edu_homework WHERE class_id='$class_id' AND test_date='$formatted_date' AND subject_id='$subject_name'";
 			  $result=$this->db->query($check_test_date);
 			  if($result->num_rows()==0)
 			  {
@@ -71,7 +110,7 @@ Class Homeworkmodel extends CI_Model
 			  $data= array("status"=>"success");
 			  return $data;
 			  }else{
-					$data= array("status"=>"Test Date Already Exist");
+					$data= array("status"=>"Already Exist");
 					return $data;
 				  }
 				   
@@ -90,9 +129,9 @@ Class Homeworkmodel extends CI_Model
           $result=$this->db->query($query);
           return $result->result();
 	   }
-	  function get_stu_details($hw_id)
+	  function get_stu_details($hw_id,$user_id,$user_type)
 	  { 
-		  $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,cm.subject,c.class_id,c.class_name,s.sec_id,s.sec_name,su.subject_id,su.subject_name,ed.* FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_enrollment AS ed WHERE ed.class_id=eh.class_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id And eh.hw_id='$hw_id'";
+		   $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,su.subject_id,su.subject_name,ed.enroll_id,ed.admission_id,ed.admit_year,ed.admisn_no,ed.name,ed.class_id,ed.status FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_enrollment AS ed WHERE ed.class_id=eh.class_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id And eh.hw_id='$hw_id' AND ed.status='Active'  ";
 		  $result=$this->db->query($query);
           return $result->result();
 		  
@@ -123,9 +162,15 @@ Class Homeworkmodel extends CI_Model
 		   
 	  }
 	  
-	  function edit_details($hw_id)
+	  function edit_details($hw_id,$user_id,$user_type)
 	  {
-		 $query="SELECT eh.*,em.*,te.*,en.* FROM edu_homework AS eh,edu_class_marks AS em,edu_teachers AS te,edu_enrollment AS en WHERE eh.hw_id='$hw_id' AND em.hw_mas_id='$hw_id' AND eh.teacher_id=te.teacher_id AND en.enroll_id=em.enroll_mas_id";
+		  $query="SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type' ";
+		  $resultset=$this->db->query($query);
+		  $row=$resultset->result();
+		  //foreach($row as $rows){}
+		  $teacher_id=$row[0]->user_master_id;
+			
+		   $query="SELECT eh.hw_id,eh.year_id,eh.class_id,eh.teacher_id,eh.	hw_type,eh.subject_id,su.subject_id,su.subject_name,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,em.mark_id,em.enroll_mas_id,em.hw_mas_id,em.marks,em.remarks,ed.enroll_id,ed.admission_id,ed.admit_year,ed.admisn_no,ed.name,ed.class_id,ed.status FROM edu_homework AS eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_class_marks AS em,edu_enrollment AS ed WHERE eh.hw_id='$hw_id' AND em.hw_mas_id='$hw_id' AND eh.teacher_id='$teacher_id' AND eh.subject_id=su.subject_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ed.enroll_id=em.enroll_mas_id";
 		 $result=$this->db->query($query); 
          return $result->result();		 
 	  }
@@ -152,9 +197,15 @@ Class Homeworkmodel extends CI_Model
 		  
 
 	  }
-	  function edit_test_details($hw_id)
+	  function edit_test_details($hw_id,$user_id,$user_type)
 	  {
-		  $query="SELECT eh.*,su.subject_id,su.subject_name FROM edu_homework AS eh,edu_subject AS su WHERE hw_id='$hw_id' AND eh.subject_id=su.subject_id";
+		  $query="SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type' ";
+		  $resultset=$this->db->query($query);
+		  $row=$resultset->result();
+		  //foreach($row as $rows){}
+		  $teacher_id=$row[0]->user_master_id;
+		  
+		   $query="SELECT eh.*,su.subject_id,su.subject_name,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_homework AS eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s WHERE eh.hw_id='$hw_id' AND eh.teacher_id='$teacher_id' AND eh.subject_id=su.subject_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id";
 		 $result=$this->db->query($query); 
          return $result->result();	
 	  }

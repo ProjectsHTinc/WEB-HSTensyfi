@@ -1,3 +1,5 @@
+
+
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -9,19 +11,20 @@
                   </div>
                   <div class="content">
                      <div class="row">
-                        <?php
-                           if(empty($class_id)){   ?>
+                        <?php 
+                           if(empty($cls_sec)){
+                           	echo "<p>Records Not Found</p>";
+                           }else{
+                                              foreach($cls_sec as $row)
+                              {
+                           	 $cmid=$row->class_master_id;
+                           	 $clsname=$row->class_name;
+                           	 $sec_name=$row->sec_name;
+                                                ?>
                         <div class="col-md-2">
-                           <p>No Records Found</p>
+                           <a rel="tooltip" href="" onclick="changeText(<?php echo $cmid; ?>)" data-toggle="modal" data-target="#addmodel" data-id="<?php echo $cmid; ?>"  class=" open-AddBookDialog  btn btn-wd"><?php echo $clsname."-".$sec_name; ?></a>
                         </div>
-                        <?php  }  else{   ?>
-                        <?php   $cnt= count($class_id);
-                           for($i=0;$i<$cnt;$i++){
-                           ?>
-                        <div class="col-md-2">
-                           <a rel="tooltip" href="" onclick="changeText(<?php echo $class_id[$i]; ?>)" data-toggle="modal" data-target="#addmodel" data-id="<?php echo $class_id[$i]; ?>"  class=" open-AddBookDialog  btn btn-wd"><?php echo $class_name[$i]."-".$sec_name[$i]; ?></a>
-                        </div>
-                        <?php  } }  ?>
+                        <?php  }  }?>
                      </div>
                   </div>
                </div>
@@ -47,7 +50,7 @@
                               <th>Test Type</th>
                               <th>Title</th>
                               <th>Due DATE</th>
-							                <th>Status</th>
+                              <th>Status</th>
                               <th class="disabled-sorting text-right">Actions</th>
                            </thead>
                            <tbody>
@@ -56,36 +59,35 @@
                                  foreach ($result as $rows) {
                                  $type=$rows->hw_type;
                                  $sta=$rows->mark_status;
-                								 $hw=$rows->hw_type;
-                								 $status=$rows->status;
-                								// echo $status;
+                                 $hw=$rows->hw_type;
+                                 $status=$rows->status;
+                                 // echo $status;
                                   ?>
                               <tr>
                                  <td><?php   echo $i; ?></td>
-
-								               <?php         
-                                  $cid=$rows->class_id;
-                                  $query="SELECT * FROM edu_class WHERE class_id='$cid'";
-        											   $resultset=$this->db->query($query);
-        											   $row123=$resultset->result();
-        											   //foreach($row as $rows1)
-        											   //{}?>
+                                 <?php         
+                                    $cid=$rows->class_id;
+                                    $query="SELECT * FROM edu_class WHERE class_id='$cid'";
+                                    $resultset=$this->db->query($query);
+                                    $row123=$resultset->result();
+                                    //foreach($row as $rows1)
+                                    //{}?>
                                  <td><?php echo $row123[0]->class_name; ?> - <?php echo $rows->sec_name ?></td>
                                  <td><?php echo $rows->subject_name; ?></td>
                                  <td><?php if($hw=="HT")
-								                 {echo "Class Test";}else{ echo "Home Work";}?></td>
-
+                                    {echo "Class Test";}else{ echo "Home Work";}?></td>
                                  <td><?php echo $rows->title; ?></td>
                                  <td><?php $date=date_create($rows->test_date);
                                     echo date_format($date,"d-m-Y");
                                     ?></td>
                                  <!--<td><?php//echo $rows->hw_details; ?></td>-->
                                  <td><?php if($status=='Active'){?>
-                    								 <button class="btn btn-success btn-fill btn-wd">Active</button>
-                    								 <?php }else{?>
-                    								  <button class="btn btn-danger btn-fill btn-wd">Deactive</button>
-                    								 <?php }
-                    								 //echo $status; ?></td>
+                                    <button class="btn btn-success btn-fill btn-wd">Active</button>
+                                    <?php }else{?>
+                                    <button class="btn btn-danger btn-fill btn-wd">Deactive</button>
+                                    <?php }
+                                       //echo $status; ?>
+                                 </td>
                                  <td class="text-right">
                                     <?php if($sta==0 && $type=="HT")
                                        {?>
@@ -122,35 +124,30 @@
                         <div class="col-md-12">
                            <div class="card">
                               <div class="content">
-                              <form method="post" action="<?php echo base_url(); ?>homework/create" class="form-horizontal" enctype="multipart/form-data" id="classsection">
-									              <fieldset>
+                                 <form method="post" action="<?php echo base_url(); ?>homework/create" class="form-horizontal" enctype="multipart/form-data" id="classsection">
+                                    <fieldset>
                                        <div class="form-group">
                                           <label class="col-sm-2 control-label">Academic Year</label>
                                           <div class="col-sm-6">
-                                            <?php
-                          					          	foreach($ayear as $academic)
-                          						          {} // echo $academic->year_id;?>
-                          			                    <input type="hidden" name="year_id"  value="<?php  echo $academic->year_id; ?>">
-                                                    <input type="text" name="year_name"  class="form-control" value="<?php echo date('Y', strtotime($academic->from_month));  echo "-"; echo date('Y', strtotime( $academic->to_month));  ?>" readonly="">
+                                             <?php
+                                                foreach($ayear as $academic)
+                                                  {} // echo $academic->year_id;?>
+                                             <input type="hidden" name="year_id"  value="<?php  echo $academic->year_id; ?>">
+                                             <input type="text" name="year_name"  class="form-control" value="<?php echo date('Y', strtotime($academic->from_month));  echo "-"; echo date('Y', strtotime( $academic->to_month));  ?>" readonly="">
                                           </div>
                                        </div>
                                     </fieldset>
-
                                     <fieldset>
                                        <div class="form-group">
-
                                           <label class="col-sm-2 control-label">Type of Test</label>
                                           <div class="col-sm-10">
-										  
-										                      <label class="radio">
-                                                    <input type="radio" data-toggle="radio" name="test_type" value="HT" checked onclick="myFunction1()">Class Test
-                                                </label>
-
-                                                <label class="radio">
-                                                    <input type="radio" data-toggle="radio" name="test_type" value="HW" onclick="myFunction()">Home Work
-                                                </label>
+                                             <label class="radio">
+                                             <input type="radio" data-toggle="radio" name="test_type" value="HT" checked onclick="myFunction1()">Class Test
+                                             </label>
+                                             <label class="radio">
+                                             <input type="radio" data-toggle="radio" name="test_type" value="HW" onclick="myFunction()">Home Work
+                                             </label>
                                              <input type="hidden" id="event_id" name="class_id" class="form-control" value="<?php ?>"/>
-
                                           </div>
                                        </div>
                                     </fieldset>
@@ -166,8 +163,7 @@
                                        <div class="form-group">
                                           <label class="col-sm-2 control-label">Subject</label>
                                           <div class="col-sm-6">
-                                             <select id="ajaxres" name="subject_name"  class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                                <option  value="">Select Subject</option>
+                                             <select id="ajaxres" name="subject_name"  class="form-control">
                                              </select>
                                           </div>
                                        </div>
@@ -180,18 +176,16 @@
                                           </div>
                                        </div>
                                     </fieldset>
-                                    
                                     <div id="submission" style="display:none">
-									                  <fieldset>
-                                       <div class="form-group">
-                                          <label class="col-sm-2 control-label">Submission Date</label>
-                                          <div class="col-sm-6">
-                                             <input type="text" placeholder="Select Submission Date" name="sub_date" class="form-control datepicker" >
+                                       <fieldset>
+                                          <div class="form-group">
+                                             <label class="col-sm-2 control-label">Submission Date</label>
+                                             <div class="col-sm-6">
+                                                <input type="text" placeholder="Select Submission Date" name="sub_date" class="form-control datepicker" >
+                                             </div>
                                           </div>
-                                       </div>
-                                    </fieldset>
-									                </div>
-									
+                                       </fieldset>
+                                    </div>
                                     <fieldset>
                                        <div class="form-group">
                                           <label class="col-sm-2 control-label">Details</label>
@@ -231,20 +225,20 @@
     $('#classsection').validate({ // initialize the plugin
         rules: {
             test_type:{required:true },
-			title:{required:true },
-			subject_name:{required:true },
-			tet_date:{required:true },
-			details:{required:true },
-			class_id:{required:true}
+   title:{required:true },
+   subject_name:{required:true },
+   tet_date:{required:true },
+   details:{required:true },
+   class_id:{required:true}
         },
         messages: {
               test_type:"Please Select Type Of Test",
-			  title:"Please Enter Title Name",
-			  subject_name:"Please Select Subject Name",
-			  tet_date:"Please Select Date",
-			  details:"Please Enter Details",
-			  class_id:"Please Enter Class Name"
-
+     title:"Please Enter Title Name",
+     subject_name:"Please Select Subject Name",
+     tet_date:"Please Select Date",
+     details:"Please Enter Details",
+     class_id:"Please Enter Class Name"
+   
             }
     });
    });
@@ -254,9 +248,9 @@
       $("#submission").show();
    } 
    function myFunction1(){
-	  $("#submission").hide();
+   $("#submission").hide();
    }
-
+   
    var $table = $('#bootstrap-table');
          $().ready(function(){
              $table.bootstrapTable({
@@ -271,7 +265,7 @@
                  pageSize: 8,
                  clickToSelect: false,
                  pageList: [8,10,25,50,100],
-
+   
                  formatShowingRows: function(pageFrom, pageTo, totalRows){
                      //do nothing here, we don't want to show the text "showing x of y from..."
                  },
@@ -286,20 +280,20 @@
                      detailClose: 'fa fa-minus-circle'
                  }
              });
-
+   
              //activate the tooltips after the data table is initialized
              $('[rel="tooltip"]').tooltip();
-
+   
              $(window).resize(function () {
                  $table.bootstrapTable('resetView');
              });
-
-
+   
+   
          });
 </script>
 <script type="text/javascript">
    $().ready(function(){
-
+   
      $('.datepicker').datetimepicker({
        format: 'DD-MM-YYYY',
        icons: {
@@ -327,23 +321,24 @@
              data: {
                  id:id
              },
-           dataType: 'json',
-
+           dataType:"JSON",
+           cache: false,
             success: function(test1)
               {
-               if (test1.status=='Success') {
-
-                   var sub = test1.subject_name;
- 		             	//alert(sub.length);
-                   var sub_id = test1.subject_id;
-                   var len=sub.length;
- 			            //alert(len);
-                   var i;
-                   var name = '';
-
+   	  //alert(test1.status);
+   	  //alert(test1.res2);
+               if (test1.status=='success') 
+      {
+                   var res1=test1.res2;
+          var len=res1.length;
+                    //alert(res1[0].subject_id);
+                   //var subid=test1.res2;
+          var i;
+                   var subjectname = '';
+   	   subjectname +='<option value="">select Subject</option>';
                    for (i = 0; i < len; i++) {
-                       name += '<option value='+ sub_id[i] +'>'+ sub[i] + '</option> ';
-                       $("#ajaxres").html(name);
+                       subjectname +='<option value='+ res1[i].subject_id +'>'+ res1[i].subject_name + '</option>';
+                       $("#ajaxres").html(subjectname);
                        $('#msg').html('');
                    }
                } else {
@@ -353,10 +348,11 @@
              }
    });
    }
-
+   
    $(document).on("click", ".open-AddBookDialog", function () {
       var eventId = $(this).data('id');
       $(".modal-body #event_id").val( eventId );
    });
-
+   
 </script>
+

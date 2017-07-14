@@ -75,8 +75,8 @@ class Examinationresult extends CI_Controller
         $user_type = $this->session->userdata('user_type');
         if ($user_type == 2) {
             $datas           = $this->examinationresultmodel->getall_cls_sec($user_id);
-            $datas['result'] = $this->examinationresultmodel->view_all_class_details($exam_id,$user_id,$user_type);
-           //echo '<pre>'; print_r($datas['result']);exit;
+            $datas['result'] = $this->examinationresultmodel->view_all_subject_details($exam_id,$user_id,$user_type);
+           // echo '<pre>'; print_r($datas['result']);exit;
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/teacher_sub', $datas);
             $this->load->view('adminteacher/teacher_footer');
@@ -85,17 +85,17 @@ class Examinationresult extends CI_Controller
         }
 	  }
 	  
-	  public function view_all_subject_name()
+	  public function view_all_cls()
 	  {
-		  $clsmaster_id=$this->input->get('var1');
+		  $sub_id=$this->input->get('var1');
 		  $exam_id=$this->input->get('var2');
-           //echo $exam_id ;echo $clsmaster_id ;exit;
+           //echo $exam_id ;echo $sub_id ;exit;
 		$datas     = $this->session->userdata();
         $user_id   = $this->session->userdata('user_id');
         $user_type = $this->session->userdata('user_type');
         if ($user_type == 2) {
             $datas           = $this->examinationresultmodel->getall_cls_sec($user_id);
-            $datas['clssec'] = $this->examinationresultmodel->view_all_sub_details($exam_id,$clsmaster_id,$user_id,$user_type);
+            $datas['clssec'] = $this->examinationresultmodel->view_all_cls_details($exam_id,$sub_id,$user_id,$user_type);
             //echo '<pre>'; print_r($datas['clssec']);exit;
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/teacher_sub_cls', $datas);
@@ -142,7 +142,7 @@ class Examinationresult extends CI_Controller
         $datas['result']     = $this->examinationresultmodel->getall_exam_details($exam_id);
         $datas['res']=$this->examinationresultmodel->getall_cls_sec_stu($user_id,$sub_id,$cls_masid,$exam_id,$user_type);
 		
-		$datas['edate']=$this->examinationresultmodel->exam_date_check($user_id,$cls_masid,$exam_id,$user_type,$sub_id);
+		$datas['edate']=$this->examinationresultmodel->exam_date_check($user_id,$cls_masid,$exam_id,$user_type);
 		
         $datas['mark']= $this->examinationresultmodel->getall_marks($user_id,$cls_masid,$exam_id,$sub_id,$user_type);
        //echo'<pre>'; print_r($datas['res'] );exit;
@@ -166,15 +166,15 @@ class Examinationresult extends CI_Controller
         $cls_masid = $this->input->get('var1');
         $exam_id   = $this->input->get('var2');
        
-        $datas         = $this->examinationresultmodel->getall_subname($user_id,$cls_masid,$exam_id,$user_type);
+        $datas           = $this->examinationresultmodel->getall_subname($user_id, $cls_masid, $exam_id);
         $datas['stu']    = $this->examinationresultmodel->getall_stuname($user_id, $cls_masid, $exam_id);
         $datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id);
-        $datas['marks1'] = $this->examinationresultmodel->getall_marks_details1($user_id,$cls_masid,$user_type);
-        $datas['smark']  = $this->examinationresultmodel->marks_status_details($cls_masid,$exam_id);
-        //print_r($datas['sub']);exit;
+        $datas['marks1'] = $this->examinationresultmodel->getall_marks_details1($user_id, $cls_masid);
+        $datas['smark']  = $this->examinationresultmodel->marks_status_details($cls_masid, $exam_id);
+        
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
-            $this->load->view('adminteacher/examintation_marks/class_marks', $datas);
+            $this->load->view('adminteacher/examination_result/class_marks', $datas);
             $this->load->view('adminteacher/teacher_footer');
         } else {
             redirect('/');
@@ -252,7 +252,8 @@ class Examinationresult extends CI_Controller
         $user_id   = $this->session->userdata('user_id');
         $user_type = $this->session->userdata('user_type');
         if ($user_type == 2) {
-            $datas['result'] = $this->examinationresultmodel->get_teacher_id($user_id);
+            $datas['result'] = $this->examinationresultmodel->get_teacher_id($user_id,$user_type);
+
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/view_exam_marks', $datas);
             $this->load->view('adminteacher/teacher_footer');
@@ -268,9 +269,9 @@ class Examinationresult extends CI_Controller
         $user_id   = $this->session->userdata('user_id');
         $user_type = $this->session->userdata('user_type');
         
-        $exam_id=$this->input->get('var');
+        $exam_id        = $this->input->get('var');
         //echo $exam_id;exit;
-        $datas['view_allmarks'] = $this->examinationresultmodel->getall_marks_details($exam_id,$user_id,$user_type);
+        $datas['marks'] = $this->examinationresultmodel->getall_marks_details($user_id,$exam_id,$user_type);
        // echo '<pre>';print_r($datas['marks']);
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
@@ -293,12 +294,12 @@ class Examinationresult extends CI_Controller
         $exam_id  = $this->input->get('var3');
         
         //echo $subid;echo $clsmasid;
-        $datas['edit'] = $this->examinationresultmodel->edit_marks_details($user_id,$subid,$clsmasid,$exam_id,$user_type);
+        $datas['edit'] = $this->examinationresultmodel->edit_marks_details($user_id, $subid, $clsmasid, $exam_id);
         $datas['mark'] = $this->examinationresultmodel->marks_status_details($clsmasid, $exam_id);
         //echo '<pre>';print_r($datas['mark']);exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
-            $this->load->view('adminteacher/examintation_marks/edit_mark', $datas);
+            $this->load->view('adminteacher/examination_result/edit_mark', $datas);
             $this->load->view('adminteacher/teacher_footer');
         } else {
             redirect('/');

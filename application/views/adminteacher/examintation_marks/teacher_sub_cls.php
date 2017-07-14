@@ -11,7 +11,7 @@
             <div class="col-md-12">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">Teacher Class & Section
+                     <h4 class="title">Teacher Handling Subject 
 					 <?php  $exam_id=$this->input->get('var2'); 
 					        $sub_id=$this->input->get('var1'); 
 					     //echo $exam_id?>
@@ -45,16 +45,15 @@
                         <?php }else{
 							foreach($clssec as $rows)
 							 {
-									$cmid=$rows->class_master_id;
-									$clsname=$rows->class_name;
-									$secname=$rows->sec_name;
-									//echo $class_id[$i];
-                     			    ?>
+								$cmid=$rows->class_master_id;
+								$subject_name=$rows->subject_name;
+								$sub_id=$rows->subject_id;
+								//echo $class_id[$i];
+                     	 ?>
 						   <div class="col-md-2">
-                       <a rel="tooltip" href="<?php echo base_url(); ?>examinationresult/exam_mark_details?var1=<?php echo $cmid; ?>&var2=<?php echo $exam_id; ?>&var3=<?php echo $sub_id; ?>"class="btn btn-wd"><?php echo $clsname."-".$secname; ?></a>
+                       <a rel="tooltip" href="<?php echo base_url(); ?>examinationresult/exam_mark_details?var1=<?php echo $cmid; ?>&var2=<?php echo $exam_id; ?>&var3=<?php echo $sub_id; ?>"class="btn btn-wd"><?php echo $subject_name; ?></a>
                         </div>
-						 <?php
-								  }}   ?>
+						 <?php }} ?>
 
                      </div>
                   </div>
@@ -63,36 +62,6 @@
          </div>
          <!-- row -->
 
-		   <!--  <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Striped Table with Hover</h4>
-                                <p class="category">Here is a subtitle for this table</p>
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <th>ID</th>
-                                    	<th>Name</th>
-                                    	<th id="ajaxres"></th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        	<td>1</td>
-                                        	<td>Dakota Rice</td>
-                                        	<td>$36,738</td>
-                                        	<td>Niger</td>
-                                        	<td>Oud-Turnhout</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-         <!-- end row -->
-         <!--<div id="test" style="display: none" >  </div>-->
 
       </div>
    </div>

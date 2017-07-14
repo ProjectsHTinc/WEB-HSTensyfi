@@ -11,28 +11,11 @@
             <div class="col-md-12">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">Teacher Handling Subject
+                     <h4 class="title">Teacher Class & Section
 					 <?php  $exam_id=$this->input->get('var'); 
 					     //echo $exam_id?>
 					 <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></h4>
                   </div>
-
-				  <?php
-						/* if(empty($result))
-						{?>
-							<p style="padding:10px;color:red;text-align:center;">No Exam Added For Any Class</p>
-						<?php }else{
-						        foreach($result as $row)
-								 {
-									$a=$row->exam_id;
-									$b=$row->subject_id;
-									$c=$row->exam_date;
-									$d=$row->times;
-									$e=$row->classmaster_id;
-									//echo $e;
-								}
-                          } */
-						 ?>
                   <div class="content">
                      <div class="row">
                         <?php
@@ -44,11 +27,12 @@
                         <?php  
                          foreach($result as $row)
 						   {
-							 $sid=$row->subject_id;
-							 $sname=$row->subject_name;
+							 $cmid=$row->class_master_id;
+							 $clsname=$row->class_name;
+							 $sec_name=$row->sec_name;
 							?>
 						   <div class="col-md-2">
-                       <a rel="tooltip" href="<?php echo base_url(); ?>examinationresult/view_all_cls?var1=<?php echo $sid; ?>&var2=<?php echo $exam_id; ?>" class="btn btn-wd"> <?php echo $sname; ?></a>
+                       <a rel="tooltip" href="<?php echo base_url(); ?>examinationresult/view_all_subject_name?var1=<?php echo $cmid; ?>&var2=<?php echo $exam_id; ?>" class="btn btn-wd"> <?php echo $clsname; echo "-"; echo $sec_name; ?></a>
                         </div>
 						 <?php } }?>
                      </div>

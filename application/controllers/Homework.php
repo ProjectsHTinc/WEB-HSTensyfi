@@ -24,11 +24,11 @@ class Homework extends CI_Controller
   	 		 $user_id=$this->session->userdata('user_id');
 			 $user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
-			 $datas=$this->homeworkmodel->get_teacher_id($user_id);
+			 //$datas=$this->homeworkmodel->get_teacher_id($user_id);
+			 $datas['cls_sec']=$this->homeworkmodel->get_teacher_class_sec($user_id,$user_type);
 			 $datas['result']=$this->homeworkmodel->getall_details($user_id,$user_type);
 			 $datas['ayear']=$this->homeworkmodel->get_acdaemicyear();
-			 //echo'<pre>';
-	         //print_r($datas['result']);exit;
+			//echo'<pre>';print_r($datas['cls_sec']);exit;
 	 		 $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/homework/add',$datas);
 	 		 $this->load->view('adminteacher/teacher_footer');
@@ -44,7 +44,7 @@ class Homework extends CI_Controller
 			    $datas=$this->session->userdata();
   	 		    $user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				$datas['result'] = $this->homeworkmodel->get_stu_details($hw_id);
+				$datas['result'] = $this->homeworkmodel->get_stu_details($hw_id,$user_id,$user_type);
 				//print_r($datas['result']);exit;
 			    if($user_type==2)
 			      {
@@ -107,31 +107,32 @@ class Homework extends CI_Controller
 			$dateTime = new DateTime($submission_date);
 			$format_date=date_format($dateTime,'Y-m-d' );
 			
-
 			$details=$this->db->escape_str($this->input->post('details'));
 		    $datas=$this->homeworkmodel->create_test($year_id,$class_id,$user_id,$user_type,$test_type,$title,$subject_name,$formatted_date,$format_date,$details); 
-		    
-		    
-		
-			// echo'<pre>';
-			// print_r($datas["res"]);
-			// echo'</pre>'; 
+			//echo'<pre>';print_r($datas["res"]);
 			if($datas['status']=="success")
 			{
 				$this->session->set_flashdata('msg','Added Successfully');
                 redirect('homework/home',$datas);
 			   //redirect('add_test');		
+			}else if($datas['status']=="Already Exist"){
+				$this->session->set_flashdata('msg','Test Date Already Exist');
+                redirect('homework/home',$datas);
 			}else{
 				$this->session->set_flashdata('msg','Falid To Added');
                 redirect('homework/home',$datas);
 			}
 	 		 
 	 	} 
-		
+		//----2---------
 		public function checker()
 		{
+			$datas=$this->session->userdata();
+	 		$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
 			$classid=$this->input->post('id');
-		    $data=$this->class_manage->get_subject($classid);
+		    $data=$this->homeworkmodel->get_subject($classid,$user_id,$user_type);
+			//print_r($data['res']);exit;
 			echo json_encode($data);
 		}
 		
@@ -141,7 +142,8 @@ class Homework extends CI_Controller
 			    $datas=$this->session->userdata();
   	 		    $user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				$datas['result']=$this->homeworkmodel->edit_details($hw_id);
+				$datas['result']=$this->homeworkmodel->edit_details($hw_id,$user_id,$user_type);
+				//echo'<pre>';print_r($datas['result']);exit;
 				$datas['resubject'] = $this->subjectmodel->getsubject();
 			    if($user_type==2)
 			      {
@@ -183,9 +185,9 @@ class Homework extends CI_Controller
 		        $datas=$this->session->userdata();
   	 		    $user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				$datas['result']=$this->homeworkmodel->edit_test_details($hw_id);
+				$datas['result']=$this->homeworkmodel->edit_test_details($hw_id,$user_id,$user_type);
 				
-				//print_r($datas['status']);exit;
+				//echo'<pre>';print_r($datas['result']);exit;
 				
 			    if($user_type==2)
 			      {
