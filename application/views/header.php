@@ -145,7 +145,7 @@
                      $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
                      $objRs=$this->db->query($query);
                      $row=$objRs->result();
-                     foreach ($row as $rows1)
+                     foreach ($row as $rows1)     
                      {
                       $pic=$rows1->user_pic;
                       if($pic!='')
