@@ -59,7 +59,7 @@
 								  $cnt= count($subject_name);
 								  for($i=0;$i<$cnt;$i++)
                                  { ?>
-                              <th> <?php echo $subject_name[$i]; ?> <?php //echo $subject_id[$i]; ?></th>
+                              <th> <?php echo $subject_name[$i]; ?> <?php echo $subject_id[$i]; ?></th>
                               <?php  }
                                  }else{  ?>
                               <th style="color:red;">Subject Not Found</th>
