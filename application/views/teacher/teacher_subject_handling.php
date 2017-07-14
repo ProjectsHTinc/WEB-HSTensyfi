@@ -13,12 +13,12 @@
                   <div class="card">
                      <div class="content" id="content1">
                         <div class="fresh-datatables">
-                           <h4 class="title" style="padding-bottom: 20px;">List of Teacher Handling Subject</h4>
+                           <h4 class="title" style="padding-bottom: 20px;">List of Teacher Handling Subject  <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
                            <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
 
                               <div class="col-sm-4">
 
-						                    <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+
                               </div>
                            </form>
                            <table id="bootstrap-table" class="table">
@@ -47,7 +47,7 @@
                                           ?>
                                     </td>
                                     <td class="text-center">
-                                       <a href="<?php echo base_url(); ?>teacher/get_teacher_id/<?php echo $rows->teacher_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                       <a href="<?php echo base_url(); ?>teacher/edit_subject_teacher/<?php echo $rows->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
                                  <?php $i++; }

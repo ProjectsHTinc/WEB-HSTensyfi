@@ -128,7 +128,7 @@ class Teacher extends CI_Controller {
 		public function view(){
 		  $datas=$this->session->userdata();
 		  $user_id=$this->session->userdata('user_id');
-          $user_type=$this->session->userdata('user_type');
+      $user_type=$this->session->userdata('user_type');
 		  $datas['getall_class']=$this->class_manage->getall_class();
 		  $datas['result'] = $this->teachermodel->get_all_teacher();
 		  $datas['resubject'] = $this->subjectmodel->getsubject();
@@ -202,6 +202,45 @@ class Teacher extends CI_Controller {
 		 }
 		}
 
+		// Get Subject for Teacher
+
+		public function edit_subject_teacher($id){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+
+			//echo '<pre>';print_r($datas['res']);exit;
+		 if($user_type==1){
+			 $datas['res'] = $this->teachermodel->get_subject_handling_teacher($id);
+			$datas['resubject'] = $this->subjectmodel->getsubject();
+			$datas['getall_class']=$this->class_manage->getall_class();
+		 $this->load->view('header');
+		 $this->load->view('teacher/edit_subject_handling',$datas);
+		 $this->load->view('footer');
+		 }
+		 else{
+				redirect('/');
+		 }
+		}
+
+
+		//save Subject Handling Teacher
+		public function save_subject_handling(){
+			$user_id=$this->session->userdata('user_id');
+			$subject_id=$this->input->post('subject_id');
+			$class_master_id=$this->input->post('class_master_id');
+			$id=$this->input->post('id');
+			$status=$this->input->post('status');
+			$datas=$this->teachermodel->save_subject_handling($user_id,$subject_id,$class_master_id,$id,$status);
+			if($datas['status']=="success"){
+				echo "success";
+			}else if($datas['status']=="already"){
+				echo "Already Assigned";
+			}else{
+				echo "failed";
+			}
+
+		}
 
 		public function get_teacher_id($teacher_id){
 			$datas=$this->session->userdata();

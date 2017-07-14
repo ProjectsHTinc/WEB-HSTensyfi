@@ -112,6 +112,58 @@ class Classmanage extends CI_Controller {
 		}
 
 
+		public function view_subjects($class_sec_id){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==1){
+				$datas['res']=$this->class_manage->view_subjects($class_sec_id);
+				$this->load->view('header');
+				$this->load->view('classmanage/view_subjects',$datas);
+				$this->load->view('footer');
+			}else{
+				 redirect('/');
+			}
+		}
+
+		public function edit_subjects_class($id){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==1){
+				$datas['res']=$this->class_manage->edit_subjects_class($id);
+				//print_r($datas['res']);exit;
+				$this->load->view('header');
+				$this->load->view('classmanage/edit_subjects',$datas);
+				$this->load->view('footer');
+			}else{
+				 redirect('/');
+			}
+		}
+
+		public function save_subject(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==1){
+				 $id=$this->input->post('id');
+				$exam_flag=$this->input->post('exam_flag');
+				$status=$this->input->post('status');
+				$datas=$this->class_manage->save_subject($id,$exam_flag,$status);
+				if($datas['status']=="success"){
+						$this->session->set_flashdata('msg', 'Successfully Updated');
+						redirect('classmanage/home');
+				}
+				elseif($datas['status']=="failure"){
+					$this->session->set_flashdata('msg', 'Something Went Wrong ');
+						redirect('classmanage/home');
+				}
+			}else{
+				 redirect('/');
+			}
+		}
+
+
 		public function update_cs(){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');

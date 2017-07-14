@@ -110,7 +110,9 @@
                                   <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>classmanage/editcs/<?php  echo $rowsclass->class_sec_id; ?>">
                                      <i class="fa fa-edit"></i></a>
                                      <a rel="tooltip" href="#myModal" data-id="<?php echo $rowsclass->class_sec_id; ?>" title="Add Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit" style="color:#eb34ff;" data-toggle="modal" data-target="#myModal"   >
-                                     <i class="fa fa-user-plus">  </i></a>
+                                     <i class="fa fa-plus">  </i></a>
+                                     <a rel="tooltip" href="<?php echo base_url(); ?>classmanage/view_subjects/<?php echo $rowsclass->class_sec_id; ?>"  title="View Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit">
+                                     <i class="fa fa-th">  </i></a>
 
                                 </td>
 
