@@ -192,20 +192,20 @@ function getSubject(){
     success:function(data)
     {
       var stat=data.status;
+
+
         $(".subject_id").empty();
       if(stat=="success"){
-          var g=data.subject_id;
-          var len=g.length;
+        var res=data.res;
+          var len=subject_id.length;
             $('<option>').val(" ").text("Select Subject").appendTo('.subject_id');
             for (i = 0; i < len; i++) {
-              $('<option>').val(data.subject_id[i]).text(data.subject_name[i]).appendTo('.subject_id');
+              $('<option>').val(res[i].subject_id).text(res[i].subject_name).appendTo('.subject_id');
             }
            getTeacher();
       }else{
     $(".subject_id").empty();
       }
-
-
     }
    });
 }

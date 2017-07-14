@@ -119,30 +119,22 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
                         $result=$this->db->query($query);
                         foreach($result->result() as $rows){}
                         $sPlatform=   $rows->subject;
-                        $sQuery = "SELECT * FROM edu_subject";
+                        $sQuery = "SELECT estc.subject_id,estc.class_master_id,c.class_name,s.sec_name,esu.subject_name FROM edu_subject_to_class AS estc
+                        LEFT JOIN edu_classmaster AS cm ON estc.class_master_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id
+                        LEFT JOIN edu_subject AS esu ON estc.subject_id=esu.subject_id WHERE estc.class_master_id='$class_sec_id'";
                         $objRs=$this->db->query($sQuery);
-                         //print_r($objRs);
-                        $row=$objRs->result();
-                        foreach ($row as $rows1) {
-                        $s= $rows1->subject_id;
-                        $sec=$rows1->subject_name;
-                        $arryPlatform = explode(",", $sPlatform);
-                        $sPlatform_id  = trim($s);
-                        $sPlatform_name  = trim($sec);
-                        if(in_array($sPlatform_id, $arryPlatform )) {
-                          $sub_id[]=$s;
-                          $sub_name[]=$sec;
-                        //  $sec_n[]=$sec_name;
+                        $res=$objRs->result();
+                        if($result->num_rows()==0){
+                          $data= array("status" => "no data Found");
+                          return $data;
+                        }else{
+                          $data= array("status" => "success","res"=>$res);
+                          return $data;
+                      // return $result->result();
                         }
-                          }
-                          if(empty($sub_id)){
-                            $data= array("status" =>"No Record Found");
-                            return $data;
-                          }else{
 
-                            $data= array("subject_id" => $sub_id,"subject_name"=>$sub_name,"status"=>"success");
-                            return $data;
-                          }
+
+
 
 
               }
