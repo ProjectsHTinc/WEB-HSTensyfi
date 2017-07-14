@@ -18,7 +18,13 @@ Class Examinationresultmodel extends CI_Model
         foreach ($row as $rows) {}
         $teacher_id = $rows->teacher_id;
 		
-        $sql        = "SELECT * FROM edu_examination WHERE status='Active'";
+		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id; 
+		  
+        $sql        = "SELECT * FROM edu_examination WHERE status='Active' AND exam_year='$current_year'";
         $resultset1 = $this->db->query($sql);
         $res        = $resultset1->result();
         return $res;
@@ -168,7 +174,7 @@ Class Examinationresultmodel extends CI_Model
         
     }
 	
-	function getall_subname($user_id,$cls_masid,$exam_id,$user_type)
+	 function getall_subname($user_id,$cls_masid,$exam_id,$user_type)
 	{
 		$query     = "SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
         $resultset = $this->db->query($query);
@@ -180,15 +186,19 @@ Class Examinationresultmodel extends CI_Model
 		$resultset3=$this->db->query($sql1);
         $res1=$resultset3->result();
 		//return $res1;
+		/* if(empty($res1)){
+			$data=array("status" =>"Record Not Found");
+			return $data;
+		}else{ */
 		 foreach($res1 as $rows1){
 			$sub_id[]=$rows1->subject_id;$sub_name[]=$rows1->subject_name;}
 			$data=array("status" =>"Success","subject_id" =>$sub_id,"subject_name" =>$sub_name);
 		    //return $data;
           //echo "<pre>"; print_r($data);			
 		return $data; 
+		//}
 		
-		
-	} 
+	}  
     
    /*    function getall_subname($user_id,$cls_masid,$exam_id,$user_type)
      {
@@ -229,10 +239,10 @@ Class Examinationresultmodel extends CI_Model
             "subject_id" => $sub_id,
             "subject_name" => $sub_name
         );
-		echo'<pre>';print_r($datas);
+		//echo'<pre>';print_r($datas);
         return $datas;
         
-    }  */
+    }  */ 
     //-----------------------Get Class Marks------------------------------------
     
     function getall_stuname($user_id, $cls_masid, $exam_id)
@@ -386,14 +396,9 @@ Class Examinationresultmodel extends CI_Model
         $query1    = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,marks,created_at)VALUES('$exam_id','$teaid','$subid','$sutid','$clsmastid','$marks',NOW())";
         $resultset = $this->db->query($query1);
         if ($resultset) {
-            $data = array(
-                "status" => "success"
-            );
+            $data = array("status" => "success");
             return $data;
-        } else {
-            $data = array(
-                "status" => "failure"
-            );
+        }else { $data = array("status" => "failure");
             return $data;
         }
         

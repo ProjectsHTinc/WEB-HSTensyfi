@@ -25,12 +25,11 @@
                   </div>
                   <div class="content table-responsive table-full-width">
                      <form method="post" action="<?php echo base_url(); ?>examinationresult/marks_status" class="form-horizontal" enctype="multipart/form-data" id="markform">
-                        <?php
-                           $student_array_generate = function($stu,&$student_arr) use ($subject_name,$subject_id)
+                        <?php 
+                           $student_array_generate = function($stu,&$student_arr) use($subject_name,$subject_id)
                            {
                            	foreach ($stu as $v) {
                            		$cnt= count($subject_name);
-                           
                            		for($i=0;$i<$cnt;$i++)
                            		{
                            			if($subject_id[$i] == $v->subject_id)
@@ -74,6 +73,8 @@
                               <?php
 			 if(!empty($stu))
 			 {
+				 
+				 
 				$student_arr = array();
 				$student_array_generate($stu,$student_arr);
 				

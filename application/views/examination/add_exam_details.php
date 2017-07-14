@@ -1,5 +1,3 @@
-
-
 <style>
    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{height: 20px;width: 22px;padding: 5px 5px 5px 5px;}
    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{border: none !important;}
@@ -146,33 +144,19 @@
                                     <td>
                                        <?php echo $i; ?>
                                     </td>
-                                    <?php
-                                       $sub=$sea->subject_id;
-                                       $subname="SELECT * FROM edu_subject WHERE subject_id='$sub' ";
-                                       $resub=$this->db->query($subname);
-                                       $ressub=$resub->result();
-                                        foreach($ressub as $row1)
-                                        {
-                                       	 $subname=$row1->subject_name;
-                                        }
-                                       ?>
+                                    
                                     <td>
-                                       <?php echo $subname; ?>
+                                       <?php echo $sea->subject_name; ?>
                                     </td>
                                     <td>
                                        <?php $date=date_create($sea->exam_date);
                                           echo date_format($date,"d-m-Y");  ?> (<?php echo $sea->times; ?> ) 
                                     </td>
                                     <?php
-                                       $cid=$sea->classmaster_id;
-                                       $cls="SELECT cm.class,cm.section,cm.class_sec_id,c.*,s.* FROM edu_classmaster as cm,edu_class AS c,edu_sections as s WHERE cm.class_sec_id='$cid' AND cm.section=s.sec_id  AND cm.class=c.class_id";
-                                       $cls=$this->db->query($cls);
-                                       $clsres=$cls->result();
-                                       foreach($clsres as $row2)
-                                       {
-                                       $clsname=$row2->class_name;
-                                       $secname=$row2->sec_name;
-                                       }
+                                      
+                                       $clsname=$sea->class_name;
+                                       $secname=$sea->sec_name;
+                                       
                                        ?>
                                     <td>
                                        <?php echo $clsname;?>
@@ -180,13 +164,11 @@
                                     </td>
                                     <?php
                                        $id=$sea->teacher_id;
-                                       $query = "SELECT * FROM edu_teachers WHERE teacher_id='$id' ";
+                                       $query = "SELECT teacher_id,name FROM edu_teachers WHERE teacher_id='$id' ";
                                        $resultset = $this->db->query($query);
                                        $res=$resultset->result();
                                        foreach($res as $row)
-                                       {
-                                        $name=$row->name;
-                                       }
+                                       {$name=$row->name;}
                                        ?>
                                     <td>
                                        <?php echo $name; ?>
@@ -234,10 +216,6 @@
                                        $resultset = $this->db->query($query);
                                        $res=$resultset->result();
                                        $name=$res[0]->name;
-                                       /*  foreach($res as $row)
-                                       {
-                                        $name=$row->name;
-                                       } */
                                        ?>
                                     <td>
                                        <?php echo $name; ?>
@@ -324,12 +302,13 @@
    				//console.log(test1);
    				//var test=test1.status;
    				//alert(test);
+				
                    if (test1.status=='Success') {
                        var sub = test1.subject_name;
    					//alert(sub.length);
                        var sub_id = test1.subject_id;
                        var len=sub.length;
-   					//alert(len);
+   					   //alert(len);
                        var i;
                        var name = '';
                        var exam_date = '';
