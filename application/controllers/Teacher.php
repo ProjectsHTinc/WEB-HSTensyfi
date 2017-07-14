@@ -64,12 +64,12 @@ class Teacher extends CI_Controller {
 
 			 $class_teacher=$this->input->post('class_teacher');
 			 $subject=$this->input->post('subject');
-			 
+
 			 $subject_multiple=$this->input->post('subject_multiple');
 			 $multiple_sub=implode(',',$subject_multiple);
-			 
+
 			 $qualification=$this->input->post('qualification');
-			 
+
 			 $name=$this->input->post('name');
 			 $email=$this->input->post('email');
 
@@ -89,11 +89,11 @@ class Teacher extends CI_Controller {
 			 $mobile=$this->input->post('mobile');
 
 			 $sec_phone=$this->input->post('sec_phone');
-			 
+
 			 $groups_id=$this->input->post('groups_id');
 			 $activity=$this->input->post('activity_id');
 			 $activity_id=implode(',',$activity);
-			 
+
 			 //print_r($activity_id);exit;
 			 $status=$this->input->post('status');
 
@@ -132,6 +132,7 @@ class Teacher extends CI_Controller {
 		  $datas['getall_class']=$this->class_manage->getall_class();
 		  $datas['result'] = $this->teachermodel->get_all_teacher();
 		  $datas['resubject'] = $this->subjectmodel->getsubject();
+			//print_r( $datas['resubject'] );
 		  $datas['sorting'] = $this->teachermodel->get_sorting_result();
 		  //echo '<pre>';print_r($datas['result']);exit;
 		 if($user_type==1){
@@ -143,18 +144,18 @@ class Teacher extends CI_Controller {
 				redirect('/');
 		 }
 		}
-		
+
 		public function get_sorting_details(){
 		  $datas=$this->session->userdata();
 		  $user_id=$this->session->userdata('user_id');
           $user_type=$this->session->userdata('user_type');
-		  
+
 		  $gender=$this->input->post('gender');
 		  $datas['getall_class']=$this->class_manage->getall_class();
 		  $datas['result'] = $this->teachermodel->get_all_teacher();
 		  $datas['resubject'] = $this->subjectmodel->getsubject();
 		  $datas['sorting'] = $this->teachermodel->get_sorting_result();
-		  
+
 		  $datas['gender'] = $this->teachermodel->get_all_sorting_result($gender);
 		  //echo'<pre>';print_r($datas['gender']);exit;
 		 if($user_type==1){
@@ -167,6 +168,39 @@ class Teacher extends CI_Controller {
 		 }
 		}
 
+		//Adding subject to teacher for class
+		public function subject_handling(){
+			$user_id=$this->session->userdata('user_id');
+			$subject_id=$this->input->post('subject_id');
+			$class_master_id=$this->input->post('class_master_id');
+			$teacher_id=$this->input->post('teacher_id');
+			$status=$this->input->post('status');
+			$datas=$this->teachermodel->subject_handling($user_id,$subject_id,$class_master_id,$teacher_id,$status);
+			if($datas['status']=="success"){
+				echo "success";
+			}else if($datas['status']=="already"){
+				echo "Already Assigned";
+			}else{
+				echo "failed";
+			}
+		}
+
+		//View subject handling
+		public function view_subject_handling(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			$datas['res'] = $this->teachermodel->view_subject_handling_teacher();
+			//echo '<pre>';print_r($datas['result']);exit;
+		 if($user_type==1){
+		 $this->load->view('header');
+		 $this->load->view('teacher/teacher_subject_handling',$datas);
+		 $this->load->view('footer');
+		 }
+		 else{
+				redirect('/');
+		 }
+		}
 
 
 		public function get_teacher_id($teacher_id){
@@ -209,13 +243,13 @@ class Teacher extends CI_Controller {
 			 $subject_multiple=$this->input->post('subject_multiple');
 			 $multiple_sub=implode(',',$subject_multiple);
 			 $qualification=$this->input->post('qualification');
-			 
+
 		     $sex=$this->input->post('sex');
-			 
+
 			 $dobdate=$this->input->post('dob');
 			 $dateTime = new DateTime($dobdate);
               $dob=date_format($dateTime,'Y-m-d' );
-			  
+
 			 //$dob=$this->input->post('dob');
 			 $age=$this->input->post('age');
 		     $nationality=$this->input->post('nationality');
@@ -225,11 +259,11 @@ class Teacher extends CI_Controller {
 			 $mobile=$this->input->post('mobile');
 			 $address=$this->input->post('address');
 			 $status=$this->input->post('status');
-			 
+
 			 $groups_id=$this->input->post('groups_id');
 			 $activity=$this->input->post('activity_id');
 			 $activity_id=implode(',',$activity);
-			 
+
 			 $user_pic_old=$this->input->post('old_pic');
 			 $teacher_pic = $_FILES["teacher_pic"]["name"];
 			 $userFileName =time().'-'.$teacher_pic;

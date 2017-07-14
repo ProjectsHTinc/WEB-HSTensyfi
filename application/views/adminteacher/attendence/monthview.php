@@ -6,22 +6,21 @@
                         <div class="card">
                             <div class="header">View the Attendece By Class wise</div>
                             <div class="content">
-                                <div class="row">
-                              <?php
+                          
+                              <div class="row">
+                            <?php
 
-                                if(empty($class_id)){   ?>
-                                <div class="col-md-2">  <p>No Records Found</p></div>
-                                  <?php  }  else{   ?>
-                                  <?php   $cnt= count($class_id);
-                                   for($i=0;$i<$cnt;$i++){
-                                   ?>
-                               <div class="col-md-2">
-                                     <a href="<?php echo  base_url(); ?>teacherattendence/month/<?php echo $class_id[$i]; ?>" class="btn btn-wd"><?php echo $class_name[$i]."-".$sec_name[$i]; ?></a>
-                                   </div>
+                              if(empty($res)){   ?>
+                              <div class="col-md-2">  <p>NO Records Found</p></div>
+                                <?php  }  else{  foreach($res as $rows) { ?>
+                                <?php
+                                 ?>
+                             <div class="col-md-2">
+                                   <a href="<?php echo  base_url(); ?>teacherattendence/month/<?php echo $rows->class_master_id; ?>" class="btn btn-wd"><?php echo $rows->class_name."-".$rows->sec_name; ?></a></div>
 
 
-                              <?php  } }  ?>
-                              </div>
+                            <?php  } }  ?>
+                            </div>
                             </div>
 
 

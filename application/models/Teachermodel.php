@@ -78,6 +78,36 @@ Class Teachermodel extends CI_Model
 
        }
 
+      //  Subject Handling
+      function subject_handling($user_id,$subject_id,$class_master_id,$teacher_id,$status){
+          $check ="SELECT * FROM edu_teacher_handling_subject WHERE class_master_id='$class_master_id' AND subject_id='$subject_id'";
+          $result=$this->db->query($check);
+          if($result->num_rows()==0){
+            $query="INSERT INTO  edu_teacher_handling_subject (subject_id,teacher_id,class_master_id,status,created_at,created_by,updated_at) VALUES('$subject_id','$teacher_id','$class_master_id','$status',NOW(),'$user_id',NOW())";
+            $res=$this->db->query($query);
+            if($res){
+              $data= array("status" => "success");
+              return $data;
+            }else{
+              $data= array("status" => "failure");
+              return $data;
+            }
+          }else{
+            $data= array("status" => "already");
+            return $data;
+          }
+
+      }
+
+
+      // View Subject handling teacher
+      function view_subject_handling_teacher(){
+        $query="SELECT eths.*,et.name,c.class_name,s.sec_name,esu.subject_name FROM edu_teacher_handling_subject AS eths LEFT JOIN edu_teachers AS et ON et.teacher_id=eths.teacher_id LEFT JOIN edu_classmaster AS cm ON eths.class_master_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_subject AS esu ON eths.subject_id=esu.subject_id";
+        $res=$this->db->query($query);
+        return $res->result();
+      }
+
+
 
        //GET ALL Admission Form
 

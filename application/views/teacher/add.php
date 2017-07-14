@@ -113,18 +113,14 @@
                         <div class="col-sm-4">
                            <input type="text" placeholder="Qualification" name="qualification" class="form-control">
                         </div>
-                        <label class="col-sm-2 control-label">SUBJECT</label>
+                        <!-- <label class="col-sm-2 control-label">SUBJECT</label>
                         <div class="col-sm-4">
                            <select multiple name="subject_multiple[]" id="subject_id"  data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
                               <?php foreach ($resubject as $rows) {  ?>
                               <option value="<?php echo $rows->subject_id; ?>"><?php echo $rows->subject_name; ?></option>
                               <?php      } ?>
                            </select>
-                        </div>
-                     </div>
-                  </fieldset>
-                  <fieldset>
-                     <div class="form-group">
+                        </div> -->
                         <label class="col-sm-2 control-label">Class Tutor</label>
                         <div class="col-sm-4">
                            <select   name="class_teacher"  id="class_teacher" data-title="Select Class" class="selectpicker" data-style=" btn-block"  data-menu-style="dropdown-blue">
@@ -133,11 +129,16 @@
                               <?php      } ?>
                            </select>
                         </div>
-                        <label class="col-sm-2 control-label">Class Assigned </label>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+
+                        <!-- <label class="col-sm-2 control-label">Class Assigned </label>
                         <div class="col-sm-4">
                            <select multiple="multiple"  name="class_name[]" id="multiple" style="width:150px;">
                            </select>
-                        </div>
+                        </div> -->
                      </div>
                   </fieldset>
                   <fieldset>
@@ -199,7 +200,7 @@
 </div>
 <script type="text/javascript">
    function getListClass(){
-   
+
    var subject_id=$('#subject_id').val();
    //alert(subject_id);
    $.ajax({
@@ -216,32 +217,32 @@
    var res=data.res;
    //alert(res.length);
    var len=res.length;
-   
+
    for (i = 0; i < len; i++) {
    $('<option>').val(res[i].class_sec_id).text(res[i].class_name + res[i].sec_name).appendTo('#multiple');
    }
-   
+
    }else{
    $("#multiple").empty();
    }
    }
    });
-   
+
    }
-   
+
    var loadFile = function(event) {
    var output = document.getElementById('output');
    output.src = URL.createObjectURL(event.target.files[0]);
    };
-   
+
    // function select_class(classname){
    //   var values = $('#multiple-class').val();
    //   alert(values);
    // }
-   
-   
+
+
    $(document).ready(function () {
-   
+
    $('#admissionform').validate({ // initialize the plugin
    rules: {
  	name:{required:true }, address:{required:true },
@@ -253,7 +254,7 @@
    	religion:{required:true },
    	community_class:{required:true },
    	community:{required:true },
-   	'class_name[]':{required:true},
+
    	mobile:{required:true },
    	subject:{required:true },
    	qualification:{required:true },
@@ -266,7 +267,7 @@
    	admission_date: "Select Admission Date",
    	name: "Enter Name",
    	email: "Enter Email Address",
-   
+
    	sex: "Select Gender",
    	dob: "Select Date of Birth",
    	age: "Enter AGE",
@@ -277,15 +278,15 @@
    	community_class:"Enter the Community Class",
    	mother_tongue:"Enter The Mother tongue",
    	qualification:"Enter the Qualification ",
-   	'class_name[]':"Select class",
+
    	mobile:"Enter the mobile Number",
    	groups_id:"Select Groups Name",
    	'activity_id[]':"Select Activity Name",
-   	status:"Select Status Name"  
+   	status:"Select Status Name"
    }
-   }); 
    });
-   
+   });
+
 </script>
 <script type="text/javascript">
    function checkemailfun(val)
@@ -305,16 +306,16 @@
    $("#msg").html(test);
    $("#save").show();
    }
-   
+
    }
    });
    }
-   
+
 </script>
 <script type="text/javascript">
    $().ready(function(){
    $('#teachermenu').addClass('collapse in');
-   
+
    $('#teacher').addClass('active');
    $('#teacher1').addClass('active');
    $('.datepicker').datetimepicker({
@@ -333,4 +334,3 @@
    });
    });
 </script>
-
