@@ -90,8 +90,10 @@ class Teacherevent extends CI_Controller {
 				$user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
 			 $datas['res']=$this->teachereventmodel->get_teacher_in_event($event_id);
+			 $datas['result']=$this->teachereventmodel->get_event_details($event_id);
+
 			//  echo "<pre>";
-			//  print_r( $datas['res']);exit;
+			//  print_r( $datas['result']);exit;
 			 $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/event/event_list',$datas);
 			 $this->load->view('adminteacher/teacher_footer');

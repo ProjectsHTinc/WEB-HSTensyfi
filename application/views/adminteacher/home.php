@@ -22,13 +22,13 @@ ul li a img:active {
 font-size: 30px;
 font-weight: bold;}
  .plusicon
-   {   
+   {
 	  display:inline-block;float:right;
    }
    .design{
 	 color: white;
     font-size:30px;
-  
+
    }
    .setcolor{
     background-color: #323546;
@@ -47,7 +47,7 @@ font-weight: bold;}
                <div class="tab-content">
                   <div class="tab-pane active" id="description-logo">
                      <div class="" style="border:none;box-shadow: none;">
-                        
+
                            <div class="col-md-3" >
                               <?php $pic= $rows->user_pic; if(empty($pic)){
                                  } else{  ?>
@@ -56,8 +56,8 @@ font-weight: bold;}
                            </div>
                            <div class="col-md-3" style="padding-top:20px;">
                               <div class="">
-                                <?php  
-										$dateTime=new DateTime($rows->dob); $dobdate=date_format($dateTime,'d-m-Y' ); 
+                                <?php
+										$dateTime=new DateTime($rows->dob); $dobdate=date_format($dateTime,'d-m-Y' );
 										$dob1=$rows->dob;
       								    $from = new DateTime($dob1);
 										$to   = new DateTime('today');
@@ -66,10 +66,10 @@ font-weight: bold;}
                                  <p>Date Of Birth :<?php echo $dobdate; ?></p>
                                  <p> AGE :<?php echo $currentage; ?></p>
                               </div>
-							  
+
                            </div>
                         <div  class="textborder" style="height:162px;"></div>
-						   
+
 						   <div class="col-md-6 test">
 		    <ul class="nav nav-icons" style="padding-top: 35px;" role="tablist">
                      <li class="active">
@@ -98,11 +98,11 @@ font-weight: bold;}
                      </li>
                   </ul>
 						   </div>
-                     
+
                      </div>
                   </div>
                   <div class="tab-pane" id="map-logo">
-                    
+
                         <div class="col-md-6" >
                            <div class="header" style="padding-top:0px;">
                               <h4 class="title">Address</h4>
@@ -111,7 +111,7 @@ font-weight: bold;}
                         </div>
 						 <div  class="textborder" style="height:63px;"></div>
 						 <div class="col-md-6" style="padding-top:5px;text-align: center;padding-left:0px;">
-						   
+
 		     <ul class="nav nav-icons" role="tablist">
                      <li>
                         <a href="#description-logo" role="tab" data-toggle="tab">
@@ -128,20 +128,20 @@ font-weight: bold;}
                      <li>
                         <a href="#legal-logo" role="tab" data-toggle="tab">
 						<i class="fa fa-phone-square" aria-hidden="true"></i><br>
-                       
+
                         Contact
                         </a>
                      </li>
                      <li>
                         <a href="#help-logo" role="tab" data-toggle="tab">
 						 <i class="fa fa-file-text-o" aria-hidden="true"></i><br>
-                       
+
                         Details
                         </a>
                      </li>
                   </ul>
 						   </div>
-                    
+
                   </div>
                   <div class="tab-pane" id="legal-logo">
                         <div class="col-md-3" style="padding-bottom:25px;" >
@@ -193,10 +193,10 @@ font-weight: bold;}
                      </li>
                   </ul>
 						   </div>
-                     
+
                   </div>
                   <div class="tab-pane" id="help-logo">
-                    
+
                         <div class="col-md-3" style="padding-bottom:25px; ">
                            <div class="header">
                               <h4 class="title">Class Teacher </h4>
@@ -238,7 +238,7 @@ font-weight: bold;}
                      </li>
                   </ul>
 						   </div>
-                    
+
                   </div>
                </div>
                <!-- end tab content -->
@@ -249,7 +249,7 @@ font-weight: bold;}
       <div class="col-md-12">
          <div class="col-md-6">
             <div class="card ">
-              
+
                <div class="content" style="padding-top:0px;">
                   <div class="table-full-width">
                      <table class="table">
@@ -287,10 +287,10 @@ font-weight: bold;}
 </div>
 <script>
    $(document).ready(function() {
-   
+
    	$('#dash').addClass('active');
-   
-   
+
+
    $('#fullCalendar').fullCalendar({
    	header: {
    		left: 'prev,next today',
@@ -308,26 +308,18 @@ font-weight: bold;}
     textColor: 'black'
    }
    ,
-   {
-    url: '<?php echo base_url() ?>event/get_all_regularleave',
-    color: 'blue',
-    textColor: 'white'
-   },
+
    {
    url: '<?php echo base_url() ?>teacherevent/view_all_reminder',
    color: 'red',
    textColor: 'white'
-   },
-   {
-   url: '<?php echo base_url() ?>leavemanage/get_all_special_leave',
-   color: 'pink',
-   textColor: 'white'
    }
+
    ],
    	eventMouseover: function(calEvent, jsEvent) {
    var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background-color:#000;color:#fff;position:absolute;z-index:10001;padding:20px;">' + calEvent.description + '</div>';
    var $tooltip = $(tooltip).appendTo('body');
-   
+
    $(this).mouseover(function(e) {
    		$(this).css('z-index', 10000);
    		$tooltip.fadeIn('500');
@@ -337,14 +329,13 @@ font-weight: bold;}
    		$tooltip.css('left', e.pageX + 20);
    });
    },
-   
+
    eventMouseout: function(calEvent, jsEvent) {
    $(this).css('z-index', 8);
    $('.tooltipevent').remove();
    },
-   
+
    });
    		});
-   
-</script>
 
+</script>

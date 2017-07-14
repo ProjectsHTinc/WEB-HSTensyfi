@@ -178,7 +178,7 @@
    var len=res.length;
 
    for (i = 0; i < len; i++) {
-   $('<option>').val(res[i].class_sec_id).text(res[i].class_name + res[i].sec_name).appendTo('#class_master_id');
+   $('<option>').val(res[i].class_master_id).text(res[i].class_name + res[i].sec_name).appendTo('#class_master_id');
    }
 
    }else{

@@ -45,6 +45,19 @@ Class Teachereventmodel extends CI_Model
         }
 
 
+        function get_event_details($event_id){
+          $query="SELECT ev.event_id,ev.event_name,ev.event_date,ev.event_details FROM edu_events AS ev WHERE ev.event_id='$event_id'";
+           $resultset=$this->db->query($query);
+           if($resultset->num_rows()==0){
+             $data= array("status" => "failure");
+             return $data;
+           }else{
+             $res=$resultset->result();
+             $data= array("status" => "success","eventview"=>$res);
+             return $data;
+           }
+        }
+
         function get_teacher_in_event($event_id){
           $query="SELECT ec.event_id,es.event_name,et.name,es.event_date,ec.sub_event_name,es.event_details FROM edu_event_coordinator AS ec LEFT JOIN edu_teachers AS et ON ec.co_name_id=et.teacher_id LEFT JOIN edu_events AS es ON es.event_id=ec.event_id WHERE ec.event_id='$event_id' AND ec.status='Active'";
 
