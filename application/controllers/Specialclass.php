@@ -38,7 +38,7 @@ class Specialclass extends CI_Controller
                {
 					 $classid = $this->input->post('classid');
 					//echo $classid;exit;
-					 $data=$this->class_manage->get_subject($classid);
+					 $data=$this->specialclassmodel->get_subject($classid);
 					 echo json_encode($data);
                }
 	

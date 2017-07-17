@@ -21,7 +21,13 @@
 	  
                               <label class="col-sm-2 control-label">Circular Type</label>
                               <div class="col-sm-4">
-                                 <input type="text" name="ctype" required class="form-control"  />
+                                 <input type="hidden" name="" required class="form-control"  />
+								 <select name="ctype" class="selectpicker form-control" data-title="Select Circular Type" >
+									  <option value="SMS">SMS</option>
+									  <option value="Mail">Mail</option>
+									   <option value="Notification">Notifications</option>
+								</select>
+								
                               </div>
                               <label class="col-sm-2 control-label">Circular Title</label>
                               <div class="col-sm-4">
@@ -131,7 +137,7 @@
 			
         },
         messages: {
-               ctype: "Enter Type",
+               ctype: "Select Circular Type",
 			   ctitle: "Enter Title",
 			   cdescription:"Enter Description",
 			   status: "Select Status",

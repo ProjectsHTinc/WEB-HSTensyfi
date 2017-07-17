@@ -88,5 +88,30 @@ Class Teacherondutymodel extends CI_Model
 		$res=$result1->result();
 		return $res;
    }	
+
+
+//---------------------------Student Onduty Details------------------------
+	function  view_class_teacher($user_id,$user_type)
+	{
+		$query="SELECT teacher_id,user_type,user_master_id,user_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+	    $resultset=$this->db->query($query);
+	    $row=$resultset->result();
+	    foreach($row as $rows){}
+	    $teacher_id=$rows->user_master_id;
+		
+		$sql="SELECT t.teacher_id,t.name,t.class_teacher,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_teachers AS t,edu_classmaster AS cm, edu_class AS c,edu_sections AS se WHERE teacher_id='$teacher_id' AND t.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ";
+		$resultset1=$this->db->query($sql);
+	    $res=$resultset1->result();
+		//foreach($res as $rows1){} $cls_teacher=$rows1->class_teacher;
+		return $res;
+	}
+  function view_student_ondy($cls_id,$user_id,$user_type)
+  {
+	   
+		 $sql1="SELECT en.enroll_id,en.admission_id,en.admit_year,en.admisn_no,en.name,en.class_id,u.user_type,u.user_master_id,u.user_id,st.id,st.user_type,st.user_id,st.year_id,st.od_for,st.from_date,st.to_date,st.notes,st.status FROM edu_enrollment AS en,edu_users AS u,edu_on_duty AS st WHERE en.class_id='$cls_id' AND u.user_type='3' AND en.admission_id=u.user_master_id AND u.user_id=st.user_id AND st.user_type='3' ";
+		$resultset2=$this->db->query($sql1);
+	    $res1=$resultset2->result();
+		return $res1;
+  }
 }
 	?>

@@ -134,5 +134,44 @@ class Teacheronduty extends CI_Controller
 			redirect('/');
 		 }
 	}
+ 
+ 
+ //-----------------------------------Student Onduty Detaials-------------------
+ 
+     public function view_class()
+	 {
+		$datas=$this->session->userdata();
+  	    $user_id=$this->session->userdata('user_id');
+	    $user_type=$this->session->userdata('user_type');
+		
+		$datas['cls_name']=$this->teacherondutymodel->view_class_teacher($user_id,$user_type);
+		//echo'<pre>';print_r($datas['cls_name']);exit;
+        if($user_type==2)
+		 {
+			 $this->load->view('adminteacher/teacher_header');
+			 $this->load->view('adminteacher/onduty/view_class',$datas);
+			 $this->load->view('adminteacher/teacher_footer');
+		 }else{
+			redirect('/');
+		 }
+	 }
+	 public function student_ondy_details($cls_id)
+	 { //echo $cls_id;exit;
+		$datas=$this->session->userdata();
+  	    $user_id=$this->session->userdata('user_id');
+	    $user_type=$this->session->userdata('user_type');
+		
+		$datas['stuonduty']=$this->teacherondutymodel->view_student_ondy($cls_id,$user_id,$user_type);
+		//echo'<pre>';print_r($datas['stuonduty']);exit;
+        if($user_type==2)
+		 {
+			 $this->load->view('adminteacher/teacher_header');
+			 $this->load->view('adminteacher/onduty/onduty_student',$datas);
+			 $this->load->view('adminteacher/teacher_footer');
+		 }else{
+			redirect('/');
+		 }
+	 }
+	 
  }
 	?>

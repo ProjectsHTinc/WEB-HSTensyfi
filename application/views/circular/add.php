@@ -126,7 +126,7 @@
 							   <label class="col-sm-2 control-label">Description</label>
                               <div class="col-sm-4">
 							  <div id="msg"></div>
-							  <textarea name="notes" class="form-control"  id="descriptions" rows="4" cols="80"></textarea>
+							  <textarea name="notes" readonly class="form-control"  id="descriptions" rows="4" cols="80"></textarea>
                               </div>
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">

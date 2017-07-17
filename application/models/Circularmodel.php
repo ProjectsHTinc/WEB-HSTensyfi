@@ -123,7 +123,7 @@ Class Circularmodel extends CI_Model
 	 
 	 function circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id)
 	 {
-		  $master="SELECT id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_type='$citrcular_type' AND circular_description='$notes' AND status='Active'";
+		   $master="SELECT id,circular_title,circular_type,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_type='$citrcular_type' AND circular_description='$notes' AND status='Active'"; 
 		   $resultset=$this->db->query($master);
 		   $res=$resultset->result();
 		   foreach($res as $rows){}

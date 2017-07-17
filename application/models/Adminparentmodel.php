@@ -133,7 +133,7 @@ Class Adminparentmodel extends CI_Model
 	 }
 
     // GET TOTAL WORKING DAYS
-     function get_total_working_days($user_id){
+     function get_total_working_days($user_id,$user_type){
        $get_class_name="SELECT eu.user_id,ee.class_id FROM edu_users AS eu LEFT JOIN edu_admission AS ea ON eu.user_master_id=ea.admission_id
        LEFT JOIN edu_enrollment AS ee ON ee.admission_id=eu.user_master_id WHERE eu.user_id='$user_id'";
        $resultset=$this->db->query($get_class_name);

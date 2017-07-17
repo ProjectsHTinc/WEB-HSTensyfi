@@ -181,7 +181,33 @@ Class Examinationmodel extends CI_Model
 			$rows=$res->result();
 			return $rows;
 	   }
-    function getall_subname($user_id,$cls_masid,$exam_id)
+	   
+	   
+	   //----------------
+	   
+	   function getall_subname($user_id,$cls_masid,$exam_id)
+	{
+		
+		$sql1="SELECT estc.id,estc.class_master_id,estc.subject_id,estc.exam_flag,estc.status,su.subject_id,su.subject_name FROM edu_subject_to_class AS estc,edu_subject AS su WHERE estc.class_master_id='$cls_masid' AND estc.subject_id=su.subject_id AND estc.exam_flag='0' AND  estc.status='Active' ";
+		$resultset3=$this->db->query($sql1);
+        $res1=$resultset3->result();
+		//return $res1;
+		/* if(empty($res1)){
+			$data=array("status" =>"Record Not Found");
+			return $data;
+		}else{ */
+		 foreach($res1 as $rows1){
+			$sub_id[]=$rows1->subject_id;$sub_name[]=$rows1->subject_name;}
+			$data=array("status" =>"Success","subject_id" =>$sub_id,"subject_name" =>$sub_name);
+		    //return $data;
+          //echo "<pre>"; print_r($data);			
+		return $data; 
+		//}
+		
+	}  
+	   
+	   //-------------
+    /* function getall_subname($user_id,$cls_masid,$exam_id)
 	   {
 		   
 			 $query="SELECT cm.class_sec_id,cm.subject,su.* FROM edu_classmaster AS cm,edu_subject AS su WHERE  cm.subject=su.subject_id AND cm.class_sec_id='$cls_masid'";
@@ -221,7 +247,7 @@ Class Examinationmodel extends CI_Model
 					return $datas;
 
 	   }
-	   
+	    */
 	   function update_exam_status($exid,$cmid,$user_id)
 	   {
 		       $sql1="SELECT * FROM edu_exam_marks_status WHERE exam_id='$exid' AND classmaster_id='$cmid' AND status='Publish'";

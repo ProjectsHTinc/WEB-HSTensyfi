@@ -67,5 +67,25 @@ Class Specialclassmodel extends CI_Model
          return $data;
 	   } */
     }
+	
+	function get_subject($classid)
+         {
+			$sql1="SELECT estc.id,estc.class_master_id,estc.subject_id,estc.exam_flag,estc.status,su.subject_id,su.subject_name FROM edu_subject_to_class AS estc,edu_subject AS su WHERE estc.class_master_id='$classid' AND estc.subject_id=su.subject_id AND estc.exam_flag='0' AND  estc.status='Active' ";
+			$resultset3=$this->db->query($sql1);
+			$res1=$resultset3->result();
+			if(empty($res1))
+			 {
+			   $data=array("status" =>"Subject Not Found");
+				return $data;
+			 }else
+			 {
+			foreach($res1 as $rows1){
+			$sub_id[]=$rows1->subject_id;$sub_name[]=$rows1->subject_name;}
+			$data=array("status" =>"Success","subject_id" =>$sub_id,"subject_name" =>$sub_name);
+		    //return $data;
+			//echo "<pre>"; print_r($data);			
+			return $data; 
+			 }
+      }  
 }
 	?>

@@ -127,7 +127,7 @@ class Adminparent extends CI_Controller {
 			if($user_type==4){
 			 $datas['res']=$this->dashboard->stud_details($user_id);
 				 $stu= count($datas['res']);
-				$datas['total']=$this->adminparentmodel->get_total_working_days();
+				$datas['total']=$this->adminparentmodel->get_total_working_days($user_id,$user_type);
 
 			 if($stu==1){
 				 $datas['stud_details']=$this->dashboard->get_students($user_id);

@@ -215,6 +215,12 @@
                      </ul>
                   </div>
                </li>
+			   <li id="stuonduty">
+                  <a href="<?php echo base_url(); ?>teacheronduty/view_class">
+                     <i class="pe-7s-flag"></i>
+                     <p>Student Onduty View</p>
+                  </a>
+				  </li>
                <li id="calendar">
                   <a data-toggle="collapse" href="#calendermenu">
                      <i class="pe-7s-gym"></i>

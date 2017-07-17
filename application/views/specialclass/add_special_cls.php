@@ -1,5 +1,3 @@
-
-
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -37,7 +35,7 @@
                               <div class="col-sm-4">
 							   <select  name="subject_name"  class="form-control" id="ajaxres">
 							   </select>
-								
+								<div id="msg1"></div>
                               </div>
                               <label class="col-sm-2 control-label">Subject Title</label>
                               <div class="col-sm-4">
@@ -244,11 +242,12 @@ $.ajax({
 			   for (i = 0; i < len; i++) {
 				   name +='<option value="'+sub_id[i]+'">'+sub[i]+'</option>';
 				  $("#ajaxres").html(name);
+				  $("#msg1").html('');
 			   }
 		   } else {
-			    //$('#msg').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
+			    $('#msg1').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
 				$("#ajaxres").html('');
-				alert("Error");
+				//alert("Error");
 		   }
 	}
 });
