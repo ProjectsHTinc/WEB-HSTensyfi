@@ -453,7 +453,7 @@ Class Examinationresultmodel extends CI_Model
         
     }
     
-    function marks_status_details($clsmasid, $exam_id)
+    function marks_status_details($clsmasid,$exam_id)
     {
         //echo $clsmasid;
         $query     = "SELECT * FROM edu_exam_marks_status WHERE status='Approved' OR status='Publish' AND exam_id='$exam_id' AND classmaster_id='$clsmasid'";
