@@ -59,32 +59,7 @@
    /* $('#mastersmenu').addClass('collapse in');
    $('#master').addClass('active');
    $('#masters2').addClass('active'); */
-    $('#specialclasssection').validate({ // initialize the plugin
-        rules: {
-            class_name:{required:true },
-			teacher:{required:true },
-			sub_topic:{required:true },
-			spe_date:{required:true },
-			stime:{required:true },
-			etime:{required:true },
-			status:{required:true },
-			
-        },
-        messages: {
-              class_name: "Select Class",
-			   teacher: "Select Teacher",
-			   sub_topic: "Enter Subject Topic",
-			   spe_date: "Select Date",
-			   stime: "Select Start Time",
-			   etime: "Select End Time",
-			   status: "Select Status",
-			   
-			  
-            }
     });
-	demo.initFormExtendedDatetimepickers();
-   });
-   
    var $table = $('#bootstrap-table');
          $().ready(function(){
              $table.bootstrapTable({

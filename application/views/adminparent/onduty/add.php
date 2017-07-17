@@ -4,7 +4,7 @@
          <div class="col-md-12">
 
                         <div class="card">
-                            <div class="header">Circular</div>
+                            <div class="header">On Duty Details</div>
                             <div class="content">
                                 <div class="row">
                               <?php

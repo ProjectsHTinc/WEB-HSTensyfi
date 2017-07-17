@@ -74,8 +74,8 @@ class Classmanage extends CI_Controller {
 		public function assign(){
 			 	$sec_id=$this->input->post('section_name');
 				$class_id=$this->input->post('class_name');
-				$sub=$this->input->post('subject');
-				$subject = implode(',',$sub);
+				$subject=$this->input->post('subject');
+				//$subject = implode(',',$sub);
 				$status=$this->input->post('status');
 				$data=$this->class_manage->assign($sec_id,$class_id,$subject,$status);
 				if($data['status']=="success"){
@@ -169,8 +169,8 @@ class Classmanage extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
-				$sub=$this->input->post('subject');
-				$subject = implode(',',$sub);
+				$subject=$this->input->post('subject');
+				//$subject = implode(',',$sub);
 				$class_sec_id=$this->input->post('class_sec_id');
 				$class=$this->input->post('class_name');
 				$section=$this->input->post('section_name');

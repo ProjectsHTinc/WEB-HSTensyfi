@@ -59,20 +59,22 @@ class Timetable extends CI_Controller {
 	 		 }
 	 	}
 
-		public function create_timetable(){
+		public function create_timetable()
+		{
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-		 if($user_type==1){
+		    if($user_type==1){
 			 $class_id=$this->input->post('class_id');
 			 $year_id=$this->input->post('year_id');
 			 $term_id=$this->input->post('term_id');
+			  
 			 $subject_id=$this->input->post('subject_id');
 			 $teacher_id=$this->input->post('teacher_id');
 
 			 $day_id=$this->input->post('day_id');
 			 $period_id=$this->input->post('period_id');
-
+          // echo'<pre>'; print_r($day_id);exit;
 			 $datas=$this->timetablemodel->create_timetable($year_id,$term_id,$class_id,$subject_id,$teacher_id,$day_id,$period_id);
 			 //print_r($datas['status']);exit;
 			 if($datas['status']=='Already'){

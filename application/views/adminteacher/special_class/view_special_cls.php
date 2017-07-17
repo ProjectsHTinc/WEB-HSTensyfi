@@ -40,7 +40,7 @@
                     									  if($stu=='Active'){?>
                     									   <button class="btn btn-success btn-fill btn-wd">Active</button>
                     									 <?php  }else{?>
-                    									  <button class="btn btn-danger btn-fill btn-wd">DE-Active</button>
+                    									  <button class="btn btn-danger btn-fill btn-wd">De-Active</button>
                     									  <?php } ?></td>
                                    
                                  </tr>

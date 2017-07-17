@@ -45,7 +45,7 @@
 					 <?php }elseif($stu=='Rejected'){?>
 					 <button class="btn btn-danger btn-fill btn-wd">Reject</button>
 					 <?php }else{ ?>
-					 <button class="btn btn-success btn-fill btn-wd">Approval</button>
+					 <button class="btn btn-success btn-fill btn-wd">Approved</button>
 					 <?php }?>
 					  </td>
 					  
@@ -126,9 +126,6 @@
 
 
          }); 
-
-
-
 
    $().ready(function(){
 

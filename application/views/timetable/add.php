@@ -44,7 +44,7 @@
                                  </div>
                               </div>
                            </fieldset>
-                           <!-- <fieldset>
+                            <fieldset>
                               <div class="form-group">
                                 <label class="col-sm-2 control-label">Select Term</label>
                               <div class="col-sm-3">
@@ -57,7 +57,7 @@
                               
                               
                               </div>
-                              </fieldset> -->
+                              </fieldset> 
                            <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Select class</label>
@@ -88,22 +88,20 @@
                               </thead>
                               <?php
                                  $period = 8;
-                                 $arr2=array('Mon','Tue','Wed','Thur','Fri','Sat');
+                                 $arr2=array('1','2','3','4','5','6');
                                  ?>
                               <tr>
                                  <?php
-                                    for($i=1;$i <= $period; $i++){
-                                    
-                                    }
+                                    for($i=1;$i <= $period; $i++){ }
                                     ?>
                               </tr>
                               <?php
                                  foreach($arr2 as $day){
-                                     ?>
+                                  ?>
                               <tr>
                                  <th><?php echo $day; ?></th>
                                  <?php
-                                    for($i=1;$i <= $period; $i++){
+                                    for($i=1;$i<=$period; $i++){
                                         ?>
                                  <td>
                                     <!-- <select   name="subject_id[]" class="" required>

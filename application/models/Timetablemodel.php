@@ -11,9 +11,9 @@ Class Timetablemodel extends CI_Model
 
        //GET ALL TERMS
 
-              function create_timetable($year_id,$term_id,$class_id,$subject_id,$teacher_id,$day_id,$period_id){
-                    $check="SELECT * FROM edu_timetable WHERE class_id='$class_id' AND year_id='$year_id'";
-
+              function create_timetable($year_id,$term_id,$class_id,$subject_id,$teacher_id,$day_id,$period_id)
+			  {
+                 $check="SELECT * FROM edu_timetable WHERE class_id='$class_id' AND year_id='$year_id'";
                  $result1=$this->db->query($check);
                  if($result1->num_rows()>=1){
                    $data= array("status" => "Already");
@@ -27,12 +27,12 @@ Class Timetablemodel extends CI_Model
                     $period  =$period_id[$i];
                     $classid=$class_id;
                     $termid=$term_id;
+					//echo $termid;exit;
                     $yearid=$year_id;
                     $subjectid=$subject_id[$i];
                     $teacherid=$teacher_id[$i];
                     $query = "INSERT INTO edu_timetable (year_id,term_id,class_id,subject_id,teacher_id,day,period,status,created_at,updated_at) VALUES ('$yearid','$termid','$classid','$subjectid','$teacherid','$day','$period','Active',NOW(),NOW())";
                     $resultset=$this->db->query($query);
-
                   }
                   if($resultset){
                   $data= array("status" => "success");
@@ -132,10 +132,6 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
                           return $data;
                       // return $result->result();
                         }
-
-
-
-
 
               }
 

@@ -43,7 +43,7 @@
 					 <?php }elseif($stu=='Rejected'){?>
 					 <button class="btn btn-danger btn-fill btn-wd">Reject</button>
 					 <?php }else{ ?>
-					 <button class="btn btn-success btn-fill btn-wd">Approval</button>
+					 <button class="btn btn-success btn-fill btn-wd">Approved</button>
 					 <?php }?>
 					  </td>
 					  
@@ -60,8 +60,6 @@
                </div>
             </div>
          </div>
-		 
-		
       </div>
    </div>
 </div>
@@ -121,12 +119,7 @@
              $(window).resize(function () {
                  $table.bootstrapTable('resetView');
              });
-
-
          }); 
-
-
-
 
    $().ready(function(){
 

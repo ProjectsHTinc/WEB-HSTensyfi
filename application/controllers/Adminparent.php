@@ -168,7 +168,7 @@ class Adminparent extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$datas['total']=$this->adminparentmodel->get_total_working_days();
+			$datas['total']=$this->adminparentmodel->get_total_working_days($user_id,$user_type);
 
 			//echo $user_id='10';
 			if($user_type==4){

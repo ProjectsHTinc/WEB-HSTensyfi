@@ -59,14 +59,14 @@ class Teacher extends CI_Controller {
 			 $user_type=$this->session->userdata('user_type');
  			if($user_type==1)
 			{
-			 $clas=$this->input->post('class_name');
- 			 $class_name=implode(',',$clas);
+			 $class_name=$this->input->post('class_name');
+ 			// $class_name=implode(',',$clas);
 
 			 $class_teacher=$this->input->post('class_teacher');
 			 $subject=$this->input->post('subject');
 
-			 $subject_multiple=$this->input->post('subject_multiple');
-			 $multiple_sub=implode(',',$subject_multiple);
+			 $multiple_sub=$this->input->post('subject_multiple');
+			 //$multiple_sub=implode(',',$subject_multiple);
 
 			 $qualification=$this->input->post('qualification');
 
@@ -269,8 +269,8 @@ class Teacher extends CI_Controller {
 			 	$user_type=$this->session->userdata('user_type');
 			 if($user_type==1){
 				 $teacher_id=$this->input->post('teacher_id');
-			 $clas=$this->input->post('class_name');
-			 $class_name = implode(',',$clas);
+			 $class_name=$this->input->post('class_name');
+			 //$class_name = implode(',',$clas);
 			 $class_teacher=$this->input->post('class_teacher');
 			 $subject=$this->input->post('subject');
 			 $name=$this->input->post('name');
@@ -279,8 +279,8 @@ class Teacher extends CI_Controller {
 			 $sec_email=$this->input->post('sec_email');
 			 $sec_phone=$this->input->post('sec_phone');
 
-			 $subject_multiple=$this->input->post('subject_multiple');
-			 $multiple_sub=implode(',',$subject_multiple);
+			 $multiple_sub=$this->input->post('subject_multiple');
+			 //$multiple_sub=implode(',',$subject_multiple);
 			 $qualification=$this->input->post('qualification');
 
 		     $sex=$this->input->post('sex');
