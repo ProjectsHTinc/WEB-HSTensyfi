@@ -79,8 +79,8 @@
                      <ul class="dropdown-menu">
                         <li><a href="<?php echo base_url(); ?>teacheronduty/home">On Duty Form</a></li>
                         <li><a href="<?php echo base_url(); ?>teacheronduty/special_class_details">Special Class </a></li>
-                        <!-- <li><a href="<?php echo base_url(); ?>groups/home">Groups </a></li>
-                           <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li>
+                        <li><a href="<?php echo base_url(); ?>teacheronduty/view_substitution">Substitution </a></li>
+                          <!--  <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li>
                            <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> -->
                      </ul>
                   </li>

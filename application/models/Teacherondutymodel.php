@@ -62,7 +62,7 @@ Class Teacherondutymodel extends CI_Model
 
     function update($duty_id,$user_type,$user_id,$reason,$fdate,$tdate,$notes)
     {
-
+       if($fdate < $tdate || $fdate==$tdate){
        $sql="UPDATE edu_on_duty SET od_for='$reason',from_date='$fdate',to_date='$tdate',notes='$notes',updated_by='$user_id',updated_at=NOW() WHERE id='$duty_id' AND user_type='$user_type'";
        $resultset=$this->db->query($sql);
        if($resultset)
@@ -70,6 +70,10 @@ Class Teacherondutymodel extends CI_Model
          $data= array("status" => "success");
          return $data;
         }
+	   }else{
+			  $data= array("status" => "Date");
+			 return $data;
+		 }
     }
 
 //-------------Special Class--------------------------------\
@@ -88,6 +92,23 @@ Class Teacherondutymodel extends CI_Model
 		$res=$result1->result();
 		return $res;
    }	
+   
+   //-----------------------------------Substitution-----------------
+   
+    function view_substitution_details($user_id,$user_type)
+	{
+		$query="SELECT teacher_id,user_type,user_master_id,user_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+	    $resultset=$this->db->query($query);
+	    $row=$resultset->result();
+	    foreach($row as $rows){}
+	    $teacher_id=$rows->user_master_id;
+		
+		$sql1="SELECT sub.id,sub.teacher_id,sub.sub_teacher_id,sub.sub_date,sub.class_master_id,sub.period_id,sub.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name,t.teacher_id,t.name FROM edu_substitution AS sub,edu_classmaster AS cm,edu_teachers AS t,edu_class AS c,edu_sections AS se WHERE sub.sub_teacher_id='$teacher_id' AND sub.teacher_id=t.teacher_id AND sub.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id AND sub.status='Active' ";
+		$resultset1=$this->db->query($sql1);
+	    $row1=$resultset1->result();
+		return $row1;
+		
+	}
 
 
 //---------------------------Student Onduty Details------------------------

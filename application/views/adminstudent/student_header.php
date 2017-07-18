@@ -199,7 +199,7 @@
                <li id="homework">
                   <a href="<?php echo base_url(); ?>student/homework_view">
                      <i class="pe-7s-flag"></i>
-                     <p>Home Work</p>
+                     <p>Home Work / Class Test</p>
                   </a>
                   <!-- <div class="collapse" id="sectionmenu">
                      <ul class="nav">

@@ -326,7 +326,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 		   }
 
 		   function update($duty_id,$user_type,$user_id,$reason,$fdate,$tdate,$notes)
-		   {
+		   {    if($fdate < $tdate || $fdate==$tdate){
 			   $sql="UPDATE edu_on_duty SET od_for='$reason',from_date='$fdate',to_date='$tdate',notes='$notes',updated_by='$user_id',updated_at=NOW() WHERE id='$duty_id' AND user_type='$user_type'";
 			   $resultset=$this->db->query($sql);
 			   if($resultset)
@@ -334,6 +334,8 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				 $data= array("status" => "success");
 				 return $data;
 				}
+		   }else{$data= array("status" => "Date");
+					 return $data;}
 
 		   }
 

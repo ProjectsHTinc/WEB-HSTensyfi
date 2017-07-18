@@ -226,7 +226,7 @@ class Student extends CI_Controller
          $user_type=$this->session->userdata('user_type');
         if($user_type==3){
         $datas['res']=$this->teachereventmodel->get_teacher_in_event($event_id);
-       //  echo "<pre>";
+         //echo "<pre>";
        //  print_r( $datas['res']);exit;
         $this->load->view('adminstudent/student_header');
         $this->load->view('adminstudent/event/event_list',$datas);
@@ -373,6 +373,9 @@ class Student extends CI_Controller
 		if($datas['status']=="success")
 		{
 			$this->session->set_flashdata('msg','Updated Successfully');
+			redirect('student/onduty');
+		}else if($datas['status']=="Date"){
+			$this->session->set_flashdata('msg','From Date Should be Less Than To Date');
 			redirect('student/onduty');
 		}else{
 			$this->session->set_flashdata('msg','Faild To Update');

@@ -76,7 +76,7 @@
                               <div class="col-sm-4">
                                  <select class="form-control" name="status" id="choose" >
 												<option value="Pending">Pending</option>
-												<option value="Approved">Approval</option>
+												<option value="Approved">Approved</option>
 												<option value="Rejected">Reject</option>
 												
 								</select>

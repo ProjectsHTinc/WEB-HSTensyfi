@@ -62,7 +62,7 @@ $e_year = $event_date->format('Y');
           <!-- </ul> -->
         </div>
         <?php  } } else{  ?>
-          <div class="col-md-6"><p>NO Event Found</p></div>
+          <div class="col-md-6"><p>No Sub Event Found</p></div>
       <?php   } ?>
 
       </div>

@@ -12,7 +12,6 @@
 			          
 						 <div class="header text-center">
                                 <h4 class="title">Homework & Class Test <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></h4>
-                               
                             </div>		
                   
                     <div class="content">
@@ -51,14 +50,18 @@
                                        $query="SELECT name,teacher_id FROM edu_teachers WHERE teacher_id='$id'";
                                        $resultset=$this->db->query($query);
                                        $row=$resultset->result();
-                                       echo $row[0]->name;//echo $rows->hw_id; ?>
+                                       foreach($row as $row1){}
+                                       $tname=$row1->name; 
+                                       echo $tname; ?>
 							  </td>
                                  <td><?php echo $rows->class_name; ?> - <?php echo $rows->sec_name ;?></td>
                                  <td><?php $su=$rows->subject_id;
                                        $sub="SELECT * FROM edu_subject WHERE subject_id='$su'";
                                        $result=$this->db->query($sub);
-                                       $row=$result->result();
-                                       echo $row[0]->subject_name;
+                                       $row2=$result->result();
+                                       foreach($row2 as $row3){}
+                                       $subname=$row3->subject_name;
+                                       echo $subname;
 
 								 ?></td>
                                  <td><?php if($hw=="HT")
@@ -68,10 +71,9 @@
                                     echo date_format($date,"d-m-Y");
                                     ?></td>
                                  <td><?php echo $rows->hw_details; ?></td>
-                                 <!-- <td><?php //echo $sta;?></td> -->
                                  <td>
                                     <?php if($sta==0 && $type=="HT")
-                                       {?>
+                                       { ?>
                                     <a href="" rel="tooltip" title="Doesn't Add Mark Details" class="btn btn-simple btn-info btn-icon table-action view" >
                                     <i class="fa fa-id-card-o" aria-hidden="true"></i></a>
                                     <?php }elseif($sta==1){?> <a href="<?php echo base_url();?>adminparent/view_mark?var1=<?php echo $rows->hw_id; ?>&var2=<?php echo $stu_id;?>" title="View Mark Details" rel="tooltip" class="btn btn-simple btn-warning btn-icon edit" style="color:red;"><i class="fa fa-id-card-o" aria-hidden="true"></i></a>	<?php }?>

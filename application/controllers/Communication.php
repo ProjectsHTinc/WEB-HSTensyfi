@@ -242,7 +242,7 @@ class Communication extends CI_Controller
 			$datas=$this->communicationmodel->get_all_class_list($leave_id);
 			$datas['teachers']=$this->communicationmodel->get_all_teachers_list();
 			$datas['view']=$this->communicationmodel->get_all_view_list($leave_id);
-			//print_r($datas['view']);exit;
+			//echo '<pre>';print_r($datas['view']);exit;
 		    //print_r($datas['res']);exit;
 			 if($user_type==1){
 	 		 $this->load->view('header');
@@ -274,8 +274,7 @@ class Communication extends CI_Controller
 			//echo $sub_teacher;
 			$datas['res']=$this->communicationmodel->add_substitution_list($user_id,$cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status);
 			//print_r($datas['res']);exit;
-			if($datas['status']=="success")
-			  {
+			if($datas['status']=="success"){
 				 $this->session->set_flashdata('msg','Added Successfully');
 				 redirect('communication/add_substitution/'.$leave_id.'');
 			  }elseif($datas['status']=="Already_Exist")
@@ -283,7 +282,7 @@ class Communication extends CI_Controller
 				$this->session->set_flashdata('msg','Already Exist');
 				redirect('communication/add_substitution/'.$leave_id.'');
 			  }else{
-			     $this->session->set_flashdata('msg','Falid To Added');
+			     $this->session->set_flashdata('msg','Added Successfully');
 				 redirect('communication/add_substitution/'.$leave_id.'');
 			  }
 		}

@@ -195,7 +195,7 @@ font-weight: 500;
                <li id="homework">
                   <a href="<?php echo base_url(); ?>adminparent/homework">
                      <i class="pe-7s-next-2"></i>
-                     <p>Home Work</p>
+                     <p>Home Work / Class Test</p>
                   </a>
                </li>
                <li id="fees">

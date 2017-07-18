@@ -49,42 +49,7 @@ Class Communicationmodel extends CI_Model
 		 //return $result1[0]->teaher_id;
 	 }
 
-	 function get_class_id($user_id)
-	 {
-		/* $query="SELECT * FROM edu_communication where commu_id='$user_id'";
-         $res=$this->db->query($query);
-         $result1=$res->result();
-		// return $result1;
-		 return $result1[0]->teacher_id; */
-	 }
-
-	 function get_class_name($class_id)
-	 {
-
-			  /*  $query="SELECT name FROM edu_teachers WHERE teacher_id IN ($class_id) ";
-			   $resultset2=$this->db->query($query);
-			   //$result2= $resultset2->result();
-			   foreach($resultset2->result() as $rows)
-		        {
-					 $name[]=$rows->name;
-					//print_r($name);
-					//return $name;
-		       }
-			  // $a=$result2[1]->name; */
-
-	 }
-	  function convert_id_name($cls_id)
-        {
-           /*
-				// $query="select cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='".$id->class."' AND c.class_id=cm.class AND s.sec_id=cm.section";
-               $query="select cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='".$id->class."' AND c.class_id=cm.class AND s.sec_id=cm.section";
-               $resultset2=$this->db->query($query);
-               $result2= $resultset2->result();
-
-            return $result2; */
-        }
-
-
+	
    function edit_data($commu_id)
    {
 	         $query1="SELECT * FROM edu_communication WHERE commu_id='$commu_id'";
@@ -166,41 +131,24 @@ Class Communicationmodel extends CI_Model
 		   $lid=$res->leave_id;
 		   //return $tid;
 		   //echo $tid;
-		   //exit;
-		   $query="SELECT teacher_id,name,class_teacher,class_name FROM edu_teachers WHERE teacher_id='$tid'";
-		   $resultset1=$this->db->query($query);
-		   $row1=$resultset1->result();
-		   foreach($row1 as $teacher_rows){}
-		   //return $row1;
-		   
-		 $teach_id=$teacher_rows->class_name;
-        $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id AND cm.status='Active' ORDER BY c.class_name";
-        $objRs=$this->db->query($sQuery);
-        $row=$objRs->result();
-        foreach ($row as $rows1) {
-        $s= $rows1->class_sec_id;
-        $sec=$rows1->class;
-        $clas=$rows1->class_name;
-        $sec_name=$rows1->sec_name;
-        $arryPlatform = explode(",", $teach_id);
-        $sPlatform_id  = trim($s);
-        $sPlatform_name  = trim($sec);
- 		if(in_array($sPlatform_id, $arryPlatform )) {
- 		$class_id[]=$s;
-        $class_name[]=$clas;
-        $sec_n[]=$sec_name;
- 	    }
- 		}
-         // print_r($sec_n);exit
-	      if(empty($class_id)){
-	        $data= array("status" =>"No Record Found");
-	        return $data;
-	      }else{
-
-        $data= array("class_id" => $class_id,"class_name"=>$class_name,"sec_name"=>$sec_n,"teacher_id"=>$tid,"from_leave_date"=>$ldate,"to_leave_date"=>$tdate,"leave_id"=>$lid,"status"=>"success");
-        return $data;
-      }
-
+		  // exit;
+		  
+		  $sql1="SELECT estc.id,estc.class_master_id,estc.subject_id,estc.teacher_id,estc.status,c.class_id,c.class_name,s.sec_id,s.sec_name,cm.class_sec_id,cm.class,cm.section FROM edu_teacher_handling_subject AS estc,edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE estc.teacher_id='$tid' AND estc.class_master_id=cm.class_sec_id AND cm.class = c.class_id AND cm.section = s.sec_id GROUP BY estc.class_master_id";
+			$resultset3=$this->db->query($sql1);
+			$res1=$resultset3->result();
+			if(empty($res1))
+			 {
+			   $data=array("status" =>"Subject Not Found");
+				return $data;
+			 }else
+			 {
+			foreach($res1 as $rows1){
+			 $class_id[]= $rows1->class_sec_id;$class_name[]=$rows1->class_name;$sec_n[]=$rows1->sec_name;}
+			$data= array("class_id" => $class_id,"class_name"=>$class_name,"sec_name"=>$sec_n,"teacher_id"=>$tid,"from_leave_date"=>$ldate,"to_leave_date"=>$tdate,"leave_id"=>$lid,"status"=>"success");
+		    return $data;
+			//echo "<pre>"; print_r($data);			
+			 }
+		 
 	   }
 	   
 	   function get_all_view_list($leave_id)

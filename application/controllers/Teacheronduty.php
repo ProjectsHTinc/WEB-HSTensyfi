@@ -110,6 +110,10 @@ class Teacheronduty extends CI_Controller
 		{
 			$this->session->set_flashdata('msg','Updated Successfully');
 			redirect('teacheronduty/home');
+		}else if($datas['status']=="Date"){
+			$this->session->set_flashdata('msg','From Date Should be Less Than To Date');
+			redirect('teacheronduty/home');
+
 		}else{
 			$this->session->set_flashdata('msg','Faild To Update');
 			redirect('teacheronduty/home');
@@ -172,6 +176,26 @@ class Teacheronduty extends CI_Controller
 			redirect('/');
 		 }
 	 }
+	 
+	 
+	//---------------------------------Substitution---------------------------
+
+      public function view_substitution()
+	  {
+		$datas=$this->session->userdata();
+  	    $user_id=$this->session->userdata('user_id');
+	    $user_type=$this->session->userdata('user_type');
+		$datas['substitution']=$this->teacherondutymodel->view_substitution_details($user_id,$user_type);
+		//echo'<pre>';print_r($datas['substitution']);exit;
+        if($user_type==2)
+		 {
+			 $this->load->view('adminteacher/teacher_header');
+			 $this->load->view('adminteacher/substitution/view_subsitution',$datas);
+			 $this->load->view('adminteacher/teacher_footer');
+		 }else{
+			redirect('/');
+		 }
+	  }
 	 
  }
 	?>
