@@ -353,77 +353,63 @@ class Apiadminmodel extends CI_Model {
               $sql="SELECT et.name,et.sex,et.age,et.class_teacher,c.class_name,s.sec_name,et.subject,esu.subject_name,et.teacher_id,et.profile_pic FROM edu_teachers  AS et INNER JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id
               INNER JOIN edu_sections AS s ON cm.section=s.sec_id INNER JOIN edu_subject AS esu ON et.subject=esu.subject_id WHERE et.status='Active' AND et.teacher_id='$teacher_id'";
               $res_detail=$this->db->query($sql);
-              $sql="SELECT class_name FROM edu_teachers WHERE teacher_id='$teacher_id'";
-              $res=$this->db->query($sql);
-              $result=$res->result();
-              foreach($result as $rows){   }
-              $sPlatform=$rows->class_name;
-               $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
-                $objRs=$this->db->query($sQuery);
-               $row=$objRs->result();
-               foreach ($row as $rows1) {
-               $s= $rows1->class_sec_id;
-               $sec=$rows1->class;
-               $clas=$rows1->class_name;
-                $sec_name=$rows1->sec_name;
-                $arryPlatform = explode(",", $sPlatform);
-                $sPlatform_id  = trim($s);
-                $sPlatform_name  = trim($sec);
-              if (in_array($sPlatform_id, $arryPlatform )) {
-                $class_name[]=$clas.''.  $section_name[]=$sec_name;
-              //  $section_name[]=$sec_name;
-              }
 
-               }
-             if(empty($class_name)){
-               $class_list= array("status" =>"No Record Found");
-             }else{
-               $class_list= array("class_name" => $class_name);
-             }
 
-              if($res->num_rows()==0){
-                  $data=array("status"=>"error","msg"=>"nodata");
-                  return $data;
-              }else{
-                $result=$res_detail->result();
-                $data=array("status"=>"success","msg"=>"success","data"=>$result,"class_name" => $class_list);
-                return $data;
-              }
+
+
             }
 
 
             //#################### GET   TEACHER CLASS DETAILS  ####################//
             function get_teacher_class_details($teacher_id){
-              $sql="SELECT class_name FROM edu_teachers WHERE teacher_id='$teacher_id'";
-              $res=$this->db->query($sql);
-              $result=$res->result();
-              foreach($result as $rows){   }
-              $sPlatform=$rows->class_name;
-               $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
-                $objRs=$this->db->query($sQuery);
-               $row=$objRs->result();
-               foreach ($row as $rows1) {
-               $s= $rows1->class_sec_id;
-               $sec=$rows1->class;
-               $clas=$rows1->class_name;
-                $sec_name=$rows1->sec_name;
-                $arryPlatform = explode(",", $sPlatform);
-                $sPlatform_id  = trim($s);
-                $sPlatform_name  = trim($sec);
-              if (in_array($sPlatform_id, $arryPlatform )) {
-                $class_name[]=$clas.''.  $section_name[]=$sec_name;
-                $section_name[]=$sec_name;
-              }
-               }
-               if(empty($class_name)){
-                 $data= array("status" =>"No Record Found");
-                 return $data;
-               }else{
+                $year_id = $this->getYear();
+                $get_teacher_details="SELECT et.name,et.sex,et.age,et.class_teacher,et.religion,et.community_class,et.address,et.email,et.sec_email,et.phone,et.sec_phone,et.qualification,c.class_name,s.sec_name,et.subject,esu.subject_name,et.teacher_id,et.profile_pic
+                FROM edu_teachers  AS et LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id
+                LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_subject AS esu ON et.subject=esu.subject_id
+                WHERE et.status='Active' AND et.teacher_id='$teacher_id'";
+                $res_detail=$this->db->query($get_teacher_details);
+                $teacherProfile=$res_detail->result();
+                $class_sub_query = "SELECT
+    								class_master_id,
+    								teacher_id,
+    								class_name,
+    								sec_name,
+    								subject_name
+    							FROM
+    								edu_teacher_handling_subject A,
+    								edu_classmaster B,
+    								edu_subject C,
+    								edu_class D,
+    								edu_sections E
+    							WHERE
+    								A.class_master_id = B.class_sec_id AND B.class = D.class_id AND B.section = E.sec_id AND A.subject_id = C.subject_id AND A.teacher_id = '$teacher_id' ORDER by class_master_id";
+						$class_sub_res = $this->db->query($class_sub_query);
 
-                 $data= array("class_name" => $class_name,"status"=>"success");
-                 return $data;
-               }
-              }
+					    if($class_sub_res->num_rows()==0){
+							 $class_sub_result = array("status" => "Class_section", "msg" => "Class and Section not found");
+
+						}else{
+							$class_sub_result = $class_sub_res->result();
+						}
+
+
+						$timetable_query = "SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period,ss.sec_name,c.class_name FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.teacher_id ='$teacher_id' AND tt.year_id='$year_id' ORDER BY tt.day, tt.period";
+						$timetable_res = $this->db->query($timetable_query);
+
+						 if($timetable_res->num_rows()==0){
+							 $timetable_result = array("status" => "timetable", "msg" => "TimeTable not found");
+
+						}else{
+							$timetable_result= $timetable_res->result();
+						}
+
+
+						$data = array("status" => "success", "msg" => "Class and Sections",'teacherProfile'=>$teacherProfile,"class_name"=>$class_sub_result,"timeTable"=>$timetable_result);
+						return $data;
+                }
+
+
+
 
 
                     //#################### GET   LIST OF PARENTS   ####################//

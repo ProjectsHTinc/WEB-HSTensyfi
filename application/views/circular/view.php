@@ -23,7 +23,7 @@
                               </div>
                            </div>
                         </fieldset>
-						
+
 					 <div id="teachers1">
                         <div class="fresh-datatables">
                            <table id="bootstrap-table" class="table">
@@ -31,16 +31,16 @@
                                  <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <!-- <th class="text-left" data-sortable="true">Notes</th> --> 
+								 <!-- <th class="text-left" data-sortable="true">Notes</th> -->
                                  <th class="text-left" data-sortable="true">Circular Type</th>
-								 <th class="text-left" data-sortable="true">Status</th> 
+								 <th class="text-left" data-sortable="true">Status</th>
                                  <th class="text-left" data-sortable="true">Circular Date</th>
                               </thead>
-							  
+
                               <tbody>
                                  <?php
                                     $i=1;
-                                    foreach ($all_circulars as $rows) { 
+                                    foreach ($all_circulars as $rows) {
 									$type=$rows->user_type;
 									if($type==2){
 									?>
@@ -48,23 +48,23 @@
                                     <td class="text-left"><?php echo $i; ?></td>
                                     <td class="text-left"><?php echo $rows->name;  ?></td>
                                    <td class="text-left"><?php echo $rows->circular_title;?></td>
-								 
+
 									 <td class="text-left"><?php echo $rows->circular_type;?></td>
 									  <td class="text-left"><?php echo $rows->status;?></td>
                                     <td class="text-left"><?php $date=date_create($rows->circular_date);
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
                                    <!--<td>
-                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> 
+                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>-->
                                  </tr>
 									<?php $i++;  } }  ?>
                               </tbody>
                            </table>
                         </div>
-				</div> 
+				</div>
 						<!-- Parents---->
-						
+
 							 <div id="parents1" style="display:none">
                         <div class="fresh-datatables">
                            <table id="bootstrap-table" class="table">
@@ -72,16 +72,16 @@
                                 <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <!-- <th class="text-left" data-sortable="true">Notes</th> --> 
+								 <!-- <th class="text-left" data-sortable="true">Notes</th> -->
                                  <th class="text-left" data-sortable="true">Circular Type</th>
-								 <th class="text-left" data-sortable="true">Status</th> 
+								 <th class="text-left" data-sortable="true">Status</th>
                                  <th class="text-left" data-sortable="true">Circular Date</th>
                               </thead>
-							  
+
                               <tbody>
                                  <?php
                                     $i=1;
-                                    foreach ($parents as $rows1) { 
+                                    foreach ($parents as $rows1) {
 									$type=$rows1->user_type;
 									$cls=$rows1->class_id;
 									$query="select cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='$cls' AND c.class_id=cm.class AND s.sec_id=cm.section";
@@ -102,17 +102,17 @@
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
                                     <!--<td>
-                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a> 
+                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>-->
                                  </tr>
 									<?php $i++;  } }  ?>
                               </tbody>
                            </table>
                         </div>
-				</div> 
-				
+				</div>
+
 				<!-- Students---->
-						
+
 							 <div id="Students1" style="display:none">
                         <div class="fresh-datatables">
                            <table id="bootstrap-table" class="table">
@@ -120,16 +120,16 @@
                                 <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <!-- <th class="text-left" data-sortable="true">Notes</th> --> 
+								 <!-- <th class="text-left" data-sortable="true">Notes</th> -->
                                  <th class="text-left" data-sortable="true">Circular Type</th>
-								 <th class="text-left" data-sortable="true">Status</th> 
+								 <th class="text-left" data-sortable="true">Status</th>
                                  <th class="text-left" data-sortable="true">Circular Date</th>
                               </thead>
-							  
+
                               <tbody>
                                  <?php
                                     $i=1;
-                                    foreach ($students as $rows) { 
+                                    foreach ($students as $rows) {
 									$type=$rows->user_type;
 									$cls=$rows->class_id;
 									$query="select cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='$cls' AND c.class_id=cm.class AND s.sec_id=cm.section";
@@ -144,7 +144,7 @@
                                     <td class="text-left"><?php echo $i; ?></td>
                                      <td class="text-left"><?php echo $cs; ?> <?php echo $se; ?></td>
                                    <td class="text-left"><?php echo $rows->circular_title;?></td>
-								 
+
 									 <td class="text-left"><?php echo $rows->circular_type;?></td>
 									  <td class="text-left"><?php echo $rows->status;?></td>
                                     <td class="text-left"><?php $date=date_create($rows->circular_date);
@@ -155,8 +155,8 @@
                               </tbody>
                            </table>
                         </div>
-				</div> 
-						
+				</div>
+
                      </div>
                      <!-- end content-->
                   </div>
@@ -170,9 +170,11 @@
    </div>
 </div>
 <script type="text/javascript">
-
+$('#communcicationmenu').addClass('collapse in');
+     $('#communication').addClass('active');
+     $('#communication2').addClass('active');
    var $table = $('#bootstrap-table');
- 
+
          $().ready(function(){
             $table.bootstrapTable({
                 toolbar: ".toolbar",
@@ -210,7 +212,7 @@
             });
         });
 
-function myFunction() 
+function myFunction()
    {
        var x = document.getElementById('teachers1');
 
@@ -222,9 +224,9 @@ function myFunction()
        }
        $("#parents1").hide();
 	   $("#Students1").hide();
-   }		
-   
-   function myFunction1() 
+   }
+
+   function myFunction1()
    {
        var x = document.getElementById('parents1');
 
@@ -236,9 +238,9 @@ function myFunction()
        }
        $("#teachers1").hide();
 	   $("#Students1").hide();
-	 }	
-	 
-	 function myFunction2() 
+	 }
+
+	 function myFunction2()
      {
        var x = document.getElementById('Students1');
 
@@ -250,5 +252,5 @@ function myFunction()
        }
        $("#teachers1").hide();
 	   $("#parents1").hide();
-	 }	
+	 }
 </script>

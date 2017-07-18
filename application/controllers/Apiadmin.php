@@ -379,7 +379,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_teacher()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				// $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -396,7 +396,8 @@ class Apiadmin extends CI_Controller {
 					echo json_encode($res);
 					return;
 				}
-				$teacher_id=$this->input->post('teacher_id');
+
+				echo $teacher_id=$this->input->post('teacher_id');
 				$data['result']=$this->apiadminmodel->get_teacher($teacher_id);
 				$response = $data['result'];
 				echo json_encode($response);
@@ -426,7 +427,8 @@ class Apiadmin extends CI_Controller {
 				$teacher_id=$this->input->post('teacher_id');
 				$data['result']=$this->apiadminmodel->get_teacher_class_details($teacher_id);
 				$response = $data['result'];
-				echo json_encode($response);
+				print_r($response);
+				//echo json_encode($response);
 			}
 
 
