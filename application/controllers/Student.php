@@ -225,9 +225,10 @@ class Student extends CI_Controller
          $user_id=$this->session->userdata('user_id');
          $user_type=$this->session->userdata('user_type');
         if($user_type==3){
-        $datas['res']=$this->teachereventmodel->get_teacher_in_event($event_id);
-         //echo "<pre>";
-       //  print_r( $datas['res']);exit;
+
+       $datas['result']=$this->teachereventmodel->get_event_details($event_id);
+       $datas['res']=$this->teachereventmodel->get_teacher_in_event($event_id);
+
         $this->load->view('adminstudent/student_header');
         $this->load->view('adminstudent/event/event_list',$datas);
         $this->load->view('adminstudent/student_footer');

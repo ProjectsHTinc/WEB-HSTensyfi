@@ -8,20 +8,21 @@
                             <div class="content">
                                 <div class="row">
                               <?php
+                                foreach($res as $rows){
 
-                                if(empty($class_id)){   ?>
-                                <div class="col-md-2">  <p>No Records Found</p></div>
-                                  <?php  }  else{   ?>
-                                  <?php   $cnt= count($class_id);
-                                   for($i=0;$i<$cnt;$i++){
-                                   ?>
-                               <div class="col-md-2">
-                                     <a href="<?php echo  base_url(); ?>teachertimetable/view/<?php  echo $class_id[$i]; ?>" class="btn btn-wd"><?php echo $class_name[$i]."-".$sec_name[$i]; ?></a></div>
 
-                                    
+                                ?>
+                                <div class="col-md-2">
+                                  <a href="<?php echo  base_url(); ?>teachertimetable/view/<?php echo $rows->class_master_id; ?>" class="btn btn-wd"><?php echo $rows->class_name.'-'.$rows->sec_name; ?></a>
+                                 </div>
 
-                              <?php  } }  ?>
-                              </div>
+                               <!-- <div class="col-md-2">
+                                 <!-- <a href="<?php echo  base_url(); ?>teachertimetable/view/<?php  echo $class_id[$i]; ?>" class="btn btn-wd"><?php echo $class_name[$i]."-".$sec_name[$i]; ?></a></div> -->
+
+
+
+                              <?php } ?>
+                              <!-- </div>  -->
                             </div>
                         </div> <!-- end card -->
 

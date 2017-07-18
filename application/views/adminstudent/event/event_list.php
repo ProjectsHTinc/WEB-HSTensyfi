@@ -6,20 +6,21 @@
          </div>
       </div>
       <div class="card">
-         <?php  $sat=$res['status'];  if($sat=="success"){ foreach($res['event_li'] as $rows) {} ?>
-         <div class="typo-line1">
-            <blockquote>
-               <h5><?php echo $rows->event_name; ?></h5>
-               <p>
-                  <?php echo $rows->event_details; ?>   
-               </p>
-               <small>
-               <?php echo $new_date = date('d-m-Y', strtotime($rows->event_date)); ?>
-               </small>
-            </blockquote>
-         </div>
-         <?php }else{
-            } ?>
+        <?php $sat=$result['status'];  if($sat=="success"){ foreach($result['eventview'] as $rows1) {} ?>
+        <div class="typo-line1">
+
+                                          <blockquote>
+                                            <h5><?php echo $rows1->event_name; ?></h5>
+                                           <p>
+                                      <?php echo $rows1->event_details; ?>   </p>
+                                           <small>
+                                          <?php echo $new_date = date('d-m-Y', strtotime($rows1->event_date)); ?>
+                                           </small>
+                                          </blockquote>
+                                      </div>
+                                      <?php }else{
+
+                                      } ?>
       </div>
       <div class="">
          <!-- <h5>List of Event You have Been Allocated as Co-Ordinator</h5> -->
@@ -221,4 +222,3 @@
    }
    }
 </style>
-

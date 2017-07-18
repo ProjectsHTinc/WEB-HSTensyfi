@@ -1,4 +1,4 @@
-'Active'<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Apiadminmodel extends CI_Model {
 
@@ -64,7 +64,7 @@ class Apiadminmodel extends CI_Model {
   //#################### GET ALL SECTIONS ####################//
 
     function get_all_sections($class_id){
-      $sql="SELECT es.sec_name,es.sec_id FROM edu_classmaster AS ecm LEFT JOIN edu_sections AS es ON ecm.section=es.sec_id WHERE ecm.class='$class_id'";
+     $sql="SELECT es.sec_name,es.sec_id FROM edu_classmaster AS ecm LEFT JOIN edu_sections AS es ON ecm.section=es.sec_id WHERE ecm.class='$class_id'";
       $res=$this->db->query($sql);
       if($res->num_rows()==0){
           $data=array("status"=>"error","msg"=>"nodata");
@@ -106,14 +106,93 @@ class Apiadminmodel extends CI_Model {
           function get_student_details($student_id){
             $sql="SELECT er.admission_id,ea.name,ea.sex,DATE_FORMAT(dob,'%d-%m-%Y') AS dob,ea.nationality,ea.religion,ea.community_class,ea.community,ea.language,ea.student_pic,ea.mobile,ea.email,ea.parents_status FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
             $res_stu=$this->db->query($sql);
+           /*
             $par_de_sql="SELECT er.admission_id,ep.* FROM edu_enrollment AS er LEFT JOIN edu_parents AS ep ON er.admission_id=ep.admission_id WHERE er.enroll_id='$student_id'";
             $res_pat=$this->db->query($par_de_sql);
+
                 if($res_pat->num_rows()==0){
                     $res_parents="NO Parents Details";
                 }else{
                       $res_parents=$res_pat->result();
                 }
+        */
+                        $student_query = "SELECT * from edu_admission WHERE admission_id='$student_id' AND status = 'Active'";
+						$student_res = $this->db->query($student_query);
+						$student_profile= $student_res->result();
+
+							foreach($student_profile as $rows){
+								$admit_id = $rows->admission_id;
+								$parent_id = $rows->parnt_guardn_id;
+							}
+
+                        $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+						$father_res = $this->db->query($father_query);
+						$father_profile = $father_res->result();
+
+						foreach($father_profile as $rows){
+								$admisson_id = $rows->admission_id;
+						}
+
+						$fatherProfile  = array(
+							"id" => $father_profile[0]->parent_id,
+							"name" => $father_profile[0]->father_name,
+							"occupation" => $father_profile[0]->occupation,
+							"income" => $father_profile[0]->income,
+							"home_address" => $father_profile[0]->address,
+							"email" => $father_profile[0]->email,
+							"mobile" => $father_profile[0]->mobile,
+							"home_phone" => $father_profile[0]->home_phone,
+							"office_phone" => $father_profile[0]->office_phone,
+							"relationship" => "",
+							"user_pic" => $father_profile[0]->father_pic
+						);
+
+						$mother_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+						$mother_res = $this->db->query($mother_query);
+						$mother_profile = $mother_res->result();
+
+						foreach($mother_profile as $rows){
+								$admisson_id = $rows->admission_id;
+						}
+
+						$motherProfile  = array(
+							"id" => $mother_profile[0]->parent_id,
+							"name" => $mother_profile[0]->mother_name,
+							"occupation" => $mother_profile[0]->mother_occupation,
+							"income" => "",
+							"home_address" => "",
+							"email" => "",
+							"mobile" => "",
+							"home_phone" => "",
+							"office_phone" => "",
+							"relationship" => "",
+							"user_pic" => $father_profile[0]->mother_pic
+						);
+
+						$guardian_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+						$guardian_res = $this->db->query($guardian_query);
+						$guardian_profile = $guardian_res->result();
+
+						foreach($guardian_profile as $rows){
+								$admisson_id = $rows->admission_id;
+						}
+
+						$guardianProfile  = array(
+							"id" => $guardian_profile[0]->parent_id,
+							"name" => $guardian_profile[0]->guardn_name,
+							"occupation" => $guardian_profile[0]->occupation,
+							"income" => "",
+							"home_address" => "",
+							"email" => "",
+							"mobile" => "",
+							"home_phone" => "",
+							"office_phone" => "",
+							"relationship" => "",
+							"user_pic" => $guardian_profile[0]->guardn_pic
+						);
+			$parentProfile = array("fatherProfile" =>$fatherProfile,"motherProfile" =>$motherProfile,"guardianProfile" =>$guardianProfile);
             $year_id=$this->getYear();
+
             $fees_sql="SELECT efm.term_id,et.term_name,etfs.status,etfs.paid_by FROM edu_term_fees_status AS etfs LEFT JOIN edu_fees_master AS efm ON etfs.fees_id=efm.id LEFT JOIN edu_terms AS et ON et.term_id=efm.term_id WHERE etfs.student_id='$student_id' AND etfs.year_id='$year_id'";
             $stu_fees_stat=$this->db->query($fees_sql);
                 if($stu_fees_stat->num_rows()==0){
@@ -121,12 +200,13 @@ class Apiadminmodel extends CI_Model {
                 }else{
                       $stude_fees=$stu_fees_stat->result();
                 }
+
             if($res_stu->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result=$res_stu->result();
-              $data=array("status"=>"success","msg"=>"success","studentData"=>$result,"parents_details"=>$res_parents,"studentFees"=>$stude_fees);
+              $data=array("status"=>"success","msg"=>"success","studentData"=>$result,"parents_details"=>$parentProfile,"studentFees"=>$stude_fees);
               return $data;
             }
           }
@@ -180,7 +260,7 @@ class Apiadminmodel extends CI_Model {
             foreach($result as $rows){   }
             $classid=$rows->class_id;
             $year_id=$this->getYear();
-            $get_all_hw="SELECT eh.hw_type,eh.hw_id,eh.subject_id,eh.title,es.subject_name,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.class_id='$classid' AND eh.year_id='$year_id' AND eh.status='Active' AND hw_type='CT' ORDER BY eh.test_date DESC";
+            $get_all_hw="SELECT eh.hw_type,eh.hw_id,eh.subject_id,eh.title,es.subject_name,eh.test_date FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.class_id='$classid' AND eh.year_id='$year_id' AND eh.status='Active' AND hw_type='HT' ORDER BY eh.test_date DESC";
             $result_hw=$this->db->query($get_all_hw);
             if($result_hw->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");
@@ -196,7 +276,7 @@ class Apiadminmodel extends CI_Model {
           //#################### GET STUDENT &  CLASSTEST DETAILS ####################//
 
             function get_classtest_details($hw_id){
-              $get_all_hw="SELECT eh.title,eh.hw_type,eh.subject_id,es.subject_name,eh.hw_details,eh.test_date,eh.mark_status FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.hw_id='$hw_id'";
+              echo $get_all_hw="SELECT eh.title,eh.hw_type,eh.subject_id,es.subject_name,eh.hw_details,eh.test_date,eh.mark_status FROM edu_homework AS eh LEFT JOIN edu_subject AS es ON es.subject_id=eh.subject_id WHERE eh.hw_id='$hw_id'";
               $result_hw=$this->db->query($get_all_hw);
               if($result_hw->num_rows()==0){
                   $data=array("status"=>"error","msg"=>"nodata");
@@ -236,7 +316,7 @@ class Apiadminmodel extends CI_Model {
               $result=$res->result();
               foreach($result as $rows){   }
               $classid=$rows->class_id;
-              $exam_sql="SELECT eed.subject_id,es.subject_name,DATE_FORMAT(eed.exam_date,'%d-%m-%Y')AS exam_date,eed.times FROM edu_exam_details AS eed LEFT JOIN edu_subject AS es ON es.subject_id=eed.subject_id WHERE eed.classmaster_id='$classid' AND eed.exam_id='$exam_id' AND eed.status='Active' ORDER BY exam_date ASC";
+               $exam_sql="SELECT eed.subject_id,es.subject_name,DATE_FORMAT(eed.exam_date,'%d-%m-%Y')AS exam_date,eed.times FROM edu_exam_details AS eed LEFT JOIN edu_subject AS es ON es.subject_id=eed.subject_id WHERE eed.classmaster_id='$classid' AND eed.exam_id='$exam_id' AND eed.status='Active' ORDER BY exam_date ASC";
               $ex_result=$this->db->query($exam_sql);
               if($ex_result->num_rows()==0){
                   $data=array("status"=>"error","msg"=>"nodata");

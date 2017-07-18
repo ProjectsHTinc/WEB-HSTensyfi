@@ -122,15 +122,17 @@ $k++;
                                     </div>
                                     <div class="form-group">
                                         <label>Subject</label>
-                                          <?php  $sat=$subres['status']; if($sat=="success"){ $subres['status']; $sub_name=$subres['subject_name'];  $sub_id=$subres['subject_id'];  $len=count($sub_name);  ?>
+
                                         <select   name="subject_id" class="selectpicker" data-title="Select Subject" data-style="btn-block"  data-menu-style="dropdown-blue">
-                                          <?php   for($i=0;$i<$len;$i++) { ?>
+                                        <?php if(empty($res)){?>    <option value="">No Data</option> <?php }else{
+                                          foreach($res as $rowsubject){
+                                        }?>
 
-                                            <option value="<?php  echo $sub_id[$i]; ?>"><?php   echo $sub_name[$i]; ?></option>
+                                            <option value="<?php echo $rowsubject->subject_id; ?>"><?php   echo $rowsubject->subject_name; ?></option>
+                                            <?php } ?>
 
-                                        <?php  } } else{  ?>
-                                            <option value="">No Data</option>
-                                        <?php  }?>
+
+
                                  </select>
                                     </div>
                                     <div class="form-group">

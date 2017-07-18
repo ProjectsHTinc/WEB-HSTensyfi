@@ -86,6 +86,7 @@
                               </thead>
                               <?php
                                  $period = 8;
+                                  $arr1=array('Mon','Tues','Wednes','Thurs','Fri','Sat');
                                  $arr2=array('1','2','3','4','5','6');
                                  ?>
                               <tr>
@@ -107,7 +108,7 @@
                                              <?php foreach ($subres as $rows) {  ?>
                                              <option value="<?php echo $rows->subject_id; ?>"><?php echo $rows->subject_name; ?></option>
                                        <?php      } ?>
-                                       
+
                                        </select> -->
                                     <select   name="subject_id[]" class="subject_id" id="subject_id"   required>
                                        <option value="">No subject</option>
@@ -152,7 +153,7 @@
    //    var value = sel.value;
    //    alert(value);
    // }
-   
+
    function getSubject(){
     var class_id=$('#class_id').val();
 	//alert(class_id);
@@ -181,7 +182,7 @@
        }
       });
    }
-   
+
    function getTeacher(){
      var class_id=$('#class_id').val();
 	 //alert(class_id);
@@ -202,45 +203,44 @@
            var len=res.length;
              $('<option>').val(" ").text("Select Teacher").appendTo('.teacher_id');
            for (i = 0; i < len; i++) {
-   
+
            $('<option>').val(res[i].teacher_id).text(res[i].name).appendTo('.teacher_id');
            }
-   
+
          }else{
              $("#teacher_id").empty();
          }
-   
-   
+
+
         }
        });
    }
-   
+
    $(document).ready(function () {
    $('#timetablemenu').addClass('collapse in');
    $('#time').addClass('active');
    $('#time1').addClass('active');
     $('#timetableform').validate({ // initialize the plugin
         rules: {
-   
+
             period_id:{required:true },
             class_id:{required:true },
             year_id:{required:true },
-   
+
             "subject_id[]":{required:true },
             "teacher_id[]":{required:true }
         },
         messages: {
-   
+
               period_id: "Select Period",
               class_id: "Select Class",
               year_id: "Select Year"
              //  term_id: "Select Term"
              //  subject_id: "Select Subject",
              //   teacher_id: "Select Teacher"
-   
+
             }
     });
    });
-   
-</script>
 
+</script>

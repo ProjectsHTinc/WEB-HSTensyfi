@@ -42,8 +42,8 @@ class Teachertimetable extends CI_Controller {
   	 		$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 			 if($user_type==2){
-			 $datas=$this->teacherattendencemodel->get_teacher_id($user_id);
-			 //print_r($datas);
+			 $datas['res']=$this->teacherattendencemodel->get_teacher_id($user_id);
+			// print_r($datas);
 	 		 $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/timetable/add',$datas);
 	 		 $this->load->view('adminteacher/teacher_footer');
@@ -59,6 +59,7 @@ class Teachertimetable extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$data['subres'] = $this->timetablemodel->get_subject_class($class_sec_id);
+			
 			$datas['restime']=$this->timetablemodel->view_time($class_sec_id);
 		 if($user_type==2){
 			 if($datas['restime']['st']=="no data Found"){

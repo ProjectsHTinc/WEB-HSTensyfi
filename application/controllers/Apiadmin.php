@@ -54,7 +54,7 @@ class Apiadmin extends CI_Controller {
 			public function get_all_classes()
 			{
 
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -82,7 +82,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_all_sections()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -99,7 +99,7 @@ class Apiadmin extends CI_Controller {
 					echo json_encode($res);
 					return;
 				}
-				  $class_id=$this->input->post('class_id');
+				  $class_id=$this->input->post('ClassId');
 
 
 				$data['result']=$this->apiadminmodel->get_all_sections($class_id);
@@ -111,7 +111,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_all_students_in_classes()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -128,8 +128,8 @@ class Apiadmin extends CI_Controller {
 					echo json_encode($res);
 					return;
 				}
-				  $class_id=$this->input->post('class_id');
-					$section_id=$this->input->post('section_id');
+				  $class_id=$this->input->post('ClassId');
+					$section_id=$this->input->post('SectionId');
 
 
 				$data['result']=$this->apiadminmodel->get_all_students_in_classes($class_id,$section_id);
@@ -143,7 +143,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_student_details()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -350,7 +350,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_all_teachers()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
