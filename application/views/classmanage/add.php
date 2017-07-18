@@ -238,7 +238,10 @@ $('#subject_handling_form').validate({ // initialize the plugin
          text: "Message!",
          type: "success"
      }, function() {
+        $('#subject_id').empty();
+        $("#subject_handling_form")[0].reset();
            $('#myModal').modal('hide');
+
      });
              }else{
                sweetAlert("Oops...",response, "error");

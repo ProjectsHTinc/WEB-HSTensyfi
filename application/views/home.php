@@ -132,7 +132,7 @@
 					 </div>
 					 <div class="col-md-3">
                      <div class="card" style="box-shadow:none;">
-					 <div class="img4">
+					 <div class="img1">
 					 <ul style="padding-left:40px;">
 					  <li style="padding-top:45px;list-style-type:none;">
 					   <a href="<?php echo base_url(); ?>event/create" class="design">Events</a>
