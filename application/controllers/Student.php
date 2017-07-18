@@ -81,7 +81,7 @@ class Student extends CI_Controller
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$datas['result']=$this->studentmodel->exam_marks($user_id,$exam_id);
+			$datas['result']=$this->studentmodel->exam_marks($user_id,$exam_id,$user_type);
 			//echo '<pre>';print_r($datas['result']);exit;
 			if($user_type==3)
 				 {
@@ -116,8 +116,8 @@ class Student extends CI_Controller
 			$user_id=$this->session->userdata('user_id');
 			//echo $user_id;
 			$user_type=$this->session->userdata('user_type');
-			$datas['calender']=$this->studentmodel->exam_calender_details($user_id,$exams_id);
-			//echo '<pre>';print_r($datas['calender']);exit;
+			$datas['calender']=$this->studentmodel->exam_calender_details($user_id,$exams_id,$user_type);
+			echo '<pre>';print_r($datas['calender']);exit;
 			if($user_type==3)
 				 {
 					 $this->load->view('adminstudent/student_header');

@@ -100,12 +100,12 @@ Class Studentmodel extends CI_Model
              return $res1;
 		}
 
-		function exam_marks($user_id,$exam_id)
+		function exam_marks($user_id,$exam_id,$user_type)
 		{
-			$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
+			$query="SELECT student_id,user_type,user_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
-			$student_id=$row[0]->student_id;
+			$student_id=$row[0]->user_master_id;
 			//echo $student_id;
 
 			$sql="SELECT * FROM edu_enrollment WHERE admission_id='$student_id'";
@@ -123,13 +123,13 @@ Class Studentmodel extends CI_Model
 		}
 
 
-		function exam_calender_details($user_id,$exams_id)
+		function exam_calender_details($user_id,$exams_id,$user_type)
 		{
-			$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
+			$query="SELECT student_id,user_type,user_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
-			$student_id=$row[0]->student_id;
-			//echo $student_id;
+			$student_id=$row[0]->user_master_id;
+			//echo $student_id;exit;
 
 			$sql="SELECT * FROM edu_enrollment WHERE admission_id='$student_id'";
 			$resultset=$this->db->query($sql);
