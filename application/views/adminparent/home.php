@@ -333,7 +333,7 @@ font-weight: bold;}
    textColor: 'white'
    },
    {
-   url: '<?php echo base_url() ?>leavemanage/get_all_special_leave',
+   url: '<?php echo base_url() ?>adminparent/get_all_special_leave',
    color: 'pink',
    textColor: 'white'
    }

@@ -596,6 +596,14 @@ class Adminparent extends CI_Controller {
 						 redirect('/');
 				}
 		}
+		
+		public function get_all_special_leave(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			$datas['res']=$this->adminparentmodel->get_special_leave_all($user_id,$user_type);
+			echo json_encode($datas['res']);
+		}
 
 
 

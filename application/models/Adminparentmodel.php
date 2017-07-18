@@ -13,7 +13,7 @@ Class Adminparentmodel extends CI_Model
 		 {
 
 
-			$query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0 THEN 'MORNING' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id'";
+			$query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0 THEN 'FORENOON' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id'";
 			$resultset1=$this->db->query($query);
 			return $resultset1->result();
 		 }
@@ -49,8 +49,21 @@ Class Adminparentmodel extends CI_Model
 			$row4=$result2->result();
 			return $row4;
 
-
 		}
+		
+		 function get_special_leave_all($user_id,$user_type)
+		 {
+			//$query="SELECT leave_date AS start,leaves_name as title,leave_type AS description FROM edu_leavemaster AS lm INNER JOIN edu_leaves AS c ON lm.leave_id=c.leave_mas_id INNER JOIN edu_enrollment AS en ON en.class_id=lm.leave_classes INNER JOIN edu_parents AS p ON p.admission_id=en.admission_id WHERE lm.leave_type='Special Holiday' AND lm.status='Active'";
+			 $query="SELECT parent_id,user_type,user_master_id,user_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+				$resultset=$this->db->query($query);
+				$row=$resultset->result();
+				foreach($row as $rows){}
+				$parent_id=$rows->user_master_id;
+		
+			 $query="SELECT el.leave_date AS start,el.leaves_name as title,lm.leave_type AS description,lm.status,lm.leave_type,lm.leave_classes,el.leave_mas_id,en.admission_id,en.class_id,p.admission_id,p.	parent_id FROM edu_leavemaster AS lm,edu_leaves AS el,edu_enrollment AS en,edu_parents AS p WHERE lm.leave_id=el.leave_mas_id AND lm.leave_type='Special Holiday' AND lm.leave_classes=en.class_id AND p.parent_id='$parent_id' AND FIND_IN_SET(en.admission_id,p.admission_id) GROUP By p.parent_id";
+			$res=$this->db->query($query);
+			return $res->result();
+         }
 
 		function get_stu_id($enroll_id)
 		{
