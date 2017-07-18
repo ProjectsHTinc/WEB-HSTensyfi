@@ -27,7 +27,6 @@
                               <th>Leave Type</th>
                               <th>From Leave Date</th>
 							  <th>To Leave Date</th>
-                              <th>Leave Description</th>
                               <th>Status</th>
                               <th>Action</th>
                            </thead>
@@ -51,7 +50,6 @@
                 									 </td>
 													 <td><?php $date=date_create($rows->to_leave_date);
                                      echo date_format($date,"d-m-Y");?> </td>
-                                 <td><?php echo $rows->leave_description; ?></td>
 								 
                                  <td><?php if($status=='Pending'){ ?>
                 								 <button class="btn btn-warning btn-fill btn-wd">Pending </button>
