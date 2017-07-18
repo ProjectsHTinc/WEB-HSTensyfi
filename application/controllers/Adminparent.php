@@ -457,7 +457,7 @@ class Adminparent extends CI_Controller {
 		    $datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$datas['result']=$this->adminparentmodel->exam_marks($stu_id,$exam_id,$cls_id);
+			$datas['result']=$this->adminparentmodel->exam_marks($exam_id,$stu_id,$cls_id);
 			//echo '<pre>';print_r($datas['result']);exit;
 			if($user_type==4)
 				 {
