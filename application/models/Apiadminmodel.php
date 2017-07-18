@@ -531,7 +531,7 @@ class Apiadminmodel extends CI_Model {
                   $stu_enroll_res= $enroll_res->result();
 
 
-                $response = array("status" => "success", "msg" => "studentdetailsfound","studentsdetails"=>$stu_enroll_res);
+                $response = array("status" => "success", "msg" => "data","studentsdetails"=>$stu_enroll_res);
                     return $response;
 
               }
@@ -545,9 +545,9 @@ class Apiadminmodel extends CI_Model {
                 $res=$this->db->query($sql);
                 $result=$res->result();
                 foreach($result as $rows){   }
-                $classid=$rows->class_sec_id;
+                $class_master_id=$rows->class_sec_id;
                 $year_id=$this->getYear();
-                $query="SELECT et.name,et.subject,es.subject_name FROM edu_teachers AS et LEFT JOIN edu_subject AS es ON et.subject=es.subject_id WHERE FIND_IN_SET('$classid',et.class_name) AND et.status='Active'";
+                $query="SELECT eths.teacher_id,et.name,et.sex,c.class_name,s.sec_name,esu.subject_name,et.class_teacher,et.subject FROM edu_teacher_handling_subject AS eths  LEFT JOIN edu_teachers AS et ON eths.teacher_id=et.teacher_id LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id  LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_subject AS esu ON et.subject=esu.subject_id WHERE eths.class_master_id='$class_master_id' AND eths.status='Active' GROUP BY eths.teacher_id";
                 $result_query=$this->db->query($query);
                 if($result_query->num_rows()==0){
                     $data=array("status"=>"error","msg"=>"nodata");
