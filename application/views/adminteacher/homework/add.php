@@ -142,10 +142,11 @@
                                           <label class="col-sm-2 control-label">Type of Test</label>
                                           <div class="col-sm-10">
                                              <label class="radio">
-                                             <input type="radio" data-toggle="radio" name="test_type" value="HT" checked onclick="myFunction1()">Class Test
+                                             <input type="radio" data-toggle="radio" name="test_type" value="HT" checked onclick="myFunction1()"> 
+											 <a  style="color:#5a5757;" href="" onclick="myFunction1()">Class Test</a>
                                              </label>
                                              <label class="radio">
-                                             <input type="radio" data-toggle="radio" name="test_type" value="HW" onclick="myFunction()">Home Work
+                                             <input type="radio" data-toggle="radio" name="test_type" value="HW" onclick="myFunction()"><a href="" style="color:#5a5757;"  onclick="myFunction()">Home Work</a>
                                              </label>
                                              <input type="hidden" id="event_id" name="class_id" class="form-control" value="<?php ?>"/>
                                           </div>

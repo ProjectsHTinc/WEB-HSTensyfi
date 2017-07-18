@@ -95,10 +95,10 @@ Class Homeworkmodel extends CI_Model
 	   
 	    function create_test($year_id,$class_id,$user_id,$user_type,$test_type,$title,$subject_name,$formatted_date,$format_date,$details)
 	   {      
-		      $check_test_date="SELECT * FROM edu_homework WHERE class_id='$class_id' AND test_date='$formatted_date' AND subject_id='$subject_name'";
+		     /*  $check_test_date="SELECT * FROM edu_homework WHERE class_id='$class_id' AND test_date='$formatted_date' AND subject_id='$subject_name'";
 			  $result=$this->db->query($check_test_date);
 			  if($result->num_rows()==0)
-			  {
+			  { */
 			  $query="SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type' ";
 			  $resultset=$this->db->query($query);
 			  $row=$resultset->result();
@@ -109,10 +109,10 @@ Class Homeworkmodel extends CI_Model
 			  $resultset=$this->db->query($query);
 			  $data= array("status"=>"success");
 			  return $data;
-			  }else{
+			  /* }else{
 					$data= array("status"=>"Already Exist");
 					return $data;
-				  }
+				  } */
 				   
 	   }
 	   

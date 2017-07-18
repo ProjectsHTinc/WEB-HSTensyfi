@@ -21,6 +21,7 @@
 						    foreach($stu_id as $sid){}
 					        $stu_id=$sid->enroll_id;
 							$cls_id=$sid->class_id;
+							//echo $stu_id;
 					   foreach($exam as $row)
 					   {
 						  $ex_name=$row->exam_name;

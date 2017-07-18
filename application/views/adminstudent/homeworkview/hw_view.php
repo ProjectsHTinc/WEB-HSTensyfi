@@ -15,7 +15,7 @@
                               <th>Teacher</th>
                               <th>Class/Section</th>
                               <th>Subject</th>
-                              <th>Homework/ClassTest</th>
+                              <th>Homework / ClassTest</th>
                               <th>Title</th>
                               <th>DATE</th>
                               <th>Details</th>
