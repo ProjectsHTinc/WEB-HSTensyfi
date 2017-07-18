@@ -90,19 +90,7 @@
 				                     </div>
                                    
                                         <div class="form-group">
-                                             <label class="col-sm-2 control-label">Mother Pic</label>
-                                            <div class="col-sm-4">
-                                               
-												
-												<?php $mpic=$rows->mother_pic;
-											   if(empty($mpic)){?>
-												  <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle" style="width:110px;">
-											<?php }else{?>
-												<img src="<?php echo base_url(); ?>assets/parents/<?php echo $rows->mother_pic; ?>" class="img-circle" style="width:110px;">
-											<?php } ?>
-												 <img  id="output1" class="img-circle" style="width:110px;">
-												 <input type="hidden" placeholder="" name="old_mother_pic" class="form-control" value="<?php echo $rows->mother_pic; ?>">
-                                            </div>
+                                             
 											
                                           <label class="col-sm-2 control-label">Father Pic</label>
                                             <div class="col-sm-4">
@@ -117,6 +105,21 @@
 											<?php } ?>
 												 <img  id="output" class="img-circle" style="width:110px;">
 												<input type="hidden" placeholder="" name="old_father_pic" class="form-control" value="<?php echo $rows->father_pic; ?>">
+                                            </div>
+											
+											
+											<label class="col-sm-2 control-label">Mother Pic</label>
+                                            <div class="col-sm-4">
+                                               
+												
+												<?php $mpic=$rows->mother_pic;
+											   if(empty($mpic)){?>
+												  <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle" style="width:110px;">
+											<?php }else{?>
+												<img src="<?php echo base_url(); ?>assets/parents/<?php echo $rows->mother_pic; ?>" class="img-circle" style="width:110px;">
+											<?php } ?>
+												 <img  id="output1" class="img-circle" style="width:110px;">
+												 <input type="hidden" placeholder="" name="old_mother_pic" class="form-control" value="<?php echo $rows->mother_pic; ?>">
                                             </div>
 											
                                         </div>
