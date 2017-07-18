@@ -66,7 +66,12 @@ font-weight: 500;
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px;"><?php  echo $this->session->userdata('name'); ?></a>
+					<a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px;">
+					 <?php $sql="SELECT name,user_id,user_type FROM edu_users WHERE user_id='1' AND user_type='1'";
+                              $res=$this->db->query($sql);
+                              $rows=$res->result();
+                              foreach ($rows as $rows3){} $uname=$rows3->name;
+							  echo $uname; ?></a>
 				</div>
             <div class="collapse navbar-collapse">
                <ul class="nav navbar-nav navbar-right">
