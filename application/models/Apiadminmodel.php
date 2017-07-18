@@ -420,7 +420,7 @@ class Apiadminmodel extends CI_Model {
                 foreach($result as $rows){   }
                 $classid=$rows->class_sec_id;
                 $year_id=$this->getYear();
-                $stu_list="SELECT eer.name,eer.admisn_no,ea.sex,ea.admisn_year,ep.father_name,ep.mother_name,ep.guardn_name,ep.parent_id FROM edu_enrollment AS eer LEFT JOIN edu_admission AS ea ON ea.admisn_no=eer.admisn_no LEFT JOIN edu_parents AS ep ON eer.admission_id=ep.admission_id WHERE eer.class_id='$classid' AND eer.admit_year='$year_id' AND eer.status='Active'";
+                $stu_list="SELECT eer.enroll_id AS student_id,eer.name,eer.admisn_no,ea.sex,ea.admisn_year,ep.father_name,ep.mother_name,ep.guardn_name,ep.parent_id FROM edu_enrollment AS eer LEFT JOIN edu_admission AS ea ON ea.admisn_no=eer.admisn_no LEFT JOIN edu_parents AS ep ON eer.admission_id=ep.admission_id WHERE eer.class_id='$classid' AND eer.admit_year='$year_id' AND eer.status='Active'";
                 $res_stu=$this->db->query($stu_list);
                 if($res_stu->num_rows()==0){
                     $data=array("status"=>"error","msg"=>"nodata");
@@ -435,16 +435,105 @@ class Apiadminmodel extends CI_Model {
 
               //#################### GET   PARENT DETAILS  ####################//
               function get_parent_details($parent_id){
-                $sql="SELECT ep.* FROM edu_parents AS ep WHERE ep.parent_id='$parent_id'";
-                $res=$this->db->query($sql);
-                if($res->num_rows()==0){
-                    $data=array("status"=>"error","msg"=>"nodata");
-                    return $data;
-                }else{
-                  $result=$res->result();
-                  $data=array("status"=>"success","msg"=>"success","data"=>$result);
-                  return $data;
-                }
+                  $year_id=$this->getYear();
+                  $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+       						$father_res = $this->db->query($father_query);
+       						$father_profile = $father_res->result();
+
+       						foreach($father_profile as $rows){
+       								$admisson_id = $rows->admission_id;
+       						}
+
+       						$fatherProfile  = array(
+       							"id" => $father_profile[0]->parent_id,
+       							"name" => $father_profile[0]->father_name,
+       							"occupation" => $father_profile[0]->occupation,
+       							"income" => $father_profile[0]->income,
+       							"home_address" => $father_profile[0]->address,
+       							"email" => $father_profile[0]->email,
+       							"mobile" => $father_profile[0]->mobile,
+       							"home_phone" => $father_profile[0]->home_phone,
+       							"office_phone" => $father_profile[0]->office_phone,
+       							"relationship" => "",
+       							"user_pic" => $father_profile[0]->father_pic
+       						);
+
+       						$mother_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+       						$mother_res = $this->db->query($mother_query);
+       						$mother_profile = $mother_res->result();
+
+       						foreach($mother_profile as $rows){
+       								$admisson_id = $rows->admission_id;
+       						}
+
+       						$motherProfile  = array(
+       							"id" => $mother_profile[0]->parent_id,
+       							"name" => $mother_profile[0]->mother_name,
+       							"occupation" => $mother_profile[0]->mother_occupation,
+       							"income" => "",
+       							"home_address" => "",
+       							"email" => "",
+       							"mobile" => "",
+       							"home_phone" => "",
+       							"office_phone" => "",
+       							"relationship" => "",
+       							"user_pic" => $father_profile[0]->mother_pic
+       						);
+
+       						$guardian_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+       						$guardian_res = $this->db->query($guardian_query);
+       						$guardian_profile = $guardian_res->result();
+
+       						foreach($guardian_profile as $rows){
+       								$admisson_id = $rows->admission_id;
+       						}
+
+       						$guardianProfile  = array(
+       							"id" => $guardian_profile[0]->parent_id,
+       							"name" => $guardian_profile[0]->guardn_name,
+       							"occupation" => $guardian_profile[0]->occupation,
+       							"income" => "",
+       							"home_address" => "",
+       							"email" => "",
+       							"mobile" => "",
+       							"home_phone" => "",
+       							"office_phone" => "",
+       							"relationship" => "",
+       							"user_pic" => $guardian_profile[0]->guardn_pic
+       						);
+
+       						$enroll_query = "SELECT A.enroll_id AS registered_id,A.admission_id,A.admisn_no AS admission_no,A.class_id,A.name,C.class_name,D.sec_name from edu_enrollment A, edu_classmaster B, edu_class C, edu_sections D WHERE A.class_id = B.class_sec_id AND B.class = C.class_id AND B.section = D.sec_id AND A.admit_year ='$year_id' AND A.admission_id IN ($admisson_id)";
+       						$enroll_res = $this->db->query($enroll_query);
+       						$stu_enroll_res= $enroll_res->result();
+                               //$parentProfile = array_push($fatherProfile,$motherProfile,$guardianProfile);
+       				  		$parentProfile = array("fatherProfile" =>$fatherProfile,"motherProfile" =>$motherProfile,"guardianProfile" =>$guardianProfile);
+       				  		$response = array("status" => "success", "msg" => "parentsdetailsfound","parentProfile" =>$parentProfile,"studentsdetails"=>$stu_enroll_res);
+       						  return $response;
+
+              }
+
+
+
+
+              //#################### GET   PARENT SUDENT LIST  ####################//
+              function get_parent_student_list($parent_id){
+                  $year_id=$this->getYear();
+                  $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+                  $father_res = $this->db->query($father_query);
+                  $father_profile = $father_res->result();
+
+                  foreach($father_profile as $rows){
+                      $admisson_id = $rows->admission_id;
+                  }
+
+                  $enroll_query = "SELECT A.enroll_id,A.admission_id,A.admisn_no,A.class_id,A.name,C.class_name,D.sec_name,EA.sex,A.admit_year FROM edu_enrollment A, edu_classmaster B, edu_class C, edu_sections D ,edu_admission EA WHERE A.class_id = B.class_sec_id AND B.class = C.class_id AND B.section = D.sec_id AND EA.admission_id=A.admission_id AND A.admit_year ='$year_id' AND A.admission_id IN ($admisson_id)";
+                  $enroll_res = $this->db->query($enroll_query);
+                  $stu_enroll_res= $enroll_res->result();
+
+
+                $response = array("status" => "success", "msg" => "studentdetailsfound","studentsdetails"=>$stu_enroll_res);
+                    return $response;
+
               }
 
 

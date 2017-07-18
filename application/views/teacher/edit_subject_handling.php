@@ -47,7 +47,7 @@
         <div class="form-group">
            <label class="col-sm-2 control-label">Select Status</label>
            <div class="col-sm-6">
-              <select   name="status" id="status" class="form-control">
+              <select   name="status" id="status" class="form-control" >
                  <option value="Active">Active</option>
                  <option value="Deactive">Deactive</option>
               </select>
@@ -71,12 +71,14 @@
 $('#subject_handling_form').validate({ // initialize the plugin
   rules: {
       subject_id:{required:true },
-      class_master_id:{required:true },
+      class_master_id:{required:true }
+
 
   },
   messages: {
         subject_id: "Select Subject",
-        class_master_id:"Select Class"
+          class_master_id: "Select Class"
+
 
       },
     submitHandler: function(form) {
@@ -144,7 +146,7 @@ function getListClass(){
         var len=res.length;
 
         for (i = 0; i < len; i++) {
-        $('<option>').val(res[i].class_sec_id).text(res[i].class_name + res[i].sec_name).appendTo('#class_master_id');
+        $('<option>').val(res[i].class_master_id).text(res[i].class_name + res[i].sec_name).appendTo('#class_master_id');
         }
 
         }else{

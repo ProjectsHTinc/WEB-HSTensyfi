@@ -407,7 +407,7 @@ class Apiadmin extends CI_Controller {
 			// GET  TEACHER CLASS DETAIlS
 			public function get_teacher_class_details()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+			 $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -427,8 +427,8 @@ class Apiadmin extends CI_Controller {
 				$teacher_id=$this->input->post('teacher_id');
 				$data['result']=$this->apiadminmodel->get_teacher_class_details($teacher_id);
 				$response = $data['result'];
-				print_r($response);
-				//echo json_encode($response);
+
+		    echo json_encode($response);
 			}
 
 
@@ -436,7 +436,7 @@ class Apiadmin extends CI_Controller {
 			// GET  LIST OF PARENTS
 			public function get_list_of_parents()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -465,7 +465,7 @@ class Apiadmin extends CI_Controller {
 					// GET  PARENT DETAILS
 					public function get_parent_details()
 					{
-						//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+						$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 						if(!$this->checkMethod())
 						{
@@ -489,6 +489,33 @@ class Apiadmin extends CI_Controller {
 					}
 
 
+
+
+						// GET  PARENT DETAILS
+						public function get_parent_student_list()
+						{
+							//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+							if(!$this->checkMethod())
+							{
+								return FALSE;
+							}
+
+							if($_POST == FALSE)
+							{
+								$res = array();
+								$res["opn"] = "SOMETHING WENT WRONG ";
+								$res["scode"] = 204;
+								$res["message"] = "Input error";
+
+								echo json_encode($res);
+								return;
+							}
+							$parent_id=$this->input->post('parent_id');
+							$data['result']=$this->apiadminmodel->get_parent_student_list($parent_id);
+							$response = $data['result'];
+							echo json_encode($response);
+						}
 
 
 
