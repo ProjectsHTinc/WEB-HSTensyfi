@@ -23,12 +23,12 @@
 					   foreach($cls_name as $row)
 					   {
 						  $tname=$row->name;
-						  $cls_id=$row->class_teacher;
+						  $cmaster_id=$row->class_master_id;
 						  $class_name=$row->class_name;
 						  $sec_name=$row->sec_name;
 					   ?>
                         <div class="col-md-2">
-                           <a rel="tooltip" href="<?php echo base_url(); ?>teacheronduty/student_ondy_details/<?php echo $cls_id; ?>"  class="btn btn-wd"><?php echo $class_name; ?> <?php echo $sec_name; ?> </a>
+                           <a rel="tooltip" href="<?php echo base_url(); ?>teacheronduty/student_ondy_details/<?php echo $cmaster_id; ?>"  class="btn btn-wd"><?php echo $class_name; ?> <?php echo $sec_name; ?> </a>
                         </div>
 						<?php } }?>
 

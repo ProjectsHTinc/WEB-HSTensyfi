@@ -159,13 +159,13 @@ class Teacheronduty extends CI_Controller
 			redirect('/');
 		 }
 	 }
-	 public function student_ondy_details($cls_id)
-	 { //echo $cls_id;exit;
+	 public function student_ondy_details($cmaster_id)
+	 { //echo $cmaster_id;exit;
 		$datas=$this->session->userdata();
   	    $user_id=$this->session->userdata('user_id');
 	    $user_type=$this->session->userdata('user_type');
 		
-		$datas['stuonduty']=$this->teacherondutymodel->view_student_ondy($cls_id,$user_id,$user_type);
+		$datas['stuonduty']=$this->teacherondutymodel->view_student_ondy($cmaster_id,$user_id,$user_type);
 		//echo'<pre>';print_r($datas['stuonduty']);exit;
         if($user_type==2)
 		 {
