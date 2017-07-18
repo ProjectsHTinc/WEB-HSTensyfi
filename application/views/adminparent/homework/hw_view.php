@@ -22,9 +22,9 @@
                               <th>Teacher</th>
                               <th>Class/Section</th>
                               <th>Subject</th>
-                              <th>Homework Type</th>
+                              <th>HomeWork/ClassTest</th>
                               <th>Title</th>
-                              <th>Test DATE</th>
+                              <th>DATE</th>
                               <th>Details</th>
                               <th>View Marks </th>
                            </thead>
