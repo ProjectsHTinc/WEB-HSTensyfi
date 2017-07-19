@@ -89,7 +89,7 @@ body{
                                     </div>
                                     <div class="form-group">
                                         <label style="float:right;"><a  href="<?php echo base_url(); ?>home/forgotpassword">Forgot Password</a></label>
-										</div>
+																			</div>
 
 
                                 </div>

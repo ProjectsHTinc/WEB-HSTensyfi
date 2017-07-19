@@ -34,7 +34,7 @@ body{
 
 
 <div class="wrapper wrapper-full-page">
-    <div class="full-page login-page">
+    <div class="login-page">
 
     <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="content">
@@ -86,10 +86,15 @@ body{
                                         <label>Username</label>
                                         <input type="text" placeholder="Enter Username" name="username" class="form-control">
                                     </div>
+
                                   </div>
+																	<div class="form-group">
+																			<label style="float:right;"><a  href="<?php echo base_url(); ?>">Back To Login</a></label>
+																		</div>
                                 <div class="footer text-center">
                                     <button type="submit" class="btn btn-fill btn-warning btn-wd">Reset</button>
                                 </div>
+
 
                             </div>
 
