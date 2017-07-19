@@ -52,7 +52,7 @@
                                  <td style="width:20%;">
                                     <input type="text" required name="marks[]" value class="form-control"/>
                                  </td>
-                                 <td> <textarea required name="remarks[]" class="form-control" rows="1" cols="03"></textarea></td>
+                                 <td> <textarea required name="remarks[]" MaxLength="150" placeholder="MaxLength 150" class="form-control" rows="1" cols="03"></textarea></td>
                                  <td></td>
                               </tr>
                               <?php $i++;  } ?>

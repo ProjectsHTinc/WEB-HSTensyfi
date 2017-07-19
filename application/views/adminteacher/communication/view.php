@@ -50,9 +50,9 @@
 </div>
 <script type="text/javascript">
  var $table = $('#bootstrap-table');
-   $('#communcicationmenu').addClass('collapse in');
-   $('#communication').addClass('active');
-   $('#communication2').addClass('active');
+   $('#commmenu').addClass('collapse in');
+     $('#comm').addClass('active');
+     $('#comm2').addClass('active');
        $().ready(function(){
          jQuery('#teachermenu').addClass('collapse in');
            $table.bootstrapTable({

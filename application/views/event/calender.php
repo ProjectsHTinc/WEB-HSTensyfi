@@ -42,7 +42,7 @@
                                     </div>
 								<div class="form-group">
                                         <label>Notes</label>
-                                        <textarea id="comments" name="to_do_notes" name="comments" class="form-control"></textarea>
+                                        <textarea MaxLength="350" placeholder="MaxLength 350" id="comments" name="to_do_notes" name="comments" class="form-control"></textarea>
                                     </div>
 
 									 <div class="form-group">

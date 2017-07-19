@@ -98,7 +98,7 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Address</label>
                         <div class="col-sm-4">
-                           <textarea name="address" class="form-control" rows="4" cols="80"><?php echo $rows->address; ?></textarea>
+                           <textarea name="address" MaxLength="150" class="form-control" rows="4" cols="80" placeholder="MaxLength 150"><?php echo $rows->address; ?></textarea>
                         </div>
                         <label class="col-sm-2 control-label">Subject</label>
                         <div class="col-sm-4">

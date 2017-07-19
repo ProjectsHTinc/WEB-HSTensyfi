@@ -31,7 +31,7 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label"> Description</label>
                               <div class="col-sm-4">
-                                <textarea name="cdescription" rows="4" cols="80" id="cdescription" class="form-control"><?php echo $res->circular_description;?> </textarea>
+                                <textarea name="cdescription" MaxLength="500" placeholder="MaxLength 500" rows="4" cols="80" id="cdescription" class="form-control"><?php echo $res->circular_description;?> </textarea>
                               </div>
                                <label class="col-sm-2 control-label">Status</label>
                               <div class="col-sm-4">

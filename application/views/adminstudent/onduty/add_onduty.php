@@ -32,7 +32,7 @@
                               </div>
 							  <label class="col-sm-2 control-label">Notes</label>
                               <div class="col-sm-4">
-                                 <textarea rows="4" cols="80" name="notes" class="form-control"></textarea>
+                                 <textarea rows="4" cols="80" MaxLength="250" placeholder="MaxLength 250" name="notes" class="form-control"></textarea>
                               </div>
                             
                            </div>

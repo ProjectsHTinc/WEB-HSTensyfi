@@ -57,7 +57,7 @@
 							  
                               <label class="col-sm-2 control-label">Leave Description</label>
                               <div class="col-sm-4">
-                                 <textarea name="leave_description" class="form-control"  rows="4" cols="80"></textarea>
+                                 <textarea name="leave_description" MaxLength="300" placeholder="MaxLength 300" class="form-control"  rows="4" cols="80"></textarea>
                               </div>
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4"><!-- onclick="return confirm('Are you sure you want to Save')" -->

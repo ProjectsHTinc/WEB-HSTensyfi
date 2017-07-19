@@ -25,6 +25,7 @@ class Onduty extends CI_Controller
 		    $user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$datas['result']=$this->ondutymodel->get_teacher_onduty_details();
+			//echo '<pre>';print_r($datas['result']);exit;
 		    if($user_type==1)
 			{
 			 $this->load->view('header');
@@ -83,6 +84,7 @@ class Onduty extends CI_Controller
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['result']=$this->ondutymodel->get_student_onduty_details();
+		//echo '<pre>';print_r($datas['result']);exit;
 		if($user_type==1)
 		{
 		 $this->load->view('header');
