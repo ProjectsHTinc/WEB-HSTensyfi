@@ -13,11 +13,11 @@
                            <thead>
                               <th>S.no</th>
                               <th>Teacher</th>
-                              <th>Class/Section</th>
                               <th>Subject</th>
                               <th>Homework / ClassTest</th>
                               <th>Title</th>
                               <th>DATE</th>
+							  <th>Submission DATE</th>
                               <th>Details</th>
                               <th>View Marks </th>
                            </thead>
@@ -42,7 +42,7 @@
                                        $tname=$row1->name; 
 									   echo $tname; ?>
 							  </td>
-                                 <td><?php echo $rows->class_name; ?> - <?php echo $rows->sec_name ;?></td>
+                               
                                  <td><?php $su=$rows->subject_id;
                                        $sub="SELECT * FROM edu_subject WHERE subject_id='$su'";
                                        $result=$this->db->query($sub);
@@ -58,6 +58,9 @@
                                  <td><?php $date=date_create($rows->test_date);
                                     echo date_format($date,"d-m-Y");
                                     ?></td>
+							    <td><?php  $duedate=date_create($rows->due_date);
+                                    echo date_format($duedate,"d-m-Y");
+									 ?></td>
                                  <td><?php echo $rows->hw_details; ?></td>
                                  <td>
                                     <?php if($sta==0 && $type=="HT")

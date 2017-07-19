@@ -10,14 +10,15 @@ Class Studentmodel extends CI_Model
   }
 
 //GET ALL
-		function get_stu_homework_details($user_id)
+		function get_stu_homework_details($user_id,$user_type)
 		{
-			$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
+			$query="SELECT student_id,user_type,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
 			//foreach($row as $rows){}
-			$student_id=$row[0]->student_id;
+			$student_id=$row[0]->user_master_id;
 			//echo $student_id;exit;
+			
 			$query1="SELECT admission_id,admisn_no,name,parnt_guardn_id FROM edu_admission WHERE admission_id='$student_id' AND status='Active'";
 			$result=$this->db->query($query1);
 			$row1=$result->result();

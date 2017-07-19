@@ -24,7 +24,7 @@ class Student extends CI_Controller
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			//echo $user_id;
-			$datas['result'] = $this->studentmodel->get_stu_homework_details($user_id);
+			$datas['result'] = $this->studentmodel->get_stu_homework_details($user_id,$user_type);
 			//print_r($datas['result']);exit;
 			 if($user_type==3)
 			  {
