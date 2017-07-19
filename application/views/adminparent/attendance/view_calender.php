@@ -44,7 +44,7 @@
 											<p> <?php if(empty($total)){
 
 											} else{
-												echo count($total);
+												echo count($total)/2;
 											}?> </p>
 										</div>
 										<div class="noote" style="    display: inline-flex;   ">
@@ -81,6 +81,19 @@ $('#attendence').addClass('collapse in');
 			// events:"<?php echo base_url() ?>event/getall_act_event",
 			events: 	<?php  echo json_encode($res); ?>,
 
+	 eventMouseover: function(calEvent, jsEvent) {
+	 var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background-color:#000;color:#fff;position:absolute;z-index:10001;padding:20px;">' + calEvent.description + '</div>';
+	 var $tooltip = $(tooltip).appendTo('body');
+
+	 $(this).mouseover(function(e) {
+		$(this).css('z-index', 10000);
+		$tooltip.fadeIn('500');
+		$tooltip.fadeTo('10', 1.9);
+	 }).mousemove(function(e) {
+		$tooltip.css('top', e.pageY + 10);
+		$tooltip.css('left', e.pageX + 20);
+	 });
+	 },
 eventMouseout: function(calEvent, jsEvent) {
     $(this).css('z-index', 8);
     $('.tooltipevent').remove();

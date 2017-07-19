@@ -14,7 +14,7 @@ class Adminparent extends CI_Controller {
 		  $this->load->model('adminparentmodel');
 		  $this->load->model('eventmodel');
 		  $this->load->model('leavemodel');
-		   
+
  }
 	/**
 	 * Index Page for this controller.
@@ -173,6 +173,7 @@ class Adminparent extends CI_Controller {
 			//echo $user_id='10';
 			if($user_type==4){
 					$datas['res']=$this->adminparentmodel->get_stude_attendance($enroll_id);
+					// $datas['odres']=$this->adminparentmodel->get_student_od_view($enroll_id);
 					//echo json_encode($datas['res']);
 
 					$this->load->view('adminparent/parent_header');
@@ -322,7 +323,7 @@ class Adminparent extends CI_Controller {
 			}
 	   }
 
-	   
+
 	    public function view_fees_status(){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
@@ -374,7 +375,7 @@ class Adminparent extends CI_Controller {
 				 redirect('/');
 			}
 	   }
-	   
+
 	   public function view_onduty_status(){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
@@ -391,8 +392,8 @@ class Adminparent extends CI_Controller {
 						 redirect('/');
 				}
 		}
-	   
-	   
+
+
 	   //----------Examination Result------------------
 
 	   public function exam_result()
@@ -468,11 +469,11 @@ class Adminparent extends CI_Controller {
 						redirect('/');
 				 }
 	    }
-		
-		
+
+
 		public function exam_name_calender()
 		{
-			
+
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
@@ -502,12 +503,12 @@ class Adminparent extends CI_Controller {
 			else{
 				 redirect('/');
 			}
-			
+
 		}
-		
+
 		public function exam_calender($enroll_id)
 		{
-			
+
 			 $datas=$this->session->userdata();
 			 $user_id=$this->session->userdata('user_id');
 			 $user_type=$this->session->userdata('user_type');
@@ -524,7 +525,7 @@ class Adminparent extends CI_Controller {
 		   else{
 				redirect('/');
 		 }
-		 
+
 		}
 		public function exam_calender_views($exam_id,$cls_id)
 		{
@@ -544,8 +545,8 @@ class Adminparent extends CI_Controller {
 						redirect('/');
 				 }
 		}
-		
-		
+
+
 	  //---------------Circular---------------------
 
        /*  public function circular()
@@ -596,7 +597,7 @@ class Adminparent extends CI_Controller {
 						 redirect('/');
 				}
 		}
-		
+
 		public function get_all_special_leave(){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');

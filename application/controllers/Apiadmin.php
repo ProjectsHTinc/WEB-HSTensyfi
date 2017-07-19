@@ -54,7 +54,7 @@ class Apiadmin extends CI_Controller {
 			public function get_all_classes()
 			{
 
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -99,7 +99,7 @@ class Apiadmin extends CI_Controller {
 					echo json_encode($res);
 					return;
 				}
-				  $class_id=$this->input->post('ClassId');
+				  $class_id=$this->input->post('class_id');
 
 
 				$data['result']=$this->apiadminmodel->get_all_sections($class_id);
@@ -128,8 +128,8 @@ class Apiadmin extends CI_Controller {
 					echo json_encode($res);
 					return;
 				}
-				  $class_id=$this->input->post('ClassId');
-					$section_id=$this->input->post('SectionId');
+				  $class_id=$this->input->post('class_id');
+					$section_id=$this->input->post('section_id');
 
 
 				$data['result']=$this->apiadminmodel->get_all_students_in_classes($class_id,$section_id);
@@ -801,8 +801,8 @@ class Apiadmin extends CI_Controller {
 							return;
 						}
 
-
-						$data['result']=$this->apiadminmodel->get_teachers_od_view();
+						$user_id=$this->input->post('user_id');
+						$data['result']=$this->apiadminmodel->get_teachers_od_view($user_id);
 						$response = $data['result'];
 						echo json_encode($response);
 					}
@@ -829,12 +829,67 @@ class Apiadmin extends CI_Controller {
 							return;
 						}
 
-
-						$data['result']=$this->apiadminmodel->get_students_od_view();
+						$user_id=$this->input->post('user_id');
+						$data['result']=$this->apiadminmodel->get_students_od_view($user_id);
 						$response = $data['result'];
 						echo json_encode($response);
 					}
 
+
+
+					// GET  TEACHERS LEAVE
+					public function get_teachers_leaves()
+					{
+						$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+						if(!$this->checkMethod())
+						{
+							return FALSE;
+						}
+
+						if($_POST == FALSE)
+						{
+							$res = array();
+							$res["opn"] = "SOMETHING WENT WRONG ";
+							$res["scode"] = 204;
+							$res["message"] = "Input error";
+
+							echo json_encode($res);
+							return;
+						}
+
+						$user_id=$this->input->post('user_id');
+						$data['result']=$this->apiadminmodel->get_teachers_leaves($user_id);
+						$response = $data['result'];
+						echo json_encode($response);
+					}
+
+					// GET  TEACHERS LEAVE
+					public function get_all_circular_view()
+					{
+						$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+						if(!$this->checkMethod())
+						{
+							return FALSE;
+						}
+
+						if($_POST == FALSE)
+						{
+							$res = array();
+							$res["opn"] = "SOMETHING WENT WRONG ";
+							$res["scode"] = 204;
+							$res["message"] = "Input error";
+
+							echo json_encode($res);
+							return;
+						}
+
+						$user_id=$this->input->post('user_id');
+						$data['result']=$this->apiadminmodel->get_all_circular_view($user_id);
+						$response = $data['result'];
+						echo json_encode($response);
+					}
 
 
 

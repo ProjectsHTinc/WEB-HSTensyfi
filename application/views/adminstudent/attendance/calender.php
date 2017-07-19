@@ -34,7 +34,7 @@
                         <h5>Total Working days</h5>
                         <p> <?php if(empty($total)){
                            } else{
-                           	echo count($total);
+                           	echo count($total)/2;
                            }?> </p>
                      </div>
                      <div class="noote" style="display: inline-flex;">
@@ -66,19 +66,19 @@
    		defaultDate: new Date(),
    		editable: false,
    		eventLimit: true, // allow "more" link when too many events
-   		// events:"<?php echo base_url() ?>event/getall_act_event",
+   	// 	events:"<?php echo base_url() ?>event/getall_act_event",
    		eventSources: [
     {
    	 url: '<?php echo base_url() ?>student/get_attendance_user',
    	 color: 'red'
-   
+
     }
-   
+
    ],
    eventMouseover: function(calEvent, jsEvent) {
    var tooltip = '<div class="tooltipevent" style="width:auto;height:auto;background-color:#000;color:#fff;position:absolute;z-index:10001;padding:20px;">' + calEvent.description + '</div>';
    var $tooltip = $(tooltip).appendTo('body');
-   
+
    $(this).mouseover(function(e) {
     $(this).css('z-index', 10000);
     $tooltip.fadeIn('500');
@@ -92,14 +92,13 @@
       $(this).css('z-index', 8);
       $('.tooltipevent').remove();
    },
-   
-   	});
-   
-   
-   
-   
-   });
-   
-   	    
-</script>
 
+   	});
+
+
+
+
+   });
+
+
+</script>

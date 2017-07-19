@@ -41,7 +41,7 @@
 											<p> <?php if(empty($total)){
 
 											} else{
-												echo count($total);
+												echo count($total)/2;
 											}?> </p>
 										</div>
 										<div class="noote" style="    display: inline-flex;   ">

@@ -720,7 +720,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
 
 
           // Teachers OD form view
-          function get_teachers_od_view(){
+          function get_teachers_od_view($user_id){
             $year_id=$this->getYear();
             $query="SELECT eod.id,eod.od_for,eu.user_master_id,et.name,eod.from_date,eod.to_date,eod.notes,eod.status FROM edu_on_duty AS eod
             LEFT JOIN edu_users AS eu ON eu.user_id=eod.user_id LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id WHERE eod.user_type='2' AND eod.year_id='$year_id' ORDER BY eod.id DESC;";
@@ -737,7 +737,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
 
 
           // Students OD FORM view
-          function get_students_od_view(){
+          function get_students_od_view($user_id){
             $year_id=$this->getYear();
             $query="SELECT eod.id,eod.od_for,eu.user_master_id,ee.name,eod.from_date,eod.to_date,eod.notes,eod.status FROM edu_on_duty AS eod
             LEFT JOIN edu_users AS eu ON eu.user_id=eod.user_id LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eu.user_master_id WHERE eod.user_type='3' AND eod.year_id='$year_id' ORDER BY eod.id DESC;";
@@ -747,7 +747,37 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
                 return $data;
             }else{
               $result=$result_query->result();
-              $data=array("status"=>"success","msg"=>"odviewfound","data"=>$result);
+              $data=array("status"=>"success","msg"=>"odviewfound","ondutyDetails"=>$result);
+              return $data;
+            }
+          }
+
+            // GET Teacher Leaves
+          function get_teachers_leaves($user_id){
+            $year_id=$this->getYear();
+            $query="SELECT eul.leave_id,eu.user_id,et.name,eulm.leave_title,DATE_FORMAT(eul.from_leave_date,'%d-%m-%Y') AS from_leave_date,DATE_FORMAT(eul.to_leave_date,'%d-%m-%Y')AS to_leave_date,eul.leave_description,eul.status,eul.frm_time,eul.to_time FROM edu_user_leave  AS eul LEFT JOIN edu_users AS eu ON eu.user_id=eul.user_id LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id LEFT JOIN edu_user_leave_master AS eulm ON eulm.id=eul.leave_master_id WHERE eul.user_type='2' AND eul.year_id='$year_id' ORDER BY eul.leave_id DESC";
+            $result_query=$this->db->query($query);
+            if($result_query->num_rows()==0){
+                $data=array("status"=>"error","msg"=>"nodata");
+                return $data;
+            }else{
+              $result=$result_query->result();
+              $data=array("status"=>"success","msg"=>"leavesfound","ondutyDetails"=>$result);
+              return $data;
+            }
+          }
+
+
+
+          function get_all_circular_view($user_id){
+          $query="SELECT ecm.id,ecm.circular_title,ecm.circular_type,ecm.circular_description,ecm.status,ecm.created_at  FROM edu_circular_master  AS ecm ORDER BY ecm.id DESC";
+            $result_query=$this->db->query($query);
+            if($result_query->num_rows()==0){
+                $data=array("status"=>"error","msg"=>"nodata");
+                return $data;
+            }else{
+              $result=$result_query->result();
+              $data=array("status"=>"success","msg"=>"circularfound","data"=>$result);
               return $data;
             }
           }

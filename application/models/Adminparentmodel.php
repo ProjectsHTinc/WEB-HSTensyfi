@@ -9,15 +9,42 @@ Class Adminparentmodel extends CI_Model
 
   }
 
+
+
+  //#################### Current Year ####################//
+
+    public function getYear()
+    {
+      $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $year_result = $this->db->query($sqlYear);
+      $ress_year = $year_result->result();
+
+      if($year_result->num_rows()==1)
+      {
+        foreach ($year_result->result() as $rows)
+        {
+            $year_id = $rows->year_id;
+        }
+        return $year_id;
+      }
+    }
+
 		 function get_stude_attendance($enroll_id)
 		 {
 
 
-			$query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0 THEN 'FORENOON' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id'";
+			$query=" SELECT abs_date AS START,a_status AS description,CASE WHEN attend_period = 0  THEN 'FORENOON' ELSE 'AFTERNOON' END AS title
+      FROM edu_attendance_history WHERE student_id='$enroll_id' AND  a_status IN ('A', 'L')";
 			$resultset1=$this->db->query($query);
 			return $resultset1->result();
 		 }
 
+     function get_student_od_view($enroll_id){
+       $query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0  THEN 'FORENOON' ELSE 'AFTERNOON' END AS title
+       FROM edu_attendance_history WHERE student_id='$enroll_id' AND  a_status IN ('OD')";
+       $resultset1=$this->db->query($query);
+       return $resultset1->result();
+     }
 
         function get_event_all()
 		{
@@ -50,7 +77,7 @@ Class Adminparentmodel extends CI_Model
 			return $row4;
 
 		}
-		
+
 		 function get_special_leave_all($user_id,$user_type)
 		 {
 			//$query="SELECT leave_date AS start,leaves_name as title,leave_type AS description FROM edu_leavemaster AS lm INNER JOIN edu_leaves AS c ON lm.leave_id=c.leave_mas_id INNER JOIN edu_enrollment AS en ON en.class_id=lm.leave_classes INNER JOIN edu_parents AS p ON p.admission_id=en.admission_id WHERE lm.leave_type='Special Holiday' AND lm.status='Active'";
@@ -59,7 +86,7 @@ Class Adminparentmodel extends CI_Model
 				$row=$resultset->result();
 				foreach($row as $rows){}
 				$parent_id=$rows->user_master_id;
-		
+
 			 $query="SELECT el.leave_date AS start,el.leaves_name as title,lm.leave_type AS description,lm.status,lm.leave_type,lm.leave_classes,el.leave_mas_id,en.admission_id,en.class_id,p.admission_id,p.	parent_id FROM edu_leavemaster AS lm,edu_leaves AS el,edu_enrollment AS en,edu_parents AS p WHERE lm.leave_id=el.leave_mas_id AND lm.leave_type='Special Holiday' AND lm.leave_classes=en.class_id AND p.parent_id='$parent_id' AND FIND_IN_SET(en.admission_id,p.admission_id) GROUP By p.parent_id";
 			$res=$this->db->query($query);
 			return $res->result();
@@ -153,9 +180,10 @@ Class Adminparentmodel extends CI_Model
  			$row=$resultset->result();
  			foreach($row as $rows){}
       $class_id=$rows->class_id;
-       $query="SELECT Date AS total FROM edu_attendance_calendar WHERE class_master_id='$class_id'  GROUP BY CAST(total AS DATE)";
+        $year_id=$this->getYear();
+       $query="SELECT at_id AS total FROM edu_attendence WHERE class_id='$class_id'  AND ac_year='$year_id'";
        $resultset1=$this->db->query($query);
- 	  return $resultset1->result();
+ 	     return $resultset1->result();
      }
 
 	 function get_fees_status_details($enroll_id)
