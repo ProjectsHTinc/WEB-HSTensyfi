@@ -54,7 +54,7 @@ class Apiadmin extends CI_Controller {
 			public function get_all_classes()
 			{
 
-				$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -71,8 +71,8 @@ class Apiadmin extends CI_Controller {
 					echo json_encode($res);
 					return;
 				}
-
-				$data['result']=$this->apiadminmodel->get_classes();
+				 $user_id=$this->input->post('user_id');
+				$data['result']=$this->apiadminmodel->get_classes($user_id);
 				$response = $data['result'];
 				echo json_encode($response);
 			}
@@ -427,7 +427,7 @@ class Apiadmin extends CI_Controller {
 				$teacher_id=$this->input->post('teacher_id');
 				$data['result']=$this->apiadminmodel->get_teacher_class_details($teacher_id);
 				$response = $data['result'];
-			
+
 		    echo json_encode($response);
 			}
 
@@ -778,6 +778,64 @@ class Apiadmin extends CI_Controller {
 						$response = $data['result'];
 						echo json_encode($response);
 					}
+
+
+					// GET  TEACHERS OD VIEW
+					public function get_teachers_od_view()
+					{
+					$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+						if(!$this->checkMethod())
+						{
+							return FALSE;
+						}
+
+						if($_POST == FALSE)
+						{
+							$res = array();
+							$res["opn"] = "SOMETHING WENT WRONG ";
+							$res["scode"] = 204;
+							$res["message"] = "Input error";
+
+							echo json_encode($res);
+							return;
+						}
+
+
+						$data['result']=$this->apiadminmodel->get_teachers_od_view();
+						$response = $data['result'];
+						echo json_encode($response);
+					}
+
+
+					// GET  STUDENTS OD VIEW
+					public function get_students_od_view()
+					{
+						$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+						if(!$this->checkMethod())
+						{
+							return FALSE;
+						}
+
+						if($_POST == FALSE)
+						{
+							$res = array();
+							$res["opn"] = "SOMETHING WENT WRONG ";
+							$res["scode"] = 204;
+							$res["message"] = "Input error";
+
+							echo json_encode($res);
+							return;
+						}
+
+
+						$data['result']=$this->apiadminmodel->get_students_od_view();
+						$response = $data['result'];
+						echo json_encode($response);
+					}
+
+
 
 
 }

@@ -99,15 +99,15 @@
                            </div>
                            <div class="form-group">
                               <label>Subject</label>
-                            
+
                               <select   name="subject_id" class="selectpicker" data-title="Select Subject" data-style="btn-block"  data-menu-style="dropdown-blue">
                                  <?php if(empty($res['res'])){?>
                                  <option value="">No Data</option>
                                  <?php }else{
                                     foreach($res['res'] as $rowsubject){
-                                    }?>
+                                    ?>
                                  <option value="<?php echo $rowsubject->subject_id; ?>"><?php   echo $rowsubject->subject_name; ?></option>
-                                 <?php } ?>
+                                 <?php } }?>
                               </select>
                            </div>
                            <div class="form-group">
@@ -142,7 +142,7 @@
            //alert("hi");
            swal({
                          title: "Are you sure?",
-                         text: "You Want Confrim this form",
+                         text: "You Want Confirm this form",
                          type: "success",
                          showCancelButton: true,
                          confirmButtonColor: '#DD6B55',

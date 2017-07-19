@@ -58,7 +58,7 @@ class Teachertimetable extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$data['res'] = $this->timetablemodel->get_subject_class($class_sec_id);
+
 
 			$datas['restime']=$this->timetablemodel->view_time($class_sec_id);
 		 if($user_type==2){
@@ -68,6 +68,7 @@ class Teachertimetable extends CI_Controller {
 				 $this->load->view('adminteacher/timetable/nodata');
 				 $this->load->view('adminteacher/teacher_footer');
 			 }else {
+				 	$data['res'] = $this->timetablemodel->get_subject_class($class_sec_id);
 				 $data['restime']=$datas['restime']['time'];
 				 $data['class_id']=$class_sec_id;
 				 $data['user_id']=$user_id;$data['user_type']=$user_type;

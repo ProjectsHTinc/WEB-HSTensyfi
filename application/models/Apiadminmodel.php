@@ -47,7 +47,7 @@ class Apiadminmodel extends CI_Model {
 
 //#################### GET ALL ClASS ####################//
 
-  function get_classes(){
+  function get_classes($user_id){
     $sql="SELECT ec.class_name,ec.class_id FROM edu_classmaster AS ecm LEFT JOIN edu_class AS ec ON ec.class_id=ecm.class GROUP BY ec.class_name";
     $res=$this->db->query($sql);
     if($res->num_rows()==0){
@@ -611,7 +611,7 @@ class Apiadminmodel extends CI_Model {
             //   $query="SELECT efm.id,efm.term_id,DATE_FORMAT(efm.due_date_from,'%d-%m-%Y')AS due_date,DATE_FORMAT(efm.due_date_to,'%d-%m-%Y')AS to_date,
             //   DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id WHERE efm.class_master_id='$classid' AND efm.year_id='$year_id' AND efm.status='Active'";
               $query="SELECT efm.id AS fees_id,DATE_FORMAT(efm.due_date_from,'%d-%m-%Y')AS due_date_from,et.term_name,DATE_FORMAT(efm.due_date_to,'%d-%m-%Y')AS due_date_to,
-DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id 
+DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id
 LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='$classid' AND efm.year_id='$year_id' AND efm.status='Active'";
               $result_query=$this->db->query($query);
               if($result_query->num_rows()==0){
@@ -718,6 +718,39 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
             }
           }
 
+
+          // Teachers OD form view
+          function get_teachers_od_view(){
+            $year_id=$this->getYear();
+            $query="SELECT eod.id,eod.od_for,eu.user_master_id,et.name,eod.from_date,eod.to_date,eod.notes,eod.status FROM edu_on_duty AS eod
+            LEFT JOIN edu_users AS eu ON eu.user_id=eod.user_id LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id WHERE eod.user_type='2' AND eod.year_id='$year_id' ORDER BY eod.id DESC;";
+            $result_query=$this->db->query($query);
+            if($result_query->num_rows()==0){
+                $data=array("status"=>"error","msg"=>"nodata");
+                return $data;
+            }else{
+              $result=$result_query->result();
+              $data=array("status"=>"success","msg"=>"odviewfound","data"=>$result);
+              return $data;
+            }
+          }
+
+
+          // Students OD FORM view
+          function get_students_od_view(){
+            $year_id=$this->getYear();
+            $query="SELECT eod.id,eod.od_for,eu.user_master_id,ee.name,eod.from_date,eod.to_date,eod.notes,eod.status FROM edu_on_duty AS eod
+            LEFT JOIN edu_users AS eu ON eu.user_id=eod.user_id LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eu.user_master_id WHERE eod.user_type='3' AND eod.year_id='$year_id' ORDER BY eod.id DESC;";
+            $result_query=$this->db->query($query);
+            if($result_query->num_rows()==0){
+                $data=array("status"=>"error","msg"=>"nodata");
+                return $data;
+            }else{
+              $result=$result_query->result();
+              $data=array("status"=>"success","msg"=>"odviewfound","data"=>$result);
+              return $data;
+            }
+          }
 }
 
 ?>
