@@ -19,12 +19,13 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Type of Leave</label>
                               <div class="col-sm-4">
-                                <select class="selectpicker form-control" data-title="Select Type Of Leave" name="leave_type" id="choose" >
+                                <select class="selectpicker form-control" data-title="Select Type Of Leave" name="leave_type" id="choose" onChange="changefunction()">
 									<?php foreach($leave as $row){?>
 									<option value="<?php echo $row->leave_type; ?>-<?php echo $row->id; ?>"><?php  echo $row->leave_title; ?></option>
 									<?php } ?>
 								</select>
                               </div>
+							  <div id="res"></div>
                               <label class="col-sm-2 control-label">From Date</label>
                               <div class="col-sm-4">
                                  <input type="text" name="leave_date" class="form-control datepicker" placeholder="Enter Date" >
@@ -32,7 +33,7 @@
                            </div>
                         </fieldset>
 
-						 <!--<div id="permissiontime" style="display: none">-->
+						 <div id="permissiontime" style="display: none">
 								   <fieldset>
                                         <div class="form-group">
                                           <label class="col-sm-2 control-label">Time</label>
@@ -44,7 +45,7 @@
                                             </div>
                                         </div>
                                     </fieldset>
-                           <!--</div>-->
+                           </div>
 
                         <br/>
                         <fieldset>
@@ -145,6 +146,22 @@
    </div>
 </div>
 <script type="text/javascript">
+  function changefunction()
+  { 
+   //var example = "1,2";
+   //var numbers = example.split(',',true);
+   
+	   var a=document.getElementById('choose').value ;
+	   var numbers = a.split('-',true);
+	   //alert(a);alert(numbers);
+	   if (numbers==0) {
+			$("#permissiontime").show();
+		} else {
+	   $("#permissiontime").hide();
+
+		}
+  }
+
    $(document).ready(function () {
      $('#commmenu').addClass('collapse in');
      $('#comm').addClass('active');
@@ -203,7 +220,7 @@
          });
 
 
-$(function () {
+/* $(function () {
         $("#choose").change(function () {
             if ($(this).val()==0) {
                 $("#permissiontime").show();
@@ -212,7 +229,7 @@ $(function () {
 
             }
         });
-    });
+    }); */
 
 
    $().ready(function(){
