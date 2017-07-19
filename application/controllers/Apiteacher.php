@@ -459,6 +459,38 @@ class Apiteacher extends CI_Controller {
 
 //-----------------------------------------------//
 
+	public function disp_Timetablereview()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Timetablereview";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+		
+		$data['result']=$this->apiteachermodel->dispTimetablereview($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
 	public function add_Userleaves()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
@@ -681,6 +713,53 @@ class Apiteacher extends CI_Controller {
         $created_by = $this->input->post("user_id");
         
 		$data['result']=$this->apiteachermodel->addExammarks($exam_id,$teacher_id,$subject_id,$stu_id,$classmaster_id,$internal_mark,$external_mark,$created_by);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function add_Timetablereview()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Timetablereview Add";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+		$time_date = '';
+		$class_id = '';
+		$subject_id = '';
+		$period_id = '';
+		$user_type = '';
+		$user_id = '';
+		$comments = '';
+		$created_at = '';
+		
+
+		$time_date = $this->input->post("time_date");
+        $class_id = $this->input->post("class_id"); 
+        $subject_id = $this->input->post("subject_id");
+        $period_id = $this->input->post("period_id");
+        $user_type = $this->input->post("user_type");
+        $user_id = $this->input->post("user_id"); 
+        $comments = $this->input->post("comments");
+        $created_at = $this->input->post("created_at");
+        
+		$data['result']=$this->apiteachermodel->addTimetablereview($time_date,$class_id,$subject_id,$period_id,$user_type,$user_id,$comments,$created_at);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

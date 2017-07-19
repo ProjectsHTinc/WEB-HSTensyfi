@@ -402,6 +402,47 @@ class Apiteachermodel extends CI_Model {
 	}
 //#################### Display Leaves End ####################//
 
+
+//#################### Display Timetablereview for Teachers ####################//
+	public function dispTimetablereview ($user_id)
+	{
+			$year_id = $this->getYear();
+			$review_query = "SELECT
+                        A.time_date,
+                        DAYNAME(A.time_date) AS day,
+                        A.class_id,
+                        D.class_name,
+                        E.sec_name,
+                        C.subject_name,
+                        A.comments,
+                        A.remarks,
+                        A.status
+                    FROM
+                        edu_timetable_review A,
+                        edu_classmaster B,
+                        edu_subject C,
+                        edu_class D,
+                        edu_sections E
+                    WHERE
+                        A.class_id = B.class_sec_id AND B.class = D.class_id AND B.section = E.sec_id AND A.subject_id = C.subject_id AND A.user_id = '$user_id' AND A.year_id = '$year_id'
+                    ORDER BY
+                        A.time_date DESC";
+                        
+			$review_res = $this->db->query($review_query);
+			$review_result= $review_res->result();
+			$review_count = $review_res->num_rows();
+			
+			 if($review_res->num_rows()==0){
+				 $response = array("status" => "error", "msg" => "Reviews Not Found");
+			}else{
+				$response = array("status" => "success", "msg" => "View Reviews", "reviewDetails"=>$review_result);
+			} 
+
+			return $response;		
+	}
+//#################### Display Timetablereview End ####################//
+
+
 //#################### Add Leave for Teachers ####################//
 	public function addUserleaves ($user_type,$user_id,$leave_master_id,$leave_type,$date_from,$date_to,$fromTime,$toTime,$description)
 	{
@@ -586,6 +627,25 @@ class Apiteachermodel extends CI_Model {
 	}
 //#################### Add Reminder End ####################//
 
+
+//#################### Add Timetablereview for Teachers ####################//
+	public function addTimetablereview ($time_date,$class_id,$subject_id,$period_id,$user_type,$user_id,$comments,$created_at)
+	{
+			$year_id = $this->getYear();
+			
+		    $review_query = "	INSERT INTO `edu_timetable_review`(`time_date`, `class_id`, `subject_id`, `period_id`, `user_type`, `user_id`, `comments`, `status`, `created_at`)
+			VALUES ('$time_date','$class_id','$subject_id','$period_id','$user_type','$user_id','$comments','Active','$created_at')";
+			$review_res = $this->db->query($review_query);
+			$last_reviewid = $this->db->insert_id();
+
+			if($review_res) {
+			    $response = array("status" => "success", "msg" => "Timetablereview Added", "last_id"=>$last_reviewid);
+			} else {
+			    $response = array("status" => "error");
+			}
+			return $response;		
+	}
+//#################### Add Timetablereview End ####################//
 
 //#################### Sync Attendance for Teachers ####################//
 	public function syncAttendance ($ac_year,$class_id,$class_total,$no_of_present,$no_of_absent,$attendence_period,$created_by,$created_at,$status)

@@ -730,7 +730,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
                 return $data;
             }else{
               $result=$result_query->result();
-              $data=array("status"=>"success","msg"=>"odviewfound","data"=>$result);
+              $data=array("status"=>"success","msg"=>"odviewfound","ondutyDetails"=>$result);
               return $data;
             }
           }
@@ -762,7 +762,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
                 return $data;
             }else{
               $result=$result_query->result();
-              $data=array("status"=>"success","msg"=>"leavesfound","ondutyDetails"=>$result);
+              $data=array("status"=>"success","msg"=>"leavesfound","leaveDetails"=>$result);
               return $data;
             }
           }
@@ -770,14 +770,14 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
 
 
           function get_all_circular_view($user_id){
-          $query="SELECT ecm.id,ecm.circular_title,ecm.circular_type,ecm.circular_description,ecm.status,ecm.created_at  FROM edu_circular_master  AS ecm ORDER BY ecm.id DESC";
+          $query="SELECT ecm.id,ecm.circular_title,ecm.circular_type,ecm.circular_description,ecm.status,ecm.created_at as circular_date FROM edu_circular_master  AS ecm ORDER BY ecm.id DESC";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");
                 return $data;
             }else{
               $result=$result_query->result();
-              $data=array("status"=>"success","msg"=>"circularfound","data"=>$result);
+              $data=array("status"=>"success","msg"=>"circularfound","circularDetails"=>$result);
               return $data;
             }
           }
