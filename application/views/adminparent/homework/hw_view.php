@@ -21,7 +21,7 @@
                               <th>S.no</th>
                               <th>Teacher</th>
                               <th>Subject</th>
-                              <th>HomeWork/ClassTest</th>
+                              <th>HomeWork <br>/ ClassTest</th>
                               <th>Title</th>
                               <th>DATE</th>
 							  <th>Submission Date</th>
@@ -69,8 +69,8 @@
                                  <td><?php $date=date_create($rows->test_date);
                                     echo date_format($date,"d-m-Y");
                                     ?></td>
-									<td><?php  $duedate=date_create($rows->due_date);
-                                    echo date_format($duedate,"d-m-Y");
+									<td><?php if($hw=="HT"){}else{ $duedate=date_create($rows->due_date);
+                                    echo date_format($duedate,"d-m-Y"); }
 									 ?></td>
                                  <td><?php echo $rows->hw_details; ?></td>
                                  <td>
