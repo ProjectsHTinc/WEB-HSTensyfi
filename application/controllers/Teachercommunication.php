@@ -57,7 +57,7 @@ class Teachercommunication extends CI_Controller
 			 //echo $leavetype; echo '</br>';
 			 $leave_type=strstr($leavetype,'-',true);
 			 $leave_masid=strstr($leavetype,'-');
-            // echo $leave_type; echo '</br>';
+            //echo $leave_type; echo '</br>';
 			 //echo $leave_masid;echo '</br>';
 			$leave_master_id=str_replace("-","",$leave_masid);
 			//echo $leave_master_id;exit;

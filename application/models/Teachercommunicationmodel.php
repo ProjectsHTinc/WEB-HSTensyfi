@@ -47,7 +47,14 @@ Class Teachercommunicationmodel extends CI_Model
 			 $row=$resultset->result();
 			 foreach($row as $rows){}
 			 $teacher_id=$rows->teacher_id;
-			 $sql="INSERT INTO edu_user_leave(user_type,user_id,leave_master_id,type_leave,from_leave_date,to_leave_date,frm_time,to_time,leave_description,status,created_at)VALUES('$user_type','$teacher_id','$leave_master_id','$leave_type','$formatted_date','$to_ldate','$frm_time','$to_time','$leave_description','Pending',NOW())";
+			 
+			  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+			  $result1=$this->db->query($get_year);
+			  $all_year= $result1->result();
+			  foreach($all_year as $cyear){}
+			  $current_year=$cyear->year_id;
+			 
+			 $sql="INSERT INTO edu_user_leave(year_id,user_type,user_id,leave_master_id,type_leave,from_leave_date,to_leave_date,frm_time,to_time,leave_description,status,created_at)VALUES('$current_year','$user_type','$teacher_id','$leave_master_id','$leave_type','$formatted_date','$to_ldate','$frm_time','$to_time','$leave_description','Pending',NOW())";
 			 $resultset=$this->db->query($sql);
 			
 			 $data= array("status"=>"success");
