@@ -93,7 +93,7 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Address</label>
                         <div class="col-sm-4">
-                           <textarea name="address" class="form-control" rows="4" cols="80"></textarea>
+                           <textarea name="address" MaxLength="150" class="form-control" rows="4" cols="80" placeholder="MaxLength 150"></textarea>
                         </div>
                         <label class="col-sm-2 control-label">Main Subject</label>
                         <div class="col-sm-4">
@@ -240,6 +240,8 @@
 
 
    $(document).ready(function () {
+	   
+    //$("textarea").MaxLength({ MaxLength:10})
 
    $('#admissionform').validate({ // initialize the plugin
    rules: {

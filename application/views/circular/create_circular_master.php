@@ -39,7 +39,7 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label"> Description</label>
                               <div class="col-sm-4">
-							   <textarea name="cdescription" id="cdescription" class="form-control"  rows="4" cols="80"></textarea>
+							   <textarea name="cdescription" MaxLength="500" placeholder="MaxLength 500" id="cdescription" class="form-control"  rows="4" cols="80"></textarea>
                                
                               </div>
                                <label class="col-sm-2 control-label">Status</label>

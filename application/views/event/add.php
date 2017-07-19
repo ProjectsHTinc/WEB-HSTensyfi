@@ -40,7 +40,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Event Details</label>
                                             <div class="col-sm-4">
-                                                <textarea type="text" name="event_details" class="form-control"></textarea>
+                                                <textarea type="text" MaxLength="350" placeholder="MaxLength 350" name="event_details" class="form-control"></textarea>
 
                                             </div>
 

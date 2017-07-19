@@ -40,7 +40,7 @@
                                  <td style="width:20%;">
                                     <input type="text" name="marks[]" value="<?php echo $rows->marks; ?>" class="form-control"/>
                                  </td>
-                                 <td> <textarea name="remarks[]" value="" class="form-control" rows="1" cols="03"><?php echo $rows->remarks; ?></textarea></td>
+                                 <td> <textarea name="remarks[]" MaxLength="150" placeholder="MaxLength 150" class="form-control" rows="1" cols="03"><?php echo $rows->remarks; ?></textarea></td>
                                  <td></td>
                               </tr>
                               <?php $i++;  }?>
