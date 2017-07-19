@@ -435,7 +435,7 @@ class Apiadminmodel extends CI_Model {
 
               //#################### GET   PARENT DETAILS  ####################//
               function get_parent_details($parent_id){
-                  $year_id=$this->getYear();
+                 $year_id=$this->getYear();
                   $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
        						$father_res = $this->db->query($father_query);
        						$father_profile = $father_res->result();
@@ -512,10 +512,7 @@ class Apiadminmodel extends CI_Model {
 
               }
 
-
-
-
-              //#################### GET   PARENT SUDENT LIST  ####################//
+                              //#################### GET   PARENT SUDENT LIST  ####################//
               function get_parent_student_list($parent_id){
                   $year_id=$this->getYear();
                   $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
@@ -531,11 +528,10 @@ class Apiadminmodel extends CI_Model {
                   $stu_enroll_res= $enroll_res->result();
 
 
-                $response = array("status" => "success", "msg" => "data","studentsdetails"=>$stu_enroll_res);
+                $response = array("status" => "success", "msg" => "studentdetailsfound","data"=>$stu_enroll_res);
                     return $response;
 
               }
-
 
 
 
@@ -570,14 +566,14 @@ class Apiadminmodel extends CI_Model {
                 foreach($result as $rows){   }
                 $classid=$rows->class_sec_id;
                 $year_id=$this->getYear();
-                $query="SELECT eed.exam_id,ee.exam_name,ee.exam_year,eac.from_month,eac.to_month FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id LEFT JOIN edu_academic_year AS eac ON ee.exam_year=eac.year_id WHERE eed.classmaster_id='$classid' GROUP BY ee.exam_id";
+                 $query="SELECT eed.exam_id,ee.exam_name,ee.exam_year,eac.from_month as Fromdate,eac.to_month as Todate,eed.classmaster_id,CASE WHEN ems.status='Publish' THEN 0 ELSE 0 END AS MarkStatus FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id LEFT JOIN edu_exam_marks_status AS ems ON ems.exam_id=eed.exam_id LEFT JOIN edu_academic_year AS eac ON ee.exam_year=eac.year_id WHERE eed.classmaster_id='$classid' GROUP BY ee.exam_id";
                 $result_query=$this->db->query($query);
                 if($result_query->num_rows()==0){
                     $data=array("status"=>"error","msg"=>"nodata");
                     return $data;
                 }else{
                   $result=$result_query->result();
-                  $data=array("status"=>"success","msg"=>"success","data"=>$result);
+                  $data=array("status"=>"success","msg"=>"success","Exams"=>$result);
                   return $data;
                 }
               }
@@ -612,8 +608,11 @@ class Apiadminmodel extends CI_Model {
               foreach($result as $rows){   }
               $classid=$rows->class_sec_id;
               $year_id=$this->getYear();
-              $query="SELECT efm.id,efm.term_id,DATE_FORMAT(efm.due_date_from,'%d-%m-%Y')AS due_date,DATE_FORMAT(efm.due_date_to,'%d-%m-%Y')AS to_date,
-              DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id WHERE efm.class_master_id='$classid' AND efm.year_id='$year_id' AND efm.status='Active'";
+            //   $query="SELECT efm.id,efm.term_id,DATE_FORMAT(efm.due_date_from,'%d-%m-%Y')AS due_date,DATE_FORMAT(efm.due_date_to,'%d-%m-%Y')AS to_date,
+            //   DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id WHERE efm.class_master_id='$classid' AND efm.year_id='$year_id' AND efm.status='Active'";
+              $query="SELECT efm.id AS fees_id,DATE_FORMAT(efm.due_date_from,'%d-%m-%Y')AS due_date_from,et.term_name,DATE_FORMAT(efm.due_date_to,'%d-%m-%Y')AS due_date_to,
+DATE_FORMAT(eac.from_month,'%Y')AS from_year,DATE_FORMAT(eac.to_month,'%Y')AS to_year FROM edu_fees_master AS efm LEFT JOIN edu_academic_year AS eac ON efm.year_id=eac.year_id 
+LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='$classid' AND efm.year_id='$year_id' AND efm.status='Active'";
               $result_query=$this->db->query($query);
               if($result_query->num_rows()==0){
                   $data=array("status"=>"error","msg"=>"nodata");
@@ -670,16 +669,16 @@ class Apiadminmodel extends CI_Model {
             foreach($result as $rows){   }
             $classid=$rows->class_sec_id;
             $year_id=$this->getYear();
-            $query="SELECT eed.exam_detail_id,eed.exam_id,ee.exam_name,eed.classmaster_id FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id WHERE classmaster_id='$classid' AND ee.status='Active'";
-            $result_query=$this->db->query($query);
-            if($result_query->num_rows()==0){
-                $data=array("status"=>"error","msg"=>"nodata");
-                return $data;
-            }else{
-              $result=$result_query->result();
-              $data=array("status"=>"success","msg"=>"success","data"=>$result);
-              return $data;
-            }
+            $query="SELECT eed.exam_id,ee.exam_name,ee.exam_year,eac.from_month as Fromdate,eac.to_month as Todate,eed.classmaster_id,CASE WHEN ems.status='Publish' THEN 0 ELSE 0 END AS MarkStatus FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id LEFT JOIN edu_exam_marks_status AS ems ON ems.exam_id=eed.exam_id LEFT JOIN edu_academic_year AS eac ON ee.exam_year=eac.year_id WHERE eed.classmaster_id='$classid' GROUP BY ee.exam_id";
+                $result_query=$this->db->query($query);
+                if($result_query->num_rows()==0){
+                    $data=array("status"=>"error","msg"=>"nodata");
+                    return $data;
+                }else{
+                  $result=$result_query->result();
+                  $data=array("status"=>"success","msg"=>"success","Exams"=>$result);
+                  return $data;
+                }
           }
 
 

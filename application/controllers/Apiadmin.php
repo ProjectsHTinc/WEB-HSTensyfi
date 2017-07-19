@@ -171,7 +171,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_all_howework_details()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -201,7 +201,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_howework_details()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -231,7 +231,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_all_classtest_details()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -262,7 +262,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_classtest_details()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -291,7 +291,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_all_exam_details()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -320,7 +320,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_exam_details()
 			{
-				//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+				$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -379,7 +379,7 @@ class Apiadmin extends CI_Controller {
 
 			public function get_teacher()
 			{
-				// $_POST = json_decode(file_get_contents("php://input"), TRUE);
+				 $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -427,7 +427,7 @@ class Apiadmin extends CI_Controller {
 				$teacher_id=$this->input->post('teacher_id');
 				$data['result']=$this->apiadminmodel->get_teacher_class_details($teacher_id);
 				$response = $data['result'];
-
+			
 		    echo json_encode($response);
 			}
 
@@ -490,11 +490,10 @@ class Apiadmin extends CI_Controller {
 
 
 
-
-						// GET  PARENT DETAILS
+                    						// GET  PARENT DETAILS
 						public function get_parent_student_list()
 						{
-							//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+							$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 							if(!$this->checkMethod())
 							{
@@ -517,12 +516,10 @@ class Apiadmin extends CI_Controller {
 							echo json_encode($response);
 						}
 
-
-
 					// GET  LIST OF TEACHER FOR A CLASS
 					public function list_of_teachers_for_class()
 					{
-						//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+						$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 						if(!$this->checkMethod())
 						{
@@ -553,7 +550,7 @@ class Apiadmin extends CI_Controller {
 						// GET  LIST OF EXAM FOR A CLASS
 						public function list_of_exams_class()
 						{
-							//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+							$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 							if(!$this->checkMethod())
 							{
@@ -582,7 +579,7 @@ class Apiadmin extends CI_Controller {
 				// GET  Timetable FOR A CLASS
 				public function get_timetable_for_class()
 				{
-					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+					$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 					if(!$this->checkMethod())
 					{
@@ -610,7 +607,7 @@ class Apiadmin extends CI_Controller {
 				// GET  FEES MASTER FOR A CLASS
 				public function get_fees_master_class()
 				{
-					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+					$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 					if(!$this->checkMethod())
 					{
@@ -638,7 +635,7 @@ class Apiadmin extends CI_Controller {
 				// GET  FEES MASTER FOR A CLASS
 				public function get_fees_details()
 				{
-					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+					$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 					if(!$this->checkMethod())
 					{
@@ -665,7 +662,7 @@ class Apiadmin extends CI_Controller {
 				// GET  FEES STATUS FOR A CLASS
 				public function get_fees_status()
 				{
-					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+					$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 					if(!$this->checkMethod())
 					{
@@ -695,7 +692,7 @@ class Apiadmin extends CI_Controller {
 				// GET  LIST OF EXAM  FOR A CLASS
 				public function get_list_exam_class()
 				{
-					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+					$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 					if(!$this->checkMethod())
 					{
@@ -725,7 +722,7 @@ class Apiadmin extends CI_Controller {
 				// GET   EXAM  DETAILS FOR A CLASS
 				public function get_exam_details_class()
 				{
-					//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+					$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 					if(!$this->checkMethod())
 					{
@@ -756,7 +753,7 @@ class Apiadmin extends CI_Controller {
 					// GET   EXAM  MARKS FOR A CLASS
 					public function get_exam_marks_class()
 					{
-						//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+						$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 						if(!$this->checkMethod())
 						{

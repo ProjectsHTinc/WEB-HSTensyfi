@@ -20,13 +20,21 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/stroke/css/pe-icon-7-stroke.css">
 
 </head>
+<style>
+body{
+	background-image: url('<?php echo base_url(); ?>assets/bg-1.jpg');
+
+	 background-position: contain;
+}
+
+</style>
 <body>
 
 
 
 
 <div class="wrapper wrapper-full-page">
-    <div class="full-page login-page" data-color="purple" data-image="../../assets/img/full-screen-image-1.jpg">
+    <div class="full-page login-page">
 
     <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="content">
@@ -50,7 +58,7 @@
                             <div class="card card-hidden">
 
 							<?php
-                                $server_url = $_SERVER['HTTP_HOST']; 
+                                $server_url = $_SERVER['HTTP_HOST'];
 						          $query="SELECT user_pic FROM edu_users WHERE user_type=1";
 								  $objRs=$this->db->query($query);
 								  $row=$objRs->result();
