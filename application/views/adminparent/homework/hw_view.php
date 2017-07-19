@@ -21,7 +21,7 @@
                               <th>S.no</th>
                               <th>Teacher</th>
                               <th>Subject</th>
-                              <th>HomeWork <br>/ ClassTest</th>
+                              <th>Type</th>
                               <th>Title</th>
                               <th>DATE</th>
 							  <th>Submission Date</th>
