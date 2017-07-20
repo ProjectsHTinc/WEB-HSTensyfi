@@ -69,11 +69,14 @@ class Communication extends CI_Controller
 			 //echo $status; exit;
 			 $datas=$this->communicationmodel->update_leave($leave_id,$status);
 			 if($status=='Approved')
-			 { $datas['sms']=$this->smsmodel->send_sms_for_teacher_leave($number,$leave_type); }
+			 { 
+			    $datas['sms']=$this->smsmodel->send_sms_for_teacher_leave($number,$leave_type); 
+			     
+			 }
 		 
 			// $datas['result']=$this->communicationmodel->user_leaves();
 			
-			 //print_r($datas);exit;
+			 //print_r($datas['sms']);exit;
 			
 			 if($datas['status']=="success")
 			  {
@@ -139,11 +142,11 @@ class Communication extends CI_Controller
 			$period_id=$this->input->post('period_id');
 			$status=$this->input->post('status');
 			
+			$datas=$this->smsmodel->send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date); 
 			$datas['res']=$this->communicationmodel->add_substitution_list($user_id,$cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status);
 			//print_r($datas['res']);exit;
-			
-			$datas['sms1']=$this->smsmodel->send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date); 
-			
+
+
 			if($datas['status']=="success"){
 				 $this->session->set_flashdata('msg','Added Successfully');
 				 redirect('communication/add_substitution/'.$leave_id.'');
