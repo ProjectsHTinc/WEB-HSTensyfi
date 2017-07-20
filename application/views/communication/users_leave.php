@@ -34,8 +34,8 @@
                               <?php
                                  $i=1;
                                  foreach($result as $rows) 
-								                   { $status=$rows->status;
-								                      $type=$rows->type_leave;
+							     { $status=$rows->status;
+								  $type=$rows->type_leave;
                                   ?>
                               <tr>
                                  <td><?php echo $i; ?></td>

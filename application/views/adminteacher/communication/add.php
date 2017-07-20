@@ -103,8 +103,8 @@
                                   ?>
                               <tr>
                                  <td><?php   echo $i; ?></td>
-                                 <td><?php if($type==0)
-									 {echo "Permission";}else{echo"Leave";}?></td>
+                                 <td><?php echo $rows->leave_title; /* if($type==0)
+									 {echo "Permission";}else{echo"Leave";} */?></td>
                                  <td><?php $date=date_create($rows->from_leave_date);
                                      echo date_format($date,"d-m-Y");
 									  if($type==0)
@@ -127,7 +127,7 @@
 								  </td>
 
                                  <td>
-                                    <!-- <a href="<?php //echo base_url();?>teachercommunication/edit/<?php //echo $rows->leave_id; ?>" title="Edit Details" rel="tooltip" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit" aria-hidden="true"></i> -->
+                                   <!-- <a href="<?php echo base_url();?>teachercommunication/edit/<?php echo $rows->leave_id; ?>" title="Edit Details" rel="tooltip" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit" aria-hidden="true"></i> --> 
                                  </td>
                               </tr>
                               <?php $i++;  }  ?>

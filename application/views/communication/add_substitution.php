@@ -27,6 +27,8 @@
                                  </select>
                               </div>
                               <input type="hidden" name="teacher_id" value="<?php echo $teacher_id;?>">
+							  <input type="hidden" name="tname" value="<?php echo $teaname;?>">
+							    <input type="hidden" name="num" value="<?php echo $cell;?>">
                               <input type="hidden" name="leave_id" value="<?php echo $leave_id;?>">
                               <label class="col-sm-2 control-label">Substitution Date</label>
                               <div class="col-sm-4">
@@ -38,9 +40,9 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Teachers</label>
                               <div class="col-sm-4">
-                                 <select class="selectpicker form-control" data-title="Select Substitution Teacher" name="sub_teacher">
+                                 <select class="selectpicker form-control" data-title="Select Substitution Teacher" name="sub_teacher" id="subteacher" onChange="get_teacher_name()">
                                     <?php foreach($teachers as $tec){ ?>
-                                    <option value="<?php echo $tec->teacher_id; ?>"><?php echo $tec->name; ?></option>
+                                    <option value="<?php echo $tec->teacher_id; ?> - <?php echo $tec->name; ?>"><?php echo $tec->name; ?></option>
                                     <?php }?>
                                  </select>
                               </div>
@@ -175,6 +177,13 @@
      
    }); 
    });
+   
+   /* function get_teacher_name()
+   {
+	   var tname=document.getElementById('subteacher').value ;
+	   alert(tname);
+	   var a=document.getElementById('choose').value ;
+   } */
    
      var $table = $('#bootstrap-table');
          $().ready(function(){

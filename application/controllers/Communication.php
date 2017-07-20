@@ -19,7 +19,7 @@ class Communication extends CI_Controller
               $user_id=$this->session->userdata('user_id');
 			  $user_type=$this->session->userdata('user_type');
 			  $datas['result']=$this->communicationmodel->user_leaves();
-			// echo'<pre>';print_r($datas['result']);exit;
+			  //echo'<pre>';print_r($datas['result']);exit;
 			  if($user_type==1)
                 {
 				  $this->load->view('header');
@@ -37,7 +37,7 @@ class Communication extends CI_Controller
 			$user_type=$this->session->userdata('user_type');
 			$datas['res']=$this->communicationmodel->edit_leave($leave_id);
 			$datas['leaves']=$this->communicationmodel->get_all_leave($leave_id);
-			//echo'<pre>';print_r($datas['leaves']);exit;
+			//echo'<pre>';print_r($datas['res']);exit;
 			 if($user_type==1){
 	 		 $this->load->view('header');
 			 $this->load->view('communication/user_leave_approval',$datas);
@@ -66,11 +66,12 @@ class Communication extends CI_Controller
              //echo $leave_type; echo $status;exit;
 			 //$dateTime = new DateTime($leave_date);
              //$formatted_date=date_format($dateTime,'Y-m-d' );
-			 
+			 //echo $status; exit;
 			 $datas=$this->communicationmodel->update_leave($leave_id,$status);
 			 if($status=='Approved')
 			 { $datas['sms']=$this->smsmodel->send_sms_for_teacher_leave($number,$leave_type); }
-			 $datas['result']=$this->communicationmodel->user_leaves();
+		 
+			// $datas['result']=$this->communicationmodel->user_leaves();
 			
 			 //print_r($datas);exit;
 			
@@ -78,12 +79,14 @@ class Communication extends CI_Controller
 			  {
 				$this->session->set_flashdata('msg','Updated Successfully');
                 $this->load->view('header');
-				$this->load->view('communication/users_leave',$datas);
+				redirect('communication/view_user_leaves');
+				//$this->load->view('communication/users_leave',$datas);
 				$this->load->view('footer');
 			  }else{
 			    $this->session->set_flashdata('msg','Falid To Updated');
                 $this->load->view('header');
-				$this->load->view('communication/users_leave',$datas);
+				redirect('communication/view_user_leaves');
+				//$this->load->view('communication/users_leave',$datas);
 				$this->load->view('footer');	  
 			  }
 			
@@ -119,18 +122,28 @@ class Communication extends CI_Controller
 			
 			$cls_id=$this->input->post('sub_cls');
 			$teacher_id=$this->input->post('teacher_id');
+			$tname=$this->input->post('tname');
 			$ldate=$this->input->post('leave_date');
 			$leave_id=$this->input->post('leave_id');
 			
 			$dateTime = new DateTime($ldate);
             $leave_date=date_format($dateTime,'Y-m-d' );
 	  
-			$sub_teacher=$this->input->post('sub_teacher');
+			$steacher=$this->input->post('sub_teacher');
+			//$sub_teacher1=strstr('-',$sub_teacher)
+			 $sub_teacher=strstr($steacher,'-',true);
+			 $stname=strstr($steacher,'-');
+			 $sub_tname=str_replace("-","",$stname);
+			// echo $sub_teacher; echo $sub_tname;  exit;
+			
 			$period_id=$this->input->post('period_id');
 			$status=$this->input->post('status');
-			//echo $sub_teacher;
+			
 			$datas['res']=$this->communicationmodel->add_substitution_list($user_id,$cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status);
 			//print_r($datas['res']);exit;
+			
+			$datas['sms1']=$this->smsmodel->send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date); 
+			
 			if($datas['status']=="success"){
 				 $this->session->set_flashdata('msg','Added Successfully');
 				 redirect('communication/add_substitution/'.$leave_id.'');

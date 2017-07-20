@@ -30,9 +30,9 @@
 		<script language="JavaScript">document.myformsection.sub_cls.value="<?php echo $res->class_master_id; ?>";</script>
 			  </div>
 			  <input type="hidden" name="cls_id" value="<?php echo $res->class_master_id;?>">
-								  <input type="hidden" name="teacher_id" value="<?php echo $res->teacher_id;?>">
-									<input type="hidden" name="id" value="<?php echo $res->id;?>">
-									<input type="hidden" name="lid" value="<?php echo $id;?>">
+					   <input type="hidden" name="teacher_id" value="<?php echo $res->teacher_id;?>">
+						<input type="hidden" name="id" value="<?php echo $res->id;?>">
+						<input type="hidden" name="lid" value="<?php echo $id;?>">
 								
 			  
 			  <label class="col-sm-2 control-label">Substitution Date</label>
