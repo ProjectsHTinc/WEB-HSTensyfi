@@ -12,8 +12,11 @@ Class Smsmodel extends CI_Model
   {
 	// http://173.45.76.227/send.aspx?username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS&numbers=12345&message=WELCOME
      //Thank you for the information. This is to inform you that your leave has been approved.
-	 $textmsg='Thankyoufortheinformation';
-	
+	 
+	 $textmessage='Thank you for the information This is to inform you that your '.$leave_type.' has been approved';
+	 
+	 $textmsg =urlencode($textmessage);
+	 
 	$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 
 	$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
