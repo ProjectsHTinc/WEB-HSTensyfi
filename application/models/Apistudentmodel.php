@@ -296,33 +296,13 @@ class Apistudentmodel extends CI_Model {
 	
 //#################### Attendence End ####################//
 
-//#################### Communication for Students and Parents ####################//
-	public function dispCommunication ($class_id)
-	{
-			$year_id = $this->getYear();
-			
-			$comm_query = "SELECT commu_title,commu_details,commu_date FROM `edu_communication` WHERE find_in_set('$class_id', `class_id`)";
-		
-			$comm_res = $this->db->query($comm_query);
-			$comm_result= $comm_res->result();
-			$comm_count = $comm_res->num_rows();
-			
-			 if($comm_res->num_rows()==0){
-				 $response = array("status" => "error", "msg" => "Communication Not Found");
-			}else{
-				$response = array("status" => "success", "msg" => "View Communication", "count"=>$comm_count, "communicationDetails"=>$comm_result);
-			} 
-
-			return $response;		
-	}
-//#################### Communication End ####################//
 
 //#################### Fees Status for Students and Parents ####################//
 	public function dispFees ($stud_id)
 	{
 			$year_id = $this->getYear();
 			
-		     $fees_query = "SELECT C.term_name, A.status FROM `edu_term_fees_status` A, `edu_fees_master` B,`edu_terms` C WHERE A.year_id='$year_id' AND A.student_id='$stud_id' AND A.fees_id=B.id AND B.term_id = C.term_id";
+		     $fees_query = "SELECT C.term_name,B.due_date_from,B.due_date_to,A.status FROM `edu_term_fees_status` A, `edu_fees_master` B,`edu_terms` C WHERE A.year_id='$year_id' AND A.student_id='$stud_id' AND A.fees_id=B.id AND B.term_id = C.term_id";
 			$fees_res = $this->db->query($fees_query);
 			$fees_result= $fees_res->result();
 			

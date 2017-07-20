@@ -225,7 +225,7 @@ class Apiteachermodel extends CI_Model {
 			
 	        $exam_query = "SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 				COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
-				CASE WHEN ems.status='Active' THEN 1 ELSE 0 END AS MarkStatus
+				CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
 				FROM edu_examination ex
 				RIGHT JOIN edu_exam_details ed on ex.exam_id = ed.exam_id and ed.classmaster_id in ($class_ids)
 				LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id
@@ -239,7 +239,7 @@ class Apiteachermodel extends CI_Model {
 				
 				SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 				COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
-				CASE WHEN ems.status='Active' THEN 1 ELSE 0 END AS MarkStatus
+				CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
 				FROM edu_examination ex
 				LEFT JOIN edu_exam_details ed on ed.exam_id = ex.exam_id and ed.classmaster_id in ($class_ids)
 				LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id 
@@ -288,7 +288,7 @@ class Apiteachermodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 			
-	    	$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.internal_mark, A.internal_grade, A.external_mark,                             A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
+	    	$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.internal_mark, A.internal_grade, A.external_mark,A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
 			$mark_res = $this->db->query($mark_query);
 			$mark_result= $mark_res->result();
 			

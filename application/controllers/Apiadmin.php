@@ -864,7 +864,7 @@ class Apiadmin extends CI_Controller {
 						echo json_encode($response);
 					}
 
-					// GET ALL Cricular
+					// GET ALL Cricular 
 					public function get_all_circular_view()
 					{
 						$_POST = json_decode(file_get_contents("php://input"), TRUE);

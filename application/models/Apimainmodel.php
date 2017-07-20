@@ -109,49 +109,7 @@ class Apimainmodel extends CI_Model {
                          $month[] = $dt->format("m-Y");
                         }
                         
-                        
-						$teacher_query = "SELECT
-                                        t.teacher_id,
-                                        t.name,
-                                        t.sex,
-                                        t.age,
-                                        t.nationality,
-                                        t.religion,
-                                        t.community_class,
-                                        t.community,
-                                        t.address,
-                                        t.email,
-                                        t.phone,
-                                        t.sec_email,
-                                        t.sec_phone,
-                                        t.profile_pic,
-                                        t.update_at,
-                                        t.subject,
-                                        t.class_name AS class_taken,
-                                        t.class_teacher,
-                                        s.subject_name,
-                                        ss.sec_name,
-                                        c.class_name
-                                    FROM
-                                        edu_teachers AS t
-                                    INNER JOIN
-                                        edu_classmaster AS cm
-                                    ON
-                                        t.class_teacher = cm.class_sec_id
-                                    INNER JOIN
-                                        edu_class AS c
-                                    ON
-                                        cm.class = c.class_id
-                                    INNER JOIN
-                                        edu_subject AS s
-                                    ON
-                                        t.subject = s.subject_id
-                                    INNER JOIN
-                                        edu_sections AS ss
-                                    ON
-                                        cm.section = ss.sec_id
-                                    WHERE
-                                        t.teacher_id = '$teacher_id'";
+                        $teacher_query = "SELECT t.teacher_id,t.name,t.sex,t.age,t.nationality,t.religion,t.community_class, t.community,t.address,t.email,t.phone,t.sec_email,t.sec_phone,t.profile_pic,t.update_at,t.subject,t.class_name AS class_taken,t.class_teacher FROM edu_teachers AS t WHERE t.teacher_id = '$teacher_id'";
 						$teacher_res = $this->db->query($teacher_query);
 						$teacher_profile = $teacher_res->result();
 
@@ -165,7 +123,7 @@ class Apimainmodel extends CI_Model {
 											teacher_id,
 											class_name,
 											sec_name,
-											subject_name  
+											subject_name,A.subject_id  
 										FROM
 											edu_teacher_handling_subject A,
 											edu_classmaster B,
@@ -218,9 +176,9 @@ class Apimainmodel extends CI_Model {
 							$stud_result= $stud_res->result();
 						} 
 											
-					$exam_query = "SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+					 $exam_query = "SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
-						CASE WHEN ems.status='Active' THEN 1 ELSE 0 END AS MarkStatus
+						CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
 						FROM edu_examination ex
 						RIGHT JOIN edu_exam_details ed on ex.exam_id = ed.exam_id and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
 						LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id
@@ -228,20 +186,20 @@ class Apimainmodel extends CI_Model {
 						INNER JOIN edu_class AS c ON cm.class=c.class_id 
 						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
 						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
-						GROUP by ed.classmaster_id
+						GROUP by ed.classmaster_id, ems.exam_id
 						
 						UNION ALL
 						
 						SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
-						CASE WHEN ems.status='Active' THEN 1 ELSE 0 END AS MarkStatus
+						CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
 						FROM edu_examination ex
 						LEFT JOIN edu_exam_details ed on ed.exam_id = ex.exam_id and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
 						LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id 
 						INNER JOIN edu_classmaster AS cm ON ed.classmaster_id = cm.class_sec_id
 						INNER JOIN edu_class AS c ON cm.class=c.class_id 
 						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
-						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ex.exam_id NOT IN (SELECT DISTINCT exam_id FROM edu_exam_details where classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')) GROUP by ed.classmaster_id";
+						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ex.exam_id NOT IN (SELECT DISTINCT exam_id FROM edu_exam_details where classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')) GROUP by ed.classmaster_id,ems.exam_id";
 					
 						$exam_res = $this->db->query($exam_query);
 	
@@ -340,7 +298,7 @@ class Apimainmodel extends CI_Model {
 						$motherProfile  = array(
 							"id" => $mother_profile[0]->parent_id,
 							"name" => $mother_profile[0]->mother_name,
-							"occupation" => $mother_profile[0]->mother_occupation,
+							"occupation" => "",
 							"income" => "",
 							"home_address" => "",
 							"email" => "",
@@ -362,7 +320,7 @@ class Apimainmodel extends CI_Model {
 						$guardianProfile  = array(
 							"id" => $guardian_profile[0]->parent_id,
 							"name" => $guardian_profile[0]->guardn_name,
-							"occupation" => $guardian_profile[0]->occupation,
+							"occupation" => "",
 							"income" => "",
 							"home_address" => "",
 							"email" => "",
@@ -421,7 +379,7 @@ class Apimainmodel extends CI_Model {
 						$motherProfile  = array(
 							"id" => $mother_profile[0]->parent_id,
 							"name" => $mother_profile[0]->mother_name,
-							"occupation" => $mother_profile[0]->mother_occupation,
+							"occupation" => "",
 							"income" => "",
 							"home_address" => "",
 							"email" => "",
@@ -443,7 +401,7 @@ class Apimainmodel extends CI_Model {
 						$guardianProfile  = array(
 							"id" => $guardian_profile[0]->parent_id,
 							"name" => $guardian_profile[0]->guardn_name,
-							"occupation" => $guardian_profile[0]->occupation,
+							"occupation" => "",
 							"income" => "",
 							"home_address" => "",
 							"email" => "",
@@ -452,24 +410,13 @@ class Apimainmodel extends CI_Model {
 							"office_phone" => "",
 							"relationship" => "",
 							"user_pic" => $guardian_profile[0]->guardn_pic 
-						);
-						
-						/*$enroll_query = "SELECT A.enroll_id,A.admission_id,A.admisn_no,A.class_id,A.name,C.class_name,D.sec_name,E.group_name,F.quota_name,G.extra_curricular_name
-		              	from edu_enrollment A, edu_classmaster B, edu_class C, edu_sections D, edu_groups E, edu_quota F ,edu_extra_curricular G
-                        WHERE A.class_id = B.class_sec_id AND 
-                        A.house_id = E.id AND
-                        A.quota_id = F.id AND
-                        A.extra_curicullar_id = G.id AND
-                        B.class = C.class_id AND 
-                        B.section = D.sec_id AND 
-                        A.admit_year ='$year_id' AND
-                        A.admission_id IN ($admisson_id)";*/
-                                        
+						);						
+						$parentProfile = array("fatherProfile" =>$fatherProfile,"motherProfile" =>$motherProfile,"guardianProfile" =>$guardianProfile);
+
 						$enroll_query = "SELECT A.enroll_id AS registered_id,A.admission_id,A.admisn_no AS admission_no,A.class_id,A.name,C.class_name,D.sec_name from edu_enrollment A, edu_classmaster B, edu_class C, edu_sections D WHERE A.class_id = B.class_sec_id AND B.class = C.class_id AND B.section = D.sec_id AND A.admit_year ='$year_id' AND A.admission_id IN ($admisson_id)";
 						$enroll_res = $this->db->query($enroll_query);
 						$stu_enroll_res= $enroll_res->result();
-                        //$parentProfile = array_push($fatherProfile,$motherProfile,$guardianProfile);
-				  		$parentProfile = array("fatherProfile" =>$fatherProfile,"motherProfile" =>$motherProfile,"guardianProfile" =>$guardianProfile);
+				  		
 				  		$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData,"parentProfile" =>$parentProfile,"registeredDetails"=>$stu_enroll_res, "year_id" => $year_id);
 						return $response;
 				  }
