@@ -74,12 +74,21 @@ Class Communicationmodel extends CI_Model
 
 	   }
 	   
-	   function get_all_teachers_list()
+	   function get_all_teachers_list($leave_id)
 	   {
-		 $que="SELECT * FROM edu_teachers";
-		 $resultset=$this->db->query($que);
-		 $row=$resultset->result();
-		 return $row; 
+		   $sql="SELECT leave_id,user_id,from_leave_date,to_leave_date FROM edu_user_leave WHERE leave_id='$leave_id'";
+		   $resultset=$this->db->query($sql);
+		   $row=$resultset->result();
+		   foreach($row as $res){}
+		   $tid=$res->user_id;
+		   $ldate=$res->from_leave_date;
+		   $tdate=$res->to_leave_date;
+		   $lid=$res->leave_id;
+		   //echo $tid;exit;
+		   $que="SELECT t.teacher_id,t.name,t.phone FROM edu_teachers AS t WHERE t.teacher_id NOT IN('$tid')";
+		   $resultset=$this->db->query($que);
+		   $row=$resultset->result();
+		   return $row; 
 	   }
 	   
 	   function get_all_class_list($leave_id)
@@ -122,7 +131,7 @@ Class Communicationmodel extends CI_Model
 		   foreach($row as $res){}
 		   $tid=$res->user_id;
 		   
-		   $query="SELECT s.*,t.teacher_id,t.name,c.class_id,c.class_name,se.sec_name,se.sec_id,cm.class_sec_id,cm.class,cm.section FROM edu_substitution AS s,edu_teachers AS t,edu_class AS c,edu_sections AS se,edu_classmaster AS cm WHERE s.teacher_id='$tid' AND t.teacher_id=s.sub_teacher_id AND s.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id" ;
+		   $query="SELECT s.*,t.teacher_id,t.name,c.class_id,c.class_name,se.sec_name,se.sec_id,cm.class_sec_id,cm.class,cm.section FROM edu_substitution AS s,edu_teachers AS t,edu_class AS c,edu_sections AS se,edu_classmaster AS cm WHERE s.teacher_id='$tid' AND t.teacher_id=s.sub_teacher_id AND s.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER BY s.id DESC" ;
 		   $result=$this->db->query($query);
 		   $row=$result->result();
 		   return $row;
@@ -161,7 +170,7 @@ Class Communicationmodel extends CI_Model
 			 {
 			foreach($res1 as $rows1){
 			 $class_id[]= $rows1->class_sec_id;$class_name[]=$rows1->class_name;$sec_n[]=$rows1->sec_name;}
-			$data= array("class_id" => $class_id,"class_name"=>$class_name,"sec_name"=>$sec_n,"teacher_id"=>$tid,"from_leave_date"=>$ldate,"to_leave_date"=>$tdate,"leave_id"=>$lid,"status"=>"success");
+			$data= array("class_id" => $class_id,"class_name"=>$class_name,"sec_name"=>$sec_n,"status"=>"success");
 		    return $data;
 			//echo "<pre>"; print_r($data);exit;			
 			 } 

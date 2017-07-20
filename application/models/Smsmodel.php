@@ -8,16 +8,17 @@ Class Smsmodel extends CI_Model
 
   }
   
-  function send_sms_for_teacher_leave($number,$status)
+  function send_sms_for_teacher_leave($number,$leave_type)
   {
 	// http://173.45.76.227/send.aspx?username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS&numbers=12345&message=WELCOME
-
+     //Thank you for the information. This is to inform you that your leave has been approved.
+	 $textmsg='Thankyoufortheinformation';
 	
 	$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 
 	$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 	
-    $api_params = $api_element.'&numbers='.$number.'&message='.$status;
+    $api_params = $api_element.'&numbers='.$number.'&message='.$textmsg;
 	
 	$smsgatewaydata = $smsGatewayUrl.$api_params;
 
@@ -40,7 +41,7 @@ Class Smsmodel extends CI_Model
     return $output;        
    }else
    {
-    echo "Sent";
+    echo "";
    }
 
  } 

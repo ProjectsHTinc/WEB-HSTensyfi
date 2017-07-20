@@ -28,9 +28,9 @@
                               <label class="col-sm-2 control-label">Type of Leave</label>
                               <div class="col-sm-4">
 						
-							   <select class="form-control" disabled name="leaves_type" >
+							   <select class="form-control" readonly name="leaves_type" >
 							  <?php foreach($leaves as $res1){ ?>
-									<option <?php echo $res1->type_leave; ?>><?php echo $res1->leave_title; ?></option>
+									<option <?php echo $res1->leave_title; ?>><?php echo $res1->leave_title; ?></option>
 									<?php } ?>
                            </select>
 							

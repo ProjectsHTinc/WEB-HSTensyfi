@@ -124,7 +124,7 @@
 					 <div class="img">
 					  <ul style="padding-left:33px;">
 					  <li style="padding-top:45px;list-style-type:none;">
-					 <a href="<?php echo base_url(); ?>communication/add_communication" class="design">Circular</a>
+					 <a href="<?php echo base_url(); ?>circular/view_circular" class="design">Circular</a>
 					 </li>
 					 </ul>
 					 </div>
@@ -223,7 +223,7 @@
                            <div class="table-full-width">
                               <table class="table">
 							   <thead class="setcolor">
-                                    <th colspan="2" style="padding-bottom: 8px;"><span class="rem">Circular <a href="<?php echo base_url(); ?>communication/add_communication" >
+                                    <th colspan="2" style="padding-bottom: 8px;"><span class="rem">Circular <a href="<?php echo base_url(); ?>circular/add_circular" >
 									<img class="img-responsive plusicon" src="<?php echo base_url(); ?>assets/img/icons/plus.png"/></a></span>
 									</th>
 								</thead>

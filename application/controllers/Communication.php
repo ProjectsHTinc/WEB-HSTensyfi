@@ -17,8 +17,8 @@ class Communication extends CI_Controller
 		  {
 			  $datas=$this->session->userdata();
               $user_id=$this->session->userdata('user_id');
-			  $datas['result']=$this->communicationmodel->user_leaves();
 			  $user_type=$this->session->userdata('user_type');
+			  $datas['result']=$this->communicationmodel->user_leaves();
 			 //print_r($datas['result']);exit;
 			  if($user_type==1)
                 {
@@ -55,20 +55,21 @@ class Communication extends CI_Controller
   	 		$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			
-			//$leave_type=$this->input->post('leave_type');
+			$leave_type=$this->input->post('leaves_type');
+			
 			//$leave_date=$this->input->post('leave_date');
 			 $number=$this->input->post('cell');
 			//$to_time=$this->input->post('to_time');
 			//$leave_description=$this->input->post('leave_description');
 			 $leave_id=$this->input->post('leave_id');
 			 $status=$this->input->post('status');
-
+             //echo $leave_type; echo $status;exit;
 			 //$dateTime = new DateTime($leave_date);
              //$formatted_date=date_format($dateTime,'Y-m-d' );
 			 
 			 $datas=$this->communicationmodel->update_leave($leave_id,$status);
-			 if($status=='Approved'){
-			 $datas['sms']=$this->smsmodel->send_sms_for_teacher_leave($number,$status);}
+			 if($status=='Approved')
+			 { $datas['sms']=$this->smsmodel->send_sms_for_teacher_leave($number,$leave_type); }
 			 $datas['result']=$this->communicationmodel->user_leaves();
 			
 			 //print_r($datas);exit;
@@ -96,7 +97,7 @@ class Communication extends CI_Controller
 			$user_type=$this->session->userdata('user_type');
 		
 			$datas=$this->communicationmodel->get_all_class_list($leave_id);
-			$datas['teachers']=$this->communicationmodel->get_all_teachers_list();
+			$datas['teachers']=$this->communicationmodel->get_all_teachers_list($leave_id);
 			$datas['view']=$this->communicationmodel->get_all_view_list($leave_id);
 			//echo '<pre>';print_r($datas['view']);exit;
 		    //print_r($datas['res']);exit;

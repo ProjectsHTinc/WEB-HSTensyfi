@@ -338,7 +338,7 @@ Class Dashboard extends CI_Model
     ';
          }echo $output;}////////////
 		   }else{
-	     $query="SELECT et.name,et.phone,et.email,et.teacher_id,c.class_name,s.sec_name,et.status FROM edu_teachers AS et JOIN edu_classmaster AS cm, edu_sections AS s,edu_class AS c WHERE FIND_IN_SET('$class_sec',et.class_name) AND et.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND et.name LIKE '$ser_txt%'";
+	     $query="SELECT et.name,et.phone,et.email,et.teacher_id,et.class_teacher,estc.teacher_id,estc.class_master_id,estc.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_teachers AS et,edu_teacher_handling_subject AS estc,edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE et.teacher_id=estc.teacher_id AND estc.class_master_id='$class_sec' AND cm.class_sec_id=et.class_teacher AND cm.class=c.class_id AND cm.section=se.sec_id GROUP BY et.name ";
          $result=$this->db->query($query);
          if($result->num_rows()==0){
           echo "No Data Found";
@@ -473,7 +473,7 @@ function get_students_circular($user_id)
 		  foreach($all_year as $cyear){}
 		  $current_year=$cyear->year_id;
 
-		  $com="SELECT c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.id,cm.academic_year_id,cm.circular_title,cm.circular_type,cm.circular_description,cm.status FROM edu_circular AS c,edu_circular_master AS cm WHERE c.user_id='$user_id' AND c.user_type=3 AND cm.academic_year_id='$current_year' AND c.circular_master_id=cm.id AND cm.status='Active' LIMIT 5 ";
+		  $com="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.id,cm.academic_year_id,cm.circular_title,cm.circular_type,cm.circular_description,cm.status FROM edu_circular AS c,edu_circular_master AS cm WHERE c.user_id='$user_id' AND c.user_type=3 AND cm.academic_year_id='$current_year' AND c.circular_master_id=cm.id AND cm.status='Active' ORDER BY c.id DESC LIMIT 5 ";
 		 //$sql="SELECT * FROM edu_communication WHERE status='A' AND FIND_IN_SET('$teacher_id',teacher_id) ";
 		 $resultset=$this->db->query($com);
 		 $row=$resultset->result();
@@ -491,7 +491,7 @@ function get_students_circular($user_id)
 		  foreach($all_year as $cyear){}
 		  $current_year=$cyear->year_id;
 
-		  $com="SELECT c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.id,cm.academic_year_id,cm.circular_title,cm.circular_type,cm.circular_description,cm.status FROM edu_circular AS c,edu_circular_master AS cm WHERE c.user_id='$user_id' AND c.user_type=4 AND cm.academic_year_id='$current_year' AND c.circular_master_id=cm.id AND cm.status='Active' LIMIT 5 ";
+		  $com="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.id,cm.academic_year_id,cm.circular_title,cm.circular_type,cm.circular_description,cm.status FROM edu_circular AS c,edu_circular_master AS cm WHERE c.user_id='$user_id' AND c.user_type=4 AND cm.academic_year_id='$current_year' AND c.circular_master_id=cm.id AND cm.status='Active' ORDER BY c.id DESC  LIMIT 5 ";
 		 $resultset=$this->db->query($com);
 		 $row=$resultset->result();
 		 return $row;
