@@ -225,10 +225,10 @@
                    $('#subject_handling_form')[0].reset();
                    swal({
             title: "Wow!",
-            text: "Added Successfully!",
+            text: "Subject Added Successfully!",
             type: "success"
         }, function() {
-          $('#myModal').modal('hide');
+          location.reload();
         });
                 }else{
                   sweetAlert("Oops...",response, "error");
