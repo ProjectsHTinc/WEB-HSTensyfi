@@ -35,7 +35,7 @@ Class Communicationmodel extends CI_Model
       
 	   function user_leaves()
 	   {
-		   $query="SELECT ul.*,t.teacher_id,t.name FROM edu_user_leave AS ul,edu_teachers AS t WHERE t.teacher_id=ul.user_id ORDER BY ul.leave_id desc";
+		   $query="SELECT ul.*,lm.leave_title,lm.leave_type,lm.id,t.teacher_id,t.name FROM edu_user_leave AS ul,edu_teachers AS t,edu_user_leave_master AS lm WHERE t.teacher_id=ul.user_id AND ul.leave_master_id=lm.id ORDER BY ul.leave_id desc";
 		   $resultset=$this->db->query($query);
            $result= $resultset->result();
 		   return $result;

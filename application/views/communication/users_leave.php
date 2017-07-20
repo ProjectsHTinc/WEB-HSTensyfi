@@ -40,7 +40,7 @@
                               <tr>
                                  <td><?php echo $i; ?></td>
                                  <td><?php echo $rows->name ; ?></td>
-                                 <td><?php if($type==0){ echo "Permission"; }else{ echo "Leave"; } ?></td>
+                                 <td><?php  echo $rows->leave_title ; //if($type==0){ echo "Permission"; }else{ echo "Leave"; } ?></td>
                                  <td><?php $date=date_create($rows->from_leave_date);
                                      echo date_format($date,"d-m-Y");?> 
                 									 <?php if($type==0)
