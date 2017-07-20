@@ -57,10 +57,10 @@ class Teacherprofile extends CI_Controller {
 		              $nationality=$this->input->post('nationality');
 			          $religion=$this->input->post('religion');
                       $mobile=$this->input->post('mobile');
-					  
+
 					  $sec_email=$this->input->post('sec_email');
 					  $sec_phone=$this->input->post('sec_phone');
-					  
+
 					  $community_class=$this->input->post('community_class');
 		              $community=$this->input->post('community');
 			          $address=$this->input->post('address');
@@ -75,7 +75,7 @@ class Teacherprofile extends CI_Controller {
 					   {
 					    $userFileName=$user_pic_old;
 				       }
-							
+
 
 						$res=$this->teacherprofilemodel->teacherprofileupdate($user_id,$teachername,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$mobile,$sec_phone,$community_class,$community,$address,$userFileName);
 
@@ -106,6 +106,8 @@ class Teacherprofile extends CI_Controller {
 					 redirect('/');
 				}
         }
+
+				
 
   public function updateprofile()
   {

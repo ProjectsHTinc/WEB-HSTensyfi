@@ -104,7 +104,7 @@ class Apiadminmodel extends CI_Model {
         //#################### GET STUDENT & PARENTS DETAILS ####################//
 
           function get_student_details($student_id){
-            $sql="SELECT er.admission_id,ea.name,ea.sex,DATE_FORMAT(dob,'%d-%m-%Y') AS dob,ea.nationality,ea.religion,ea.community_class,ea.community,ea.language,ea.student_pic,ea.mobile,ea.email,ea.parents_status FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
+            $sql="SELECT er.admission_id,ea.* FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
             $res_stu=$this->db->query($sql);
 
             $student_query = "SELECT * from edu_admission WHERE admission_id='$student_id' AND status = 'Active'";

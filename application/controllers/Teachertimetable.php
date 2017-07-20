@@ -54,6 +54,24 @@ class Teachertimetable extends CI_Controller {
 	 	}
 
 
+
+		public function classhandling_subject(){
+				$datas=$this->session->userdata();
+				$user_id=$this->session->userdata('user_id');
+				$user_type=$this->session->userdata('user_type');
+			 if($user_type==2){
+			 $datas['res']=$this->subjectmodel->get_class_handling_subject($user_id);
+			// print_r($datas);
+			 $this->load->view('adminteacher/teacher_header');
+			 $this->load->view('adminteacher/special_class/teacher_handling_subject',$datas);
+			 $this->load->view('adminteacher/teacher_footer');
+			 }
+			 else{
+					redirect('/');
+			 }
+		}
+
+
 		public function view($class_sec_id){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');

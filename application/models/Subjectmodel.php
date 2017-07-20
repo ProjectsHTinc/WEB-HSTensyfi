@@ -36,6 +36,15 @@ Class Subjectmodel extends CI_Model
 
        }
 
+
+       //  Teacher handling Subject
+       function get_class_handling_subject($user_id){
+         $query="SELECT eths.teacher_id,eths.class_master_id,eths.subject_id,et.name,c.class_name,s.sec_name,esu.subject_name FROM edu_teacher_handling_subject AS eths         LEFT JOIN edu_teachers AS et ON et.teacher_id=eths.teacher_id  LEFT JOIN edu_classmaster AS cm ON eths.class_master_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id
+         LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_users AS eu ON eu.user_master_id=et.teacher_id LEFT JOIN edu_subject AS esu ON eths.subject_id=esu.subject_id WHERE eu.user_id='$user_id' GROUP BY eths.subject_id";
+       $resultset=$this->db->query($query);
+       return $resultset->result();
+       }
+
 //GET SPECIFIC SECTION NAME
        function update_subject($subject_id)
 	   {
@@ -48,12 +57,12 @@ Class Subjectmodel extends CI_Model
 //UPDATE SECTION NAME
        function save_subject($subject_name,$subject_id,$status)
 	   {
-         
+
           $query="UPDATE edu_subject SET subject_name='$subject_name',status='$status' WHERE subject_id='$subject_id'";
           $resultset=$this->db->query($query);
           $data= array("status" => "success");
           return $data;
-        
+
        }
 
 //DELETE SECTION NAME

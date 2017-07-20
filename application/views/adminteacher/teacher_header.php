@@ -178,6 +178,13 @@
                      <p>Dashboard</p>
                   </a>
                </li>
+               <li id="classhandling">
+                  <a href="<?php echo base_url(); ?>teachertimetable/classhandling_subject">
+                     <i class="pe-7s-flag"></i>
+                     <p>Class Handling 	</p>
+                  </a>
+
+               </li>
                <li id="atten">
                   <a data-toggle="collapse" href="#attendmenu">
                      <i class="pe-7s-note2"></i>
