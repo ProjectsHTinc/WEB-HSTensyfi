@@ -240,7 +240,7 @@
 
 
    $(document).ready(function () {
-	   
+
     //$("textarea").MaxLength({ MaxLength:10})
 
    $('#admissionform').validate({ // initialize the plugin
@@ -287,8 +287,7 @@
    });
    });
 
-</script>
-<script type="text/javascript">
+
    function checkemailfun(val)
    {
    $.ajax({
@@ -311,8 +310,7 @@
    });
    }
 
-</script>
-<script type="text/javascript">
+
    $().ready(function(){
    $('#teachermenu').addClass('collapse in');
 

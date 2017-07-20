@@ -32,16 +32,7 @@
                                           </select>
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group">
-                                      <label class="col-sm-4 control-label">Subject To Class </label>
-                                          <div class="col-sm-8">
-                                            <select multiple data-title="Select More Than one class" name="subject[]" id="multiple-class" class="selectpicker" data-style="btn-block" onchange="select_class('classname')" data-menu-style="dropdown-blue">
-                                              <?php foreach ($subres as $rows) {  ?>
-                                              <option value="<?php echo $rows->subject_id; ?>"><?php echo $rows->subject_name; ?></option>
-                                        <?php      } ?>
-                                            </select>
-                                          </div>
-                                    </div> -->
+
 									<div class="form-group">
 									<label class="col-sm-2 control-label">Status</label>
                                           <div class="col-sm-8">
@@ -137,7 +128,7 @@
                                         <div class="form-group">
                                            <label class="col-sm-4 control-label">Select Subject</label>
                                            <div class="col-sm-6">
-                                              <select  name="subject_id" id="subject_id"   data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue" onchange="getListClass()">
+                                              <select  name="subject_id" id="subject_id"   data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
                                                  <?php foreach ($resubject as $rows) {  ?>
                                                  <option value="<?php echo $rows->subject_id; ?>"><?php echo $rows->subject_name; ?></option>
                                                  <?php      } ?>
@@ -238,10 +229,7 @@ $('#subject_handling_form').validate({ // initialize the plugin
          text: "Message!",
          type: "success"
      }, function() {
-        $('#subject_id').empty();
-        $("#subject_handling_form")[0].reset();
-           $('#myModal').modal('hide');
-
+        location.reload();
      });
              }else{
                sweetAlert("Oops...",response, "error");

@@ -169,13 +169,8 @@ class Adminparent extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$datas['total']=$this->adminparentmodel->get_total_working_days($user_id,$user_type);
-
-			//echo $user_id='10';
 			if($user_type==4){
 					$datas['res']=$this->adminparentmodel->get_stude_attendance($enroll_id);
-					// $datas['odres']=$this->adminparentmodel->get_student_od_view($enroll_id);
-					//echo json_encode($datas['res']);
-
 					$this->load->view('adminparent/parent_header');
 					$this->load->view('adminparent/attendance/view_calender',$datas);
 					$this->load->view('adminparent/parent_footer');

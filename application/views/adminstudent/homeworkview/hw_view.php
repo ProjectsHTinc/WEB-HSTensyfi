@@ -1,3 +1,9 @@
+<style>
+.datewidth{
+    width:100px;
+}
+    </style>
+</style>
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -17,14 +23,13 @@
                               <th>Type</th>
                               <th>Title</th>
                               <th>DATE</th>
-							  <th>Submission DATE</th>
                               <th>Details</th>
                               <th>View Marks </th>
                            </thead>
                            <tbody>
                               <?php
                                  $i=1;
-                                 foreach ($result as $rows) 
+                                 foreach ($result as $rows)
 								 {
                                  $type=$rows->hw_type;
                                  $sta=$rows->mark_status;
@@ -33,16 +38,16 @@
                               <tr>
                                  <td><?php   echo $i; ?></td>
                                 <td>
-                                    <?php 
+                                    <?php
                                        $id=$rows->teacher_id;
                                        $query="SELECT name,teacher_id FROM edu_teachers WHERE teacher_id='$id'";
                                        $resultset=$this->db->query($query);
                                        $row=$resultset->result();
 									   foreach($row as $row1){}
-                                       $tname=$row1->name; 
+                                       $tname=$row1->name;
 									   echo $tname; ?>
 							  </td>
-                               
+
                                  <td><?php $su=$rows->subject_id;
                                        $sub="SELECT * FROM edu_subject WHERE subject_id='$su'";
                                        $result=$this->db->query($sub);
@@ -55,12 +60,14 @@
                                  <td><?php if($hw=="HT")
 								 {echo "Class Test";}else{ echo "Home Work";}?></td>
                                  <td><?php echo $rows->title; ?></td>
-                                 <td><?php $date=date_create($rows->test_date);
+
+							    <td class="datewidth">
+							    <?php if($hw=="HT") {$date=date_create($rows->test_date);
                                     echo date_format($date,"d-m-Y");
-                                    ?></td>
-							    <td><?php if($hw=="HT"){}else{ $duedate=date_create($rows->due_date);
+                                    }else{ $duedate=date_create($rows->due_date);
 								echo date_format($duedate,"d-m-Y"); }
-									 ?></td>
+									 ?>
+									 </td>
                                  <td><?php echo $rows->hw_details; ?></td>
                                  <td>
                                     <?php if($sta==0 && $type=="HT")
@@ -79,7 +86,7 @@
                </div>
             </div> <!-- row -->
          </div>
-        
+
       </div>
 </div>
 <script type="text/javascript">
@@ -107,7 +114,7 @@
             }
     });
    });
-   
+
    var $table = $('#bootstrap-table');
          $().ready(function(){
              $table.bootstrapTable({
@@ -122,7 +129,7 @@
                  pageSize: 8,
                  clickToSelect: false,
                  pageList: [8,10,25,50,100],
-   
+
                  formatShowingRows: function(pageFrom, pageTo, totalRows){
                      //do nothing here, we don't want to show the text "showing x of y from..."
                  },
@@ -137,20 +144,20 @@
                      detailClose: 'fa fa-minus-circle'
                  }
              });
-   
+
              //activate the tooltips after the data table is initialized
              $('[rel="tooltip"]').tooltip();
-   
+
              $(window).resize(function () {
                  $table.bootstrapTable('resetView');
              });
-   
-   
+
+
          });
 </script>
 <script type="text/javascript">
    $().ready(function(){
-   
+
      $('.datepicker').datetimepicker({
        format: 'DD-MM-YYYY',
        icons: {
