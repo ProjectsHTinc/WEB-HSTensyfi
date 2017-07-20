@@ -203,6 +203,12 @@ font-weight: 500;
                      <p>Home Work / Class Test</p>
                   </a>
                </li>
+			    <li id="specialcls">
+                  <a href="<?php echo base_url(); ?>adminparent/view_special_cls">
+                     <i class="pe-7s-next-2"></i>
+                     <p>Special Class</p>
+                  </a>
+               </li>
                <li id="fees">
                   <a href="<?php echo base_url(); ?>adminparent/fees_status">
                      <i class="pe-7s-flag"></i>

@@ -1,5 +1,8 @@
-
-
+<style>
+.datewidth{
+    width:100px;
+}
+    </style>
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -15,7 +18,7 @@
                            if(empty($cls_sec)){
                            	echo "<p>Records Not Found</p>";
                            }else{
-                                              foreach($cls_sec as $row)
+                            foreach($cls_sec as $row)
                               {
                            	 $cmid=$row->class_master_id;
                            	 $clsname=$row->class_name;
@@ -77,9 +80,13 @@
                                  <td><?php if($hw=="HT")
                                     {echo "Class Test";}else{ echo "Home Work";}?></td>
                                  <td><?php echo $rows->title; ?></td>
-                                 <td><?php $date=date_create($rows->test_date);
+                                 <td class="datewidth">
+							    <?php if($hw=="HT") {$date=date_create($rows->test_date);
                                     echo date_format($date,"d-m-Y");
-                                    ?></td>
+                                    }else{ $duedate=date_create($rows->due_date);
+								echo date_format($duedate,"d-m-Y"); }
+									 ?>
+									 </td>
                                  <!--<td><?php//echo $rows->hw_details; ?></td>-->
                                  <td><?php if($status=='Active'){?>
                                     <button class="btn btn-success btn-fill btn-wd">Active</button>

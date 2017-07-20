@@ -39,10 +39,10 @@ Class Smsmodel extends CI_Model
       $output =  file_get_contents($smsgatewaydata);
     }
 
-   if($return == '1')
+   /* if($return == '1')
    {
     return $output;        
-   }else{ echo "send"; }
+   }else{ echo "send"; } */
 
  }
 
@@ -80,10 +80,10 @@ Class Smsmodel extends CI_Model
       $output =  file_get_contents($smsgatewaydata);
     }
 
-   if($return == '1')
+   /* if($return == '1')
    {
     return $output;        
-   }else{ echo "send"; }
+   }else{ echo "send"; } */
 
    
 	

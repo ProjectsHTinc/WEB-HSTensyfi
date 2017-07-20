@@ -600,7 +600,59 @@ class Adminparent extends CI_Controller {
 			$datas['res']=$this->adminparentmodel->get_special_leave_all($user_id,$user_type);
 			echo json_encode($datas['res']);
 		}
+		
+//-----------------------------Special Class-------------------------
+
+    public function view_special_cls()
+	{
+		    $datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==4){
+			 $datas['res']=$this->dashboard->stud_details($user_id);
+			 $stu=count($datas['res']);
+			//echo $stu;exit;
+
+			 if($stu==1){
+				 $datas['stud_details']=$this->dashboard->get_students($user_id);
+					 foreach ($datas['stud_details'] as $rows) {}
+					 $enroll_id= $rows->enroll_id;
+					  //echo $enroll_id;
+					$datas['view']=$this->adminparentmodel->view_stu_special_class($enroll_id);
+					//echo'<pre>';print_r($datas['fees']);exit;
+					$this->load->view('adminparent/parent_header');
+					$this->load->view('adminparent/special_class/view_special_cls',$datas);
+					$this->load->view('adminparent/parent_footer');
+			 }else{
+				 $datas['stud_details']=$this->dashboard->get_students($user_id);
+				 $this->load->view('adminparent/parent_header');
+				 $this->load->view('adminparent/special_class/add',$datas);
+				 $this->load->view('adminparent/parent_footer');
+			 }
+			}
+			else{
+				 redirect('/');
+			}
+	   }
+
+	   public function view_stu_special_cls(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			$enroll_id=$this->input->get('v');
+			//echo $enroll_id; exit;
+			if($user_type==4){
+					 $datas['view']=$this->adminparentmodel->view_stu_special_class($enroll_id);
+				     //echo'<pre>'; print_r($datas['view']);exit;
+					$this->load->view('adminparent/parent_header');
+					$this->load->view('adminparent/special_class/view_special_cls',$datas);
+					$this->load->view('adminparent/parent_footer');
+				}else{
+						 redirect('/');
+				}
+		}
+	}
 
 
 
-}
+

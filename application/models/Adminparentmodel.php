@@ -71,7 +71,7 @@ Class Adminparentmodel extends CI_Model
 			$name=$row4->name;
 			$class_id=$row4->class_id;
 			}
-			$query3="SELECT h.*,cm.class_sec_id,cm.class,cm.section,c.*,se.* FROM edu_homework AS h,edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE h.class_id='$class_id' AND h.status='Active' AND h.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER BY h.hw_id DESC" ;
+			$query3="SELECT h.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_homework AS h,edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE h.class_id='$class_id' AND h.status='Active' AND h.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER BY h.hw_id DESC" ;
 			$result2=$this->db->query($query3);
 			$row4=$result2->result();
 			return $row4;
@@ -248,6 +248,24 @@ Class Adminparentmodel extends CI_Model
 			$row1=$result1->result();
 			return $row1;
 			  }
+	  }
+	  
+	  //----------------------Special Class-----------------------------------
+	  function view_stu_special_class($enroll_id)
+	  {
+		    $sql="SELECT enroll_id,class_id,admission_id,quota_id FROM edu_enrollment WHERE enroll_id='$enroll_id'";
+			$resultset=$this->db->query($sql);
+			$row=$resultset->result();
+			foreach($row as $rows){}
+			$enr_id=$rows->admission_id;
+			$enr_id=$rows->enroll_id;
+			$cls_id=$rows->class_id;
+			
+			$sql1="SELECT sc.id,sc.class_master_id,sc.teacher_id,sc.subject_id,sc.subject_topic,sc.special_class_date,sc.start_time,sc.	end_time,sc.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name,su.subject_id,su.subject_name,t.name,t.teacher_id FROM edu_special_class AS sc,edu_classmaster AS cm,edu_class AS c,edu_sections AS se,edu_subject AS su,edu_teachers AS t WHERE sc.class_master_id='$cls_id' AND sc.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id AND sc.subject_id=su.subject_id AND sc.teacher_id=t.teacher_id";
+			$result2=$this->db->query($sql1);
+			$rows1=$result2->result();
+			return $rows1;
+			
 	  }
 }
 ?>
