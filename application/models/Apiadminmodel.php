@@ -106,17 +106,8 @@ class Apiadminmodel extends CI_Model {
           function get_student_details($student_id){
             $sql="SELECT er.admission_id,ea.name,ea.sex,DATE_FORMAT(dob,'%d-%m-%Y') AS dob,ea.nationality,ea.religion,ea.community_class,ea.community,ea.language,ea.student_pic,ea.mobile,ea.email,ea.parents_status FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
             $res_stu=$this->db->query($sql);
-           /*
-            $par_de_sql="SELECT er.admission_id,ep.* FROM edu_enrollment AS er LEFT JOIN edu_parents AS ep ON er.admission_id=ep.admission_id WHERE er.enroll_id='$student_id'";
-            $res_pat=$this->db->query($par_de_sql);
 
-                if($res_pat->num_rows()==0){
-                    $res_parents="NO Parents Details";
-                }else{
-                      $res_parents=$res_pat->result();
-                }
-        */
-                        $student_query = "SELECT * from edu_admission WHERE admission_id='$student_id' AND status = 'Active'";
+            $student_query = "SELECT * from edu_admission WHERE admission_id='$student_id' AND status = 'Active'";
 						$student_res = $this->db->query($student_query);
 						$student_profile= $student_res->result();
 
@@ -125,7 +116,7 @@ class Apiadminmodel extends CI_Model {
 								$parent_id = $rows->parnt_guardn_id;
 							}
 
-                        $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+            $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
 						$father_res = $this->db->query($father_query);
 						$father_profile = $father_res->result();
 

@@ -91,12 +91,13 @@ class Teachertimetable extends CI_Controller {
 			$class_id=$this->input->post('class_id');
 			$user_id=$this->input->post('user_id');
 			$subject_id=$this->input->post('subject_id');
+			$period_id=$this->input->post('period_id');
 			$user_type=$this->input->post('user_type');
 		 	$cur_date1=$this->input->post('cur_date');
 			$cls_date = new DateTime($cur_date1);
 			$cur_date= $cls_date->format('Y-m-d h:i:s');
 			 $comments=$this->input->post('comments');
-			 $data=$this->timetablemodel->save_review($class_id,$user_id,$user_type,$subject_id,$cur_date,$comments);
+			 $data=$this->timetablemodel->save_review($class_id,$user_id,$user_type,$subject_id,$cur_date,$comments,$period_id);
 			 if($data['status']=="success"){
 				 echo "success";
 			 }else{

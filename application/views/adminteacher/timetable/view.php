@@ -98,6 +98,19 @@
                               <input type="hidden" placeholder="" name="user_type" class="form-control" value="<?php echo $user_type; ?>">
                            </div>
                            <div class="form-group">
+                             <label>Period</label>
+                             <select   name="period_id" class="selectpicker" data-title="Select Period" data-style="btn-block"  data-menu-style="dropdown-blue">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                             </select>
+                           </div>
+                           <div class="form-group">
                               <label>Subject</label>
 
                               <select   name="subject_id" class="selectpicker" data-title="Select Subject" data-style="btn-block"  data-menu-style="dropdown-blue">

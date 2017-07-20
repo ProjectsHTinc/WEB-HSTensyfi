@@ -9,7 +9,25 @@ Class Timetablemodel extends CI_Model
 
   }
 
-       //GET ALL TERMS
+
+
+              function getYear()
+              {
+                $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+                $year_result = $this->db->query($sqlYear);
+                $ress_year = $year_result->result();
+
+                if($year_result->num_rows()==1)
+                {
+                  foreach ($year_result->result() as $rows)
+                  {
+                      $year_id = $rows->year_id;
+                  }
+                  return $year_id;
+                }
+              }
+
+              //Create timetable
 
               function create_timetable($year_id,$term_id,$class_id,$subject_id,$teacher_id,$day_id,$period_id)
 			  {
@@ -53,11 +71,9 @@ Class Timetablemodel extends CI_Model
 
 
                    $query="SELECT tt.class_id AS timid,cm.class_sec_id,cm.class,cm.section,c.class_id,tt.year_id,a.from_month,a.to_month,c.class_name,s.sec_name
-FROM edu_timetable AS tt  INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id
-INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE tt.year_id='$year_id' GROUP BY c.class_name";
+                   FROM edu_timetable AS tt  INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id
+                   INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE tt.year_id='$year_id' GROUP BY c.class_name";
                   $result=$this->db->query($query);
-                  // echo "<pre>";
-                  // print_r($result->result());exit;
                   return $result->result();
 
 
@@ -160,8 +176,9 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
 
               //Save Review
 
-              function save_review($class_id,$user_id,$user_type,$subject_id,$cur_date,$comments){
-               $query="INSERT INTO edu_timetable_review (time_date,class_id,subject_id,user_type,user_id,comments,status,created_at,updated_at) VALUES ('$cur_date','$class_id','$subject_id','$user_type','$user_id','$comments','Active',NOW(),NOW())";
+              function save_review($class_id,$user_id,$user_type,$subject_id,$cur_date,$comments,$period_id){
+               $year_id=$this->getYear();
+               $query="INSERT INTO edu_timetable_review (time_date,year_id,class_id,subject_id,period_id,user_type,user_id,comments,status,created_at,updated_at) VALUES ('$cur_date','$year_id','$class_id','$subject_id','$period_id','$user_type','$user_id','$comments','Active',NOW(),NOW())";
                  $resultset=$this->db->query($query);
                  if($resultset){
                    $data= array("status" => "success");
@@ -176,24 +193,26 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
               //View Review
 
               function view_review($user_id){
-                 $query="SELECT etr.class_id,c.class_name,s.sec_name,etr.subject_id,etr.time_date,esu.subject_name,etr.comments,etr.remarks FROM edu_timetable_review AS etr
+                 $year_id=$this->getYear();
+                $query="SELECT etr.class_id,etr.period_id,c.class_name,s.sec_name,etr.subject_id,etr.time_date,esu.subject_name,etr.comments,etr.remarks FROM edu_timetable_review AS etr
                 INNER JOIN edu_classmaster AS cm ON etr.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id
-                INNER JOIN edu_subject AS esu ON etr.subject_id=esu.subject_id  WHERE user_id ='$user_id' ORDER BY etr.updated_at ASC";
+                INNER JOIN edu_subject AS esu ON etr.subject_id=esu.subject_id  WHERE user_id ='$user_id'and etr.year_id='$year_id' ORDER BY etr.updated_at ASC";
                  $resultset=$this->db->query($query);
                  return $resultset->result();
                 }
 
 
                 function view_review_all(){
-                   $query="SELECT etr.timetable_id,etr.user_id,edu.name,etr.class_id,c.class_name,s.sec_name,etr.subject_id,etr.time_date,esu.subject_name,etr.comments,etr.remarks FROM edu_timetable_review AS etr
+                  $year_id=$this->getYear();
+                   $query="SELECT etr.timetable_id,etr.user_id,etr.period_id,edu.name,etr.class_id,c.class_name,s.sec_name,etr.subject_id,etr.time_date,esu.subject_name,etr.comments,etr.remarks FROM edu_timetable_review AS etr
                   INNER JOIN edu_classmaster AS cm ON etr.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id
-                  INNER JOIN edu_subject AS esu ON etr.subject_id=esu.subject_id  INNER JOIN edu_users AS edu ON etr.user_id=edu.user_id ORDER BY etr.created_at ASC";
+                  INNER JOIN edu_subject AS esu ON etr.subject_id=esu.subject_id  INNER JOIN edu_users AS edu ON etr.user_id=edu.user_id where etr.year_id='$year_id' ORDER BY etr.created_at ASC";
                    $resultset=$this->db->query($query);
                    return $resultset->result();
                   }
 
                   function edit_review_all($timetable_id){
-                   $query="SELECT etr.timetable_id,etr.user_id,edu.name,etr.class_id,c.class_name,s.sec_name,etr.subject_id,etr.time_date,esu.subject_name,etr.comments,etr.remarks
+                   $query="SELECT etr.timetable_id,etr.user_id,etr.period_id,edu.name,etr.class_id,c.class_name,s.sec_name,etr.subject_id,etr.time_date,esu.subject_name,etr.comments,etr.remarks
                     FROM edu_timetable_review AS etr INNER JOIN edu_classmaster AS cm ON etr.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id
                     INNER JOIN edu_subject AS esu ON etr.subject_id=esu.subject_id INNER JOIN edu_users AS edu ON etr.user_id=edu.user_id WHERE etr.timetable_id='$timetable_id'";
                     $resultset=$this->db->query($query);
@@ -227,13 +246,7 @@ INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_section
                 INNER JOIN edu_days AS dd ON tt.day=dd.d_id WHERE  tt.teacher_id='$teacher_id' ORDER BY tt.period ASC";
             $result=$this->db->query($query);
             return $result->result();
-          //  if($result->num_rows()==0){
-          //    $data= array("st" => "no data Found");
-          //    return $data;
-          //  }else{
-          //    $data= array("st" => "success","time"=>$time);
-          //    return $data;
-          //  }
+
 
                 }
 

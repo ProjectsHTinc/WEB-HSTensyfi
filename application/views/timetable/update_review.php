@@ -35,6 +35,12 @@
 
                               </div>
                               <div class="form-group">
+                                  <label>Period</label>
+                                 <input type="text" class="form-control" readonly placeholder="" id="classname" name="classname" value="<?php echo $rows->period_id; ?>">
+
+
+                              </div>
+                              <div class="form-group">
                                   <label>Date Time</label>
                                    <input type="text" class="form-control"  placeholder="" id="classname" name="classname" readonly value=" <?php echo $rows->time_date;  ?>">
                            </select>

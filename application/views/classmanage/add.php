@@ -128,7 +128,7 @@
                                         <div class="form-group">
                                            <label class="col-sm-4 control-label">Select Subject</label>
                                            <div class="col-sm-6">
-                                              <select  name="subject_id" id="subject_id"   data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
+                                              <select  name="subject_id" id="subject_id"    data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
                                                  <?php foreach ($resubject as $rows) {  ?>
                                                  <option value="<?php echo $rows->subject_id; ?>"><?php echo $rows->subject_name; ?></option>
                                                  <?php      } ?>
