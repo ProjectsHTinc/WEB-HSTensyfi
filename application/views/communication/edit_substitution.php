@@ -1,4 +1,3 @@
-
 <div class="main-panel">
 <div class="content">
 <div class="container-fluid">
@@ -9,7 +8,7 @@
   <div class="header">
 	 <legend>Edit Substitution</legend>
   </div>
-		   <?php foreach($result as $res){}  $id=$this->input->get('var3');  ?>
+		   <?php foreach($result as $res){}  $id=$this->input->get('v3');  ?>
   <div class="content">
 	 <form method="post" action="<?php echo base_url(); ?>communication/update_substition" class="form-horizontal" enctype="multipart/form-data" id="myformsection" name="myformsection">
 
@@ -38,8 +37,9 @@
 			  
 			  <label class="col-sm-2 control-label">Substitution Date</label>
 				<div class="col-sm-4">
-									<input type="text" name="leave_date" class="form-control datepicker" placeholder="Registration Date"  value="<?php $date=date_create($res->sub_date);
-					  echo date_format($date,"d-m-Y");  ?>" />                              </div>
+					<input type="text" name="leave_date" class="form-control datepicker" placeholder="Registration Date"  value="<?php $date=date_create($res->sub_date);
+					  echo date_format($date,"d-m-Y");  ?>" />                             
+					  </div>
 		   </div>
 		</fieldset>
 

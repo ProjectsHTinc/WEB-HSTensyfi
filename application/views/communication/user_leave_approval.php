@@ -20,6 +20,7 @@
 						 $id=$row->leave_id;
 						$date1=date_create($row->from_leave_date);
 						$leave=$row->type_leave;
+						$cell=$row->phone;
 						} ?>
 
                         <fieldset>
@@ -40,6 +41,7 @@
                           <input type="text" name="leave_date" readonly value="<?php $date1=date_create($row->from_leave_date);
                                                  echo date_format($date1,"d-m-Y"); ?>" class="form-control">
 						 <input type="hidden" name="leave_id" value="<?php echo $id;?>" class="form-control "  >
+						 <input type="hidden" name="cell" value="<?php echo $cell;?>" class="form-control "  >
                               </div>
                            </div>
                         </fieldset>

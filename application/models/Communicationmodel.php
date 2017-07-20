@@ -31,44 +31,7 @@ Class Communicationmodel extends CI_Model
          return $resultset->result();
 	 }
 
-	 function communication_create($title,$notes,$formatted_date,$teacher,$class_name)
-	 {
-
-		 $query="INSERT INTO edu_communication(commu_title,commu_details,commu_date,teacher_id,class_id,status,created_at,updated_at) VALUES ('$title','$notes','$formatted_date','$teacher','$class_name','A',NOW(),NOW())";
-		 $resultset=$this->db->query($query);
-		 $data= array("status" => "success");
-         return $data;
-	 }
-
-	 function view()
-	 {
-		 $query="SELECT * FROM edu_communication ORDER BY commu_id DESC";
-         $res=$this->db->query($query);
-         $result1=$res->result();
-		 return $result1;
-		 //return $result1[0]->teaher_id;
-	 }
-
-	
-   function edit_data($commu_id)
-   {
-	         $query1="SELECT * FROM edu_communication WHERE commu_id='$commu_id'";
-             $res=$this->db->query($query1);
-             return $res->result();
-   }
-
-	 function communication_update($id,$title,$notes,$date,$teacher,$class_name)
-	 {
-	  $query="UPDATE edu_communication SET commu_title='$title',commu_details='$notes',commu_date='$date',teacher_id='$teacher',class_id='$class_name' WHERE commu_id='$id'";
-	 $res=$this->db->query($query);
-	 if($res){
-				 $data= array("status" => "success");
-				 return $data;
-			   }else{
-				 $data= array("status" => "Failed to Update");
-				 return $data;
-			   }
-	 }
+	 
       
 	   function user_leaves()
 	   {
@@ -82,7 +45,7 @@ Class Communicationmodel extends CI_Model
 	  
 	   function edit_leave($leave_id)
 	   {
-		 $que="SELECT * FROM edu_user_leave WHERE leave_id='$leave_id'";
+		 $que="SELECT l.*,t.name,t.teacher_id,t.phone FROM edu_user_leave AS l,edu_teachers AS t WHERE l.leave_id='$leave_id' AND t.teacher_id=l.user_id";
 		 $resultset1=$this->db->query($que);
 		 $row=$resultset1->result();
 		 return $row;
@@ -146,8 +109,8 @@ Class Communicationmodel extends CI_Model
 			 $class_id[]= $rows1->class_sec_id;$class_name[]=$rows1->class_name;$sec_n[]=$rows1->sec_name;}
 			$data= array("class_id" => $class_id,"class_name"=>$class_name,"sec_name"=>$sec_n,"teacher_id"=>$tid,"from_leave_date"=>$ldate,"to_leave_date"=>$tdate,"leave_id"=>$lid,"status"=>"success");
 		    return $data;
-			//echo "<pre>"; print_r($data);			
-			 }
+			//echo "<pre>"; print_r($data);exit;			
+			 } 
 		 
 	   }
 	   
@@ -159,7 +122,7 @@ Class Communicationmodel extends CI_Model
 		   foreach($row as $res){}
 		   $tid=$res->user_id;
 		   
-		   $query="SELECT s.*,t.teacher_id,t.name FROM edu_substitution AS s,edu_teachers AS t WHERE s.teacher_id='$tid' AND t.teacher_id=s.sub_teacher_id";
+		   $query="SELECT s.*,t.teacher_id,t.name,c.class_id,c.class_name,se.sec_name,se.sec_id,cm.class_sec_id,cm.class,cm.section FROM edu_substitution AS s,edu_teachers AS t,edu_class AS c,edu_sections AS se,edu_classmaster AS cm WHERE s.teacher_id='$tid' AND t.teacher_id=s.sub_teacher_id AND s.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id" ;
 		   $result=$this->db->query($query);
 		   $row=$result->result();
 		   return $row;
@@ -186,39 +149,22 @@ Class Communicationmodel extends CI_Model
 	   
 	   function get_all_class_list1($teacher_id)
 	   {
-		   
-		   $query="SELECT teacher_id,name,class_teacher,class_name FROM edu_teachers WHERE teacher_id='$teacher_id'";
-		   $resultset1=$this->db->query($query);
-		   $row1=$resultset1->result();
-		   foreach($row1 as $teacher_rows){}
-		   //return $row1;
-			$teach_id=$teacher_rows->class_name;
-	        $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
-	        $objRs=$this->db->query($sQuery);
-	        $row=$objRs->result();
-	        foreach ($row as $rows1) {
-	        $s= $rows1->class_sec_id;
-	        $sec=$rows1->class;
-	        $clas=$rows1->class_name;
-	        $sec_name=$rows1->sec_name;
-	        $arryPlatform = explode(",", $teach_id);
-	        $sPlatform_id  = trim($s);
-	        $sPlatform_name  = trim($sec);
-	 		if(in_array($sPlatform_id, $arryPlatform )) {
-	 		$class_id[]=$s;
-	        $class_name[]=$clas;
-	        $sec_n[]=$sec_name;
-	 	    }
-	 		}
-         // print_r($sec_n);exit
-	      if(empty($class_id)){
-	        $data= array("status" =>"No Record Found");
-	        return $data;
-	      }else{
-
-        $data= array("class_id" => $class_id,"class_name"=>$class_name,"sec_name"=>$sec_n,"status"=>"success");
-        return $data;
-      }
+		   //echo $teacher_id;exit;
+		   $sql1="SELECT estc.id,estc.class_master_id,estc.subject_id,estc.teacher_id,estc.status,c.class_id,c.class_name,s.sec_id,s.sec_name,cm.class_sec_id,cm.class,cm.section FROM edu_teacher_handling_subject AS estc,edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE estc.teacher_id='$teacher_id' AND estc.class_master_id=cm.class_sec_id AND cm.class = c.class_id AND cm.section = s.sec_id GROUP BY estc.class_master_id";
+			$resultset3=$this->db->query($sql1);
+			$res1=$resultset3->result();
+			if(empty($res1))
+			 {
+			   $data=array("status" =>"Subject Not Found");
+				return $data;
+			 }else
+			 {
+			foreach($res1 as $rows1){
+			 $class_id[]= $rows1->class_sec_id;$class_name[]=$rows1->class_name;$sec_n[]=$rows1->sec_name;}
+			$data= array("class_id" => $class_id,"class_name"=>$class_name,"sec_name"=>$sec_n,"teacher_id"=>$tid,"from_leave_date"=>$ldate,"to_leave_date"=>$tdate,"leave_id"=>$lid,"status"=>"success");
+		    return $data;
+			//echo "<pre>"; print_r($data);exit;			
+			 } 
 
 	   }
 	   

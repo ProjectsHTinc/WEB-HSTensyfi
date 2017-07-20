@@ -7,159 +7,12 @@ class Communication extends CI_Controller
       parent::__construct();
       $this->load->model('communicationmodel');
       $this->load->model('subjectmodel');
+	  $this->load->model('smsmodel');
       $this->load->model('class_manage');
       $this->load->helper('url');
       $this->load->library('session');
       }
-      public function add_communication()
-      {
-      $datas=$this->session->userdata();
-      $user_id=$this->session->userdata('user_id');
-      $datas['teacher']=$this->communicationmodel->get_teachers();
-      $datas['getall_class']=$this->class_manage->getall_class();
-	  $datas['parents']=$this->communicationmodel->getall_parents();
-      $user_type=$this->session->userdata('user_type');
-      if($user_type==1)
-      {
-      $this->load->view('header');
-      $this->load->view('communication/add',$datas);
-      $this->load->view('footer');
-      }
-      else{
-      redirect('/');
-      }
-      }
-      public function create()
-      {
-      $datas=$this->session->userdata();
-      $user_id=$this->session->userdata('user_id');
-      $user_type=$this->session->userdata('user_type');
-      if($user_type==1)
-      {
-      $teacher_name=$this->input->post('teacher');
-      //$teacher = implode(',',$teacher_name);
-      $clas=$this->input->post('class_name');
-     // $class_name = implode(',',$clas);
      
-      if($teacher_name=='')
-		{
-			 $teacher ="null";
-		}else{
-			$teacher = implode(',',$teacher_name);
-		}
-		if($clas=='')
-		{
-			 $class_name ="null";
-		}else{
-			 $class_name = implode(',',$clas);
-		}
-     
-      $title=$this->input->post('title');
-      $date=$this->input->post('date');
-      $dateTime = new DateTime($date);
-      $formatted_date=date_format($dateTime,'Y-m-d' );
-      $notes=$this->input->post('notes');
-      $datas=$this->communicationmodel->communication_create($title,$notes,$formatted_date,$teacher,$class_name);
-      if($datas['status']=="success")
-      {
-      $this->session->set_flashdata('msg', 'Added Successfully');
-      redirect('communication/view');
-      }
-      else{
-      $this->session->set_flashdata('msg', 'Failed to Add');
-      redirect('communication/view');
-      }
-      }
-      }
-          public function view()
-          {
-          $datas=$this->session->userdata();
-          $user_id=$this->session->userdata('user_id');
-          $datas['result']=$this->communicationmodel->view();
-          $class_id=$this->communicationmodel->get_class_id($user_id);
-          //echo $class_id;
-          // exit;
-          $cls_id['result']=$this->communicationmodel->get_class_name($class_id);
-          // print_r($cls_id['result']);
-          // exit;
-          $user_type=$this->session->userdata('user_type');
-          if($user_type==1)
-          {
-          $this->load->view('header');
-          $this->load->view('communication/view',$datas);
-          $this->load->view('footer');
-          }
-          else{
-          redirect('/');
-          }
-          }
-          public function edit_commu($commu_id)
-          {
-			  $datas=$this->session->userdata();
-			  $user_id=$this->session->userdata('user_id');
-			  $datas['teacher']=$this->communicationmodel->get_teachers();
-			  $datas['getall_class']=$this->class_manage->getall_class();
-			  $datas['res']=$this->communicationmodel->edit_data($commu_id);
-			  $user_type=$this->session->userdata('user_type');
-			  if($user_type==1)
-			  {
-			  $this->load->view('header');
-			  $this->load->view('communication/edit',$datas);
-			  $this->load->view('footer');
-			  }
-			  else{
-			  redirect('/');
-			  }
-          }
-          public function update()
-          {
-			  $datas=$this->session->userdata();
-			  $user_id=$this->session->userdata('user_id');
-			  $user_type=$this->session->userdata('user_type');
-			  if($user_type==1)
-			  {
-			  $id=$this->input->post('comid');
-			 // $teacher_name=$this->input->post('teacher');
-			  //$teacher = implode(',',$teacher_name);
-			 // $clas=$this->input->post('class_name');
-			  //$class_name = implode(',',$clas);
-			   $teacher_name=$this->input->post('teacher');
-		      //$teacher = implode(',',$teacher_name);
-		      $clas=$this->input->post('class_name');
-		     // $class_name = implode(',',$clas);
-		 
-		  if($teacher_name=='')
-			{
-				 $teacher ="null";
-			}else{
-				$teacher = implode(',',$teacher_name);
-			}
-			if($clas=='')
-			{
-				 $class_name ="null";
-			}else{
-				 $class_name = implode(',',$clas);
-			}
-		 
-			  $title=$this->input->post('title');
-
-			  $date=$this->input->post('date');
-			  $dateTime = new DateTime($date);
-			  $formatted_date=date_format($dateTime,'Y-m-d' );
-
-			  $notes=$this->input->post('notes');
-			  $datas=$this->communicationmodel->communication_update($id,$title,$notes,$formatted_date,$teacher,$class_name);
-			  if($datas['status']=="success")
-			  {
-			  $this->session->set_flashdata('msg','Updated Successfully');
-			  redirect('communication/view');
-			  }
-			  else{
-			  $this->session->set_flashdata('msg','Failed To Updated');
-			  redirect('communication/view');
-			  }
-			  }
-          }
 		  public function view_user_leaves()
 		  {
 			  $datas=$this->session->userdata();
@@ -204,7 +57,7 @@ class Communication extends CI_Controller
 			
 			//$leave_type=$this->input->post('leave_type');
 			//$leave_date=$this->input->post('leave_date');
-			//$frm_time=$this->input->post('frm_time');
+			 $number=$this->input->post('cell');
 			//$to_time=$this->input->post('to_time');
 			//$leave_description=$this->input->post('leave_description');
 			 $leave_id=$this->input->post('leave_id');
@@ -214,7 +67,10 @@ class Communication extends CI_Controller
              //$formatted_date=date_format($dateTime,'Y-m-d' );
 			 
 			 $datas=$this->communicationmodel->update_leave($leave_id,$status);
+			 if($status=='Approved'){
+			 $datas['sms']=$this->smsmodel->send_sms_for_teacher_leave($number,$status);}
 			 $datas['result']=$this->communicationmodel->user_leaves();
+			
 			 //print_r($datas);exit;
 			
 			 if($datas['status']=="success")
@@ -293,8 +149,8 @@ class Communication extends CI_Controller
   	 		$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			
-			$id=$this->input->get('var');
-			$teacher_id=$this->input->get('var1');
+			$id=$this->input->get('v');
+			$teacher_id=$this->input->get('v1');
 			//echo $teacher_id;exit;
 			$datas=$this->communicationmodel->get_all_class_list1($teacher_id);
 			$datas['result']=$this->communicationmodel->edit_substitution_list($id);

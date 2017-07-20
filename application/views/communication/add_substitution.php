@@ -114,16 +114,11 @@
                                     <td><?php   $date=date_create($rows->sub_date);
                                        echo date_format($date,"d-m-Y"); ?></td>
                                     <?php
-                                       $clid=$rows->class_master_id;
-                                                   $sql="SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class_sec_id='$clid' AND cm.class = c.class_id AND cm.section = s.sec_id ";
-                                       $resultset=$this->db->query($sql);
-                                        $row=$resultset->result();
-                                        foreach($row as $res){}
-                                        $cn=$res->class_name;$sn=$res->sec_name;?>
+                                      $cn=$rows->class_name;$sn=$rows->sec_name;?>
                                     <td><?php  echo $cn; ?> <?php  echo $sn; ?></td>
                                     <td><?php  echo $rows->period_id; ?></td>
                                     <td>
-                                       <a href="<?php echo base_url();?>communication/sub_edit?var=<?php echo $rows->id; ?>&var1=<?php echo $teacher_id; ?>&var3=<?php echo $leave_id; ?>" title="Edit Details" rel="tooltip" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit" aria-hidden="true"></i> 
+                                       <a href="<?php echo base_url();?>communication/sub_edit?v=<?php echo $rows->id; ?>&v1=<?php echo $teacher_id; ?>&v3=<?php echo $leave_id; ?>" title="Edit Details" rel="tooltip" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit" aria-hidden="true"></i> 
                                     </td>
                                  </tr>
                                  <?php $i++;  }  ?>
