@@ -309,7 +309,7 @@ class Adminlogin extends CI_Controller {
 		$ser_txt=$this->input->post('ser');
 		$user_type=$this->input->post('user_type');
 		$class_sec=$this->input->post('cls_sec');
-		//echo $class_sec;
+          //echo $class_sec;
 		$datas['res']=$this->dashboard->search_data($ser_txt,$user_type,$class_sec);
 		// print_r($datas['res']);
 		echo $datas['res'];
