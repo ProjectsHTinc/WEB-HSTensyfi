@@ -308,7 +308,8 @@ Class Dashboard extends CI_Model
        }else if($user_type=="teachers"){
 		   if(empty($class_sec))
 		   {
-         $query="SELECT et.name,et.phone,et.email,et.teacher_id,c.class_name,s.sec_name,et.status FROM edu_teachers AS et JOIN edu_classmaster AS cm, edu_sections AS s,edu_class AS c WHERE et.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND et.name LIKE '$ser_txt%'";
+        $query="SELECT et.name,et.phone,et.email,et.teacher_id,c.class_name,s.sec_name,et.status FROM edu_teachers AS et
+        LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id WHERE et.name LIKE '$ser_txt%'";
          $result=$this->db->query($query);
          if($result->num_rows()==0){
           echo "No Data Found";
@@ -336,10 +337,10 @@ Class Dashboard extends CI_Model
 	  <td><a href="'. base_url().'teacher/get_teacher_id/'.$row->teacher_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
      </tr>
     ';
-         }echo $output;}////////////
+         }echo $output;}
 		   }else{
-	     $query="SELECT et.name,et.phone,et.email,et.teacher_id,et.class_teacher,estc.teacher_id,estc.class_master_id,estc.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_teacher_handling_subject AS estc LEFT JOIN edu_teachers AS et ON et.teacher_id=estc.teacher_id LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id
-LEFT JOIN edu_sections AS se ON cm.section=se.sec_id  WHERE  estc.class_master_id='$class_sec' GROUP BY estc.teacher_id";
+	     $query="SELECT et.name,et.phone,et.email,et.teacher_id,et.class_teacher,estc.teacher_id,estc.class_master_id,estc.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_teacher_handling_subject AS estc LEFT JOIN edu_teachers AS et ON et.teacher_id=estc.teacher_id LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id
+       LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS se ON cm.section=se.sec_id  WHERE  estc.class_master_id='$class_sec' GROUP BY estc.teacher_id";
          $result=$this->db->query($query);
          if($result->num_rows()==0){
           echo "No Data Found";

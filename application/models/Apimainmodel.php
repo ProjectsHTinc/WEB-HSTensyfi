@@ -109,7 +109,35 @@ class Apimainmodel extends CI_Model {
                          $month[] = $dt->format("m-Y");
                         }
                         
-                        $teacher_query = "SELECT t.teacher_id,t.name,t.sex,t.age,t.nationality,t.religion,t.community_class, t.community,t.address,t.email,t.phone,t.sec_email,t.sec_phone,t.profile_pic,t.update_at,t.subject,t.class_name AS class_taken,t.class_teacher FROM edu_teachers AS t WHERE t.teacher_id = '$teacher_id'";
+                        $teacher_query = "SELECT
+                                        t.teacher_id,
+                                        t.name,
+                                        t.sex,
+                                        t.age,
+                                        t.nationality,
+                                        t.religion,
+                                        t.community_class,
+                                        t.community,
+                                        t.address,
+                                        t.email,
+                                        t.phone,
+                                        t.sec_email,
+                                        t.sec_phone,
+                                        t.profile_pic,
+                                        t.update_at,
+                                        t.subject,
+                                        t.class_name AS class_taken,
+                                        t.class_teacher,
+                                        c.class_name,
+                                        se.sec_name
+                                    FROM
+                                         edu_teachers AS t,
+                                         edu_classmaster AS cm,
+                                         edu_class AS c,
+                                         edu_sections AS se
+                                    WHERE
+                                    	t.class_teacher = cm.class_sec_id AND cm.class = c.class_id AND cm.section = se.sec_id AND
+                                        t.teacher_id = '$teacher_id'";
 						$teacher_res = $this->db->query($teacher_query);
 						$teacher_profile = $teacher_res->result();
 
@@ -248,8 +276,13 @@ class Apimainmodel extends CI_Model {
 						}else{
 							$reminder_result= $reminder_res->result();
 						}  
+						  
+						  $internal_marks="40";
+                          $external_marks="60";
+
+                          $academic_marks=array("internals"=>$internal_marks,"externals"=>$external_marks);
 						
-						$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData,"teacherProfile" =>$teacher_profile,"classSubject"=>$class_sub_result,"timeTable"=>$timetable_result,"studDetails"=>$stud_result,"Exams"=>$exam_result,"examDetails"=>$examdetail_result,"homeWork"=>$hw_result,"Reminders"=>$reminder_result, "year_id" => $year_id, "academic_month" => $month);
+						$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData,"teacherProfile" =>$teacher_profile,"classSubject"=>$class_sub_result,"timeTable"=>$timetable_result,"studDetails"=>$stud_result,"Exams"=>$exam_result,"examDetails"=>$examdetail_result,"homeWork"=>$hw_result,"Reminders"=>$reminder_result, "year_id" => $year_id, "academic_month" => $month,"academic_marks"=>$academic_marks);
 						return $response;
 				  }
 				  else if ($user_type==3) {

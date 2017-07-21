@@ -8,6 +8,7 @@ class Userrolemanage extends CI_Controller {
 		 parent::__construct();
 
 		  $this->load->model('usermodel');
+			 $this->load->model('smsmodel');
 		  $this->load->helper('url');
 		  $this->load->library('session');
 		  $this->load->helper('menu');
@@ -209,6 +210,17 @@ public function get_user_parents($user_id)
 	 }
  }
 
+
+
+
+ public function users_dob_wishes()
+ {
+	 	$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
+		$cur_date=$dateTime->format("Y-m-d");
+		$datas['res']=$this->usermodel->student_dob_wishes($cur_date);
+		$datas['res']=$this->usermodel->teacher_dob_wishes($cur_date);
+
+ }
 
 
 

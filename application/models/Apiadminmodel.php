@@ -324,7 +324,7 @@ class Apiadminmodel extends CI_Model {
 
             function get_all_teachers(){
               $sql="SELECT et.name,et.sex,et.age,et.class_teacher,c.class_name,s.sec_name,et.subject,esu.subject_name,et.teacher_id FROM edu_teachers
-              AS et INNER JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON  cm.section=s.sec_id INNER JOIN edu_subject AS esu ON et.subject=esu.subject_id WHERE et.status='Active'";
+              AS et LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON  cm.section=s.sec_id LEFT JOIN edu_subject AS esu ON et.subject=esu.subject_id WHERE et.status='Active'";
               $res=$this->db->query($sql);
               if($res->num_rows()==0){
                   $data=array("status"=>"error","msg"=>"nodata");
@@ -353,12 +353,18 @@ class Apiadminmodel extends CI_Model {
             //#################### GET   TEACHER CLASS DETAILS  ####################//
             function get_teacher_class_details($teacher_id){
                 $year_id = $this->getYear();
+                
+                $teacher_query = "SELECT t.teacher_id,t.name,t.sex,t.age,t.nationality,t.religion,t.community_class, t.community,t.address,t.email,t.phone,t.sec_email,t.sec_phone,t.profile_pic,t.update_at,t.subject,t.class_name AS class_taken,t.class_teacher FROM edu_teachers AS t WHERE t.teacher_id = '$teacher_id'";
+				$teacher_res = $this->db->query($teacher_query);
+				$teacher_profile = $teacher_res->result();
+/*
                 $get_teacher_details="SELECT et.name,et.sex,et.age,et.class_teacher,et.religion,et.community_class,et.address,et.email,et.sec_email,et.phone,et.sec_phone,et.qualification,c.class_name,s.sec_name,et.subject,esu.subject_name,et.teacher_id,et.profile_pic,et.class_name as class_taken,et.update_at,et.teacher_id
                 FROM edu_teachers  AS et LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id
                 LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_subject AS esu ON et.subject=esu.subject_id
                 WHERE et.status='Active' AND et.teacher_id='$teacher_id'";
                 $res_detail=$this->db->query($get_teacher_details);
                 $teacherProfile=$res_detail->result();
+*/
                 $class_sub_query = "SELECT
     								class_master_id,
     								teacher_id,
@@ -394,7 +400,7 @@ class Apiadminmodel extends CI_Model {
 						}
 
 
-						$data = array("status" => "success", "msg" => "Class and Sections",'teacherProfile'=>$teacherProfile,"class_name"=>$class_sub_result,"timeTable"=>$timetable_result);
+						$data = array("status" => "success", "msg" => "Class and Sections",'teacherProfile'=>$teacher_profile,"class_name"=>$class_sub_result,"timeTable"=>$timetable_result);
 						return $data;
                 }
 
@@ -639,7 +645,8 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
             foreach($result as $rows){   }
             $classid=$rows->class_sec_id;
             $year_id=$this->getYear();
-            $query="SELECT etfs.id,eer.name,etfs.student_id,etfs.status,etfs.paid_by,etfs.updated_at  FROM edu_term_fees_status AS etfs LEFT JOIN edu_enrollment AS eer ON eer.enroll_id=etfs.student_id WHERE etfs.fees_id='$fees_id' AND etfs.class_master_id='$classid'";
+             $query="SELECT etfs.id,eer.name,etfs.student_id,etfs.status,etfs.paid_by,etfs.updated_at,eer.quota_id,eq.quota_name
+            FROM edu_term_fees_status AS etfs LEFT JOIN edu_enrollment AS eer ON eer.enroll_id=etfs.student_id LEFT JOIN edu_quota AS eq ON eer.quota_id=eq.id  WHERE etfs.fees_id='$fees_id' AND etfs.class_master_id='$classid'";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");

@@ -173,17 +173,28 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function update_Profilepic($user_id,$user_type)
+	public function update_Profilepic()
 	{
 	//	$_POST = json_decode(file_get_contents("php://input"), TRUE);
 		
-		echo $user_id;
-		echo $user_type;
-	exit;	
-        $uploadPicdir = 'assets/admin/profile/';
-        
-		//$user_id = '5';
-		//$user_id = $this->input->post("user_id");
+		echo $user_id = $this->input->post("user_id");
+		echo $user_type = $this->input->post("user_type");
+		echo $user_pic = $_FILES["user_pic"]["name"];
+	
+	
+	    if($user_type==1)
+		{
+		    $uploadPicdir = 'assets/admin/profile/';
+		}
+		else if ($user_type==2) {
+		     $uploadPicdir = 'assets/teachers/profile/';
+		}
+		else if ($user_type==3) {
+		    $uploadPicdir = 'assets/student/profile/';
+		}
+		else {
+		   $uploadPicdir = 'assets/parents/profile/';
+		}
 		
 		$Picture 		= pathinfo($_FILES['user_pic']['name']);
 	    $sPicture 		= "user_".$user_id.".".$Picture['extension'];
@@ -191,8 +202,7 @@ class Apimain extends CI_Controller {
 		$uploadtmpPic 	= $_FILES['user_pic']['tmp_name'];
 		move_uploaded_file($uploadtmpPic,$uploadPic);		
 
-
-	//	$query = mysql_query("UPDATE user_master SET user_image='$target_file1' WHERE id = '$user_id'") or die(mysql_error());
+	//	$query = mysql_query("UPDATE user_master SET user_image='$sPicture' WHERE id = '$user_id'") or die(mysql_error());
 		$response=array("status"=>"success","msg"=>"Image update successfully!!","image"=>$sPicture);
 		echo json_encode($response);
 		
