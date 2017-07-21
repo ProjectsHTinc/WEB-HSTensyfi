@@ -83,8 +83,7 @@ Class Dashboard extends CI_Model
     //  forgotpassword
 
 
-    function forgotpassword($username)
-	{
+    function forgotpassword($username){
       $query="SELECT user_type,teacher_id,parent_id,student_id FROM edu_users WHERE user_name='$username'";
       $result=$this->db->query($query);
        if($result->num_rows()==0){

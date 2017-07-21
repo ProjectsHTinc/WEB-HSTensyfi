@@ -8,12 +8,11 @@ Class Mailmodel extends CI_Model
       parent::__construct(); 
 
   }
-
-  function send_circular_via_mail($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id)
+  
+  function send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id)
   {
-	   
+
 	   $user_type=$users_id;
-	   
 	  //-----------Admin------------------------
 	  if(!empty($user_type))
 	   {  
@@ -33,7 +32,7 @@ Class Mailmodel extends CI_Model
 					 $to=$mail_to;
 
 					 $subject=$title;
-					 $cnotes=$notes;
+					 $cnotes=$notes.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -61,7 +60,7 @@ Class Mailmodel extends CI_Model
 					 $smail_to=implode(',',$smail);
 					 $to = $smail_to;
 					 $subject=$title;
-					 $cnotes=$notes;
+					  $cnotes=$notes.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -89,7 +88,7 @@ Class Mailmodel extends CI_Model
 					 $pmail_to=implode(',',$pmail);
 					 $to = $pmail_to;
 					 $subject=$title;
-					 $cnotes=$notes;
+					 $cnotes=$notes.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -132,7 +131,7 @@ Class Mailmodel extends CI_Model
 					 $temail=$trow->email; 
                      $to=$temail;
 					 $subject=$title;
-					 $cnotes=$notes;
+					  $cnotes=$notes.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -170,7 +169,7 @@ Class Mailmodel extends CI_Model
        				 $semail=$row1->email;
                      $to=$semail;
 					 $subject=$title;
-					 $cnotes=$notes;
+					 $cnotes=$notes.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -206,7 +205,7 @@ Class Mailmodel extends CI_Model
        				 $pmail=$row2->email;
                      $to=$pmail;
 					 $subject=$title;
-					 $cnotes=$notes;
+					 $cnotes=$notes.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>

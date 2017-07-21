@@ -196,9 +196,10 @@ class Circular extends CI_Controller
        //print_r($stusers_id);exit;
       $title=$this->db->escape_str($this->input->post('ctitle')); 
 	
-	  $date=$this->input->post('date');
-      $dateTime = new DateTime($date);
+	  $cdate=$this->input->post('date');
+      $dateTime = new DateTime($cdate);
       $circulardate=date_format($dateTime,'Y-m-d' );
+	  //echo $circulardate;exit;
       $notes=$this->db->escape_str($this->input->post('notes'));
 	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
 	  $status=$this->input->post('status'); 
@@ -211,7 +212,7 @@ class Circular extends CI_Controller
 	  }
 	  if($citrcular_type=='Mail')
 	  {
-		 $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+		 $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
 	  }
 	  if($datas['status']=="success")
       {
