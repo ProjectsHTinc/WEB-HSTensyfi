@@ -8,6 +8,7 @@ class Circular extends CI_Controller
       $this->load->model('circularmodel');
       $this->load->model('subjectmodel');
       $this->load->model('class_manage');
+	   $this->load->model('smsmodel');
       $this->load->helper('url');
       $this->load->library('session');
       }
@@ -112,7 +113,7 @@ class Circular extends CI_Controller
 		  $datas['parents']=$this->circularmodel->getall_parents();
 		  $datas['role']=$this->circularmodel->getall_roles();
 		  $datas['cmaster']=$this->circularmodel->cmaster_type();
-		  //print_r( $datas['cmaster']);exit;
+		  //echo'<pre>';print_r( $datas['cmaster']);exit;
 		  $user_type=$this->session->userdata('user_type');
 		  if($user_type==1)
 		  {
@@ -156,8 +157,9 @@ class Circular extends CI_Controller
 	  public function get_description_list()
 	  {
 		   $ctitle=$this->db->escape_str($this->input->post('ctitle'));
+		   $ctype=$this->db->escape_str($this->input->post('ctype'));
 		   //echo $ctype;exit;
-		   $data=$this->circularmodel->get_circular_description_lists($ctitle);
+		   $data=$this->circularmodel->get_circular_description_lists($ctitle,$ctype);
 		   echo json_encode($data);
 	  }
 	  
@@ -186,10 +188,10 @@ class Circular extends CI_Controller
       {
       $users_id=$this->input->post('users');
 	  $tusers_id=$this->input->post('tusers');
-	  print_r($tusers_id);exit;
+	  //print_r($tusers_id);exit;
 	  $pusers_id=$this->input->post('pusers');
       $stusers_id=$this->input->post('stusers');
-    
+       //print_r($stusers_id);exit;
       $title=$this->db->escape_str($this->input->post('ctitle')); 
 	
 	  $date=$this->input->post('date');
@@ -198,15 +200,13 @@ class Circular extends CI_Controller
       $notes=$this->db->escape_str($this->input->post('notes'));
 	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
 	  $status=$this->input->post('status'); 
-      //echo $citrcular_type;  exit;	  
+     // echo $citrcular_type;  exit;	  
       $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id);
       //print_r($datas);exit;
-	  
-	 /*  if($citrcular_type=='SMS')
+	  if($citrcular_type=='SMS')
 	  {
-		 $data=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$pusers_id,$stusers_id);
-	  } */ 
-	  
+	   $data=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id); 
+	  }
 	  if($datas['status']=="success")
       {
       $this->session->set_flashdata('msg', 'Added Successfully');

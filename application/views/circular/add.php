@@ -289,12 +289,14 @@ $.ajax({
 }
 
  function circulardescription(cde1) {
-   var cde=document.getElementById('cititle').value; 
-   //alert(cde);
+   var cde=document.getElementById('cititle').value;
+  var ctype=document.getElementById('citrcular_type').value;   
+  // alert(cde); alert(ctype);
 $.ajax({
 	url:'<?php echo base_url(); ?>circular/get_description_list',
 	type:'post',
-	data:{ctitle:cde},
+	//data:'clsmasid=' + eid + '&examid=' + cid,
+	data:'ctitle=' + cde + '&ctype=' + ctype,
 	dataType:"JSON",
     cache: false,
 	success: function(test1) {
