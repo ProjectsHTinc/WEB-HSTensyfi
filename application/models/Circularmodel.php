@@ -158,7 +158,7 @@ Class Circularmodel extends CI_Model
 				 }
 			
 		    }
-			if ($students){
+			if($students){
 				  $data = array("status" => "success");
 				return $data; }else{$data = array("status" => "Failed");
 				return $data;} 

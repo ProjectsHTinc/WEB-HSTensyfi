@@ -188,7 +188,7 @@ class Circular extends CI_Controller
       {
       $users_id=$this->input->post('users');
 	  $tusers_id=$this->input->post('tusers');
-	  //print_r($tusers_id);exit;
+	  //print_r($users_id);exit;
 	  $pusers_id=$this->input->post('pusers');
       $stusers_id=$this->input->post('stusers');
        //print_r($stusers_id);exit;
@@ -205,7 +205,7 @@ class Circular extends CI_Controller
       //print_r($datas);exit;
 	  if($citrcular_type=='SMS')
 	  {
-	   $data=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id); 
+	   $dataa=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
 	  }
 	  if($datas['status']=="success")
       {

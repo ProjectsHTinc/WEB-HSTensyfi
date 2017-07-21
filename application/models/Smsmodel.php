@@ -87,14 +87,14 @@ Class Smsmodel extends CI_Model
 
 } 	
 
-  function send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id)
+  function send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id)
   {
 	 //-----------------------------Teacher----------------------
 		   //echo'hi'; print_r($tusers_id);
 			 if($tusers_id!='')
 			 {
 			     $countid=count($tusers_id);
-			     echo $countid; 
+			     //echo $countid; 
 				 for ($i=0;$i<$countid;$i++) 
 				 {
 					$userid=$tusers_id[$i];
@@ -128,10 +128,10 @@ Class Smsmodel extends CI_Model
 						$output = curl_exec($ch);
 						curl_close($ch);
                 }
-						if(!$output)
-						{
-						  $output =  file_get_contents($smsgatewaydata);
-						}
+				/* if(!$output)
+				{
+				  $output =  file_get_contents($smsgatewaydata);
+				} */
              }
 			 
 			 
@@ -176,10 +176,10 @@ Class Smsmodel extends CI_Model
 						$output = curl_exec($ch);
 						curl_close($ch);
                   }
-				  if(!$output)
+				 /*  if(!$output)
 						{
 						  $output =  file_get_contents($smsgatewaydata);
-						}
+						} */
 				}
 						
              }
@@ -224,17 +224,141 @@ Class Smsmodel extends CI_Model
 						$output = curl_exec($ch);
 						curl_close($ch);
                   }
-				  if(!$output)
+				 /*  if(!$output)
 						{
 						  $output =  file_get_contents($smsgatewaydata);
-						}
+						} */
 				}
 		  }
+		  
+		  
+		  //------------------------------Admin-----------------------
+			if($users_id!='')
+			{
+				//------------------------Teacher----------------------
+				if($users_id==2)
+				{
+				 //echo $users_id;
+				    $cnotes=$notes;
+					$ctitle=$title;
+					$tsql="SELECT u.user_id,u.user_type,u.user_master_id,t.teacher_id,t.name,t.phone FROM edu_users AS u,edu_teachers AS t  WHERE u.user_type='$users_id' AND u.user_master_id=t.teacher_id AND u.status='Active'";
+					$res=$this->db->query($tsql);
+					$result1=$res->result();
+					foreach($result1 as $rows)
+					{
+					   $tcell=$rows->phone; 
+					   
+					   //echo $tcell;exit;
+						$textmessage=$ctitle.$cnotes;
 			 
-}
-  
-  
-  
-  
+						$textmsg =urlencode($textmessage);
+	 
+						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+
+						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+						
+						$api_params = $api_element.'&numbers='.$tcell.'&message='.$textmsg;
+						
+						$smsgatewaydata = $smsGatewayUrl.$api_params;
+
+						$url = $smsgatewaydata;
+
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_POST, false);
+						curl_setopt($ch, CURLOPT_URL, $url);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+						$output = curl_exec($ch);
+						curl_close($ch);
+				  }
+				}
+				
+				//---------------------------Students----------------------
+				if($users_id==3)
+				{
+				   //echo $users_id;
+				    $cnotes=$notes;
+					$ctitle=$title;
+					$ssql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,a.admission_id,a.name,a.mobile FROM edu_users AS u,edu_admission AS a  WHERE u.user_type='$users_id' AND u.user_master_id=a.admission_id AND u.name=a.name AND u.status='Active'";
+					$res2=$this->db->query($ssql);
+					$result2=$res2->result();
+					foreach($result2 as $rows1)
+					{
+					   $scell=$rows1->mobile; 
+					   
+					   //echo $tcell;exit;
+						$textmessage=$ctitle.$cnotes;
+			 
+						$textmsg =urlencode($textmessage);
+	 
+						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+
+						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+						
+						$api_params = $api_element.'&numbers='.$scell.'&message='.$textmsg;
+						
+						$smsgatewaydata = $smsGatewayUrl.$api_params;
+
+						$url = $smsgatewaydata;
+
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_POST, false);
+						curl_setopt($ch, CURLOPT_URL, $url);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+						$output = curl_exec($ch);
+						curl_close($ch);
+                  
+				}
+				}
+				
+					//---------------------------Parents--------------------------------------------
+				if($users_id==4)
+				{
+				   //echo $users_id;
+				    $cnotes=$notes;
+					$ctitle=$title;
+					$psql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,p.parent_id,p.mobile FROM edu_users AS u,edu_parents AS p WHERE u.user_type='$users_id' AND u.user_master_id=p.parent_id AND u.status='Active'";
+					$pres2=$this->db->query($psql);
+					$presult2=$pres2->result();
+					foreach($presult2 as $prows1)
+					{
+					   $pcell=$prows1->mobile; 
+					   
+					   //echo $tcell;exit;
+						$textmessage=$ctitle.$cnotes;
+			 
+						$textmsg =urlencode($textmessage);
+	 
+						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+
+						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+						
+						$api_params = $api_element.'&numbers='.$pcell.'&message='.$textmsg;
+						
+						$smsgatewaydata = $smsGatewayUrl.$api_params;
+
+						$url = $smsgatewaydata;
+
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_POST, false);
+						curl_setopt($ch, CURLOPT_URL, $url);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+						$output = curl_exec($ch);
+						curl_close($ch);
+                  
+				}
+				}
+				
+			}
+				
+			
+		}
+		
+	
+
+
+
+
+
+	
 }
 	  ?>
