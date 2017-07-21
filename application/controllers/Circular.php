@@ -11,6 +11,7 @@ class Circular extends CI_Controller
 	   $this->load->model('smsmodel');
 	   $this->load->model('mailmodel');
       $this->load->helper('url');
+	   $this->load->library('email');
       $this->load->library('session');
       }
 	  //-------------------------------Create Circular Master--------------------------

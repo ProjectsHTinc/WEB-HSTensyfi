@@ -23,15 +23,15 @@ Class Mailmodel extends CI_Model
 			 
 			case '2': 
 			       
-				      $tsql="SELECT u.user_id,u.user_type,u.user_master_id,t.teacher_id,t.name,t.phone,t.email FROM edu_users AS u,edu_teachers AS t  WHERE u.user_type='$user_type' AND u.user_master_id=t.teacher_id AND u.status='Active'";
+					$tsql="SELECT u.user_id,u.user_type,u.user_master_id,t.teacher_id,t.name,t.phone,t.email FROM edu_users AS u,edu_teachers AS t  WHERE u.user_type='$user_type' AND u.user_master_id=t.teacher_id AND u.status='Active'";
 					$res=$this->db->query($tsql);
 					$result1=$res->result();
 					foreach($result1 as $rows)
 					{ $tmail[]=$rows->email;}
 					
 				     $mail_to=implode(',',$tmail);
-					echo $to=$mail_to;
-					 
+					 $to=$mail_to;
+
 					 $subject=$title;
 					 $cnotes=$notes;
 					 $htmlContent = '
@@ -39,7 +39,7 @@ Class Mailmodel extends CI_Model
 						 <head><title></title>
 						 </head>
 						 <body>
-						 <center><p>'.$cnotes.'</p></center>
+						<p style="margin-left:50px;">'.$cnotes.'</p>
 						 </body>
 						 </html>';
 				 $headers = "MIME-Version: 1.0" . "\r\n";
@@ -47,8 +47,7 @@ Class Mailmodel extends CI_Model
 				 // Additional headers
 				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 				 $sent= mail($to,$subject,$htmlContent,$headers);
-
-              exit;
+              //exit;
             break;
 
 			 case '3': 
@@ -57,9 +56,10 @@ Class Mailmodel extends CI_Model
 					$res2=$this->db->query($ssql);
 					$result2=$res2->result();
 					foreach($result2 as $rows1)
-					{}
-					 $smail=$rows1->email;
-					  $to = $smail;
+					{ $smail[]=$rows1->email;}
+					
+					 $smail_to=implode(',',$smail);
+					 $to = $smail_to;
 					 $subject=$title;
 					 $cnotes=$notes;
 					 $htmlContent = '
@@ -67,7 +67,7 @@ Class Mailmodel extends CI_Model
 						 <head><title></title>
 						 </head>
 						 <body>
-						 <center><p>'.$cnotes.'</p></center>
+						 <p style="margin-left:50px;">'.$cnotes.'</p>
 						 </body>
 						 </html>';
 				 $headers = "MIME-Version: 1.0" . "\r\n";
@@ -75,11 +75,7 @@ Class Mailmodel extends CI_Model
 				 // Additional headers
 				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 				 $sent= mail($to,$subject,$htmlContent,$headers);
-				  if($sent){
-					 echo "Send";
-				 }else{
-				   echo "Somthing Went Wrong";
-				 } 
+				 
               //exit;
             break;
 			
@@ -89,9 +85,9 @@ Class Mailmodel extends CI_Model
 					$pres2=$this->db->query($psql);
 					$presult2=$pres2->result();
 					foreach($presult2 as $prows1)
-					{}
-					 $pmail=$prows1->email;
-					  $to = $pmail;
+					{ $pmail[]=$prows1->email; }
+					 $pmail_to=implode(',',$pmail);
+					 $to = $pmail_to;
 					 $subject=$title;
 					 $cnotes=$notes;
 					 $htmlContent = '
@@ -99,7 +95,7 @@ Class Mailmodel extends CI_Model
 						 <head><title></title>
 						 </head>
 						 <body>
-						 <center><p>'.$cnotes.'</p></center>
+						 <p style="margin-left:50px;">'.$cnotes.'</p>
 						 </body>
 						 </html>';
 				 $headers = "MIME-Version: 1.0" . "\r\n";
@@ -107,13 +103,9 @@ Class Mailmodel extends CI_Model
 				 // Additional headers
 				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 				 $sent= mail($to,$subject,$htmlContent,$headers);
-				  if($sent){
-					 echo "Send";
-				 }else{
-				   echo "Somthing Went Wrong";
-				 } 
              // exit;
             break;
+			
 			default:
             echo "No result found";
             break;
@@ -122,13 +114,118 @@ Class Mailmodel extends CI_Model
 		   
 	   }//admin close
 	  
+	  //-----------------------------Teacher----------------------
+		   
+			 if(!empty($tusers_id))
+			 {
+			     $countid=count($tusers_id);
+			     //echo $countid;
+				 for ($i=0;$i<$countid;$i++)
+				 {
+					$userid=$tusers_id[$i];
+
+					$tesql="SELECT u.user_id,u.user_type,u.user_master_id,t.teacher_id,t.name,t.phone,t.email FROM edu_users AS u,edu_teachers AS t WHERE u.user_id='$userid' AND u.user_type='2' AND u.user_master_id=t.teacher_id";
+					$tmail=$this->db->query($tesql);
+					$tres=$tmail->result();
+					foreach($tres as $trow)
+					{}  
+					 $temail=$trow->email; 
+                     $to=$temail;
+					 $subject=$title;
+					 $cnotes=$notes;
+					 $htmlContent = '
+						 <html>
+						 <head><title></title>
+						 </head>
+						 <body>
+						 <p style="margin-left:50px;">'.$cnotes.'</p>
+						 </body>
+						 </html>';
+				 $headers = "MIME-Version: 1.0" . "\r\n";
+				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+				 // Additional headers
+				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+				 $sent= mail($to,$subject,$htmlContent,$headers);
+						
+                }
+				
+             }//teacher close
+
+			 
+			  //-----------------------------Students----------------------
+		   
+			  if(!empty($stusers_id))
+			 {
+			     $scountid=count($stusers_id);
+			      //echo $scountid; exit;
+				 for ($i=0;$i<$scountid;$i++)
+				 {
+				  $clsid=$stusers_id[$i];
+				  
+				 $sql1="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.name,a.mobile,a.email FROM edu_enrollment AS e,edu_admission AS a WHERE e.class_id='$clsid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no ";
+					$scell=$this->db->query($sql1);
+					$res1=$scell->result();
+					foreach($res1 as $row1)
+					{
+       				 $semail=$row1->email;
+                     $to=$semail;
+					 $subject=$title;
+					 $cnotes=$notes;
+					 $htmlContent = '
+						 <html>
+						 <head><title></title>
+						 </head>
+						 <body>
+						 <p style="margin-left:50px;">'.$cnotes.'</p>
+						 </body>
+						 </html>';
+				 $headers = "MIME-Version: 1.0" . "\r\n";
+				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+				 // Additional headers
+				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+				 $sent= mail($to,$subject,$htmlContent,$headers);
+				}		
+              }
+				
+             }//Students close
+
+	  //-----------------------------Parents----------------------
+		   
+			 if(!empty($pusers_id))
+		     {
+			   $pcountid=count($pusers_id);
+			  //echo $pcountid;exit;
+			  for ($i=0;$i<$pcountid;$i++)
+			  {
+				$classid=$pusers_id[$i];
+				 $class="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.parent_id,u.status,p.parent_id,p.mobile,p.email FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u,edu_parents AS p WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=4 AND a.parnt_guardn_id=u.user_master_id AND a.parnt_guardn_id=u.parent_id AND p.parent_id=a.parnt_guardn_id AND u.status='Active' GROUP  BY u.user_id";
+					$pemail=$this->db->query($class);
+					$res2=$pemail->result();
+					foreach($res2 as $row2)
+					{
+       				 $pmail=$row2->email;
+                     $to=$pmail;
+					 $subject=$title;
+					 $cnotes=$notes;
+					 $htmlContent = '
+						 <html>
+						 <head><title></title>
+						 </head>
+						 <body>
+						 <p style="margin-left:50px;">'.$cnotes.'</p>
+						 </body>
+						 </html>';
+				 $headers = "MIME-Version: 1.0" . "\r\n";
+				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+				 // Additional headers
+				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+				 $sent= mail($to,$subject,$htmlContent,$headers);
+				}		
+              }
+				
+             }//Parents close
+	  
   }//function close
-  
-  
-  
-  
-  
-  
   
 }//end class
   ?>
