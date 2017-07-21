@@ -353,7 +353,7 @@ class Apiadminmodel extends CI_Model {
             //#################### GET   TEACHER CLASS DETAILS  ####################//
             function get_teacher_class_details($teacher_id){
                 $year_id = $this->getYear();
-                $get_teacher_details="SELECT et.name,et.sex,et.age,et.class_teacher,et.religion,et.community_class,et.address,et.email,et.sec_email,et.phone,et.sec_phone,et.qualification,c.class_name,s.sec_name,et.subject,esu.subject_name,et.teacher_id,et.profile_pic
+                $get_teacher_details="SELECT et.name,et.sex,et.age,et.class_teacher,et.religion,et.community_class,et.address,et.email,et.sec_email,et.phone,et.sec_phone,et.qualification,c.class_name,s.sec_name,et.subject,esu.subject_name,et.teacher_id,et.profile_pic,et.class_name as class_taken,et.update_at,et.teacher_id
                 FROM edu_teachers  AS et LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id
                 LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_subject AS esu ON et.subject=esu.subject_id
                 WHERE et.status='Active' AND et.teacher_id='$teacher_id'";
