@@ -25,7 +25,7 @@ class Adminlogin extends CI_Controller {
 	 *
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 * @see https://codeigniter.com/user_guide/general/urls.html 
 	 */
 	public function home()
 	{
@@ -162,7 +162,8 @@ class Adminlogin extends CI_Controller {
 			}
 }
 
-	public function forgotpassword(){
+	public function forgotpassword()
+	{
 		$username=$this->input->post('username');
 		$datas=$this->dashboard->forgotpassword($username);
 	}

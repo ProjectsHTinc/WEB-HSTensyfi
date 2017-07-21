@@ -9,6 +9,7 @@ class Circular extends CI_Controller
       $this->load->model('subjectmodel');
       $this->load->model('class_manage');
 	   $this->load->model('smsmodel');
+	   $this->load->model('mailmodel');
       $this->load->helper('url');
       $this->load->library('session');
       }
@@ -200,12 +201,16 @@ class Circular extends CI_Controller
       $notes=$this->db->escape_str($this->input->post('notes'));
 	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
 	  $status=$this->input->post('status'); 
-     // echo $citrcular_type;  exit;	  
+      //echo $citrcular_type;  exit;	  
       $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id);
       //print_r($datas);exit;
 	  if($citrcular_type=='SMS')
 	  {
-	   $dataa=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+	   $datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+	  }
+	  if($citrcular_type=='Mail')
+	  {
+		 $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
 	  }
 	  if($datas['status']=="success")
       {

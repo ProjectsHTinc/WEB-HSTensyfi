@@ -353,9 +353,6 @@ Class Smsmodel extends CI_Model
 
 		}
 
-
-
-
          //DOB Wisher for users_dob_wishes
 
          function student_dob_wishes($cur_date){
@@ -421,10 +418,6 @@ Class Smsmodel extends CI_Model
           }
 
          }
-
-
-
-
 
 
 
