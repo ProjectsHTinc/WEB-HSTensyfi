@@ -186,7 +186,7 @@ class Circular extends CI_Controller
       {
       $users_id=$this->input->post('users');
 	  $tusers_id=$this->input->post('tusers');
-	  //print_r($tusers_id);
+	  print_r($tusers_id);exit;
 	  $pusers_id=$this->input->post('pusers');
       $stusers_id=$this->input->post('stusers');
     
@@ -196,14 +196,17 @@ class Circular extends CI_Controller
       $dateTime = new DateTime($date);
       $circulardate=date_format($dateTime,'Y-m-d' );
       $notes=$this->db->escape_str($this->input->post('notes'));
-	   $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
-	   $status=$this->input->post('status'); 
-	   
-      //echo $title; echo $notes;  echo $citrcular_type;  exit;	  
-     
-	   
+	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
+	  $status=$this->input->post('status'); 
+      //echo $citrcular_type;  exit;	  
       $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id);
       //print_r($datas);exit;
+	  
+	 /*  if($citrcular_type=='SMS')
+	  {
+		 $data=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$pusers_id,$stusers_id);
+	  } */ 
+	  
 	  if($datas['status']=="success")
       {
       $this->session->set_flashdata('msg', 'Added Successfully');

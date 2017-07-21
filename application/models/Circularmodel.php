@@ -197,7 +197,7 @@ Class Circularmodel extends CI_Model
 				return $data;}
 		  }
            //-----------------------------Teacher----------------------
-		   // print_r($tusers_id);
+		   //print_r($tusers_id);exit;
 			if($tusers_id!='')
 			{
 			 $countid=count($tusers_id);

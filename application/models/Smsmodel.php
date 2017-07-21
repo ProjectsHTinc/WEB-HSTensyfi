@@ -85,9 +85,37 @@ Class Smsmodel extends CI_Model
     return $output;        
    }else{ echo "send"; } */
 
-   
-	
 } 	
+
+function send_circular_via_sms($title,$notes,$tusers_id,$pusers_id,$stusers_id)
+{
+	 //-----------------------------Teacher----------------------
+	 
+		   //print_r($tusers_id);exit;
+		   
+			 if($tusers_id!='')
+			 {
+			 $countid=count($tusers_id);
+			 //echo $countid; 
+			 
+			 for ($i=0;$i<$countid;$i++) {
+				$userid=$tusers_id[$i];
+				$cirmat=$cm;
+				$status1=$status;
+				$circulardate1=$circulardate;
+				$user_id1=$user_id;
+				
+				$sql="SELECT user_id,user_type,user_master_id FROM edu_users WHERE ";
+				
+			    $query3="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_date,status,created_by,created_at) VALUES ('2','$userid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
+		        $teacher=$this->db->query($query3);
+			 }
+			 if($teacher){
+				 $data=array("status" =>"success");
+				return $data;}else{$data = array("status" => "Failed");
+				return $data;}
+			} 
+}
 	
   
   

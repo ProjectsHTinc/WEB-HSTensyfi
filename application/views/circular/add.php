@@ -28,13 +28,11 @@
                         </fieldset>
  
 						 <fieldset>
-						
                            <div class="form-group">
                               <label class="col-sm-2 control-label"> </label>
                               <div class="col-sm-4">
 							   <p id="erid" style="color:red;"> </p>
                           <div id="myDIV">
-						  
                                  <select multiple name="tusers[]" class="selectpicker form-control" data-title="Select Teachers" id="multiple-teacher" data-menu-style="dropdown-blue">
                                           <?php foreach ($teacher as $rows) { ?>
                                           <option value="<?php echo $rows->user_id;  ?>"><?php echo $rows->name; ?></option>
