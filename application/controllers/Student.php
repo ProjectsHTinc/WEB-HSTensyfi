@@ -117,7 +117,7 @@ class Student extends CI_Controller
 			//echo $user_id;
 			$user_type=$this->session->userdata('user_type');
 			$datas['calender']=$this->studentmodel->exam_calender_details($user_id,$exams_id,$user_type);
-			echo '<pre>';print_r($datas['calender']);exit;
+			//echo '<pre>';print_r($datas['calender']);exit;
 			if($user_type==3)
 				 {
 					 $this->load->view('adminstudent/student_header');

@@ -128,7 +128,7 @@
                               </div>
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">
-                                 <button type="submit" id="save" class="btn btn-info btn-fill center">Save</button>
+                                 <button type="submit" id="save" class="btn btn-info btn-fill center"  onclick="return confirm('Are you sure?')">Save</button>
                               </div>
                            </div>
                         </fieldset>

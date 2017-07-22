@@ -73,17 +73,16 @@
                   <div class="col-md-9">
                      <div class="card">
                         <form id="" action="#" method="" novalidate="" style="padding-bottom:30px;">
-
                            <fieldset id="group2" style="padding-top:20px;">
                               <div class="form-group">
                                  <div class="col-sm-12">
-                                    <label class="radio radio-inline">
-                                    <input type="radio" data-toggle="radio" id="user_type" value="students" name="user_type" checked=""><span style="font-size:17px;">Students</span>
-                                    </label>
+                                     <label class="radio radio-inline">
+                                    <input type="radio"data-toggle="radio"id="user_type" value="students" name="user_type" checked=""><span style="font-size:17px;">Students</span>
+                                   </label>
                                     <span style="padding-left:30px;">
                                     <label class="radio radio-inline" style="margin-top:10px;">
                                     <input type="radio" data-toggle="radio" id="user_type2" value="teachers" name="user_type"><span style="font-size:17px;">Teachers</span>
-                                    </label>
+                                   </label> 
                                     </span>
                                     <div class="col-sm-4" style="float:right;margin-right:110px;padding-top:10px;">
                                        <select name="cls_sex" class="form-control" id="class_sec" style="padding:05px;height:30px;">
