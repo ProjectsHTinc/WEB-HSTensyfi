@@ -150,6 +150,7 @@
                         <label class="col-sm-2 control-label">Class Teacher</label>
                         <div class="col-sm-4">
                            <select   name="class_teacher"  class="selectpicker" data-style="btn-block"  data-menu-style="dropdown-blue">
+                             <option value="">None</option>
                               <?php foreach ($getall_class as $rows2) {  ?>
                               <option value="<?php echo $rows2->class_sec_id; ?>"><?php echo $rows2->class_name; ?>&nbsp; - &nbsp;<?php echo $rows2->sec_name; ?></option>
                               <?php      } ?>
