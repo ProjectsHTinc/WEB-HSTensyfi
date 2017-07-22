@@ -86,7 +86,7 @@ class Apiadminmodel extends CI_Model {
               foreach($result as $rows){   }
               $classid=$rows->class_sec_id;
               $year_id=$this->getYear();
-            $stu_list="SELECT eer.name,eer.enroll_id,eer.admisn_no,ea.sex,ea.admisn_year FROM edu_enrollment AS eer LEFT JOIN edu_admission AS ea ON ea.admisn_no=eer.admisn_no WHERE eer.class_id='$classid' AND eer.admit_year='$year_id' AND eer.status='Active'";
+            $stu_list="SELECT eer.name,eer.enroll_id,eer.admisn_no,ea.sex,ea.admisn_year,eer.class_id FROM edu_enrollment AS eer LEFT JOIN edu_admission AS ea ON ea.admisn_no=eer.admisn_no WHERE eer.class_id='$classid' AND eer.admit_year='$year_id' AND eer.status='Active'";
             $res_stu=$this->db->query($stu_list);
               $result_stud=$res_stu->result();
             if($res->num_rows()==0){
@@ -353,7 +353,7 @@ class Apiadminmodel extends CI_Model {
             //#################### GET   TEACHER CLASS DETAILS  ####################//
             function get_teacher_class_details($teacher_id){
                 $year_id = $this->getYear();
-                
+
                 $teacher_query = "SELECT t.teacher_id,t.name,t.sex,t.age,t.nationality,t.religion,t.community_class, t.community,t.address,t.email,t.phone,t.sec_email,t.sec_phone,t.profile_pic,t.update_at,t.subject,t.class_name AS class_taken,t.class_teacher FROM edu_teachers AS t WHERE t.teacher_id = '$teacher_id'";
 				$teacher_res = $this->db->query($teacher_query);
 				$teacher_profile = $teacher_res->result();
@@ -645,7 +645,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
             foreach($result as $rows){   }
             $classid=$rows->class_sec_id;
             $year_id=$this->getYear();
-             $query="SELECT etfs.id,eer.name,etfs.student_id,etfs.status,etfs.paid_by,etfs.updated_at,eer.quota_id,eq.quota_name
+            $query="SELECT etfs.id,eer.name,etfs.student_id,etfs.status,etfs.paid_by,etfs.updated_at,eer.quota_id,eq.quota_name
             FROM edu_term_fees_status AS etfs LEFT JOIN edu_enrollment AS eer ON eer.enroll_id=etfs.student_id LEFT JOIN edu_quota AS eq ON eer.quota_id=eq.id  WHERE etfs.fees_id='$fees_id' AND etfs.class_master_id='$classid'";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
@@ -752,7 +752,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
             // GET Teacher Leaves
           function get_teachers_leaves($user_id){
             $year_id=$this->getYear();
-            $query="SELECT eul.leave_id,eu.user_id,et.name,eulm.leave_title,DATE_FORMAT(eul.from_leave_date,'%d-%m-%Y') AS from_leave_date,DATE_FORMAT(eul.to_leave_date,'%d-%m-%Y')AS to_leave_date,eul.leave_description,eul.status,eul.frm_time,eul.to_time FROM edu_user_leave  AS eul LEFT JOIN edu_users AS eu ON eu.user_id=eul.user_id LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id LEFT JOIN edu_user_leave_master AS eulm ON eulm.id=eul.leave_master_id WHERE eul.user_type='2' AND eul.year_id='$year_id' ORDER BY eul.leave_id DESC";
+            $query="SELECT eul.leave_id,eu.user_id,et.name,eulm.leave_title,eulm.leave_type,DATE_FORMAT(eul.from_leave_date,'%d-%m-%Y') AS from_leave_date,DATE_FORMAT(eul.to_leave_date,'%d-%m-%Y')AS to_leave_date,eul.leave_description,eul.status,eul.frm_time,eul.to_time FROM edu_user_leave  AS eul LEFT JOIN edu_users AS eu ON eu.user_id=eul.user_id LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id LEFT JOIN edu_user_leave_master AS eulm ON eulm.id=eul.leave_master_id WHERE eul.user_type='2' AND eul.year_id='$year_id' ORDER BY eul.leave_id DESC";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");

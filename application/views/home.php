@@ -61,6 +61,33 @@
     background-color: #323546;
    }
    .rem{color:white;font-size:18px;text-transform: capitalize;}
+	 input[type='radio']:after {
+			width: 15px;
+			height: 15px;
+			border-radius: 15px;
+			top: 0px;
+			left: -1px;
+			position: relative;
+			background-color: #d1d3d1;
+			content: '';
+			display: inline-block;
+			visibility: visible;
+			border: 2px solid white;
+	}
+
+	input[type='radio']:checked:after {
+			width: 15px;
+			height: 15px;
+			border-radius: 15px;
+			top: 0px;
+			left: -1px;
+			position: relative;
+			background-color: #ffa500;
+			content: '';
+			display: inline-block;
+			visibility: visible;
+			border: 2px solid white;
+	}
 </style>
 <div class="main-panel">
 <div class="content">
@@ -73,17 +100,21 @@
                   <div class="col-md-9">
                      <div class="card">
                         <form id="" action="#" method="" novalidate="" style="padding-bottom:30px;">
+
                            <fieldset id="group2" style="padding-top:20px;">
                               <div class="form-group">
                                  <div class="col-sm-12">
-                                     <label class="radio radio-inline">
-                                    <input type="radio"data-toggle="radio"id="user_type" value="students" name="user_type" checked=""><span style="font-size:17px;">Students</span>
-                                   </label>
-                                    <span style="padding-left:30px;">
+                                    <!-- <label class="radio radio-inline">
+                                    <input type="radio" data-toggle="radio" id="user_type" value="students" name="user_type" checked=""><span style="font-size:17px;">Students</span>
+                                    </label> -->
+                                    <!-- <span style="padding-left:30px;">
                                     <label class="radio radio-inline" style="margin-top:10px;">
                                     <input type="radio" data-toggle="radio" id="user_type2" value="teachers" name="user_type"><span style="font-size:17px;">Teachers</span>
-                                   </label> 
-                                    </span>
+                                    </label>
+                                    </span> -->
+																		<input type='radio' name="user_type" value="students" checked style="margin-left:40px;"/><span style="padding-left:10px; ">Students</span>
+																		<input type='radio' name="user_type" value="teachers" /><span style="padding-left:10px;">Teachers</span>
+
                                     <div class="col-sm-4" style="float:right;margin-right:110px;padding-top:10px;">
                                        <select name="cls_sex" class="form-control" id="class_sec" style="padding:05px;height:30px;">
                                           <option value="">Select Class</option>

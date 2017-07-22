@@ -217,8 +217,8 @@ public function get_user_parents($user_id)
  {
 	 	$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
 		$cur_date=$dateTime->format("Y-m-d");
-		$datas['res']=$this->usermodel->student_dob_wishes($cur_date);
-		$datas['res']=$this->usermodel->teacher_dob_wishes($cur_date);
+		$datas['res']=$this->smsmodel->student_dob_wishes($cur_date);
+		$datas['res']=$this->smsmodel->teacher_dob_wishes($cur_date);
 
  }
 
