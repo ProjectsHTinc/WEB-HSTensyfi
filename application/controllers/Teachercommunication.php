@@ -79,14 +79,11 @@ class Teachercommunication extends CI_Controller
 			//print_r($datas);exit;
 			  if($datas['status']=="success")
 			  {
-				$this->session->set_flashdata('msg','Added Successfully');
-                redirect('teachercommunication/home',$datas);  
-			  }if($datas['status']=="Leave Date Already Exist"){
-				  $this->session->set_flashdata('msg','Leave Date Already Exist');
-                redirect('teachercommunication/home',$datas); 
+                 echo "success";				
+			  }else if($datas['status']=="Leave Date Already Exist"){
+				  echo "exist";
 			  }else{
-			   $this->session->set_flashdata('msg','Falid To Added');
-                redirect('teachercommunication/home',$datas);	  
+				 echo "Falid To Added";
 			  }
 			
 		}

@@ -14,7 +14,7 @@
                      <legend> Circular Details  <a href="<?php echo base_url(); ?>circular/view_circular" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">View Circular</a></legend>
                   </div>
                   <div class="content">
-                     <form method="post" action="<?php echo base_url(); ?>circular/create" class="form-horizontal" enctype="multipart/form-data" onsubmit="return validates()" name="form" id="myformsection">
+                     <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" onsubmit="return validates()" name="form" id="myformsection">
 						 <fieldset>
                            <div class="form-group">
                               <label class="col-sm-2 control-label"></label>
@@ -128,7 +128,7 @@
                               </div>
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">
-                                 <button type="submit" id="save" class="btn btn-info btn-fill center"  onclick="return confirm('Are you sure?')">Save</button>
+                                 <button type="submit" id="save" class="btn btn-info btn-fill center" >Save</button>
                               </div>
                            </div>
                         </fieldset>
@@ -145,6 +145,7 @@
      $('#communcicationmenu').addClass('collapse in');
      $('#communication').addClass('active');
      $('#communication1').addClass('active');
+	 
 	 $('#myformsection').validate({ // initialize the plugin
        rules: {
          teacher:{required:true },
@@ -165,8 +166,54 @@
 		  notes:"Enter The Details",
 		  citrcular_type:"Select Circular Type",
 		  status:"Select Status"
-               }
+               },
+			   
+	     submitHandler: function(form) {
+	        //alert("hi");
+	        swal({
+	                      title: "Are you sure?",
+	                      text: "You Want Confirm this form",
+	                      type: "success",
+	                      showCancelButton: true,
+	                      confirmButtonColor: '#DD6B55',
+	                      confirmButtonText: 'Yes, I am sure!',
+	                      cancelButtonText: "No, cancel it!",
+	                      closeOnConfirm: false,
+	                      closeOnCancel: false
+	                  },
+	                  function(isConfirm) {
+	                      if (isConfirm) {
+	       $.ajax({
+	           url: "<?php echo base_url(); ?>circular/create",
+	            type:'POST',
+	           data: $('#myformsection').serialize(),
+	           success: function(response) {
+				   //alert(response);
+	               if(response=="success"){
+	                //  swal("Success!", "Thanks for Your Note!", "success");
+	                  $('#myformsection')[0].reset();
+	                  swal({
+	           title: "Wow!",
+	           text: "Message!",
+	           type: "success"
+	       }, function() {
+	           window.location = "<?php echo base_url(); ?>circular/add_circular";
+	       });
+	               }else{
+	                 sweetAlert("Oops...", "Something went wrong!", "error");
+	               }
+	           }
+	       });
+	     }else{
+	         swal("Cancelled", "Process Cancel :)", "error");
+	     }
+	   });
+	}
+	
+	
     }); 
+	
+	
 	
    });
   

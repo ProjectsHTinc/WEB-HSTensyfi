@@ -11,9 +11,7 @@
                      <legend>Leave Application</legend>
                   </div>
                   <div class="content">
-                     <form method="post" action="<?php echo base_url(); ?>teachercommunication/create" class="form-horizontal" enctype="multipart/form-data" id="myformsection">
-
-
+                     <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" id="myformsection">
 
                         <fieldset>
                            <div class="form-group">
@@ -176,7 +174,58 @@
               leave_type:"Select Type Of Leave",
               leave_date:"Select Leave Date",
               leave_description:"Enter The Leave Description",
-            }
+            },
+			
+		  submitHandler: function(form) {
+	        //alert("hi");
+	        swal({
+	                      title: "Are you sure?",
+	                      text: "You Want Confirm this form",
+	                      type: "success",
+	                      showCancelButton: true,
+	                      confirmButtonColor: '#DD6B55',
+	                      confirmButtonText: 'Yes, I am sure!',
+	                      cancelButtonText: "No, cancel it!",
+	                      closeOnConfirm: false,
+	                      closeOnCancel: false
+	                  },
+	                  function(isConfirm) {
+	                      if (isConfirm) {
+	       $.ajax({
+	           url: "<?php echo base_url(); ?>teachercommunication/create",
+	            type:'POST',
+	           data: $('#myformsection').serialize(),
+	           success: function(response) {
+				   //alert(response);
+	               if(response=="success"){
+	                //  swal("Success!", "Thanks for Your Note!", "success");
+	                  $('#myformsection')[0].reset();
+	                  swal({
+	           title: "Wow!",
+	           text: "Message!",
+	           type: "success"
+	       }, function() {
+	           window.location = "<?php echo base_url(); ?>teachercommunication/home";
+	       });
+	               }else if(response=="exist"){
+					   sweetAlert("Oops...", "Leave Date Already Exist", "error");
+				   }else{
+	                 sweetAlert("Oops...", "Something went wrong!", "error");
+	               }
+	           }
+	       });
+	     }else{
+	         swal("Cancelled", "Process Cancel :)", "error");
+	     }
+	   });
+	}
+	
+			
+			
+			
+			
+			
+			
     });
 	demo.initFormExtendedDatetimepickers();
    });

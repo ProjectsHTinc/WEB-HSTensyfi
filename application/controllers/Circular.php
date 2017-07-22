@@ -216,12 +216,10 @@ class Circular extends CI_Controller
 	  }
 	  if($datas['status']=="success")
       {
-      $this->session->set_flashdata('msg', 'Added Successfully');
-      redirect('circular/add_circular');
+          echo "success";
       }
       else{
-      $this->session->set_flashdata('msg', 'Failed to Add');
-      redirect('circular/add_circular');
+      echo "Something went wrong!";
       }
       }
       }
