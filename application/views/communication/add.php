@@ -1,5 +1,3 @@
-
-
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -12,7 +10,7 @@
                </div>
                <?php endif; ?>
                <div class="card">
-                  <div class="header">
+                  <div class="header">  
                      <legend> Circular Details</legend>
                   </div>
                   <div class="content">
