@@ -56,6 +56,10 @@
          width: 100%;
          background-color: whitesmoke;}
          .sidemenubcolor{background-color: #1e202c;}
+		 .menuimg{
+           float: left;
+           margin-right: 10px;
+         }
       </style>
    </head>
    <body>
@@ -187,7 +191,8 @@
                </li>
                <li id="atten">
                   <a data-toggle="collapse" href="#attendmenu">
-                     <i class="pe-7s-note2"></i>
+				   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Attendance.png"/>
+                    <!-- <i class="pe-7s-note2"></i>-->
                      <p>Attendance	</p>
                      <b class="caret"></b>
                   </a>
@@ -201,21 +206,13 @@
                </li>
                <li id="home">
                   <a href="<?php echo base_url(); ?>homework/home">
-                     <i class="pe-7s-flag"></i>
+                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/homework&classtest.png"/>
                      <p>Home Work / Class Test	</p>
                   </a>
-                  <!-- <div class="collapse" id="homeworkmenu">
-                     <ul class="nav">
-                     <li id="home1"><a href="<?php echo base_url(); ?>homework/home">Home Work / Class Test</a></li>
-                     		<!-- <li><a href=""> Home Work</a></li>
-                     		<li><a href=""> Class Test</a></li> --
-
-                     </ul>
-                     </div>-->
                </li>
                <li id="exam">
                   <a data-toggle="collapse" href="#examinationmenu">
-                     <i class="pe-7s-plugin"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Results.png"/>
                      <p>Examination Result</p>
                      <b class="caret"></b>
                   </a>
@@ -236,7 +233,7 @@
 				  </li>
                <li id="calendar">
                   <a data-toggle="collapse" href="#calendermenu">
-                     <i class="pe-7s-gym"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
                      <p>Calender	</p>
                      <b class="caret"></b>
                   </a>
@@ -249,8 +246,8 @@
                </li>
                <li id="comm">
                   <a data-toggle="collapse" href="#commmenu">
-                     <i class="pe-7s-comment"></i>
-                     <p>Communication</p>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/circular.png"/>
+                     <p>Circular</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="commmenu">
@@ -262,7 +259,7 @@
                </li>
                <li id="timetable">
                   <a data-toggle="collapse" href="#timetablemenu">
-                     <i class="pe-7s-diskette"></i>
+                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
                      <p>Time Table	</p>
                      <b class="caret"></b>
                   </a>

@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="en">
    <head>
@@ -53,6 +51,10 @@ font-weight: 500;
     width: 100%;
     background-color: whitesmoke;}
 	.sidemenubcolor{background-color: #1e202c;}
+	.menuimg{
+           float: left;
+           margin-right: 10px;
+         }
 </style>
    </head>
    <body>
@@ -181,25 +183,25 @@ font-weight: 500;
                </li>
                <li id="attendence">
                   <a href="<?php echo base_url(); ?>adminparent/attendance">
-                     <i class="pe-7s-note2"></i>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Attendance.png"/>
                      <p>Attendence</p>
                   </a>
                </li>
                <li id="events">
                   <a href="<?php echo base_url(); ?>adminparent/event">
-                     <i class="pe-7s-gym"></i>
-                     <p>Events	</p>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
+                     <p>Events</p>
                   </a>
                </li>
                <li id="circular">
                   <a href="<?php echo base_url(); ?>adminparent/view_circular">
-                     <i class="pe-7s-comment"></i>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/circular.png"/>
                      <p>circular</p>
                   </a>
                </li>
                <li id="homework">
                   <a href="<?php echo base_url(); ?>adminparent/homework">
-                     <i class="pe-7s-next-2"></i>
+                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/homework&classtest.png"/>
                      <p>Home Work / Class Test</p>
                   </a>
                </li>
@@ -211,14 +213,14 @@ font-weight: 500;
                </li>
                <li id="fees">
                   <a href="<?php echo base_url(); ?>adminparent/fees_status">
-                     <i class="pe-7s-flag"></i>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/fess.png"/>
                      <p>Fees Status</p>
                   </a>
                </li>
 			   
                <li id="exam">
                   <a data-toggle="collapse"  href="#examinationmenu">
-                     <i class="pe-7s-note2"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Results.png"/>
                      <p>Examination </p>
                      <b class="caret"></b>
                   </a>
@@ -236,7 +238,7 @@ font-weight: 500;
               
                <li id="timetable">
                   <a href="<?php echo base_url(); ?>adminparent/timetable">
-                     <i class="pe-7s-notebook"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
                      <p>Time Table	</p>
                   </a>
                </li>

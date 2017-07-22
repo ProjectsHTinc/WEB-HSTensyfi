@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="en">
    <head>
@@ -57,6 +55,10 @@
          width: 100%;
          background-color: whitesmoke;}
          .sidemenubcolor{background-color: #1e202c;}
+		 .menuimg{
+           float: left;
+           margin-right: 10px;
+         }
       </style>
    </head>
    <body>
@@ -197,31 +199,26 @@
                </li>
                <li id="attendence">
                   <a  href="<?php echo base_url(); ?>student/attendance">
-                     <i class="pe-7s-safe"></i>
+                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Attendance.png"/>
                      <p>Attendence</p>
                   </a>
                </li>
                <li id="homework">
                   <a href="<?php echo base_url(); ?>student/homework_view">
-                     <i class="pe-7s-flag"></i>
+                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/homework&classtest.png"/>
                      <p>Home Work / Class Test</p>
                   </a>
-                  <!-- <div class="collapse" id="sectionmenu">
-                     <ul class="nav">
-                     		<li><a href="<?php echo base_url(); ?>student/homework_view">Home Work</a></li>
-                     
-                     </ul>
-                     </div>-->
+               
                </li>
                <li id="fees">
                   <a href="<?php echo base_url(); ?>student/fees_status">
-                     <i class="pe-7s-flag"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/fess.png"/>
                      <p>Fees Status</p>
                   </a>
                </li>
                <li id="exam">
                   <a data-toggle="collapse"  href="#examinationmenu">
-                     <i class="pe-7s-note2"></i>
+                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Results.png"/>
                      <p>Examination </p>
                      <b class="caret"></b>
                   </a>
@@ -238,13 +235,13 @@
                </li>
                <li id="events">
                   <a href="<?php echo base_url(); ?>student/event">
-                     <i class="pe-7s-gym"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
                      <p>Event</p>
                   </a>
                </li>
                <li id="timetable">
                   <a href="<?php echo base_url(); ?>student/timetable">
-                     <i class="pe-7s-diskette"></i>
+                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
                      <p>Time Table	</p>
                   </a>
                </li>

@@ -115,12 +115,12 @@
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>
                            <a href="<?php echo base_url(); ?>adminlogin/profilepic">
-                           <i class="pe-7s-tools"></i> Profile
+                           <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/profile1.png"/> Profile
                            </a>
                         </li>
                         <li>
                            <a href="<?php echo base_url(); ?>adminlogin/profile">
-                           <i class="pe-7s-tools"></i> Setting
+                           <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/setting.png"/> Setting
                            </a>
                         </li>
                         <li class="divider"></li>
@@ -246,7 +246,7 @@
                </li>
                <li id="payment">
                   <a data-toggle="collapse" href="#feesmenu">
-                     <i class="pe-7s-users"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/fess.png"/>
                      <p>Payment</p>
                      <b class="caret"></b>
                   </a>
@@ -260,7 +260,7 @@
                </li>
                <li id="attendance">
                   <a data-toggle="collapse" href="#attend">
-                     <i class="pe-7s-users"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Attendance.png"/>
                      <p>Attendance</p>
                      <b class="caret"></b>
                   </a>
