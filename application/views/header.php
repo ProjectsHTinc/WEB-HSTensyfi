@@ -61,6 +61,10 @@
          body{position: absolute;
          height: 100%;
          width: 100%;background-color: whitesmoke;}
+         .menuimg{
+           float: left;
+           margin-right: 10px;
+         }
       </style>
    </head>
    <body>
@@ -145,7 +149,7 @@
                      $query="SELECT user_pic FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
                      $objRs=$this->db->query($query);
                      $row=$objRs->result();
-                     foreach ($row as $rows1)     
+                     foreach ($row as $rows1)
                      {
                       $pic=$rows1->user_pic;
                       if($pic!='')
@@ -188,8 +192,8 @@
                </li>
                <li id="admission">
                   <a data-toggle="collapse" href="#admissionmenu">
-                     <!-- <img src="<?php echo base_url(); ?>assets/img/icons/Stu.png"/>-->
-                     <i class="pe-7s-add-user"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/admission.png"/>
+                     <!-- <i class="pe-7s-add-user"></i> -->
                      <p>Student's Admission	</p>
                      <b class="caret"></b>
                   </a>
@@ -216,7 +220,7 @@
                </li>
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
-                     <i class="pe-7s-study"></i>
+                       <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
                      <p>Registration	</p>
                      <b class="caret"></b>
                   </a>
@@ -229,7 +233,7 @@
                </li>
                <li id="teacher">
                   <a data-toggle="collapse" href="#teachermenu">
-                     <i class="pe-7s-users"></i>
+                       <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/teachers.png"/>
                      <p>Teachers	</p>
                      <b class="caret"></b>
                   </a>
@@ -270,7 +274,7 @@
                </li>
                <li id="event">
                   <a data-toggle="collapse" href="#eventmenu">
-                     <i class="pe-7s-gym"></i>
+                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
                      <p>Calender</p>
                      <b class="caret"></b>
                   </a>
@@ -285,7 +289,7 @@
                </li>
                <li id="time">
                   <a data-toggle="collapse" href="#timetablemenu">
-                     <i class="pe-7s-diskette"></i>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
                      <p>TimeTable</p>
                      <b class="caret"></b>
                   </a>
@@ -312,7 +316,7 @@
                </li>
                <li id="communication">
                   <a data-toggle="collapse" href="#communcicationmenu">
-                     <i class="pe-7s-plugin"></i>
+                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/circular.png"/>
                      <p>Circular</p>
                      <b class="caret"></b>
                   </a>
