@@ -68,11 +68,11 @@
 			top: 0px;
 			left: -1px;
 			position: relative;
-			background-color: #d1d3d1;
+			background-color:#a2a09d;
 			content: '';
 			display: inline-block;
 			visibility: visible;
-			border: 2px solid white;
+			border: 0px solid white;
 	}
 
 	input[type='radio']:checked:after {
@@ -82,11 +82,11 @@
 			top: 0px;
 			left: -1px;
 			position: relative;
-			background-color: #ffa500;
+			background-color: #23ccef;
 			content: '';
 			display: inline-block;
 			visibility: visible;
-			border: 2px solid white;
+			border: 0px solid white;
 	}
 </style>
 <div class="main-panel">
@@ -112,8 +112,8 @@
                                     <input type="radio" data-toggle="radio" id="user_type2" value="teachers" name="user_type"><span style="font-size:17px;">Teachers</span>
                                     </label>
                                     </span> -->
-																		<input type='radio' name="user_type" value="students" checked style="margin-left:40px;"/><span style="padding-left:10px; ">Students</span>
-																		<input type='radio' name="user_type" value="teachers" /><span style="padding-left:10px;">Teachers</span>
+									<input type='radio' name="user_type" value="students" checked style="margin-left:40px;"/><span style="padding-left:10px; padding-right:10px; ">Students</span>
+									<input type='radio' name="user_type" value="teachers" /><span style="padding-left:10px;">Teachers</span>
 
                                     <div class="col-sm-4" style="float:right;margin-right:110px;padding-top:10px;">
                                        <select name="cls_sex" class="form-control" id="class_sec" style="padding:05px;height:30px;">
