@@ -1,5 +1,3 @@
-
-
 <div class="main-panel">
    <div class="content">
       <div class="col-md-12">
@@ -25,7 +23,7 @@
                         </div>
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-4">
-                           <input type="text" name="email" readonly class="form-control" id="email" value="<?php echo $rows->email; ?>"/>
+                           <input type="text" name="email" required  class="form-control" id="email" value="<?php echo $rows->email; ?>"/>
                         </div>
                      </div>
                   </fieldset>
