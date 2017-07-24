@@ -155,6 +155,16 @@ Class Examinationmodel extends CI_Model
 		
 	}
 	
+	function marks_statuss($exam_id)
+	{  
+		//$sql="SELECT * FROM edu_exam_marks_status ";
+		$sql="SELECT ms.*,cm.class_sec_id,cm.class,cm.section,c.*,s.* FROM edu_exam_marks_status AS ms,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE ms.exam_id='$exam_id' AND ms.classmaster_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id";
+		$res=$this->db->query($sql);
+		$result=$res->result();
+		return $result;
+		
+	}
+	
 	function clsname_examname($exam_id,$cls_masid)
 	{  
 	    $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";

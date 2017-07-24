@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">View Exam Marks ( <?php foreach($cls as $rows){} echo $rows->exam_name;?> )
+                                <h4 class="title">View Exam Marks ( <?php foreach($cls_exam as $rows){} echo $rows->exam_name;?> )
 								<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
 								
 								<button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
@@ -141,7 +141,7 @@
         </div>
 	</div>
 <?php
-         foreach ($cls as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
+         foreach ($cls_exam as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
 		// echo $cls; echo $sec; ?> 
 <script type="text/javascript">
 
