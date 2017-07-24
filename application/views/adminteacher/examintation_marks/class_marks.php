@@ -20,7 +20,7 @@
             <div class="col-md-12">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">View Exam Marks <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button> <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
+                     <h4 class="title">View Exam Marks ( <?php foreach ($cls_exname as $rows) {} echo $rows->exam_name; ?>  ) <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button> <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
                      <p class="category"></p>
                   </div>
                   <div class="content table-responsive table-full-width">
@@ -68,7 +68,7 @@
                            <?php
                               $tecid=$marks1[0]->teacher_id;
                               echo '<input type="hidden" id="tid" name="teaid" value="'.$tecid.'" />';
-                                                          }?>
+                              }?>
                            <tbody>
                               <?php
 			 if(!empty($stu))
@@ -137,11 +137,8 @@
       </div>
    </div>
 </div>
- <?php  $cls_masid = $this->input->get('var1');
-         $sql="SELECT cm.*,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE cm.class_sec_id='$cls_masid' AND cm.class=c.class_id AND cm.section=se.sec_id";
-         $resultset=$this->db->query($sql);
-         $row=$resultset->result();
-         foreach ($row as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
+ <?php  
+         foreach ($cls_exname as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
 		// echo $cls; echo $sec; ?>  
 <script type="text/javascript">
    $('tr').each(function () {

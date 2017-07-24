@@ -167,10 +167,11 @@ class Examinationresult extends CI_Controller
         $exam_id   = $this->input->get('var2');
        
         $datas         = $this->examinationresultmodel->getall_subname($user_id,$cls_masid,$exam_id,$user_type);
-        $datas['stu']    = $this->examinationresultmodel->getall_stuname($user_id, $cls_masid, $exam_id);
+        $datas['stu']    = $this->examinationresultmodel->getall_stuname($user_id, $cls_masid,$exam_id);
         $datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id);
         $datas['marks1'] = $this->examinationresultmodel->getall_marks_details1($user_id,$cls_masid,$user_type);
         $datas['smark']  = $this->examinationresultmodel->marks_status_details($cls_masid,$exam_id);
+		$datas['cls_exname']=$this->examinationresultmodel->clsname_examname($exam_id,$cls_masid);
        // print_r($datas['smark']);exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');

@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">View Exam Marks
+                                <h4 class="title">View Exam Marks ( <?php foreach($cls as $rows){} echo $rows->exam_name;?> )
 								<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
 								
 								<button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
@@ -30,7 +30,7 @@
             <?php  
                    $cls_id=$this->input->get('var1');
 				   $exam_id=$this->input->get('var2');
-				   //echo $exam_id;echo $cls_id;
+				   //echo $exam_id; 
 		$student_array_generate = function($stu,&$student_arr) use ($subject_name,$subject_id)
 		{
 			foreach ($stu as $v) {
@@ -140,11 +140,8 @@
             </div>
         </div>
 	</div>
-<?php  $cls_id=$this->input->get('var1');
-         $sql="SELECT cm.*,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE cm.class_sec_id='$cls_id' AND cm.class=c.class_id AND cm.section=se.sec_id";
-         $resultset=$this->db->query($sql);
-         $row=$resultset->result();
-         foreach ($row as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
+<?php
+         foreach ($cls as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
 		// echo $cls; echo $sec; ?> 
 <script type="text/javascript">
 

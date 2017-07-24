@@ -199,6 +199,22 @@ Class Examinationresultmodel extends CI_Model
 		//}
 		
 	}  
+	
+	function clsname_examname($exam_id,$cls_masid)
+	{  
+	    $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $result1=$this->db->query($get_year);
+		  $all_year= $result1->result();
+		  foreach($all_year as $cyear){}
+		  $current_year=$cyear->year_id; 
+		  
+		$sql="SELECT ex.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_examination AS ex,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE ex.exam_id='$exam_id' AND exam_year='$current_year' AND cm.class_sec_id='$cls_masid' AND cm.class=c.class_id AND cm.section=s.sec_id";
+		$res=$this->db->query($sql);
+		$result=$res->result();
+		return $result;
+		
+	}
+	
     
    /*    function getall_subname($user_id,$cls_masid,$exam_id,$user_type)
      {
