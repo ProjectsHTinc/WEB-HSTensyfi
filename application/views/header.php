@@ -115,7 +115,7 @@
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>
                            <a href="<?php echo base_url(); ?>adminlogin/profilepic">
-                           <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/profile1.png"/> Profile
+                           <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/profile.png"/> Profile
                            </a>
                         </li>
                         <li>
@@ -206,8 +206,8 @@
                   </div>
                </li>
                <li id="activities">
-                  <a data-toggle="collapse" href="#curricular">
-                     <i class="pe-7s-users"></i>
+                  <a data-toggle="collapse" href="#curricular"> 
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/extracurricular.png"/>
                      <p>Extra-Co curricular</p>
                      <b class="caret"></b>
                   </a>
@@ -246,7 +246,7 @@
                </li>
                <li id="payment">
                   <a data-toggle="collapse" href="#feesmenu">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/fess.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/fees.png"/>
                      <p>Payment</p>
                      <b class="caret"></b>
                   </a>
@@ -330,7 +330,7 @@
                </li>
                <li id="onduty">
                   <a data-toggle="collapse" href="#ondutydetails">
-                     <i class="pe-7s-plugin"></i>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
                      <p>On Duty</p>
                      <b class="caret"></b>
                   </a>

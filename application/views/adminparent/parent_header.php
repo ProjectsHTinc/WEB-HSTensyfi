@@ -115,12 +115,12 @@ font-weight: 500;
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>
                            <a href="<?php echo base_url(); ?>parentprofile/profile_edit">
-                           <i class="pe-7s-tools"></i> Profile
+                           <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/profile.png"/> Profile
                            </a>
                         </li>
                         <li>
                            <a href="<?php echo base_url(); ?>parentprofile/pwd_edit">
-                           <i class="pe-7s-tools"></i> Setting
+                            <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/setting.png"/> Setting
                            </a>
                         </li>
                         <li class="divider"></li>
@@ -207,13 +207,13 @@ font-weight: 500;
                </li>
 			    <li id="specialcls">
                   <a href="<?php echo base_url(); ?>adminparent/view_special_cls">
-                     <i class="pe-7s-next-2"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/specialclass.png"/>
                      <p>Special Class</p>
                   </a>
                </li>
                <li id="fees">
                   <a href="<?php echo base_url(); ?>adminparent/fees_status">
-                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/fess.png"/>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/fees.png"/>
                      <p>Fees Status</p>
                   </a>
                </li>

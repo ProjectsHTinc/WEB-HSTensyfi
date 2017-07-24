@@ -118,12 +118,12 @@
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>
                            <a href="<?php echo base_url(); ?>teacherprofile/profilepic">
-                           <i class="pe-7s-tools"></i> Profile
+                           <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/profile.png"/> Profile
                            </a>
                         </li>
                         <li>
                            <a href="<?php echo base_url(); ?>teacherprofile/profile">
-                           <i class="pe-7s-tools"></i> Setting
+                           <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/setting.png"/>  Setting
                            </a>
                         </li>
                         <li class="divider"></li>
@@ -184,7 +184,7 @@
                </li>
                <li id="classhandling">
                   <a href="<?php echo base_url(); ?>teachertimetable/classhandling_subject">
-                     <i class="pe-7s-flag"></i>
+                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/classhandling.png"/> 
                      <p>Class Handling 	</p>
                   </a>
 
@@ -227,7 +227,7 @@
                </li>
 			   <li id="stuonduty">
                   <a href="<?php echo base_url(); ?>teacheronduty/view_class">
-                     <i class="pe-7s-flag"></i>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
                      <p>Student Onduty View</p>
                   </a>
 				  </li>
