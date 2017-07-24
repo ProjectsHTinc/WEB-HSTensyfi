@@ -167,7 +167,7 @@ Class Examinationmodel extends CI_Model
 	
 	function clsname_examname($exam_id,$cls_masid)
 	{  
-	    $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+	      $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 		  $result1=$this->db->query($get_year);
 		  $all_year= $result1->result();
 		  foreach($all_year as $cyear){}
