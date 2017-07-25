@@ -76,6 +76,10 @@
 </div>	
 </body>
 <script type="text/javascript">
+
+   $('#examinationmenu').addClass('active');
+   $('#examinationmenu').addClass('collapse in');
+   $('#exam2').addClass('active');
 $(window).load(function($) {
     loadmarks();
 });
