@@ -15,7 +15,7 @@
 
 </style>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-8">
 		<div class="card">
 			<div class="header">
 				<h4 class="title">Exam Marks <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button><button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
@@ -69,6 +69,10 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-md-4">
+	 <img class="img-responsive" src="<?php echo base_url(); ?>assets/exam_marks_details.jpg"/>
+	</div>
+	
 </div>
 
 </div>
