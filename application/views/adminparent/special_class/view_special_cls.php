@@ -56,9 +56,9 @@
 </div>
 <script type="text/javascript">
    $(document).ready(function () {
-   /* $('#mastersmenu').addClass('collapse in');
-   $('#master').addClass('active');
-   $('#masters2').addClass('active'); */
+    $('#specialcls').addClass('collapse in');
+ $('#specialcls').addClass('active');
+ $('#specialcls').addClass('active');
     });
    var $table = $('#bootstrap-table');
          $().ready(function(){
