@@ -56,7 +56,7 @@
    $(document).ready(function() {
    $('#attendance').addClass('collapse in');
    $('#attendance').addClass('active');
-   $('#attendance').addClass('active');
+   $('#attendence').addClass('active');
    	$('#fullCalendar').fullCalendar({
    		header: {
    			left: 'prev,next today',

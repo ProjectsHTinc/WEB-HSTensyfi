@@ -38,5 +38,5 @@
 <script>
 $('#timetablemenu').addClass('collapse in');
 $('#timetable').addClass('active');
-$('#timetable1').addClass('active');
+$('#timetable2').addClass('active');
 </script>

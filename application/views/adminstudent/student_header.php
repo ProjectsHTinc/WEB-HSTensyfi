@@ -189,7 +189,7 @@
                      { }echo '<p>'; echo"Welcome, "; echo $rows2->name; echo '</p>';?>
                   </a>
                </div>
-            </div>
+            </div>   
             <ul class="nav">
                <li id="dashboard">
                   <a href="<?php echo base_url(); ?>">
