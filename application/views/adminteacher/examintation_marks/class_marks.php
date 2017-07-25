@@ -98,10 +98,12 @@
 			              echo '<td>';
 							if(!empty($s))
 							{
-							 echo '<span class="grade">'; echo $s->internal_mark; echo "&nbsp";  echo '<span class="space">';echo $s->internal_grade; echo'</span>'; echo'</span>'; echo "&nbsp";
-							 echo '<span class="grade1">'; echo $s->external_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>'; echo "&nbsp";
+							 echo '<span class="grade">'; echo $s->internal_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
+							echo "&nbsp";
+							echo '<span class="grade1">'; echo $s->external_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>';
 							 echo'<span class="combat">';
-							 echo '<span class="grade2">'; echo $s->total_marks; echo "&nbsp";   echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
+							echo "&nbsp";
+							 echo '<span class="grade2">'; echo $s->total_marks; echo "&nbsp"; echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
 							 echo'</span>';
 							}else{
 								'<form method="post" class="form-horizontal" enctype="multipart/form-data" id="markform">';
