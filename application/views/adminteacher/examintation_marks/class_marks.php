@@ -98,10 +98,10 @@
 			              echo '<td>';
 							if(!empty($s))
 							{
-							 echo '<span class="grade">'; echo $s->internal_mark;   echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
-							 echo '<span class="grade1">'; echo $s->external_mark;   echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>';
+							 echo '<span class="grade">'; echo $s->internal_mark; echo "&nbsp";  echo '<span class="space">';echo $s->internal_grade; echo'</span>'; echo'</span>'; echo "&nbsp";
+							 echo '<span class="grade1">'; echo $s->external_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>'; echo "&nbsp";
 							 echo'<span class="combat">';
-							 echo '<span class="grade2">'; echo $s->total_marks;   echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
+							 echo '<span class="grade2">'; echo $s->total_marks; echo "&nbsp";   echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
 							 echo'</span>';
 							}else{
 								'<form method="post" class="form-horizontal" enctype="multipart/form-data" id="markform">';
@@ -240,11 +240,11 @@
          });
 		 
 		 function generatefromtable() {
-				var data = [], fontSize = 12, height = 0, doc;
-				doc = new jsPDF('p', 'pt', 'a4', true);
+				var data = [], fontSize =10, height = 0, doc;
+				doc = new jsPDF('p', 'pt', 'a3', true);
 				doc.setFont("times", "normal");
 				doc.setFontSize(fontSize);
-				doc.text(50,20, "Exam Result");
+				doc.text(40,20, "Exam Result Of ( <?php echo $cls; echo $sec; ?> )");
 				data = [];
 				data = doc.tableToJson('bootstrap-table');
 				height = doc.drawTable(data, {
