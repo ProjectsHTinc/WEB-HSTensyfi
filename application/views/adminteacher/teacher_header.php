@@ -48,7 +48,7 @@
          color:#fff!important; margin-left: 10px!important; padding-left: 175px !important;
          }
          .abox{border: 1px solid grey;}
-         .topbar{background-color:#642160 ;height:70px;}
+         .topbar{background-color:#642160 ;height:99px;}
          .imgclass{margin:0px;float:left;}
          .imgstyle1{width:40px;height:40px;}
          body{position: absolute;
@@ -74,14 +74,15 @@
                <span class="icon-bar"></span>
                </button>
 
-               <a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px;">
+               <a class="navbar-brand title_ensyfi" href="#" style="color:white; margin-left:10px; margin-top:25px;
+    font-size:25px;">
 			   <?php $sql="SELECT name,user_id,user_type FROM edu_users WHERE user_id='1' AND user_type='1'";
                               $res=$this->db->query($sql);
                               $rows=$res->result();
                               foreach ($rows as $rows3){} $uname=$rows3->name;
 							  echo $uname; ?></a>
             </div>
-            <div class="collapse navbar-collapse"  style="float:right;">
+            <div class="collapse navbar-collapse"  style="float:right;padding-top: 18px;">
                <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown" style="padding:08px 10px;">
                      <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
@@ -140,10 +141,10 @@
          </div>
       </nav>
       <div class="sidebar sidemenu">
-         <div class="logo sidemenubcolor"  style="padding:0px 70px;height:115px">
+         <!-- <div class="logo sidemenubcolor"  style="padding:0px 70px;height:115px">
             <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:115px;"  />
-         </div>
-         <div class="sidebar-wrapper" style="background-color: #1e202c;">
+         </div> -->
+         <div class="sidebar-wrapper" style="background-color:#323546;">
             <div class="user" style="margin-top:10px;padding-bottom:22px;">
                <div class="imgclass photo" style="margin-left:20px;">
                   <?php

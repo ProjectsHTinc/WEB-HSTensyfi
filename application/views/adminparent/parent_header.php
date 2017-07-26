@@ -43,7 +43,7 @@ font-weight: 500;
            color:#fff!important; margin-left: 105px!important; padding-left: 175px !important;
          }
 .abox{border: 1px solid grey;}
-.topbar{background-color:#642160 ;height:70px;}
+.topbar{background-color:#642160 ;height:99px;}
  .imgclass{margin:0px;float:left;}
  .imgstyle1{width:40px;height:40px;}
  body{position: absolute;
@@ -68,23 +68,17 @@ font-weight: 500;
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px;">
+					<a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px; margin-top:25px;
+    font-size:25px;">
 					 <?php $sql="SELECT name,user_id,user_type FROM edu_users WHERE user_id='1' AND user_type='1'";
                               $res=$this->db->query($sql);
                               $rows=$res->result();
                               foreach ($rows as $rows3){} $uname=$rows3->name;
 							  echo $uname; ?></a>
 				</div>
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" style="padding-top: 18px;">
                <ul class="nav navbar-nav navbar-right">
-                  <!-- <li>
-                     <img src="<?php echo base_url(); ?>assets/wrain.png" style=" width: 45px;margin-right: 20px;margin-top:07px;">
-                     </li>
-                  <li style="padding:08px 10px;">
-                     <a href="<?php echo base_url(); ?>teachercommunication/home" class="abox"style="padding:03px 15px;border-color: white;">
-                        <p style="color: white;text-transform:uppercase;font-size: 12px;padding-left:0px;">Circular</p>
-                     </a>
-                  </li>-->
+                 
                   <li style="padding: 08px 10px;">
                      <a href="<?php echo base_url(); ?>adminparent/view_onduty" class="abox"style="padding:03px 15px;border-color: white;">
                         <p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Onduty</p>
@@ -137,9 +131,9 @@ font-weight: 500;
          </div>
       </nav>
       <div class="sidebar sidemenu" data-color="purple">
-	  <div class="logo sidemenubcolor"  style="padding:0px 70px;height:115px">
+	  <!-- <div class="logo sidemenubcolor"  style="padding:0px 70px;height:115px">
             <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:115px;"  />
-        </div>
+        </div> -->
          <div class="sidebar-wrapper" style="background-color: #1e202c;">
 		 <div class="user" style="margin-top:10px;padding-bottom:22px;">
                  <div class="imgclass photo" style="margin-left:20px;">

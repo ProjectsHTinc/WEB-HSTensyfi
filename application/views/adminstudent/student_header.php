@@ -47,7 +47,7 @@
          color:#fff!important; margin-left: 105px!important; padding-left: 175px !important;
          }
          .abox{border: 1px solid grey;}
-         .topbar{background-color:#642160;height:70px;}
+         .topbar{background-color:#642160;height:99px;}
          .imgclass{margin:0px;float:left;}
          .imgstyle1{width:40px;height:40px;}
          body{position: absolute;
@@ -72,24 +72,17 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px;">
+               <a class="navbar-brand title_ensyfi" href="#" style="color:white;margin-left:10px;padding-top: 30px;
+font-size: 25px;">
 			   <?php $sql="SELECT name,user_id,user_type FROM edu_users WHERE user_id='1' AND user_type='1'";
                               $res=$this->db->query($sql);
                               $rows=$res->result();
                               foreach ($rows as $rows3){} $uname=$rows3->name;
 							  echo $uname; ?></a>
             </div>
-            <div class="collapse navbar-collapse" style="float:right;">
+            <div class="collapse navbar-collapse" style="float:right;padding-top: 17px;">
                <ul class="nav navbar-nav navbar-right">
-                  <!-- <li>
-                     <img src="<?php echo base_url(); ?>assets/wrain.png" style=" width: 45px;margin-right: 20px;margin-top:15px;">
-                     </li>
-					 <li style="padding:0px 10px; padding-top:15px;">
-                     <a href="<?php echo base_url(); ?>student/event" class="abox" style="padding:03px 15px;border-color: white;">
-					   <p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Events</p>
-                     </a>
-                  </li>-->
-				  
+                  
                      <li style="padding:0px 10px; padding-top:11px;">
                      
                      	<a href="<?php echo base_url(); ?>student/view_all_circular" class="abox"style="padding:03px 15px;border-color: white;">
@@ -104,9 +97,7 @@
                      <ul class="dropdown-menu">
                         <li><a href="<?php echo base_url(); ?>student/onduty">On Duty Form</a></li>
                         <li><a href="<?php echo base_url(); ?>student/special_class_details">Special Class </a></li>
-                        <!-- <li><a href="<?php echo base_url(); ?>groups/home">Groups </a></li>
-                           <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li> 
-                           <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> --> 
+                        
                      </ul>
                   </li>
                   <li class="dropdown dropdown-with-icons">
@@ -155,10 +146,8 @@
          </div>
       </nav>
       <div class="sidebar sidemenu" data-color="purple" >
-         <div class="logo sidemenubcolor"  style="padding:0px 70px;height:115px">
-            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:115px;"  />
-         </div>
-         <div class="sidebar-wrapper" style="background-color: #1e202c;">
+       
+         <div class="sidebar-wrapper" style="background-color:#323546;">
             <div class="user" style="margin-top:10px;padding-bottom:22px;">
                <div class="imgclass photo" style="margin-left:20px;">
                   <?php

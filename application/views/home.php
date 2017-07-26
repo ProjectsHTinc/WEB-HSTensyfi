@@ -1,7 +1,7 @@
-<!-- Calender ---->
+<!-- Calender ---
 	    <script src="<?php echo base_url(); ?>assets/js/datepicker.js" type="text/javascript"></script>
 	    <link href="<?php echo base_url(); ?>assets/css/clean.css" rel="stylesheet" />
-	    <link href="<?php echo base_url(); ?>assets/css/base.css" rel="stylesheet" />
+	    <link href="<?php echo base_url(); ?>assets/css/base.css" rel="stylesheet" /> -->
 		<style>
    .box{
    padding: 12px 0px 66px 0px;
@@ -26,39 +26,49 @@
    .fc-view-container{margin-top: -25px;}
    .img
    {
-	   background: url(<?php echo base_url(); ?>assets/img/circular.png);
-	   width: 175px;
-       height: 130px;
+	   background: url(<?php echo base_url(); ?>assets/img/circular1.png);
+	   width: 55px;
+       height: 50px;
+    
    }
    .img1
    {
-	   background: url(<?php echo base_url(); ?>assets/img/events.png);
-	   width: 175px;
-       height: 130px;
+	   background: url(<?php echo base_url(); ?>assets/img/events1.png);
+	   width: 55px;
+       height: 50px;
+   
    }
    .imgs
    {
-	   background: url(<?php echo base_url(); ?>assets/img/tecahers.png);
-	   width: 175px;
-       height: 130px;
+	   background: url(<?php echo base_url(); ?>assets/img/leave.png);
+	   width: 55px;
+       height: 50px;
+    
    }
 	 .img4{
 
-		 background: url(<?php echo base_url(); ?>assets/img/attendance.png);
-		width: 175px;
-			 height: 130px;
+		 background: url(<?php echo base_url(); ?>assets/img/attendance1.png);
+		width: 55px;
+        height: 50px;
 	 }
    .plusicon
    {
 	  display:inline-block;float: right;
    }
    .design{
-	 color: white;
-    font-size:30px;
+	 color:#663366;
+    font-size:16px;
+	font-weight: bold;
 
    }
    .setcolor{
     background-color: #323546;
+   }
+   .textborder{
+	    height:58px;
+        padding-left:0px;
+		border-left:2px solid #c6c6c7;
+		float: left;
    }
    .rem{color:white;font-size:18px;text-transform: capitalize;}
 	 input[type='radio']:after {
@@ -88,12 +98,13 @@
 			visibility: visible;
 			border: 0px solid white;
 	}
+	.imgdesign{border:1px solid #F5F5F5;height:52px;background-color: #F5F5F5;}
 </style>
 <div class="main-panel">
 <div class="content">
    <div class="card">
       <div class="container-fluid">
-         <p style="font-size:25px;padding-left:16px;">Admin Dashboard</p>
+         <p style="font-size:25px;padding-left:16px;padding-top: 15px;">Admin Dashboard</p>
          <div class="">
             <div class="row">
                <div class="col-md-12">
@@ -104,14 +115,7 @@
                            <fieldset id="group2" style="padding-top:20px;">
                               <div class="form-group">
                                  <div class="col-sm-12">
-                                    <!-- <label class="radio radio-inline">
-                                    <input type="radio" data-toggle="radio" id="user_type" value="students" name="user_type" checked=""><span style="font-size:17px;">Students</span>
-                                    </label> -->
-                                    <!-- <span style="padding-left:30px;">
-                                    <label class="radio radio-inline" style="margin-top:10px;">
-                                    <input type="radio" data-toggle="radio" id="user_type2" value="teachers" name="user_type"><span style="font-size:17px;">Teachers</span>
-                                    </label>
-                                    </span> -->
+                                    
 									<input type='radio' name="user_type" value="students" checked style="margin-left:40px;"/><span style="padding-left:10px; padding-right:10px; ">Students</span>
 									<input type='radio' name="user_type" value="teachers" /><span style="padding-left:10px;">Teachers</span>
 
@@ -144,100 +148,87 @@
                      </div>
                   </div>
                   <div class="col-md-3">
-                          <div id="simple-calendar" style="border-radius: 50px;padding-left: 03px;"></div>
-                     <p></p>
+                     <div class="card" >
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr style="background-color:#e57b05;">
+                                    <th style="color: white;font-size: 15px;">DATE & TIME</th>
+									 <th></th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td class="text-center"><p style="font-size:18px;padding-top:08px;color: #84858d;"><?php  echo date("d M Y"); echo '<br>';?> <span style="font-size:15px;"><?php echo date("l");?></span></p></td>
+									
+									 <td> 
+									 <span class="textborder"></span>
+									 <div id="txt" style="font-size:20px;font-weight:bold;color:#84858d;padding-left:13px;
+    padding-top:13px;"></div></td>
+                                 </tr>
+                                 
+                              </tbody>
+                           </table>
+                     </div>
                   </div>
                <!---                      -->
-			     <div class="col-md-12" style="padding-left:43px;">
+			     <div class="col-md-12" style="padding-left:0px; padding-top:15px;padding-bottom:15px;">
 				 <div class="col-md-3">
                      <div class="card" style="box-shadow:none;">
+					 <div class="imgdesign">
 					 <div class="img">
-					  <ul style="padding-left:33px;">
-					  <li style="padding-top:45px;list-style-type:none;">
+					  <ul style="padding-left:70px;">
+					  <li style="padding-top:13px;list-style-type:none;">
 					 <a href="<?php echo base_url(); ?>circular/view_circular" class="design">Circular</a>
 					 </li>
 					 </ul>
+					 </div>
 					 </div>
 					</div>
 					 </div>
 					 <div class="col-md-3">
                      <div class="card" style="box-shadow:none;">
+					  <div class="imgdesign">
 					 <div class="img1">
-					 <ul style="padding-left:40px;">
-					  <li style="padding-top:45px;list-style-type:none;">
+					 <ul style="padding-left:70px;">
+					  <li style="padding-top:13px;list-style-type:none;">
 					   <a href="<?php echo base_url(); ?>event/create" class="design">Events</a>
 					 </li>
 					 </ul>
 					 </div>
 					 </div>
 					 </div>
+					 </div>
 					 <div class="col-md-3" >
                      <div class="card" style="box-shadow:none;">
+					  <div class="imgdesign">
 					 <div class="imgs">
-					  <ul style="padding-left:7px;">
-					  <li style="padding-top:25px;list-style-type:none;text-align:center;">
-					 <a href="<?php echo base_url(); ?>communication/view_user_leaves" class="design">Teachers Leave</a>
+					  <ul style="padding-left:70px;">
+					  <li style="padding-top:13px;list-style-type:none;">
+					 <a href="<?php echo base_url(); ?>communication/view_user_leaves" class="design">Teachers<span style="padding-left:7px;">Leave</span></a>
 					 </li>
 					 </ul>
+					 </div>
 					 </div>
 					 </div>
 					 </div>
 					 <div class="col-md-3" >
-											<div class="card" style="box-shadow:none;">
+			    <div class="card" style="box-shadow:none;">
+				 <div class="imgdesign">
 					 <div class="img4">
-						<ul style="padding-left:7px;">
-						<li style="padding-top:25px;list-style-type:none;text-align:center;">
-					 <a href="<?php echo base_url(); ?>adminattendance/monthclass" class="design">Month Attendance</a>
+						<ul style="padding-left:70px;">
+						<li style="padding-top:13px;list-style-type:none;">
+					 <a href="<?php echo base_url(); ?>adminattendance/monthclass" class="design">Month<span style="padding-left:7px;">Attendance</span></a>
 					 </li>
 					 </ul>
 					 </div>
 					 </div>
 					 </div>
+					 </div>
 
 					 </div>
 
-				    <!-- <div class="col-md-3">
-                     <div class="card" style="box-shadow:0 1px 2px rgba(33, 29, 29, 0.97), 0 0 0 1px rgba(1, 1, 16, 0.98);height:130px;">
-                        <div class="header" style="padding:0px;">
-                        </div>
-                        <div class="content table-full-width" style="padding-top:5px;">
-                           <table class="table table-striped">
-                              <thead>
-                                 <tr>
-                                    <th>Name</th>
-                                    <th>Present</th>
-                                    <th>Absent</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Teachers</td>
-                                    <td class="text-center"><?php	if(empty($teacher)){
-                                       echo "No data";
-                                       }else{
-                                       foreach ($teacher as $user_to) {}
-                                       		echo $user_to->user_count;
-                                       } ?></td>
-                                    <td class="text-center" style="padding-right:0px;">0</td>
-                                 </tr>
-                                 <tr>
-                                    <td>Students</td>
-                                    <td class="text-center"><?php 	if(empty($res)){
-                                       echo "No data";
-                                       }else{
-                                       foreach ($res as $user_to) {}
-                                       		echo $user_to->user_count;
-                                       }  ?></td>
-                                    <td class="text-center"style="padding-right:0px; ">0</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                     <p></p>
-                  </div>
-
-			    -->
+				   
+			   
 				</div>
                <hr>
                <div class="col-md-12">
@@ -340,12 +331,12 @@
    </div>
 </div>
 <script type="text/javascript">
-   $(document).ready(function() {
+   /* $(document).ready(function() {
 	  $('#simple-calendar').DatePicker({
 	  mode: 'single',
 	  inline: true,
 	  date: new Date() });
-});
+}); */
 
 
    function search_load(){
@@ -377,5 +368,23 @@
 
    }
    }
+
+   function startTime() 
+{
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('txt').innerHTML =
+    h + ":" + m + ":" + s;
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) 
+{
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
 
 </script>

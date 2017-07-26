@@ -201,8 +201,7 @@ Class Circularmodel extends CI_Model
 			if($tusers_id!='')
 			{
 			 $countid=count($tusers_id);
-			 //echo $countid; 
-			 
+			 //echo $countid; exit;
 			 for ($i=0;$i<$countid;$i++) {
 				$userid=$tusers_id[$i];
 				

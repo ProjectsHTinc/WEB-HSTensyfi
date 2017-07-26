@@ -1,3 +1,16 @@
+<style>
+.myBtn{
+    background-color: rgba(68, 125, 247, 0.59);
+    cursor: pointer;
+    width: 15%;
+    border-radius: 5px;
+    height: 40px;
+}
+.myBtn:focus{
+    background-color:#642160;
+	color: #fff;
+}
+</style>
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -17,17 +30,35 @@
                      <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" onsubmit="return validates()" name="form" id="myformsection">
 						 <fieldset>
                            <div class="form-group">
-                              <label class="col-sm-2 control-label"></label>
+						            <div class="content">
+
+                                <ul role="tablist" class="nav nav-tabs" style="border-bottom: none;padding-left:165px;">
+                                    <li role="presentation">
+                                        <a href="#agency" class="btn btn-info btn-fill " data-toggle="tab">ALL</a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="#company" class="btn btn-info btn-fill" data-toggle="tab">Teachers</a>
+                                    </li>
+                                    <li>
+                                        <a href="#style"  class="btn btn-info btn-fill" data-toggle="tab">Students</a>
+                                    </li>
+                                    <li>
+                                        <a href="#settings" class="btn btn-info btn-fill " data-toggle="tab">Parents</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                             <!--  <label class="col-sm-2 control-label"></label>
                               <div class="col-sm-6">
-							   <button type="button" id="all" onclick="myFunction3()" class="btn btn-info btn-fill ">All</button>
-							   <button type="button" id="teacher" onclick="myFunction()" class="btn btn-info btn-fill ">Teachers</button>
-							   <button type="button" id="classes" onclick="myFunction1()" class="btn btn-info btn-fill ">Parents</button>
-							   <button type="button" id="parents" onclick="myFunction2()" class="btn btn-info btn-fill ">Students</button>
-                              </div>
+							   <button type="button"  id="all" onclick="myFunction3()" class=" myBtn">All</button>
+							   <button type="button" class="myBtn" id="teacher" onclick="myFunction()" class="btn btn-info btn-fill ">Teachers</button>
+							   <button type="button" class="myBtn" id="classes" onclick="myFunction1()" class="btn btn-info btn-fill ">Parents</button>
+							   <button type="button" class="myBtn" id="parents" onclick="myFunction2()" class="btn btn-info btn-fill ">Students</button>
+                              </div>-->
                            </div>
                         </fieldset>
  
-						 <fieldset>
+						 <!-- <fieldset>
                            <div class="form-group">
                               <label class="col-sm-2 control-label"> </label>
                               <div class="col-sm-4">
@@ -58,10 +89,12 @@
 								 </div>
                               </div>
                            </div>
-                        </fieldset>
+                        </fieldset> -->
 						
-						 <div id="allid" style="display:none">
+						
 						<fieldset>
+						<div class="tab-content">
+						  <div id="agency" class="tab-pane">
                            <div class="form-group">
                               <label class="col-sm-2 control-label">ALL</label>
                               <div class="col-sm-4">
@@ -72,8 +105,51 @@
                                    </select> 
                               </div>
 							  </div>
+							</div>
+							
+							<div id="company" class="tab-pane active">
+                           <div class="form-group">
+                              <label class="col-sm-2 control-label">Teachers</label>
+                              <div class="col-sm-4">
+                                 <select multiple name="tusers[]" class="selectpicker form-control" data-title="Select Teachers" id="multiple-teacher" data-menu-style="dropdown-blue">
+                                          <?php foreach ($teacher as $rows) { ?>
+                                          <option value="<?php echo $rows->user_id;  ?>"><?php echo $rows->name; ?></option>
+                                          <?php  }?>
+                                   </select> 
+                              </div>
+							  </div>
+							</div>
+							
+							
+							<div id="style" class="tab-pane">
+                           <div class="form-group">
+                              <label class="col-sm-2 control-label">Students</label>
+                              <div class="col-sm-4">
+                                <select multiple name="stusers[]" id="multiple-students" data-title="Select Students" class="selectpicker"  data-menu-style="dropdown-blue">
+                                          <?php foreach ($getall_class as $rows) {  ?>
+                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>  - <?php echo $rows->sec_name; ?></option>
+                                          <?php      } ?>
+                                 </select>
+                              </div>
+							  </div>
+							</div>
+							
+							
+							 <div id="settings" class="tab-pane">
+                           <div class="form-group">
+                              <label class="col-sm-2 control-label">Parents</label>
+                              <div class="col-sm-4">
+                                <select  multiple name="pusers[]" id="multiple-parents" data-title="Select Parents" class="selectpicker" data-menu-style="dropdown-blue">
+                                          <?php foreach ($getall_class as $rows) {  ?>
+                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
+                                          <?php      } ?>
+                                 </select> 
+                              </div>
+							  </div>
+							</div>
+							</div>
 					  </fieldset>
-						</div>
+						
 
                         <fieldset>
                            <div class="form-group">
@@ -229,7 +305,7 @@ function validates()
 	if(tea=="" && par=="" && cls=="" && admin=="")
      {
 		 $("#erid").html("Please Select Admin Or Teachers Or Parents Or Students  ");
-		 document.form.teacher.focus() ;
+		 document.form.focus() ;
 		 return false;
      }
 	
@@ -239,58 +315,7 @@ function validates()
 
 
 <script>
-   function myFunction() 
-   {
-       var x = document.getElementById('myDIV');
-
-       if (x.style.display === 'none')
-   	   {
-           x.style.display = 'block';
-       } else {
-           x.style.display = 'none';
-       }
-       $("#myDIV1").hide();
-	   $("#myDIV2").hide();
-	   $("#allid").hide();
-   }
-
-   function myFunction1() {
-       var x = document.getElementById('myDIV1');
-       if (x.style.display === 'none') {
-           x.style.display = 'block';
-       } else {
-           x.style.display = 'none';
-       }
-       $("#myDIV").hide();
-	   $("#myDIV2").hide();
-	   $("#allid").hide();
-   }
    
-   function myFunction2() {
-       var x = document.getElementById('myDIV2');
-       if (x.style.display === 'none') {
-           x.style.display = 'block';
-       } else {
-           x.style.display = 'none';
-       }
-       $("#myDIV").hide();
-	   $("#myDIV1").hide();
-	   $("#allid").hide();
-   }
-   
-   function myFunction3() {
-       var x = document.getElementById('allid');
-       if (x.style.display === 'none') {
-           x.style.display = 'block';
-       } else {
-           x.style.display = 'none';
-       }
-       $("#myDIV").hide();
-	   $("#myDIV1").hide();
-	   $("#myDIV2").hide();
-   }
-   
-  
  function circulartitle(selectObject) {
 	 var ct = selectObject.value; 
     //alert(ct);//exit;

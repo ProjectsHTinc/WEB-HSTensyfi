@@ -59,20 +59,22 @@ body{
 
 								<?php
                                   $server_url = $_SERVER['HTTP_HOST'];
-						          $query="SELECT user_pic FROM edu_users WHERE user_type=1";
+						          $query="SELECT user_pic,school_id FROM edu_users WHERE user_type=1";
 								  $objRs=$this->db->query($query);
 								  $row=$objRs->result();
 								  foreach ($row as $rows1)
-								  {
+								  {}
 									  $pic=$rows1->user_pic;
+									  $sid=$rows1->school_id;
 									  if($pic!='')
 									  {
 								?>
                                   <div class="header text-center">
-					                <img src="http://<?php echo $server_url; ?>/institute_logo/<?php echo $pic; ?>" class="img-circle" style="width:150px;height: 150px;"> </div>
+					                <img src="http://<?php echo $server_url; ?>/<?php echo $sid; ?>/assets/admin/profile/<?php echo $pic; ?>" class="img-circle" style="width:150px;height: 150px;"> </div>
 						 <?php }else{
-							   ?><div class="header text-center">Login</div>
-						 <?php }} ?>
+							   ?><div class="header text-center">
+							  <img src="http://<?php echo $server_url; ?>/<?php echo $sid; ?>/assets/main_logo.png"> </div>
+						 <?php } ?>
                                 <div class="content">
 								<!-- <div class="form-group">
 										<label>School ID</label>

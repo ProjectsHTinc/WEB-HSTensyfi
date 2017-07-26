@@ -50,12 +50,12 @@
          .sidebar .sidebar-wrapper > .nav {
          margin-top: 0px;
          }
-         .abox{border: 1px solid grey;}
+         .abox{border: 1px solid grey;  }
          .title_ensyfi{
-         color:#fff!important; margin-left: 10px!important; padding-left: 185px !important;
+         color:white!important;padding-left: 185px !important;
          }
          .stu{background: url(<?php echo base_url(); ?>assets/img/icons/Stu.png) 0 0;}
-         .topbar{background-color:#642160 ;height:70px;}
+         .topbar{height:97px;background-color: #642160;}
          .imgclass{margin:0px;float:left;}
          .imgstyle{width:40px;height:40px;}
          body{position: absolute;
@@ -66,8 +66,9 @@
            margin-right: 10px;
          }
       </style>
+
    </head>
-   <body>
+   <body  onload="startTime()">
       <div class="wrapper">
       <nav class="navbar navbar-default topbar">
          <div class="container">
@@ -78,12 +79,14 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand title_ensyfi" href="#" ><?php  echo $this->session->userdata('name'); ?> </a>
+               <a class="navbar-brand title_ensyfi" href="#" style="margin-top: 20px;
+    font-size:28px;" ><?php  echo $this->session->userdata('name'); ?> </a>
             </div>
-            <div class="collapse navbar-collapse" style="float:right;">
+            <div class="collapse navbar-collapse" style="float:right;margin-top:17px;">
                <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown" style="padding:08px 10px;">
-                     <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
+                     <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size:12px;
+    color: white;border-color:white;text-transform: uppercase;border-radius: 8px;">
                      Quick Links</a>
                      <ul class="dropdown-menu">
                         <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
@@ -137,10 +140,8 @@
          </div>
       </nav>
       <div class="sidebar sidemenu">
-         <div class="logo" style="padding:0px 70px;height:115px;background-color:#1e202c;">
-            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:115px;"  />
-         </div>
-         <div class="sidebar-wrapper" style="background-color:#1e202c;">
+         
+         <div class="sidebar-wrapper" style="background-color:#323546;">
             <div class="user" style="margin-top:10px;">
                <div class="imgclass photo" style="margin-left:20px;">
                   <?php
@@ -154,7 +155,7 @@
                       $pic=$rows1->user_pic;
                       if($pic!='')
                       {?>
-                  <img class="img-responsive" style="height: 75px;" src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" >
+                  <img class="img-responsive" style="height:75px;" src="<?php echo base_url(); ?>assets/admin/profile/<?php echo $pic; ?>" >
                   <?php }else{
                      ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
                   <?php }} ?>
