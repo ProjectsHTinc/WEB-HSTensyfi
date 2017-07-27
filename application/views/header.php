@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-      <title>ENSYFI</title>
+      <title><?php  echo $this->session->userdata('name'); ?></title>
       <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
       <meta name="viewport" content="width=device-width" />
       <!-- Bootstrap core CSS     -->
@@ -37,7 +37,7 @@
          margin-bottom:0px;}
          .caret{
          position: relative;
-         top: -20px;
+        
          float: right;
          }
          .alert button.close {
@@ -68,7 +68,7 @@
       </style>
 
    </head>
-   <body  onload="startTime()">
+   <body>
       <div class="wrapper">
       <nav class="navbar navbar-default topbar">
          <div class="container">
@@ -113,7 +113,7 @@
                               ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle" />
                            <?php }} ?>
                         </div>
-                        <b class="caret" style="margin-left:55px;color:white;"></b>
+                        <b class="caret" style="margin-left:55px;color:white;top:-20px;"></b>
                      </a>
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>

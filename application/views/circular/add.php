@@ -30,20 +30,20 @@
                      <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" onsubmit="return validates()" name="form" id="myformsection">
 						 <fieldset>
                            <div class="form-group">
-						            <div class="content">
+						     <div class="content">
 
                                 <ul role="tablist" class="nav nav-tabs" style="border-bottom: none;padding-left:165px;">
-                                    <li role="presentation">
-                                        <a href="#agency" class="btn btn-info btn-fill " data-toggle="tab">ALL</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="#company" class="btn btn-info btn-fill" data-toggle="tab">Teachers</a>
+                                    <li role="presentation" class="active" >
+                                        <a href="#agency" class="btn btn-info btn-fill" id="all" data-toggle="tab">ALL</a>
                                     </li>
                                     <li>
-                                        <a href="#style"  class="btn btn-info btn-fill" data-toggle="tab">Students</a>
+                                        <a href="#company" class="btn btn-info btn-fill"  id="teacher"   data-toggle="tab">Teachers</a>
                                     </li>
                                     <li>
-                                        <a href="#settings" class="btn btn-info btn-fill " data-toggle="tab">Parents</a>
+                                        <a href="#style"  class="btn btn-info btn-fill" id="classes"  data-toggle="tab">Students</a>
+                                    </li>
+                                    <li>
+                                        <a href="#settings" class="btn btn-info btn-fill" id="parents" data-toggle="tab">Parents</a>
                                     </li>
                                 </ul>
 
@@ -62,7 +62,7 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label"> </label>
                               <div class="col-sm-4">
-							   <p id="erid" style="color:red;"> </p>
+							   
                           <div id="myDIV">
                                  <select multiple name="tusers[]" class="selectpicker form-control" data-title="Select Teachers" id="multiple-teacher" data-menu-style="dropdown-blue">
                                           <?php foreach ($teacher as $rows) { ?>
@@ -94,7 +94,8 @@
 						
 						<fieldset>
 						<div class="tab-content">
-						  <div id="agency" class="tab-pane">
+						<p id="erid" style="color:red;"> </p>
+						  <div id="agency" class="tab-pane active">
                            <div class="form-group">
                               <label class="col-sm-2 control-label">ALL</label>
                               <div class="col-sm-4">
@@ -107,7 +108,7 @@
 							  </div>
 							</div>
 							
-							<div id="company" class="tab-pane active">
+							<div id="company" class="tab-pane">
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Teachers</label>
                               <div class="col-sm-4">
@@ -264,7 +265,7 @@
 	            type:'POST',
 	           data: $('#myformsection').serialize(),
 	           success: function(response) {
-				   //alert(response);
+				  //alert(response);
 	               if(response=="success"){
 	                //  swal("Success!", "Thanks for Your Note!", "success");
 	                  $('#myformsection')[0].reset();
@@ -302,10 +303,11 @@ function validates()
 		var par = document.getElementById("multiple-parents").value;
 		var cls = document.getElementById("multiple-students").value;
 		var admin = document.getElementById("multiple-admin").value;
+		//alert(tea);alert(par);alert(cls);alert(admin);
 	if(tea=="" && par=="" && cls=="" && admin=="")
      {
 		 $("#erid").html("Please Select Admin Or Teachers Or Parents Or Students  ");
-		 document.form.focus() ;
+		 //document.form.teacher.focus() ;
 		 return false;
      }
 	

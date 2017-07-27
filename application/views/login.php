@@ -1,3 +1,15 @@
+<?php
+          $server_url = $_SERVER['HTTP_HOST'];
+          $query="SELECT user_pic,school_id,name FROM edu_users WHERE user_type=1";
+		  $objRs=$this->db->query($query);
+		  $row=$objRs->result();
+		  foreach ($row as $rows1)
+		  {
+			   $pic=$rows1->user_pic;
+			   $sid=$rows1->school_id;
+			   $sname=$rows1->name;
+		  }
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,7 +17,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>ENSYFI</title>
+	<title><?php echo $sname; ?></title>
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" />
     <!--  Light Bootstrap Dashboard core CSS    -->
     <link href="<?php echo base_url(); ?>assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
@@ -23,7 +35,6 @@
 <style>
 body{
 	background-image: url('<?php echo base_url(); ?>assets/bg-1.jpg');
-
 	 background-position: contain;
 }
 
@@ -57,15 +68,8 @@ body{
 
                             <div class="card card-hidden">
 
-								<?php
-                                  $server_url = $_SERVER['HTTP_HOST'];
-						          $query="SELECT user_pic,school_id FROM edu_users WHERE user_type=1";
-								  $objRs=$this->db->query($query);
-								  $row=$objRs->result();
-								  foreach ($row as $rows1)
-								  {}
-									  $pic=$rows1->user_pic;
-									  $sid=$rows1->school_id;
+								
+						<?php
 									  if($pic!='')
 									  {
 								?>

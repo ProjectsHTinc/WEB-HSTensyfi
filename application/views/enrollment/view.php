@@ -1,4 +1,11 @@
 <style>
+.formdesign
+{
+	padding-bottom: 48px;
+    padding-top: 10px;
+    background-color: rgba(209, 209, 211, 0.11);
+    border-radius: 12px;
+}
 </style>
 <div class="main-panel">
    <div class="content">
@@ -16,7 +23,7 @@
                      <div class="content">
                         <h4 class="title" style="padding-bottom: 20px;">List of Student Registration</h4>
                         <div class="fresh-datatables">
-						<form method="post" action="<?php echo base_url(); ?>enrollment/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
+						<form method="post" action="<?php echo base_url(); ?>enrollment/get_sorting_details" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
 										 <div class="col-sm-2">
                                             <select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
 											

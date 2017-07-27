@@ -331,6 +331,10 @@
    </div>
 </div>
 <script type="text/javascript">
+window.onload
+{
+	startTime();
+}
    /* $(document).ready(function() {
 	  $('#simple-calendar').DatePicker({
 	  mode: 'single',

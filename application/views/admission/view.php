@@ -1,3 +1,13 @@
+<style>
+.formdesign
+{
+	padding-bottom: 48px;
+    padding-top: 10px;
+    background-color: rgba(209, 209, 211, 0.11);
+    border-radius: 12px;
+}
+</style>
+
 <div class="main-panel">
 <div class="content">
 
@@ -15,25 +25,27 @@
                         <div class="card">
                             <div class="content">
                                 <div class="fresh-datatables">
-                                  <h4 class="title" style="padding-bottom: 20px;">List of Admission</h4>
+                                  
+								  <h4 class="title" style="padding-bottom:10px;">List of Admission</h4>
 								  
-								  <form method="post" action="<?php echo base_url(); ?>admission/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
-										 <div class="col-sm-2">
-                                            <select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
-											
-                                       <?php  foreach ($sorting as $rows)
-								          { ?>
-									 <option value="<?php echo $rows->sex; ?>"><?php echo $rows->sex;?>
-                                    </option>
-										<?php } ?>
-                                            </select>
-                                          </div>    
-											
-										 <div class="col-sm-4">
-                                            <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
-											<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
-                                        </div>
-										</form>
+							<form method="post" action="<?php echo base_url(); ?>admission/get_sorting_details" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
+
+							 <div class="col-sm-2">
+								<select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
+						   <?php  foreach ($sorting as $rows)
+							  { ?>
+						 <option value="<?php echo $rows->sex; ?>"><?php echo $rows->sex;?>
+						</option>
+							<?php } ?>
+								</select>
+							  </div>    
+							 <div class="col-sm-10">
+								<button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
+								<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+							</div>
+							
+							</form>
+										
                           <table id="bootstrap-table" class="table">
                               <thead>
                                 <th data-field="id" class="text-left">ID</th>
@@ -107,9 +119,6 @@
 										 ?>
 
                                       <a href="<?php echo base_url(); ?>admission/get_ad_id/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-
-
-
                                     </td>
                                   </tr>
 								<?php  $i++;  }
@@ -132,8 +141,6 @@
 									 <?php  }else{?>
 									  <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
 									 ?></td>
-									
-
                                     <td>
 
 									<?php

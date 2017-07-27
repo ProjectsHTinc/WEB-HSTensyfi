@@ -2,6 +2,13 @@
    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{height: 20px;width: 22px;padding: 5px 5px 5px 5px;}
    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{border: none !important;}
    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{border-radius: initial !important;}
+.formdesign
+{
+	padding-bottom: 48px;
+    padding-top: 10px;
+    background-color: rgba(209, 209, 211, 0.11);
+    border-radius: 12px;
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
@@ -107,7 +114,8 @@
                   <div class="card">
                      <div class="content">
                         <div class="fresh-datatables">
-                           <form method="post" action="<?php echo base_url(); ?>examination/add_exam_detail" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
+						
+                           <form method="post" action="<?php echo base_url(); ?>examination/add_exam_detail" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="class_id" style="margin-top:30px;" class="selectpicker">
                                     <option>Select</option>
@@ -123,6 +131,7 @@
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
                               </div>
                            </form>
+						   
                            <table id="bootstrap-table" class="table">
                               <thead>
                                  <th data-field="id">ID</th>

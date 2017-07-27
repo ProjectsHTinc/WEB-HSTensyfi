@@ -1,3 +1,15 @@
+<?php
+          $server_url = $_SERVER['HTTP_HOST'];
+          $query="SELECT user_pic,school_id,name FROM edu_users WHERE user_type=1";
+		  $objRs=$this->db->query($query);
+		  $row=$objRs->result();
+		  foreach ($row as $rows1)
+		  {
+			   $pic=$rows1->user_pic;
+			   $sid=$rows1->school_id;
+			   $sname=$rows1->name;
+		  }
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,7 +17,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>ENSYFI</title>
+	<title><?php echo $sname; ?></title>
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" />
     <!--  Light Bootstrap Dashboard core CSS    -->
     <link href="<?php echo base_url(); ?>assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
@@ -25,6 +37,7 @@ body{
 	background-image: url('<?php echo base_url(); ?>assets/bg-1.jpg');
 
 	 background-position: contain;
+	     background-size: cover;
 }
 
 </style>
@@ -58,24 +71,15 @@ body{
                             <div class="card card-hidden">
 
 							<?php
-                                $server_url = $_SERVER['HTTP_HOST'];
-						          $query="SELECT user_pic FROM edu_users WHERE user_type=1";
-								  $objRs=$this->db->query($query);
-								  $row=$objRs->result();
-								  foreach ($row as $rows1)
-								  {
-									  $pic=$rows1->user_pic;
 									  if($pic!='')
 									  {
 								?>
                                   <div class="header text-center">
-					                <img src="http://<?php echo $server_url; ?>/institute_logo/<?php echo $pic; ?>" class="img-circle" style="width: 150px;
-    height: 150px;"> </div>
-						 <?php }else
-						 {
-							   ?><div class="header text-center">Login</div>
-						 <?php }
-}						 ?>
+					                <img src="http://<?php echo $server_url; ?>/<?php echo $sid; ?>/assets/admin/profile/<?php echo $pic; ?>" class="img-circle" style="width:150px;height: 150px;"> </div>
+						 <?php }else{
+							   ?><div class="header text-center">
+							  <img src="http://<?php echo $server_url; ?>/<?php echo $sid; ?>/assets/main_logo.png"> </div>
+						 <?php } ?>
 
                                 <div class="content">
 								<!-- <div class="form-group">
@@ -88,13 +92,12 @@ body{
                                     </div>
 
                                   </div>
-																	<div class="form-group">
-																			<label style="float:right;"><a  href="<?php echo base_url(); ?>">Back To Login</a></label>
-																		</div>
-                                <div class="footer text-center">
-                                    <button type="submit" class="btn btn-fill btn-warning btn-wd">Reset</button>
-                                </div>
 
+                                <div class="footer text-center">
+                                    <button type="submit" class="btn btn-fill btn-warning btn-wd">Reset</button><br>
+																		<a class  href="<?php echo base_url(); ?>">Back To Login</a>
+                                </div>
+																
 
                             </div>
 

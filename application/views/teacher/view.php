@@ -1,3 +1,12 @@
+<style>
+.formdesign
+{
+	padding-bottom: 48px;
+    padding-top: 10px;
+    background-color: rgba(209, 209, 211, 0.11);
+    border-radius: 12px;
+}
+</style>
 <div class="main-panel">
    <div class="content">
       <?php if($this->session->flashdata('msg')): ?>
@@ -14,8 +23,9 @@
                      <div class="content" id="content1">
                         <div class="fresh-datatables">
                            <!-- <h4 class="title" style="padding-bottom: 20px;">List of Teacher</h4> -->
-                           <legend>List of Teacher<a href="<?php echo base_url(); ?>teacher/view_subject_handling" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Teacher Handling Subjects</a></legend>
-                           <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
+                           <legend>List of Teacher</legend>
+                         
+						 <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
                                     <?php  foreach ($sorting as $rows)
@@ -29,6 +39,9 @@
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
                                  <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
                               </div>
+							  
+							  <a href="<?php echo base_url(); ?>teacher/view_subject_handling" class="btn btn-wd btn-default pull-right" style="margin-right:20px;">Teacher Handling Subjects</a>
+							 
                            </form>
                            <table id="bootstrap-table" class="table">
                               <thead>
