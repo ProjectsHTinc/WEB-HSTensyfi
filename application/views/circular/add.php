@@ -265,27 +265,29 @@
 	            type:'POST',
 	           data: $('#myformsection').serialize(),
 	           success: function(response) {
-				  //alert(response);
-	               if(response=="success"){
+				  alert(response);
+	               if(response=="success")
+				   {
 	                //  swal("Success!", "Thanks for Your Note!", "success");
 	                  $('#myformsection')[0].reset();
 	                  swal({
 	           title: "Wow!",
 	           text: "Message!",
 	           type: "success"
-	       }, function() {
+	       },
+		   function() {
 	           window.location = "<?php echo base_url(); ?>circular/add_circular";
 	       });
-	               }else{
-	                 sweetAlert("Oops...", "Something went wrong!", "error");
-	               }
+	       }else{
+	              sweetAlert("Oops...", "Something went wrong!", "error");
+	             }
 	           }
 	       });
 	     }else{
 	         swal("Cancelled", "Process Cancel :)", "error");
 	     }
 	   });
-	}
+	} 
 	
 	
     }); 

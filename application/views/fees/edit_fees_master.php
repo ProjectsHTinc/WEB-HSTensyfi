@@ -104,7 +104,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Notes</label>
                                             <div class="col-sm-4">
-                                              <textarea name="notes" MaxLength="250" placeholder="MaxLength 250" class="form-control" rows="4" cols="80"><?php echo $rows->notes; ?></textarea>
+                                              <textarea name="notes" MaxLength="250" placeholder="MaxCharacters 250" class="form-control" rows="4" cols="80"><?php echo $rows->notes; ?></textarea>
                                             </div>
                                         </div>
                                     </fieldset>

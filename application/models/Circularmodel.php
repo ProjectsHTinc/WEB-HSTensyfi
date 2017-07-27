@@ -153,14 +153,14 @@ Class Circularmodel extends CI_Model
 				{
 				  $sid=$row1->user_id;
 				 // echo $sid; 
-				  $query1="INSERT INTO edu_circular(user_type,user_id,	circular_master_id,circular_date,status,created_by,created_at) VALUES ('3','$sid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
+				   $query1="INSERT INTO edu_circular(user_type,user_id,	circular_master_id,circular_date,status,created_by,created_at) VALUES ('3','$sid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
 		          $students=$this->db->query($query1);
 				 }
 			
 		    }
 			if($students){
-				  $data = array("status" => "success");
-				return $data; }else{$data = array("status" => "Failed");
+				  $data = array("status"=>"success");
+				return $data; }else{$data = array("status"=>"Failed");
 				return $data;} 
 			  
 		  }

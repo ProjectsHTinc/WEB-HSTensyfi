@@ -204,11 +204,10 @@ class Circular extends CI_Controller
       $notes=$this->db->escape_str($this->input->post('notes'));
 	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
 	  $status=$this->input->post('status'); 
-      //echo $citrcular_type;   
+      //echo $citrcular_type; 
 	  
       $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id);
       
-	  
 	  //------------------------------SMS & MAIL & NOTIFICATION--------------------------------------------
 	  
 	  if($citrcular_type=='SMS')
@@ -219,22 +218,23 @@ class Circular extends CI_Controller
 	  {
 		 $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
 	  }
-	  if($citrcular_type=='Notification')
-	  {
-		 $datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id);
-	  } 
+	  if($citrcular_type == 'Notification')
+	     {
+	       $datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id);
+	     } 
 	 
 	  //----------------------------------------------------------------------------------------------
 	  
-	  
-	  if($datas['status']=="success"){ 
-	  echo "success";
+	  //print_r($datas); exit;
+	  if($datas['status']=="success")
+	  { 
+	    echo "success";
 	  }else{
-      echo "Something went wrong!";
+         echo "Something went wrong!";
       }
 
       }
-      }
+     }
    
 		
 }

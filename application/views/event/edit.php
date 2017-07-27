@@ -43,7 +43,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Event Details</label>
                                             <div class="col-sm-4">
-                                                <textarea type="text" MaxLength="350" placeholder="MaxLength 350" name="event_details" class="form-control"><?php echo $rows->event_details; ?></textarea>
+                                                <textarea type="text" MaxLength="350" placeholder="MaxCharacters 350" name="event_details" class="form-control"><?php echo $rows->event_details; ?></textarea>
 
                                             </div>
 

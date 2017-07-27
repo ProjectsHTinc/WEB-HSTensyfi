@@ -32,7 +32,7 @@
                               </div>
                              <label class="col-sm-2 control-label">Notes</label>
                               <div class="col-sm-4">
-                                 <textarea rows="4" cols="80" MaxLength="250" placeholder="MaxLength 250" name="notes" class="form-control"><?php echo $res->notes; ?></textarea>
+                                 <textarea rows="4" cols="80" MaxLength="250" placeholder="MaxCharacters 250" name="notes" class="form-control"><?php echo $res->notes; ?></textarea>
                               </div>
                            </div>
                         </fieldset>

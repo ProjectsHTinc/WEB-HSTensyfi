@@ -120,7 +120,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Address</label>
                                             <div class="col-sm-4">
-                                                <textarea name="address" MaxLength="150" placeholder="MaxLength 150" class="form-control" rows="4" cols="80"></textarea>
+                                                <textarea name="address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"></textarea>
                                             </div>
                                             <label class="col-sm-2 control-label">Primary Email</label>
                                             <div class="col-sm-4">

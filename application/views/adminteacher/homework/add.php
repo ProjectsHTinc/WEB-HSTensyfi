@@ -198,7 +198,7 @@
                                        <div class="form-group">
                                           <label class="col-sm-2 control-label">Details</label>
                                           <div class="col-sm-6">
-                                             <textarea name="details" MaxLength="250" placeholder="MaxLength 250"  class="form-control" rows="4" cols="80"></textarea>
+                                             <textarea name="details" MaxLength="250" placeholder="MaxCharacters 250"  class="form-control" rows="4" cols="80"></textarea>
                                           </div>
                                        </div>
                                     </fieldset>

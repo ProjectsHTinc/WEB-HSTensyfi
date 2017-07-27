@@ -65,7 +65,7 @@
                   <div class="form-group">
                      <label class="col-sm-2 control-label">Test Details</label>
                      <div class="col-sm-4">
-                        <textarea name="test_details"  MaxLength="250" placeholder="MaxLength 250" class="form-control" rows="3" cols="03"><?php echo $rows->hw_details; ?></textarea>
+                        <textarea name="test_details"  MaxLength="250" placeholder="MaxCharacters 250" class="form-control" rows="3" cols="03"><?php echo $rows->hw_details; ?></textarea>
                      </div>
                      <label class="col-sm-2 control-label">Status</label>
                      <div class="col-sm-4">

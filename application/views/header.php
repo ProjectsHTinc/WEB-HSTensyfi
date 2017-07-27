@@ -177,7 +177,7 @@
                </li>
                <li id="master">
                   <a data-toggle="collapse" href="#mastersmenu" id="masters">
-                     <i class="pe-7s-date"></i>
+                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/masters.png"/>
                      <p>Masters</p>
                      <b class="caret"></b>
                   </a>
