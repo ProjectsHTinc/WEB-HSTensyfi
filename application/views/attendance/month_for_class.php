@@ -9,10 +9,8 @@
          <div class="col-md-12">
             <div class="card">
                <div class="">
-                  <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="">Go Back</button>
                   <legend>
-                     <h4 class="title"> Month View For <?php foreach($get_name_class as $rows){} echo $rows->class_name; echo "-";echo $rows->sec_name;  ?></h4>
-
+                     Month View For <?php foreach($get_name_class as $rows){} echo $rows->class_name; echo "-";echo $rows->sec_name;  ?> <button onclick="history.go(-1);" class="btn btn-wd btn-default" style="margin-left:60%;">Go Back</button>
                   </legend>
                   <div class="content">
                      <form action="<?php echo base_url(); ?>adminattendance/get_month_class" method="post" class="form-horizontal" id="select_month">

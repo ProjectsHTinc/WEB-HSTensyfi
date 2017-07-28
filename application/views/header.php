@@ -35,9 +35,9 @@
       <style>
          .navbar{
          margin-bottom:0px;}
-         .caret{
+        .caret{
          position: relative;
-        
+         top: -20px;
          float: right;
          }
          .alert button.close {

@@ -1,3 +1,9 @@
+<style>
+
+.trheight{
+	height: 50px;
+}
+</style>
 <div class="main-panel">
    <div class="content">
       <?php if($this->session->flashdata('msg')): ?>
@@ -31,7 +37,6 @@
                                  <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <!-- <th class="text-left" data-sortable="true">Notes</th> -->
                                  <th class="text-left" data-sortable="true">Circular Type</th>
 								 <th class="text-left" data-sortable="true">Status</th>
                                  <th class="text-left" data-sortable="true">Circular Date</th>
@@ -44,7 +49,7 @@
 									$type=$rows->user_type;
 									if($type==2){
 									?>
-                                 <tr>
+                                 <tr class="trheight">
                                     <td class="text-left"><?php echo $i; ?></td>
                                     <td class="text-left"><?php echo $rows->name;  ?></td>
                                    <td class="text-left"><?php echo $rows->circular_title;?></td>
@@ -54,9 +59,6 @@
                                     <td class="text-left"><?php $date=date_create($rows->circular_date);
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
-                                   <!--<td>
-                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                    </td>-->
                                  </tr>
 									<?php $i++;  } }  ?>
                               </tbody>
@@ -72,7 +74,6 @@
                                 <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <!-- <th class="text-left" data-sortable="true">Notes</th> -->
                                  <th class="text-left" data-sortable="true">Circular Type</th>
 								 <th class="text-left" data-sortable="true">Status</th>
                                  <th class="text-left" data-sortable="true">Circular Date</th>
@@ -92,7 +93,7 @@
 								   $se=$cls_sec->sec_name;
 									if($type==4){
 									?>
-                                 <tr>
+                                 <tr class="trheight">
                                     <td class="text-left"><?php echo $i; ?></td>
                                     <td class="text-left"><?php echo $cs; ?> <?php echo $se; ?></td>
                                    <td class="text-left"><?php echo $rows1->circular_title;?></td>
@@ -101,9 +102,6 @@
                                     <td class="text-left"><?php $date=date_create($rows1->circular_date);
                                        echo date_format($date,"d-m-Y");
                                        ?></td>
-                                    <!--<td>
-                                      <a href="<?php echo base_url(); ?>communication/edit_commu/<?php echo $rows1->id;; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                    </td>-->
                                  </tr>
 									<?php $i++;  } }  ?>
                               </tbody>
@@ -120,7 +118,6 @@
                                 <th class="text-left">S.No</th>
                                  <th class="text-left" data-sortable="true">Users</th>
                                  <th class="text-left" data-sortable="true">Title</th>
-								 <!-- <th class="text-left" data-sortable="true">Notes</th> -->
                                  <th class="text-left" data-sortable="true">Circular Type</th>
 								 <th class="text-left" data-sortable="true">Status</th>
                                  <th class="text-left" data-sortable="true">Circular Date</th>
@@ -140,7 +137,7 @@
 								   $se=$cls_sec->sec_name;
 									if($type==3){
 									?>
-                                 <tr>
+                                 <tr class="trheight">
                                     <td class="text-left"><?php echo $i; ?></td>
                                      <td class="text-left"><?php echo $cs; ?> <?php echo $se; ?></td>
                                    <td class="text-left"><?php echo $rows->circular_title;?></td>

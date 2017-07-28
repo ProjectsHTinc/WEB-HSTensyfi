@@ -15,7 +15,8 @@
                         <div class="card">
                             <div class="content">
                                 <div class="fresh-datatables">
-                                  <h4 class="title">List of Parents Details <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
+                                  <h4 class="title">List of Parents Details <button style="float:right;
+" class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
 
                           <table id="bootstrap-table" class="table">
                               <thead>

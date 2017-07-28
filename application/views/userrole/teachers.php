@@ -17,7 +17,7 @@
 
                             <div class="content">
                           
-                              <h4 class="title">List of Teachers <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
+                              <h4 class="title">List of Teachers <button style="float:right;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
 
 
                                 <div class="fresh-datatables">
