@@ -36,6 +36,7 @@
 body{
 	background-image: url('<?php echo base_url(); ?>assets/bg-1.jpg');
 	 background-position: contain;
+   background-size: 100%;
 }
 
 </style>
@@ -68,7 +69,7 @@ body{
 
                             <div class="card card-hidden">
 
-								
+
 						<?php
 									  if($pic!='')
 									  {

@@ -29,21 +29,21 @@
 	   background: url(<?php echo base_url(); ?>assets/img/circular1.png);
 	   width: 55px;
        height: 50px;
-    
+
    }
    .img1
    {
 	   background: url(<?php echo base_url(); ?>assets/img/events1.png);
 	   width: 55px;
        height: 50px;
-   
+
    }
    .imgs
    {
 	   background: url(<?php echo base_url(); ?>assets/img/leave.png);
 	   width: 55px;
        height: 50px;
-    
+
    }
 	 .img4{
 
@@ -115,7 +115,7 @@
                            <fieldset id="group2" style="padding-top:20px;">
                               <div class="form-group">
                                  <div class="col-sm-12">
-                                    
+
 									<input type='radio' name="user_type" value="students" checked style="margin-left:40px;"/><span style="padding-left:10px; padding-right:10px; ">Students</span>
 									<input type='radio' name="user_type" value="teachers" /><span style="padding-left:10px;">Teachers</span>
 
@@ -159,13 +159,13 @@
                               <tbody>
                                  <tr>
                                     <td class="text-center"><p style="font-size:18px;padding-top:08px;color: #84858d;"><?php  echo date("d M Y"); echo '<br>';?> <span style="font-size:15px;"><?php echo date("l");?></span></p></td>
-									
-									 <td> 
+
+									 <td>
 									 <span class="textborder"></span>
 									 <div id="txt" style="font-size:20px;font-weight:bold;color:#84858d;padding-left:13px;
     padding-top:13px;"></div></td>
                                  </tr>
-                                 
+
                               </tbody>
                            </table>
                      </div>
@@ -227,8 +227,8 @@
 
 					 </div>
 
-				   
-			   
+
+
 				</div>
                <hr>
                <div class="col-md-12">
@@ -373,7 +373,7 @@ window.onload
    }
    }
 
-   function startTime() 
+   function startTime()
 {
     var today = new Date();
     var h = today.getHours();
@@ -385,10 +385,14 @@ window.onload
     h + ":" + m + ":" + s;
     var t = setTimeout(startTime, 500);
 }
-function checkTime(i) 
+function checkTime(i)
 {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
 }
+
+$('input[type="radio"]').on('click change', function(e) {
+     $('#result').html(' ');
+});
 
 </script>

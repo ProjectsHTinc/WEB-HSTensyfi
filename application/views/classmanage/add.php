@@ -100,8 +100,7 @@
                                 <td>
                                   <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>classmanage/editcs/<?php  echo $rowsclass->class_sec_id; ?>">
                                      <i class="fa fa-edit"></i></a>
-                                     <a rel="tooltip" href="#myModal" data-id="<?php echo $rowsclass->class_sec_id; ?>" title="Add Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit" style="color:#eb34ff;" data-toggle="modal" data-target="#myModal"   >
-                                     <i class="fa fa-plus">  </i></a>
+
                                      <a rel="tooltip" href="<?php echo base_url(); ?>classmanage/view_subjects/<?php echo $rowsclass->class_sec_id; ?>"  title="View Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit">
                                      <i class="fa fa-th">  </i></a>
 
@@ -114,62 +113,7 @@
                           </tbody>
                       </table>
 
-                      <div id="myModal" class="modal fade" role="dialog">
-                         <div class="modal-dialog">
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                               <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 class="modal-title">Add Subject To Class</h4>
-                               </div>
-                               <div class="modal-body">
-                                  <form action="" method="post" class="form-horizontal" id="subject_handling_form">
-                                     <fieldset>
-                                        <div class="form-group">
-                                           <label class="col-sm-4 control-label">Select Subject</label>
-                                           <div class="col-sm-6">
-                                              <select  name="subject_id" id="subject_id"    data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
-                                                 <?php foreach ($resubject as $rows) {  ?>
-                                                 <option value="<?php echo $rows->subject_id; ?>"><?php echo $rows->subject_name; ?></option>
-                                                 <?php      } ?>
-                                              </select>
-                                              <input type="hidden" name="class_master_id" id="class_master_id" class="form-control" value="">
-                                           </div>
-                                        </div>
-                                        <div class="form-group">
-                                           <label class="col-sm-4 control-label">Select Type</label>
-                                           <div class="col-sm-6">
-                                              <select   name="exam_flag" id="exam_flag" class="form-control">
-                                                <option value="0">Add to Exam</option>
-                                                <option value="1">Extra Subjects</option>
-                                              </select>
-                                           </div>
-                                        </div>
-                                        <div class="form-group">
-                                           <label class="col-sm-4 control-label">Select Status</label>
-                                           <div class="col-sm-6">
-                                              <select   name="status" id="status" class="form-control">
-                                                 <option value="Active">Active</option>
-                                                 <option value="Deactive">Deactive</option>
-                                              </select>
-                                           </div>
-                                        </div>
-                                        <div class="form-group">
-                                           <label class="col-sm-4 control-label">&nbsp;</label>
-                                           <div class="col-sm-6">
-                                              <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
-                                           </div>
-                                        </div>
-                                     </fieldset>
-                                  </form>
-                               </div>
-                               <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                               </div>
-                            </div>
-                         </div>
-                      </div>
-                  </div><!--  end card  -->
+                        </div><!--  end card  -->
               </div> <!-- end col-md-12 -->
           </div> <!-- end row -->
 

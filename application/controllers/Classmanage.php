@@ -117,7 +117,14 @@ class Classmanage extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
+				$datas['sec'] = $this->sectionmodel->getsection();
+				$datas['class'] = $this->classmodel->getclass();
+				$datas['getall_class']=$this->class_manage->getall_class();
+				$datas['subres'] = $this->subjectmodel->getsubject();
+				$datas['resubject'] = $this->subjectmodel->getsubject();
 				$datas['res']=$this->class_manage->view_subjects($class_sec_id);
+				$datas['class_master_id']=$class_sec_id;
+
 				$this->load->view('header');
 				$this->load->view('classmanage/view_subjects',$datas);
 				$this->load->view('footer');

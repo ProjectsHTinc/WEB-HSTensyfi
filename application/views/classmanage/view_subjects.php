@@ -24,8 +24,13 @@ td{
 
 
                             <div class="content">
+
                               <div class="header">
-                                  <legend>View Subject For Class  <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button><button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
+
+                        <legend>View Subject For Class  <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+                          <a rel="" href="#myModal" data-id="<?php echo $class_master_id; ?>" title="Add Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit pull-right" style="color:#eb34ff;" data-toggle="modal" data-target="#myModal"   >
+                          Add Subjects</a>
+                          <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
 
                               </div>
 
@@ -71,6 +76,61 @@ td{
                                   <?php $i++;  }  ?>
                               </tbody>
                           </table>
+                          <div id="myModal" class="modal fade" role="dialog">
+                             <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                   <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Add Subject To Class</h4>
+                                   </div>
+                                   <div class="modal-body">
+                                      <form action="" method="post" class="form-horizontal" id="subject_handling_form">
+                                         <fieldset>
+                                            <div class="form-group">
+                                               <label class="col-sm-4 control-label">Select Subject</label>
+                                               <div class="col-sm-6">
+                                                  <select  name="subject_id[]" id="subject_id"  multiple  data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
+                                                     <?php foreach ($resubject as $rows) {  ?>
+                                                     <option value="<?php echo $rows->subject_id; ?>"><?php echo $rows->subject_name; ?></option>
+                                                     <?php      } ?>
+                                                  </select>
+                                                  <input type="hidden" name="class_master_id" id="class_master_id" class="form-control" value="">
+                                               </div>
+                                            </div>
+                                            <div class="form-group">
+                                               <label class="col-sm-4 control-label">Select Type</label>
+                                               <div class="col-sm-6">
+                                                  <select   name="exam_flag" id="exam_flag" class="form-control">
+                                                    <option value="0">Add to Exam</option>
+                                                    <option value="1">Extra Subjects</option>
+                                                  </select>
+                                               </div>
+                                            </div>
+                                            <div class="form-group">
+                                               <label class="col-sm-4 control-label">Select Status</label>
+                                               <div class="col-sm-6">
+                                                  <select   name="status" id="status" class="form-control">
+                                                     <option value="Active">Active</option>
+                                                     <option value="Deactive">Deactive</option>
+                                                  </select>
+                                               </div>
+                                            </div>
+                                            <div class="form-group">
+                                               <label class="col-sm-4 control-label">&nbsp;</label>
+                                               <div class="col-sm-6">
+                                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
+                                               </div>
+                                            </div>
+                                         </fieldset>
+                                      </form>
+                                   </div>
+                                   <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                   </div>
+                                </div>
+                             </div>
+                          </div>
 
                         </div>
                             </div><!-- end content-->
@@ -87,7 +147,66 @@ td{
 </div>
 
 <script type="text/javascript">
+$(document).on("click", ".open-AddBookDialog", function () {
+     var eventId = $(this).data('id');
+     $(".modal-body #class_master_id").val( eventId );
+});
 
+$('#subject_handling_form').validate({ // initialize the plugin
+  rules: {
+      subject_id:{required:true },
+      exam_flag:{required:true },
+      status:{required:true},
+
+  },
+  messages: {
+        subject_id: "Select Subject",
+        exam_flag:"Select Class",
+        status:"Select Status"
+
+      },
+    submitHandler: function(form) {
+      //alert("hi");
+      swal({
+                    title: "Are you sure?",
+                    text: "You Want confirm  this form",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Yes, I am sure!',
+                    cancelButtonText: "No, cancel it!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+     $.ajax({
+         url: "<?php echo base_url(); ?>classmanage/subject_to_class",
+          type:'POST',
+         data: $('#subject_handling_form').serialize(),
+         success: function(response) {
+           //alert(response);
+             if(response=="success"){
+              //  swal("Success!", "Thanks for Your Note!", "success");
+                $('#subject_handling_form')[0].reset();
+                swal({
+         title: "Wow!",
+         text: "Message!",
+         type: "success"
+     }, function() {
+        location.reload();
+     });
+             }else{
+               sweetAlert("Oops...",response, "error");
+             }
+         }
+     });
+   }else{
+       swal("Cancelled", "Process Cancel :)", "error");
+   }
+ });
+}
+});
 function generatefromtable() {
 				var data = [], fontSize = 12, height = 0, doc;
 				doc = new jsPDF('p', 'pt', 'a4', true);

@@ -29,20 +29,25 @@ Class Class_manage extends CI_Model
 
        //Allocate Subject to class
        function subject_to_class($user_id,$subject_id,$class_master_id,$exam_flag,$status){
-         $check ="SELECT * FROM edu_subject_to_class WHERE class_master_id='$class_master_id' AND subject_id='$subject_id'";
-         $result=$this->db->query($check);
-         if($result->num_rows()==0){
-           $query="INSERT INTO  edu_subject_to_class (class_master_id,subject_id,exam_flag,status,created_at,created_by,updated_at) VALUES('$class_master_id','$subject_id','$exam_flag','$status',NOW(),'$user_id',NOW())";
-           $res=$this->db->query($query);
-           if($res){
-             $data= array("status" => "success");
-             return $data;
-           }else{
-             $data= array("status" => "failure");
+          $subject_cnt=count($subject_id);
+          for($i=0;$i<$subject_cnt ;$i++){
+            $subject_id_cls=$subject_id[$i];
+            $check ="SELECT * FROM edu_subject_to_class WHERE class_master_id='$class_master_id' AND subject_id='$subject_id_cls'";
+           $result=$this->db->query($check);
+           if($result->num_rows()==0){
+               $query="INSERT INTO  edu_subject_to_class (class_master_id,subject_id,exam_flag,status,created_at,created_by,updated_at) VALUES('$class_master_id','$subject_id_cls','$exam_flag','$status',NOW(),'$user_id',NOW())";
+              $res=$this->db->query($query);
+           }
+           else{
+             $data= array("status" => "already");
              return $data;
            }
+         }
+         if($res){
+           $data= array("status" => "success");
+           return $data;
          }else{
-           $data= array("status" => "already");
+           $data= array("status" => "failure");
            return $data;
          }
        }
