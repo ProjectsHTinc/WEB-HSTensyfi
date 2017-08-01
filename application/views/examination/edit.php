@@ -68,20 +68,29 @@
 				                     </div>
                                     </fieldset>
           					 <fieldset>
-                                        <div class="form-group">
-
-                                 <label class="col-sm-2 control-label">Status</label>
+                              <div class="form-group">
+                                 <label class="col-sm-2 control-label">Exam Type</label>
+                                   <div class="col-sm-4">
+                                   <select  name="exam_flag" id="exam_flag" class="selectpicker"  class="form-control">
+                                                <option value="0">Internal/External</option>
+                                                <option value="1">Total</option>
+                                              </select>
+                          <script language="JavaScript">document.myformsection.exam_flag.value="<?php echo $rows->exam_flag; ?>";</script>
+                                            </div>
+                               <label class="col-sm-2 control-label">Status</label>
                                           <div class="col-sm-4">
                                    <select name="status" class="selectpicker form-control" data-style="btn-default btn-block" >
-                                                <option value="Active">Active</option>
-                                                <option value="Deactive">Deactive</option>
+                                        <option value="Active">Active</option>
+                                         <option value="Deactive">Deactive</option>
                                    </select>
                           <script language="JavaScript">document.myformsection.status.value="<?php echo $rows->status; ?>";</script>
-                                            </div>
+                                            </div></div>
+									</fieldset>		
+									<fieldset>
+                                        <div class="form-group">
 											<label class="col-sm-2 control-label">&nbsp;</label>
-
                                           <div class="col-sm-4">
-                                                   <button type="submit" id="save" class="btn btn-info btn-fill center">Update Exam</button>
+                                               <button type="submit" id="save" class="btn btn-info btn-fill center">Update Exam</button>
                                             </div>
 
                                             </div>

@@ -146,7 +146,7 @@
                                     </fieldset>
                                     <fieldset>
                                        <div class="form-group">
-                                          <label class="col-sm-2 control-label">Type of Test</label>
+                                          <label class="col-sm-2 control-label">Type</label>
                                           <div class="col-sm-10">
                                              <label class="radio">
                                              <input type="radio" data-toggle="radio" name="test_type" value="HT" checked onclick="myFunction1()"> 

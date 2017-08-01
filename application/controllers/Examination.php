@@ -40,8 +40,10 @@ class Examination extends CI_Controller
 		{
 	 		$datas=$this->session->userdata();
 	 		$user_id=$this->session->userdata('user_id');
-	 		$datas['result'] = $this->examinationmodel->get_exam_details();
 			$user_type=$this->session->userdata('user_type');
+	 		$datas['result'] = $this->examinationmodel->get_exam_details();
+			$datas['years'] = $this->examinationmodel->get_years_details();
+			//echo '<pre>'; print_r($datas['years']);exit;
 			 if($user_type==1)
 			 {
 				 $this->load->view('header');
@@ -103,9 +105,9 @@ class Examination extends CI_Controller
 			     $exam_year=$this->input->post('exam_year');
 				 $exam_name=$this->input->post('exam_name');
 				 $status=$this->input->post('status');
+				 $exam_flag=$this->input->post('exam_flag');
 
-				 $datas=$this->examinationmodel->exam_details($exam_year,$exam_name,$status);
-
+				 $datas=$this->examinationmodel->exam_details($exam_year,$exam_name,$exam_flag,$status);
 		     	 //print_r($datas['status']);exit;
 			    //print_r($data['exam_name']);exit;
 
@@ -157,8 +159,8 @@ class Examination extends CI_Controller
 								$exam_year=$this->input->post('exam_year');
 								$exam_name=$this->input->post('exam_name');
 								$status=$this->input->post('status');
-
-								$datas=$this->examinationmodel->update_exam($exam_id,$exam_year,$exam_name,$status);
+                                $exam_flag=$this->input->post('exam_flag');
+								$datas=$this->examinationmodel->update_exam($exam_id,$exam_year,$exam_name,$exam_flag,$status);
 
 								 if($datas['status']=="success")
 				                     {

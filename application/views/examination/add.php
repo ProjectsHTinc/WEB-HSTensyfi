@@ -19,12 +19,8 @@
                                             <div class="col-sm-6">
              <select name="exam_year" required class="selectpicker" data-title="Select From & To Year" data-menu-style="dropdown-blue">
                                                   <?php
-												  $query= "SELECT * FROM edu_academic_year";
-												  $year=$this->db->query($query);
-												  $row=$year->result();
-												  foreach ($row as $rows1)
+												  foreach ($years as $rows1)
 												  {
-
 												    $fyear=$rows1->from_month;
     												$month= strtotime($fyear);
 
@@ -48,6 +44,17 @@
                                             </div>
 				                     </div>
                                     </fieldset>
+									<fieldset>
+									 <div class="form-group">
+                                           <label class="col-sm-2 control-label">Exam Type</label>
+                                           <div class="col-sm-6">
+                                              <select  name="exam_flag" id="exam_flag" class="selectpicker"  class="form-control">
+                                                <option value="0">Internal/External</option>
+                                                <option value="1">Total</option>
+                                              </select>
+                                           </div>
+                                        </div>
+										</fieldset>
 									
 									<fieldset>
                                         <div class="form-group">
@@ -162,8 +169,6 @@ $(document).ready(function () {
 
  $('#myformsection').validate({ // initialize the plugin
      rules: {
-
-
          exam_year:{required:true },
          exam_name:{required:true },
 

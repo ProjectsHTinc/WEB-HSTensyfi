@@ -15,6 +15,14 @@ Class Examinationmodel extends CI_Model
          return $resultset->result();
 	 }
 
+	  function get_years_details()
+	  {
+		  $query= "SELECT * FROM edu_academic_year WHERE status='Active'";
+		  $year=$this->db->query($query);
+		  $row=$year->result();
+		  return $row;
+	  }
+	  
 	  function get_details_view()
 	   {
 		 $query="select ex.exam_detail_id,ex.subject_id,ex.exam_date,ex.times,ex.classmaster_id,ex.exam_id,cm.class_sec_id,ex.teacher_id,ex.status,s.subject_name,s.subject_id,c.class_name,se.sec_name FROM edu_exam_details AS ex,edu_classmaster AS cm,edu_subject AS s,edu_class AS c,edu_sections AS se WHERE  ex.subject_id=s.subject_id AND ex.classmaster_id=cm.	class_sec_id AND c.class_id =cm.class AND se.sec_id=cm.section ORDER BY ex.exam_detail_id DESC";
@@ -43,13 +51,13 @@ Class Examinationmodel extends CI_Model
 	 }
 
 
-    function exam_details($exam_year,$exam_name,$status)
+    function exam_details($exam_year,$exam_name,$exam_flag,$status)
     {
-	  $check_exam_name="SELECT * FROM edu_examination WHERE exam_name='$exam_name'";
+	  $check_exam_name="SELECT * FROM edu_examination WHERE exam_name='$exam_name' AND exam_year='$exam_year'";
 	  $result=$this->db->query($check_exam_name);
       if($result->num_rows()==0)
 	  {
-	  $query="INSERT INTO edu_examination(exam_year,exam_name,status,created_at,updated_at)VALUES('$exam_year','$exam_name','$status',NOW(),NOW())";
+	  $query="INSERT INTO edu_examination(exam_year,exam_name,exam_flag,status,created_at,updated_at)VALUES('$exam_year','$exam_name','$exam_flag','$status',NOW(),NOW())";
 	  $resultset=$this->db->query($query);
       $data= array("status"=>"success");
       return $data;
@@ -95,9 +103,9 @@ Class Examinationmodel extends CI_Model
          $res=$this->db->query($query1);
          return $res->result();
 	}
-	function update_exam($exam_id,$exam_year,$exam_name,$status)
+	function update_exam($exam_id,$exam_year,$exam_name,$exam_flag,$status)
 	{
-		$query="UPDATE edu_examination SET exam_year='$exam_year',exam_name='$exam_name',status='$status' WHERE exam_id='$exam_id'";
+		$query="UPDATE edu_examination SET exam_year='$exam_year',exam_name='$exam_name',exam_flag='$exam_flag',status='$status' WHERE exam_id='$exam_id'";
 		$res=$this->db->query($query);
 
 		$query1="UPDATE edu_exam_details SET status='$status' WHERE exam_id='$exam_id'";

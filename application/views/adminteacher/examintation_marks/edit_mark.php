@@ -22,28 +22,26 @@
                            <thead>
                               <th>Sno</th>
                               <th>Name</th>
-                              
                               <?php
-                             
                               foreach($edit as $row)
-                                 {   $sid=$row->subject_id;
-                                  $sql="SELECT * FROM edu_subject WHERE subject_id='$sid' ";
-                                           $resultset=$this->db->query($sql);
-                                 $row=$resultset->result();
-                                 foreach($row as $row1)
-                                 {}}?>
-                              <th>Internal<?php echo $row1->subject_name;?></th>
-                              <th>External<?php echo $row1->subject_name;?></th>
+                                 { foreach($result as $flag){} $eflag=$flag->exam_flag; }
+								 if($eflag==0){?>
+                              <th>Internal <?php echo $row->subject_name;?></th>
+                              <th>External <?php echo $row->subject_name;?></th>
                               <?php 
-                                 ?>									 
+								 }else{
+                                 ?>	
+								 <th>Total Marks In <?php echo $row->subject_name;?></th>
+								 <?php } ?>								 
                            </thead>
                            <tbody>
                               <?php 
                                  $i=1;
-                                 
                                  foreach($edit as $row)
-                                       { ?>
+                                   {
+								    foreach($result as $flag){} $eflag=$flag->exam_flag; ?>
                               <tr>
+							  <input type="hidden" name="eflag" value="<?php echo $eflag; ?>">
                                  <td><?php echo $i;?></td>
                                  <td style="">
                                     <?php echo $row->name; ?>
@@ -54,6 +52,7 @@
                                     <input type="hidden" name="clsmastid" value="<?php echo $row->classmaster_id; ?>" />
                                  </td>
                                  <?php if(!empty($mark)){ 
+								       if($eflag==0){
                                   ?>
                                  <td>
                                     <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
@@ -61,23 +60,36 @@
                                  <td>
                                     <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->external_mark; ?>" class="form-control"/>
                                  </td>
-                                 <?php }else{ ?>
+									   <?php }else{?>
+									   <td>
+                                    <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->total_marks; ?>" class="form-control"/>
+                                 </td>
+									  <?php }
+									   }else{
+									 if($eflag==0){?>
                                  <td>
 								   <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox"/>
 								 </td>
                                  <td>
 								   <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control inputBox1"/>
 								  </td>
-                                 <?php } ?>
+                                 <?php }else{?>
+								  <td>
+								   <input style="width:60%;" type="text"  name="total_marks[]" value="<?php echo $row->total_marks; ?>" class="form-control inputBox2"/>
+								  </td>	<td></td> 
+								  
+								<?php }
+								 } ?>
                               </tr>
                               <?php $i++;} 
                                  if(!empty($mark)){ echo "";}else{ ?> 
                               <tr>
+							  <td></td><td></td>
                                  <td>
                                     <div class="col-sm-10">
                                        <button type="submit" id="update" class="btn btn-info btn-fill center">Update</button>
                                     </div>
-                                 </td>
+                                 </td><td></td>
                               </tr>
                               <?php } ?>
                            </tbody>
@@ -107,6 +119,14 @@ $(".inputBox1").on("keyup keydown", function(e){
     var currentValue = String.fromCharCode(e.which);
     var finalValue = $(this).val() + currentValue;
     if(finalValue >60){
+        e.preventDefault();
+    }
+});
+
+$(".inputBox2").on("keyup keydown", function(e){
+    var currentValue = String.fromCharCode(e.which);
+    var finalValue = $(this).val() + currentValue;
+    if(finalValue >100){
         e.preventDefault();
     }
 });

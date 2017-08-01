@@ -24,7 +24,7 @@ Class Examinationresultmodel extends CI_Model
 		  foreach($all_year as $cyear){}
 		  $current_year=$cyear->year_id; 
 		  
-        $sql        = "SELECT * FROM edu_examination WHERE status='Active' AND exam_year='$current_year'";
+         $sql= "SELECT ex.*,ed.exam_detail_id,ed.exam_id FROM edu_examination AS ex,edu_exam_details AS ed WHERE ex.status='Active' AND ex.exam_year='$current_year' AND ex.exam_id=ed.exam_id  GROUP By ed.exam_id";
         $resultset1 = $this->db->query($sql);
         $res        = $resultset1->result();
         return $res;
@@ -140,7 +140,7 @@ Class Examinationresultmodel extends CI_Model
     
     function getall_exam_details($exam_id)
     {
-        $sql        = "SELECT * FROM edu_exam_details WHERE exam_id='$exam_id' GROUP By classmaster_id";
+        $sql        = "SELECT ed.exam_detail_id,ed.exam_id,ed.subject_id,ed.exam_date,ed.classmaster_id,ex.exam_id,ex.exam_year,ex.exam_name,ex.exam_flag,ex.status FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By classmaster_id";
         $resultset1 = $this->db->query($sql);
         $res        = $resultset1->result();
         return $res;
@@ -167,7 +167,7 @@ Class Examinationresultmodel extends CI_Model
         foreach ($row as $rows) {}
         $teacher_id = $rows->user_master_id;
         //echo $teacher_id;exit;
-         $sql        = "SELECT t.teacher_id,t.subject_id,t.class_master_id,su.subject_id,su.subject_name,en.enroll_id,en.admission_id,en.name,en.class_id,en.status FROM edu_subject AS su,edu_teacher_handling_subject AS t,edu_enrollment AS en WHERE t.subject_id='$sub_id' AND t.subject_id=su.subject_id AND en.class_id='$cls_masid' AND t.class_master_id=en.class_id AND t.teacher_id='$teacher_id' AND en.status='Active'";
+          $sql        = "SELECT t.teacher_id,t.subject_id,t.class_master_id,su.subject_id,su.subject_name,en.enroll_id,en.admission_id,en.name,en.class_id,en.status FROM edu_subject AS su,edu_teacher_handling_subject AS t,edu_enrollment AS en WHERE t.subject_id='$sub_id' AND t.subject_id=su.subject_id AND en.class_id='$cls_masid' AND t.class_master_id=en.class_id AND t.teacher_id='$teacher_id' AND en.status='Active'";
         $res        = $this->db->query($sql);
         $result     = $res->result();
         return $result;
@@ -277,8 +277,10 @@ Class Examinationresultmodel extends CI_Model
         return $rows;
     }
     
-    function exam_marks_details($exam_id, $subid, $sutid, $clsmastid, $teaid, $internal_marks, $external_marks, $user_id)
-    {
+    function exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id,$eflag,$total_marks)
+    {   echo $eflag; 
+	 if($eflag==0)
+	 {
         $check="SELECT * FROM edu_exam_marks WHERE exam_id='$exam_id' AND subject_id='$subid' AND classmaster_id='$clsmastid'";
 		$result1=$this->db->query($check);
 		if($result1->num_rows()==0)
@@ -360,6 +362,7 @@ Class Examinationresultmodel extends CI_Model
             }
             
             //Total Mark Grade
+			
             $total = $marks1 + $marks2;
             
             if ($total >= 91 && $total <= 100) {
@@ -402,6 +405,68 @@ Class Examinationresultmodel extends CI_Model
         }else{
             $data = array("status" => "failure");return $data;
         }
+	}else{
+		
+		 $check="SELECT * FROM edu_exam_marks WHERE exam_id='$exam_id' AND subject_id='$subid' AND classmaster_id='$clsmastid'";
+		$result1=$this->db->query($check);
+		if($result1->num_rows()==0)
+		{ 
+        $count_name = count($total_marks);
+        //echo $count_name; exit;
+        for ($i = 0; $i < $count_name; $i++) {
+            $user_id1   = $user_id;
+            $sutid1     = $sutid[$i];
+            //print_r($enroll);
+            $subid1     = $subid;
+            $clsmastid1 = $clsmastid;
+            $teaid1     = $teaid;
+            $examid1    = $exam_id;
+
+            //Total Mark Grade
+			
+            $total =$total_marks[$i];
+            
+            if ($total >= 91 && $total <= 100) {
+                $grade2 = 'A1';
+            }
+            if ($total >= 81 && $total <= 90) {
+                $grade2 = 'A2';
+            }
+            if ($total >= 71 && $total <= 80) {
+                $grade2 = 'B1';
+            }
+            if ($total >= 61 && $total <= 70) {
+                $grade2 = 'B2';
+            }
+            if ($total >= 51 && $total <= 60) {
+                $grade2 = 'C1';
+            }
+            if ($total >= 41 && $total <= 50) {
+                $grade2 = 'C2';
+            }
+            if ($total >= 31 && $total <= 40) {
+                $grade2 = 'D';
+            }
+            if ($total >= 21 && $total <= 30) {
+                $grade2 = 'E1';
+            }
+            if ($total <= 20) {
+                $grade2 = 'E2';
+            }
+            
+            $query      = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','0','0','0','0','$total','$grade2','$user_id1',NOW())";
+            $resultset1 = $this->db->query($query);
+        }
+		  }else{
+            $data= array("status"=>"Already Added");
+            return $data;
+            } 
+        if ($resultset1) {
+            $data = array("status" => "success");return $data;
+        }else{
+            $data = array("status" => "failure");return $data;
+        }
+	}
                  
         
     }
@@ -462,7 +527,7 @@ Class Examinationresultmodel extends CI_Model
         foreach ($row as $rows) {}
         $teacher_id = $rows->user_master_id;
         
-        $sql       = "SELECT m.*,en.enroll_id,en.admit_year,en.name,en.class_id,en.admisn_no FROM edu_exam_marks AS m,edu_enrollment AS en WHERE m.exam_id='$exam_id' AND m.subject_id='$subid' AND m.classmaster_id='$clsmasid' AND m.teacher_id='$teacher_id' AND en.class_id='$clsmasid' AND en.enroll_id=m.stu_id ";
+        $sql       = "SELECT m.*,en.enroll_id,en.admit_year,en.name,en.class_id,en.admisn_no,su.subject_id,su.subject_name FROM edu_exam_marks AS m,edu_enrollment AS en,edu_subject AS su WHERE m.exam_id='$exam_id' AND m.subject_id='$subid' AND m.classmaster_id='$clsmasid' AND m.teacher_id='$teacher_id' AND en.class_id='$clsmasid' AND en.enroll_id=m.stu_id AND m.subject_id=su.subject_id ";
         $resultset = $this->db->query($sql);
         $res       = $resultset->result();
         return $res;
@@ -478,11 +543,10 @@ Class Examinationresultmodel extends CI_Model
         return $row;
     }
     
-    function update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id)
+    function update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id,$eflag,$total_marks)
     {
-       
+       if($eflag==0){
         $count_name = count($external_marks);
-        
         for ($i = 0; $i < $count_name; $i++) {
             $user_id1   = $user_id;
             $sutid1     = $sutid[$i];
@@ -592,6 +656,56 @@ Class Examinationresultmodel extends CI_Model
              $data=array("status" => "failure");
             return $data;
          }
+	   }else{
+		     $count_name = count($total_marks);
+        for ($i = 0; $i < $count_name; $i++) {
+            $user_id1   = $user_id;
+            $sutid1     = $sutid[$i];
+            $subid1     = $subid;
+            $clsmastid1 = $clsmastid;
+            $teaid1     = $teaid;
+            $examid1    = $exam_id;
+
+            //Total Mark Grade
+            $total = $total_marks[$i];
+            if ($total >= 91 && $total <= 100) {
+                $grade2 = 'A1';
+            }
+            if ($total >= 81 && $total <= 90) {
+                $grade2 = 'A2';
+            }
+            if ($total >= 71 && $total <= 80) {
+                $grade2 = 'B1';
+            }
+            if ($total >= 61 && $total <= 70) {
+                $grade2 = 'B2';
+            }
+            if ($total >= 51 && $total <= 60) {
+                $grade2 = 'C1';
+            }
+            if ($total >= 41 && $total <= 50) {
+                $grade2 = 'C2';
+            }
+            if ($total >= 31 && $total <= 40) {
+                $grade2 = 'D';
+            }
+            if ($total >= 21 && $total <= 30) {
+                $grade2 = 'E1';
+            }
+            if ($total <= 20) {
+                $grade2 = 'E2';
+            }
+          $update_marks="UPDATE edu_exam_marks SET total_marks='$total',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND  classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
+          $resultset=$this->db->query($update_marks);
+        }
+        if($resultset) {
+            $data=array("status" => "success");
+        return $data;
+        }else{
+             $data=array("status" => "failure");
+            return $data;
+         }
+	   }
     }
     
     function marks_status_update($exam_id, $clsmastid, $user_id)

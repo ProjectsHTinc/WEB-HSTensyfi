@@ -39,7 +39,7 @@
                               </tr>
                            </thead>
                            <?php
-                              //  print_r($data['restime']['time']);exit;
+                                 //print_r($data['restime']['time']);exit;
                                 //print_r($restime);exit;
 
                                 $prd= count($restime)/6; //echo  $restime[5]->subject_name; ?>
