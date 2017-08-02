@@ -203,8 +203,8 @@ class Circular extends CI_Controller
       $notes=$this->db->escape_str($this->input->post('notes'));
 	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
 	  $status=$this->input->post('status'); 
-	  
-      //print_r($citrcular_type);
+	  $citrcular_type1=implode(',',$citrcular_type);
+      //echo $citrcular_type1;exit;
 	 $acount=count($citrcular_type);
 	 
 	 if($acount==1){
@@ -220,7 +220,7 @@ class Circular extends CI_Controller
 	  $ct2=$citrcular_type[2];
 	   }
 
-      $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id);
+      $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$citrcular_type1,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id);
       
 	  //------------------------------SMS & MAIL & NOTIFICATION--------------------------------------------
 	  

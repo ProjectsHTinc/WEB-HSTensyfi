@@ -246,7 +246,7 @@
 		  status:"Select Status"
                },
 			   
-	      submitHandler: function(form) {
+	       submitHandler: function(form) {
 	        //alert("hi");
 	        swal({
 	                      title: "Are you sure?",

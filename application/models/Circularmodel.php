@@ -121,8 +121,8 @@ Class Circularmodel extends CI_Model
 		 }
 	 }
 	 
-	 function circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id)
-	 {
+	 function circular_create($title,$notes,$circulardate,$citrcular_type1,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id)
+	 {     //echo $citrcular_type1;
 		   $master="SELECT id,circular_title,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_description='$notes' AND status='Active'"; 
 		   $resultset=$this->db->query($master);
 		   $res=$resultset->result();
@@ -142,8 +142,10 @@ Class Circularmodel extends CI_Model
 				//echo $classid; 
 				
 				$cirmat=$cm;
+				$citrcular_type2=$citrcular_type1;
 				$status1=$status;
 				$circulardate1=$circulardate;
+				
 				$user_id1=$user_id;
 			
 			    $stud="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.name,u.student_id, u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=3 AND a.admission_id=u.user_master_id AND a.admission_id=u.student_id AND u.status='Active'";
@@ -153,7 +155,7 @@ Class Circularmodel extends CI_Model
 				{
 				  $sid=$row1->user_id;
 				 // echo $sid; 
-				   $query1="INSERT INTO edu_circular(user_type,user_id,	circular_master_id,circular_date,status,created_by,created_at) VALUES ('3','$sid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
+		$query1="INSERT INTO edu_circular(user_type,user_id,circular_master_id,	citrcular_type,circular_date,status,created_by,created_at) VALUES ('3','$sid','$cirmat','$citrcular_type2','$circulardate1','$status1','$user_id1',NOW())";
 		          $students=$this->db->query($query1);
 				 }
 			
@@ -176,6 +178,7 @@ Class Circularmodel extends CI_Model
 				$classid=$pusers_id[$i];
 				
 				$cirmat=$cm;
+				$citrcular_type2=$citrcular_type1;
 				$status1=$status;
 				$circulardate1=$circulardate;
 				$user_id1=$user_id;
@@ -186,7 +189,7 @@ Class Circularmodel extends CI_Model
 			    foreach($res as $row)
 				{
 				  $pid=$row->user_id;
-				  $query2="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_date,status,created_by,created_at) VALUES ('4','$pid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
+				  $query2="INSERT INTO edu_circular(user_type,user_id,circular_master_id,citrcular_type,circular_date,status,created_by,created_at) VALUES ('4','$pid','$cirmat','$citrcular_type2','$circulardate1','$status1','$user_id1',NOW())";
 		          $parents=$this->db->query($query2);
 				 }
 			
@@ -206,11 +209,13 @@ Class Circularmodel extends CI_Model
 				$userid=$tusers_id[$i];
 				
 				$cirmat=$cm;
+				$citrcular_type2=$citrcular_type1;
+				
 				$status1=$status;
 				$circulardate1=$circulardate;
 				$user_id1=$user_id;
-			    $query3="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_date,status,created_by,created_at) VALUES ('2','$userid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
-		        $teacher=$this->db->query($query3);
+			    $query3="INSERT INTO edu_circular(user_type,user_id,circular_master_id,citrcular_type,circular_date,status,created_by,created_at) VALUES ('2','$userid','$cirmat','$citrcular_type2','$circulardate1','$status1','$user_id1',NOW())";
+		         $teacher=$this->db->query($query3); 
 			 }
 			 if($teacher){
 				 $data=array("status" =>"success");
@@ -227,11 +232,12 @@ Class Circularmodel extends CI_Model
 			foreach($result1 as $rows){
 			$userid=$rows->user_id; 
 			$cirmat=$cm;
+			$citrcular_type2=$citrcular_type1;
 			$status1=$status;
             $circulardate1=$circulardate;
             $users_id1=$users_id;
 			$user_id1=$user_id;
-			$query4="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_date,status,created_by,created_at) VALUES ('$users_id1','$userid','$cirmat','$circulardate1','$status1','$user_id1',NOW())";
+			$query4="INSERT INTO edu_circular(user_type,user_id,circular_master_id,citrcular_type,circular_date,status,created_by,created_at) VALUES ('$users_id1','$userid','$cirmat','$citrcular_type2','$circulardate1','$status1','$user_id1',NOW())";
 			$resultset=$this->db->query($query4);
 			 }	 
 		  if($resultset){
