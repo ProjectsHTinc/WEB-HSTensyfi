@@ -51,7 +51,7 @@ class Apiteachermodel extends CI_Model {
 
 			if ($disp_type=='day')
 			{
-    			$att_query = "SELECT * from edu_attendence WHERE date(created_at) ='$disp_date' AND class_id ='$class_id' AND ac_year = '$year_id'  AND status = 'Active'";
+    			 $att_query = "SELECT * from edu_attendence WHERE date(created_at) ='$disp_date' AND class_id ='$class_id' AND ac_year = '$year_id'  AND status = 'Active'";
     		    $att_res = $this->db->query($att_query);
 
     			 if($att_res->num_rows()==0) {
@@ -236,7 +236,7 @@ class Apiteachermodel extends CI_Model {
 				GROUP by ed.classmaster_id
 				
 				UNION ALL
-				
+			
 				SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 				COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 				CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
@@ -387,7 +387,24 @@ class Apiteachermodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 		
-			$leave_query = "SELECT B.leave_title, A.from_leave_date, A.to_leave_date, A.frm_time, A.to_time,A.status from edu_user_leave A, edu_user_leave_master B  WHERE A.leave_master_id = B.id AND user_id = '$user_id' AND year_id='$year_id'";
+			$leave_query = "SELECT
+                            B.leave_title,
+                            A.from_leave_date,
+                            A.to_leave_date,
+                            A.frm_time,
+                            A.to_time,
+                            A.type_leave AS leave_type,
+                            A.status,
+                            C.teacher_id,
+                            D.name
+                        FROM
+                            edu_user_leave A,
+                            edu_user_leave_master B,
+                            edu_users C,
+                            edu_teachers D
+                        WHERE
+                            A.leave_master_id = B.id AND A.user_id = C.user_id AND C.teacher_id = D.teacher_id AND A.user_id = '$user_id' AND A.year_id = '$year_id'";
+
 			$leave_res = $this->db->query($leave_query);
 			$leave_result= $leave_res->result();
 			$leave_count = $leave_res->num_rows();
@@ -404,10 +421,23 @@ class Apiteachermodel extends CI_Model {
 
 
 //#################### Display Timetablereview for Teachers ####################//
-	public function dispTimetablereview ($user_id)
+	public function dispTimetablereview ($teacher_id)
 	{
-			$year_id = $this->getYear();
-			$review_query = "SELECT
+		$year_id = $this->getYear();
+			
+    		$sql = "SELECT * FROM edu_users WHERE teacher_id ='$teacher_id'";
+    		$user_result = $this->db->query($sql);
+    		$ress = $user_result->result();
+    		
+    		if($user_result->num_rows()>0)
+    		{
+    			foreach ($user_result->result() as $rows)
+    			{
+    			    $user_id = $rows->user_id;
+    			}
+    		}
+		
+			 $review_query = "SELECT
                         A.time_date,
                         DAYNAME(A.time_date) AS day,
                         A.class_id,

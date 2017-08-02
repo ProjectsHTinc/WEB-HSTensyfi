@@ -27,9 +27,12 @@ td{
 
                               <div class="header">
 
-                        <legend>View Subject For Class  <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
-                          <a rel="" href="#myModal" data-id="<?php echo $class_master_id; ?>" title="Add Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit pull-right" style="color:#eb34ff;" data-toggle="modal" data-target="#myModal"   >
+                        <legend>View Subject For Class
+                          <a rel="" href="#myModal" data-id="<?php echo $class_master_id; ?>" title="Add Subjects" class="open-AddBookDialog btn btn-simple  btn-fill btn-info  edit"  data-toggle="modal" data-target="#myModal"   >
                           Add Subjects</a>
+
+                            <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+
                           <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
 
                               </div>

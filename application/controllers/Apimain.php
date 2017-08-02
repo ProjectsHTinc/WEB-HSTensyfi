@@ -70,9 +70,13 @@ class Apimain extends CI_Controller {
 
 		$username = '';
 		$password = '';
+		$gcmkey ='';
+		$mobiletype ='';
 
 		$username = $this->input->post("username");
 		$password = $this->input->post("password");
+		$gcmkey = $this->input->post("gcm_key");
+		$mobiletype = $this->input->post("mobile_type");
 
 		if($username == "" || $password == "")
 		{
@@ -99,7 +103,7 @@ class Apimain extends CI_Controller {
 		$username= $this->input->post("username");
 		$password = $this->input->post("password");
 
-		$data['result']=$this->apimainmodel->Login($username,$password);
+		$data['result']=$this->apimainmodel->Login($username,$password,$gcmkey,$mobiletype);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -175,7 +179,7 @@ class Apimain extends CI_Controller {
 
 	public function update_Profilepic()
 	{
-	//	$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 		
 		echo $user_id = $this->input->post("user_id");
 		echo $user_type = $this->input->post("user_type");
@@ -254,6 +258,44 @@ class Apimain extends CI_Controller {
 		echo json_encode($response);
 		*/
 	}
+
+
+    
+/// User Profile Pic upload
+
+
+	public function user_profilepic_upload($user_id,$user_type)
+	{
+	    $_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		$user_id = $user_id;
+     	$user_type = $user_type;
+		$profile = $_FILES["user_pic"]["name"];
+		$userFileName = time().'-'.$profile;
+		
+	    if($user_type==1)
+		{
+		    $uploadPicdir = 'assets/admin/profile/';
+		}
+		else if ($user_type==2) {
+		     $uploadPicdir = 'assets/teachers/profile/';
+		}
+		else if ($user_type==3) {
+		    $uploadPicdir = 'assets/student/profile/';
+		}
+		else {
+		   $uploadPicdir = 'assets/parents/profile/';
+		}
+		
+		$profilepic = $uploadPicdir.$userFileName;
+		move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
+		
+		$data['result']=$this->apimainmodel->updateProfilepic($user_id,$user_type,$userFileName);
+		$response = $data['result'];
+		echo json_encode($response);
+		
+	}
+
 
 
 //-----------------------------------------------//

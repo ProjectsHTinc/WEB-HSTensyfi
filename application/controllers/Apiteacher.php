@@ -479,10 +479,10 @@ class Apiteacher extends CI_Controller {
 			return;
 		}
 
-		$user_id = '';
-		$user_id = $this->input->post("user_id");
+		$teacher_id = '';
+		$teacher_id = $this->input->post("teacher_id");
 		
-		$data['result']=$this->apiteachermodel->dispTimetablereview($user_id);
+		$data['result']=$this->apiteachermodel->dispTimetablereview($teacher_id);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -807,7 +807,7 @@ class Apiteacher extends CI_Controller {
         $created_at = $this->input->post("created_at");
         $status = $this->input->post("status");
         
-		$data['result']=$this->apiteachermodel->syncAttendance($ac_year,$class_id,$class_total,$no_of_present,$no_of_absent,$attendence_period,$created_by,$created_at,$status);
+		$data['result']=$this->apiteachermodel->syncAttendance($ac_year,$class_id,$class_total,$no_of_present,$no_of_absent,$attendence_period,$created_by,$created_at,'Active');
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -858,7 +858,7 @@ class Apiteacher extends CI_Controller {
         $created_at = $this->input->post("created_at");
         $status = $this->input->post("status");
         
-		$data['result']=$this->apiteachermodel->syncAttendancehistory($attend_id,$class_id,$student_id,$abs_date,$a_status,$attend_period,$a_val,$a_taken_by,$created_at,$status);
+		$data['result']=$this->apiteachermodel->syncAttendancehistory($attend_id,$class_id,$student_id,$abs_date,$a_status,$attend_period,$a_val,$a_taken_by,$created_at,'Active');
 		$response = $data['result'];
 		echo json_encode($response);
 	}

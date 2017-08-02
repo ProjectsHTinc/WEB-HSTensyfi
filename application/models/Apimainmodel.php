@@ -45,7 +45,7 @@ class Apimainmodel extends CI_Model {
 
 //#################### Login ####################//
 
-	public function Login($username,$password)
+	public function Login($username,$password,$gcmkey,$mobiletype)
 	{
 		$year_id = $this->getYear();
 
@@ -63,7 +63,7 @@ class Apimainmodel extends CI_Model {
 				  $update_sql = "UPDATE edu_users SET last_login_date=NOW(),login_count='$login_count' WHERE user_id='$user_id'";
 				  $update_result = $this->db->query($update_sql);
 			}
-					
+			
 				$userData  = array(
 							"user_id" => $ress[0]->user_id,
 							"name" => $ress[0]->name,
@@ -74,7 +74,17 @@ class Apimainmodel extends CI_Model {
 							"password_status" => $ress[0]->password_status
 						);
 
-
+                    	$gcmQuery = "SELECT * FROM edu_notification WHERE gcm_key like '%" .$gcmkey. "%' LIMIT 1";
+                    	$gcm_result = $this->db->query($gcmQuery);
+                    	$gcm_ress = $gcm_result->result();
+                    	
+                		if($gcm_result->num_rows()==0)
+                		{
+                		    $sQuery = "INSERT INTO edu_notification (user_id,gcm_key,mobile_type) VALUES ('". $user_id . "','". $gcmkey . "','". $mobiletype . "')";
+                		     $update_gcm = $this->db->query($sQuery);
+                		}
+                    
+ 
 				  if ($user_type==1)  {
 				  
 				 	 	$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData, "year_id" => $year_id);
@@ -206,7 +216,7 @@ class Apimainmodel extends CI_Model {
 											
 					 $exam_query = "SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
-						CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
+						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
 						FROM edu_examination ex
 						RIGHT JOIN edu_exam_details ed on ex.exam_id = ed.exam_id and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
 						LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id
@@ -220,7 +230,7 @@ class Apimainmodel extends CI_Model {
 						
 						SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
-						CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
+						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
 						FROM edu_examination ex
 						LEFT JOIN edu_exam_details ed on ed.exam_id = ex.exam_id and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
 						LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id 
@@ -576,10 +586,10 @@ class Apimainmodel extends CI_Model {
 //#################### Profile Pic Update ####################//
 	public function updateProfilepic($user_id,$user_type,$userFileName)
 	{
-            $update_sql= "UPDATE edu_users SET user_pic='$userFileName', updated_date=NOW() WHERE user_id='$user_id' ";
+            $update_sql= "UPDATE edu_users SET user_pic='$userFileName', updated_date=NOW() WHERE user_id='$user_id' and user_type='$user_type'";
 			$update_result = $this->db->query($update_sql);
-	
-			$response = array("status" => "sucess", "msg" => "Profile Picture Updated");
+			
+			$response = array("status" => "success", "msg" => "Profile Picture Updated","user_picture"=>$userFileName);
 			return $response;
 	}
 //#################### Profile Pic Update End ####################//
@@ -713,10 +723,43 @@ class Apimainmodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 
+            if ($user_type=='2'){
+			     $Onduty_query = "SELECT
+                                    A.od_for,
+                                    A.from_date,
+                                    A.to_date,
+                                    A.notes,
+                                    A.status,
+                                    C.teacher_id,
+                                    D.name
+                                FROM
+                                    edu_on_duty A,
+                                    edu_users C,
+                                    edu_teachers D
+                                WHERE
+                                    A.user_id = C.user_id AND C.teacher_id = D.teacher_id AND A.user_type = '$user_type' AND A.user_id = '$user_id' AND A.year_id = '$year_id'";
+            } 
+
+            if ($user_type=='3'){
+			     $Onduty_query = "SELECT
+                                    A.od_for,
+                                    A.from_date,
+                                    A.to_date,
+                                    A.notes,
+                                    A.status,
+                                    C.student_id,
+                                    D.name
+                                FROM
+                                    edu_on_duty A,
+                                    edu_users C,
+                                    edu_admission D
+                                WHERE
+                                    A.user_id = C.user_id AND C.student_id = D.admission_id AND A.user_type = '$user_type' AND A.user_id = '$user_id' AND A.year_id = '$year_id'";
+            } 
+            
             if ($user_type=='4')
             {
-                
-                 $user_sql = "SELECT *  FROM `edu_users` WHERE student_id = '$user_id'";
+                $user_sql = "SELECT *  FROM `edu_users` WHERE student_id = '$user_id'";
                 $user_result = $this->db->query($user_sql);
         		$user_ress = $user_result->result();
         		
@@ -727,11 +770,23 @@ class Apimainmodel extends CI_Model {
         				  $user_id = $rows->user_id;
         			}
         		}
-        		$user_type = '3';
-        		 $Onduty_query = "SELECT od_for,from_date,to_date,notes,status FROM `edu_on_duty` WHERE user_type = '$user_type' AND user_id = '$user_id' AND year_id = '$year_id'";
-            } else {
-			    $Onduty_query = "SELECT od_for,from_date,to_date,notes,status FROM `edu_on_duty` WHERE user_type = '$user_type' AND user_id = '$user_id' AND year_id = '$year_id'";
-            }
+        		  $user_type = '3';
+        		  $Onduty_query = "SELECT
+                                    A.od_for,
+                                    A.from_date,
+                                    A.to_date,
+                                    A.notes,
+                                    A.status,
+                                    C.student_id,
+                                    D.name
+                                FROM
+                                    edu_on_duty A,
+                                    edu_users C,
+                                    edu_admission D
+                                WHERE
+                                    A.user_id = C.user_id AND C.student_id = D.admission_id AND A.user_type = '$user_type' AND A.user_id = '$user_id' AND A.year_id = '$year_id'";
+                } 
+             
 		
 			$Onduty_res = $this->db->query($Onduty_query);
 			$Onduty_result = $Onduty_res->result();

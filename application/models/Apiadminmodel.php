@@ -104,18 +104,22 @@ class Apiadminmodel extends CI_Model {
         //#################### GET STUDENT & PARENTS DETAILS ####################//
 
           function get_student_details($student_id){
-            $sql="SELECT er.admission_id,ea.* FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
+             $sql="SELECT er.admission_id,ea.* FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
             $res_stu=$this->db->query($sql);
-            $student_query = "SELECT * from edu_admission WHERE admission_id='$student_id' AND status = 'Active'";
+            	$admis= $res_stu->result();
+            	foreach($admis as $admis_id){}
+            	$ad_id=$admis_id->admission_id;
+            $student_query = "SELECT * from edu_admission WHERE admission_id='$ad_id' AND status = 'Active'";
 						$student_res = $this->db->query($student_query);
 						$student_profile= $student_res->result();
 
 							foreach($student_profile as $rows){
 								$admit_id = $rows->admission_id;
-								$parent_id = $rows->parnt_guardn_id;
+								  $parent_id = $rows->parnt_guardn_id;
 							}
-
+   
                         $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+                     
 						$father_res = $this->db->query($father_query);
 						$father_profile = $father_res->result();
 
@@ -148,7 +152,7 @@ class Apiadminmodel extends CI_Model {
 						$motherProfile  = array(
 							"id" => $mother_profile[0]->parent_id,
 							"name" => $mother_profile[0]->mother_name,
-							"occupation" => $mother_profile[0]->mother_occupation,
+							"occupation" =>  "",
 							"income" => "",
 							"home_address" => "",
 							"email" => "",
@@ -170,7 +174,7 @@ class Apiadminmodel extends CI_Model {
 						$guardianProfile  = array(
 							"id" => $guardian_profile[0]->parent_id,
 							"name" => $guardian_profile[0]->guardn_name,
-							"occupation" => $guardian_profile[0]->occupation,
+							"occupation" =>  "",
 							"income" => "",
 							"home_address" => "",
 							"email" => "",
@@ -353,7 +357,7 @@ class Apiadminmodel extends CI_Model {
             //#################### GET   TEACHER CLASS DETAILS  ####################//
             function get_teacher_class_details($teacher_id){
                 $year_id = $this->getYear();
-
+                
                 $teacher_query = "SELECT t.teacher_id,t.name,t.sex,t.age,t.nationality,t.religion,t.community_class, t.community,t.address,t.email,t.phone,t.sec_email,t.sec_phone,t.profile_pic,t.update_at,t.subject,t.class_name AS class_taken,t.class_teacher FROM edu_teachers AS t WHERE t.teacher_id = '$teacher_id'";
 				$teacher_res = $this->db->query($teacher_query);
 				$teacher_profile = $teacher_res->result();
@@ -416,7 +420,7 @@ class Apiadminmodel extends CI_Model {
                 foreach($result as $rows){   }
                 $classid=$rows->class_sec_id;
                 $year_id=$this->getYear();
-                $stu_list="SELECT eer.enroll_id AS student_id,eer.name,eer.admisn_no,ea.sex,ea.admisn_year,ep.father_name,ep.mother_name,ep.guardn_name,ep.parent_id FROM edu_enrollment AS eer LEFT JOIN edu_admission AS ea ON ea.admisn_no=eer.admisn_no LEFT JOIN edu_parents AS ep ON eer.admission_id=ep.admission_id WHERE eer.class_id='$classid' AND eer.admit_year='$year_id' AND eer.status='Active'";
+                $stu_list="SELECT eer.enroll_id AS student_id,eer.name,eer.admisn_no,ea.sex,ea.admisn_year,ep.father_name,ep.mother_name,ep.guardn_name,ep.parent_id,ea.parnt_guardn_id FROM edu_enrollment AS eer LEFT JOIN edu_admission AS ea ON ea.admisn_no=eer.admisn_no LEFT JOIN edu_parents AS ep ON  ea.parnt_guardn_id=ep.parent_id  WHERE eer.class_id='$classid' AND eer.admit_year='$year_id' AND eer.status='Active'";
                 $res_stu=$this->db->query($stu_list);
                 if($res_stu->num_rows()==0){
                     $data=array("status"=>"error","msg"=>"nodata");
@@ -562,7 +566,7 @@ class Apiadminmodel extends CI_Model {
                 foreach($result as $rows){   }
                 $classid=$rows->class_sec_id;
                 $year_id=$this->getYear();
-                 $query="SELECT eed.exam_id,ee.exam_name,ee.exam_year,eac.from_month as Fromdate,eac.to_month as Todate,eed.classmaster_id,CASE WHEN ems.status='Publish' THEN 0 ELSE 0 END AS MarkStatus FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id LEFT JOIN edu_exam_marks_status AS ems ON ems.exam_id=eed.exam_id LEFT JOIN edu_academic_year AS eac ON ee.exam_year=eac.year_id WHERE eed.classmaster_id='$classid' GROUP BY ee.exam_id";
+                 $query="SELECT eed.exam_id,ee.exam_name,ee.exam_year,COALESCE(DATE_FORMAT(MIN(eed.exam_date), '%d-%b-%y'),'') AS Fromdate, COALESCE(DATE_FORMAT(MAX(eed.exam_date), '%d-%b-%y'),'') AS Todate,eed.classmaster_id,CASE WHEN ems.status='Publish' THEN 0 ELSE 0 END AS MarkStatus FROM edu_exam_details AS eed LEFT JOIN edu_examination AS ee ON ee.exam_id=eed.exam_id LEFT JOIN edu_exam_marks_status AS ems ON ems.exam_id=eed.exam_id LEFT JOIN edu_academic_year AS eac ON ee.exam_year=eac.year_id WHERE eed.classmaster_id='$classid' GROUP BY ee.exam_id";
                 $result_query=$this->db->query($query);
                 if($result_query->num_rows()==0){
                     $data=array("status"=>"error","msg"=>"nodata");
@@ -645,7 +649,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
             foreach($result as $rows){   }
             $classid=$rows->class_sec_id;
             $year_id=$this->getYear();
-            $query="SELECT etfs.id,eer.name,etfs.student_id,etfs.status,etfs.paid_by,etfs.updated_at,eer.quota_id,eq.quota_name
+             $query="SELECT etfs.id,eer.name,etfs.student_id,etfs.status,etfs.paid_by,etfs.updated_at,eer.quota_id,eq.quota_name
             FROM edu_term_fees_status AS etfs LEFT JOIN edu_enrollment AS eer ON eer.enroll_id=etfs.student_id LEFT JOIN edu_quota AS eq ON eer.quota_id=eq.id  WHERE etfs.fees_id='$fees_id' AND etfs.class_master_id='$classid'";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
