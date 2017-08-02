@@ -17,23 +17,13 @@
             <input type="hidden" name="year_id"  value="<?php  echo $res->academic_year_id; ?>">
 			<input type="hidden" name="cid"  value="<?php  echo $res->id; ?>">
 	  
-                              <label class="col-sm-2 control-label">Circular Type</label>
-                              <div class="col-sm-4">
-                                 <input type="text" name="ctype" value="<?php echo $res->circular_type;?>" required class="form-control"  />
-                              </div>
+                              
                               <label class="col-sm-2 control-label">Circular Title</label>
                               <div class="col-sm-4">
                                  <input type="text" name="ctitle"  value="<?php echo $res->circular_title;?>" required class="form-control"  />
                               </div>
-                           </div>
-                        </fieldset>
-						 <fieldset>
-                           <div class="form-group">
-                              <label class="col-sm-2 control-label"> Description</label>
-                              <div class="col-sm-4">
-                                <textarea name="cdescription" MaxLength="500" placeholder="MaxLength 500" rows="4" cols="80" id="cdescription" class="form-control"><?php echo $res->circular_description;?> </textarea>
-                              </div>
-                               <label class="col-sm-2 control-label">Status</label>
+							  
+							   <label class="col-sm-2 control-label">Status</label>
                               <div class="col-sm-4">
                                 <select name="status"  class="selectpicker form-control" >
 								  <option value="Active">Active</option>
@@ -43,6 +33,16 @@
                         		document.circularmaster.status.value="<?php echo $res->status; ?>";
                         	</script>
                               </div>
+							  
+                           </div>
+                        </fieldset>
+						 <fieldset>
+                           <div class="form-group">
+                              <label class="col-sm-2 control-label"> Description</label>
+                              <div class="col-sm-4">
+                                <textarea name="cdescription" MaxLength="500" placeholder="MaxLength 500" rows="4" cols="80" id="cdescription" class="form-control"><?php echo $res->circular_description;?> </textarea>
+                              </div>
+                              
                            </div>
                         </fieldset>
 						

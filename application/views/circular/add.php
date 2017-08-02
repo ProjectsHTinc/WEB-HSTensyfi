@@ -157,11 +157,10 @@
                              
 							   <label class="col-sm-2 control-label">Circular Type</label>
                               <div class="col-sm-4">
-                                <select name="citrcular_type" id="citrcular_type" onchange="circulartitle(this)"  data-title="Select Circular Type" class="selectpicker form-control">
-								<?php foreach($cmaster as $res){ ?>
-									  <option value="<?php echo $res->circular_type; ?>"><?php echo $res->circular_type; ?></option>
-								<?php } ?>
-								 <!-- <option value="create">Other Create</option> -->
+                                <select multiple name="citrcular_type[]" id="citrcular_type" data-title="Select Circular Type" class="selectpicker form-control">
+									  <option value="SMS">SMS</option>
+									  <option value="Mail">Mail</option>
+									  <option value="Notification">Notification</option>
 								</select>
                               </div>
 							 <label class="col-sm-2 control-label">Date</label>
@@ -177,8 +176,10 @@
 							   <label class="col-sm-2 control-label">Title</label>
 							  <div class="col-sm-4">
 							  <div id="tnone">
-							  <select name="ctitle" id="cititle" class="form-control" onchange="circulardescription(this)">
-							  
+							  <select name="ctitle" id="cititle" class="selectpicker form-control" data-title="Select Title" onchange="circulardescription(this)">
+							  <?php foreach($cmaster as $cmtitle) {?>
+							  <option value="<?php echo $cmtitle->circular_title; ?>"><?php echo $cmtitle->circular_title; ?></option>
+							  <?php } ?>
 								</select>
 								</div>
 							  <div id="cirtitle" style="display:none;">
@@ -245,7 +246,7 @@
 		  status:"Select Status"
                },
 			   
-	     submitHandler: function(form) {
+	      submitHandler: function(form) {
 	        //alert("hi");
 	        swal({
 	                      title: "Are you sure?",
@@ -288,7 +289,7 @@
 	     }
 	   });
 	} 
-	
+	 
 	
     }); 
 	
@@ -320,7 +321,7 @@ function validates()
 
 <script>
    
- function circulartitle(selectObject) {
+/*  function circulartitle(selectObject) {
 	 var ct = selectObject.value; 
     //alert(ct);//exit;
 	if(ct=='create'){
@@ -362,17 +363,17 @@ $.ajax({
 	}
 });
 	}
-}
+} */
 
  function circulardescription(cde1) {
    var cde=document.getElementById('cititle').value;
-  var ctype=document.getElementById('citrcular_type').value;   
-  // alert(cde); alert(ctype);
+  //var ctype=document.getElementById('citrcular_type').value;   
+   //alert(cde); 
 $.ajax({
 	url:'<?php echo base_url(); ?>circular/get_description_list',
 	type:'post',
 	//data:'clsmasid=' + eid + '&examid=' + cid,
-	data:'ctitle=' + cde + '&ctype=' + ctype,
+	data:'ctitle=' + cde,
 	dataType:"JSON",
     cache: false,
 	success: function(test1) {

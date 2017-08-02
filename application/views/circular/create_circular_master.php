@@ -19,19 +19,16 @@
          <input type="hidden" name="year_name"  class="form-control" value="<?php echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  ?>" readonly="">
         <?php   }?>
 	  
-                              <label class="col-sm-2 control-label">Circular Type</label>
-                              <div class="col-sm-4">
-                                 <input type="hidden" name="" required class="form-control"  />
-								 <select name="ctype" class="selectpicker form-control" data-title="Select Circular Type" >
-									  <option value="SMS">SMS</option>
-									  <option value="Mail">Mail</option>
-									   <option value="Notification">Notifications</option>
-								</select>
-								
-                              </div>
                               <label class="col-sm-2 control-label">Circular Title</label>
                               <div class="col-sm-4">
                                  <input type="text" name="ctitle" required class="form-control"  />
+                              </div>
+							   <label class="col-sm-2 control-label">Status</label>
+                              <div class="col-sm-4">
+                                <select name="status"  class="selectpicker form-control" data-title="Status" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+								  <option value="Active">Active</option>
+								  <option value="Deactive">DeActive</option>
+							  </select>
                               </div>
                            </div>
                         </fieldset>
@@ -42,13 +39,7 @@
 							   <textarea name="cdescription" MaxLength="500" placeholder="MaxLength 500" id="cdescription" class="form-control"  rows="4" cols="80"></textarea>
                                
                               </div>
-                               <label class="col-sm-2 control-label">Status</label>
-                              <div class="col-sm-4">
-                                <select name="status"  class="selectpicker form-control" data-title="Status" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-								  <option value="Active">Active</option>
-								  <option value="Deactive">DeActive</option>
-							  </select>
-                              </div>
+                              
                            </div>
                         </fieldset>
 						
@@ -81,7 +72,6 @@
                            <table id="bootstrap-table" class="table">
                               <thead>
                                  <th>S.no</th>
-                                 <th>Circular Type</th>
 								  <th>Circular Title</th>
                                  <th>Status</th>
 								 <th>Actions</th>
@@ -94,7 +84,7 @@
                                      ?>
                                  <tr>
                                     <td><?php  echo $i; ?></td>
-                                    <td><?php  echo $rows->circular_type; ?></td>
+                                  
                                     <td><?php  echo $rows->circular_title; ?> </td>
 									<td><?php 
 									  if($stu=='Active'){?>

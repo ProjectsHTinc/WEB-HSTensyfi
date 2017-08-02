@@ -43,12 +43,11 @@ class Circular extends CI_Controller
 			$user_type=$this->session->userdata('user_type');
 			
 			$year_id=$this->input->post('year_id');
-			$ctype=$this->db->escape_str($this->input->post('ctype'));
 			$ctile=$this->db->escape_str($this->input->post('ctitle'));
 			$cdescription=$this->db->escape_str($this->input->post('cdescription'));
 	        $status=$this->input->post('status'); 
 			
-			  $datas=$this->circularmodel->create_circular_masters($year_id,$ctype,$ctile,$cdescription,$status,$user_id);
+			  $datas=$this->circularmodel->create_circular_masters($year_id,$ctile,$cdescription,$status,$user_id);
 			  //print_r($datas);exit;
 			  if($datas['status']=="success")
 			  {
@@ -87,12 +86,12 @@ class Circular extends CI_Controller
 		
 		$year_id=$this->input->post('year_id');
 		$cid=$this->input->post('cid');
-		$ctype=$this->db->escape_str($this->input->post('ctype'));
+		
 		$ctile=$this->db->escape_str($this->input->post('ctitle'));
 		$cdescription=$this->db->escape_str($this->input->post('cdescription'));
 		$status=$this->input->post('status'); 
 		
-		  $datas=$this->circularmodel->update_circular_masters($cid,$year_id,$ctype,$ctile,$cdescription,$status,$user_id);
+		  $datas=$this->circularmodel->update_circular_masters($cid,$year_id,$ctile,$cdescription,$status,$user_id);
 		  //print_r($datas);exit;
 		  if($datas['status']=="success")
 		  {
@@ -160,9 +159,9 @@ class Circular extends CI_Controller
 	  public function get_description_list()
 	  {
 		   $ctitle=$this->db->escape_str($this->input->post('ctitle'));
-		   $ctype=$this->db->escape_str($this->input->post('ctype'));
+		   //$ctype=$this->db->escape_str($this->input->post('ctype'));
 		   //echo $ctype;exit;
-		   $data=$this->circularmodel->get_circular_description_lists($ctitle,$ctype);
+		   $data=$this->circularmodel->get_circular_description_lists($ctitle);
 		   echo json_encode($data);
 	  }
 	  
@@ -204,25 +203,75 @@ class Circular extends CI_Controller
       $notes=$this->db->escape_str($this->input->post('notes'));
 	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
 	  $status=$this->input->post('status'); 
-      //echo $citrcular_type; 
 	  
-      $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$citrcular_type,$status,$user_id);
+      //print_r($citrcular_type);
+	 $acount=count($citrcular_type);
+	 
+	 if($acount==1){
+	  $ct1=$citrcular_type[0];
+	 }
+	  if($acount==2){
+	  $ct1=$citrcular_type[0];
+	  $ct2=$citrcular_type[1];
+	  }
+	   if($acount==3){
+	  $ct0=$citrcular_type[0];
+	  $ct1=$citrcular_type[1];
+	  $ct2=$citrcular_type[2];
+	   }
+
+      $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id);
       
 	  //------------------------------SMS & MAIL & NOTIFICATION--------------------------------------------
 	  
-	  if($citrcular_type=='SMS')
+	  if($acount==3)
 	  {
 	   $datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
-	  }
-	  if($citrcular_type=='Mail')
+	   $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+	   $datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id);
+	  } 
+	  if($acount==2)
 	  {
-		 $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+		  $ct1=$citrcular_type[0];
+	      $ct2=$citrcular_type[1];
+		  
+		  if($ct1=='SMS' && $ct2=='Mail')
+		  {
+			  $datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+	          $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id);
+		  }
+		  if($ct1=='SMS' && $ct2=='Notification')
+		  {
+			$datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+			
+			$datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id);  
+		  }
+		  if($ct1=='Mail' && $ct2=='Notification')
+		  {
+			 $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+			 $datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id);   
+		  }
+		  
 	  }
-	  if($citrcular_type == 'Notification')
-	     {
-	       $datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id);
-	     } 
-	 
+	  if($acount==1)
+	  {
+		  $ct=$citrcular_type[0];
+		  if($ct=='SMS')
+		  {
+			  $datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+		  }
+		  if($ct=='Notification')
+		  {
+			  $datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id);  
+		  }
+		  if($ct=='Mail')
+		  {
+			  $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+		  }
+		  
+	  }
+
+
 	  //----------------------------------------------------------------------------------------------
 	  
 	  //print_r($datas); exit;
