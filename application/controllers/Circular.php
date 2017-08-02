@@ -183,9 +183,9 @@ class Circular extends CI_Controller
 	  
       public function create()
       {
-      $datas=$this->session->userdata();
-      $user_id=$this->session->userdata('user_id');
-      $user_type=$this->session->userdata('user_type');
+		  $datas=$this->session->userdata();
+		  $user_id=$this->session->userdata('user_id');
+		  $user_type=$this->session->userdata('user_type');
       if($user_type==1)
       {
       $users_id=$this->input->post('users');
@@ -268,12 +268,8 @@ class Circular extends CI_Controller
 		  {
 			  $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
 		  }
-		  
 	  }
-
-
 	  //----------------------------------------------------------------------------------------------
-	  
 	  //print_r($datas); exit;
 	  if($datas['status']=="success")
 	  { 
@@ -281,8 +277,9 @@ class Circular extends CI_Controller
 	  }else{
          echo "Something went wrong!";
       }
-
-      }
+      }else{
+		  redirect('/');
+		  }
      }
    
 		
