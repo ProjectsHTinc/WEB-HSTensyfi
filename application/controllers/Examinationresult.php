@@ -210,7 +210,7 @@ class Examinationresult extends CI_Controller
         //print_r($datas);exit;
         if ($datas['status']=="success") {
             $this->session->set_flashdata('msg', 'Added Successfully');
-            redirect('examinationresult/view_exam_name_marks',$datas);
+            redirect('examinationresult/marks_details_view?var='.$exam_id.'',$datas);
                  
         }if($datas['status']=="Already Added"){
 			$this->session->set_flashdata('msg', 'Already Added');

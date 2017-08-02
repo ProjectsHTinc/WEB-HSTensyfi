@@ -278,7 +278,7 @@ Class Examinationresultmodel extends CI_Model
     }
     
     function exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id,$eflag,$total_marks)
-    {   echo $eflag; 
+    {   
 	 if($eflag==0)
 	 {
         $check="SELECT * FROM edu_exam_marks WHERE exam_id='$exam_id' AND subject_id='$subid' AND classmaster_id='$clsmastid'";

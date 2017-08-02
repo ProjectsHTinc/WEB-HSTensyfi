@@ -131,7 +131,7 @@
 										</td><td></td>
 										<?php }else{?>
 										<td style="width: 30%;">
-										<input style="width:60%;" type="text" maxlength="2" name="total_marks[]"  class="form-control inputBox2"/>
+										<input style="width:60%;" type="text" maxlength="3" name="total_marks[]"  class="form-control inputBox2"/>
                             <input type="hidden" name="eflag" value="<?php echo $eflag;?>" class="form-control"/>
 										</td>
 										<td></td><td></td>
