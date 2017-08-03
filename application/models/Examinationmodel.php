@@ -50,7 +50,16 @@ Class Examinationmodel extends CI_Model
          return $resultset->result();
 	 }
 
-
+       function getall_exam_details($exam_id)
+        {
+			$sql = "SELECT ed.exam_id,ex.exam_id,ex.exam_flag,ex.status FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By ed.exam_id";
+			$resultset1 = $this->db->query($sql);
+			$res        = $resultset1->result();
+			return $res;
+         }
+ 
+	   
+	
     function exam_details($exam_year,$exam_name,$exam_flag,$status)
     {
 	  $check_exam_name="SELECT * FROM edu_examination WHERE exam_name='$exam_name' AND exam_year='$exam_year'";
