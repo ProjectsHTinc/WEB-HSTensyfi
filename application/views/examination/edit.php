@@ -72,8 +72,8 @@
                                  <label class="col-sm-2 control-label">Exam Type</label>
                                    <div class="col-sm-4">
                                    <select  name="exam_flag" id="exam_flag" class="selectpicker"  class="form-control">
-                                                <option value="0">Internal/External</option>
-                                                <option value="1">Total</option>
+                                                <option value="1">Internal/External</option>
+                                                <option value="0">Total</option>
                                               </select>
                           <script language="JavaScript">document.myformsection.exam_flag.value="<?php echo $rows->exam_flag; ?>";</script>
                                             </div>
