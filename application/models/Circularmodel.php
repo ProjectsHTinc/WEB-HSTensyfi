@@ -121,8 +121,8 @@ Class Circularmodel extends CI_Model
 		 }
 	 }
 	 
-	 function circular_create($title,$notes,$circulardate,$citrcular_type1,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id)
-	 {     //echo $citrcular_type1;
+	 function circular_create($title,$notes,$circulardate,$circular_type1,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id)
+	 {     //echo $circular_type1;
 		   $master="SELECT id,circular_title,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_description='$notes' AND status='Active'"; 
 		   $resultset=$this->db->query($master);
 		   $res=$resultset->result();
@@ -142,7 +142,7 @@ Class Circularmodel extends CI_Model
 				//echo $classid; 
 				
 				$cirmat=$cm;
-				$citrcular_type2=$citrcular_type1;
+				$circular_type2=$circular_type1;
 				$status1=$status;
 				$circulardate1=$circulardate;
 				
@@ -155,7 +155,7 @@ Class Circularmodel extends CI_Model
 				{
 				  $sid=$row1->user_id;
 				 // echo $sid; 
-		$query1="INSERT INTO edu_circular(user_type,user_id,circular_master_id,	citrcular_type,circular_date,status,created_by,created_at) VALUES ('3','$sid','$cirmat','$citrcular_type2','$circulardate1','$status1','$user_id1',NOW())";
+		$query1="INSERT INTO edu_circular(user_type,user_id,circular_master_id,	circular_type,circular_date,status,created_by,created_at) VALUES ('3','$sid','$cirmat','$circular_type2','$circulardate1','$status1','$user_id1',NOW())";
 		          $students=$this->db->query($query1);
 				 }
 			
@@ -178,7 +178,7 @@ Class Circularmodel extends CI_Model
 				$classid=$pusers_id[$i];
 				
 				$cirmat=$cm;
-				$citrcular_type2=$citrcular_type1;
+				$circular_type2=$circular_type1;
 				$status1=$status;
 				$circulardate1=$circulardate;
 				$user_id1=$user_id;
@@ -189,7 +189,7 @@ Class Circularmodel extends CI_Model
 			    foreach($res as $row)
 				{
 				  $pid=$row->user_id;
-				  $query2="INSERT INTO edu_circular(user_type,user_id,circular_master_id,citrcular_type,circular_date,status,created_by,created_at) VALUES ('4','$pid','$cirmat','$citrcular_type2','$circulardate1','$status1','$user_id1',NOW())";
+				  $query2="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_type,circular_date,status,created_by,created_at) VALUES ('4','$pid','$cirmat','$circular_type2','$circulardate1','$status1','$user_id1',NOW())";
 		          $parents=$this->db->query($query2);
 				 }
 			
@@ -209,12 +209,12 @@ Class Circularmodel extends CI_Model
 				$userid=$tusers_id[$i];
 				
 				$cirmat=$cm;
-				$citrcular_type2=$citrcular_type1;
+				$circular_type2=$circular_type1;
 				
 				$status1=$status;
 				$circulardate1=$circulardate;
 				$user_id1=$user_id;
-			    $query3="INSERT INTO edu_circular(user_type,user_id,circular_master_id,citrcular_type,circular_date,status,created_by,created_at) VALUES ('2','$userid','$cirmat','$citrcular_type2','$circulardate1','$status1','$user_id1',NOW())";
+			    $query3="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_type,circular_date,status,created_by,created_at) VALUES ('2','$userid','$cirmat','$circular_type2','$circulardate1','$status1','$user_id1',NOW())";
 		         $teacher=$this->db->query($query3); 
 			 }
 			 if($teacher){
@@ -232,12 +232,12 @@ Class Circularmodel extends CI_Model
 			foreach($result1 as $rows){
 			$userid=$rows->user_id; 
 			$cirmat=$cm;
-			$citrcular_type2=$citrcular_type1;
+			$circular_type2=$circular_type1;
 			$status1=$status;
             $circulardate1=$circulardate;
             $users_id1=$users_id;
 			$user_id1=$user_id;
-			$query4="INSERT INTO edu_circular(user_type,user_id,circular_master_id,citrcular_type,circular_date,status,created_by,created_at) VALUES ('$users_id1','$userid','$cirmat','$citrcular_type2','$circulardate1','$status1','$user_id1',NOW())";
+			$query4="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_type,circular_date,status,created_by,created_at) VALUES ('$users_id1','$userid','$cirmat','$circular_type2','$circulardate1','$status1','$user_id1',NOW())";
 			$resultset=$this->db->query($query4);
 			 }	 
 		  if($resultset){
@@ -250,17 +250,17 @@ Class Circularmodel extends CI_Model
 
 	 function get_all_circular()
 	 {
-		 $query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.circular_date,cm.*,u.user_id,u.name FROM edu_circular AS c,edu_users AS u,edu_circular_master AS cm WHERE cm.	id=c.circular_master_id AND c.user_id=u.user_id AND cm.status='Active'";
+		 $query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.circular_date,c.circular_type,cm.*,u.user_id,u.name FROM edu_circular AS c,edu_users AS u,edu_circular_master AS cm WHERE cm.	id=c.circular_master_id AND c.user_id=u.user_id AND cm.status='Active'";
          $res=$this->db->query($query);
          $result1=$res->result();
 		 return $result1;
 		 //return $result1[0]->teaher_id;
 	 }
 	 
-	 function get_parents_circular()
+	 function get_parents_circular() 
 	 {
 		 //$query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.	circular_date,cm.*,u.user_id,u.user_type,u.user_master_id,u.name FROM edu_circular AS c,edu_users AS u,edu_circular_master AS cm WHERE c.user_type=4 AND u.user_type=c.user_type AND cm.id=c.circular_master_id AND c.user_id=u.user_id AND cm.status='Active'";
-		 $query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.	circular_date,cm.*,u.user_id,u.user_type,u.user_master_id,u.parent_id,a.admission_id,a.parnt_guardn_id,a.admisn_no,e.admission_id,e.admisn_no,e.class_id FROM edu_circular AS c,edu_users AS u,edu_admission AS a,edu_enrollment AS e,edu_circular_master AS cm WHERE c.user_type=4 AND u.user_type=c.user_type AND cm.id=c.circular_master_id AND c.user_id=u.user_id AND u.user_master_id=a.parnt_guardn_id AND u.parent_id=a.parnt_guardn_id AND a.admission_id=e.admission_id AND a.admisn_no=e.admisn_no AND cm.status='Active' GROUP BY e.class_id,cm.circular_title,cm.circular_type,c.circular_date";
+		 $query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.	circular_date,c.circular_type,cm.*,u.user_id,u.user_type,u.user_master_id,u.parent_id,a.admission_id,a.parnt_guardn_id,a.admisn_no,e.admission_id,e.admisn_no,e.class_id FROM edu_circular AS c,edu_users AS u,edu_admission AS a,edu_enrollment AS e,edu_circular_master AS cm WHERE c.user_type=4 AND u.user_type=c.user_type AND cm.id=c.circular_master_id AND c.user_id=u.user_id AND u.user_master_id=a.parnt_guardn_id AND u.parent_id=a.parnt_guardn_id AND a.admission_id=e.admission_id AND a.admisn_no=e.admisn_no AND cm.status='Active' GROUP BY e.class_id,cm.circular_title,c.circular_type,c.circular_date";
          $res=$this->db->query($query);
          $result1=$res->result();
 		 return $result1;
@@ -269,7 +269,7 @@ Class Circularmodel extends CI_Model
 	 
 	 function get_students_circular()
 	 {
-		 $query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.	circular_date,cm.*,u.user_id,u.user_type,u.user_master_id,u.student_id,a.admission_id,a.admisn_no,e.admission_id,e.admisn_no,e.class_id FROM edu_circular AS c,edu_users AS u,edu_admission AS a,edu_enrollment AS e,edu_circular_master AS cm WHERE c.user_type=3 AND u.user_type=c.user_type AND cm.id=c.circular_master_id AND c.user_id=u.user_id AND u.user_master_id=a.admission_id AND u.student_id=a.admission_id AND a.admission_id=e.admission_id AND a.admisn_no=e.admisn_no AND cm.status='Active' GROUP BY e.class_id,cm.circular_title,cm.circular_type,c.circular_date";
+		 $query="SELECT c.id,c.user_type,c.user_id,c.circular_master_id,c.	circular_date,c.circular_type,cm.*,u.user_id,u.user_type,u.user_master_id,u.student_id,a.admission_id,a.admisn_no,e.admission_id,e.admisn_no,e.class_id FROM edu_circular AS c,edu_users AS u,edu_admission AS a,edu_enrollment AS e,edu_circular_master AS cm WHERE c.user_type=3 AND u.user_type=c.user_type AND cm.id=c.circular_master_id AND c.user_id=u.user_id AND u.user_master_id=a.admission_id AND u.student_id=a.admission_id AND a.admission_id=e.admission_id AND a.admisn_no=e.admisn_no AND cm.status='Active' GROUP BY e.class_id,cm.circular_title,c.circular_type,c.circular_date";
          $res=$this->db->query($query);
          $result1=$res->result();
 		 return $result1; 

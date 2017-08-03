@@ -100,20 +100,23 @@
 							{
 								$im=$s->internal_mark;
 								$em=$s->external_mark;
-								if($im==0 && $em==0)
+								foreach($result as $flag){} $ef=$flag->exam_flag;
+								if($ef!=0)
 								{
-							   echo'<span class="combat">';
-							   echo "&nbsp";
-							 echo '<span class="grade2">'; echo $s->total_marks; echo "&nbsp"; echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
-								echo'</span>';
+							      echo'<span class="combat">';
+							      echo "&nbsp";
+							      echo '<span class="grade2">'; echo $s->total_marks; echo "&nbsp"; echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
+								  echo'</span>';
 							}else{
-								 echo '<span class="grade">'; echo $s->internal_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
-							echo "&nbsp";
-							echo '<span class="grade1">'; echo $s->external_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>';
+							    echo '<span class="grade">'; echo $s->internal_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
+						      	echo "&nbsp";
+						     	echo '<span class="grade1">'; echo $s->external_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>';
+							
 								echo'<span class="combat">';
 							   echo "&nbsp";
 							 echo '<span class="grade2">'; echo $s->total_marks; echo "&nbsp"; echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
-								echo'</span>';}
+								echo'</span>';
+							}
 							}else{
 								'<form method="post" class="form-horizontal" enctype="multipart/form-data" id="markform">';
 								echo '<input required style="width:50%;" type="text" readonly name="totalmarks" class="form-control"/>';
@@ -156,7 +159,7 @@
           var sum = 0;
         $(this).find('.combat').each(function () {
             var combat = $(this).text();
-            if (combat !='NA'&& combat.length!==0) {
+            if (combat !='NA' && combat.length!==0) {
                 sum += parseInt(combat);
             }
         });

@@ -8,11 +8,10 @@ class Circular extends CI_Controller
       $this->load->model('circularmodel');
       $this->load->model('subjectmodel');
       $this->load->model('class_manage');
-	   $this->load->model('smsmodel');
-	   $this->load->model('mailmodel');
-	   $this->load->model('notificationmodel');
+	  $this->load->model('smsmodel');
+	  $this->load->model('mailmodel');
+	  $this->load->model('notificationmodel');
       $this->load->helper('url');
-	   
       $this->load->library('session');
       }
 	  //-------------------------------Create Circular Master--------------------------
@@ -203,18 +202,23 @@ class Circular extends CI_Controller
       $notes=$this->db->escape_str($this->input->post('notes'));
 	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
 	  $status=$this->input->post('status'); 
+	  
+	  if(empty($citrcular_type)){
+		$citrcular_type1="null";
+	  }else{
 	  $citrcular_type1=implode(',',$citrcular_type);
-      //echo $citrcular_type1;exit;
-	 $acount=count($citrcular_type);
+	  }
+	  
+	  $acount=count($citrcular_type);
 	 
-	 if($acount==1){
+	  if($acount==1){
 	  $ct1=$citrcular_type[0];
-	 }
+	  }
 	  if($acount==2){
 	  $ct1=$citrcular_type[0];
 	  $ct2=$citrcular_type[1];
 	  }
-	   if($acount==3){
+	  if($acount==3){
 	  $ct0=$citrcular_type[0];
 	  $ct1=$citrcular_type[1];
 	  $ct2=$citrcular_type[2];

@@ -147,6 +147,14 @@ Class Studentmodel extends CI_Model
 
 		}
 
+       function getall_exam_details($exam_id)
+        {
+			$sql = "SELECT ed.exam_id,ex.exam_id,ex.exam_flag,ex.status FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By ed.exam_id";
+			$resultset1 = $this->db->query($sql);
+			$res        = $resultset1->result();
+			return $res;
+         }
+         
 
 	   function get_student_user($user_id){
        $get_enroll_id="SELECT ed.name,ed.student_id,ea.admisn_year,ea.admisn_no,ee.enroll_id FROM edu_users AS ed LEFT JOIN edu_admission AS ea ON ed.student_id=ea.admission_id

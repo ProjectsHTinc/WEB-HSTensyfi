@@ -26,9 +26,14 @@
                                     <thead>
 									 <th>Sno</th>
 									 <th>Subject Name</th>
-									 <th>Internal Marks</th>
-									 <th>External Marks</th>
-									 <th>Total Marks</th>
+									 <?php foreach($eflag as $erows) { $ex_flag=$erows->exam_flag; }
+						             if($ex_flag==0) { ?>	
+                					 <th>Internal Marks</th>
+                					 <th>External Marks</th>
+                					 <th>Total Marks</th>
+                					 <?php }else{?>
+                					 <th>Total Marks</th>
+                					 <?php }?>
                                     </thead>
                                     <tbody>
 									<?php
@@ -45,19 +50,41 @@
 										 $sec=$row[0]->subject_name;
                                              echo $sec;
                     						  ?> </td>
+                    			<?php foreach($eflag as $erows) { $ex_flag=$erows->exam_flag; }
+						  if($ex_flag==0) { ?>	 
 						 <td><?php echo $rows->internal_mark; ?> ( <span class="grade"><?php echo $rows->internal_grade; ?>  )</span></td> 
 						 <td><?php echo $rows->external_mark; ?> (  <span class="grade"><?php echo $rows->external_grade; ?>  )</span></td>
 						 <td>
 						  <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
 						  <?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
+						  <?php }else{ ?>
+						  <td>
+						  <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
+						  <?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
+						   <?php } ?>
 										</tr>
 										 <?php $i++;  } 
 										}else{ echo "No exam added for any class";}	?>
-										<td></td><td></td><td></td>
+										
+										 <?php if($ex_flag==1) { ?>
+					                 <td></td>
 										<?php if(!empty($result)){ ?>
 										 <td>TOTAL</td>
-										<td> <p id="totals"> </p> </td>
+										<td>
+										      <p id="totals"></p>
+										  </td>
 										<?php }else{ echo"";}?>
+									<?php }else{ ?>
+									
+									<td></td><td></td><td></td>
+										<?php if(!empty($result)){ ?>
+										 <td>TOTAL</td>
+										<td>
+										      <p id="totals"></p>
+										  </td>
+										<?php }else{ echo"";}?>
+										
+									<?php } ?>
 										
                                     </tbody>
                                 </table>

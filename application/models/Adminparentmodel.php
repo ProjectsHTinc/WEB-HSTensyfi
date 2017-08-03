@@ -134,7 +134,14 @@ Class Adminparentmodel extends CI_Model
 			$res1=$resultset1->result();
             return $res1;
 		}
-
+        
+        function getall_exam_details($exam_id)
+        {
+			$sql = "SELECT ed.exam_id,ex.exam_id,ex.exam_flag,ex.status FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By ed.exam_id";
+			$resultset1 = $this->db->query($sql);
+			$res        = $resultset1->result();
+			return $res;
+         }
 
 	  function get_all_classid($user_id)
 	  {   //echo $user_id;
