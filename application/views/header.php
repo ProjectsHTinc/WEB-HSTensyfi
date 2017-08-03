@@ -140,7 +140,7 @@
          </div>
       </nav>
       <div class="sidebar sidemenu">
-         
+
          <div class="sidebar-wrapper" style="background-color:#323546;">
             <div class="user" style="margin-top:10px;">
                <div class="imgclass photo" style="margin-left:20px;">
@@ -207,7 +207,7 @@
                   </div>
                </li>
                <li id="activities">
-                  <a data-toggle="collapse" href="#curricular"> 
+                  <a data-toggle="collapse" href="#curricular">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/extracurricular.png"/>
                      <p>Extra-Co curricular</p>
                      <b class="caret"></b>
@@ -326,6 +326,19 @@
                         <li id="communication1"><a href="<?php echo base_url(); ?>circular/add_circular">Add Circular </a></li>
                         <li id="communication2"><a href="<?php echo base_url(); ?>circular/view_circular">View Circular </a></li>
                         <li id="communication3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
+                     </ul>
+                  </div>
+               </li>
+               <li id="grouping">
+                  <a data-toggle="collapse" href="#groupingmenu">
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
+                     <p>Grouping</p>
+                     <b class="caret"></b>
+                  </a>
+                  <div class="collapse" id="groupingmenu">
+                     <ul class="nav">
+                        <li id="group1"><a href="<?php echo base_url(); ?>grouping/home">Create</a></li>
+                        <li id="group2"><a href="<?php echo base_url(); ?>grouping/view">View Grouping</a></li>
                      </ul>
                   </div>
                </li>

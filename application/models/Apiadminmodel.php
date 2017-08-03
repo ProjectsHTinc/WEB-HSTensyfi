@@ -117,9 +117,9 @@ class Apiadminmodel extends CI_Model {
 								$admit_id = $rows->admission_id;
 								  $parent_id = $rows->parnt_guardn_id;
 							}
-   
+
                         $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
-                     
+
 						$father_res = $this->db->query($father_query);
 						$father_profile = $father_res->result();
 
@@ -357,7 +357,7 @@ class Apiadminmodel extends CI_Model {
             //#################### GET   TEACHER CLASS DETAILS  ####################//
             function get_teacher_class_details($teacher_id){
                 $year_id = $this->getYear();
-                
+
                 $teacher_query = "SELECT t.teacher_id,t.name,t.sex,t.age,t.nationality,t.religion,t.community_class, t.community,t.address,t.email,t.phone,t.sec_email,t.sec_phone,t.profile_pic,t.update_at,t.subject,t.class_name AS class_taken,t.class_teacher FROM edu_teachers AS t WHERE t.teacher_id = '$teacher_id'";
 				$teacher_res = $this->db->query($teacher_query);
 				$teacher_profile = $teacher_res->result();
@@ -543,7 +543,9 @@ class Apiadminmodel extends CI_Model {
                 foreach($result as $rows){   }
                 $class_master_id=$rows->class_sec_id;
                 $year_id=$this->getYear();
-                $query="SELECT eths.teacher_id,et.name,et.sex,c.class_name,s.sec_name,esu.subject_name,et.class_teacher,et.subject FROM edu_teacher_handling_subject AS eths  LEFT JOIN edu_teachers AS et ON eths.teacher_id=et.teacher_id LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id  LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_subject AS esu ON et.subject=esu.subject_id WHERE eths.class_master_id='$class_master_id' AND eths.status='Active' GROUP BY eths.teacher_id";
+                $query="SELECT eths.subject_id,eths.teacher_id,et.name,esu.subject_name FROM edu_teacher_handling_subject AS eths
+LEFT JOIN edu_teachers AS et ON eths.teacher_id=et.teacher_id LEFT JOIN edu_subject AS esu ON eths.subject_id=esu.subject_id
+WHERE eths.class_master_id='$class_master_id' AND eths.status='Active' ";
                 $result_query=$this->db->query($query);
                 if($result_query->num_rows()==0){
                     $data=array("status"=>"error","msg"=>"nodata");
