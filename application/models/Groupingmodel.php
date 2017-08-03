@@ -50,7 +50,7 @@ Class Groupingmodel extends CI_Model
           function get_all_grouping()
           {
              $year_id=$this->getYear();
-             $query="SELECT egm.*,et.name FROM edu_grouping_master AS egm LEFT JOIN edu_teachers AS et ON egm.group_lead_id=et.teacher_id WHERE year_id='$year_id'";
+             $query="SELECT egm.*,et.name FROM edu_grouping_master AS egm LEFT JOIN edu_teachers AS et ON egm.group_lead_id=et.teacher_id WHERE year_id='$year_id' order by id desc";
              $res=$this->db->query($query);
              return $res->result();
 
@@ -65,7 +65,7 @@ Class Groupingmodel extends CI_Model
 
           function view_members_in_groups($id){
             $query="SELECT eg.group_member_id,ee.class_id,ee.name,c.class_name,s.sec_name,eg.status,eg.id FROM edu_grouping_members  AS eg
-            LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eg.group_member_id LEFT JOIN edu_classmaster AS cm ON ee.class_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id WHERE group_title_id='$id'";
+            LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eg.group_member_id LEFT JOIN edu_classmaster AS cm ON ee.class_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id WHERE group_title_id='$id' order by id desc";
             $res=$this->db->query($query);
             return $res->result();
           }
