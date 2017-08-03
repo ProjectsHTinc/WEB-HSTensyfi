@@ -203,9 +203,9 @@
         }
         });
    }
-    //  $('#select_all').click(function() {
-    //         $('#lstBox2 option').prop('selected', true);
-    //     });
+     $('#select_all').click(function() {
+            $('#lstBox2 option').prop('selected', true);
+        });
    (function () {
        $('#btnRight').click(function (e) {
            var selectedOpts = $('#lstBox1 option:selected');
@@ -278,7 +278,7 @@
          },
        submitHandler: function(form) {
          //alert("hi");
-         $('#lstBox2 option').prop('selected', true);
+
          swal({
                        title: "Are you sure?",
                        text: "You Want confirm  this form",
