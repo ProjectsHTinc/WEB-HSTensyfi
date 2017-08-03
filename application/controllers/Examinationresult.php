@@ -205,7 +205,7 @@ class Examinationresult extends CI_Controller
         $external_marks = $this->input->post('external_marks');
         $total_marks = $this->input->post('total_marks');
 		$eflag=$this->input->post('eflag');
-		
+		//echo $eflag;exit;
 		//print_r($total_marks);exit;
         $datas = $this->examinationresultmodel->exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks, $external_marks,$user_id,$eflag,$total_marks);
         //print_r($datas);exit;

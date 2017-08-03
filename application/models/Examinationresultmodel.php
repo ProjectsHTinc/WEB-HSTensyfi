@@ -279,7 +279,7 @@ Class Examinationresultmodel extends CI_Model
     
     function exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id,$eflag,$total_marks)
     {   
-	 if($eflag==0)
+	 if($eflag==1)
 	 {
         $check="SELECT * FROM edu_exam_marks WHERE exam_id='$exam_id' AND subject_id='$subid' AND classmaster_id='$clsmastid'";
 		$result1=$this->db->query($check);
@@ -544,8 +544,8 @@ Class Examinationresultmodel extends CI_Model
     }
     
     function update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id,$eflag,$total_marks)
-    {
-       if($eflag==0){
+    {  //echo $eflag;exit;
+       if($eflag==1){
         $count_name = count($external_marks);
         for ($i = 0; $i < $count_name; $i++) {
             $user_id1   = $user_id;

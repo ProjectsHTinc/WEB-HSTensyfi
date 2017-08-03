@@ -101,7 +101,7 @@
 								$im=$s->internal_mark;
 								$em=$s->external_mark;
 								foreach($result as $flag){} $ef=$flag->exam_flag;
-								if($ef!=0)
+								if($ef==0)
 								{
 							      echo'<span class="combat">';
 							      echo "&nbsp";

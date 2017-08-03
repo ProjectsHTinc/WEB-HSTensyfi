@@ -28,7 +28,7 @@
 					 <th>Sno</th>
 					 <th>Subject Name</th>
 					 <?php foreach($eflag as $erows) { $ex_flag=$erows->exam_flag; }
-						  if($ex_flag==0) { ?>	
+						  if($ex_flag==1) { ?>	
 					 <th>Internal Marks</th>
 					 <th>External Marks</th>
 					 <th>Total Marks</th>
@@ -51,7 +51,7 @@
 						 $sec=$row[0]->subject_name; echo $sec;
 						?> </td>
 						 <?php foreach($eflag as $erows) { $ex_flag=$erows->exam_flag; }
-						  if($ex_flag==0) { ?>	  
+						  if($ex_flag==1) { ?>	  
 						 <td><?php echo $rows->internal_mark; ?> ( <span class="grade"><?php echo $rows->internal_grade; ?>  )</span></td> 
 						 <td><?php echo $rows->external_mark; ?> (  <span class="grade"><?php echo $rows->external_grade; ?>  )</span></td>
 						 <td>
@@ -66,7 +66,7 @@
 						 <?php $i++;  } 
 						}else{ echo "<p style=text-align:center;color:red;>No exam added for any class </p>";}	
 						?>             
-						          <?php if($ex_flag==1) { ?>
+						          <?php if($ex_flag==0) { ?>
 					                 <td></td>
 										<?php if(!empty($result)){ ?>
 										 <td>TOTAL</td>

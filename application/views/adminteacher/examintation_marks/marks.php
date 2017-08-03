@@ -52,7 +52,7 @@
 										foreach($res as $row)
 										      { 
 											 foreach($result as $flag){} $eflag=$flag->exam_flag;$id=$flag->exam_id; }
-											if($eflag==0){ 
+											if($eflag==1){ 
 											?>
 											<input type="hidden" name="examid" value="<?php echo $id;?>" />
 								<th> Internal <?php echo $row->subject_name; ?> Marks
@@ -78,7 +78,7 @@
 										foreach($mark as $rows){?>
 										<tr>
 										<?php foreach($result as $flag){} $eflag=$flag->exam_flag;
-										if($eflag==0){?>
+										if($eflag==1){?>
 										<td style="width:05%;"><?php echo $i;?></td>
 										<td style="width:15%;">
 										<?php  $stdid=$rows->stu_id;
@@ -122,7 +122,8 @@
                                         <input type="hidden" name="clsmastid" value="<?php echo $row->class_id; ?>" />
 										</td>
 										<?php foreach($result as $flag){} $eflag=$flag->exam_flag;
-										if($eflag==0){?>
+										if($eflag==1){?>
+										<input type="hidden" name="eflag" value="<?php echo $eflag;?>" class="form-control"/>
 										<td style="width: 30%;">
 										<input style="width:60%;" type="text" maxlength="2" name="internal_marks[]"  class="form-control inputBox"/>
 										</td>
@@ -133,7 +134,7 @@
 										<?php }else{?>
 										<td style="width: 30%;">
 										<input style="width:60%;" type="text" maxlength="3" required name="total_marks[]"  class="form-control inputBox2"/>
-                            <input type="hidden" name="eflag" value="<?php echo $eflag;?>" class="form-control"/>
+                                     <input type="hidden" name="eflag" value="<?php echo $eflag;?>" class="form-control"/>
 										</td>
 										<td></td><td></td>
 											  <?php }?>

@@ -101,7 +101,7 @@
 							if(!empty($s))
 							{
 								foreach($eflag as $erow){ $ef=$erow->exam_flag; }
-								if($ef==0)
+								if($ef==1)
 								{
 									echo '<span class="grade">'; echo $s->internal_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
 									echo "&nbsp";

@@ -25,7 +25,7 @@
                               <?php
                               foreach($edit as $row)
                                  { foreach($result as $flag){} $eflag=$flag->exam_flag; }
-								 if($eflag==0){?>
+								 if($eflag==1){?>
                               <th>Internal <?php echo $row->subject_name;?></th>
                               <th>External <?php echo $row->subject_name;?></th>
                               <?php 
@@ -52,7 +52,7 @@
                                     <input type="hidden" name="clsmastid" value="<?php echo $row->classmaster_id; ?>" />
                                  </td>
                                  <?php if(!empty($mark)){ 
-								       if($eflag==0){
+								       if($eflag==1){
                                   ?>
                                  <td>
                                     <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
@@ -66,7 +66,7 @@
                                  </td>
 									  <?php }
 									   }else{
-									 if($eflag==0){?>
+									 if($eflag==1){?>
                                  <td>
 								   <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox"/>
 								 </td>
