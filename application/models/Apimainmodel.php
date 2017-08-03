@@ -214,7 +214,7 @@ class Apimainmodel extends CI_Model {
 							$stud_result= $stud_res->result();
 						} 
 											
-					 $exam_query = "SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+					 $exam_query = "SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
 						FROM edu_examination ex
@@ -228,7 +228,7 @@ class Apimainmodel extends CI_Model {
 						
 						UNION ALL
 						
-						SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+						SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
 						FROM edu_examination ex
@@ -678,7 +678,7 @@ class Apimainmodel extends CI_Model {
 			$year_id = $this->getYear();
 
 			 $circular_query = "SELECT
-                                B.circular_type,
+                                A.circular_type,
                                 B.circular_title,
                                 B.circular_description,
                                 A.circular_date

@@ -195,10 +195,12 @@ class Apistudent extends CI_Controller {
 
 		$stud_id= '';
 		$exam_id= '';
+		$exam_flag= '';
 		$stud_id = $this->input->post("stud_id");
 		$exam_id = $this->input->post("exam_id");
+		$is_internal_external = $this->input->post("is_internal_external");
 
-		$data['result']=$this->apistudentmodel->dispMarkdetails($stud_id,$exam_id);
+		$data['result']=$this->apistudentmodel->dispMarkdetails($stud_id,$exam_id,$is_internal_external);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

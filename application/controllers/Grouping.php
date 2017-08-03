@@ -73,6 +73,20 @@ class Grouping extends CI_Controller {
 			}
 		}
 
+		public function edit_group($id){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==1){
+				$datas['res']=$this->groupingmodel->get_group_id($id);
+				$datas['list_of_teacher'] = $this->teachermodel->get_all_teacher();
+				$this->load->view('header');
+				$this->load->view('grouping/edit_group',$datas);
+				$this->load->view('footer');
+			}else{
+					redirect('/');
+			}
+		}
 
 
 		public function view_members($id){

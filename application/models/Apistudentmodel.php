@@ -89,7 +89,7 @@ class Apistudentmodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 			
-			$exam_query = "SELECT ex.exam_id,ed.classmaster_id,ex.exam_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate, COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
+			$exam_query = "SELECT ex.exam_id,ed.classmaster_id,ex.exam_name,ex.exam_flag AS is_internal_external,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate, COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 			CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
 			FROM edu_examination ex
 			RIGHT JOIN edu_exam_details ed on ex.exam_id = ed.exam_id and ed.classmaster_id='$class_id'
@@ -99,7 +99,7 @@ class Apistudentmodel extends CI_Model {
 			
 			UNION ALL
 			
-			SELECT ex.exam_id,ed.classmaster_id,ex.exam_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+			SELECT ex.exam_id,ed.classmaster_id,ex.exam_name,ex.exam_flag AS is_internal_external,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 			COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 			CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
 			FROM edu_examination ex
@@ -146,11 +146,16 @@ class Apistudentmodel extends CI_Model {
 
 
 //#################### Mark Details for Students and Parents ####################//
-	public function dispMarkdetails($stud_id,$exam_id)
+	public function dispMarkdetails($stud_id,$exam_id,$is_internal_external)
 	{
 			$year_id = $this->getYear();
 	
-			$mark_query = "SELECT C.exam_name,B.subject_name,A.internal_mark, A.internal_grade, A.external_mark, A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
+			if ($is_internal_external !='0') {
+				$mark_query = "SELECT C.exam_name,B.subject_name,A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
+			} else {
+				$mark_query = "SELECT C.exam_name,B.subject_name,A.internal_mark, A.internal_grade, A.external_mark, A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
+			}
+			
 			$mark_res = $this->db->query($mark_query);
 			$mark_result= $mark_res->result();
 			

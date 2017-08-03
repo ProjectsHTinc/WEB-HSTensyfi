@@ -89,9 +89,9 @@
                                     <?php } ?>
                                   </td>
                                <td>
-                                 <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>grouping/editcs/<?php  echo $rowsclass->id; ?>">
+                                 <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>grouping/edit_group/<?php  echo $rowsclass->id; ?>">
                                     <i class="fa fa-edit"></i></a>
-                                
+
                                     <a rel="tooltip" href="<?php echo base_url(); ?>grouping/view_members/<?php echo  $rowsclass->id; ?>"  title="View Members" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit">
                                     <i class="fa fa-th">  </i></a>
 

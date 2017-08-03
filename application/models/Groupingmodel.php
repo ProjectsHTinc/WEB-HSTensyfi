@@ -47,6 +47,13 @@ Class Groupingmodel extends CI_Model
       	   }
           }
 
+
+          function get_group_id($id){
+            $query="SELECT * FROM edu_grouping_master AS egm  WHERE id='$id'";
+            $res=$this->db->query($query);
+            return $res->result();
+          }
+
           function get_all_grouping()
           {
              $year_id=$this->getYear();

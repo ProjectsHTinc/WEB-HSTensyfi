@@ -223,7 +223,7 @@ class Apiteachermodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 			
-	        $exam_query = "SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+	        $exam_query = "SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 				COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 				CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
 				FROM edu_examination ex
@@ -237,7 +237,7 @@ class Apiteachermodel extends CI_Model {
 				
 				UNION ALL
 			
-				SELECT ex.exam_id,ex.exam_name, ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+				SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 				COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 				CASE WHEN ems.status='Publish' THEN 1 ELSE 0 END AS MarkStatus
 				FROM edu_examination ex
@@ -284,11 +284,16 @@ class Apiteachermodel extends CI_Model {
 
 
 //#################### Mark Details for Teachers ####################//
-	public function dispMarkdetails($class_id,$exam_id,$subject_id)
+	public function dispMarkdetails($class_id,$exam_id,$subject_id,$is_internal_external)
 	{
 			$year_id = $this->getYear();
 			
-	    	$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.internal_mark, A.internal_grade, A.external_mark,A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
+			if ($is_internal_external !='0') {
+				$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
+			} else {
+				$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.internal_mark, A.internal_grade, A.external_mark,A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
+			}
+			
 			$mark_res = $this->db->query($mark_query);
 			$mark_result= $mark_res->result();
 			
@@ -532,11 +537,45 @@ class Apiteachermodel extends CI_Model {
 //#################### Add Leave End ####################//
 
 //#################### Add Exam Marks for Teachers ####################//
-	public function addExammarks ($exam_id,$teacher_id,$subject_id,$stu_id,$classmaster_id,$internal_mark,$external_mark,$created_by)
+	public function addExammarks ($exam_id,$teacher_id,$subject_id,$stu_id,$classmaster_id,$internal_mark,$external_mark,$marks,$created_by,$is_internal_external)
 	{
 			$year_id = $this->getYear();
 
-			//Internal Marks Grade
+			if ($is_internal_external !='0') 
+			{
+				if ($marks >= 91 && $marks <= 100) { 
+					$total_grade = 'A1';
+                }
+                if ($marks >= 81 && $marks <= 90) {
+					$total_grade = 'A2';
+                }
+                if ($marks >= 71 && $marks <= 80) {
+					$total_grade = 'B1';
+                }
+                if ($marks >= 61 && $marks <= 70) {
+					$total_grade = 'B2';
+                }
+                if ($marks >= 51 && $marks <= 60) {
+					$total_grade = 'C1';
+                }
+                if ($marks >= 41 && $marks <= 50) {
+					$total_grade = 'C2';
+                }
+                if ($marks >= 31 && $marks <= 40) {
+					$total_grade = 'D';
+                }
+                if ($marks >= 21 && $marks <= 30) {
+					$total_grade = 'E1';
+                }
+                if ($marks <= 20) {
+					$total_grade = 'E2';
+                }
+				
+				 $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$marks','$total_grade','$created_by',NOW())";
+				
+			} else 	{
+				
+				//Internal Marks Grade
                 if ($internal_mark >= 37 && $internal_mark <= 40) {
                 	$internal_grade = 'A1';
                 }
@@ -626,6 +665,8 @@ class Apiteachermodel extends CI_Model {
                 }
                 
 		     $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `internal_mark`, `internal_grade`, `external_mark`, `external_grade`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$internal_mark','$internal_grade','$external_mark','$external_grade','$total_marks','$total_grade','$created_by',NOW())";
+			}
+			 
 			$marks_res = $this->db->query($marks_query);
 			$last_marksid = $this->db->insert_id();
 
@@ -687,7 +728,7 @@ class Apiteachermodel extends CI_Model {
 
     		if($Attendance_result->num_rows()>0)
     		{
-    			$response = array("status" => "error", "msg" => "Alredy Added");
+    			$response = array("status" => "AlreadyAdded", "msg" => "Already Added");
     		} else {
 
 				$attend_query = "INSERT INTO `edu_attendence`(`ac_year`, `class_id`, `class_total`, `no_of_present`, `no_of_absent`, `attendence_period`, `created_by`,`created_at`,`status`) VALUES ('$ac_year','$class_id','$class_total','$no_of_present','$no_of_absent','$attendence_period','$created_by','$created_at','$status')";

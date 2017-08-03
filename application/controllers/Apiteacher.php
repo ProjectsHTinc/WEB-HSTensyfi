@@ -286,11 +286,14 @@ class Apiteacher extends CI_Controller {
 		$exam_id = '';
 		$class_id = '';
 		$subject_id = '';
+		$is_internal_external= '';
+		
 		$class_id = $this->input->post("class_id");
 		$exam_id = $this->input->post("exam_id");
 		$subject_id = $this->input->post("subject_id");
+		$is_internal_external = $this->input->post("is_internal_external");
 		
-		$data['result']=$this->apiteachermodel->dispMarkdetails($class_id,$exam_id,$subject_id);
+		$data['result']=$this->apiteachermodel->dispMarkdetails($class_id,$exam_id,$subject_id,$is_internal_external);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -701,8 +704,10 @@ class Apiteacher extends CI_Controller {
         $classmaster_id = '';
         $internal_mark = '';
         $external_mark = '';
+		$marks = '';
         $created_by = '';
-        
+   		$is_internal_external= '';
+		
         $exam_id = $this->input->post("exam_id");
         $teacher_id = $this->input->post("teacher_id");
         $subject_id = $this->input->post("subject_id");
@@ -710,9 +715,11 @@ class Apiteacher extends CI_Controller {
         $classmaster_id = $this->input->post("classmaster_id");
         $internal_mark = $this->input->post("internal_mark");
         $external_mark = $this->input->post("external_mark");
+		$marks = $this->input->post("marks");
         $created_by = $this->input->post("user_id");
-        
-		$data['result']=$this->apiteachermodel->addExammarks($exam_id,$teacher_id,$subject_id,$stu_id,$classmaster_id,$internal_mark,$external_mark,$created_by);
+        $exam_flag = $this->input->post("is_internal_external");
+				
+		$data['result']=$this->apiteachermodel->addExammarks($exam_id,$teacher_id,$subject_id,$stu_id,$classmaster_id,$internal_mark,$external_mark,$marks,$created_by,$is_internal_external);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
