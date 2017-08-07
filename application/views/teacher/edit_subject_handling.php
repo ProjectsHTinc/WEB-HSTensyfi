@@ -3,7 +3,8 @@
   <div class="card">
     <div class="toolbar">
       <div class="header">
-          <legend>Edit Teacher Subject  <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
+          <legend>Edit Teacher Subject
+            <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
 
       </div>
     </div>

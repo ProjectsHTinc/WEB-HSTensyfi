@@ -2,7 +2,7 @@
 
 class Apimain extends CI_Controller {
 
-	
+
 	/**
 	 * Index Page for this controller.
 	 *
@@ -18,7 +18,7 @@ class Apimain extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	 
+
 	public function index()
 	{
 		$this->load->view('welcome_message');
@@ -163,7 +163,7 @@ class Apimain extends CI_Controller {
 
 		$user_id = '';
 		$password = '';
-		
+
 		$user_id = $this->input->post("user_id");
 	 	$password = $this->input->post("password");
 
@@ -180,12 +180,12 @@ class Apimain extends CI_Controller {
 	public function update_Profilepic()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-		
+
 		echo $user_id = $this->input->post("user_id");
 		echo $user_type = $this->input->post("user_type");
 		echo $user_pic = $_FILES["user_pic"]["name"];
-	
-	
+
+
 	    if($user_type==1)
 		{
 		    $uploadPicdir = 'assets/admin/profile/';
@@ -199,18 +199,18 @@ class Apimain extends CI_Controller {
 		else {
 		   $uploadPicdir = 'assets/parents/profile/';
 		}
-		
+
 		$Picture 		= pathinfo($_FILES['user_pic']['name']);
 	    $sPicture 		= "user_".$user_id.".".$Picture['extension'];
 		$uploadPic 		= $uploadPicdir . $sPicture;
 		$uploadtmpPic 	= $_FILES['user_pic']['tmp_name'];
-		move_uploaded_file($uploadtmpPic,$uploadPic);		
+		move_uploaded_file($uploadtmpPic,$uploadPic);
 
 	//	$query = mysql_query("UPDATE user_master SET user_image='$sPicture' WHERE id = '$user_id'") or die(mysql_error());
 		$response=array("status"=>"success","msg"=>"Image update successfully!!","image"=>$sPicture);
 		echo json_encode($response);
-		
-		
+
+
 /*
 		if(!$this->checkMethod())
 		{
@@ -230,11 +230,11 @@ class Apimain extends CI_Controller {
 
 		$user_id = '';
 		$user_type ='';
-		
+
 		$user_id = $this->input->post("user_id");
 		$user_type = $this->input->post("user_type");
 		$user_pic = $_FILES["user_pic"]["name"];
-	 	
+
 	 	if($user_type==1)
 		{
 		    $uploaddir = 'assets/admin/profile/';
@@ -248,11 +248,11 @@ class Apimain extends CI_Controller {
 		else {
 		   $uploaddir = 'assets/parents/profile/';
 		}
-	 	
+
         $userFileName = time().$user_pic;
         $profilepic = $uploaddir.$userFileName;
 	    move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
-	 	
+
 		$data['result']=$this->apimainmodel->updateProfilepic($user_id,$user_type,$userFileName);
 		$response = $data['result'];
 		echo json_encode($response);
@@ -260,7 +260,7 @@ class Apimain extends CI_Controller {
 	}
 
 
-    
+
 /// User Profile Pic upload
 
 
@@ -272,7 +272,7 @@ class Apimain extends CI_Controller {
      	$user_type = $user_type;
 		$profile = $_FILES["user_pic"]["name"];
 		$userFileName = time().'-'.$profile;
-		
+
 	    if($user_type==1)
 		{
 		    $uploadPicdir = 'assets/admin/profile/';
@@ -286,14 +286,14 @@ class Apimain extends CI_Controller {
 		else {
 		   $uploadPicdir = 'assets/parents/profile/';
 		}
-		
+
 		$profilepic = $uploadPicdir.$userFileName;
 		move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
-		
+
 		$data['result']=$this->apimainmodel->updateProfilepic($user_id,$user_type,$userFileName);
 		$response = $data['result'];
 		echo json_encode($response);
-		
+
 	}
 
 
@@ -323,7 +323,7 @@ class Apimain extends CI_Controller {
 		$user_id = '';
 		$old_password = '';
 		$password = '';
-		
+
 		$user_id = $this->input->post("user_id");
 		$old_password = $this->input->post("old_password");
 	 	$password = $this->input->post("password");
@@ -332,7 +332,7 @@ class Apimain extends CI_Controller {
 		$response = $data['result'];
 		echo json_encode($response);
 	}
-	
+
 
 //-----------------------------------------------//
 
@@ -424,7 +424,7 @@ class Apimain extends CI_Controller {
 
 	    $user_id = '';
 	    $user_id = $this->input->post("user_id");
-	
+
 
 
 		$data['result']=$this->apimainmodel->dispCircular($user_id);
@@ -455,7 +455,7 @@ class Apimain extends CI_Controller {
 			echo json_encode($res);
 			return;
 		}
-		
+
 		$user_type = '';
 		$user_id = '';
 		$od_for = '';
@@ -468,15 +468,15 @@ class Apimain extends CI_Controller {
 
         $user_type = $this->input->post("user_type");
 		$user_id = $this->input->post("user_id");
-        $od_for = $this->input->post("od_for"); 
+        $od_for = $this->input->post("od_for");
         $from_date = $this->input->post("from_date");
         $to_date = $this->input->post("to_date");
         $notes = $this->input->post("notes");
         $status = $this->input->post("status");
         $created_by = $this->input->post("created_by");
         $created_at = $this->input->post("created_at");
-        
-        
+
+
 		$data['result']=$this->apimainmodel->addOnduty($user_type,$user_id,$od_for,$from_date,$to_date,$notes,$status,$created_by,$created_at);
 		$response = $data['result'];
 		echo json_encode($response);
@@ -516,5 +516,5 @@ class Apimain extends CI_Controller {
 	}
 
 //-----------------------------------------------//
- 
+
 }

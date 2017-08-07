@@ -1,68 +1,15 @@
 <div class="main-panel">
 <div class="content">
        <div class="container-fluid">
-           <div class="row">
-               <div class="col-md-10">
-                   <div class="card">
-                       <div class="header">
-                           <h4 class="title">Create Grouping</h4>
-                       </div>
 
-                       <div class="content">
-                           <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" id="send_message_form">
-
-                                 <fieldset>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">Group Title</label>
-                                          <div class="col-sm-4">
-                                              <input type="text" name="group_title" class="form-control" value="">
-
-                                          </div>
-                                            </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">Group Lead</label>
-                                          <div class="col-sm-4">
-                                            <select name="group_lead"  data-title="Select" class="selectpicker form-control">
-                                              <?php foreach($list_of_teacher as $rows){ ?>
-                                                 <option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option>
-                                          <?php    } ?>
-
-
-                                           </select>
-                                          </div>
-
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-sm-2 control-label">Status</label>
-                                          <div class="col-sm-4">
-                                            <select name="status" data-title="Select status" class="selectpicker form-control">
-                                               <option value="Active">Active</option>
-                                               <option value="Deactive">De-Active</option>
-                                           </select>
-                                          </div>
-
-                                      </div>
-                                  </fieldset>
-                                        <div class="form-group">
-											                               <label class="col-sm-2 control-label">&nbsp;</label>
-                                            <div class="col-sm-4">
-                                                   <button type="submit" id="save" class="btn btn-info btn-fill center">Create</button>
-                                            </div>
-
-                                            </div>
-                                    </fieldset>
-
-                             </form>
-                       </div>
-                   </div>
-               </div>
-           </div>
 
            <div class="row">
              <div class="col-md-12">
                  <div class="card">
-                     <div class="toolbar">
-                         <div class="header">List of Grouping </div>
+                     <div class="">
+                           <div class="header">
+                              List Grouping
+                           </div>
                      </div>
 
                      <table id="bootstrap-table" class="table">
@@ -89,11 +36,10 @@
                                     <?php } ?>
                                   </td>
                                <td>
-                                 <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>grouping/edit_group/<?php  echo $rowsclass->id; ?>">
-                                    <i class="fa fa-edit"></i></a>
 
-                                    <a rel="tooltip" href="<?php echo base_url(); ?>grouping/view_members/<?php echo  $rowsclass->id; ?>"  title="View Members" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit">
-                                    <i class="fa fa-th">  </i></a>
+
+                                    <a href="#myModal" data-toggle="modal" data-target="#myModal"  data-id="<?php echo $rowsclass->id; ?>" rel="tooltip" title="SEND"  class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit">
+                                  <i class="fa fa-paper-plane"> </i></a>
 
                                </td>
 
@@ -103,6 +49,56 @@
 
                          </tbody>
                      </table>
+
+                     <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                           <!-- Modal content-->
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                 <h4 class="modal-title">Send Message To Group</h4>
+                              </div>
+                              <div class="modal-body">
+                                 <form action="" method="post" class="form-horizontal" id="send_msg">
+                                    <fieldset>
+                                       <div class="form-group">
+                                          <label class="col-sm-4 control-label">Notification Type </label>
+                                          <div class="col-sm-6">
+
+                                            <select multiple name="circular_type[]" id="circular_type" data-title="Select Circular Type" class="selectpicker form-control">
+                                <option value="SMS">SMS</option>
+                                <option value="Mail">Mail</option>
+                                <option value="Notification">Notification</option>
+                            </select>
+                                             <input type="text" name="group_id" id="group_id" class="form-control" value="">
+                                          </div>
+                                       </div>
+
+
+                                       <div class="form-group">
+                                          <label class="col-sm-4 control-label">Notes </label>
+                                          <div class="col-sm-6">
+
+                                            <textarea name="notes" MaxLength="160" placeholder="MaxLength 160" id="notes" class="form-control"  rows="4" cols="80"></textarea>
+
+                                          </div>
+                                       </div>
+
+                                       <div class="form-group">
+                                          <label class="col-sm-4 control-label">&nbsp;</label>
+                                          <div class="col-sm-6">
+                                             <button type="submit" id="save" class="btn btn-info btn-fill center">Send </button>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </form>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
 
                        </div><!--  end card  -->
              </div> <!-- end col-md-12 -->
@@ -116,16 +112,16 @@
 
 <script type="text/javascript">
 
-$('#grouping_form').validate({ // initialize the plugin
+$('#send_msg').validate({ // initialize the plugin
   rules: {
-      group_title:{required:true },
-      group_lead:{required:true },
-      status:{required:true },
+      "circular_type[]":{required:true },
+      // notes:{required:true },
+
   },
   messages: {
-        group_title: "Enter Grouping Name",
-        group_lead:"Select group incharge",
-        status:"select status"
+        "circular_type[]": "Select Type",
+        notes:"Enter Notes "
+
 
       },
     submitHandler: function(form) {
@@ -144,13 +140,13 @@ $('#grouping_form').validate({ // initialize the plugin
                 function(isConfirm) {
                     if (isConfirm) {
      $.ajax({
-         url: "<?php echo base_url(); ?>grouping/create_group",
+         url: "<?php echo base_url(); ?>grouping/send_msg",
           type:'POST',
-         data: $('#grouping_form').serialize(),
+         data: $('#send_msg').serialize(),
          success: function(response) {
              if(response=="success"){
               //  swal("Success!", "Thanks for Your Note!", "success");
-                $('#grouping_form')[0].reset();
+                $('#send_msg')[0].reset();
                 swal({
          title: "Wow!",
          text: response,
@@ -211,4 +207,9 @@ var $table = $('#bootstrap-table');
 
 
       });
+      $(document).on("click", ".open-AddBookDialog", function () {
+           var eventId = $(this).data('id');
+           $(".modal-body #group_id").val( eventId );
+      });
+
 </script>

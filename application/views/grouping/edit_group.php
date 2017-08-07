@@ -6,6 +6,8 @@
                    <div class="card">
                        <div class="header">
                            <h4 class="title">Edit Grouping</h4>
+                           <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-20px;">Go Back</button></legend>
+
                        </div>
 
                        <div class="content">
@@ -17,20 +19,22 @@
                                           <label class="col-sm-2 control-label">Group Title</label>
                                           <div class="col-sm-4">
                                               <input type="text" name="group_title" class="form-control" value="<?php echo $rows->group_title; ?>">
+                                              <input type="hidden" name="id" class="form-control" value="<?php echo $rows->id; ?>">
 
                                           </div>
                                             </div>
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">Group Lead</label>
                                           <div class="col-sm-4">
-                                            <select name="group_lead"  class="selectpicker form-control">
-                                              <?php foreach($list_of_teacher as $rows){ ?>
-                                                 <option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option>
+                                            <select name="group_lead_id" id="group_lead_id" class="selectpicker form-control">
+                                              <?php foreach($list_of_teacher as $rows1){ ?>
+                                                 <option value="<?php echo $rows1->teacher_id; ?>"><?php echo $rows1->name; ?></option>
                                           <?php    } ?>
 
 
                                            </select>
-                                           <script language="JavaScript">document.grouping_form.group_lead.value="<?php echo $rows->group_lead_id; ?>";</script>
+
+                                           <script language="JavaScript">document.grouping_form.group_lead_id.value="<?php echo $rows->group_lead_id; ?>";</script>
                                           </div>
 
                                       </div>
@@ -41,7 +45,7 @@
                                                <option value="Active">Active</option>
                                                <option value="Deactive">De-Active</option>
                                            </select>
-                                            <script language="JavaScript">document.grouping_form.group_lead.value="<?php echo $rows->status; ?>";</script>
+                                            <script language="JavaScript">document.grouping_form.status.value="<?php echo $rows->status; ?>";</script>
                                           </div>
 
                                       </div>

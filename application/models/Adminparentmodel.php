@@ -33,7 +33,7 @@ Class Adminparentmodel extends CI_Model
 		 {
 
 
-			$query=" SELECT abs_date AS START,a_status AS description,CASE WHEN attend_period = 0  THEN 'FORENOON' ELSE 'AFTERNOON' END AS title
+			$query=" SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0  THEN 'FORENOON' ELSE 'AFTERNOON' END AS title
       FROM edu_attendance_history WHERE student_id='$enroll_id' AND  a_status IN ('A', 'L')";
 			$resultset1=$this->db->query($query);
 			return $resultset1->result();
@@ -134,7 +134,7 @@ Class Adminparentmodel extends CI_Model
 			$res1=$resultset1->result();
             return $res1;
 		}
-        
+
         function getall_exam_details($exam_id)
         {
 			$sql = "SELECT ed.exam_id,ex.exam_id,ex.exam_flag,ex.status FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By ed.exam_id";
@@ -256,7 +256,7 @@ Class Adminparentmodel extends CI_Model
 			return $row1;
 			  }
 	  }
-	  
+
 	  //----------------------Special Class-----------------------------------
 	  function view_stu_special_class($enroll_id)
 	  {
@@ -267,12 +267,12 @@ Class Adminparentmodel extends CI_Model
 			$enr_id=$rows->admission_id;
 			$enr_id=$rows->enroll_id;
 			$cls_id=$rows->class_id;
-			
+
 			$sql1="SELECT sc.id,sc.class_master_id,sc.teacher_id,sc.subject_id,sc.subject_topic,sc.special_class_date,sc.start_time,sc.	end_time,sc.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name,su.subject_id,su.subject_name,t.name,t.teacher_id FROM edu_special_class AS sc,edu_classmaster AS cm,edu_class AS c,edu_sections AS se,edu_subject AS su,edu_teachers AS t WHERE sc.class_master_id='$cls_id' AND sc.class_master_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id AND sc.subject_id=su.subject_id AND sc.teacher_id=t.teacher_id";
 			$result2=$this->db->query($sql1);
 			$rows1=$result2->result();
 			return $rows1;
-			
+
 	  }
 }
 ?>

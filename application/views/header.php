@@ -337,8 +337,8 @@
                   </a>
                   <div class="collapse" id="groupingmenu">
                      <ul class="nav">
-                        <li id="group1"><a href="<?php echo base_url(); ?>grouping/home">Create</a></li>
-                        <li id="group2"><a href="<?php echo base_url(); ?>grouping/view">View Grouping</a></li>
+                        <li id="group1"><a href="<?php echo base_url(); ?>grouping/home">Create/ View Groups</a></li>
+                        <li id="group2"><a href="<?php echo base_url(); ?>grouping/send">Send Message </a></li>
                      </ul>
                   </div>
                </li>

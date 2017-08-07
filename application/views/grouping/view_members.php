@@ -65,9 +65,8 @@
                            <table id="bootstrap-table" class="table">
                               <thead>
                                  <th data-field="id">S.No</th>
-                                 <th data-field="year"  data-sortable="true"> Class</th>
-                                 <th data-field="no"  data-sortable="true">Subject </th>
-                                 <th data-field="status"  data-sortable="true">Status</th>
+                                 <th data-field="year"  data-sortable="true"> Name </th>
+                                 <th data-field="no"  data-sortable="true">Class </th>
                                  <th data-field="Section" data-sortable="true">Action</th>
                               </thead>
                               <tbody>
@@ -81,14 +80,7 @@
                                     <td class="text-center"><?php echo $rows->name;?></td>
                                     <td><?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></td>
                                     <td>
-                                       <?php if($rows->status=='Active'){ ?>
-                                       <button class="btn btn-success btn-fill btn-wd">Active</button>
-                                       <?php  }else{ ?>
-                                       <button class="btn btn-danger btn-fill btn-wd">De-Active</button>
-                                       <?php } ?>
-                                    </td>
-                                    <td>
-                                       <a href="<?php echo base_url(); ?>classmanage/edit_subjects_class/<?php echo $rows->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                       <a   onclick="delete_member(<?php echo $rows->id; ?>)" rel="tooltip" title="Remove" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-times"></i></a>
                                     </td>
                                  </tr>
                                  <?php $i++;  }  ?>
@@ -173,211 +165,251 @@
    </div>
 </div>
 <script type="text/javascript">
-   function get_student_list(){
+   function delete_member(delete_id){
+     var del_id=delete_id;
+                swal({
+                            title: "Are you sure?",
+                            text: "You Want confirm  this form",
+                            type: "success",
+                            showCancelButton: true,
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: 'Yes, I am sure!',
+                            cancelButtonText: "No, cancel it!",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                        function(isConfirm) {
+                            if (isConfirm) {
+             $.ajax({
+                 url: "<?php echo base_url(); ?>grouping/deleteing_member",
+                  type:'POST',
+                  data:{del_id:del_id},
+                 success: function(response) {
+                   //alert(response);
+                     if(response=="success"){
 
-        var class_master_id=$('#class_master_id').val();
-        //alert(class_master_id);
-        $.ajax({
-        url:'<?php echo base_url(); ?>grouping/getListstudent',
-        method:"POST",
-        data:{class_master_id:class_master_id},
-        dataType: "JSON",
-        cache: false,
-        success:function(data)
-        {
-
-        var stat=data.status;
-        $("#lstBox1").empty();
-        if(stat=="success"){
-        var res=data.res;
-        //alert(res.length);
-        var len=res.length;
-
-        for (i = 0; i < len; i++) {
-        $('<option>').val(res[i].enroll_id).text(res[i].name).appendTo('#lstBox1');
-        }
-
-        }else{
-        $("#lstBox1").empty();
-        }
-        }
-        });
+                        swal({
+                 title: "Wow!",
+                 text: response,
+                 type: "success"
+             }, function() {
+                location.reload();
+             });
+                     }else{
+                       sweetAlert("Oops...",response, "error");
+                     }
+                 }
+             });
+           }else{
+               swal("Cancelled", "Process Cancel :)", "error");
+           }
+         });
    }
-     $('#select_all').click(function() {
-            $('#lstBox2 option').prop('selected', true);
-        });
-   (function () {
-       $('#btnRight').click(function (e) {
-           var selectedOpts = $('#lstBox1 option:selected');
-           if (selectedOpts.length == 0) {
-               alert("Nothing to move.");
-               e.preventDefault();
+      function get_student_list(){
+
+           var class_master_id=$('#class_master_id').val();
+           //alert(class_master_id);
+           $.ajax({
+           url:'<?php echo base_url(); ?>grouping/getListstudent',
+           method:"POST",
+           data:{class_master_id:class_master_id},
+           dataType: "JSON",
+           cache: false,
+           success:function(data)
+           {
+
+           var stat=data.status;
+           $("#lstBox1").empty();
+           if(stat=="success"){
+           var res=data.res;
+           //alert(res.length);
+           var len=res.length;
+
+           for (i = 0; i < len; i++) {
+           $('<option>').val(res[i].enroll_id).text(res[i].name).appendTo('#lstBox1');
            }
 
-           $('#lstBox2').append($(selectedOpts).clone());
-           $(selectedOpts).remove();
-           e.preventDefault();
-       });
-
-       $('#btnAllRight').click(function (e) {
-           var selectedOpts = $('#lstBox1 option');
-           if (selectedOpts.length == 0) {
-               alert("Nothing to move.");
-               e.preventDefault();
+           }else{
+           $("#lstBox1").empty();
            }
-
-           $('#lstBox2').append($(selectedOpts).clone());
-             $(this).prop("selected", true);
-           $(selectedOpts).remove();
-           e.preventDefault();
-       });
-
-       $('#btnLeft').click(function (e) {
-           var selectedOpts = $('#lstBox2 option:selected');
-           if (selectedOpts.length == 0) {
-               alert("Nothing to move.");
-               e.preventDefault();
            }
-
-           $('#lstBox1').append($(selectedOpts).clone());
-           $(selectedOpts).remove();
-           e.preventDefault();
-       });
-
-       $('#btnAllLeft').click(function (e) {
-           var selectedOpts = $('#lstBox2 option');
-           if (selectedOpts.length == 0) {
-               alert("Nothing to move.");
-               e.preventDefault();
-           }
-
-           $('#lstBox1').append($(selectedOpts).clone());
-           $(selectedOpts).remove();
-           e.preventDefault();
-       });
-
-   }(jQuery));
-
-   $(document).on("click", ".open-AddBookDialog", function () {
-        var eventId = $(this).data('id');
-        $(".modal-body #group_id").val( eventId );
-   });
-
-   $('#members_adding_form').validate({ // initialize the plugin
-     rules: {
-         class_master_id:{required:true },
-         "members_id[]":{required:true },
-         status:{required:true},
-
-     },
-     messages: {
-           class_master_id: "Select class",
-           "members_id[]":"Select members",
-           status:"Select Status"
-
-         },
-       submitHandler: function(form) {
-         //alert("hi");
-
-         swal({
-                       title: "Are you sure?",
-                       text: "You Want confirm  this form",
-                       type: "success",
-                       showCancelButton: true,
-                       confirmButtonColor: '#DD6B55',
-                       confirmButtonText: 'Yes, I am sure!',
-                       cancelButtonText: "No, cancel it!",
-                       closeOnConfirm: false,
-                       closeOnCancel: false
-                   },
-                   function(isConfirm) {
-                       if (isConfirm) {
-        $.ajax({
-            url: "<?php echo base_url(); ?>grouping/adding_members_to_group",
-             type:'POST',
-            data: $('#members_adding_form').serialize(),
-            success: function(response) {
-              //alert(response);
-                if(response=="success"){
-                 //  swal("Success!", "Thanks for Your Note!", "success");
-                   $('#members_adding_form')[0].reset();
-                   swal({
-            title: "Wow!",
-            text: response,
-            type: "success"
-        }, function() {
-           location.reload();
-        });
-                }else{
-                  sweetAlert("Oops...",response, "error");
-                }
-            }
-        });
-      }else{
-          swal("Cancelled", "Process Cancel :)", "error");
+           });
       }
-    });
-   }
-   });
-   function generatefromtable() {
-   				var data = [], fontSize = 12, height = 0, doc;
-   				doc = new jsPDF('p', 'pt', 'a4', true);
-   				doc.setFont("times", "normal");
-   				doc.setFontSize(fontSize);
-   				doc.text(60,20, "Group Memebers");
-   				data = [];
-   				data = doc.tableToJson('bootstrap-table');
-   				height = doc.drawTable(data, {
-   					xstart : 30,
-   					ystart : 10,
-   					tablestart : 40,
-   					marginleft : 10,
-   					xOffset : 10,
-   					yOffset : 15
-   				});
-   				//doc.text(50, height + 20, 'hi world');
-   				doc.save("pdf.pdf");
-   			}
+        $('#select_all').click(function() {
+               $('#lstBox2 option').prop('selected', true);
+           });
+      (function () {
+          $('#btnRight').click(function (e) {
+              var selectedOpts = $('#lstBox1 option:selected');
+              if (selectedOpts.length == 0) {
+                  alert("Nothing to move.");
+                  e.preventDefault();
+              }
 
-
-    var $table = $('#bootstrap-table');
-          $().ready(function(){
-
-              $table.bootstrapTable({
-                  toolbar: ".toolbar",
-                  clickToSelect: true,
-                  showRefresh: true,
-                  search: true,
-                  showToggle: true,
-                  showColumns: true,
-                  pagination: true,
-                  searchAlign: 'left',
-                  pageSize: 10,
-                  clickToSelect: false,
-                  pageList: [8,10,25,50,100],
-
-                  formatShowingRows: function(pageFrom, pageTo, totalRows){
-                      //do nothing here, we don't want to show the text "showing x of y from..."
-                  },
-                  formatRecordsPerPage: function(pageNumber){
-                      return pageNumber + " rows visible";
-                  },
-                  icons: {
-                      refresh: 'fa fa-refresh',
-                      toggle: 'fa fa-th-list',
-                      columns: 'fa fa-columns',
-                      detailOpen: 'fa fa-plus-circle',
-                      detailClose: 'fa fa-minus-circle'
-                  }
-              });
-
-              //activate the tooltips after the data table is initialized
-              $('[rel="tooltip"]').tooltip();
-
-              $(window).resize(function () {
-                  $table.bootstrapTable('resetView');
-              });
-
-
+              $('#lstBox2').append($(selectedOpts).clone());
+              $(selectedOpts).remove();
+              e.preventDefault();
           });
+
+          $('#btnAllRight').click(function (e) {
+              var selectedOpts = $('#lstBox1 option');
+              if (selectedOpts.length == 0) {
+                  alert("Nothing to move.");
+                  e.preventDefault();
+              }
+
+              $('#lstBox2').append($(selectedOpts).clone());
+                $(this).prop("selected", true);
+              $(selectedOpts).remove();
+              e.preventDefault();
+          });
+
+          $('#btnLeft').click(function (e) {
+              var selectedOpts = $('#lstBox2 option:selected');
+              if (selectedOpts.length == 0) {
+                  alert("Nothing to move.");
+                  e.preventDefault();
+              }
+
+              $('#lstBox1').append($(selectedOpts).clone());
+              $(selectedOpts).remove();
+              e.preventDefault();
+          });
+
+          $('#btnAllLeft').click(function (e) {
+              var selectedOpts = $('#lstBox2 option');
+              if (selectedOpts.length == 0) {
+                  alert("Nothing to move.");
+                  e.preventDefault();
+              }
+
+              $('#lstBox1').append($(selectedOpts).clone());
+              $(selectedOpts).remove();
+              e.preventDefault();
+          });
+
+      }(jQuery));
+
+      $(document).on("click", ".open-AddBookDialog", function () {
+           var eventId = $(this).data('id');
+           $(".modal-body #group_id").val( eventId );
+      });
+
+      $('#members_adding_form').validate({ // initialize the plugin
+        rules: {
+            class_master_id:{required:true },
+            "members_id[]":{required:true },
+            status:{required:true},
+
+        },
+        messages: {
+              class_master_id: "Select class",
+              "members_id[]":"Select members",
+              status:"Select Status"
+
+            },
+          submitHandler: function(form) {
+            //alert("hi");
+
+            swal({
+                          title: "Are you sure?",
+                          text: "You Want confirm  this form",
+                          type: "success",
+                          showCancelButton: true,
+                          confirmButtonColor: '#DD6B55',
+                          confirmButtonText: 'Yes, I am sure!',
+                          cancelButtonText: "No, cancel it!",
+                          closeOnConfirm: false,
+                          closeOnCancel: false
+                      },
+                      function(isConfirm) {
+                          if (isConfirm) {
+           $.ajax({
+               url: "<?php echo base_url(); ?>grouping/adding_members_to_group",
+                type:'POST',
+               data: $('#members_adding_form').serialize(),
+               success: function(response) {
+                 //alert(response);
+                   if(response=="success"){
+                    //  swal("Success!", "Thanks for Your Note!", "success");
+                      $('#members_adding_form')[0].reset();
+                      swal({
+               title: "Wow!",
+               text: response,
+               type: "success"
+           }, function() {
+              location.reload();
+           });
+                   }else{
+                     sweetAlert("Oops...",response, "error");
+                   }
+               }
+           });
+         }else{
+             swal("Cancelled", "Process Cancel :)", "error");
+         }
+       });
+      }
+      });
+      function generatefromtable() {
+      				var data = [], fontSize = 12, height = 0, doc;
+      				doc = new jsPDF('p', 'pt', 'a4', true);
+      				doc.setFont("times", "normal");
+      				doc.setFontSize(fontSize);
+      				doc.text(60,20, "Group Memebers");
+      				data = [];
+      				data = doc.tableToJson('bootstrap-table');
+      				height = doc.drawTable(data, {
+      					xstart : 30,
+      					ystart : 10,
+      					tablestart : 40,
+      					marginleft : 10,
+      					xOffset : 10,
+      					yOffset : 15
+      				});
+      				//doc.text(50, height + 20, 'hi world');
+      				doc.save("pdf.pdf");
+      			}
+
+
+       var $table = $('#bootstrap-table');
+             $().ready(function(){
+
+                 $table.bootstrapTable({
+                     toolbar: ".toolbar",
+                     clickToSelect: true,
+                     showRefresh: true,
+                     search: true,
+                     showToggle: true,
+                     showColumns: true,
+                     pagination: true,
+                     searchAlign: 'left',
+                     pageSize: 10,
+                     clickToSelect: false,
+                     pageList: [8,10,25,50,100],
+
+                     formatShowingRows: function(pageFrom, pageTo, totalRows){
+                         //do nothing here, we don't want to show the text "showing x of y from..."
+                     },
+                     formatRecordsPerPage: function(pageNumber){
+                         return pageNumber + " rows visible";
+                     },
+                     icons: {
+                         refresh: 'fa fa-refresh',
+                         toggle: 'fa fa-th-list',
+                         columns: 'fa fa-columns',
+                         detailOpen: 'fa fa-plus-circle',
+                         detailClose: 'fa fa-minus-circle'
+                     }
+                 });
+
+                 //activate the tooltips after the data table is initialized
+                 $('[rel="tooltip"]').tooltip();
+
+                 $(window).resize(function () {
+                     $table.bootstrapTable('resetView');
+                 });
+
+
+             });
 </script>

@@ -421,6 +421,24 @@ Class Smsmodel extends CI_Model
 
 
 
+        //  Group  SMS
+        function send_msg($group_id,$notes,$user_id){
+           $select_group="SELECT group_member_id FROM edu_grouping_members WHERE group_title_id='$group_id'";
+          $resultset=$this->db->query($select_group);
+        	$res=$resultset->result();
+          foreach($res as $rows){
+           $group_member=$rows->group_member_id;
+          $class="SELECT ee.admission_id,ep.parent_id,ep.mobile,ep.email FROM edu_enrollment AS ee
+          LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ee.admission_id, ep.admission_id) WHERE ee.enroll_id='$group_member'";
+          $pcell=$this->db->query($class);
+          $res2=$pcell->result();
+          foreach($res2 as $result){
+            echo $result->mobile;
+
+          }
+
+        }
+      }
 
 }
 	  ?>

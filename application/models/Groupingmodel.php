@@ -47,7 +47,37 @@ Class Groupingmodel extends CI_Model
       	   }
           }
 
+          function save_group($group_title,$group_lead,$status,$user_id,$id){
 
+            $check_name="SELECT * FROM edu_grouping_master WHERE group_title='$group_title' and group_lead_id='$group_lead' and status='$status'";
+            $result=$this->db->query($check_name);
+            if($result->num_rows()==0){
+              $sql="UPDATE  edu_grouping_master SET group_title='$group_title',group_lead_id='$group_lead',status='$status',updated_by='$user_id',updated_at=NOW() where id='$id'";
+          $resultset=$this->db->query($sql);
+              if($resultset)
+               {
+                $data= array("status" => "success");
+                return $data;
+               }
+              }else{
+              $data= array("status" => "Already");
+                  return $data;
+            }
+          }
+
+
+          function delete_member($delete_id){
+            $query="DELETE  FROM edu_grouping_members   WHERE id='$delete_id'";
+            $res=$this->db->query($query);
+            if($res)
+             {
+              $data= array("status" => "success");
+              return $data;
+            }else{
+              $data= array("status" => "failed");
+              return $data;
+            }
+          }
           function get_group_id($id){
             $query="SELECT * FROM edu_grouping_master AS egm  WHERE id='$id'";
             $res=$this->db->query($query);
