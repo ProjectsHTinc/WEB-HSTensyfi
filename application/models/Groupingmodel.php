@@ -26,6 +26,12 @@ Class Groupingmodel extends CI_Model
        }
      }
 
+        function get_all_teacher(){
+
+          $query="SELECT eu.user_id,et.name FROM edu_users AS eu LEFT JOIN edu_teachers AS et ON eu.user_master_id =et.teacher_id WHERE eu.user_type='2' AND et.status='Active'";
+          $res=$this->db->query($query);
+          return $res->result();
+        }
 
 
           function create_group($group_title,$group_lead,$status,$user_id)
@@ -87,7 +93,8 @@ Class Groupingmodel extends CI_Model
           function get_all_grouping()
           {
              $year_id=$this->getYear();
-             $query="SELECT egm.*,et.name FROM edu_grouping_master AS egm LEFT JOIN edu_teachers AS et ON egm.group_lead_id=et.teacher_id WHERE year_id='$year_id' order by id desc";
+             $query="SELECT egm.group_lead_id,egm.group_title,et.name,eu.user_master_id,egm.id,egm.status FROM edu_grouping_master AS egm
+             LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_lead_id AND eu.user_type='2' LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id";
              $res=$this->db->query($query);
              return $res->result();
 
@@ -101,8 +108,11 @@ Class Groupingmodel extends CI_Model
           }
 
           function view_members_in_groups($id){
-            $query="SELECT eg.group_member_id,ee.class_id,ee.name,c.class_name,s.sec_name,eg.status,eg.id FROM edu_grouping_members  AS eg
-            LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eg.group_member_id LEFT JOIN edu_classmaster AS cm ON ee.class_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id WHERE group_title_id='$id' order by id desc";
+            $query="SELECT egm.id,egm.group_member_id,eu.user_master_id,ee.name,c.class_name,s.sec_name,egm.status  FROM edu_grouping_members AS egm
+            LEFT JOIN edu_users AS eu ON  eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON eu.user_master_id=ea.admission_id
+            LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id LEFT JOIN edu_classmaster AS cm ON ee.class_id=cm.class_sec_id
+            LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id WHERE egm.group_title_id='$id' ORDER BY egm.id DESC
+            ";
             $res=$this->db->query($query);
             return $res->result();
           }
@@ -120,7 +130,9 @@ Class Groupingmodel extends CI_Model
 
           function getListstudent($class_master_id){
             $year_id=$this->getYear();
-             $query="SELECT ee.name,ee.enroll_id FROM edu_enrollment AS ee WHERE  ee.class_id='$class_master_id' AND ee.admit_year='$year_id' AND ee.status='Active'";
+             $query="SELECT eu.user_id,ee.name,ee.enroll_id FROM edu_users AS eu LEFT JOIN edu_admission AS ea ON eu.user_master_id=ea.admission_id AND eu.user_type='3'
+LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE  ee.class_id='$class_master_id' AND ee.admit_year='$year_id' AND ee.status='Active'
+";
             $resultset=$this->db->query($query);
             if($resultset->num_rows()==0){
               $data= array("status" => "nodata");

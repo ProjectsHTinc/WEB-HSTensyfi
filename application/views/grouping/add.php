@@ -9,7 +9,7 @@
                        </div>
 
                        <div class="content">
-                           <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" id="send_message_form">
+                           <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" id="grouping_form">
 
                                  <fieldset>
                                       <div class="form-group">
@@ -24,7 +24,7 @@
                                           <div class="col-sm-4">
                                             <select name="group_lead"  data-title="Select" class="selectpicker form-control">
                                               <?php foreach($list_of_teacher as $rows){ ?>
-                                                 <option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option>
+                                                 <option value="<?php echo $rows->user_id; ?>"><?php echo $rows->name; ?></option>
                                           <?php    } ?>
 
 

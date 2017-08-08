@@ -6,7 +6,7 @@
                    <div class="card">
                        <div class="header">
                            <h4 class="title">Edit Grouping</h4>
-                           <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-20px;">Go Back</button></legend>
+                           <a href="<?php echo base_url(); ?>grouping/home" class="btn btn-wd btn-default pull-right" style="margin-top:-20px;">Go Back</a></legend>
 
                        </div>
 
@@ -28,7 +28,7 @@
                                           <div class="col-sm-4">
                                             <select name="group_lead_id" id="group_lead_id" class="selectpicker form-control">
                                               <?php foreach($list_of_teacher as $rows1){ ?>
-                                                 <option value="<?php echo $rows1->teacher_id; ?>"><?php echo $rows1->name; ?></option>
+                                                 <option value="<?php echo $rows1->user_id; ?>"><?php echo $rows1->name; ?></option>
                                           <?php    } ?>
 
 

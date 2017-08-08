@@ -41,7 +41,7 @@ class Grouping extends CI_Controller {
 	 	public function home(){
 	 		$datas=$this->session->userdata();
 	 		$user_id=$this->session->userdata('user_id');
-			$datas['list_of_teacher'] = $this->teachermodel->get_all_teacher();
+			$datas['list_of_teacher'] = $this->groupingmodel->get_all_teacher();
 			$datas['list_of_grouping']=$this->groupingmodel->get_all_grouping();
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
@@ -217,7 +217,7 @@ class Grouping extends CI_Controller {
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
 				$datas['res']=$this->groupingmodel->get_group_id($id);
-				$datas['list_of_teacher'] = $this->teachermodel->get_all_teacher();
+				$datas['list_of_teacher'] = $this->groupingmodel->get_all_teacher();
 				$this->load->view('header');
 				$this->load->view('grouping/edit_group',$datas);
 				$this->load->view('footer');

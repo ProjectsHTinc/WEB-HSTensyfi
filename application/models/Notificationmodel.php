@@ -365,26 +365,22 @@ Class Notificationmodel extends CI_Model
 				   }
 				}
 
-			}//admin close
+			}
 
-  }//function close
+  }
 
           //Group Notification
           function send_notification($group_id,$notes,$user_id){
-            $select_group="SELECT group_member_id FROM edu_grouping_members WHERE group_title_id='$group_id'";
-           $resultset=$this->db->query($select_group);
-           $res=$resultset->result();
-           foreach($res as $rows){
-            $group_member=$rows->group_member_id;
-           $class="SELECT ee.admission_id,ep.parent_id,ep.mobile,ep.email,eu.user_id,en.gcm_key FROM edu_enrollment AS ee
-           LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ee.admission_id, ep.admission_id) LEFT JOIN edu_users AS eu ON eu.user_master_id=ep.parent_id AND eu.user_type='4'
-           LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id WHERE ee.enroll_id='$group_member'";
+           $class="SELECT egm.group_member_id,ep.email,ep.mobile,en.gcm_key FROM edu_grouping_members AS egm
+          LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
+          LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id
+          WHERE  egm.group_title_id='$group_id'";
            $pcell=$this->db->query($class);
            $res2=$pcell->result();
            foreach($res2 as $result){
             $gcm= $result->gcm_key;
             $gsmkey=array($gcm);
-            //print_r($gsmkey);exit;
+
 
            $apiKey = 'AAAADRDlvEI:APA91bFi-gSDCTCnCRv1kfRd8AmWu0jUkeBQ0UfILrUq1-asMkBSMlwamN6iGtEQs72no-g6Nw0lO5h4bpN0q7JCQkuTYsdPnM1yfilwxYcKerhsThCwt10cQUMKrBrQM2B3U3QaYbWQ';
            // Set POST request body
@@ -415,8 +411,9 @@ Class Notificationmodel extends CI_Model
            }
 
          }
-          }
+        
 
 
-}//class close
+}
+
   ?>

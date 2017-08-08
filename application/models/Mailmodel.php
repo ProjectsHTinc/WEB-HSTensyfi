@@ -228,9 +228,10 @@ Class Mailmodel extends CI_Model
 
     // Group Mail
     function send_mail($group_id,$notes,$user_id){
-      $sql1="SELECT ee.admission_id,ep.parent_id,ep.mobile,ep.email,eu.user_id,en.gcm_key,egm.group_title_id FROM edu_enrollment AS ee LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ee.admission_id, ep.admission_id)
-      LEFT JOIN edu_users AS eu ON eu.user_master_id=ep.parent_id AND eu.user_type='4' LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id LEFT JOIN edu_grouping_members AS egm ON egm.group_member_id=ee.enroll_id
-      WHERE   egm.group_title_id='$group_id'";
+      $sql1="SELECT egm.group_member_id,ep.email,ep.mobile,en.gcm_key FROM edu_grouping_members AS egm
+      LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
+      LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id
+      WHERE  egm.group_title_id='$group_id'";
        $scell=$this->db->query($sql1);
        $res1=$scell->result();
        foreach($res1 as $row1)

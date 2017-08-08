@@ -226,7 +226,7 @@
            var len=res.length;
 
            for (i = 0; i < len; i++) {
-           $('<option>').val(res[i].enroll_id).text(res[i].name).appendTo('#lstBox1');
+           $('<option>').val(res[i].user_id).text(res[i].name).appendTo('#lstBox1');
            }
 
            }else{
