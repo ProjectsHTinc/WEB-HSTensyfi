@@ -185,8 +185,16 @@
                </li>
                <li id="classhandling">
                   <a href="<?php echo base_url(); ?>teachertimetable/classhandling_subject">
-                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/classhandling.png"/> 
+                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/classhandling.png"/>
                      <p>Class Handling 	</p>
+                  </a>
+
+               </li>
+
+               <li id="grouping">
+                  <a href="<?php echo base_url(); ?>teacherprofile/grouping">
+                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/classhandling.png"/>
+                     <p>Group Message 	</p>
                   </a>
 
                </li>

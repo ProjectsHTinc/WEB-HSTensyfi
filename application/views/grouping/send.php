@@ -9,6 +9,7 @@
                      <div class="">
                            <div class="header">
                               List Grouping
+                              <a href="" class="btn btn pull-right">Message History</a>
                            </div>
                      </div>
 

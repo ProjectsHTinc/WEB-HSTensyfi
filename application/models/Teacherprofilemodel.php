@@ -9,6 +9,22 @@ Class Teacherprofilemodel extends CI_Model
 
   }
 
+  function getYear()
+  {
+    $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+    $year_result = $this->db->query($sqlYear);
+    $ress_year = $year_result->result();
+
+    if($year_result->num_rows()==1)
+    {
+      foreach ($year_result->result() as $rows)
+      {
+          $year_id = $rows->year_id;
+      }
+      return $year_id;
+    }
+  }
+
   function getuser($user_id)
    {
 
@@ -59,26 +75,46 @@ Class Teacherprofilemodel extends CI_Model
          return $data;
        }
  }
- 
- //get all groups deatis 
-		   
+
+ //get all groups deatis
+
 		   function get_all_groups_details()
 		   {
 			   $query="SELECT * FROM edu_groups WHERE status='Active'";
      	       $resultset=$this->db->query($query);
-		       $res=$resultset->result(); 
+		       $res=$resultset->result();
 			     return $res;
 		   }
-		   
-		   //get all activities deatis 
-		   
+
+		   //get all activities deatis
+
 		   function get_all_activities_details()
 		   {
 			   $query="SELECT * FROM edu_extra_curricular WHERE status='Active'";
      	       $resultset=$this->db->query($query);
-		       $res=$resultset->result(); 
+		       $res=$resultset->result();
 			     return $res;
 		   }
+
+
+
+      //  Grouping message for teacher
+       function get_groups_for_teacher($user_id){
+         $year_id=$this->getYear();
+         $query="SELECT egm.group_lead_id,egm.group_title,et.name,eu.user_master_id,egm.id,egm.status FROM edu_grouping_master AS egm
+         LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_lead_id AND eu.user_type='2' LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id
+         WHERE year_id='$year_id' AND egm.group_lead_id='$user_id' AND egm.status='Active'";
+         $resultset=$this->db->query($query);
+         return  $res=$resultset->result();
+       }
+
+       function get_message_history($user_id){
+         $query="SELECT egh.group_title_id,egm.group_title,egh.notes,egh.notification_type FROM edu_grouping_history AS egh
+         LEFT JOIN edu_grouping_master AS egm  ON egh.group_title_id=egm.id WHERE egh.created_by='$user_id'";
+         $resultset=$this->db->query($query);
+         return  $res=$resultset->result();
+       }
+
 
 
 }
