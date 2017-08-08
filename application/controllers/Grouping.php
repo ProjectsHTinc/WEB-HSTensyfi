@@ -78,8 +78,10 @@ class Grouping extends CI_Controller {
 			$group_id=$this->input->post('group_id');
 			$notes=$this->input->post('notes');
 			$circular_type=$this->db->escape_str($this->input->post('circular_type'));
-			$cir=implode(',',$circular_type);
+			 $cir=implode(',',$circular_type);
 			 $cir_cnt=count($circular_type);
+
+
 				if($cir_cnt==1){
 				 $ct1=$circular_type[0];
 				 }
@@ -124,7 +126,7 @@ class Grouping extends CI_Controller {
 				  if($ct=='SMS')
 				  {
 						$data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
- 					 exit;
+ 					 
 				  }
 				  if($ct=='Notification')
 				  {
@@ -135,15 +137,16 @@ class Grouping extends CI_Controller {
 						$data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
 				  }
 			  }
-			exit;
-			$data=$this->groupingmodel->send_msg($group_id,$circular_type,$notes,$user_id);
-			if($data['status']=="success"){
-				echo "success";
-			}else if($data['status']=="Already"){
-				echo "Already Exist";
-			}else{
-				echo "Something Went Wrong";
-			}
+				$data=$this->groupingmodel->save_group_history($group_id,$cir,$notes,$user_id);
+				if($data['status']=="success"){
+					echo "success";
+				}else if($data['status']=="Already"){
+					echo "Already Exist";
+				}else{
+					echo "Something Went Wrong";
+				}
+
+
 		}else{
 				redirect('/');
 		}

@@ -102,6 +102,7 @@
 
                        </div><!--  end card  -->
              </div> <!-- end col-md-12 -->
+
            </div>
 
        </div>
@@ -135,14 +136,18 @@ $('#send_msg').validate({ // initialize the plugin
                     confirmButtonText: 'Yes, I am sure!',
                     cancelButtonText: "No, cancel it!",
                     closeOnConfirm: false,
-                    closeOnCancel: false
+                    closeOnCancel: false,
+
+
                 },
                 function(isConfirm) {
                     if (isConfirm) {
+                    
      $.ajax({
          url: "<?php echo base_url(); ?>grouping/send_msg",
           type:'POST',
          data: $('#send_msg').serialize(),
+
          success: function(response) {
              if(response=="success"){
               //  swal("Success!", "Thanks for Your Note!", "success");

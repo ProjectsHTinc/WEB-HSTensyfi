@@ -386,7 +386,7 @@ Class Notificationmodel extends CI_Model
            // Set POST request body
            $post = array(
                  'registration_ids'  => $gsmkey,
-                 'data'              => $data,
+                 'data'              => $notes,
                   );
            // Set CURL request headers
            $headers = array(
@@ -411,7 +411,7 @@ Class Notificationmodel extends CI_Model
            }
 
          }
-        
+
 
 
 }

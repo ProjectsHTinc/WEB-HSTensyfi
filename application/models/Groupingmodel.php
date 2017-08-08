@@ -131,8 +131,7 @@ Class Groupingmodel extends CI_Model
           function getListstudent($class_master_id){
             $year_id=$this->getYear();
              $query="SELECT eu.user_id,ee.name,ee.enroll_id FROM edu_users AS eu LEFT JOIN edu_admission AS ea ON eu.user_master_id=ea.admission_id AND eu.user_type='3'
-LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE  ee.class_id='$class_master_id' AND ee.admit_year='$year_id' AND ee.status='Active'
-";
+LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE  ee.class_id='$class_master_id' AND ee.admit_year='$year_id' AND ee.status='Active'";
             $resultset=$this->db->query($query);
             if($resultset->num_rows()==0){
               $data= array("status" => "nodata");
@@ -168,6 +167,20 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE  ee.clas
              $data= array("status" => "failure");
              return $data;
            }
+          }
+
+
+          function save_group_history($group_id,$cir,$notes,$user_id){
+             $query="INSERT INTO  edu_grouping_history (group_title_id,notes,notification_type,status,created_at,created_by) VALUES('$group_id','$notes','$cir','Active',NOW(),'$user_id')";
+
+            $res=$this->db->query($query);
+            if($res){
+              $data= array("status" => "success");
+              return $data;
+            }else{
+              $data= array("status" => "failure");
+              return $data;
+            }
           }
 
 
