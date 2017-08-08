@@ -116,7 +116,7 @@
 $('#send_msg').validate({ // initialize the plugin
   rules: {
       "circular_type[]":{required:true },
-      // notes:{required:true },
+      notes:{required:true },
 
   },
   messages: {
@@ -142,7 +142,7 @@ $('#send_msg').validate({ // initialize the plugin
                 },
                 function(isConfirm) {
                     if (isConfirm) {
-                    
+
      $.ajax({
          url: "<?php echo base_url(); ?>grouping/send_msg",
           type:'POST',
