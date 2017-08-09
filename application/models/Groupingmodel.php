@@ -184,5 +184,13 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE  ee.clas
           }
 
 
+          function get_message_history(){
+            $query="SELECT egh.group_title_id,egm.group_title,egh.notes,egh.notification_type FROM edu_grouping_history AS egh
+            LEFT JOIN edu_grouping_master AS egm  ON egh.group_title_id=egm.id order by egh.id desc;";
+            $resultset=$this->db->query($query);
+            return  $res=$resultset->result();
+          }
+
+
 }
 	?>

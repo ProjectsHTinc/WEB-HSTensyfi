@@ -9,7 +9,7 @@
                      <div class="">
                            <div class="header">
                               List Grouping
-                              <a href="" class="btn btn pull-right">Message History</a>
+                              <a href="<?php echo base_url(); ?>grouping/message_history" class="btn btn pull-right">Message History</a>
                            </div>
                      </div>
 
@@ -71,7 +71,7 @@
                                 <option value="Mail">Mail</option>
                                 <option value="Notification">Notification</option>
                             </select>
-                                             <input type="text" name="group_id" id="group_id" class="form-control" value="">
+                                             <input type="hidden" name="group_id" id="group_id" class="form-control" value="">
                                           </div>
                                        </div>
 

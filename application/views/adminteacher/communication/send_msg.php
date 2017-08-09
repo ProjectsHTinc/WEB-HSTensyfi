@@ -55,7 +55,7 @@
                                              <option value="Mail">Mail</option>
                                              <option value="Notification">Notification</option>
                                           </select>
-                                          <input type="text" name="group_id" id="group_id" class="form-control" value="">
+                                          <input type="hidden" name="group_id" id="group_id" class="form-control" value="">
                                        </div>
                                     </div>
                                     <div class="form-group">

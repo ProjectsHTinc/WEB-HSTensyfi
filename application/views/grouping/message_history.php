@@ -11,8 +11,8 @@
                <div class="card">
                   <div class="content">
                      <div class="header">
-                        Message History
-                        <a href="<?php echo base_url(); ?>teacherprofile/grouping" class="btn btn pull-right">Send Message</a>
+                      Message   History
+                        <a href="<?php echo base_url(); ?>grouping/send" class="btn btn pull-right">Send Message</a>
                      </div>
                   </div>
                   <table id="bootstrap-table" class="table">

@@ -126,7 +126,7 @@ class Grouping extends CI_Controller {
 				  if($ct=='SMS')
 				  {
 						$data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
- 					 
+
 				  }
 				  if($ct=='Notification')
 				  {
@@ -286,22 +286,20 @@ class Grouping extends CI_Controller {
 		}
 
 
+		public function message_history(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==1){
+				$datas['list_of_message']=$this->groupingmodel->get_message_history();
+				$this->load->view('header');
+				$this->load->view('grouping/message_history',$datas);
+				$this->load->view('footer');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			}else{
+					redirect('/');
+			}
+		}
 
 
 
