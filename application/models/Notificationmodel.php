@@ -369,48 +369,81 @@ Class Notificationmodel extends CI_Model
 
   }
 
-          //Group Notification
-          function send_notification($group_id,$notes,$user_id){
-           $class="SELECT egm.group_member_id,ep.email,ep.mobile,en.gcm_key FROM edu_grouping_members AS egm
-          LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
-          LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id
-          WHERE  egm.group_title_id='$group_id'";
-           $pcell=$this->db->query($class);
-           $res2=$pcell->result();
-           foreach($res2 as $result){
-            $gcm= $result->gcm_key;
-            $gsmkey=array($gcm);
 
 
-           $apiKey = 'AAAADRDlvEI:APA91bFi-gSDCTCnCRv1kfRd8AmWu0jUkeBQ0UfILrUq1-asMkBSMlwamN6iGtEQs72no-g6Nw0lO5h4bpN0q7JCQkuTYsdPnM1yfilwxYcKerhsThCwt10cQUMKrBrQM2B3U3QaYbWQ';
-           // Set POST request body
-           $post = array(
-                 'registration_ids'  => $gsmkey,
-                 'data'              => $notes,
+
+      function sendNotification($gcm_key,$notes)
+            {
+              $gcm_key = array($gcm_key);
+              $data = array
+                    (
+                    'message' 	=> $notes,
+                    'vibrate'	=> 1,
+                    'sound'		=> 1
+
+                    );
+
+            // Insert real GCM API key from the Google APIs Console
+            $apiKey = 'AAAADRDlvEI:APA91bFi-gSDCTCnCRv1kfRd8AmWu0jUkeBQ0UfILrUq1-asMkBSMlwamN6iGtEQs72no-g6Nw0lO5h4bpN0q7JCQkuTYsdPnM1yfilwxYcKerhsThCwt10cQUMKrBrQM2B3U3QaYbWQ';
+            // Set POST request body
+            $post = array(
+                'registration_ids'  => $gcm_key,
+                'data'              => $data,
+                 );
+            // Set CURL request headers
+            $headers = array(
+                'Authorization: key=' . $apiKey,
+                'Content-Type: application/json'
                   );
-           // Set CURL request headers
-           $headers = array(
-                 'Authorization: key=' . $apiKey,
-                 'Content-Type: application/json'
-                   );
-           // Initialize curl handle
-           $ch = curl_init();
-           // Set URL to GCM push endpoint
-           curl_setopt($ch, CURLOPT_URL, 'https://gcm-http.googleapis.com/gcm/send');
-           // Set request method to POST
-           curl_setopt($ch, CURLOPT_POST, true);
-           // Set custom request headers
-           curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-           // Get the response back as string instead of printing it
-           curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-           // Set JSON post data
-           curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
-           // Actually send the request
-           $result = curl_exec($ch);
-           curl_close($ch);
-           }
+            // Initialize curl handle
+            $ch = curl_init();
+            // Set URL to GCM push endpoint
+            curl_setopt($ch, CURLOPT_URL, 'https://gcm-http.googleapis.com/gcm/send');
+            // Set request method to POST
+            curl_setopt($ch, CURLOPT_POST, true);
+            // Set custom request headers
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            // Get the response back as string instead of printing it
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // Set JSON post data
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+            // Actually send the request
+            $result = curl_exec($ch);
 
-         }
+
+            // Handle errors
+            if (curl_errno($ch)) {
+            //echo 'GCM error: ' . curl_error($ch);
+            }
+            // Close curl handle
+            curl_close($ch);
+
+            // Debug GCM response
+            //echo $result;
+            }
+
+
+            //Group Notification
+         function send_notification($group_id,$notes,$user_id){
+           $class="SELECT egm.group_member_id,ep.email,ep.mobile,ep.parent_id FROM edu_grouping_members AS egm
+           LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
+           LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id
+           WHERE  egm.group_title_id='$group_id'";
+          $pcell=$this->db->query($class);
+          $res2=$pcell->result();
+          foreach($res2 as $result){
+          $parent_id=$result->parent_id;
+           $sql="SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$parent_id'";
+           $sgsm=$this->db->query($sql);
+           $res=$sgsm->result();
+           foreach($res as $row){
+           $gcm_key=$row->gcm_key;
+            $this->sendNotification($gcm_key,$notes);
+          }
+
+        }
+      }
+
 
 
 

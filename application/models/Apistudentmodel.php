@@ -150,7 +150,7 @@ class Apistudentmodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 	
-			if ($is_internal_external !='0') {
+			if ($is_internal_external =='0') {
 				$mark_query = "SELECT C.exam_name,B.subject_name,A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
 			} else {
 				$mark_query = "SELECT C.exam_name,B.subject_name,A.internal_mark, A.internal_grade, A.external_mark, A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";

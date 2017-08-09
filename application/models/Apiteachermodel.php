@@ -288,7 +288,7 @@ class Apiteachermodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 			
-			if ($is_internal_external !='0') {
+			if ($is_internal_external =='0') {
 				$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
 			} else {
 				$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.internal_mark, A.internal_grade, A.external_mark,A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
@@ -519,6 +519,19 @@ class Apiteachermodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 			
+		$sqlMarks = "SELECT * FROM edu_class_marks WHERE hw_mas_id  = '$hw_masterid' AND enroll_mas_id ='$student_id'";
+		$Marks_result = $this->db->query($sqlMarks);
+
+		if($Marks_result->num_rows()>0)
+		{
+		    	foreach ($Marks_result->result() as $rows)
+		        {
+		            $marks_id = $rows->mark_id;
+		        }
+			$response = array("status" => "AlreadyAdded", "msg" => "Already Added", "mark_id"=>$marks_id);
+		} else {
+			
+			
 		    $HWmarks_query = "INSERT INTO `edu_class_marks`(`enroll_mas_id`, `hw_mas_id`, `marks`, `remarks`, `status`, `created_by`, `created_at`) 
 			VALUES ('$student_id','$hw_masterid','$marks','$remarks','Active','$created_by','$created_at')";
 			$HWmarks_res = $this->db->query($HWmarks_query);
@@ -532,6 +545,7 @@ class Apiteachermodel extends CI_Model {
 			} else {
 			    $response = array("status" => "error");
 			}
+		}
 			return $response;		
 	}
 //#################### Add Leave End ####################//
@@ -539,8 +553,20 @@ class Apiteachermodel extends CI_Model {
 //#################### Add Exam Marks for Teachers ####################//
 	public function addExammarks ($exam_id,$teacher_id,$subject_id,$stu_id,$classmaster_id,$internal_mark,$external_mark,$marks,$created_by,$is_internal_external)
 	{
-			$year_id = $this->getYear();
+		$year_id = $this->getYear();
+			
+        $sqlMarks = "SELECT * FROM edu_exam_marks WHERE exam_id = '$exam_id' AND subject_id ='$subject_id' AND stu_id ='$stu_id'  AND classmaster_id ='$classmaster_id'";
+		$Marks_result = $this->db->query($sqlMarks);
 
+		if($Marks_result->num_rows()>0)
+		{
+		    	foreach ($Marks_result->result() as $rows)
+		        {
+		            $exam_marks_id = $rows->exam_marks_id;
+		        }
+			$response = array("status" => "AlreadyAdded", "msg" => "Already Added", "exam_mark_id"=>$exam_marks_id);
+		} else {
+    		    
 			if ($is_internal_external !='0') 
 			{
 				if ($marks >= 91 && $marks <= 100) { 
@@ -666,7 +692,7 @@ class Apiteachermodel extends CI_Model {
                 
 		     $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `internal_mark`, `internal_grade`, `external_mark`, `external_grade`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$internal_mark','$internal_grade','$external_mark','$external_grade','$total_marks','$total_grade','$created_by',NOW())";
 			}
-			 
+		
 			$marks_res = $this->db->query($marks_query);
 			$last_marksid = $this->db->insert_id();
 
@@ -675,6 +701,7 @@ class Apiteachermodel extends CI_Model {
 			} else {
 			    $response = array("status" => "error");
 			}
+		}
 			return $response;		
 	}
 //#################### Exam marks End ####################//
@@ -722,13 +749,19 @@ class Apiteachermodel extends CI_Model {
 	public function syncAttendance ($ac_year,$class_id,$class_total,$no_of_present,$no_of_absent,$attendence_period,$created_by,$created_at,$status)
 	{
 			$year_id = $this->getYear();
-
-			$sqlAttendance = "SELECT * FROM edu_attendence WHERE ac_year ='$ac_year' AND class_id ='$class_id' AND attendence_period ='$attendence_period' AND created_at = '$created_at'";
+            $createDate = new DateTime($created_at);
+            $createDateonly = $createDate->format('Y-m-d');
+            
+			$sqlAttendance = "SELECT * FROM edu_attendence WHERE ac_year ='$ac_year' AND class_id ='$class_id' AND attendence_period ='$attendence_period' AND date(created_at) = '$createDateonly'";
     		$Attendance_result = $this->db->query($sqlAttendance);
 
     		if($Attendance_result->num_rows()>0)
     		{
-    			$response = array("status" => "AlreadyAdded", "msg" => "Already Added");
+    		    	foreach ($Attendance_result->result() as $rows)
+			        {
+			            $at_id = $rows->at_id;
+			        }
+    			$response = array("status" => "AlreadyAdded", "msg" => "Already Added", "attendance_id"=>$at_id);
     		} else {
 
 				$attend_query = "INSERT INTO `edu_attendence`(`ac_year`, `class_id`, `class_total`, `no_of_present`, `no_of_absent`, `attendence_period`, `created_by`,`created_at`,`status`) VALUES ('$ac_year','$class_id','$class_total','$no_of_present','$no_of_absent','$attendence_period','$created_by','$created_at','$status')";
@@ -748,12 +781,16 @@ class Apiteachermodel extends CI_Model {
 //#################### Sync Attendance History for Teachers ####################//
 	public function syncAttendancehistory ($attend_id,$class_id,$student_id,$abs_date,$a_status,$attend_period,$a_val,$a_taken_by,$created_at,$status)
 	{
-  			$sqlAttendance = "SELECT * FROM edu_attendance_history WHERE class_id ='$class_id' AND attend_period ='$attend_period' AND abs_date ='$a_status' AND student_id = '$student_id'";
+  			$sqlAttendance = "SELECT * FROM edu_attendance_history WHERE class_id ='$class_id' AND attend_period ='$attend_period' AND abs_date ='$abs_date' AND student_id = '$student_id'";
     		$Attendance_result = $this->db->query($sqlAttendance);
     		
     		if($Attendance_result->num_rows()>0)
     		{
-    			$response = array("status" => "error", "msg" => "Alredy Added");
+    		    	foreach ($Attendance_result->result() as $rows)
+			        {
+			            $absent_id = $rows->absent_id;
+			        }
+    			$response = array("status" => "AlreadyAdded", "msg" => "Alredy Added", "attendance_history_id"=>$absent_id);
     		} else {
 			
 				$attend_his_query = "INSERT INTO `edu_attendance_history`(`attend_id`, `class_id`, `student_id`, `abs_date`, `a_status`, `attend_period`, `a_val`,`a_taken_by`,`created_at`,`status`) VALUES ('$attend_id','$class_id','$student_id','$abs_date','$a_status','$attend_period','$a_val','$a_taken_by','$created_at','$status')";
