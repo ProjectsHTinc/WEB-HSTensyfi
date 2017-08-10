@@ -17,7 +17,7 @@ Class Dashboard extends CI_Model
     }
 
     function get_user_count_parents(){
-        $query="SELECT COUNT(parent_id) AS user_count FROM  edu_parents WHERE STATUS='Active'";
+        $query="SELECT COUNT(id) AS user_count FROM  edu_parents WHERE STATUS='Active'";
         $result=$this->db->query($query);
         return  $result->result();
 
@@ -191,7 +191,7 @@ Class Dashboard extends CI_Model
             $reset_pwd=md5($OTP);
             $reset="UPDATE edu_users SET user_password='$reset_pwd' WHERE parent_id='$type_id'";
             $result_pwd=$this->db->query($reset);
-            $query="SELECT email FROM edu_parents WHERE parent_id='$type_id'";
+            $query="SELECT email FROM edu_parents WHERE id='$type_id'";
             $result=$this->db->query($query);
             foreach($result->result() as $row){}
             $to_mail= $row->email;
@@ -411,37 +411,40 @@ return  $result12->result();
       $res=$this->db->query($query);
       return $res->result();
     }
-
-
-
 // Admin Parents
 
-
-  function dash_parents($user_id){
-    $query="SELECT eu.user_id,eu.user_pic,eu.parent_id,ep.father_name,ep.* FROM edu_users AS eu LEFT JOIN edu_parents AS ep ON eu.parent_id=ep.parent_id WHERE eu.user_id='$user_id'";
+  function dash_parents($user_id){ 
+    $query="SELECT eu.user_id,eu.user_pic,eu.parent_id,ep.name,ep.* FROM edu_users AS eu INNER JOIN edu_parents AS ep ON eu.parent_id=ep.id WHERE eu.user_id='$user_id'";
     $res=$this->db->query($query);
-    return $res->result();
+    $rows=$res->result();
+	//return $rows;
+	foreach($rows as $rows1){} $aid=$rows1->admission_id;
+	//echo $aid;exit;
+	 $query1="SELECT * FROM edu_parents WHERE admission_id IN($aid)";
+    $res1=$this->db->query($query1);
+    return $res1->result(); 
   }
-  function get_students($user_id){
-    $query="SELECT eu.user_id,eu.parent_id,ep.father_name,ep.admission_id FROM edu_users AS eu LEFT JOIN edu_parents AS ep ON eu.parent_id=ep.parent_id WHERE eu.user_id='$user_id'";
+  function get_students($user_id)
+  {
+    $query="SELECT eu.user_id,eu.parent_id,ep.name,ep.admission_id FROM edu_users AS eu LEFT JOIN edu_parents AS ep ON eu.parent_id=ep.id WHERE eu.user_id='$user_id'";
     $res=$this->db->query($query);
     foreach($res->result() as $rows){ }
     $pare_id= $rows->parent_id;
 
     $get_stude="SELECT ee.name,ee.class_id,c.class_name,s.sec_name,ee.enroll_id,ed.* FROM edu_admission AS ed LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ed.admission_id INNER JOIN edu_classmaster AS cm ON ee.class_id=cm.class_sec_id
-INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE parnt_guardn_id='$pare_id'";
+INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE FIND_IN_SET('$pare_id',ed.parnt_guardn_id)";
     $res1=$this->db->query($get_stude);
     return $res1->result();
   }
 
   function stud_details($user_id){
-    $query="SELECT eu.user_id,eu.parent_id,ep.father_name,ep.admission_id FROM edu_users AS eu LEFT JOIN edu_parents AS ep ON eu.parent_id=ep.parent_id WHERE eu.user_id='$user_id'";
+    $query="SELECT eu.user_id,eu.parent_id,ep.name,ep.admission_id FROM edu_users AS eu LEFT JOIN edu_parents AS ep ON eu.parent_id=ep.id WHERE eu.user_id='$user_id'";
     $res=$this->db->query($query);
     foreach($res->result() as $rows){ }
     $pare_id= $rows->parent_id;
 
     $get_stude="SELECT ee.name,ee.class_id,c.class_name,s.sec_name,ee.enroll_id,ed.* FROM edu_admission AS ed LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ed.admission_id INNER JOIN edu_classmaster AS cm ON ee.class_id=cm.class_sec_id
-INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE parnt_guardn_id='$pare_id'";
+INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE FIND_IN_SET('$pare_id',ed.parnt_guardn_id)";
     $res1=$this->db->query($get_stude);
     return $res1->result();
   }

@@ -11,7 +11,7 @@ Class Parentsmodel extends CI_Model
 
 //CREATE ADMISSION
 
-        function ad_parents($admission_id,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status)
+        /* function ad_parents($admission_id,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status)
 		{
 		$digits = 6;
 		$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
@@ -85,22 +85,662 @@ Class Parentsmodel extends CI_Model
             $data= array("status" => "Email Already Exist");
             return $data;
           }
+       } */
+	   
+	   
+	   //---------------------New----------------------------------
+	   
+	   function add_parents($admission_id,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$flogin,$userFileName,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$mlogin,$userFileName1,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$glogin,$userFileName2,$user_id)
+	   {
+		    //echo $flogin; echo $mlogin; echo $glogin; exit;
+		   $check_mobile="SELECT email,mobile FROM edu_parents WHERE mobile='$fpmobile' OR mobile='$mpmobile' OR mobile='$gpmobile'";
+          $result=$this->db->query($check_mobile);
+          if($result->num_rows()==0)
+		  { 
+		   $digits = 6;
+		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+		  //Father Details
+		   if(!empty($fname))
+		   {  
+			   $fquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile, sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,	status,primary_flag,created_by,created_at) VALUES ('$admission_id','$fname','$foccupation','$fincome','$fhaddress','$fpemail','$fsemail','$fpmobile','$fsmobile','$fhome_phone','$foffice_address','$foffice_phone','$frelationship','$userFileName','$fstatus','$flogin','$user_id',NOW())";
+			   $fresultset=$this->db->query($fquery);
+			   $finsert_id = $this->db->insert_id();
+			   $fuser_name=$finsert_id+600000;
+			   
+			  if($flogin=="Yes")
+			  {
+				 $to = $fpemail;
+				 $subject = '"Welcome Message"';
+				 $htmlContent = '
+				   <html>
+				   <head>  <title></title>
+				   </head>
+				   <body style="background-color:beige;">
 
-       }
+					 <table cellspacing="0" style=" width: 300px; height: 200px;">
+
+						   <tr>
+							   <th>Email:</th><td>'.$fpemail.'</td>
+						   </tr>
+						   <tr>
+							   <th>Username :</th><td>'.$fuser_name.'</td>
+						   </tr>
+						   <tr>
+							   <th>Password:</th><td>'.$OTP.'</td>
+						   </tr>
+						   <tr>
+							   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+						   </tr>
+					   </table>
+				   </body>
+				   </html>';
+			   $headers = "MIME-Version: 1.0" . "\r\n";
+			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+			   mail($to,$subject,$htmlContent,$headers);
+
+				  $fuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$fname','$fuser_name',md5($OTP),'4','$finsert_id','$finsert_id',NOW(),NOW(),'$fstatus')";
+			      $furesultset=$this->db->query($fuser);
+			  }
+		   }
+		 //Mother Details
+		   if(!empty($mname))
+		   {
+			  $mquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile, sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,	status,primary_flag,created_by,created_at) VALUES ('$admission_id','$mname','$moccupation','$mincome','$mhaddress','$mpemail','$msemail','$mpmobile','$msmobile','$mhome_phone','$moffice_address','$moffice_phone','$mrelationship','$userFileName1','$mstatus','$mlogin','$user_id',NOW())";
+			  $mresultset=$this->db->query($mquery);
+			  $minsert_id=$this->db->insert_id();
+			  //echo $minsert_id;exit;
+			  $muser_name=$minsert_id+600000;
+			   
+			  if($mlogin=="Yes")
+			   {
+				 $to = $mpemail;
+				 $subject = '"Welcome Message"';
+				 $htmlContent = '
+				   <html>
+				   <head>  <title></title>
+				   </head>
+				   <body style="background-color:beige;">
+
+					 <table cellspacing="0" style=" width: 300px; height: 200px;">
+
+						   <tr>
+							   <th>Email:</th><td>'.$mpemail.'</td>
+						   </tr>
+						   <tr>
+							   <th>Username :</th><td>'.$muser_name.'</td>
+						   </tr>
+						   <tr>
+							   <th>Password:</th><td>'.$OTP.'</td>
+						   </tr>
+						   <tr>
+							   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+						   </tr>
+					   </table>
+				   </body>
+				   </html>';
+			   $headers = "MIME-Version: 1.0" . "\r\n";
+			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+			   mail($to,$subject,$htmlContent,$headers);
+
+			  $muser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$mname','$muser_name',md5($OTP),'4','$minsert_id','$minsert_id',NOW(),NOW(),'$mstatus')";
+			  $muresultset=$this->db->query($muser);
+			  }
+		   }
+		   // Guardian Details
+		   if(!empty($gname))
+		   {
+			  $mquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile, sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,	status,primary_flag,created_by,created_at) VALUES ('$admission_id','$gname','$goccupation','$gincome','$ghaddress','$gpemail','$gsemail','$gpmobile','$gsmobile','$ghome_phone','$goffice_address','$goffice_phone','$grelationship','$userFileName2','$gstatus','$glogin','$user_id',NOW())";
+			  $gresultset=$this->db->query($mquery);
+			  $ginsert_id = $this->db->insert_id();
+			  $guser_name=$ginsert_id+600000;
+			   
+			  if($glogin=="Yes")
+			  {
+				 $to = $gpemail;
+				 $subject = '"Welcome Message"';
+				 $htmlContent = '
+				   <html>
+				   <head>  <title></title>
+				   </head>
+				   <body style="background-color:beige;">
+					 <table cellspacing="0" style=" width: 300px; height: 200px;">
+						   <tr>
+							   <th>Email:</th><td>'.$gpemail.'</td>
+						   </tr>
+						   <tr>
+							   <th>Username :</th><td>'.$guser_name.'</td>
+						   </tr>
+						   <tr>
+							   <th>Password:</th><td>'.$OTP.'</td>
+						   </tr>
+						   <tr>
+							   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+						   </tr>
+					   </table>
+				   </body>
+				   </html>';
+			   $headers = "MIME-Version: 1.0" . "\r\n";
+			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+			   mail($to,$subject,$htmlContent,$headers);
+
+				  $guser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$gname','$guser_name',md5($OTP),'4','$ginsert_id','$ginsert_id',NOW(),NOW(),'$gstatus')";
+			      $guresultset=$this->db->query($guser);
+			  }
+		   }
+		   
+		   if(!empty($finsert_id) && !empty($minsert_id) && !empty($ginsert_id) )
+		   {
+			  $fmgid=array($finsert_id,$minsert_id,$ginsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		   }
+            
+		 if(!empty($finsert_id) && !empty($minsert_id))
+		   {
+			  $fmgid=array($finsert_id,$minsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		   $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		   $gsresultset=$this->db->query($parnt_guardnid);
+		   }
+		   if(!empty($finsert_id) && !empty($ginsert_id))
+		   {
+			  $fmgid=array($finsert_id,$ginsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		   }
+		   if(!empty($ginsert_id)&& !empty($minsert_id))
+		   {
+			  $fmgid=array($ginsert_id,$minsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		   }
+		   if(!empty($ginsert_id))
+		   {
+			  $fmgid=array($ginsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		   }
+		   
+		  $data= array("status"=>"success");
+          return $data;
+		  }else{
+			  $data= array("status"=>"MNAE");
+			   return $data;
+		  }
+	   }
+	   
+	   
+	   function add_new_parents($admission_id,$oldadmission_id,$name,$occupation,$income,$haddress,$pemail,$semail,$pmobile,$smobile,$home_phone,$office_address,$office_phone,$relationship,$status,$priority,$userFileName,$user_id)
+	   {  //echo $oldadmission_id;exit;
+		    $digits = 6;
+		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+		   
+		   $pgid="SELECT admission_id,parnt_guardn_id FROM edu_admission WHERE admission_id IN('$oldadmission_id')";
+		   $resultset=$this->db->query($pgid);
+		   $row=$resultset->result();
+		   foreach($row as $rows){}
+		   $apgid=$rows->parnt_guardn_id;
+		   
+		   //echo $apgid; 
+		   $sql="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile, sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,	status,primary_flag,created_by,created_at) VALUES ('$oldadmission_id','$name','$occupation','$income','$haddress','$pemail','$semail','$pmobile','$smobile','$home_phone','$office_address','$office_phone','$relationship','$userFileName','$status','$priority','$user_id',NOW())";
+		   $newresult=$this->db->query($sql);
+		   $newinsert_id=$this->db->insert_id();
+		   $newuser_name=$newinsert_id+600000;
+
+		   if($priority=="Yes")
+			{
+				 $to = $pemail;
+				 $subject = '"Welcome Message"';
+				 $htmlContent = '
+				   <html>
+				   <head>  <title></title>
+				   </head>
+				   <body style="background-color:beige;">
+					 <table cellspacing="0" style=" width: 300px; height: 200px;">
+						   <tr>
+							   <th>Email:</th><td>'.$pemail.'</td>
+						   </tr>
+						   <tr>
+							   <th>Username :</th><td>'.$newuser_name.'</td>
+						   </tr>
+						   <tr>
+							   <th>Password:</th><td>'.$OTP.'</td>
+						   </tr>
+						   <tr>
+							   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+						   </tr>
+					   </table>
+				   </body>
+				   </html>';
+			   $headers = "MIME-Version: 1.0" . "\r\n";
+			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+			   mail($to,$subject,$htmlContent,$headers);
+			   
+				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$name','$newuser_name',md5($OTP),'4','$newinsert_id','$newinsert_id',NOW(),NOW(),'$status')";
+			      $nuresultset=$this->db->query($nuser);
+				}  
+				
+			  $fmgid=array($apgid,$newinsert_id);
+			  $insertid=implode(',',$fmgid);
+  
+		  $parnt_guardnid="UPDATE edu_admission SET parnt_guardn_id='$insertid',parents_status='1' WHERE admission_id IN ($oldadmission_id)";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		  
+		   $parnt_guardnid1="UPDATE edu_parents SET admission_id='$oldadmission_id' WHERE id IN ($apgid)";
+		  $gsresultset1=$this->db->query($parnt_guardnid1);
+
+		  if($gsresultset){
+				 $data= array("status" => "success");
+				 return $data;
+			  }else{
+				 $data= array("status" => "FTA");
+				 return $data;
+			   }
+	   }
+	   
+	   function update_parents_details($stu_name,$admission_id,$morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id)
+	   {   echo $stu_name; echo $morestu; 
+	       $digits = 6;
+		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+		   //Father Details
+		   $sql3="SELECT parnt_guardn_id FROM edu_admission WHERE admission_id='$stu_name'";
+		   $sql4=$this->db->query($sql3);
+		   $rows1=$sql4->result();
+		   foreach($rows1 as $rows2){} $pid=$rows2->parnt_guardn_id;
+		   //echo $pid;exit;
+		   if($stu_name!=$morestu)
+		   {
+			 echo $sql="UPDATE edu_admission SET parnt_guardn_id='0',parents_status='0' WHERE admission_id NOT IN($stu_name) AND parnt_guardn_id IN (1,2,3)";
+			  $sql2=$this->db->query($sql);
+		   }
+		   
+		   if(!empty($fname))
+		    { 
+			  $fquery="UPDATE edu_parents SET admission_id='$stu_name',name='$fname',occupation='$foccupation',income='$fincome',home_address='$fhaddress',email='$fpemail',sec_email='$fsemail',mobile='$fpmobile',sec_mobile='$fsmobile',home_phone='$fhome_phone',office_address='$foffice_address',office_phone='$foffice_phone',relationship='$frelationship',user_pic='$userFileName',status='$fstatus',primary_flag='$flogin',updated_by='$user_id',updated_at='NOW()' WHERE  id='$fid' AND FIND_IN_SET('$oldstu',admission_id)";
+			   $fresultset=$this->db->query($fquery);
+               $fatherid=$fid+600000;
+			   //echo $fatherid;exit;
+			   if($flogin=="Yes")
+			    {
+				 $check="SELECT user_name,user_master_id,parent_id,user_type FROM edu_users WHERE user_type='4' AND user_master_id='$fid' AND parent_id='$fid' AND user_name='$fatherid'";
+				   $result=$this->db->query($check);
+                   if($result->num_rows()==0)
+		           {
+					  $to = $mpemail;
+				      $subject = '"Welcome Message"';
+				      $htmlContent = '
+					   <html>
+					   <head>  <title></title>
+					   </head>
+					   <body style="background-color:beige;">
+						 <table cellspacing="0" style=" width: 300px; height: 200px;">
+							   <tr>
+								   <th>Email:</th><td>'.$fpemail.'</td>
+							   </tr>
+							   <tr>
+								   <th>Username :</th><td>'.$fatherid.'</td>
+							   </tr>
+							   <tr>
+								   <th>Password:</th><td>'.$OTP.'</td>
+							   </tr>
+							   <tr>
+								   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+							   </tr>
+						   </table>
+					   </body>
+					   </html>';
+					   $headers = "MIME-Version: 1.0" . "\r\n";
+					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+					   mail($to,$subject,$htmlContent,$headers);
+				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$fname','$fatherid',md5($OTP),'4','$fid','$fid',NOW(),NOW(),'Active')";
+			      $nuresultset=$this->db->query($nuser); 
+				   }else{
+			$query6="UPDATE edu_users SET name='$fname',status='Active',updated_date=NOW() WHERE user_master_id='$fid' AND parent_id='$fid'";
+	              $res=$this->db->query($query6);
+				   }
+			  }else{ 
+			  $query7="UPDATE edu_users SET name='$fname',status='Deactive',updated_date=NOW() WHERE user_master_id='$fid' AND parent_id='$fid'";
+	          $res1=$this->db->query($query7);
+			  }
+			}
+		   //Mother Details
+		   if(!empty($mname))
+		   {
+			  $mquery="UPDATE edu_parents SET admission_id='$stu_name',name='$mname',occupation='$moccupation',income='$mincome',home_address='$mhaddress',email='$mpemail',sec_email='$msemail',mobile='$mpmobile',sec_mobile='$msmobile',home_phone='$mhome_phone',office_address='$moffice_address',office_phone='$moffice_phone',relationship='$mrelationship',user_pic='$userFileName1',status='$mstatus',primary_flag='$mlogin',updated_by='$user_id',updated_at='NOW()' WHERE  id='$mid' AND FIND_IN_SET('$oldstu',admission_id)";
+			  $mresultset=$this->db->query($mquery);
+              $motherid=$mid+600000;
+				//echo $motherid; 
+			  if($mlogin=="Yes")
+			   {
+				   $check="SELECT user_name,user_master_id,parent_id,user_type FROM edu_users WHERE user_type='4' AND user_master_id='$mid' AND parent_id='$mid' AND user_name='$motherid'";
+				   $result=$this->db->query($check);
+                   if($result->num_rows()==0)
+		           {
+					  $to = $mpemail;
+				      $subject = '"Welcome Message"';
+				      $htmlContent = '
+					   <html>
+					   <head>  <title></title>
+					   </head>
+					   <body style="background-color:beige;">
+						 <table cellspacing="0" style=" width: 300px; height: 200px;">
+							   <tr>
+								   <th>Email:</th><td>'.$mpemail.'</td>
+							   </tr>
+							   <tr>
+								   <th>Username :</th><td>'.$motherid.'</td>
+							   </tr>
+							   <tr>
+								   <th>Password:</th><td>'.$OTP.'</td>
+							   </tr>
+							   <tr>
+								   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+							   </tr>
+						   </table>
+					   </body>
+					   </html>';
+					   $headers = "MIME-Version: 1.0" . "\r\n";
+					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+					   mail($to,$subject,$htmlContent,$headers);
+				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$mname','$motherid',md5($OTP),'4','$mid','$mid',NOW(),NOW(),'$mstatus')";
+			      $nuresultset=$this->db->query($nuser); 
+				   }else{
+			    $query6="UPDATE edu_users SET name='$mname',status='Active',updated_date=NOW() WHERE user_master_id='$mid' AND parent_id='$mid'";
+	           $res=$this->db->query($query6);
+		  }
+			}else{
+               $query7="UPDATE edu_users SET name='$mname',status='Deactive',updated_date=NOW() WHERE user_master_id='$mid' AND parent_id='$mid'";
+	          $res1=$this->db->query($query7);				  
+			  }
+		   }
+		   // Guardian Details
+		   if(!empty($gname))
+		   {
+			  $mquery="UPDATE edu_parents SET admission_id='$stu_name',name='$gname',occupation='$goccupation',income='$gincome',home_address='$ghaddress',email='$gpemail',sec_email='$gsemail',mobile='$gpmobile',sec_mobile='$gsmobile',home_phone='$ghome_phone',office_address='$goffice_address',office_phone='$goffice_phone',relationship='$grelationship',user_pic='$userFileName2',status='$gstatus',primary_flag='$glogin',updated_by='$user_id',updated_at='NOW()' WHERE  id='$gid' AND FIND_IN_SET('$oldstu',admission_id)";
+			  $gresultset=$this->db->query($mquery);
+			  $guardianid=$gid+600000;
+			   
+			  if($glogin=="Yes")
+			  {
+				  $check="SELECT user_name,user_master_id,parent_id,user_type FROM edu_users WHERE user_type='4' AND user_master_id='$gid' AND parent_id='$gid' AND user_name='$guardianid'";
+				   $result=$this->db->query($check);
+                   if($result->num_rows()==0)
+		           {
+					  $to = $mpemail;
+				      $subject = '"Welcome Message"';
+				      $htmlContent = '
+					   <html>
+					   <head>  <title></title>
+					   </head>
+					   <body style="background-color:beige;">
+						 <table cellspacing="0" style=" width: 300px; height: 200px;">
+							   <tr>
+								   <th>Email:</th><td>'.$gpemail.'</td>
+							   </tr>
+							   <tr>
+								   <th>Username :</th><td>'.$guardianid.'</td>
+							   </tr>
+							   <tr>
+								   <th>Password:</th><td>'.$OTP.'</td>
+							   </tr>
+							   <tr>
+								   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+							   </tr>
+						   </table>
+					   </body>
+					   </html>';
+					   $headers = "MIME-Version: 1.0" . "\r\n";
+					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+					   mail($to,$subject,$htmlContent,$headers);
+				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$gname','$guardianid',md5($OTP),'4','$gid','$gid',NOW(),NOW(),'Active')";
+			      $nuresultset=$this->db->query($nuser); 
+				   }else{
+			$query6="UPDATE edu_users SET name='$gname',status='Active',updated_date=NOW() WHERE user_master_id='$gid' AND parent_id='$gid'";
+	         $res=$this->db->query($query6);
+				   }
+			  }else{
+			  $query7="UPDATE edu_users SET name='$gname',status='Deactive',updated_date=NOW() WHERE user_master_id='$gid' AND parent_id='$gid'";
+	          $res1=$this->db->query($query7);	
+			  }
+		   }
+		  $data= array("status"=>"success");
+          return $data;
+	   }
+	   
+	   //New student Add
+	   function update_exiting_parents_details($morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id)
+	   {
+		   	echo $oldstu; echo'<br>'; echo $newstu; echo'<br>';echo $morestu;  
+	       $digits = 6;
+		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+		   
+		  $sql="SELECT parnt_guardn_id FROM edu_admission WHERE admission_id IN($oldstu)";
+		   $getid=$this->db->query($sql);  
+		   $getid1=$getid->result();
+		   foreach($getid1 as $getid2){} $insertid=$getid2->parnt_guardn_id;
+		  // echo $insertid; exit;
+		   //Father Details
+		   if(!empty($fname))
+		    { 
+    		 if(empty($newstu)){
+				$admission_id=$oldstu;
+			    }else{ $admission_id=$morestu;
+                  $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$newstu'";
+		          $gsresultset=$this->db->query($parnt_guardnid);  
+               }
+			 
+			 echo "hi"; echo $admission_id; echo $oldstu; 
+			 echo $fquery="UPDATE edu_parents SET admission_id='$admission_id',name='$fname',occupation='$foccupation',income='$fincome',home_address='$fhaddress',email='$fpemail',sec_email='$fsemail',mobile='$fpmobile',sec_mobile='$fsmobile',home_phone='$fhome_phone',office_address='$foffice_address',office_phone='$foffice_phone',relationship='$frelationship',user_pic='$userFileName',status='$fstatus',primary_flag='$flogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$fid'";
+			  $fresultset=$this->db->query($fquery);
+               $fatherid=$fid+600000;
+			   //echo $fatherid;exit;
+			   if($flogin=="Yes")
+			    {
+				 $check="SELECT user_name,user_master_id,parent_id,user_type FROM edu_users WHERE user_type='4' AND user_master_id='$fid' AND parent_id='$fid' AND user_name='$fatherid'";
+				   $result=$this->db->query($check);
+                   if($result->num_rows()==0)
+		           {
+					  $to = $mpemail;
+				      $subject = '"Welcome Message"';
+				      $htmlContent = '
+					   <html>
+					   <head>  <title></title>
+					   </head>
+					   <body style="background-color:beige;">
+						 <table cellspacing="0" style=" width: 300px; height: 200px;">
+							   <tr>
+								   <th>Email:</th><td>'.$fpemail.'</td>
+							   </tr>
+							   <tr>
+								   <th>Username :</th><td>'.$fatherid.'</td>
+							   </tr>
+							   <tr>
+								   <th>Password:</th><td>'.$OTP.'</td>
+							   </tr>
+							   <tr>
+								   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+							   </tr>
+						   </table>
+					   </body>
+					   </html>';
+					   $headers = "MIME-Version: 1.0" . "\r\n";
+					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+					   mail($to,$subject,$htmlContent,$headers);
+				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$fname','$fatherid',md5($OTP),'4','$fid','$fid',NOW(),NOW(),'Active')";
+			      $nuresultset=$this->db->query($nuser); 
+				   }else{
+			$query6="UPDATE edu_users SET name='$fname',status='Active',updated_date=NOW() WHERE user_master_id='$fid' AND parent_id='$fid'";
+	              $res=$this->db->query($query6);
+				   }
+			  }else{ 
+			  $query7="UPDATE edu_users SET name='$fname',status='Deactive',updated_date=NOW() WHERE user_master_id='$fid' AND parent_id='$fid'";
+	          $res1=$this->db->query($query7);
+			  }
+			}
+		   
+		 //Mother Details
+		 
+		   if(!empty($mname))
+		   {
+			    if(empty($newstu)){
+				$admission_id=$oldstu;
+			    }else{ $admission_id=$morestu; }
+			
+			  $mquery="UPDATE edu_parents SET admission_id='$admission_id',name='$mname',occupation='$moccupation',income='$mincome',home_address='$mhaddress',email='$mpemail',sec_email='$msemail',mobile='$mpmobile',sec_mobile='$msmobile',home_phone='$mhome_phone',office_address='$moffice_address',office_phone='$moffice_phone',relationship='$mrelationship',user_pic='$userFileName1',status='$mstatus',primary_flag='$mlogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$mid'";
+			  $mresultset=$this->db->query($mquery);
+              $motherid=$mid+600000;
+				//echo $motherid; 
+			  if($mlogin=="Yes")
+			   {
+				   $check="SELECT user_name,user_master_id,parent_id,user_type FROM edu_users WHERE user_type='4' AND user_master_id='$mid' AND parent_id='$mid' AND user_name='$motherid'";
+				   $result=$this->db->query($check);
+                   if($result->num_rows()==0)
+		           {
+					  $to = $mpemail;
+				      $subject = '"Welcome Message"';
+				      $htmlContent = '
+					   <html>
+					   <head>  <title></title>
+					   </head>
+					   <body style="background-color:beige;">
+						 <table cellspacing="0" style=" width: 300px; height: 200px;">
+							   <tr>
+								   <th>Email:</th><td>'.$mpemail.'</td>
+							   </tr>
+							   <tr>
+								   <th>Username :</th><td>'.$motherid.'</td>
+							   </tr>
+							   <tr>
+								   <th>Password:</th><td>'.$OTP.'</td>
+							   </tr>
+							   <tr>
+								   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+							   </tr>
+						   </table>
+					   </body>
+					   </html>';
+					   $headers = "MIME-Version: 1.0" . "\r\n";
+					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+					   mail($to,$subject,$htmlContent,$headers);
+				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$mname','$motherid',md5($OTP),'4','$mid','$mid',NOW(),NOW(),'$mstatus')";
+			      $nuresultset=$this->db->query($nuser); 
+				   }else{
+			$query6="UPDATE edu_users SET name='$mname',status='Active',updated_date=NOW() WHERE user_master_id='$mid' AND parent_id='$mid'";
+	         $res=$this->db->query($query6);
+				   }
+			}else{
+               $query7="UPDATE edu_users SET name='$mname',status='Deactive',updated_date=NOW() WHERE user_master_id='$mid' AND parent_id='$mid'";
+	          $res1=$this->db->query($query7);				  
+			  }
+		   }
+		   
+		   // Guardian Details
+		   
+		   if(!empty($gname))
+		   {
+			   if(empty($newstu)){
+				$admission_id=$oldstu;
+			    }else{ $admission_id=$morestu; }
+				
+			  $mquery="UPDATE edu_parents SET admission_id='$admission_id',name='$gname',occupation='$goccupation',income='$gincome',home_address='$ghaddress',email='$gpemail',sec_email='$gsemail',mobile='$gpmobile',sec_mobile='$gsmobile',home_phone='$ghome_phone',office_address='$goffice_address',office_phone='$goffice_phone',relationship='$grelationship',user_pic='$userFileName2',status='$gstatus',primary_flag='$glogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$gid'";
+			  $gresultset=$this->db->query($mquery);
+			  $guardianid=$gid+600000;
+			   
+			  if($glogin=="Yes")
+			  {
+				  $check="SELECT user_name,user_master_id,parent_id,user_type FROM edu_users WHERE user_type='4' AND user_master_id='$gid' AND parent_id='$gid' AND user_name='$guardianid'";
+				   $result=$this->db->query($check);
+                   if($result->num_rows()==0)
+		           {
+					  $to = $mpemail;
+				      $subject = '"Welcome Message"';
+				      $htmlContent = '
+					   <html>
+					   <head>  <title></title>
+					   </head>
+					   <body style="background-color:beige;">
+						 <table cellspacing="0" style=" width: 300px; height: 200px;">
+							   <tr>
+								   <th>Email:</th><td>'.$gpemail.'</td>
+							   </tr>
+							   <tr>
+								   <th>Username :</th><td>'.$guardianid.'</td>
+							   </tr>
+							   <tr>
+								   <th>Password:</th><td>'.$OTP.'</td>
+							   </tr>
+							   <tr>
+								   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+							   </tr>
+						   </table>
+					   </body>
+					   </html>';
+					   $headers = "MIME-Version: 1.0" . "\r\n";
+					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+					   mail($to,$subject,$htmlContent,$headers);
+				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$gname','$guardianid',md5($OTP),'4','$gid','$gid',NOW(),NOW(),'Active')";
+			      $nuresultset=$this->db->query($nuser); 
+				   }else{
+			$query6="UPDATE edu_users SET name='$gname',status='Active',updated_date=NOW() WHERE user_master_id='$gid' AND parent_id='$gid'";
+	         $res=$this->db->query($query6);
+				   }
+			  }else{
+			  $query7="UPDATE edu_users SET name='$gname',status='Deactive',updated_date=NOW() WHERE user_master_id='$gid' AND parent_id='$gid'";
+	          $res1=$this->db->query($query7);	
+			  }
+		   }
+		  $data= array("status"=>"success");
+          return $data;
+	   }
+	   //----------------------------------------------------------
 
        //GET ALL Admission Form WHERE status='A'
+	   
+	   function get_all_details($admission_id)
+	   {
+		  $query3="SELECT admission_id FROM edu_parents WHERE FIND_IN_SET($admission_id,admission_id)";
+         $res=$this->db->query($query3);
+         return $res->result();
+	   }
       function get_all_parents_details()
 	  {
-         $query3="SELECT * FROM edu_parents ORDER BY parent_id DESC ";
+         $query3="SELECT * FROM edu_parents  ORDER BY id DESC ";
          $res=$this->db->query($query3);
          return $res->result();
        }
 
-       function edit_parents($parent_id){
-         $query4="SELECT * FROM edu_parents WHERE parent_id='$parent_id'";
+       function edit_parents($admission_id)
+	   {
+         $query4="SELECT * FROM edu_parents WHERE FIND_IN_SET('$admission_id',admission_id)";
          $res=$this->db->query($query4);
          return $res->result();
        }
+	   
+	   function get_stu_name($admission_id)
+	   {
+		 $query4="SELECT admission_id,name FROM edu_admission WHERE admission_id='$admission_id'";
+         $res=$this->db->query($query4);
+         return $res->result();
+	   }
 	   function  edit_parent($parnt_guardn_id)
 	   {
 		 $query4="SELECT * FROM edu_parents WHERE parent_id='$parnt_guardn_id'";
@@ -109,7 +749,7 @@ Class Parentsmodel extends CI_Model
 	   }
 
 	  function update_parents($stu_name_id,$parent_id,$single,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status)
-	  {      //print_r($stu_name_id);exit;
+	  {    //print_r($stu_name_id);exit;
            $query5="UPDATE edu_parents SET admission_id='$stu_name_id',father_name='$father_name',mother_name='$mother_name',guardn_name='$guardn_name',occupation='$occupation',income='$income',address='$address',email='$email',email1='$email1',home_phone='$home_phone',office_phone='$office_phone',mobile='$mobile',mobile1='$mobile1',father_pic='$userFileName',mother_pic='$userFileName1',guardn_pic='$userFileName2',status='$status',update_at=NOW() WHERE  parent_id='$parent_id'";
            $res=$this->db->query($query5);
 			 //echo $father_name;
@@ -123,7 +763,6 @@ Class Parentsmodel extends CI_Model
 			       $f_name=$guardn_name;
 			  }else{
 			       $f_name=$father_name;
-			      
 			  }
  
 	         $query6="UPDATE edu_users SET name='$f_name',updated_date=NOW() WHERE parent_id='$parent_id'";
@@ -145,39 +784,38 @@ Class Parentsmodel extends CI_Model
 
 	   function search_parent($cell)
 	   {
-		 $query="SELECT * FROM edu_parents WHERE mobile='$cell'";
+		 $query="SELECT admission_id,mobile FROM edu_parents WHERE mobile='$cell'";
          $res1=$this->db->query($query);
 		 $result=$res1->result();
-		 return $result;
-
-		 /*  if($res1->num_rows()==0)
-		 {
-			 $datas=array("status" => "success","res1" => $result);
-           return $datas;
-		 }else{
-			 $datas= array("status" => "Mobile Number Not Found");
-             return $datas;
-		 }
-		  */
-
-        //return $res1->result();
+		 foreach($result as $aid){} $sid=$aid->admission_id;
+		 $query1="SELECT p.*,a.name AS stuname FROM edu_parents AS p,edu_admission AS a WHERE p.admission_id='$sid' AND p.admission_id=a.admission_id";
+         $res2=$this->db->query($query1);
+		 $result1=$res2->result();
+		 return $result1;
 	   }
 
 
 		 function getData($email)
 		   {
-					$query = "select * from  edu_parents WHERE email='".$email."'";
-					$resultset = $this->db->query($query);
-					return count($resultset->result());
-
+				$query = "select * from  edu_parents WHERE email='".$email."'";
+				$resultset = $this->db->query($query);
+				return count($resultset->result());
            }
 
 		   function checkcellnum($cell)
 		   {
-			        $query = "select * from  edu_parents WHERE mobile='".$cell."'";
-					$resultset = $this->db->query($query);
-					return count($resultset->result());
+				$query = "select * from  edu_parents WHERE mobile='".$cell."'";
+				$resultset = $this->db->query($query);
+				return count($resultset->result());
 		   }
+		   
+		   function get_relation($relation,$stuid)
+	       {
+			   $pgid="SELECT relationship FROM edu_parents WHERE relationship='$relation' AND FIND_IN_SET('$stuid',admission_id)";
+			   $resultset=$this->db->query($pgid);
+			   return count($resultset->result());
+	      } 
+	   
 
 
 }

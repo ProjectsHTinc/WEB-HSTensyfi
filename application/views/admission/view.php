@@ -111,8 +111,9 @@
 										}
 										else
 										{
+											// echo base_url(); parents/edit_parent/ echo $rows->parnt_guardn_id;
 										?>
-							 <a href="<?php echo base_url(); ?>parents/edit_parent/<?php echo $rows->parnt_guardn_id; ?>" rel="tooltip" title="Already Added Parent Details" class="btn btn-simple btn-info btn-icon table-action view" >
+							 <a href="<?php echo base_url(); ?>parents/edit_parents/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Parent Details" class="btn btn-simple btn-info btn-icon table-action view" >
 											<i class="fa fa-id-card-o" aria-hidden="true"></i></a>
                                         <?php
 									      }
@@ -176,7 +177,7 @@
 										else
 										{
 										?>
-							 <a href="<?php echo base_url(); ?>parents/edit_parent/<?php echo $rows->parnt_guardn_id; ?>" rel="tooltip" title="Already Added Parent Details" class="btn btn-simple btn-info btn-icon table-action view" >
+							 <a href="<?php echo base_url(); ?>parents/edit_parents/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Parent Details" class="btn btn-simple btn-info btn-icon table-action view" >
 											<i class="fa fa-id-card-o" aria-hidden="true"></i></a>
                                         <?php
 									      }

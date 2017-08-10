@@ -8,8 +8,8 @@ class Adminlogin extends CI_Controller {
 		 parent::__construct();
 		 $this->load->model('login');
 		 $this->load->model('dashboard');
-		  $this->load->helper('url');
-		  $this->load->library('session');
+		 $this->load->helper('url');
+		 $this->load->library('session');
  }
 
 	/**
@@ -30,12 +30,12 @@ class Adminlogin extends CI_Controller {
 	public function home()
 	{
 
- // 	$schoolid=$this->input->post('school_id');
+      //$schoolid=$this->input->post('school_id');
 	  $email=$this->input->post('email');
 	  $password=md5($this->input->post('password'));
 	  $result = $this->login->login($email,$password);
 	  $msg=$result['msg'];
-	//echo  $msg1=$result['status'];exit;
+	  //echo $msg1=$result['status'];exit;
 
 			if($result['status']=='Deactive'){
 				$datas['user_data']=array("status"=>$result['status'],"msg"=>$result['msg']);
@@ -212,8 +212,8 @@ class Adminlogin extends CI_Controller {
 			$datas['stud_details']=$this->dashboard->get_students($user_id);
 			$datas['parents_circular']=$this->dashboard->get_parents_circular($user_id);
 			$datas['res']=$this->dashboard->stud_details($user_id);
-            //echo '<pre>'; print_r($datas['parents_circular']);exit;
-			//print_r($datas['stud_details']);
+            //echo '<pre>'; print_r($datas['user_details']);exit;
+			//echo '<pre>'; print_r($datas['user_details']);exit;
 			$this->load->view('adminparent/parent_header',$datas);
 			$this->load->view('adminparent/home',$datas);
 			$this->load->view('adminparent/parent_footer');

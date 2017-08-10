@@ -294,7 +294,7 @@ class Adminparent extends CI_Controller {
 			if($user_type==4){
 			 $datas['res']=$this->dashboard->stud_details($user_id);
 			 $stu= count($datas['res']);
-			// echo $stu;exit;
+			//echo $stu;exit;
 
 			 if($stu==1){
 				 $datas['stud_details']=$this->dashboard->get_students($user_id);

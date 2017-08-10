@@ -54,93 +54,206 @@ class Parents extends CI_Controller {
 		 	if($user_type==1)
 			{
 				    $admission_id=$this->input->post('admission_no');
-					//echo $admission_id;
-					//exit;
-					$father_name=$this->input->post('father_name');
+					$priority=$this->input->post('priority');
 					
-					$mother_name=$this->input->post('mother_name');
+					//echo $admission_id; echo $priority;
 					
-					$guardn_name=$this->input->post('guardn_name');
+					//Father Details
+					$fname=$this->input->post('fname');
+					$foccupation=$this->input->post('foccupation');
+					$fincome=$this->input->post('fincome');
+					$fhaddress=$this->input->post('fhaddress');
+					$fpemail=$this->input->post('fpemail');
+					$fsemail=$this->input->post('fsemail');
+					$fpmobile=$this->input->post('fpmobile');
+					$fsmobile=$this->input->post('fsmobile');
+					$fhome_phone=$this->input->post('fhome_phone');
+				    $foffice_address=$this->input->post('foffice_address');
+					$foffice_phone=$this->input->post('foffice_phone');
+				    $frelationship=$this->input->post('frelationship');
+					$fstatus=$this->input->post('fstatus');
+					$flogin=$this->input->post('flogin');
 					
-					$occupation=$this->input->post('occupation');
-					$income=$this->input->post('income');
-					$address=$this->input->post('address');
-					$email=$this->input->post('email');
-					$email1=$this->input->post('email1');
-					$home_phone=$this->input->post('home_phone');
-				    $office_phone=$this->input->post('office_phone');
-					$mobile=$this->input->post('mobile');
-					$mobile1=$this->input->post('mobile1');
-					$status=$this->input->post('status');
-				  
+					
 					$father_pic = $_FILES["father_pic"]["name"];
 				    $userFileName =$father_pic;
 				    $uploaddir = 'assets/parents/';
 				    $profilepic = $uploaddir.$userFileName;
 				    move_uploaded_file($_FILES['father_pic']['tmp_name'], $profilepic);
-				
+				  if(!empty($fname)){ $userFileName =$father_pic; }else{ 
+					$userFileName=""; 
+					}
+				   //echo $flogin; exit;
+				//Mother Details
+				    $mname=$this->input->post('mname');
+					$moccupation=$this->input->post('moccupation');
+					$mincome=$this->input->post('mincome');
+					$mhaddress=$this->input->post('mhaddress');
+					$mpemail=$this->input->post('mpemail');
+					$msemail=$this->input->post('msemail');
+					$mpmobile=$this->input->post('mpmobile');
+					$msmobile=$this->input->post('msmobile');
+					$mhome_phone=$this->input->post('mhome_phone');
+				    $moffice_address=$this->input->post('moffice_address');
+					$moffice_phone=$this->input->post('moffice_phone');
+				    $mrelationship=$this->input->post('mrelationship');
+					$mstatus=$this->input->post('mstatus');
+					$mlogin=$this->input->post('mlogin');
+					
 					$mother_pic = $_FILES["mother_pic"]["name"];
 					$userFileName1 =$mother_pic;
 					$uploaddir1 = 'assets/parents/';
 					$profilepic1 = $uploaddir1.$userFileName1;
 					move_uploaded_file($_FILES['mother_pic']['tmp_name'], $profilepic1);
 					
-					$guardn_pic = $_FILES["guardn_pic"]["name"];
+					if(!empty($mother_pic))
+					{ $userFileName1 =$mother_pic;
+					}else{ 
+					$userFileName1=""; }
+					//echo $mname; echo $mpemail; echo $mpmobile;
+					
+					
+				// Guardian Details
+				    $gname=$this->input->post('gname');
+					$goccupation=$this->input->post('goccupation');
+					$gincome=$this->input->post('gincome');
+					$ghaddress=$this->input->post('ghaddress');
+					$gpemail=$this->input->post('gpemail');
+					$gsemail=$this->input->post('gsemail');
+					$gpmobile=$this->input->post('gpmobile');
+					$gsmobile=$this->input->post('gsmobile');
+					$ghome_phone=$this->input->post('ghome_phone');
+				    $goffice_address=$this->input->post('goffice_address');
+					$goffice_phone=$this->input->post('goffice_phone');
+				    $grelationship=$this->input->post('grelationship');
+					$gstatus=$this->input->post('gstatus');
+					$glogin=$this->input->post('glogin');
+					
+					$guardn_pic = $_FILES["guardian_pic"]["name"];
 					$userFileName2 =$guardn_pic;
 					$uploaddir2 = 'assets/parents/';
 					$profilepic2 = $uploaddir2.$userFileName2;
-					move_uploaded_file($_FILES['guardn_pic']['tmp_name'], $profilepic2);
-											
-	$datas=$this->parentsmodel->ad_parents($admission_id,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status);
-
-			//	print_r($datas['status']);exit;
+					move_uploaded_file($_FILES['guardian_pic']['tmp_name'], $profilepic2);
+					if(!empty($gname)){ $userFileName2 =$guardn_pic; }else{$userFileName2="";}	
+						
+	$datas=$this->parentsmodel->add_parents($admission_id,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$flogin,$userFileName,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$mlogin,$userFileName1,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$glogin,$userFileName2,$user_id);
+	
+			//print_r($datas['status']);exit;
 				if($datas['status']=="success")
 				{
 					$this->session->set_flashdata('msg','Added Successfully');
 					redirect('parents/view');
-				}
-				else 
-					if($datas['status']=="Email Already Exist")
-				      {
-							$this->session->set_flashdata('msg', 'Email Already Exist');
-							redirect('parents/view');
-				      }
-					   else
-					   {
-							$this->session->set_flashdata('msg', 'Failed to Add');
-							redirect('parents/view');
-				       }
+				}else if($datas['status']=="MNAE"){
+						$this->session->set_flashdata('msg', 'Mobile Number Already Exist');
+						redirect('parents/view');
+				  }else{
+						$this->session->set_flashdata('msg', 'Failed to Add');
+						redirect('parents/view');
+				   }
 			   }
 			 else
 			 {
 					redirect('/');
 			 }
 		}
+		
+		public function create_new_parents_details($admission_id,$eid)
+	    { 
+             $datas=$this->session->userdata();
+			 $user_id=$this->session->userdata('user_id');
+			 $user_type=$this->session->userdata('user_type');
+			 $datas['aid']=$admission_id;
+			 $datas['eid']=$eid;
+			 $datas['alldetails']=$this->parentsmodel->get_all_details($admission_id);
+			 //print_r($datas['alldetails']);exit;
+		 	 if($user_type==1)
+			 { 
+				 $this->load->view('header');
+				 $this->load->view('parents/add_new_parents',$datas);
+				 $this->load->view('footer');
+			 }else{
+				 redirect('/');
+			 }
+			
+	    }
+		
+		public function create_new_parents()
+		{    
+			 $datas=$this->session->userdata();
+			 $user_id=$this->session->userdata('user_id');
+			 $user_type=$this->session->userdata('user_type');
+			 if($user_type==1)
+			 { 
+			        $admission_id=$this->input->post('admission_id');
+					$oldadmission_id=$this->input->post('insertadmission_no');
+                   //echo $oldadmission_id;exit;
+					$priority=$this->input->post('priority');
+					$name=$this->input->post('name');
+					$occupation=$this->input->post('occupation');
+					$income=$this->input->post('income');
+					$haddress=$this->input->post('haddress');
+					$pemail=$this->input->post('pemail');
+					$semail=$this->input->post('semail');
+					$pmobile=$this->input->post('pmobile');
+					$smobile=$this->input->post('smobile');
+					$home_phone=$this->input->post('home_phone');
+				    $office_address=$this->input->post('office_address');
+					$office_phone=$this->input->post('office_phone');
+				    $relationship=$this->input->post('relationship');
+					$status=$this->input->post('status');
+					//echo $priority; 
+					
+					$parent_pic = $_FILES["parents_picture"]["name"];
+				    $userFileName =$parent_pic;
+				    $uploaddir = 'assets/parents/';
+				    $profilepic = $uploaddir.$userFileName;
+				    move_uploaded_file($_FILES['parents_picture']['tmp_name'], $profilepic);
+				    if(!empty($parent_pic)){ $userFileName =$parent_pic; }else{ 
+					$userFileName=""; 
+					}
+				 $datas=$this->parentsmodel->add_new_parents($admission_id,$oldadmission_id,$name,$occupation,$income,$haddress,$pemail,$semail,$pmobile,$smobile,$home_phone,$office_address,$office_phone,$relationship,$status,$priority,$userFileName,$user_id);
+                 
+                 //print_r($datas);exit;	
+                 if($datas['status']=="success")
+				 {
+				   $this->session->set_flashdata('msg','Updated Successfully');
+				   redirect('parents/view'); 
+				 }else{
+				  $this->session->set_flashdata('msg','Updated Successfully');
+				  redirect('parents/view'); 
+				 }
+			}else{
+				 redirect('/');
+			 }
+			
+		}
+	   
 // GET ALL ADMISSION DETAILS
 
 			public function view()
-					{
-						$datas=$this->session->userdata();
-						$user_id=$this->session->userdata('user_id');
-						$datas['result'] = $this->parentsmodel->get_all_parents_details();
-						//echo "<pre>";print_r(	$datas['result']);exit;
-						$user_type=$this->session->userdata('user_type');
-						if($user_type==1){
-					 $this->load->view('header');
-					 $this->load->view('parents/view',$datas);
-					 $this->load->view('footer');
-					 }
-					 else{
-							redirect('/');
-					 }
-					}
+			{
+				$datas=$this->session->userdata();
+				$user_id=$this->session->userdata('user_id');
+				$datas['result'] = $this->parentsmodel->get_all_parents_details();
+				//echo "<pre>";print_r($datas['result']);exit;
+				$user_type=$this->session->userdata('user_type');
+				if($user_type==1){
+			 $this->load->view('header');
+			 $this->load->view('parents/view',$datas);
+			 $this->load->view('footer');
+			 }
+			 else{
+					redirect('/');
+			 }
+			}
 		
-			public function edit_parents($parent_id)
+			public function edit_parents($admission_id)
 				{
 					 $datas=$this->session->userdata();
 					 $user_id=$this->session->userdata('user_id');
-					 $datas['res']=$this->parentsmodel->edit_parents($parent_id);
-					 //echo "<pre>";print_r(	$datas['res']);exit;
+					 $datas['editres']=$this->parentsmodel->edit_parents($admission_id);
+					 $datas['sid']=$admission_id;
+					 //echo "<pre>";print_r($datas['editres']);exit;
 					 $user_type=$this->session->userdata('user_type');
 					if($user_type==1)
 					{
@@ -158,7 +271,8 @@ class Parents extends CI_Controller {
 					 $datas=$this->session->userdata();
 					 $user_id=$this->session->userdata('user_id');
 					 $datas['res']=$this->parentsmodel->edit_parent($parnt_guardn_id);
-					 //echo "<pre>";print_r(	$datas['res']);exit;
+					 
+					 //echo "<pre>";print_r($datas['res']);exit;
 					 $user_type=$this->session->userdata('user_type');
 					if($user_type==1)
 					{
@@ -170,94 +284,258 @@ class Parents extends CI_Controller {
 							redirect('/');
 					 }
 					}
+				
+		
+		public function update_parents()
+		{
+			 $datas=$this->session->userdata();
+			 $user_id=$this->session->userdata('user_id');
+			 $user_type=$this->session->userdata('user_type');
+		 	 if($user_type==1)
+			 {
+				    $admission_id=$this->input->post('admission_no');
+					$priority=$this->input->post('priority');
+					$morestu=$this->input->post('morestu');
+					$newstu=$this->input->post('newstu');
+					$oldstu=$this->input->post('oldstu');
+					$sname=$this->input->post('stu_name');
+					$stu_name=implode(',',$sname);
+                     //print_r($stu_name);exit;
+					//Father Details
+					$fid=$this->input->post('fid');
+					$fname=$this->input->post('fname');
+					$foccupation=$this->input->post('foccupation');
+					$fincome=$this->input->post('fincome');
+					$fhaddress=$this->input->post('fhaddress');
+					$fpemail=$this->input->post('fpemail');
+					$fsemail=$this->input->post('fsemail');
+					$fpmobile=$this->input->post('fpmobile');
+					$fsmobile=$this->input->post('fsmobile');
+					$fhome_phone=$this->input->post('fhome_phone');
+				    $foffice_address=$this->input->post('foffice_address');
+					$foffice_phone=$this->input->post('foffice_phone');
+				    $frelationship=$this->input->post('frelationship');
+					$fstatus=$this->input->post('fstatus');
+					$flogin=$this->input->post('flogin');
 					
-		    public function update_parents()
-			{
-				 $datas=$this->session->userdata();
-				 $user_id=$this->session->userdata('user_id');
-				 $user_type=$this->session->userdata('user_type');
-				 if($user_type==1)
-				 {
-					$parent_id=$this->input->post('parent_id');
-					$single=$this->input->post('single');
-					//echo $single;exit;
-					//$admission_id=$this->input->post('admission_no');
-				    $father_name=$this->input->post('father_name');
-					$mother_name=$this->input->post('mother_name');
-					
-					$guardn_name=$this->input->post('guardn_name');
-					  
-					$occupation=$this->input->post('occupation');
-					$income=$this->input->post('income');
-					$address=$this->input->post('address');
-					$email=$this->input->post('email');
-					$email1=$this->input->post('email1');
-					$home_phone=$this->input->post('home_phone');
-				    $office_phone=$this->input->post('office_phone');
-					$mobile=$this->input->post('mobile');
-					$mobile1=$this->input->post('mobile1');
-					
-					$status=$this->input->post('status');
-					
-					$stu_name_id=$this->input->post('stu_name_id');
-					//$stu_name_id=implode(',',$stu_id);
-					//echo $stu_name_id;exit;
-					
-					$father_pic_old=$this->input->post('old_father_pic');
-					$mother_pic_old=$this->input->post('old_mother_pic');
-					$guardian_pic_old=$this->input->post('old_guardian_pic');
-				  
+					$old_father_pic=$this->input->post('old_father_pic');
 					$father_pic = $_FILES["father_pic"]["name"];
-				    $userFileName =time().$father_pic;
+					
+					
+				   if(!empty($father_pic)){ 
+				    $father_pic = $_FILES["father_pic"]["name"];
+				    $userFileName =$father_pic;
 				    $uploaddir = 'assets/parents/';
 				    $profilepic = $uploaddir.$userFileName;
 				    move_uploaded_file($_FILES['father_pic']['tmp_name'], $profilepic);
+					}else{ 
+					$userFileName=$old_father_pic; 
+					}
+				   //echo $flogin; 
 				
-					$mother_pic = $_FILES["mother_pic"]["name"];
-					$userFileName1 =time().$mother_pic;
-					$uploaddir1 = 'assets/parents/';
-					$profilepic1 = $uploaddir1.$userFileName1;
-					move_uploaded_file($_FILES['mother_pic']['tmp_name'], $profilepic1);
+				//Mother Details
+				    $mid=$this->input->post('mid');
+				    $mname=$this->input->post('mname');
+					$moccupation=$this->input->post('moccupation');
+					$mincome=$this->input->post('mincome');
+					$mhaddress=$this->input->post('mhaddress');
+					$mpemail=$this->input->post('mpemail');
+					$msemail=$this->input->post('msemail');
+					$mpmobile=$this->input->post('mpmobile');
+					$msmobile=$this->input->post('msmobile');
+					$mhome_phone=$this->input->post('mhome_phone');
+				    $moffice_address=$this->input->post('moffice_address');
+					$moffice_phone=$this->input->post('moffice_phone');
+				    $mrelationship=$this->input->post('mrelationship');
+					$mstatus=$this->input->post('mstatus');
+					$mlogin=$this->input->post('mlogin');
+					$old_mother_pic=$this->input->post('old_mother_pic');
+                    $mother_pic=$_FILES["mother_pic"]["name"];	
 					
-					$guardn_pic = $_FILES["guardn_pic"]["name"];
-					$userFileName2 =time().$guardn_pic;
-					$uploaddir2 = 'assets/parents/';
-					$profilepic2 = $uploaddir2.$userFileName2;
-					move_uploaded_file($_FILES['guardn_pic']['tmp_name'], $profilepic2);
+					if(!empty($mother_pic))
+					{
+						$mother_pic = $_FILES["mother_pic"]["name"];	
+						$userFileName1 =$mother_pic;
+						$uploaddir1 = 'assets/parents/';
+						$profilepic1 = $uploaddir1.$userFileName1;
+						move_uploaded_file($_FILES['mother_pic']['tmp_name'], $profilepic1);
+					   }else{ $userFileName1=$old_mother_pic; }
+
+				// Guardian Details
+				    $gid=$this->input->post('gid');
+				    $gname=$this->input->post('gname');
+					$goccupation=$this->input->post('goccupation');
+					$gincome=$this->input->post('gincome');
+					$ghaddress=$this->input->post('ghaddress');
+					$gpemail=$this->input->post('gpemail');
+					$gsemail=$this->input->post('gsemail');
+					$gpmobile=$this->input->post('gpmobile');
+					$gsmobile=$this->input->post('gsmobile');
+					$ghome_phone=$this->input->post('ghome_phone');
+				    $goffice_address=$this->input->post('goffice_address');
+					$goffice_phone=$this->input->post('goffice_phone');
+				    $grelationship=$this->input->post('grelationship');
+					$gstatus=$this->input->post('gstatus');
+					$glogin=$this->input->post('glogin');
+					$old_guardian_pic=$this->input->post('old_guardian_pic');
 					
-				if(empty($father_pic))
-				{
-						$userFileName=$father_pic_old;
+					//$guardn_pic = $_FILES["guardian_pic"]["name"];
+					
+					if(!empty($guardn_pic)){
+						$guardn_pic = $_FILES["guardian_pic"]["name"];
+						$userFileName2 =$guardn_pic;
+						$uploaddir2 = 'assets/parents/';
+						$profilepic2 = $uploaddir2.$userFileName2;
+						move_uploaded_file($_FILES['guardian_pic']['tmp_name'], $profilepic2);
+						}else{ $userFileName2=$old_guardian_pic; }	
+						//echo $fname; echo $gname; 
+	$datas=$this->parentsmodel->update_parents_details($stu_name,$admission_id,$morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id);
+		//print_r($datas['status']);exit;
+			if($datas['status']=="success")
+			{
+				$this->session->set_flashdata('msg','Updated Successfully');
+				redirect('parents/view');
+			}else{
+				$this->session->set_flashdata('msg', 'Failed to Add');
+				redirect('parents/view');
 				}
-				if(empty($mother_pic))
-				{
-						$userFileName1=$mother_pic_old;
-				}
-				if(empty($guardn_pic))
-{
-						$userFileName2=$guardian_pic_old;
-				}
-				
-				$datas=$this->parentsmodel->update_parents($stu_name_id,$parent_id,$single,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status);
-				
-				//	print_r($datas['status']);exit;
-				if($datas['status']=="success"){
-					$this->session->set_flashdata('msg', 'Updated Successfully');
-					redirect('parents/view');
-				}else if($datas['status']=="Email Already Exist"){
-					$this->session->set_flashdata('msg', 'Email Already Exist');
-					redirect('parents/view');
-				}else{
-					$this->session->set_flashdata('msg', 'Failed to Add');
-					redirect('parents/view');
-				}
-			 }
-			 else{
-					redirect('/');
-			 }
+		   }
+		 else{
+			redirect('/');
+		 }
 		}
 		
-		 public function update_parents1()
+		
+		public function update_exiting_parents()
+		{
+			$datas=$this->session->userdata();
+			 $user_id=$this->session->userdata('user_id');
+			 $user_type=$this->session->userdata('user_type');
+		 	if($user_type==1)
+			{
+				    //$admission_id=$this->input->post('admission_no');
+					$morestu=$this->input->post('morestu');
+					$newstu=$this->input->post('newstu');
+					$oldstu=$this->input->post('oldstu');
+                     //echo $oldstu; echo'<br>'; echo $newstu; echo'<br>';echo $morestu;  echo'<br>'; exit;
+					//Father Details
+					$fid=$this->input->post('fid');
+					$fname=$this->input->post('fname');
+					$foccupation=$this->input->post('foccupation');
+					$fincome=$this->input->post('fincome');
+					$fhaddress=$this->input->post('fhaddress');
+					$fpemail=$this->input->post('fpemail');
+					$fsemail=$this->input->post('fsemail');
+					$fpmobile=$this->input->post('fpmobile');
+					$fsmobile=$this->input->post('fsmobile');
+					$fhome_phone=$this->input->post('fhome_phone');
+				    $foffice_address=$this->input->post('foffice_address');
+					$foffice_phone=$this->input->post('foffice_phone');
+				    $frelationship=$this->input->post('frelationship');
+					$fstatus=$this->input->post('fstatus');
+					$flogin=$this->input->post('flogin');
+					
+					$old_father_pic=$this->input->post('old_father_pic');
+					$father_pic = $_FILES["father_pic"]["name"];
+					
+					
+				   if(!empty($father_pic)){ 
+				    $father_pic = $_FILES["father_pic"]["name"];
+				    $userFileName =$father_pic;
+				    $uploaddir = 'assets/parents/';
+				    $profilepic = $uploaddir.$userFileName;
+				    move_uploaded_file($_FILES['father_pic']['tmp_name'], $profilepic);
+					}else{ 
+					$userFileName=$old_father_pic; 
+					}
+				   //echo $flogin; 
+				
+				//Mother Details
+				    $mid=$this->input->post('mid');
+				    $mname=$this->input->post('mname');
+					$moccupation=$this->input->post('moccupation');
+					$mincome=$this->input->post('mincome');
+					$mhaddress=$this->input->post('mhaddress');
+					$mpemail=$this->input->post('mpemail');
+					$msemail=$this->input->post('msemail');
+					$mpmobile=$this->input->post('mpmobile');
+					$msmobile=$this->input->post('msmobile');
+					$mhome_phone=$this->input->post('mhome_phone');
+				    $moffice_address=$this->input->post('moffice_address');
+					$moffice_phone=$this->input->post('moffice_phone');
+				    $mrelationship=$this->input->post('mrelationship');
+					$mstatus=$this->input->post('mstatus');
+					$mlogin=$this->input->post('mlogin');
+					$old_mother_pic=$this->input->post('old_mother_pic');
+                    $mother_pic=$_FILES["mother_pic"]["name"];	
+					
+					if(!empty($mother_pic))
+					{
+						$mother_pic = $_FILES["mother_pic"]["name"];	
+						$userFileName1 =$mother_pic;
+						$uploaddir1 = 'assets/parents/';
+						$profilepic1 = $uploaddir1.$userFileName1;
+						move_uploaded_file($_FILES['mother_pic']['tmp_name'], $profilepic1);
+					   }else{ $userFileName1=$old_mother_pic; }
+
+				// Guardian Details
+				    $gid=$this->input->post('gid');
+				    $gname=$this->input->post('gname');
+					$goccupation=$this->input->post('goccupation');
+					$gincome=$this->input->post('gincome');
+					$ghaddress=$this->input->post('ghaddress');
+					$gpemail=$this->input->post('gpemail');
+					$gsemail=$this->input->post('gsemail');
+					$gpmobile=$this->input->post('gpmobile');
+					$gsmobile=$this->input->post('gsmobile');
+					$ghome_phone=$this->input->post('ghome_phone');
+				    $goffice_address=$this->input->post('goffice_address');
+					$goffice_phone=$this->input->post('goffice_phone');
+				    $grelationship=$this->input->post('grelationship');
+					$gstatus=$this->input->post('gstatus');
+					$glogin=$this->input->post('glogin');
+					$old_guardian_pic=$this->input->post('old_guardian_pic');
+					
+					//$guardn_pic = $_FILES["guardian_pic"]["name"];
+					
+					if(!empty($guardn_pic)){
+						$guardn_pic = $_FILES["guardian_pic"]["name"];
+						$userFileName2 =$guardn_pic;
+						$uploaddir2 = 'assets/parents/';
+						$profilepic2 = $uploaddir2.$userFileName2;
+						move_uploaded_file($_FILES['guardian_pic']['tmp_name'], $profilepic2);
+						}else{ $userFileName2=$old_guardian_pic; }	
+						
+						//echo $fname; echo $gname; 
+						
+	$datas=$this->parentsmodel->update_exiting_parents_details($morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id);
+
+			//print_r($datas['status']);exit;
+				if($datas['status']=="success")
+				{
+					$this->session->set_flashdata('msg','Added Successfully');
+					redirect('parents/view');
+				}
+				else 
+					if($datas['status']=="MNAE")
+				      {
+							$this->session->set_flashdata('msg', 'Mobile Number Already Exist');
+							redirect('parents/view');
+				      }
+					   else
+					   {
+							$this->session->set_flashdata('msg', 'Failed to Add');
+							redirect('parents/view');
+				       }
+			   }
+			 else
+			 {
+					redirect('/');
+			 }
+			
+		}
+		
+		 /* public function update_parents1()
 			{
 				 $datas=$this->session->userdata();
 				 $user_id=$this->session->userdata('user_id');
@@ -341,7 +619,7 @@ class Parents extends CI_Controller {
 			 else{
 					redirect('/');
 			 }
-			}
+			} */
 		
 		public function search()
 		{
@@ -352,8 +630,11 @@ class Parents extends CI_Controller {
 			 {
 				$cell=$this->input->post('cell');
 				$admission_id=$this->input->post('admission_no');
-				$datas['res']=$this->admissionmodel->get_ad_id($admission_id);
-				$datas['res1']=$this->parentsmodel->search_parent($cell);
+				
+				$datas['newstu']=$admission_id;
+				$datas['stuname']=$this->parentsmodel->get_stu_name($admission_id);
+				$datas['editres']=$this->parentsmodel->search_parent($cell);
+			   //echo'<pre>'; print_r($datas['stuname']);exit;
                 $user_type=$this->session->userdata('user_type');
 					if($user_type==1)
 					{
@@ -368,7 +649,22 @@ class Parents extends CI_Controller {
 			
 		}
 		
-		   					   
+		   		public function checkrelation()
+				{
+					$relation = $this->input->post('relation');
+					$stuid = $this->input->post('aid');
+					
+					$numrows1 = $this->parentsmodel->get_relation($relation,$stuid);
+					if ($numrows1>0) 
+				     {
+						echo "Relation already Added";
+					 } 
+					else 
+					 {
+						echo "Available To Add";
+					 }
+					
+				}					
 			   public function checker() 
                 {
 					$email = $this->input->post('email');

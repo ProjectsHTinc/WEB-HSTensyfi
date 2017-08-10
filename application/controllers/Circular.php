@@ -192,9 +192,9 @@ class Circular extends CI_Controller
 	  //print_r($users_id);exit;
 	  $pusers_id=$this->input->post('pusers');
       $stusers_id=$this->input->post('stusers');
-       //print_r($stusers_id);exit;
+      //print_r($pusers_id);exit;
       $title=$this->db->escape_str($this->input->post('ctitle')); 
-	
+	  
 	  $cdate=$this->input->post('date');
       $dateTime = new DateTime($cdate);
       $circulardate=date_format($dateTime,'Y-m-d' );
@@ -208,26 +208,15 @@ class Circular extends CI_Controller
 	  }else{
 	  $citrcular_type1=implode(',',$citrcular_type);
 	  }
-	  
-	  $acount=count($citrcular_type);
-	 
-	  if($acount==1){
-	  $ct1=$citrcular_type[0];
-	  }
-	  if($acount==2){
-	  $ct1=$citrcular_type[0];
-	  $ct2=$citrcular_type[1];
-	  }
-	  if($acount==3){
-	  $ct0=$citrcular_type[0];
-	  $ct1=$citrcular_type[1];
-	  $ct2=$citrcular_type[2];
-	   }
 
+	    //print_r($citrcular_type);exit;
+	   //$ct1=$citrcular_type[0];
+	  //echo $ct1;exit;
+	  
       $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$citrcular_type1,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id);
       
 	  //------------------------------SMS & MAIL & NOTIFICATION--------------------------------------------
-	  
+	  $acount=count($citrcular_type);
 	  if($acount==3)
 	  {
 	   $datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
@@ -260,6 +249,7 @@ class Circular extends CI_Controller
 	  if($acount==1)
 	  {
 		  $ct=$citrcular_type[0];
+		  
 		  if($ct=='SMS')
 		  {
 			  $datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
