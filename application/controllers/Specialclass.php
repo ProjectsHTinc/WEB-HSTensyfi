@@ -22,6 +22,7 @@ class Specialclass extends CI_Controller
 			$datas['teacher']=$this->specialclassmodel->get_teachers();
             $datas['getall_class']=$this->class_manage->getall_class();
 			$datas['result'] = $this->specialclassmodel->getall_details();
+			//echo'<pre>';print_r($datas['result']);exit;
 			$user_type=$this->session->userdata('user_type');
 			 if($user_type==1)
 			 {

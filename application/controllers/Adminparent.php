@@ -613,14 +613,13 @@ class Adminparent extends CI_Controller {
 			 $datas['res']=$this->dashboard->stud_details($user_id);
 			 $stu=count($datas['res']);
 			//echo $stu;exit;
-
 			 if($stu==1){
 				 $datas['stud_details']=$this->dashboard->get_students($user_id);
 					 foreach ($datas['stud_details'] as $rows) {}
 					 $enroll_id= $rows->enroll_id;
 					  //echo $enroll_id;
 					$datas['view']=$this->adminparentmodel->view_stu_special_class($enroll_id);
-					//echo'<pre>';print_r($datas['fees']);exit;
+					//echo'<pre>';print_r($datas['view']);exit;
 					$this->load->view('adminparent/parent_header');
 					$this->load->view('adminparent/special_class/view_special_cls',$datas);
 					$this->load->view('adminparent/parent_footer');

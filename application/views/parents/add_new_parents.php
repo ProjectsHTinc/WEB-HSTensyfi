@@ -67,7 +67,7 @@
                         </div>
                         <label class="col-sm-2 control-label">Primary Mobile</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Mobile Number" name="pmobile" class="form-control" onkeyup="checkcellfun(this.value)">
+                           <input type="text" placeholder="Mobile Number"  name="pmobile" maxlength="10"  class="form-control" onkeyup="checkcellfun(this.value)">
 						   <p id="gmsg1"></p>
                         </div>
                      </div>
@@ -76,7 +76,7 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Secondary Mobile</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Mobile Number" name="smobile" class="form-control">
+                           <input type="text" placeholder="Mobile Number" pattern="[1-9]{1}[0-9]{9}" maxlength="10" name="smobile" class="form-control">
                         </div>
                         <label class="col-sm-2 control-label">Home Phone</label>
                         <div class="col-sm-4">

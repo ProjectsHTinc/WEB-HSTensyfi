@@ -100,13 +100,19 @@
 							{
 								$im=$s->internal_mark;
 								$em=$s->external_mark;
+								$tm=$s->total_marks;
 								foreach($result as $flag){} $ef=$flag->exam_flag;
 								if($ef==0)
 								{
-							      echo'<span class="combat">';
+							      
 							      echo "&nbsp";
-							      echo '<span class="grade2">'; echo $s->total_marks; echo "&nbsp"; echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
-								  echo'</span>';
+							      echo '<span class="grade2">'; echo'<span class="combat">'; 
+								  if($tm=='A'){
+									  echo '<span class="absent"><i class="fa fa-font" aria-hidden="true"></i>
+'; echo " 0";echo'</span>'; echo "&nbsp";echo '<span class="space">';echo $s->total_grade;echo'</span>';
+								  }else{
+								  echo $s->total_marks; echo "&nbsp"; echo '<span class="space">';echo $s->total_grade;echo'</span>';
+								  }echo'</span>'; echo'</span>'; 
 							}else{
 							    echo '<span class="grade">'; echo $s->internal_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
 						      	echo "&nbsp";
@@ -157,12 +163,14 @@
 <script type="text/javascript">
    $('tr').each(function () {
           var sum = 0;
-        $(this).find('.combat').each(function () {
-            var combat = $(this).text();
-            if (combat !='NA' && combat.length!==0) {
-                sum += parseInt(combat);
+        $(this).find('.combat').each(function (i,combat) {
+            var combat1 = $(this).text();
+			//alert(combat1);
+            if (combat1 !='NA') {
+                sum += parseInt(combat1,10);
             }
         });
+		//$('.total-combat').text(sum);
         $(this).find('.total-combat').html(sum);
       });
 

@@ -612,9 +612,7 @@ Class Parentsmodel extends CI_Model
 	          $res1=$this->db->query($query7);
 			  }
 			}
-		   
 		 //Mother Details
-		 
 		   if(!empty($mname))
 		   {
 			    if(empty($newstu)){
@@ -735,7 +733,7 @@ Class Parentsmodel extends CI_Model
 	   
 	   function get_all_details($admission_id)
 	   {
-		  $query3="SELECT admission_id FROM edu_parents WHERE FIND_IN_SET($admission_id,admission_id)";
+		 $query3="SELECT admission_id FROM edu_parents WHERE FIND_IN_SET($admission_id,admission_id)";
          $res=$this->db->query($query3);
          return $res->result();
 	   }
@@ -759,46 +757,7 @@ Class Parentsmodel extends CI_Model
          $res=$this->db->query($query4);
          return $res->result();
 	   }
-	   function  edit_parent($parnt_guardn_id)
-	   {
-		 $query4="SELECT * FROM edu_parents WHERE parent_id='$parnt_guardn_id'";
-         $res=$this->db->query($query4);
-         return $res->result();
-	   }
-
-	  function update_parents($stu_name_id,$parent_id,$single,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName,$userFileName1,$userFileName2,$status)
-	  {    //print_r($stu_name_id);exit;
-           $query5="UPDATE edu_parents SET admission_id='$stu_name_id',father_name='$father_name',mother_name='$mother_name',guardn_name='$guardn_name',occupation='$occupation',income='$income',address='$address',email='$email',email1='$email1',home_phone='$home_phone',office_phone='$office_phone',mobile='$mobile',mobile1='$mobile1',father_pic='$userFileName',mother_pic='$userFileName1',guardn_pic='$userFileName2',status='$status',update_at=NOW() WHERE  parent_id='$parent_id'";
-           $res=$this->db->query($query5);
-			 //echo $father_name;
-			//echo $guardn_name;
-			if(empty($userFileName))
-			  {
-				//$father_name=$guardn_name;
-				$userFileName=$userFileName2;
-			  }
-			  if(empty($father_name)){
-			       $f_name=$guardn_name;
-			  }else{
-			       $f_name=$father_name;
-			  }
- 
-	         $query6="UPDATE edu_users SET name='$f_name',updated_date=NOW() WHERE parent_id='$parent_id'";
-         
-	        $res=$this->db->query($query6);
-
-		    $query2="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$parent_id' WHERE admission_id='$single'";
-			$resultset=$this->db->query($query2);
-
-         if($res){
-         $data= array("status" => "success");
-         return $data;
-       }else{
-         $data= array("status" => "Failed to Update");
-         return $data;
-       }
-
-       }
+	   
 
 	   function search_parent($cell)
 	   {
