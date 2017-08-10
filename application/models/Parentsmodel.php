@@ -264,6 +264,25 @@ Class Parentsmodel extends CI_Model
 		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
 		  $gsresultset=$this->db->query($parnt_guardnid);
 		   }
+		   
+		   if(!empty($finsert_id))
+		   {
+			  $fmgid=array($finsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		   }
+		   
+		   if(!empty($minsert_id))
+		   {
+			  $fmgid=array($minsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		   }
+		   
 		   if(!empty($ginsert_id))
 		   {
 			  $fmgid=array($ginsert_id);
@@ -804,7 +823,7 @@ Class Parentsmodel extends CI_Model
 
 		   function checkcellnum($cell)
 		   {
-				$query = "select * from  edu_parents WHERE mobile='".$cell."'";
+				$query = "select * from edu_parents WHERE mobile='".$cell."'";
 				$resultset = $this->db->query($query);
 				return count($resultset->result());
 		   }

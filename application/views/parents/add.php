@@ -83,7 +83,8 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" name="fpmobile" id="fpmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" name="fpmobile" id="fpmobile" class="form-control" onkeyup="fcheckmobilefun(this.value)">
+									<p id="fmsg1"> </p>
                                  </div>
 								 
                                  
@@ -198,8 +199,8 @@
                                  </div>
                                  <label class="col-sm-2 control-label">Primary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="mpemail" id="mpemail"  class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
-                                    <p id="msg" style="color:red;"> </p>
+                                    <input type="text" name="mpemail" id="mpemail"  class="form-control" placeholder="Email Address" onkeyup="mcheckemailfun(this.value)"/>
+                                    <p id="mmsg" style="color:red;"> </p>
                                  </div>
                               </div>
                            </fieldset>
@@ -211,7 +212,8 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" name="mpmobile" id="mpmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" name="mpmobile" id="mpmobile" class="form-control" onkeyup="mcheckmobilefun(this.value)">
+									<p id="mmsg1"> </p>
                                  </div>
 								 
                                  
@@ -326,8 +328,8 @@
                                  </div>
                                  <label class="col-sm-2 control-label">Primary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="gpemail" id="gpemail"  class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
-                                    <p id="msg" style="color:red;"> </p>
+                                    <input type="text" name="gpemail" id="gpemail" class="form-control" placeholder="Email Address" onkeyup="gcheckemailfun(this.value)" />
+                                    <p id="gmsg" style="color:red;"> </p>
                                  </div>
                               </div>
                            </fieldset>
@@ -339,8 +341,10 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" name="gpmobile" id="gpmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" name="gpmobile" id="gpmobile" class="form-control" onkeyup="gcheckmobilefun(this.value)">
+									<p id="gmsg1"> </p>
                                  </div>
+								 
 								 
                                  
                               </div>
@@ -428,7 +432,7 @@
                               <div class="form-group">
 					 <label class="col-sm-2 control-label">&nbsp;</label>
 					  <div class="col-sm-4">
-						 <button type="submit" id="save1" class="btn btn-info btn-fill center">Submit </button>
+						 <button type="submit" id="save1" class="btn btn-info btn-fill center">Submit</button>
 					  </div>
 					  </div>
                     </fieldset>
@@ -452,7 +456,7 @@
                                           </div>
                                           <label class="col-sm-2 control-label">&nbsp;</label>
                                           <div class="col-sm-4">
-                                             <button type="submit" id="save1" class="btn btn-info btn-fill center">Search </button>
+                                             <button type="submit" id="save" class="btn btn-info btn-fill center">Search </button>
                                           </div>
                                        </div>
                                     </fieldset>
@@ -586,57 +590,10 @@ function validates()
      var output2 = document.getElementById('output2');
      output2.src = URL.createObjectURL(event.target.files[0]);
     };
-/*    
-    $(document).ready(function ()
-    {
-        $('#parentform').validate({ // initialize the plugin
-        rules: {
-            admission_no:{required:true, number: true },
-            //fname:{required:true },
-            //mname:{required:true },
-            //gname:{required:true },
-            //fpemail:{required:true,email:true},
-			//mpemail:{required:true,email:true},
-			//gpemail:{required:true,email:true},
-            occupation:{required:true },
-            income:{required:true },
-            address:{required:true},
-            email:{required:true,email1:true},
-            home_phone:{required:true },
-            office_phone:{required:true },
-            mobile:{required:true },
-            mobile1:{required:true },
-           priority:{required:true },
-           //mother_pic:{required:true },
-    	   //guardn_pic:{required:true }
-     },
-        messages: {
-              admission_no: "Enter Admission No",
-             // father_name: "Enter Father Name",
-             // mother_name: "Enter Mother Name",
-              guardn_name: "Enter Guardian Name",
-              occupation: "Enter Occupation",
-              income: "Enter Income",
-              address: "Enter Address",
-    	   email: "Enter Primary Email Address",
-                remote: "Email already in use!",
-              email1: "Enter Secondary Email Address",
-    	     remote: "Email already in use!",
-              home_phone: "Enter the Home Phone",
-              office_phone:"Enter the Office Phone",
-              community_class:"Enter the Community Class",
-              mobile:"Enter The Primary Mobile Number",
-              mobile1:"Enter The Secondary Mobile Number",
-              priority:"Select the priority",
-    	   //mother_pic:"Enter the Mother Picture",
-    	  // guardn_pic:"Enter the Guardian Picture"
-            }
-    });
-   }); */
 </script>
 <script type="text/javascript">
    function checkemailfun(val)
-   {
+   { //alert("hi");
       $.ajax({
    type:'post',
    url:'<?php echo base_url(); ?>/parents/checker',
@@ -645,20 +602,126 @@ function validates()
    {
    	if(test=="Email Id already Exit")
    	{
-   	/* alert(test); */
            $("#msg").html(test);
-           $("#save").hide();
+           $("#save1").hide();
    	}
    	else{
-   		/* alert(test); */
    		$("#msg").html(test);
-           $("#save").show();
+        $("#save1").show();
    	}
    
    }
    });
    }
    
+   function mcheckemailfun(val)
+   { //alert("hi");
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/checker',
+   data:'email='+val,
+   success:function(test)
+   {
+   	if(test=="Email Id already Exit")
+   	{
+           $("#mmsg").html(test);
+           $("#save1").hide();
+   	}
+   	else{
+   		$("#mmsg").html(test);
+        $("#save1").show();
+   	}
+   
+   }
+   });
+   }
+   
+   function gcheckemailfun(val)
+   { //alert("hi");
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/checker',
+   data:'email='+val,
+   success:function(test)
+   {
+   	if(test=="Email Id already Exit")
+   	{
+           $("#gmsg").html(test);
+           $("#save1").hide();
+   	}
+   	else{
+   		$("#gmsg").html(test);
+        $("#save1").show();
+   	}
+   }
+   });
+   } //gcheckmobilefun
+   
+   function fcheckmobilefun(val)
+   { //alert('hi');
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/cellchecker1',
+   data:'cell='+val,
+   success:function(test)
+   {
+	   //alert(test)
+   	if(test=="Mobile Number Available")
+   	{
+	   $("#fmsg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save1").show();
+   	}
+   	else{
+   		$("#fmsg1").html('<span style="color:red;">Mobile number already exit</span>');
+        $("#save1").hide();   
+		}
+   }
+   });
+   }
+   
+   function mcheckmobilefun(val)
+   { //alert('hi');
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/cellchecker1',
+   data:'cell='+val,
+   success:function(test)
+   {
+	   //alert(test)
+   	if(test=="Mobile Number Available")
+   	{
+	   $("#mmsg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save1").show();
+   	}
+   	else{
+   		$("#mmsg1").html('<span style="color:red;">Mobile number already exit</span>');
+        $("#save1").hide();   
+		}
+   }
+   });
+   }
+   
+   function gcheckmobilefun(val)
+   { //alert('hi');
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/cellchecker1',
+   data:'cell='+val,
+   success:function(test)
+   {
+	   //alert(test)
+   	if(test=="Mobile Number Available")
+   	{
+	   $("#gmsg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save1").show();
+   	}
+   	else{
+   		$("#gmsg1").html('<span style="color:red;">Mobile number already exit</span>');
+        $("#save1").hide();   
+		}
+   }
+   });
+   }
    
    function checkcellfun(val)
    {
@@ -670,18 +733,13 @@ function validates()
    {
    	if(test=="Mobile Number Available")
    	{
-   	/* alert(test); */
-           $("#msg1").html('<span style="color:green;">Mobile Number Available</span>');
-           $("#save1").show();
-   		
+	   $("#msg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save").show();
    	}
    	else{
-   		/* alert(test); */
    		$("#msg1").html('<span style="color:red;">Mobile Number Not Available</span>');
-           $("#save1").hide();
-   		
+        $("#save").hide();
    	}
-   
    }
    });
    }
