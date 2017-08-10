@@ -163,14 +163,13 @@
 <script type="text/javascript">
    $('tr').each(function () {
           var sum = 0;
-        $(this).find('.combat').each(function (i,combat) {
+        $(this).find('.combat').each(function () {
             var combat1 = $(this).text();
 			//alert(combat1);
             if (combat1 !='NA') {
-                sum += parseInt(combat1,10);
+                sum += parseInt(combat1);
             }
         });
-		//$('.total-combat').text(sum);
         $(this).find('.total-combat').html(sum);
       });
 
