@@ -155,12 +155,18 @@ Class Notificationmodel extends CI_Model
 
 				    $clsid=$pusers_id[$i];
 					 //print_r($data);
-					 $sql2="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.parent_id,u.status,p.parent_id,p.mobile FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u,edu_parents AS p WHERE e.class_id='$clsid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=4 AND a.parnt_guardn_id=u.user_master_id AND a.parnt_guardn_id=u.parent_id AND p.parent_id=a.parnt_guardn_id AND u.status='Active' GROUP  BY u.user_id";
-					$pcell=$this->db->query($sql2);
-					$res2=$pcell->result();
-					foreach($res2 as $row2)
-					 {
-					    $userid=$row2->user_id;
+					 $pgid="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id FROM edu_enrollment AS e WHERE e.class_id='$clsid'";
+					 $pcell=$this->db->query($pgid);
+				     $res2=$pcell->result();
+				     foreach($res2 as $row2)
+				     { 
+					  $stuid=$row2->admission_id;
+					  $class="SELECT p.id,p.admission_id,u.user_id,u.user_type,u.user_master_id,u.parent_id FROM edu_parents AS p,edu_users AS u WHERE FIND_IN_SET('$stuid',admission_id) AND u.parent_id=p.id AND u.user_master_id=p.id AND u.user_type='4' AND u.status='Active'";
+					  $pcell1=$this->db->query($class);
+					  $res3=$pcell1->result();
+					  foreach($res3 as $row3)
+					   {
+					    $userid=$row3->user_id;
 						 $sql="SELECT * FROM edu_notification WHERE user_id='$userid'";
 						$pgsm=$this->db->query($sql);
 						$pres=$pgsm->result();
@@ -169,7 +175,6 @@ Class Notificationmodel extends CI_Model
 						   $gsmkey=array($prow->gcm_key);
 						   //print_r($gsmkey);exit;
 						  // sendPushNotification($data,$gsmkey);
-
 						  $apiKey = 'AAAADRDlvEI:APA91bFi-gSDCTCnCRv1kfRd8AmWu0jUkeBQ0UfILrUq1-asMkBSMlwamN6iGtEQs72no-g6Nw0lO5h4bpN0q7JCQkuTYsdPnM1yfilwxYcKerhsThCwt10cQUMKrBrQM2B3U3QaYbWQ';
 							// Set POST request body
 							$post = array(
@@ -199,6 +204,7 @@ Class Notificationmodel extends CI_Model
 					    }
 					}
 				 }
+			  }
              }//Parents close
 
 
@@ -319,7 +325,7 @@ Class Notificationmodel extends CI_Model
 				{
 				   //echo $users_id;
 
-					$psql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,p.parent_id FROM edu_users AS u,edu_parents AS p WHERE u.user_type='$users_id' AND u.user_master_id=p.parent_id AND u.status='Active'";
+					$psql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,p.id FROM edu_users AS u,edu_parents AS p WHERE u.user_type='$users_id' AND u.user_master_id=p.id AND u.status='Active'";
 					$pres2=$this->db->query($psql);
 					$presult2=$pres2->result();
 					foreach($presult2 as $prows1)

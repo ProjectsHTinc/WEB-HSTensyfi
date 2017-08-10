@@ -247,7 +247,24 @@ Class Parentsmodel extends CI_Model
 			  
 		   $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
 		   $gsresultset=$this->db->query($parnt_guardnid);
+		   }else if(!empty($finsert_id)){
+			  $fmgid=array($finsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		   }else{
+			    if(!empty($minsert_id))
+		        {
+			  $fmgid=array($minsert_id);
+			  $insertid=implode(',',$fmgid);
+			  
+		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
+		  $gsresultset=$this->db->query($parnt_guardnid);
+		      }
+			   
 		   }
+		   
 		   if(!empty($finsert_id) && !empty($ginsert_id))
 		   {
 			  $fmgid=array($finsert_id,$ginsert_id);
@@ -264,25 +281,7 @@ Class Parentsmodel extends CI_Model
 		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
 		  $gsresultset=$this->db->query($parnt_guardnid);
 		   }
-		   
-		   if(!empty($finsert_id))
-		   {
-			  $fmgid=array($finsert_id);
-			  $insertid=implode(',',$fmgid);
-			  
-		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
-		  $gsresultset=$this->db->query($parnt_guardnid);
-		   }
-		   
-		   if(!empty($minsert_id))
-		   {
-			  $fmgid=array($minsert_id);
-			  $insertid=implode(',',$fmgid);
-			  
-		 $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$admission_id'";
-		  $gsresultset=$this->db->query($parnt_guardnid);
-		   }
-		   
+		   		   
 		   if(!empty($ginsert_id))
 		   {
 			  $fmgid=array($ginsert_id);
@@ -371,7 +370,7 @@ Class Parentsmodel extends CI_Model
 	   }
 	   
 	   function update_parents_details($stu_name,$admission_id,$morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id)
-	   {   echo $stu_name; echo $morestu; 
+	   {   //echo $stu_name; echo $morestu; 
 	       $digits = 6;
 		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
 		   //Father Details
@@ -382,7 +381,7 @@ Class Parentsmodel extends CI_Model
 		   //echo $pid;exit;
 		   if($stu_name!=$morestu)
 		   {
-			 echo $sql="UPDATE edu_admission SET parnt_guardn_id='0',parents_status='0' WHERE admission_id NOT IN($stu_name) AND parnt_guardn_id IN (1,2,3)";
+			 $sql="UPDATE edu_admission SET parnt_guardn_id='0',parents_status='0' WHERE admission_id NOT IN($stu_name) AND parnt_guardn_id IN (1,2,3)";
 			  $sql2=$this->db->query($sql);
 		   }
 		   
@@ -564,8 +563,8 @@ Class Parentsmodel extends CI_Model
 		          $gsresultset=$this->db->query($parnt_guardnid);  
                }
 			 
-			 echo "hi"; echo $admission_id; echo $oldstu; 
-			 echo $fquery="UPDATE edu_parents SET admission_id='$admission_id',name='$fname',occupation='$foccupation',income='$fincome',home_address='$fhaddress',email='$fpemail',sec_email='$fsemail',mobile='$fpmobile',sec_mobile='$fsmobile',home_phone='$fhome_phone',office_address='$foffice_address',office_phone='$foffice_phone',relationship='$frelationship',user_pic='$userFileName',status='$fstatus',primary_flag='$flogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$fid'";
+			 //echo "hi"; echo $admission_id; echo $oldstu; 
+			  $fquery="UPDATE edu_parents SET admission_id='$admission_id',name='$fname',occupation='$foccupation',income='$fincome',home_address='$fhaddress',email='$fpemail',sec_email='$fsemail',mobile='$fpmobile',sec_mobile='$fsmobile',home_phone='$fhome_phone',office_address='$foffice_address',office_phone='$foffice_phone',relationship='$frelationship',user_pic='$userFileName',status='$fstatus',primary_flag='$flogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$fid'";
 			  $fresultset=$this->db->query($fquery);
                $fatherid=$fid+600000;
 			   //echo $fatherid;exit;

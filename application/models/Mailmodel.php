@@ -80,7 +80,7 @@ Class Mailmodel extends CI_Model
 
 			case '4':
 
-					$psql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,p.parent_id,p.mobile,p.email FROM edu_users AS u,edu_parents AS p WHERE u.user_type='$users_id' AND u.user_master_id=p.parent_id AND u.status='Active'";
+					$psql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,p.id,p.mobile,p.email FROM edu_users AS u,edu_parents AS p WHERE u.user_type='$users_id' AND u.user_master_id=p.id AND u.status='Active'";
 					$pres2=$this->db->query($psql);
 					$presult2=$pres2->result();
 					foreach($presult2 as $prows1)
@@ -196,13 +196,20 @@ Class Mailmodel extends CI_Model
 			  //echo $pcountid;exit;
 			  for ($i=0;$i<$pcountid;$i++)
 			  {
-				$classid=$pusers_id[$i];
-				 $class="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.parent_id,u.status,p.parent_id,p.mobile,p.email FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u,edu_parents AS p WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=4 AND a.parnt_guardn_id=u.user_master_id AND a.parnt_guardn_id=u.parent_id AND p.parent_id=a.parnt_guardn_id AND u.status='Active' GROUP  BY u.user_id";
-					$pemail=$this->db->query($class);
-					$res2=$pemail->result();
-					foreach($res2 as $row2)
-					{
-       				 $pmail=$row2->email;
+				 $classid=$pusers_id[$i];
+
+				 $pgid="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id FROM edu_enrollment AS e WHERE e.class_id='$classid'";
+					 $pcell=$this->db->query($pgid);
+				     $res2=$pcell->result();
+				     foreach($res2 as $row2)
+				     { 
+					  $stuid=$row2->admission_id;
+					  $class="SELECT p.id,p.admission_id,p.email,p.primary_flag FROM edu_parents AS p WHERE FIND_IN_SET('$stuid',admission_id) AND p.primary_flag='Yes'";
+					  $pcell1=$this->db->query($class);
+					  $res3=$pcell1->result();
+					  foreach($res3 as $row3)
+					   {
+       				 $pmail=$row3->email;
                      $to=$pmail;
 					 $subject=$title;
 					 $cnotes=$notes.$cdate;
@@ -221,7 +228,7 @@ Class Mailmodel extends CI_Model
 				 $sent= mail($to,$subject,$htmlContent,$headers);
 				}
               }
-
+			  }
              }//Parents close
 
   }//function close

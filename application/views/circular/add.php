@@ -46,50 +46,9 @@
                                         <a href="#settings" class="btn btn-info btn-fill" id="parents" data-toggle="tab">Parents</a>
                                     </li>
                                 </ul>
-
                             </div>
-                             <!--  <label class="col-sm-2 control-label"></label>
-                              <div class="col-sm-6">
-							   <button type="button"  id="all" onclick="myFunction3()" class=" myBtn">All</button>
-							   <button type="button" class="myBtn" id="teacher" onclick="myFunction()" class="btn btn-info btn-fill ">Teachers</button>
-							   <button type="button" class="myBtn" id="classes" onclick="myFunction1()" class="btn btn-info btn-fill ">Parents</button>
-							   <button type="button" class="myBtn" id="parents" onclick="myFunction2()" class="btn btn-info btn-fill ">Students</button>
-                              </div>-->
                            </div>
                         </fieldset>
- 
-						 <!-- <fieldset>
-                           <div class="form-group">
-                              <label class="col-sm-2 control-label"> </label>
-                              <div class="col-sm-4">
-							   
-                          <div id="myDIV">
-                                 <select multiple name="tusers[]" class="selectpicker form-control" data-title="Select Teachers" id="multiple-teacher" data-menu-style="dropdown-blue">
-                                          <?php foreach ($teacher as $rows) { ?>
-                                          <option value="<?php echo $rows->user_id;  ?>"><?php echo $rows->name; ?></option>
-                                          <?php  }?>
-                                   </select>
-                              </div>
-
-							   <div id="myDIV1" style="display:none">
-							  <select  multiple name="pusers[]" id="multiple-parents" data-title="Select Parents" class="selectpicker" data-menu-style="dropdown-blue">
-                                          <?php foreach ($getall_class as $rows) {  ?>
-                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
-                                          <?php      } ?>
-                                 </select>
-							 </div>
-								 
-								  <div id="myDIV2" style="display:none">
-							  <select multiple name="stusers[]" id="multiple-students" data-title="Select Students" class="selectpicker"  data-menu-style="dropdown-blue">
-							
-                                          <?php foreach ($getall_class as $rows) {  ?>
-                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>  - <?php echo $rows->sec_name; ?></option>
-                                          <?php      } ?>
-                                 </select>
-								 </div>
-                              </div>
-                           </div>
-                        </fieldset> -->
 						<fieldset>
 						<div class="tab-content">
 						<p id="erid" style="color:red;"> </p>
@@ -105,7 +64,7 @@
                               </div>
 							  </div>
 							</div>
-							
+
 							<div id="company" class="tab-pane">
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Teachers</label>
@@ -118,8 +77,6 @@
                               </div>
 							  </div>
 							</div>
-							
-							
 							<div id="style" class="tab-pane">
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Students</label>
@@ -132,16 +89,14 @@
                               </div>
 							  </div>
 							</div>
-							
-							
 							 <div id="settings" class="tab-pane">
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Parents</label>
                               <div class="col-sm-4">
                                 <select  multiple name="pusers[]" id="multiple-parents" data-title="Select Parents" class="selectpicker" data-menu-style="dropdown-blue">
-                                          <?php foreach ($getall_class as $rows) {  ?>
-                                          <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
-                                          <?php      } ?>
+								  <?php foreach ($getall_class as $rows) {  ?>
+								  <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>   - <?php echo $rows->sec_name; ?></option>
+								  <?php      } ?>
                                  </select> 
                               </div>
 							  </div>
@@ -244,7 +199,7 @@
 		  status:"Select Status"
                },
 			   
-	      submitHandler: function(form) {
+	        submitHandler: function(form) {
 	        //alert("hi");
 	        swal({
 	                      title: "Are you sure?",
@@ -264,7 +219,7 @@
 	            type:'POST',
 	           data: $('#myformsection').serialize(),
 	           success: function(response) {
-				  alert(response);
+				  //alert(response);
 	               if(response=="success")
 				   {
 	                //  swal("Success!", "Thanks for Your Note!", "success");

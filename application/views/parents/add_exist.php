@@ -505,15 +505,6 @@
 						<?php } //else{ echo "No Details";} 
 						}?>
 				     </div>
-				    <!-- Guardian 
-					<fieldset>
-                              <div class="form-group">
-					 <label class="col-sm-2 control-label">&nbsp;</label>
-					  <div class="col-sm-4">
-						 <button type="submit" id="save1" class="btn btn-info btn-fill center">Update</button>
-					  </div>
-					  </div>
-                    </fieldset> -->
                      </div>
 					 </form>
                   </div>
@@ -540,54 +531,6 @@
      var output2 = document.getElementById('output2');
      output2.src = URL.createObjectURL(event.target.files[0]);
     };
-  
-    $(document).ready(function ()
-    {
-        $('#parentform').validate({ // initialize the plugin
-        rules: {
-            //admission_no:{required:true, number: true },
-            //fname:{required:true },
-            //mname:{required:true },
-            //gname:{required:true },
-            //fpemail:{required:true,email:true},
-			//mpemail:{required:true,email:true},
-			//gpemail:{required:true,email:true},
-            occupation:{required:true },
-            income:{required:true },
-            address:{required:true},
-            email:{required:true,email1:true},
-            home_phone:{required:true },
-            office_phone:{required:true },
-            mobile:{required:true },
-            mobile1:{required:true },
-           priority:{required:true },
-           //mother_pic:{required:true },
-    	   //guardn_pic:{required:true }
-     },
-        messages: {
-              admission_no: "Enter Admission No",
-             // father_name: "Enter Father Name",
-             // mother_name: "Enter Mother Name",
-              guardn_name: "Enter Guardian Name",
-              occupation: "Enter Occupation",
-              income: "Enter Income",
-              address: "Enter Address",
-    	   email: "Enter Primary Email Address",
-                remote: "Email already in use!",
-              email1: "Enter Secondary Email Address",
-    	     remote: "Email already in use!",
-              home_phone: "Enter the Home Phone",
-              office_phone:"Enter the Office Phone",
-              community_class:"Enter the Community Class",
-              mobile:"Enter The Primary Mobile Number",
-              mobile1:"Enter The Secondary Mobile Number",
-              priority:"Select the priority",
-    	   //mother_pic:"Enter the Mother Picture",
-    	  // guardn_pic:"Enter the Guardian Picture"
-            }
-    });
-   });
-
 </script>
 <script type="text/javascript">
    function checkemailfun(val)
@@ -600,16 +543,13 @@
    {
    	if(test=="Email Id already Exit")
    	{
-   	/* alert(test); */
-           $("#msg").html(test);
-           $("#save").hide();
+	   $("#msg").html(test);
+	   $("#save").hide();
    	}
    	else{
-   		/* alert(test); */
    		$("#msg").html(test);
-           $("#save").show();
+        $("#save").show();
    	}
-   
    }
    });
    }
