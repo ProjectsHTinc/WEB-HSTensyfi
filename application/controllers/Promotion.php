@@ -9,7 +9,6 @@ class Promotion extends CI_Controller {
 			$this->load->model('promotionmodel');
 			$this->load->model('teachermodel');
 			$this->load->model('groupingmodel');
-
 			$this->load->model('class_manage');
 		  $this->load->helper('url');
 		  $this->load->library('session');
@@ -39,10 +38,13 @@ class Promotion extends CI_Controller {
 	 	public function home(){
 	 		$datas=$this->session->userdata();
 	 		$user_id=$this->session->userdata('user_id');
-			
-			$datas['res_class']=$this->groupingmodel->get_all_classes_for_year();
+
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
+				$datas['years']=$this->promotionmodel->getall_years();
+				$datas['res_class']=$this->groupingmodel->get_all_classes_for_year();
+				$datas['res_year']= $this->promotionmodel->get_all_academic_year();
+				$datas['res_pro']= $this->promotionmodel->promotion_history();
 	 		 $this->load->view('header');
 	 		 $this->load->view('promotion/add',$datas);
 	 		 $this->load->view('footer');
@@ -54,19 +56,22 @@ class Promotion extends CI_Controller {
 
 
 
-		public function create_group(){
+		public function create_promotion(){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
-				$group_title=$this->input->post('group_title');
-				$group_lead=$this->input->post('group_lead');
-				$status=$this->input->post('status');
-				$data=$this->groupingmodel->create_group($group_title,$group_lead,$status,$user_id);
+				$current_year_id=$this->input->post('current_academic_year_id');
+				$next_year_id=$this->input->post('next_year_id');
+				$class_master_id_for_last=$this->input->post('class_master_id_for_last_academic_year');
+				$promotion_class_master_id=$this->input->post('promotion_class_master_id');
+				$student_id=$this->input->post('student_reg_id_for_last_academic_year');
+				$result_status=$this->input->post('result_status');
+				$data=$this->promotionmodel->create_promotion($current_year_id,$next_year_id,$class_master_id_for_last,$promotion_class_master_id,$student_id,$result_status,$user_id);
 				if($data['status']=="success"){
 					echo "success";
 				}else if($data['status']=="Already"){
-					echo "Already Exist";
+					echo "Some Students  Already Exist";
 				}else{
 					echo "Something Went Wrong";
 				}
@@ -74,6 +79,8 @@ class Promotion extends CI_Controller {
 					redirect('/');
 			}
 		}
+
+
 
 
 

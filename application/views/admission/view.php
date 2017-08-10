@@ -25,9 +25,9 @@
                         <div class="card">
                             <div class="content">
                                 <div class="fresh-datatables">
-                                  
+
 								  <h4 class="title" style="padding-bottom:10px;">List of Admission</h4>
-								  
+
 							<form method="post" action="<?php echo base_url(); ?>admission/get_sorting_details" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
 
 							 <div class="col-sm-2">
@@ -38,14 +38,14 @@
 						</option>
 							<?php } ?>
 								</select>
-							  </div>    
+							  </div>
 							 <div class="col-sm-10">
 								<button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
 								<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
 							</div>
-							
+
 							</form>
-										
+
                           <table id="bootstrap-table" class="table">
                               <thead>
                                 <th data-field="id" class="text-left">ID</th>
@@ -68,14 +68,14 @@
                                     <td><?php echo $rows->email; ?></td>
                                     <td><?php echo $rows->mobile; ?></td>
 									<td><?php echo $rows->sex; ?></td>
-									<td><?php 
+									<td><?php
 									  if($stu=='Active'){?>
 									   <button class="btn btn-success btn-fill btn-wd">Active</button>
-									   
+
 									 <?php  }else{?>
 									  <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
 									 ?></td>
-									
+
 
                                     <td>
 
@@ -123,22 +123,22 @@
                                     </td>
                                   </tr>
 								<?php  $i++;  }
-									
+
 								}else{
                                 foreach ($result as $rows)
 								 { $stu=$rows->status;
-									 
-                                ?>  
+
+                                ?>
                                   <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
                                     <td><?php echo $rows->email; ?></td>
                                     <td><?php echo $rows->mobile; ?></td>
 									<td><?php echo $rows->sex; ?></td>
-									<td><?php 
+									<td><?php
 									  if($stu=='Active'){?>
 									   <button class="btn btn-success btn-fill btn-wd">Active</button>
-									   
+
 									 <?php  }else{?>
 									  <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
 									 ?></td>
@@ -225,8 +225,8 @@ function generatefromtable() {
 				//doc.text(50, height + 20, 'hi world');
 				doc.save("student.pdf");
 			}
-			
-			
+
+
  var $table = $('#bootstrap-table');
        $().ready(function(){
          jQuery('#admissionmenu').addClass('collapse in');
@@ -241,7 +241,7 @@ function generatefromtable() {
                showColumns: true,
                pagination: true,
                searchAlign: 'left',
-               pageSize: 8,
+               pageSize: 10,
                clickToSelect: false,
                pageList: [8,10,25,50,100],
 

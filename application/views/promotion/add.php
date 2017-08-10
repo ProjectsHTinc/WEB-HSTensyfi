@@ -1,3 +1,5 @@
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
 <style>
 .subject-info-box-1,
 .subject-info-box-2 {
@@ -32,19 +34,22 @@ height: 300px;
 #lstBox2{
 height: 300px;
 }
+
 </style>
 <div class="main-panel">
 <div class="content">
        <div class="container-fluid">
            <div class="row">
-               <div class="col-md-10">
+               <div class="col-md-12">
                    <div class="card">
+                     <a rel="" href="#myModal" data-id="12" title="Promotion" class="open-AddBookDialog btn btn  edit"  data-toggle="modal" data-target="#myModal"   style="margin:20px;">
+                    Add Promotion</a>
+
                        <div class="header">
-                           <h4 class="title">List of Academic years </h4>
+                         Promotion History
                        </div>
 
-                       <a rel="" href="#myModal" data-id="12" title="Promotion" class="open-AddBookDialog btn btn-simple  btn-fill btn-info  edit"  data-toggle="modal" data-target="#myModal"   >
-                       Promotion</a>
+
                        <div id="myModal" class="modal fade" role="dialog">
                           <div class="modal-dialog">
                              <!-- Modal content-->
@@ -54,36 +59,44 @@ height: 300px;
                                    <h4 class="modal-title">Promoting Students</h4>
                                 </div>
                                 <div class="modal-body">
-                                   <form action="" method="post" class="form-horizontal" id="members_adding_form">
+                                   <form action="" method="post" class="form-horizontal" id="promotion_forms">
                                       <fieldset>
                                         <div class="form-group">
-                                           <label class="col-sm-4 control-label">From Year</label>
+                                           <label class="col-sm-4 control-label">Current Year</label>
                                            <div class="col-sm-6">
-                                              <select   name="status" id="status" class="form-control">
-                                                 <option value="Active">Active</option>
-                                                 <option value="Deactive">Deactive</option>
-                                              </select>
+                                             <?php  $status=$years['status']; if($status=="success"){
+                                                foreach($years['all_years'] as $rows){}
+                                                  ?>
+                                             <input type="hidden" name="current_academic_year_id" id="year_id" value="<?php  echo $rows->year_id; ?>">
+                                             <input type="text" name="year_name"  class="form-control" value="<?php echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  ?>" readonly="">
+                                             <?php   }else{  ?>
+                                             <input type="text" name="year_id"  class="form-control" value="" readonly="">
+                                             <?php     } ?>
+
+
                                            </div>
                                         </div>
                                         <div class="form-group">
                                            <label class="col-sm-4 control-label">To Year</label>
                                            <div class="col-sm-6">
-                                              <select   name="status" id="status" class="form-control">
-                                                 <option value="Active">Active</option>
-                                                 <option value="Deactive">Deactive</option>
+                                              <select   name="next_year_id" data-title="select year" id="status" class="form-control">
+                                                   <option value="">Select Year</option>
+                                                   <?php foreach($res_year as $years)  {?>
+                                                 <option value="<?php echo $years->year_id ?>"><?php echo date('Y', strtotime($years->from_month));  echo "-"; echo date('Y', strtotime( $years->to_month));  ?></option>
+                                               <?php } ?>
                                               </select>
                                            </div>
                                         </div>
                                             <div class="form-group">
                                             <div class="col-sm-6">
-                                              <select  name="class_master_id" id="class_master_id1"    data-title="From Class" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue" onchange="get_student_list()">
+                                              <select  name="class_master_id_for_last_academic_year" id="class_master_id"    data-title="From Class" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue" onchange="get_student_list()">
                                                  <?php foreach($res_class as $rows){ ?>
                                                  <option value="<?php echo $rows->class_id; ?>"><?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></option>
                                                  <?php    } ?>
                                               </select>
                                             </div>
                                               <div class="col-sm-6">
-                                            <select  name="class_master_id" id="class_master_id1"    data-title="To Class" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue" onchange="get_student_list()">
+                                            <select  name="promotion_class_master_id" id="to_class_master_id"    data-title="To Class" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
                                                <?php foreach($res_class as $rows){ ?>
                                                <option value="<?php echo $rows->class_id; ?>"><?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></option>
                                                <?php    } ?>
@@ -106,16 +119,16 @@ height: 300px;
                                                <input type="button" id="btnAllLeft" value="<<" class="btn btn-default" />
                                             </div>
                                             <div class="subject-info-box-2">
-                                               <select multiple="multiple" name="members_id[]" id='lstBox2' class="form-control">
+                                               <select multiple="multiple" name="student_reg_id_for_last_academic_year[]" id='lstBox2' class="form-control">
                                                </select>
                                             </div>
 
                                          </div>
-                                         <input type="button" id="select_all" class="pull-right" name="select_all" value="Select All">
+                                         <input type="button" id="select_all" class="pull-right" name="select_all" value="Confirm All">
                                          <div class="form-group">
                                             <label class="col-sm-4 control-label">Result Status</label>
                                             <div class="col-sm-6">
-                                               <select   name="status" id="status" class="form-control">
+                                               <select   name="result_status" id="status" class="form-control">
                                                   <option value="Promote">Promote</option>
                                                   <option value="Demoted">Demoted</option>
                                                </select>
@@ -137,6 +150,39 @@ height: 300px;
                           </div>
                        </div>
 
+                       <div class="fresh-datatables">
+                          <table id="bootstrap-table" class="table">
+                             <thead>
+                                <th data-field="id">S.No</th>
+                                <th data-field="Name"  data-sortable="true"> Name </th>
+                                <th data-field="Last_year"  data-sortable="true">Last year </th>
+                                <th data-field="Promoted"  data-sortable="true">Promoted year </th>
+                                <th data-field="Last"  data-sortable="true">Last Studied </th>
+                                <th data-field="Result"  data-sortable="true">Result </th>
+                                <th data-field="Promotion"  data-sortable="true">Promotion To </th>
+
+                             </thead>
+                             <tbody>
+                                <?php
+                                   $i=1;
+                                   foreach ($res_pro as $rows) {
+
+                                   ?>
+                                <tr>
+                                   <td class="btn-simple btn-icon"><?php echo $i; ?></td>
+                                   <td ><?php echo $rows->student_name;?></td>
+                                    <td ><?php echo date('Y', strtotime($rows->last_year));  echo "-"; echo date('Y', strtotime( $rows->to_year));  ?></td>
+                                      <td ><?php echo date('Y', strtotime($rows->from_month));  echo "-"; echo date('Y', strtotime( $rows->to_month));  ?></td>
+                                   <td><?php echo $rows->last_class; ?>-<?php echo $rows->last_sec; ?></td>
+                                   <td><?php echo $rows->result_status;?></td>
+                                   <td><?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></td>
+                                   
+                                </tr>
+                                <?php $i++;  }  ?>
+                             </tbody>
+                          </table>
+                        </div>
+
                    </div>
                </div>
            </div>
@@ -149,6 +195,36 @@ height: 300px;
 </div>
 
 <script type="text/javascript">
+function get_student_list(){
+
+     var class_master_id=$('#class_master_id').val();
+     //alert(class_master_id);
+     $.ajax({
+     url:'<?php echo base_url(); ?>grouping/getListstudent',
+     method:"POST",
+     data:{class_master_id:class_master_id},
+     dataType: "JSON",
+     cache: false,
+     success:function(data)
+     {
+
+     var stat=data.status;
+     $("#lstBox1").empty();
+     if(stat=="success"){
+     var res=data.res;
+     //alert(res.length);
+     var len=res.length;
+
+     for (i = 0; i < len; i++) {
+     $('<option>').val(res[i].enroll_id).text(res[i].name).appendTo('#lstBox1');
+     }
+
+     }else{
+     $("#lstBox1").empty();
+     }
+     }
+     });
+}
 $('#select_all').click(function() {
        $('#lstBox2 option').prop('selected', true);
    });
@@ -204,20 +280,26 @@ $('#select_all').click(function() {
 
 }(jQuery));
 
-$('#grouping_form').validate({ // initialize the plugin
+$('#promotion_forms').validate({ // initialize the plugin
   rules: {
-      group_title:{required:true },
-      group_lead:{required:true },
-      status:{required:true },
+      year_id:{required:true },
+      next_year_id:{required:true, notEqualTo: "#year_id"},
+      class_master_id_for_last_academic_year:{required:true},
+      promotion_class_master_id:{required:true},
+      "student_reg_id_for_last_academic_year[]":{required:true},
+      result_status:{required:true },
   },
   messages: {
-        group_title: "Enter Grouping Name",
-        group_lead:"Select group incharge",
+        year_id: "Enter Grouping Name",
+        next_year_id:{  required: "Select year",notEqualTo: "Current Year and To Year Cannot be Same"},
+        class_master_id_for_last_academic_year:"Select From Class",
+        promotion_class_master_id:"Select To Class",
+          "student_reg_id_for_last_academic_year[]":"Select Student ",
         status:"select status"
 
       },
     submitHandler: function(form) {
-      //alert("hi");
+    //  alert("hi");
       swal({
                     title: "Are you sure?",
                     text: "You Want Confirm this form",
@@ -232,13 +314,13 @@ $('#grouping_form').validate({ // initialize the plugin
                 function(isConfirm) {
                     if (isConfirm) {
      $.ajax({
-         url: "<?php echo base_url(); ?>grouping/create_group",
+         url: "<?php echo base_url(); ?>promotion/create_promotion",
           type:'POST',
-         data: $('#grouping_form').serialize(),
+         data: $('#promotion_forms').serialize(),
          success: function(response) {
              if(response=="success"){
               //  swal("Success!", "Thanks for Your Note!", "success");
-                $('#grouping_form')[0].reset();
+                $('#promotion_forms')[0].reset();
                 swal({
          title: "Wow!",
          text: response,
