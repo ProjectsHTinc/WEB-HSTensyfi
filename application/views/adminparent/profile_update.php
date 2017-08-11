@@ -10,33 +10,27 @@
                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                          ×</button> <?php echo $this->session->flashdata('msg'); ?>
                  </div>
-
            <?php endif; ?>
                            <h4 class="title">Parents Edit Profile</h4>
                        </div>
                        <?php
                       // print_r($result);
-                       foreach ($result as $rows) 
-					   {
-						 $a=$rows->father_name ;
-						 $b=$rows->mother_name ;
-                       }
+                       foreach ($result as $rows) { }
                         ?>
                       <div class="content">
-                                <form method="post" action="<?php echo base_url(); ?>parentprofile/update_parents" class="form-horizontal" enctype="multipart/form-data"   onsubmit="return validates()" id="parentform" name="formadmission">
+                             <form method="post" action="<?php echo base_url(); ?>parentprofile/update_parents" class="form-horizontal" enctype="multipart/form-data"   onsubmit="return validates()" id="parentform" name="formadmission">
                                   <p id="erid" style="color:red;"></p>
                                  <fieldset>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Profile Pic</label>
-                                            <div class="col-sm-4">
+						<label class="col-sm-2 control-label">Profile Pic</label>
+						<div class="col-sm-4">
                         <input type="file" name="user_pic" class="form-control" onchange="loadFile(event)" accept="image/*" >
                         <input type="hidden" class="form-control" readonly name="user_pic_old" value="<?php echo $rows->user_pic; ?>">
-                                            </div>
+                        </div>
 											
-											<label class="col-sm-2 control-label">Student Name</label>
-										<div class="col-sm-4">
+				     <label class="col-sm-2 control-label">Student Name</label>
+					 <div class="col-sm-4">
 				 <select multiple name="teacher[]"  class="selectpicker form-control"  >
-
                      <?php
                           $tea_name=$rows->	admission_id;
                           $sQuery = "SELECT * FROM edu_admission";
@@ -55,179 +49,134 @@
                                   }
                             }
                        ?>
-                                  </select>
-										
+                     </select>
 					</div>
                                         </div>
                                     </fieldset>
+														          <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-4">
+                           <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $rows->name; ?>">
+                        </div>
 
-								  <fieldset>
-                                        <div class="form-group">
-										
-										
-
-											</div>
-<input type="hidden" name="admission_no" class="form-control" placeholder="" value="<?php echo $rows->admission_id ; ?>">	
-<input type="hidden" name="parent_id" class="form-control" placeholder="" value="<?php echo $rows->parent_id ; ?>">
-								</fieldset>
-						
-								<!--teacher -->
-								
-									
-									<fieldset>
-                                        <div class="form-group">
-											
-                                            <label class="col-sm-2 control-label">Father Name</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="father_name" readonly id="father_name" class="form-control"placeholder="Father Name" value="<?php echo $rows->father_name ;?>">
-                                            </div>
-											
-                                            <label class="col-sm-2 control-label">Mother Name</label>
-                                           <div class="col-sm-4">
-                                                <input type="text" name="mother_name" readonly id="mother_name" class="form-control" placeholder="Mother Name"
- 												value="<?php echo $rows->mother_name; ?>">
-                                            </div>
-				                     </div>
-                                   
-                                        <div class="form-group">
-                                             
-											
-                                          <label class="col-sm-2 control-label">Father Pic</label>
-                                            <div class="col-sm-4">
-                                               
-												
-												 <?php $fpic=$rows->father_pic;
-											   if(empty($fpic)){?>
-												  <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle" style="width:110px;">
-											<?php }else{?>
-											
-												<img src="<?php echo base_url(); ?>assets/parents/<?php echo $rows->father_pic; ?>" class="img-circle" style="width:110px;">
-											<?php } ?>
-												 <img  id="output" class="img-circle" style="width:110px;">
-												<input type="hidden" placeholder="" name="old_father_pic" class="form-control" value="<?php echo $rows->father_pic; ?>">
-                                            </div>
-											
-											
-											<label class="col-sm-2 control-label">Mother Pic</label>
-                                            <div class="col-sm-4">
-                                               
-												
-												<?php $mpic=$rows->mother_pic;
-											   if(empty($mpic)){?>
-												  <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle" style="width:110px;">
-											<?php }else{?>
-												<img src="<?php echo base_url(); ?>assets/parents/<?php echo $rows->mother_pic; ?>" class="img-circle" style="width:110px;">
-											<?php } ?>
-												 <img  id="output1" class="img-circle" style="width:110px;">
-												 <input type="hidden" placeholder="" name="old_mother_pic" class="form-control" value="<?php echo $rows->mother_pic; ?>">
-                                            </div>
-											
-                                        </div>
-                                    </fieldset>
-									
-									
-										 <fieldset>
-                                        <div class="form-group">
-                                             <label class="col-sm-2 control-label">Guardian Name</label>
-                                            <div class="col-sm-4">
-											<input type="text" name="guardn_name" id="guardn_name" readonly class="form-control" placeholder="Guardian Name" value="<?php echo $rows->guardn_name ;?>">
-                                            </div>
-                                            
-                                          <label class="col-sm-2 control-label">Guardian Pic</label>
-                                            <div class="col-sm-4">
-                                               
-											 <?php $gpic=$rows->guardn_pic;
-											   if(empty($gpic)){?>
-												  <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle" style="width:110px;">
-											<?php }else{?>
-												<img src="<?php echo base_url(); ?>assets/parents/<?php echo $rows->guardn_pic; ?>" class="img-circle" style="width:110px;">
-											<?php } ?>
-												<input type="hidden" placeholder="" name="old_guardian_pic" class="form-control" value="<?php echo $rows->guardn_pic; ?>">
-                                              <img  id="output2" class="img-circle" style="width:110px;">
-                                            </div>
-                                           </div>
-										   </fieldset>
-										  
-									
-								<!--   -->
-									
-                                   <fieldset>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Occupation</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="occupation" readonly placeholder="Occupation" class="form-control" value="<?php echo $rows-> occupation; ?>">
-                                            </div>
-                                            <label class="col-sm-2 control-label">Income</label>
-                                            <div class="col-sm-4">
-                                              <input type="text" placeholder="Income" readonly value="<?php echo $rows->income; ?>" name="income" class="form-control">
-
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Address</label>
-                                            <div class="col-sm-4">
-                                                <textarea name="address" readonly class="form-control" rows="4" cols="80"><?php echo $rows->address; ?></textarea>
-                                            </div>
-                                            <label class="col-sm-2 control-label">Primary Email</label>
-                                            <div class="col-sm-4">
-											 <input type="text" name="email" readonly value="<?php echo $rows->email; ?>" class="form-control " id="email" placeholder="Email Address" />
-										
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Secondary Email</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="email1" readonly class="form-control "value="<?php echo $rows->email1; ?>" id="email" placeholder="Email Address" />
-                                            </div>
-                                            <label class="col-sm-2 control-label">Home Phone</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="Home Phone" readonly value="<?php echo $rows->home_phone; ?>" name="home_phone" class="form-control">
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Office Phone</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="Office Phone" readonly value="<?php echo $rows->office_phone; ?>" name="office_phone" class="form-control">
-                                            </div>
-                                            <label class="col-sm-2 control-label">Primary Mobile</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="Mobile Number" readonly value="<?php echo $rows->mobile; ?>" name="mobile" class="form-control">
-                                            </div>
-                                        </div>
-                                    </fieldset>
-									
-									<fieldset>
-                                        <div class="form-group">
-                                            
-                                            <label class="col-sm-2 control-label">Secondary Mobile</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="Mobile Number" readonly value="<?php echo $rows->mobile; ?>" name="mobile1" class="form-control">
-                                            </div>
-											
-                                        </div>
-                                    </fieldset>
-                                   
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">&nbsp;</label>
-                                            <div class="col-sm-10">
-                                                   <button type="submit" class="btn btn-info btn-fill center">Update</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </form>
-
-                            </div></div></div>
-                 
-               
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Occupation</label>
+                        <div class="col-sm-4">
+                           <input type="text" name="occupation" placeholder="Occupation" class="form-control" value="">
+                        </div>
+                        <label class="col-sm-2 control-label">Income</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Income" name="income" class="form-control">
+                        </div>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Home Address</label>
+                        <div class="col-sm-4">
+                           <textarea name="haddress" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"></textarea>
+                        </div>
+                        <label class="col-sm-2 control-label">Primary Email</label>
+                        <div class="col-sm-4">
+                           <input type="text" name="pemail" id="pemail"  class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
+                           <p id="msg" style="color:red;"> </p>
+                        </div>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Secondary Email</label>
+                        <div class="col-sm-4">
+                           <input type="text" name="semail" class="form-control " id="email" placeholder="Email Address" />
+                        </div>
+                        <label class="col-sm-2 control-label">Primary Mobile</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Mobile Number"  name="pmobile" maxlength="10"  class="form-control" onkeyup="checkcellfun(this.value)">
+						   <p id="gmsg1"></p>
+                        </div>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Secondary Mobile</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Mobile Number" pattern="[1-9]{1}[0-9]{9}" maxlength="10" name="smobile" class="form-control">
+                        </div>
+                        <label class="col-sm-2 control-label">Home Phone</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Home Phone" name="home_phone" class="form-control">
+                        </div>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Office Address</label>
+                        <div class="col-sm-4">
+                           <textarea name="office_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"></textarea>
+                        </div>
+                        <label class="col-sm-2 control-label">Office Phone</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Office Phone" name="office_phone" class="form-control">
+                        </div>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Relationship</label>
+                        <div class="col-sm-4">
+                           <input type="hidden" name="relationship" readonly class="form-control"  value="">
+						   <select name="relationship" class="selectpicker form-control" data-title="Select Relationship"  onchange="checkrelationfun(this.value)" />
+                             <option value="Father">Father</option>
+							 <option value="Mother">Mother</option>
+							 <option value="Guardian">Guardian</option>
+							</select>
+							<p id="msg1" style="color:red;"> </p>
+                        </div>
+                        <label class="col-sm-2 control-label">Picture</label>
+                        <div class="col-sm-4">
+                           <input type="file" name="parents_picture" id="pic" class="form-control" onchange="loadFile(event)" accept="image/*" >
+                        </div>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-4">
+                           <select name="status" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                              <option value="Active">Active</option>
+                              <option value="Deactive">DeActive</option>
+                           </select>
+                        </div>
+						<label class="col-sm-2 control-label">Login</label>
+                                 <div class="col-sm-4">
+                                   <select name="priority" class="selectpicker form-control" data-title="Select Login Priority">
+                                       <option value="Yes">Yes</option>
+									   <option value="No">No</option>
+                                    </select>
+                                 </div>
+						</div>
+						</fieldset>
+				<fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-4">
+                           <img  id="output" class="img-circle" style="width:110px;">
+                        </div>
+                        <label class="col-sm-2 control-label">&nbsp;</label>
+                        <div class="col-sm-4">
+                           <button type="submit" id="save" class="btn btn-info btn-fill center">Submit</button>
+                        </div>
+                     </div>
+                  </fieldset>
+				  
+					</form>
+                       </div>
+					  </div>
+					  </div>
                <div class="col-md-4">
                    <div class="card card-user">
                        <div class="image">
@@ -237,16 +186,11 @@
                            <div class="author">
                                 <a href="#">
 								 <img class="avatar border-gray" id="output23" src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $rows->user_pic; ?>" alt="..."/>
-								 
-                           
-                                 <h4 class="title"><?php echo $rows->father_name; ?><br />
+                                 <h4 class="title"><?php echo $rows->name; ?><br />
                                  </h4>
                                </a>
                            </div>
-
                        </div>
-
-
                    </div>
                </div>
 

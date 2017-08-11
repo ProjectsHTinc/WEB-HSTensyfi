@@ -11,7 +11,7 @@ Class Parentprofilemodel extends CI_Model
   
   function getuser($user_id)
    {
-	   $query="SELECT ed.*,ep.* FROM edu_users AS ed LEFT JOIN edu_parents AS ep ON ed.parent_id=ep.parent_id WHERE ed.user_id='$user_id'";
+	   $query="SELECT ed.*,ep.* FROM edu_users AS ed LEFT JOIN edu_parents AS ep ON ed.parent_id=ep.id WHERE ed.user_id='$user_id'";
        $resultset=$this->db->query($query);
        return $resultset->result();
    }

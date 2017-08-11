@@ -40,6 +40,7 @@
                                         $i=1;
 										if(!empty($result)){
                                         foreach ($result as $rows) {
+											$tm=$rows->total_marks;
                                      ?>
 										<tr>
 										 <td><?php echo $i; ?></td>
@@ -59,8 +60,11 @@
 						  <?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
 						  <?php }else{ ?>
 						  <td>
+						 <?php if(is_numeric($tm)){?>
 						  <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
-						  <?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span></td>
+						  <?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span>
+						   <?php }else{ echo "AB";} ?>
+						  </td>
 						   <?php } ?>
 										</tr>
 										 <?php $i++;  } 

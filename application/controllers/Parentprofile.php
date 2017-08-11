@@ -26,7 +26,7 @@ class Parentprofile extends CI_Controller {
 		 $user_type=$this->session->userdata('user_type');
 		 //echo $user_id;exit;
 		 $datas['result'] = $this->parentprofilemodel->getuser($user_id);
-         //print_r($datas['result']);exit;
+         //echo'<pre>';print_r($datas['result']);exit;
 		if($user_type==1 || $user_type==2 || $user_type==3 ||$user_type==4 ){
 		$this->load->view('adminparent/parent_header',$datas);
 		$this->load->view('adminparent/profile_update',$datas);

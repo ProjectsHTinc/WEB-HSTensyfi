@@ -370,7 +370,7 @@ Class Parentsmodel extends CI_Model
 	   }
 	   
 	   function update_parents_details($stu_name,$admission_id,$morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id)
-	   {   //echo $stu_name; echo $morestu; 
+	   {  // echo $stu_name; echo $morestu; exit;
 	       $digits = 6;
 		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
 		   //Father Details
@@ -381,7 +381,7 @@ Class Parentsmodel extends CI_Model
 		   //echo $pid;exit;
 		   if($stu_name!=$morestu)
 		   {
-			 $sql="UPDATE edu_admission SET parnt_guardn_id='0',parents_status='0' WHERE admission_id NOT IN($stu_name) AND parnt_guardn_id IN (1,2,3)";
+			 $sql="UPDATE edu_admission SET parnt_guardn_id='0',parents_status='0' WHERE admission_id NOT IN($stu_name) AND parnt_guardn_id IN ($pid)";
 			  $sql2=$this->db->query($sql);
 		   }
 		   
