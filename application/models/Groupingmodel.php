@@ -172,7 +172,6 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE  ee.clas
 
           function save_group_history($group_id,$cir,$notes,$user_id){
              $query="INSERT INTO  edu_grouping_history (group_title_id,notes,notification_type,status,created_at,created_by) VALUES('$group_id','$notes','$cir','Active',NOW(),'$user_id')";
-
             $res=$this->db->query($query);
             if($res){
               $data= array("status" => "success");
@@ -185,8 +184,8 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE  ee.clas
 
 
           function get_message_history(){
-            $query="SELECT egh.group_title_id,egm.group_title,egh.notes,egh.notification_type FROM edu_grouping_history AS egh
-            LEFT JOIN edu_grouping_master AS egm  ON egh.group_title_id=egm.id order by egh.id desc;";
+            $query="SELECT egh.group_title_id,egm.group_title,egh.notes,egh.notification_type,egh.created_by,eu.name FROM edu_grouping_history AS egh
+            LEFT JOIN edu_grouping_master AS egm  ON egh.group_title_id=egm.id LEFT JOIN edu_users as eu ON eu.user_id=egh.created_by order by egh.id desc;";
             $resultset=$this->db->query($query);
             return  $res=$resultset->result();
           }

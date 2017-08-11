@@ -21,6 +21,7 @@
                         <th data-field="name" class="text-center" data-sortable="true">Group Name</th>
                         <th data-field="Section" class="text-center" data-sortable="true">Type</th>
                         <th data-field="actions" class="td-actions text-left" data-events="operateEvents">Notes</th>
+                        <th data-field="sent" class="td-actions text-left" data-events="operateEvents">Sent By</th>
                      </thead>
                      <tbody>
                         <?php $i=1; foreach ($list_of_message as $rowsclass) {  ?>
@@ -29,6 +30,7 @@
                            <td><?php echo $rowsclass->group_title;  ?></td>
                            <td><?php echo $rowsclass->notification_type;  ?></td>
                            <td><?php echo $rowsclass->notes;  ?>
+                             <td><?php echo $rowsclass->name;  ?>
                            </td>
                         </tr>
                         <?php $i++;  }  ?>
