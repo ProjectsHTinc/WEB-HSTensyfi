@@ -15,7 +15,6 @@
                         <form method="post" action="<?php echo base_url(); ?>parents/update_parents" class="form-horizontal" enctype="multipart/form-data" id="parentform" name="parentform" onsubmit="return validates()">
                            <div class="content">
 						   
-						   
                                 <ul role="tablist" class="nav nav-tabs" style="border-bottom: none;padding-left:05px;">
                                     <li role="presentation" class="active" >
                                       <a href="#father" class="btn btn-info btn-fill" style="border-bottom-color:#976dea;" data-toggle="tab">Father</a>
@@ -34,9 +33,8 @@
                                     </li>
 									<?php } ?>
                                 </ul>
-								
                             </div>
-							
+							<p id="erid" style="color:red;"></p>
 				<div class="tab-content">
 				<fieldset>
                    <div class="form-group">
@@ -555,7 +553,7 @@
     };
   
 function validates()
-{        //alert("hi");
+{        alert("hi");
 		var fname = document.getElementById("fname").value;
 		var mname = document.getElementById("mname").value;
 		var gname = document.getElementById("gname").value;

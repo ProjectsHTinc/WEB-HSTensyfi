@@ -121,8 +121,8 @@
 									  echo'</span>';
 								      echo '<span class="space">';echo $s->total_grade;echo'</span>';
 								  }else{
-									  echo"AB";
-									  //echo '<span class="space">';echo $s->total_grade;echo'</span>';
+									  //echo"AB";
+									  echo '<span class="space">';echo $s->total_marks;echo'</span>';
 								  }
 									  /* echo "&nbsp";
 									  echo '<span class="grade2">';
