@@ -517,7 +517,6 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
  
- 
 //-----------------------------------------------//
 
 	public function disp_Grouplist()
@@ -546,6 +545,81 @@ class Apimain extends CI_Controller {
 	 	$user_id = $this->input->post("user_id");
 
 		$data['result']=$this->apimainmodel->dispGrouplist($user_type,$user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function send_Groupmessage()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Send Group Message";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$group_title_id = '';
+		$message_type = '';
+		$message_details = '';
+		$created_by = '';
+		
+	 	$group_title_id = $this->input->post("group_title_id");
+	 	$message_type = $this->input->post("message_type");
+		$message_details = $this->input->post("message_details");
+		$created_by = $this->input->post("created_by");
+		
+
+		$data['result']=$this->apimainmodel->sendGroupmessage($group_title_id,$message_type,$message_details,$created_by);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function disp_Groupmessage()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "View Group Message";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$user_id = '';
+		$user_type = '';
+	 	$user_type = $this->input->post("user_type");
+	 	$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apimainmodel->dispGroupmessage($user_type,$user_id);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

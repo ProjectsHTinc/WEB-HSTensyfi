@@ -8,7 +8,7 @@ class Apimainmodel extends CI_Model {
     }
 
 
-//#################### Current Year ####################//
+//#################### Email ####################//
 
 	public function sendMail($to,$subject,$htmlContent)
 	{
@@ -20,8 +20,86 @@ class Apimainmodel extends CI_Model {
 		mail($to,$subject,$htmlContent,$headers);
 	}
 
+//#################### Email End ####################//
 
-//#################### Login ####################//
+
+//#################### Email ####################//
+
+	public function sendNotification($gcm_key,$Title,$Message)
+	{
+	        $gcm_key = array($gcm_key);
+			$data = array
+			(
+				'message' 	=> $Message,
+				'title'		=> $Title,
+				'vibrate'	=> 1,
+				'sound'		=> 1
+		//		'largeIcon'	=> 'http://happysanz.net/testing/assets/students/profile/236832.png'
+		//		'smallIcon'	=> 'small_icon'
+			);
+			
+			// Insert real GCM API key from the Google APIs Console   
+			$apiKey = 'AAAADRDlvEI:APA91bFi-gSDCTCnCRv1kfRd8AmWu0jUkeBQ0UfILrUq1-asMkBSMlwamN6iGtEQs72no-g6Nw0lO5h4bpN0q7JCQkuTYsdPnM1yfilwxYcKerhsThCwt10cQUMKrBrQM2B3U3QaYbWQ';
+			// Set POST request body
+			$post = array(
+						'registration_ids'  => $gcm_key,
+						'data'              => $data,
+						 );
+			// Set CURL request headers 
+			$headers = array( 
+						'Authorization: key=' . $apiKey,
+						'Content-Type: application/json'
+							);
+			// Initialize curl handle       
+			$ch = curl_init();
+			// Set URL to GCM push endpoint     
+			curl_setopt($ch, CURLOPT_URL, 'https://gcm-http.googleapis.com/gcm/send');
+			// Set request method to POST       
+			curl_setopt($ch, CURLOPT_POST, true);
+			// Set custom request headers       
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			// Get the response back as string instead of printing it       
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			// Set JSON post data
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+			// Actually send the request    
+			$result = curl_exec($ch);
+		
+		
+			// Handle errors
+			if (curl_errno($ch)) {
+				//echo 'GCM error: ' . curl_error($ch);
+			}
+			// Close curl handle
+			curl_close($ch);
+			
+			// Debug GCM response       
+			//echo $result;	
+	}
+
+//#################### Notification End ####################//
+
+
+//#################### SMS ####################//
+
+	public function sendSMS($Phoneno,$Message)
+	{
+		$textmsg = urlencode($Message);
+		$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+		$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+		$api_params = $api_element.'&numbers='.$Phoneno.'&message='.$textmsg;
+		$smsgatewaydata = $smsGatewayUrl.$api_params;
+		$url = $smsgatewaydata;
+	
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_POST, false);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$output = curl_exec($ch);
+		curl_close($ch);
+	}
+
+//#################### SMS End ####################//
 
 
 //#################### Current Year ####################//
@@ -787,9 +865,9 @@ class Apimainmodel extends CI_Model {
 			$year_id = $this->getYear();
 
             if ($user_type=='1'){
-			    echo $Group_query = "SELECT id, group_title FROM `edu_grouping_master` WHERE year_id = '$year_id'";
+			     $Group_query = "SELECT id, group_title FROM `edu_grouping_master` WHERE year_id = '$year_id'";
             } else {
-				echo $Group_query = "SELECT id, group_title FROM `edu_grouping_master` WHERE year_id = '$year_id' AND group_lead_id = '$user_id'";
+				 $Group_query = "SELECT id, group_title FROM `edu_grouping_master` WHERE year_id = '$year_id' AND group_lead_id = '$user_id'";
 			}
 		
 			$Group_res = $this->db->query($Group_query);
@@ -804,6 +882,280 @@ class Apimainmodel extends CI_Model {
 			return $response;		
 	}
 //#################### View Groups End ####################//
+
+//#################### Send Group Message ####################//
+	public function sendGroupmessage ($group_title_id,$message_type,$message_details,$created_by)
+	{
+			$year_id = $this->getYear();
+
+			$m_type = explode(",", $message_type);
+			$m_type_cnt = count($m_type);
+			
+			if($m_type_cnt==1){
+				 $m_type1=$m_type[0];
+			}
+				 				 
+			if($m_type_cnt==2){
+				 $m_type1=$m_type[0];
+				 $m_type2=$m_type[1];
+			}
+				 
+			if($m_type_cnt==3){
+				 $m_type1=$m_type[0];
+				 $m_type2=$m_type[1];
+				 $m_type3=$m_type[2];
+			}
+			
+			
+			if($m_type_cnt==3) {
+                $subject = 'Group Notification';
+				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+				$email_res = $this->db->query($email_query);
+			    $email_result = $email_res->result();
+			
+    			 if($email_res->num_rows()!=0){
+    				foreach ($email_result as $rows)
+        			{
+        				  $sEmail = $rows->email;
+        				  $this->sendMail($sEmail,$subject,$message_details);
+        			}
+    			 }
+    			 
+    			
+				$mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+				$mobile_res = $this->db->query($mobile_query);
+			    $mobile_result = $email_res->result();
+			
+    			 if($mobile_res->num_rows()!=0){
+    				foreach ($mobile_result as $rows)
+        			{
+        				  $sMobile = $rows->mobile;
+        				  $this->sendSMS($sMobile,$message_details);
+        			}
+    			 }
+    			 
+    			$gcm_query = "SELECT egm.group_member_id,ep.parent_id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
+				$gcm_res = $this->db->query($gcm_query);
+			    $gcm_result = $gcm_res->result();
+			
+    			 if($gcm_res->num_rows()!=0){
+    				foreach ($gcm_result as $rows)
+        			{
+        				$sParent_id = $rows->parent_id;
+        				
+        				$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
+						$sgsm  = $this->db->query($sql);
+						$res = $sgsm->result();
+
+						foreach($res as $row){
+						    $sGcm_key = $row->gcm_key;
+						    $this->sendNotification($sGcm_key,$subject,$message_details);
+						}
+        				 
+        			}
+    		    }
+
+			 }
+			
+
+			if($m_type_cnt==2) {
+			     if($m_type1=='SMS' && $m_type2=='Mail')
+		 		  {
+					    $subject = 'Group Notification';
+        				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+        				$email_res = $this->db->query($email_query);
+        			    $email_result = $email_res->result();
+        			
+            			 if($email_res->num_rows()!=0){
+            				foreach ($email_result as $rows)
+                			{
+                				  $sEmail = $rows->email;
+                				  $this->sendMail($sEmail,$subject,$message_details);
+                			}
+            			 }
+            			 
+            			
+        				$mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+        				$mobile_res = $this->db->query($mobile_query);
+        			    $mobile_result = $email_res->result();
+        			
+            			 if($mobile_res->num_rows()!=0){
+            				foreach ($mobile_result as $rows)
+                			{
+                				  $sMobile = $rows->mobile;
+                				  $this->sendSMS($sMobile,$message_details);
+                			}
+    			         }
+		 		  }
+		 		  if($m_type1=='SMS' && $m_type2=='Notification')
+		 		  {
+					    $subject = 'Group Notification';
+        				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+        				$email_res = $this->db->query($email_query);
+        			    $email_result = $email_res->result();
+        			
+            			 if($email_res->num_rows()!=0){
+            				foreach ($email_result as $rows)
+                			{
+                				  $sEmail = $rows->email;
+                				  $this->sendMail($sEmail,$subject,$message_details);
+                			}
+            			 }
+            			 
+        			 	$gcm_query = "SELECT egm.group_member_id,ep.parent_id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
+        				$gcm_res = $this->db->query($gcm_query);
+        			    $gcm_result = $gcm_res->result();
+        			
+            			 if($gcm_res->num_rows()!=0){
+            				foreach ($gcm_result as $rows)
+                			{
+                				$sParent_id = $rows->parent_id;
+                				
+                				$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
+        						$sgsm  = $this->db->query($sql);
+        						$res = $sgsm->result();
+        
+        						foreach($res as $row){
+        						    $sGcm_key = $row->gcm_key;
+        						    $this->sendNotification($sGcm_key,$subject,$message_details);
+        						}
+                				 
+                			}
+		 		        }
+		 		  }
+		 		  if($m_type1=='Mail' && $m_type2=='Notification')
+		 		  {
+		 		        $subject = 'Group Notification';
+        				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+        				$email_res = $this->db->query($email_query);
+        			    $email_result = $email_res->result();
+        			
+            			 if($email_res->num_rows()!=0){
+            				foreach ($email_result as $rows)
+                			{
+                				  $sEmail = $rows->email;
+                				  $this->sendMail($sEmail,$subject,$message_details);
+                			}
+            			 }
+            			 
+ 					    $gcm_query = "SELECT egm.group_member_id,ep.parent_id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
+        				$gcm_res = $this->db->query($gcm_query);
+        			    $gcm_result = $gcm_res->result();
+        			
+            			 if($gcm_res->num_rows()!=0){
+            				foreach ($gcm_result as $rows)
+                			{
+                				$sParent_id = $rows->parent_id;
+                				
+                				$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
+        						$sgsm  = $this->db->query($sql);
+        						$res = $sgsm->result();
+        
+        						foreach($res as $row){
+        						    $sGcm_key = $row->gcm_key;
+        						    $this->sendNotification($sGcm_key,$subject,$message_details);
+        						}
+                				 
+                			}
+            			 }
+		 		   }
+			    }
+			
+			
+			if($m_type_cnt==1) {
+                if($m_type1=='Mail'){
+                    $subject = 'Group Notification';
+    				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+    				$email_res = $this->db->query($email_query);
+    			    $email_result = $email_res->result();
+    			
+        			 if($email_res->num_rows()!=0){
+        				foreach ($email_result as $rows)
+            			{
+            				  $sEmail = $rows->email;
+            				  $this->sendMail($sEmail,$subject,$message_details);
+            			}
+        			 }
+				  }
+
+                if($m_type1=='SMS') {
+				    $mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+    				$mobile_res = $this->db->query($mobile_query);
+    			    $mobile_result = $email_res->result();
+    			
+        			 if($mobile_res->num_rows()!=0){
+        				foreach ($mobile_result as $rows)
+            			{
+            				  $sMobile = $rows->mobile;
+            				  $this->sendSMS($sMobile,$message_details);
+            			}
+			         }	
+				}
+				
+				if($m_type1=='Notification') {
+                    $gcm_query = "SELECT egm.group_member_id,ep.parent_id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
+                    $gcm_res = $this->db->query($gcm_query);
+                    $gcm_result = $gcm_res->result();
+                    
+                    if($gcm_res->num_rows()!=0){
+                    foreach ($gcm_result as $rows)
+                        {
+                        	$sParent_id = $rows->parent_id;
+                        	
+                        	$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
+                        	$sgsm  = $this->db->query($sql);
+                        	$res = $sgsm->result();
+                        
+                        	foreach($res as $row){
+                        	    $sGcm_key = $row->gcm_key;
+                        	    $this->sendNotification($sGcm_key,$subject,$message_details);
+                        	}
+                        	 
+                        }
+                    }
+				}
+
+			 }
+			
+		    $grouphistory_query = "INSERT INTO `edu_grouping_history`(`group_title_id`, `notes`, `notification_type`, `status`, `created_by`, `created_at`) VALUES ('$group_title_id','$message_details','$message_type','Active','$created_by',NOW())";
+			$grouphistory_res = $this->db->query($grouphistory_query);
+			$last_historyid = $this->db->insert_id();
+
+			if($grouphistory_res) {
+				$response = array("status" => "success", "msg" => "Group Message Added", "last_group_history_id"=>$last_historyid);
+			} else {
+				$response = array("status" => "error");
+			}
+
+			return $response;		
+	}
+//#################### Group Message End ####################//
+
+
+//#################### View Group Messages ####################//
+	public function dispGroupmessage ($user_type,$user_id)
+	{
+			$year_id = $this->getYear();
+
+            if ($user_type=='1'){
+			     $Group_query = "SELECT A.id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id`";
+            } else {
+				 $Group_query = "SELECT A.id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` AND group_lead_id = '$user_id'";
+			}
+		
+			$Group_res = $this->db->query($Group_query);
+			$Group_result = $Group_res->result();
+			
+			 if($Group_res->num_rows()==0){
+				 $response = array("status" => "error", "msg" => "Group Message Not Found");
+			}else{
+				$response = array("status" => "success", "msg" => "View Group Messages", "groupmsgDetails"=>$Group_result);
+			} 
+
+			return $response;		
+	}
+//#################### View Group Messages End ####################//
+
 }
 
 ?>
