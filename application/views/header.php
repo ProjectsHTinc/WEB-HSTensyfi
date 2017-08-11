@@ -30,7 +30,8 @@
          <link href="<?php echo base_url(); ?>assets/css/clean.css" rel="stylesheet" />
          <link href="<?php echo base_url(); ?>assets/css/base.css" rel="stylesheet" />---->
       <!--  Forms Validations Plugin -->
-      <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
+        <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/jquery.datatables.js"></script>
       <style>
          .navbar{
@@ -339,6 +340,19 @@
                      <ul class="nav">
                         <li id="group1"><a href="<?php echo base_url(); ?>grouping/home">Create/ View Groups</a></li>
                         <li id="group2"><a href="<?php echo base_url(); ?>grouping/send">Send Message </a></li>
+                     </ul>
+                  </div>
+               </li>
+               <li id="promotion">
+                  <a data-toggle="collapse" href="#promotionmenu">
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
+                     <p>Promotion</p>
+                     <b class="caret"></b>
+                  </a>
+                  <div class="collapse" id="promotionmenu">
+                     <ul class="nav">
+                        <li id="promo1"><a href="<?php echo base_url(); ?>promotion/home">Promotion</a></li>
+
                      </ul>
                   </div>
                </li>
