@@ -83,12 +83,12 @@ Class Adminattendancemodel extends CI_Model
         INNER JOIN edu_attendence AS at ON ah.attend_id = at.at_id
         INNER JOIN edu_classmaster AS cm ON en.class_id = cm.class_sec_id
         INNER JOIN edu_class AS c ON cm.class=c.class_id
-        INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE en.class_id='$class_master_id' AND en.admit_year = '1' AND ah.abs_date >= '$first' AND ah.abs_date <= '$last' GROUP BY ah.student_id
+        INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE en.class_id='$class_master_id' AND en.admit_year = '$year_id' AND ah.abs_date >= '$first' AND ah.abs_date <= '$last' GROUP BY ah.student_id
         UNION ALL
         SELECT '0' as leaves,en.enroll_id, en.class_id, en.name, c.class_name, s.sec_name, '' as abs_date, 'P' as a_status, '' as attend_period,'' as at_id FROM edu_enrollment en
         INNER JOIN edu_classmaster AS cm ON en.class_id = cm.class_sec_id
         INNER JOIN edu_class AS c ON cm.class=c.class_id
-        INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE en.class_id='$class_master_id' AND en.admit_year = '1' AND en.enroll_id
+        INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE en.class_id='$class_master_id' AND en.admit_year = '$year_id' AND en.enroll_id
         NOT IN (SELECT en.enroll_id FROM edu_enrollment en
         INNER JOIN edu_attendance_history AS ah ON en.enroll_id = ah.student_id
         INNER JOIN edu_attendence AS at ON ah.attend_id = at.at_id

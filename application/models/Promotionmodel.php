@@ -115,10 +115,59 @@ Class Promotionmodel extends CI_Model
 
 
 
+    function edit_promotion_history($id){
+       $year_id=$this->getYear();
+      $query="SELECT eph.id,eph.student_admission_id,ee.class_id,c.class_name AS last_class,s.sec_name AS last_sec,ee.name,eph.promotion_class_master_id,cp.class_name,sp.sec_name,
+      eph.current_academic_year_id,eay.from_month AS last_year,eay.to_month AS to_year,eph.promotion_academic_year_id,eac.from_month,eac.to_month,eph.result_status
+      FROM edu_promotion_history AS eph
+      LEFT JOIN edu_academic_year AS eay ON eay.year_id=eph.current_academic_year_id
+      LEFT JOIN edu_academic_year AS eac ON eac.year_id=eph.promotion_academic_year_id
+      LEFT JOIN edu_enrollment AS ee ON ee.admission_id=eph.student_admission_id
+      LEFT JOIN edu_classmaster AS cm ON ee.class_id=cm.class_sec_id
+      LEFT JOIN edu_class AS c ON cm.class=c.class_id
+      LEFT JOIN edu_sections AS s ON cm.section=s.sec_id
+      LEFT JOIN edu_classmaster AS cmp ON eph.promotion_class_master_id=cmp.class_sec_id
+      LEFT JOIN edu_class AS cp ON cmp.class=cp.class_id
+      LEFT JOIN edu_sections AS sp ON cmp.section=sp.sec_id
+      WHERE eph.id='$id' AND ee.admit_year='$year_id'";
+      $resultset=$this->db->query($query);
+      return  $res=$resultset->result();
+    }
 
 
+    function save_promotion($current_year_id,$student_admission_id,$next_year_id,$promotion_class_master_id,$result_status,$id,$user_id){
+      $update_prom="UPDATE edu_promotion_history SET promotion_academic_year_id='$next_year_id',promotion_class_master_id='$promotion_class_master_id',result_status='$result_status',updated_by='$user_id',updated_at=NOW() WHERE id='$id'";
+      $resultset=$this->db->query($update_prom);
+
+      // Update in Registeration
+      $update_enrol="UPDATE edu_enrollment SET class_id='$promotion_class_master_id',admit_year='$next_year_id' WHERE admit_year='$next_year_id' AND admission_id='$student_admission_id'";
+      $resultset_reg=$this->db->query($update_enrol);
+
+      if($resultset_reg){
+        $data= array("status" => "success");
+        return $data;
+       }else{
+        $data= array("status" => "failure");
+        return $data;
+      }
+
+    }
 
 
+    function view_list_for_year($year_id){
+    $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name
+    FROM edu_enrollment AS e,edu_classmaster AS cm, edu_sections AS s,edu_class AS c,edu_admission AS a WHERE e.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND e.admission_id=a.admission_id
+    AND e.name=a.name AND e.admisn_no=a.admisn_no AND e.admit_year='$year_id' ORDER BY enroll_id DESC";
+    $resultset=$this->db->query($query);
+    return  $res=$resultset->result();
+    }
+
+
+    function get_year_name($year_id){
+      $query="SELECT * FROM edu_academic_year WHERE year_id='$year_id'";
+      $resultset=$this->db->query($query);
+      return  $res=$resultset->result();
+    }
 
 
 
