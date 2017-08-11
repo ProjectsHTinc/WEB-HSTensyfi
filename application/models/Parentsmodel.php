@@ -544,15 +544,15 @@ Class Parentsmodel extends CI_Model
 	   //New student Add
 	   function update_exiting_parents_details($morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id)
 	   {
-		   	echo $oldstu; echo'<br>'; echo $newstu; echo'<br>';echo $morestu;  
+		   //echo $oldstu; echo'<br>'; echo $newstu; echo'<br>';echo $morestu;  
 	       $digits = 6;
 		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
 		   
-		  $sql="SELECT parnt_guardn_id FROM edu_admission WHERE admission_id IN($oldstu)";
+		   $sql="SELECT parnt_guardn_id FROM edu_admission WHERE admission_id IN($oldstu)";
 		   $getid=$this->db->query($sql);  
 		   $getid1=$getid->result();
 		   foreach($getid1 as $getid2){} $insertid=$getid2->parnt_guardn_id;
-		  // echo $insertid; exit;
+		    //echo $insertid; exit;
 		   //Father Details
 		   if(!empty($fname))
 		    { 
@@ -562,8 +562,6 @@ Class Parentsmodel extends CI_Model
                   $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$newstu'";
 		          $gsresultset=$this->db->query($parnt_guardnid);  
                }
-			 
-			 //echo "hi"; echo $admission_id; echo $oldstu; 
 			  $fquery="UPDATE edu_parents SET admission_id='$admission_id',name='$fname',occupation='$foccupation',income='$fincome',home_address='$fhaddress',email='$fpemail',sec_email='$fsemail',mobile='$fpmobile',sec_mobile='$fsmobile',home_phone='$fhome_phone',office_address='$foffice_address',office_phone='$foffice_phone',relationship='$frelationship',user_pic='$userFileName',status='$fstatus',primary_flag='$flogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$fid'";
 			  $fresultset=$this->db->query($fquery);
                $fatherid=$fid+600000;
