@@ -63,7 +63,7 @@
 						 <?php if(is_numeric($tm)){?>
 						  <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
 						  <?php echo $rows->total_marks; ?> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span>
-						   <?php }else{ echo "AB";} ?>
+						   <?php }else{ echo $rows->total_marks; } ?>
 						  </td>
 						   <?php } ?>
 										</tr>

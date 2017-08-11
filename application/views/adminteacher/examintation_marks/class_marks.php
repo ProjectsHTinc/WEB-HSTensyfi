@@ -111,12 +111,11 @@
 									  echo'</span>';
 								      echo '<span class="space">';echo $s->total_grade;echo'</span>';
 								  }else{
-									  echo"AB";
-									  //echo '<span class="space">';echo $s->total_grade;echo'</span>';
+									  //echo"AB";
+									  echo '<span class="space">';echo $s->total_marks;echo'</span>';
 								  }
 								echo'</span>';  
 							}else{
-								
 							    echo '<span class="grade">'; echo $s->internal_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
 						      	echo "&nbsp";
 						     	echo '<span class="grade1">'; echo $s->external_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>';
