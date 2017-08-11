@@ -12,7 +12,7 @@
                      </div>
                      <?php endif; ?>
                      <div class="content">
-                        <form method="post" action="<?php echo base_url(); ?>parents/update_parents" class="form-horizontal" enctype="multipart/form-data" id="parentform" name="parentform">
+                        <form method="post" action="<?php echo base_url(); ?>parents/update_parents" class="form-horizontal" enctype="multipart/form-data" id="parentform" name="parentform" onsubmit="return validates()">
                            <div class="content">
 						   
 						   
@@ -81,7 +81,7 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Father Name</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="fname" placeholder="Enter Name" class="form-control" value="<?php echo $prow->name; ?>">
+                                    <input type="text" name="fname" id="fname" placeholder="Enter Name" class="form-control" value="<?php echo $prow->name; ?>">
                                  </div>
 								
 								 
@@ -92,11 +92,11 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="foccupation" placeholder="Occupation" class="form-control" value="<?php echo $prow->occupation; ?>">
+                                    <input type="text" name="foccupation" id="foccupation" placeholder="Occupation" class="form-control" value="<?php echo $prow->occupation; ?>">
                                  </div>
                                  <label class="col-sm-2 control-label">Income</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Income" name="fincome" class="form-control" value="<?php echo $prow->income; ?>" >
+                                    <input type="text" placeholder="Income" name="fincome" id="fincome" class="form-control" value="<?php echo $prow->income; ?>" >
                                  </div>
                               </div>
                            </fieldset>
@@ -104,11 +104,11 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Home Address</label>
                                  <div class="col-sm-4">
-                                    <textarea name="fhaddress" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->home_address; ?></textarea>
+                                    <textarea name="fhaddress" id="fhaddress" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->home_address; ?></textarea>
                                  </div>
                                  <label class="col-sm-2 control-label">Primary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="fpemail" id="txtuser" value="<?php echo $prow->email; ?>"  class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
+                                    <input type="text" name="fpemail" id="fpemail" value="<?php echo $prow->email; ?>"  class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
                                     <p id="msg" style="color:red;"> </p>
                                  </div>
                               </div>
@@ -117,11 +117,12 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Secondary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="fsemail" class="form-control" value="<?php echo $prow->sec_email; ?>" id="email" placeholder="Email Address" />
+                                    <input type="text" name="fsemail" id="fsemail" class="form-control" value="<?php echo $prow->sec_email; ?>" id="email" placeholder="Email Address" />
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="fpmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="fpmobile" id="fpmobile" class="form-control" onkeyup="fcheckmobilefun(this.value)">
+									 <p id="fmsg1" style="color:red;"> </p>
                                  </div>
 								 
                                  
@@ -131,11 +132,11 @@
                               <div class="form-group">
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="fsmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="fsmobile" id="fsmobile" class="form-control">
                                  </div>
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="fhome_phone" class="form-control">
+                                    <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="fhome_phone" id="fhome_phone" class="form-control">
                                  </div>
                               </div>
                            </fieldset>
@@ -143,12 +144,12 @@
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Office Address</label>
                                  <div class="col-sm-4">
-                                    <textarea name="foffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
+                                    <textarea name="foffice_address" id="foffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
 								 
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="foffice_phone" class="form-control">
+                                    <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="foffice_phone" id="foffice_phone" class="form-control">
                                  </div>
                                  
                               </div>
@@ -175,7 +176,7 @@
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
                                  <div class="col-sm-4">
-                                    <select name="fstatus" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                    <select name="fstatus" id="fstatus" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                        <option value="Active">Active</option>
                                        <option value="Deactive">DeActive</option>
                                     </select>
@@ -184,7 +185,7 @@
 								 
 								  <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
-                                   <select name="flogin" class="selectpicker form-control">
+                                   <select name="flogin" id="flogin" class="selectpicker form-control">
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
                                     </select>
@@ -229,7 +230,7 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Mother Name</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="mname" placeholder="Enter Name" class="form-control" value="<?php echo $prow->name; ?>">
+                                    <input type="text" name="mname" id="mname" placeholder="Enter Name" class="form-control" value="<?php echo $prow->name; ?>">
                                  </div>
                               </div>
                            </fieldset>
@@ -238,11 +239,11 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="moccupation" placeholder="Occupation" class="form-control"value="<?php echo $prow->occupation; ?>">
+                                    <input type="text" name="moccupation" id="moccupation" placeholder="Occupation" class="form-control"value="<?php echo $prow->occupation; ?>">
                                  </div>
                                  <label class="col-sm-2 control-label">Income</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Income" value="<?php echo $prow->income; ?>" name="mincome" class="form-control">
+                                    <input type="text" placeholder="Income"  value="<?php echo $prow->income; ?>" name="mincome" id="mincome" class="form-control">
                                  </div>
                               </div>
                            </fieldset>
@@ -250,12 +251,12 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Home Address</label>
                                  <div class="col-sm-4">
-                                    <textarea name="mhaddress" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->home_address; ?></textarea>
+                                    <textarea name="mhaddress" id="mhaddress" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->home_address; ?></textarea>
                                  </div>
                                  <label class="col-sm-2 control-label">Primary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="mpemail" id="txtuser" value="<?php echo $prow->email; ?>" class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
-                                    <p id="msg" style="color:red;"> </p>
+                                    <input type="text" name="mpemail" id="mpemail" value="<?php echo $prow->email; ?>" class="form-control" placeholder="Email Address" onkeyup="mcheckemailfun(this.value)" />
+                                    <p id="mmsg" style="color:red;"> </p>
                                  </div>
                               </div>
                            </fieldset>
@@ -263,11 +264,12 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Secondary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="msemail" value="<?php echo $prow->sec_email; ?>" class="form-control " id="email" placeholder="Email Address" />
+                                    <input type="text" name="msemail" id="msemail" value="<?php echo $prow->sec_email; ?>" class="form-control" placeholder="Email Address" />
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="mpmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="mpmobile" id="mpmobile"  class="form-control" onkeyup="mcheckmobilefun(this.value)">
+									 <p id="mmsg1" style="color:red;"> </p>
                                  </div>
                               </div>
                            </fieldset>
@@ -276,13 +278,13 @@
 							  
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="msmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="msmobile" id="msmobile"  class="form-control">
                                  </div>
 								
 								 
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="mhome_phone" class="form-control">
+                                    <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="mhome_phone" id="mhome_phone"  class="form-control">
                                  </div>
 								 
                               </div>
@@ -291,12 +293,12 @@
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Office Address</label>
                                  <div class="col-sm-4">
-                                    <textarea name="moffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
+                                    <textarea name="moffice_address" id="moffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
 								 
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="moffice_phone" class="form-control">
+                                    <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="moffice_phone" id="moffice_phone" class="form-control">
                                  </div>
                                  
                               </div>
@@ -322,7 +324,7 @@
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
                                  <div class="col-sm-4">
-                                    <select name="mstatus" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                    <select name="mstatus" id="mstatus"  class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                        <option value="Active">Active</option>
                                        <option value="Deactive">DeActive</option>
                                     </select>
@@ -330,7 +332,7 @@
                                  </div>
                                  <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
-                                   <select name="mlogin" class="selectpicker form-control">
+                                   <select name="mlogin" id="mlogin" class="selectpicker form-control">
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
                                     </select>
@@ -377,7 +379,7 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Guardian Name</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="gname" placeholder="Enter Name" class="form-control" value="<?php echo $prow->name; ?>">
+                                    <input type="text" name="gname" id="gname" placeholder="Enter Name" class="form-control" value="<?php echo $prow->name; ?>">
                                  </div>
 								 
                               </div>
@@ -387,11 +389,11 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="goccupation" placeholder="Occupation" class="form-control" value="<?php echo $prow->occupation; ?>">
+                                    <input type="text" name="goccupation" id="goccupation" placeholder="Occupation" class="form-control" value="<?php echo $prow->occupation; ?>">
                                  </div>
                                  <label class="col-sm-2 control-label">Income</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Income" value="<?php echo $prow->income; ?>" name="gincome" class="form-control">
+                                    <input type="text" placeholder="Income"  value="<?php echo $prow->income; ?>" name="gincome" id="gincome" class="form-control">
                                  </div>
                               </div>
                            </fieldset>
@@ -399,12 +401,12 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Home Address</label>
                                  <div class="col-sm-4">
-                                    <textarea name="ghaddress" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->home_address; ?></textarea>
+                                    <textarea name="ghaddress" id="ghaddress"  MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->home_address; ?></textarea>
                                  </div>
                                  <label class="col-sm-2 control-label">Primary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="gpemail" id="txtuser"  value="<?php echo $prow->email; ?>" class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
-                                    <p id="msg" style="color:red;"> </p>
+                                    <input type="text" name="gpemail" id="gpemail"  value="<?php echo $prow->email; ?>" class="form-control" placeholder="Email Address" onkeyup="gcheckemailfun(this.value)" />
+                                    <p id="gmsg" style="color:red;"> </p>
                                  </div>
                               </div>
                            </fieldset>
@@ -412,11 +414,12 @@
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Secondary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="gsemail" value="<?php echo $prow->sec_email; ?>" class="form-control " id="email" placeholder="Email Address" />
+                                    <input type="text" name="gsemail"  value="<?php echo $prow->sec_email; ?>" class="form-control " id="gsemail" placeholder="Email Address" />
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="gpmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="gpmobile" id="gpmobile" class="form-control"  onkeyup="gcheckmobilefun(this.value)">
+									<p id="gmsg1" style="color:red;"> </p>
                                  </div>
 								 
                                  
@@ -427,13 +430,13 @@
 							  
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="gsmobile" class="form-control">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="gsmobile" id="gsmobile" class="form-control">
                                  </div>
 								
 								 
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="ghome_phone" class="form-control">
+                                    <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="ghome_phone" id="ghome_phone" class="form-control">
                                  </div>
 								 
                               </div>
@@ -442,12 +445,12 @@
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Office Address</label>
                                  <div class="col-sm-4">
-                                    <textarea name="goffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
+                                    <textarea name="goffice_address" id="goffice_address"  MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
 								 
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="goffice_phone" class="form-control">
+                                    <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="goffice_phone" id="goffice_phone" class="form-control">
                                  </div>
                                  
                               </div>
@@ -473,7 +476,7 @@
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
                                  <div class="col-sm-4">
-                                    <select name="gstatus" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                    <select name="gstatus" id="gstatus" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                        <option value="Active">Active</option>
                                        <option value="Deactive">DeActive</option>
                                     </select>
@@ -482,7 +485,7 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
-                                   <select name="glogin" class="selectpicker form-control">
+                                   <select name="glogin" id="glogin"  class="selectpicker form-control">
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
                                     
@@ -551,60 +554,107 @@
      output2.src = URL.createObjectURL(event.target.files[0]);
     };
   
-    $(document).ready(function ()
-     {
-	   $('#admissionmenu').addClass('collapse in');
-       $('#admission').addClass('active');
-       $('#admission3').addClass('active');
-        $('#parentform').validate({ // initialize the plugin
-        rules: {
-            admission_no:{required:true, number: true },
-            //fname:{required:true },
-            //mname:{required:true },
-            //gname:{required:true },
-            //fpemail:{required:true,email:true},
-			//mpemail:{required:true,email:true},
-			//gpemail:{required:true,email:true},
-            occupation:{required:true },
-            income:{required:true },
-            address:{required:true},
-            email:{required:true,email1:true},
-            home_phone:{required:true },
-            office_phone:{required:true },
-            mobile:{required:true },
-            mobile1:{required:true },
-           priority:{required:true },
-           //mother_pic:{required:true },
-    	   //guardn_pic:{required:true }
-     },
-        messages: {
-              admission_no: "Enter Admission No",
-             // father_name: "Enter Father Name",
-             // mother_name: "Enter Mother Name",
-              guardn_name: "Enter Guardian Name",
-              occupation: "Enter Occupation",
-              income: "Enter Income",
-              address: "Enter Address",
-    	   email: "Enter Primary Email Address",
-                remote: "Email already in use!",
-              email1: "Enter Secondary Email Address",
-    	     remote: "Email already in use!",
-              home_phone: "Enter the Home Phone",
-              office_phone:"Enter the Office Phone",
-              community_class:"Enter the Community Class",
-              mobile:"Enter The Primary Mobile Number",
-              mobile1:"Enter The Secondary Mobile Number",
-              priority:"Select the priority",
-    	   //mother_pic:"Enter the Mother Picture",
-    	  // guardn_pic:"Enter the Guardian Picture"
-            }
-    });
-   });
+function validates()
+{        //alert("hi");
+		var fname = document.getElementById("fname").value;
+		var mname = document.getElementById("mname").value;
+		var gname = document.getElementById("gname").value;
+		
+		var foccupation = document.getElementById("foccupation").value;
+		var moccupation = document.getElementById("moccupation").value;
+		var goccupation = document.getElementById("goccupation").value;
+		
+		var fincome = document.getElementById("fincome").value;
+		var mincome = document.getElementById("mincome").value;
+		var gincome = document.getElementById("gincome").value;
+		
+		var fhaddress = document.getElementById("fhaddress").value;
+		var mhaddress = document.getElementById("mhaddress").value;
+		var ghaddress = document.getElementById("ghaddress").value;
+		
+		var fstatus = document.getElementById("fstatus").value;
+		var mstatus = document.getElementById("mstatus").value;
+		var gstatus = document.getElementById("gstatus").value;
+		
+		var fpemail = document.getElementById("fpemail").value;
+		var mpemail = document.getElementById("mpemail").value;
+		var gpemail = document.getElementById("gpemail").value;
+		
+		var fpmobile = document.getElementById("fpmobile").value;
+		var mpmobile = document.getElementById("mpmobile").value;
+		var gpmobile = document.getElementById("gpmobile").value;
+		
+		var frelationship = document.getElementById("frelationship").value;
+		var mrelationship = document.getElementById("mrelationship").value;
+		var grelationship = document.getElementById("grelationship").value;
+		
+		var flogin = document.getElementById("flogin").value;
+		var mlogin = document.getElementById("mlogin").value;
+		var glogin = document.getElementById("glogin").value;
+
+	if(fname=="" && mname=="" && gname=="")
+     {   //alert("Please Enter anyone Name");
+		 $("#erid").html("Please Enter anyone Name");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	 if(foccupation=="" && moccupation=="" && goccupation=="")
+     {   //alert("Please Enter Occupation");
+		 $("#erid").html("Please Enter Occupation");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	 if(fpemail=="" && mpemail=="" && gpemail=="")
+     {   //alert("Please Enter Email Id");
+		 $("#erid").html("Please Enter Email Id");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	 if(fpmobile=="" && mpmobile=="" && gpmobile=="")
+     {   //alert("Please select priority for login");
+		 $("#erid").html("Please select priority for login");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	 if(frelationship=="" && mrelationship=="" && grelationship=="")
+     {   //alert("Please select Relationship Of Students");
+		 $("#erid").html("Please select Relationship Of Students");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	 
+	 if(fincome=="" && mincome=="" && gincome=="")
+     {   //alert("Please select Relationship Of Students");
+		 $("#erid").html("Please Enter Income");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	 if(fhaddress=="" && mhaddress=="" && ghaddress=="")
+     {   //alert("Please select Relationship Of Students");
+		 $("#erid").html("Please select Home Address");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	 if(fstatus=="" && mstatus=="" && gstatus=="")
+     {   //alert("Please select Relationship Of Students");
+		 $("#erid").html("Please select Status");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	 
+	 if(flogin=="" && mlogin=="" && glogin=="")
+     {   //alert("Please select priority for login");
+		 $("#erid").html("Please select priority for login");
+		 //document.form.teacher.focus() ;
+		 return false;
+     }
+	
+} 
 
 </script>
 <script type="text/javascript">
    function checkemailfun(val)
-   {
+   { //alert("hi");
       $.ajax({
    type:'post',
    url:'<?php echo base_url(); ?>/parents/checker',
@@ -613,20 +663,126 @@
    {
    	if(test=="Email Id already Exit")
    	{
-   	/* alert(test); */
            $("#msg").html(test);
-           $("#save").hide();
+           $("#save1").hide();
    	}
    	else{
-   		/* alert(test); */
    		$("#msg").html(test);
-           $("#save").show();
+        $("#save1").show();
    	}
    
    }
    });
    }
    
+   function mcheckemailfun(val)
+   { //alert("hi");
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/checker',
+   data:'email='+val,
+   success:function(test)
+   {
+   	if(test=="Email Id already Exit")
+   	{
+           $("#mmsg").html(test);
+           $("#save1").hide();
+   	}
+   	else{
+   		$("#mmsg").html(test);
+        $("#save1").show();
+   	}
+   
+   }
+   });
+   }
+   
+   function gcheckemailfun(val)
+   { //alert("hi");
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/checker',
+   data:'email='+val,
+   success:function(test)
+   {
+   	if(test=="Email Id already Exit")
+   	{
+           $("#gmsg").html(test);
+           $("#save1").hide();
+   	}
+   	else{
+   		$("#gmsg").html(test);
+        $("#save1").show();
+   	}
+   }
+   });
+   } //gcheckmobilefun
+
+   function fcheckmobilefun(val)
+   { //alert('hi');
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/cellchecker1',
+   data:'cell='+val,
+   success:function(test)
+   {
+	   //alert(test)
+   	if(test=="Mobile Number Available")
+   	{
+	   $("#fmsg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save1").show();
+   	}
+   	else{
+   		$("#fmsg1").html('<span style="color:red;">Mobile number already exit</span>');
+        $("#save1").hide();   
+		}
+   }
+   });
+   }
+   
+   function mcheckmobilefun(val)
+   { //alert('hi');
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/cellchecker1',
+   data:'cell='+val,
+   success:function(test)
+   {
+	   //alert(test)
+   	if(test=="Mobile Number Available")
+   	{
+	   $("#mmsg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save1").show();
+   	}
+   	else{
+   		$("#mmsg1").html('<span style="color:red;">Mobile number already exit</span>');
+        $("#save1").hide();   
+		}
+   }
+   });
+   }
+   
+   function gcheckmobilefun(val)
+   { //alert('hi');
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/parents/cellchecker1',
+   data:'cell='+val,
+   success:function(test)
+   {
+	   //alert(test)
+   	if(test=="Mobile Number Available")
+   	{
+	   $("#gmsg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save1").show();
+   	}
+   	else{
+   		$("#gmsg1").html('<span style="color:red;">Mobile number already exit</span>');
+        $("#save1").hide();   
+		}
+   }
+   });
+   }
    
    function checkcellfun(val)
    {
@@ -638,18 +794,13 @@
    {
    	if(test=="Mobile Number Available")
    	{
-   	/* alert(test); */
-           $("#msg1").html('<span style="color:green;">Mobile Number Available</span>');
-           $("#save1").show();
-   		
+	   $("#msg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save").show();
    	}
    	else{
-   		/* alert(test); */
    		$("#msg1").html('<span style="color:red;">Mobile Number Not Available</span>');
-           $("#save1").hide();
-   		
+        $("#save").hide();
    	}
-   
    }
    });
    }
