@@ -54,7 +54,7 @@ Class Teacherattendencemodel extends CI_Model
         $ye= $acd_year['cur_year'];
       //  exit;
 
-         $query="SELECT * FROM edu_enrollment WHERE class_id='$class_id' AND admit_year='$ye'";
+         $query="SELECT * FROM edu_enrollment WHERE class_id='$class_id' AND admit_year='$ye' AND status='Active'";
          $resultset=$this->db->query($query);
          return $resultset->result();
          //print_r($res);exit;
@@ -203,7 +203,9 @@ Class Teacherattendencemodel extends CI_Model
        }
 
        function get_list_record($at_id,$class_id){
-         $query="SELECT  c.enroll_id, c.name, o.a_status FROM  edu_enrollment c LEFT JOIN edu_attendance_history o ON c.enroll_id = o.student_id AND o.attend_id ='$at_id' WHERE c.class_id='$class_id' ORDER BY c.name ASC";
+         $acd_year=$this->get_cur_year();
+         $ye= $acd_year['cur_year'];
+         $query="SELECT  c.enroll_id, c.name, o.a_status FROM  edu_enrollment c LEFT JOIN edu_attendance_history o ON c.enroll_id = o.student_id AND o.attend_id ='$at_id' WHERE c.class_id='$class_id' AND c.admit_year='$ye' AND c.status='Active' ORDER BY c.name ASC";
          $res=$this->db->query($query);
          return $res->result();
        }
