@@ -268,4 +268,7 @@
         });
 
     });
+    $('#promotionmenu').addClass('collapse in');
+    $('#promotion').addClass('active');
+    $('#promo1').addClass('active');
 </script>

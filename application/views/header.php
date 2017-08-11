@@ -332,7 +332,7 @@
                </li>
                <li id="grouping">
                   <a data-toggle="collapse" href="#groupingmenu">
-                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/grp.png"/>
                      <p>Grouping</p>
                      <b class="caret"></b>
                   </a>
@@ -345,7 +345,7 @@
                </li>
                <li id="promotion">
                   <a data-toggle="collapse" href="#promotionmenu">
-                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
+                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/promo.png"/>
                      <p>Promotion</p>
                      <b class="caret"></b>
                   </a>

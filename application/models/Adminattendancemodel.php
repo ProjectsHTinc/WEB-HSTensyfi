@@ -101,13 +101,22 @@ Class Adminattendancemodel extends CI_Model
       }
 
 
-      // //Get Student Leave Dates
-      // function get_leave_dates($enroll_id){
-      //   $query="SELECT abs_date,a_status FROM edu_attendance_history WHERE student_id='$enroll_id'";
-      //   $res=$this->db->query($query);
-      //   return $res->result();
-      //
-      // }
+      //Get Total Working Days For class
+      function get_total_working_days($first,$last,$class_master_id){
+        $acd_year=$this->get_cur_year();
+        $year_id= $acd_year['cur_year'];
+       $total_days_query = "SELECT * FROM edu_attendence WHERE date(created_at) >= '$first' AND date(created_at) <= '$last' AND  ac_year='$year_id' AND class_id='$class_master_id'";
+       $total_days_res = $this->db->query($total_days_query);
+       $total_days_result= $total_days_res->result();
+       $total_days_count = $total_days_res->num_rows();
+
+       if($total_days_res->num_rows()==0){
+          echo  $response = array("status" => "error", "msg" => "No Attendance days Found");
+       }else{
+           $total_days = $total_days_count/2;
+       }
+
+      }
 
       // Get Student Leave Days
       function get_leave_dates($student_id,$month_id,$year_id){
