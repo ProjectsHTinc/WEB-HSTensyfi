@@ -29,7 +29,7 @@
  									if($s==3){ }else{ //foreach($editres as $prow){} $aid=$prow->admission_id;
 									?> 
 									<li>
-                                     <a href="<?php echo base_url(); ?>parents/create_new_parents_details/<?php echo $sid;?>/<?php echo 0;?>" class="btn btn-wd btn-default">Add </a>
+                                     <a href="<?php echo base_url(); ?>parents/create_new_parents_details/<?php echo $sid;?>/<?php echo 0;?>" class="btn btn-warning btn-fill btn-wd">Add </a>
                                     </li>
 									<?php } ?>
                                 </ul>
