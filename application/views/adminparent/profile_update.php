@@ -18,8 +18,7 @@
                        foreach ($result as $rows) { }
                         ?>
                       <div class="content">
-                             <form method="post" action="<?php echo base_url(); ?>parentprofile/update_parents" class="form-horizontal" enctype="multipart/form-data"   onsubmit="return validates()" id="parentform" name="formadmission">
-                                  <p id="erid" style="color:red;"></p>
+                             <form method="post" action="<?php echo base_url(); ?>parentprofile/update_parents" class="form-horizontal" enctype="multipart/form-data"  id="parentform" name="parentform">
                                  <fieldset>
                                         <div class="form-group">
 						<label class="col-sm-2 control-label">Profile Pic</label>
@@ -30,7 +29,7 @@
 											
 				     <label class="col-sm-2 control-label">Student Name</label>
 					 <div class="col-sm-4">
-				 <select multiple name="teacher[]"  class="selectpicker form-control"  >
+				 <select multiple name="student[]"  class="selectpicker form-control"  >
                      <?php
                           $tea_name=$rows->	admission_id;
                           $sQuery = "SELECT * FROM edu_admission";
@@ -51,13 +50,14 @@
                        ?>
                      </select>
 					</div>
-                                        </div>
-                                    </fieldset>
-														          <fieldset>
+                   </div>
+                </fieldset>
+                <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-4">
-                           <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $rows->name; ?>">
+						 <input type="hidden" class="form-control" name="parent_id" value="<?php echo $rows->id; ?>">
+                           <input type="text" name="name" placeholder="Enter Name" readonly class="form-control" value="<?php echo $rows->name; ?>">
                         </div>
 
                      </div>
@@ -66,11 +66,11 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Occupation</label>
                         <div class="col-sm-4">
-                           <input type="text" name="occupation" placeholder="Occupation" class="form-control" value="">
+                           <input type="text" name="occupation" placeholder="Occupation" readonly class="form-control" value="<?php echo $rows->occupation; ?>">
                         </div>
                         <label class="col-sm-2 control-label">Income</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Income" name="income" class="form-control">
+                           <input type="text" placeholder="Income" name="income" readonly value="<?php echo $rows->income; ?>" class="form-control">
                         </div>
                      </div>
                   </fieldset>
@@ -78,12 +78,11 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Home Address</label>
                         <div class="col-sm-4">
-                           <textarea name="haddress" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"></textarea>
+                           <textarea name="haddress" readonly MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $rows->	home_address; ?></textarea>
                         </div>
                         <label class="col-sm-2 control-label">Primary Email</label>
                         <div class="col-sm-4">
-                           <input type="text" name="pemail" id="pemail"  class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
-                           <p id="msg" style="color:red;"> </p>
+                           <input type="text" name="pemail" id="pemail" readonly value="<?php echo $rows->email; ?>" class="form-control" placeholder="Email Address"/>
                         </div>
                      </div>
                   </fieldset>
@@ -91,11 +90,11 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Secondary Email</label>
                         <div class="col-sm-4">
-                           <input type="text" name="semail" class="form-control " id="email" placeholder="Email Address" />
+                           <input type="text" name="semail" class="form-control" readonly value="<?php echo $rows->sec_email; ?>" id="email" placeholder="Email Address" />
                         </div>
                         <label class="col-sm-2 control-label">Primary Mobile</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Mobile Number"  name="pmobile" maxlength="10"  class="form-control" onkeyup="checkcellfun(this.value)">
+                           <input type="text" placeholder="Mobile Number" readonly name="pmobile" maxlength="12" value="<?php echo $rows->mobile; ?>" class="form-control">
 						   <p id="gmsg1"></p>
                         </div>
                      </div>
@@ -104,11 +103,11 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Secondary Mobile</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Mobile Number" pattern="[1-9]{1}[0-9]{9}" maxlength="10" name="smobile" class="form-control">
+                           <input type="text" placeholder="Mobile Number" readonly maxlength="10" value="<?php echo $rows->sec_mobile; ?>" name="smobile" class="form-control">
                         </div>
                         <label class="col-sm-2 control-label">Home Phone</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Home Phone" name="home_phone" class="form-control">
+                           <input type="text" placeholder="Home Phone" readonly value="<?php echo $rows->home_phone; ?>" name="home_phone" class="form-control">
                         </div>
                      </div>
                   </fieldset>
@@ -116,11 +115,11 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Office Address</label>
                         <div class="col-sm-4">
-                           <textarea name="office_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"></textarea>
+                           <textarea name="office_address" readonly MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $rows->office_address	; ?></textarea>
                         </div>
                         <label class="col-sm-2 control-label">Office Phone</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Office Phone" name="office_phone" class="form-control">
+                           <input type="text" placeholder="Office Phone" readonly value="<?php echo $rows->office_phone; ?>" name="office_phone" class="form-control">
                         </div>
                      </div>
                   </fieldset>
@@ -128,17 +127,12 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Relationship</label>
                         <div class="col-sm-4">
-                           <input type="hidden" name="relationship" readonly class="form-control"  value="">
-						   <select name="relationship" class="selectpicker form-control" data-title="Select Relationship"  onchange="checkrelationfun(this.value)" />
-                             <option value="Father">Father</option>
-							 <option value="Mother">Mother</option>
-							 <option value="Guardian">Guardian</option>
-							</select>
-							<p id="msg1" style="color:red;"> </p>
+                           <input type="text" name="relationship" readonly class="form-control"  value="<?php echo $rows->relationship; ?>">
+						   
                         </div>
                         <label class="col-sm-2 control-label">Picture</label>
                         <div class="col-sm-4">
-                           <input type="file" name="parents_picture" id="pic" class="form-control" onchange="loadFile(event)" accept="image/*" >
+                           <img src="<?php echo base_url(); ?>assets/parents/<?php echo $rows->user_pic; ?>" class="img-circle" style="width:110px;">
                         </div>
                      </div>
                   </fieldset>
@@ -146,17 +140,19 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Status</label>
                         <div class="col-sm-4">
-                           <select name="status" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                           <select name="status" disabled class="form-control">
                               <option value="Active">Active</option>
                               <option value="Deactive">DeActive</option>
                            </select>
+						   <script language="JavaScript">document.parentform.status.value="<?php echo $rows->status; ?>";</script>
                         </div>
 						<label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
-                                   <select name="priority" class="selectpicker form-control" data-title="Select Login Priority">
+                                   <select name="priority" disabled class="form-control">
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
                                     </select>
+									<script language="JavaScript">document.parentform.mstatus.value="<?php echo $rows->primary_flag; ?>";</script>
                                  </div>
 						</div>
 						</fieldset>
@@ -185,10 +181,9 @@
                        <div class="content">
                            <div class="author">
                                 <a href="#">
-								 <img class="avatar border-gray" id="output23" src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $rows->user_pic; ?>" alt="..."/>
-                                 <h4 class="title"><?php echo $rows->name; ?><br />
-                                 </h4>
+								 <img class="avatar border-gray" id="output23" src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $rows->profile_pic; ?>" alt="..."/>
                                </a>
+							   <h4 class="title"><?php echo $rows->name; ?></h4>
                            </div>
                        </div>
                    </div>

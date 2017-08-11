@@ -137,23 +137,24 @@ class Enrollment extends CI_Controller {
 
 // GET ALL ADMISSION DETAILS
 
-		public function view(){
+		public function view()
+		{
 		 $datas=$this->session->userdata();
 		 $user_id=$this->session->userdata('user_id');
 		 $datas['result'] = $this->enrollmentmodel->get_all_enrollment();
 		 $datas['sorting'] = $this->enrollmentmodel->get_all_enrollment_sorting_details();
-		  $datas['sortclass'] = $this->enrollmentmodel->get_all_enrollment_sorting_class();
+		 $datas['sortclass'] = $this->enrollmentmodel->get_all_enrollment_sorting_class();
 		 $datas['year'] = $this->yearsmodel->admisn_year();
 		  //echo "<pre>";print_r(	$datas['result']);exit;
-			$user_type=$this->session->userdata('user_type');
+		 $user_type=$this->session->userdata('user_type');
  		 if($user_type==1){
-		 $this->load->view('header');
-		 $this->load->view('enrollment/view',$datas);
-		 $this->load->view('footer');
+			 $this->load->view('header');
+			 $this->load->view('enrollment/view',$datas);
+			 $this->load->view('footer');
 		 }
 		 else{
-				redirect('/');
-		 }
+			 redirect('/');
+		   }
 		}
 
 

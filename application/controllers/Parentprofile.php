@@ -47,37 +47,18 @@ class Parentprofile extends CI_Controller {
 					
 					$user_id=$this->session->userdata('user_id');
 					$parent_id=$this->input->post('parent_id');
-					$single=$this->input->post('single');
-					$admission_id=$this->input->post('admission_no');
-				    $father_name=$this->input->post('father_name');
-					$mother_name=$this->input->post('mother_name');
-					
-					$guardn_name=$this->input->post('guardn_name');
-					
-					$occupation=$this->input->post('occupation');
-					$income=$this->input->post('income');
-					$address=$this->input->post('address');
-					$email=$this->input->post('email');
-					$email1=$this->input->post('email1');
-					$home_phone=$this->input->post('home_phone');
-				    $office_phone=$this->input->post('office_phone');
-					$mobile=$this->input->post('mobile');
-					$mobile1=$this->input->post('mobile1');
-					
-					 $user_pic_old=$this->input->post('user_pic_old');
+					$student=$this->input->post('student');
+					//print_r($student);exit;
+					 //$user_pic_old=$this->input->post('user_pic_old');
 	
 					   $student_pic = $_FILES["user_pic"]["name"];
 				       $userFileName =time().$student_pic;
 				       $uploaddir = 'assets/parents/profile/';
 					   $profilepic = $uploaddir.$userFileName;
 					   move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
-					   if(empty($student_pic))
-					   {
-					    $userFileName=$user_pic_old;
-				       }
-					   
 
-				$datas=$this->parentprofilemodel->update_parents($user_id,$parent_id,$single,$admission_id,$father_name,$mother_name,$guardn_name,$occupation,$income,$address,$email,$email1,$home_phone,$office_phone,$mobile,$mobile1,$userFileName);
+
+				$datas=$this->parentprofilemodel->update_parents($user_id,$user_type,$parent_id,$student,$userFileName);
 				
 				//print_r($datas['status']);exit;
 				if($datas['status']=="success"){
