@@ -289,7 +289,8 @@ class Apiteachermodel extends CI_Model {
 			$year_id = $this->getYear();
 			
 			if ($is_internal_external =='0') {
-				$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
+			  	$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.internal_mark, A.internal_grade, A.external_mark,A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
+		  
 			} else {
 				$mark_query = "SELECT C.exam_name, B.subject_name, D.name, A.internal_mark, A.internal_grade, A.external_mark,A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination` C, `edu_enrollment` D WHERE A.`exam_id` = '$exam_id' AND A.`classmaster_id` = '$class_id' AND A.subject_id = '$subject_id' AND A.subject_id = B.subject_id AND A.exam_id = C.exam_id AND A.stu_id = D.enroll_id";
 			}
@@ -555,6 +556,7 @@ class Apiteachermodel extends CI_Model {
 	{
 		$year_id = $this->getYear();
 			
+	
         $sqlMarks = "SELECT * FROM edu_exam_marks WHERE exam_id = '$exam_id' AND subject_id ='$subject_id' AND stu_id ='$stu_id'  AND classmaster_id ='$classmaster_id'";
 		$Marks_result = $this->db->query($sqlMarks);
 
@@ -567,8 +569,11 @@ class Apiteachermodel extends CI_Model {
 			$response = array("status" => "AlreadyAdded", "msg" => "Already Added", "exam_mark_id"=>$exam_marks_id);
 		} else {
     		    
-			if ($is_internal_external !='0') 
+    		  
+    		    
+			if ($is_internal_external=="0") 
 			{
+			   
 				if ($marks >= 91 && $marks <= 100) { 
 					$total_grade = 'A1';
                 }
@@ -597,9 +602,10 @@ class Apiteachermodel extends CI_Model {
 					$total_grade = 'E2';
                 }
 				
-				 $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$marks','$total_grade','$created_by',NOW())";
-				
-			} else 	{
+				   $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$marks','$total_grade','$created_by',NOW())";
+		
+			} 	
+			else 	{
 				
 				//Internal Marks Grade
                 if ($internal_mark >= 37 && $internal_mark <= 40) {
@@ -690,8 +696,10 @@ class Apiteachermodel extends CI_Model {
 					$total_grade = 'E2';
                 }
                 
-		     $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `internal_mark`, `internal_grade`, `external_mark`, `external_grade`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$internal_mark','$internal_grade','$external_mark','$external_grade','$total_marks','$total_grade','$created_by',NOW())";
-			}
+		      $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `internal_mark`, `internal_grade`, `external_mark`, `external_grade`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$internal_mark','$internal_grade','$external_mark','$external_grade','$total_marks','$total_grade','$created_by',NOW())";
+		
+	
+		}
 		
 			$marks_res = $this->db->query($marks_query);
 			$last_marksid = $this->db->insert_id();

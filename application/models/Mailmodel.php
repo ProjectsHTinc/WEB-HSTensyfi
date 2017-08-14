@@ -202,7 +202,7 @@ Class Mailmodel extends CI_Model
 					 $pcell=$this->db->query($pgid);
 				     $res2=$pcell->result();
 				     foreach($res2 as $row2)
-				     { 
+				     {
 					  $stuid=$row2->admission_id;
 					  $class="SELECT p.id,p.admission_id,p.email,p.primary_flag FROM edu_parents AS p WHERE FIND_IN_SET('$stuid',admission_id) AND p.primary_flag='Yes'";
 					  $pcell1=$this->db->query($class);
@@ -235,9 +235,9 @@ Class Mailmodel extends CI_Model
 
     // Group Mail
     function send_mail($group_id,$notes,$user_id){
-      $sql1="SELECT egm.group_member_id,ep.email,ep.mobile,en.gcm_key FROM edu_grouping_members AS egm
+      $sql1="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
       LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
-      LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id
+      LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id)
       WHERE  egm.group_title_id='$group_id'";
        $scell=$this->db->query($sql1);
        $res1=$scell->result();

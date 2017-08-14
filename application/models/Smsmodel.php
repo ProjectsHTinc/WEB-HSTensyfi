@@ -198,7 +198,7 @@ Class Smsmodel extends CI_Model
 				 $res2=$pcell->result();
 				 foreach($res2 as $row2)
 				 { $stuid=$row2->admission_id;
-				 
+
 				  $class="SELECT id,mobile,admission_id,primary_flag FROM edu_parents WHERE FIND_IN_SET('$stuid',admission_id) AND primary_flag='Yes'";
 				  $pcell1=$this->db->query($class);
 				  $res3=$pcell1->result();
@@ -428,9 +428,9 @@ Class Smsmodel extends CI_Model
         //  Group  SMS
         function send_msg($group_id,$notes,$user_id){
 
-          $class="SELECT egm.group_member_id,ep.email,ep.mobile,en.gcm_key FROM edu_grouping_members AS egm
+          $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
           LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
-          LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id
+          LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id)
           WHERE  egm.group_title_id='$group_id'";
           $pcell=$this->db->query($class);
           $res2=$pcell->result();

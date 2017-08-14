@@ -554,7 +554,7 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function send_Groupmessage()
+	public function send_Groupmessageold()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
@@ -586,6 +586,50 @@ class Apimain extends CI_Controller {
 		
 
 		$data['result']=$this->apimainmodel->sendGroupmessage($group_title_id,$message_type,$message_details,$created_by);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function send_Groupmessage()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Send Group Message";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$group_title_id = '';
+		$messagetype_sms = '';
+		$messagetype_mail = '';
+		$messagetype_notification = '';
+		$message_details = '';
+		$created_by = '';
+		
+	 	$group_title_id = $this->input->post("group_title_id");
+	 	$messagetype_sms = $this->input->post("messagetype_sms");
+		$messagetype_mail = $this->input->post("messagetype_mail");
+		$messagetype_notification = $this->input->post("messagetype_notification");
+		$message_details = $this->input->post("message_details");
+		$created_by = $this->input->post("created_by");
+		
+
+		$data['result']=$this->apimainmodel->sendGroupmessage($group_title_id,$messagetype_sms,$messagetype_mail,$messagetype_notification,$message_details,$created_by);
 		$response = $data['result'];
 		echo json_encode($response);
 	}

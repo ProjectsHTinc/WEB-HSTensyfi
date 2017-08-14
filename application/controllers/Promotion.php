@@ -43,6 +43,7 @@ class Promotion extends CI_Controller {
 			if($user_type==1){
 				$datas['years']=$this->promotionmodel->getall_years();
 				$datas['res_class']=$this->groupingmodel->get_all_classes_for_year();
+				$datas['res_class_all']=$this->promotionmodel->get_all_classes_for_year();
 				$datas['res_year']= $this->promotionmodel->get_all_academic_year();
 				$datas['res_pro']= $this->promotionmodel->promotion_history();
 	 		 $this->load->view('header');
@@ -91,6 +92,7 @@ class Promotion extends CI_Controller {
 					  $datas['res_pro']= $this->promotionmodel->edit_promotion_history($id);
 						$datas['years']=$this->promotionmodel->getall_years();
 						$datas['res_class']=$this->groupingmodel->get_all_classes_for_year();
+						$datas['res_class_all']=$this->promotionmodel->get_all_classes_for_year();
 						$datas['res_year']= $this->promotionmodel->get_all_academic_year();
 					 $this->load->view('header');
 					 $this->load->view('promotion/edit_promotion',$datas);

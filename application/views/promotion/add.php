@@ -115,7 +115,7 @@
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <select name="promotion_class_master_id" id="to_class_master_id" data-title="To Class" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
-                                                            <?php foreach($res_class as $rows){ ?>
+                                                            <?php foreach($res_class_all as $rows){ ?>
                                                                 <option value="<?php echo $rows->class_id; ?>">
                                                                     <?php echo $rows->class_name; ?>-
                                                                         <?php echo $rows->sec_name; ?>
@@ -360,46 +360,47 @@ $('#promo1').addClass('active');
             status: "select status"
 
         },
+  
         submitHandler: function(form) {
-            //  alert("hi");
-            swal({
-                    title: "Are you sure?",
-                    text: "You Want Confirm this form",
-                    type: "success",
-                    showCancelButton: true,
-                    confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Yes, I am sure!',
-                    cancelButtonText: "No, cancel it!",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function(isConfirm) {
-                    if (isConfirm) {
-                        $.ajax({
-                            url: "<?php echo base_url(); ?>promotion/create_promotion",
-                            type: 'POST',
-                            data: $('#promotion_forms').serialize(),
-                            success: function(response) {
-                                if (response == "success") {
-                                    //  swal("Success!", "Thanks for Your Note!", "success");
-                                    $('#promotion_forms')[0].reset();
-                                    swal({
-                                        title: "Wow!",
-                                        text: response,
-                                        type: "success"
-                                    }, function() {
-                                        location.reload();
-                                    });
-                                } else {
-                                    sweetAlert("Oops...", response, "error");
-                                }
-                            }
-                        });
-                    } else {
-                        swal("Cancelled", response, "error");
-                    }
-                });
-        }
+         //alert("hi");
+         swal({
+                       title: "Are you sure?",
+                       text: "You Want Confirm this form",
+                       type: "success",
+                       showCancelButton: true,
+                       confirmButtonColor: '#DD6B55',
+                       confirmButtonText: 'Yes, I am sure!',
+                       cancelButtonText: "No, cancel it!",
+                       closeOnConfirm: false,
+                       closeOnCancel: false
+                   },
+                   function(isConfirm) {
+                       if (isConfirm) {
+        $.ajax({
+            url: "<?php echo base_url(); ?>promotion/create_promotion",
+             type:'POST',
+            data: $('#promotion_forms').serialize(),
+            success: function(response) {
+                if(response=="success"){
+                 //  swal("Success!", "Thanks for Your Note!", "success");
+                   $('#promotion_forms')[0].reset();
+                   swal({
+            title: "Wow!",
+            text: "Message!",
+            type: "success"
+        }, function() {
+             location.reload();
+        });
+                }else{
+                  sweetAlert("Oops...", "Something went wrong!", "error");
+                }
+            }
+        });
+      }else{
+          swal("Cancelled", "Process Cancel :)", "error");
+      }
+    });
+ }
     });
 
     var $table = $('#bootstrap-table');

@@ -94,45 +94,48 @@
             status: "select status"
 
         },
+        
+
         submitHandler: function(form) {
-            //alert("hi");
-            swal({
-                    title: "Are you sure?",
-                    text: "You Want Confirm this form",
-                    type: "success",
-                    showCancelButton: true,
-                    confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Yes, I am sure!',
-                    cancelButtonText: "No, cancel it!",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function(isConfirm) {
-                    if (isConfirm) {
-                        $.ajax({
-                            url: "<?php echo base_url(); ?>grouping/save_group",
-                            type: 'POST',
-                            data: $('#grouping_form').serialize(),
-                            success: function(response) {
-                                if (response == "success") {
-                                    //  swal("Success!", "Thanks for Your Note!", "success");
-                                    $('#grouping_form')[0].reset();
-                                    swal({
-                                        title: "Wow!",
-                                        text: response,
-                                        type: "success"
-                                    }, function() {
-                                        location.reload();
-                                    });
-                                } else {
-                                    sweetAlert("Oops...", response, "error");
-                                }
-                            }
-                        });
-                    } else {
-                        swal("Cancelled", response, "error");
-                    }
-                });
+         //alert("hi");
+         swal({
+                       title: "Are you sure?",
+                       text: "You Want Confirm this form",
+                       type: "success",
+                       showCancelButton: true,
+                       confirmButtonColor: '#DD6B55',
+                       confirmButtonText: 'Yes, I am sure!',
+                       cancelButtonText: "No, cancel it!",
+                       closeOnConfirm: false,
+                       closeOnCancel: false
+                   },
+                   function(isConfirm) {
+                       if (isConfirm) {
+        $.ajax({
+            url: "<?php echo base_url(); ?>grouping/save_group",
+             type:'POST',
+            data: $('#grouping_form').serialize(),
+            success: function(response) {
+                if(response=="success"){
+                 //  swal("Success!", "Thanks for Your Note!", "success");
+                   $('#grouping_form')[0].reset();
+                   swal({
+            title: "Wow!",
+            text: "Message!",
+            type: "success"
+        }, function() {
+             location.reload();
+        });
+                }else{
+                  sweetAlert("Oops...", "Something went wrong!", "error");
+                }
+            }
+        });
+        }else{
+          swal("Cancelled", "Process Cancel :)", "error");
         }
+        });
+        }
+
     });
 </script>

@@ -52,6 +52,14 @@ Class Promotionmodel extends CI_Model
      }
 
 
+    //  GET ALL Class
+     function get_all_classes_for_year(){
+       $query="SELECT c.class_name,s.sec_name,cm.class_sec_id  AS class_id FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm
+        WHERE cm.class = c.class_id AND cm.section = s.sec_id AND cm.status='Active' ORDER BY c.class_name";
+        $year_result = $this->db->query($query);
+        return $year_result->result();
+     }
+
 
     //  Create Promotion
     function create_promotion($current_year_id,$next_year_id,$class_master_id_for_last,$promotion_class_master_id,$student_id,$result_status,$user_id){

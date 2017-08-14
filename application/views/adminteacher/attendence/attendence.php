@@ -127,7 +127,7 @@ function submitAttendence(){
                 //  swal("Success!", "Thanks for Your Note!", "success");
                   $('#takeattendence')[0].reset();
                   swal({
-           title: "Attendece Done!",
+           title: "Attendence Done!",
            text: "Message!",
            type: "success"
        }, function() {

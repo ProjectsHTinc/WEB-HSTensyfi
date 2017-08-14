@@ -436,7 +436,8 @@ class Apiadmin extends CI_Controller {
 			// GET  LIST OF PARENTS
 			public function get_list_of_parents()
 			{
-				$_POST = json_decode(file_get_contents("php://input"), TRUE);
+			
+	    		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 				if(!$this->checkMethod())
 				{
@@ -465,7 +466,8 @@ class Apiadmin extends CI_Controller {
 					// GET  PARENT DETAILS
 					public function get_parent_details()
 					{
-						$_POST = json_decode(file_get_contents("php://input"), TRUE);
+					    
+					$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 						if(!$this->checkMethod())
 						{
@@ -482,8 +484,9 @@ class Apiadmin extends CI_Controller {
 							echo json_encode($res);
 							return;
 						}
-						$parent_id=$this->input->post('parent_id');
-						$data['result']=$this->apiadminmodel->get_parent_details($parent_id);
+					 	 $admission_id=$this->input->post('admission_id');
+					 	
+						$data['result']=$this->apiadminmodel->get_parent_details($admission_id);
 						$response = $data['result'];
 						echo json_encode($response);
 					}

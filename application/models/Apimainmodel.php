@@ -272,6 +272,7 @@ class Apimainmodel extends CI_Model {
 							$stud_result= $stud_res->result();
 						} 
 											
+											
 					 $exam_query = "SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
@@ -365,30 +366,31 @@ class Apimainmodel extends CI_Model {
 								$admit_id = $rows->admission_id;
 								$parent_id = $rows->parnt_guardn_id;
 							}
-						
-						$father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+							
+						$father_query = "SELECT * from edu_parents WHERE id IN ($parent_id) AND relationship = 'Father' AND status = 'Active'";
 						$father_res = $this->db->query($father_query);
 						$father_profile = $father_res->result();
 
 						foreach($father_profile as $rows){ 
 								$admisson_id = $rows->admission_id;
+								$relationship = $rows->relationship;
 						}
-
+                        
 						$fatherProfile  = array(
-							"id" => $father_profile[0]->parent_id,
-							"name" => $father_profile[0]->father_name,
+							"id" => $father_profile[0]->id,
+							"name" => $father_profile[0]->name,
 							"occupation" => $father_profile[0]->occupation,
 							"income" => $father_profile[0]->income,
-							"home_address" => $father_profile[0]->address,
+							"home_address" => $father_profile[0]->home_address ,
 							"email" => $father_profile[0]->email,
 							"mobile" => $father_profile[0]->mobile,
 							"home_phone" => $father_profile[0]->home_phone,
 							"office_phone" => $father_profile[0]->office_phone,
-							"relationship" => "",
-							"user_pic" => $father_profile[0]->father_pic
+							"relationship" => $father_profile[0]->relationship,
+							"user_pic" => $father_profile[0]->user_pic 
 						);
 						
-						$mother_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+						$mother_query = "SELECT * from edu_parents WHERE id IN ($parent_id) AND relationship = 'Mother' AND status = 'Active'";
 						$mother_res = $this->db->query($mother_query);
 						$mother_profile = $mother_res->result();
 
@@ -397,20 +399,20 @@ class Apimainmodel extends CI_Model {
 						}
 
 						$motherProfile  = array(
-							"id" => $mother_profile[0]->parent_id,
-							"name" => $mother_profile[0]->mother_name,
-							"occupation" => "",
-							"income" => "",
-							"home_address" => "",
-							"email" => "",
-							"mobile" => "",
-							"home_phone" => "",
-							"office_phone" => "",
-							"relationship" => "",
-							"user_pic" => $father_profile[0]->mother_pic
+						    "id" => $mother_profile[0]->id,
+							"name" => $mother_profile[0]->name,
+							"occupation" => $mother_profile[0]->occupation,
+							"income" => $mother_profile[0]->income,
+							"home_address" => $mother_profile[0]->home_address ,
+							"email" => $mother_profile[0]->email,
+							"mobile" => $mother_profile[0]->mobile,
+							"home_phone" => $mother_profile[0]->home_phone,
+							"office_phone" => $mother_profile[0]->office_phone,
+							"relationship" => $mother_profile[0]->relationship,
+							"user_pic" => $mother_profile[0]->user_pic 
 						);
 						
-						$guardian_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+						$guardian_query = "SELECT * from edu_parents WHERE id IN ($parent_id) AND relationship = 'Guardian' AND status = 'Active'";
 						$guardian_res = $this->db->query($guardian_query);
 						$guardian_profile = $guardian_res->result();
 
@@ -419,19 +421,19 @@ class Apimainmodel extends CI_Model {
 						}
 
 						$guardianProfile  = array(
-							"id" => $guardian_profile[0]->parent_id,
-							"name" => $guardian_profile[0]->guardn_name,
-							"occupation" => "",
-							"income" => "",
-							"home_address" => "",
-							"email" => "",
-							"mobile" => "",
-							"home_phone" => "",
-							"office_phone" => "",
-							"relationship" => "",
-							"user_pic" => $guardian_profile[0]->guardn_pic 
+							 "id" => $guardian_profile[0]->id,
+							"name" => $guardian_profile[0]->name,
+							"occupation" => $guardian_profile[0]->occupation,
+							"income" => $guardian_profile[0]->income,
+							"home_address" => $guardian_profile[0]->home_address ,
+							"email" => $guardian_profile[0]->email,
+							"mobile" => $guardian_profile[0]->mobile,
+							"home_phone" => $guardian_profile[0]->home_phone,
+							"office_phone" => $guardian_profile[0]->office_phone,
+							"relationship" => $guardian_profile[0]->relationship,
+							"user_pic" => $guardian_profile[0]->user_pic 
 						);
-						
+					
 						
 						$enroll_query = "SELECT A.enroll_id AS registered_id,A.admission_id,A.admisn_no AS admission_no,A.class_id,A.name,C.class_name,D.sec_name 
 						from edu_enrollment A, edu_classmaster B, edu_class C, edu_sections D WHERE A.class_id = B.class_sec_id AND 
@@ -447,29 +449,36 @@ class Apimainmodel extends CI_Model {
 				  else {
 				  		 $parent_id = $rows->parent_id;
 
-						$father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+                        $parent_query = "SELECT * from edu_parents WHERE id ='$parent_id' AND status = 'Active'";
+						$parent_res = $this->db->query($parent_query);
+						$parent_profile = $parent_res->result();
+
+						foreach($parent_profile as $rows){ 
+								$admisson_id = $rows->admission_id;
+						}
+						
+                        $father_query = "SELECT * from edu_parents WHERE admission_id IN ($admisson_id) AND relationship = 'Father' AND status = 'Active'";
 						$father_res = $this->db->query($father_query);
 						$father_profile = $father_res->result();
 
 						foreach($father_profile as $rows){ 
 								$admisson_id = $rows->admission_id;
 						}
-
-						$fatherProfile  = array(
-							"id" => $father_profile[0]->parent_id,
-							"name" => $father_profile[0]->father_name,
+                        $fatherProfile  = array(
+							"id" => $father_profile[0]->id,
+							"name" => $father_profile[0]->name,
 							"occupation" => $father_profile[0]->occupation,
 							"income" => $father_profile[0]->income,
-							"home_address" => $father_profile[0]->address,
+							"home_address" => $father_profile[0]->home_address ,
 							"email" => $father_profile[0]->email,
 							"mobile" => $father_profile[0]->mobile,
 							"home_phone" => $father_profile[0]->home_phone,
 							"office_phone" => $father_profile[0]->office_phone,
-							"relationship" => "",
-							"user_pic" => $father_profile[0]->father_pic
+							"relationship" => $father_profile[0]->relationship,
+							"user_pic" => $father_profile[0]->user_pic 
 						);
 						
-						$mother_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+						$mother_query = "SELECT * from edu_parents WHERE admission_id IN ($admisson_id) AND relationship = 'Mother' AND status = 'Active'";
 						$mother_res = $this->db->query($mother_query);
 						$mother_profile = $mother_res->result();
 
@@ -478,20 +487,20 @@ class Apimainmodel extends CI_Model {
 						}
 
 						$motherProfile  = array(
-							"id" => $mother_profile[0]->parent_id,
-							"name" => $mother_profile[0]->mother_name,
-							"occupation" => "",
-							"income" => "",
-							"home_address" => "",
-							"email" => "",
-							"mobile" => "",
-							"home_phone" => "",
-							"office_phone" => "",
-							"relationship" => "",
-							"user_pic" => $father_profile[0]->mother_pic
+						    "id" => $mother_profile[0]->id,
+							"name" => $mother_profile[0]->name,
+							"occupation" => $mother_profile[0]->occupation,
+							"income" => $mother_profile[0]->income,
+							"home_address" => $mother_profile[0]->home_address ,
+							"email" => $mother_profile[0]->email,
+							"mobile" => $mother_profile[0]->mobile,
+							"home_phone" => $mother_profile[0]->home_phone,
+							"office_phone" => $mother_profile[0]->office_phone,
+							"relationship" => $mother_profile[0]->relationship,
+							"user_pic" => $mother_profile[0]->user_pic 
 						);
 						
-						$guardian_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+					 	$guardian_query = "SELECT * from edu_parents WHERE admission_id IN ($admisson_id) AND relationship = 'Guardian' AND status = 'Active'";
 						$guardian_res = $this->db->query($guardian_query);
 						$guardian_profile = $guardian_res->result();
 
@@ -500,19 +509,20 @@ class Apimainmodel extends CI_Model {
 						}
 
 						$guardianProfile  = array(
-							"id" => $guardian_profile[0]->parent_id,
-							"name" => $guardian_profile[0]->guardn_name,
-							"occupation" => "",
-							"income" => "",
-							"home_address" => "",
-							"email" => "",
-							"mobile" => "",
-							"home_phone" => "",
-							"office_phone" => "",
-							"relationship" => "",
-							"user_pic" => $guardian_profile[0]->guardn_pic 
-						);						
+							 "id" => $guardian_profile[0]->id,
+							"name" => $guardian_profile[0]->name,
+							"occupation" => $guardian_profile[0]->occupation,
+							"income" => $guardian_profile[0]->income,
+							"home_address" => $guardian_profile[0]->home_address ,
+							"email" => $guardian_profile[0]->email,
+							"mobile" => $guardian_profile[0]->mobile,
+							"home_phone" => $guardian_profile[0]->home_phone,
+							"office_phone" => $guardian_profile[0]->office_phone,
+							"relationship" => $guardian_profile[0]->relationship,
+							"user_pic" => $guardian_profile[0]->user_pic 
+						);
 						$parentProfile = array("fatherProfile" =>$fatherProfile,"motherProfile" =>$motherProfile,"guardianProfile" =>$guardianProfile);
+
 
 						$enroll_query = "SELECT A.enroll_id AS registered_id,A.admission_id,A.admisn_no AS admission_no,A.class_id,A.name,C.class_name,D.sec_name from edu_enrollment A, edu_classmaster B, edu_class C, edu_sections D WHERE A.class_id = B.class_sec_id AND B.class = C.class_id AND B.section = D.sec_id AND A.admit_year ='$year_id' AND A.admission_id IN ($admisson_id)";
 						$enroll_res = $this->db->query($enroll_query);
@@ -884,7 +894,7 @@ class Apimainmodel extends CI_Model {
 //#################### View Groups End ####################//
 
 //#################### Send Group Message ####################//
-	public function sendGroupmessage ($group_title_id,$message_type,$message_details,$created_by)
+	public function sendGroupmessageold ($group_title_id,$message_type,$message_details,$created_by)
 	{
 			$year_id = $this->getYear();
 
@@ -1131,6 +1141,99 @@ class Apimainmodel extends CI_Model {
 	}
 //#################### Group Message End ####################//
 
+//#################### Send Group Message ####################//
+	public function sendGroupmessage ($group_title_id,$messagetype_sms,$messagetype_mail,$messagetype_notification,$message_details,$created_by)
+	{
+			$year_id = $this->getYear();
+
+                if($messagetype_sms=="1"){
+                     $message_type = "SMS";
+                }
+                
+                if ($messagetype_mail=="1"){
+                        if ($message_type=='') {
+                             $message_type = "Mail";
+                         } else {
+                             $message_type = $message_type.",Mail";
+                        }
+                }
+                if ($messagetype_notification=="1"){
+                        if ($message_type=='') {
+                             $message_type = "Notification";
+                        } else {
+                             $message_type = $message_type.",Notification";
+                        }
+                }
+
+
+                // if($messagetype_sms != 0){
+                //     $mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+                // 	$mobile_res = $this->db->query($mobile_query);
+                //     $mobile_result = $email_res->result();
+                
+                // 	 if($mobile_res->num_rows()!=0){
+                // 		foreach ($mobile_result as $rows)
+                // 		{
+                // 			  $sMobile = $rows->mobile;
+                // 			  //$this->sendSMS($sMobile,$message_details);
+                // 		}
+                //      }
+                // }
+
+            if($messagetype_mail != 0){
+                $subject = 'Group Notification';
+                $email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+                $email_res = $this->db->query($email_query);
+                $email_result = $email_res->result();
+                
+                 if($email_res->num_rows()!=0){
+                	foreach ($email_result as $rows)
+                	{
+                		  $sEmail = $rows->email;
+                		  $this->sendMail($sEmail,$subject,$message_details);
+                	}
+                 }
+
+            }
+
+            if($messagetype_notification != 0){
+                $subject = 'Group Notification';
+                    
+                $gcm_query = "SELECT egm.group_member_id,ep.id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
+                $gcm_res = $this->db->query($gcm_query);
+                $gcm_result = $gcm_res->result();
+                
+                if($gcm_res->num_rows()!=0){
+                	foreach ($gcm_result as $rows)
+                    {
+                    	$sParent_id = $rows->id;
+                    	
+                    	$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
+                    	$sgsm  = $this->db->query($sql);
+                    	$res = $sgsm->result();
+                    
+                    	foreach($res as $row){
+                    	    $sGcm_key = $row->gcm_key;
+                    	    $this->sendNotification($sGcm_key,$subject,$message_details);
+                    	}
+                    	 
+                    }
+                }
+            }
+
+		    $grouphistory_query = "INSERT INTO `edu_grouping_history`(`group_title_id`, `notes`, `notification_type`, `status`, `created_by`, `created_at`) VALUES ('$group_title_id','$message_details','$message_type','Active','$created_by',NOW())";
+			$grouphistory_res = $this->db->query($grouphistory_query);
+			$last_historyid = $this->db->insert_id();
+
+			if($grouphistory_res) {
+				$response = array("status" => "success", "msg" => "Group Message Added", "last_group_history_id"=>$last_historyid);
+			} else {
+				$response = array("status" => "error");
+			}
+          
+			return $response;		
+	}
+//#################### Group Message End ####################//
 
 //#################### View Group Messages ####################//
 	public function dispGroupmessage ($user_type,$user_id)

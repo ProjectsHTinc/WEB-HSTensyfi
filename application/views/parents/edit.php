@@ -553,7 +553,8 @@
     };
   
 function validates()
-{        alert("hi");
+{        
+    //alert("hi");
 		var fname = document.getElementById("fname").value;
 		var mname = document.getElementById("mname").value;
 		var gname = document.getElementById("gname").value;
