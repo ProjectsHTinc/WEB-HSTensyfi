@@ -101,7 +101,7 @@ class Adminattendance extends CI_Controller {
 							 $datas['year']=$year_class;
 						 	 $datas['res']=$this->adminattendancemodel->get_monthview_class($first,$last,$class_master_id);
 							 	 $datas['res_total']=$this->adminattendancemodel->get_total_working_days($first,$last,$class_master_id);
-								 print_r($datas['res_total']);exit;
+								// print_r($datas['res_total']);exit;
 							 $datas['get_name_class']=$this->class_manage->edit_cs($class_master_id);
 								$this->load->view('header');
 								$this->load->view('attendance/month_view_for_class',$datas);
@@ -162,30 +162,5 @@ class Adminattendance extends CI_Controller {
 
 			 }
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

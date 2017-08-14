@@ -230,6 +230,7 @@ class Teacherattendence extends CI_Controller {
 			$datas['month']=$month_id;
 			$datas['year']=$year_class;
 			$datas['res']=$this->adminattendancemodel->get_monthview_class($first,$last,$class_master_id);
+		    $datas['res_total']=$this->adminattendancemodel->get_total_working_days($first,$last,$class_master_id);
 			$datas['get_name_class']=$this->class_manage->edit_cs($class_master_id);
 			  $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/attendence/attendance_month_view',$datas);

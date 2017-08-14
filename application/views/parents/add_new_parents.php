@@ -16,7 +16,7 @@
             <div class="content">
 			<?php //print_r($relation); ?>
                <form method="post" action="<?php echo base_url(); ?>parents/create_new_parents" class="form-horizontal" enctype="multipart/form-data" id="parentform">
-			   
+
                   <input type="hidden" name="admission_id" id="stuid" class="form-control"  value="<?php echo $aid;?>">
 				  <?php if($eid==0){
 					  //print_r($alldetails);
@@ -27,6 +27,16 @@
 				  <?php }?>
                   <fieldset>
                      <div class="form-group">
+                       <label class="col-sm-2 control-label">Relationship</label>
+                       <div class="col-sm-4">
+                          <input type="hidden" name="relationship" readonly class="form-control"  value="">
+              <select name="relationship" class="selectpicker form-control" data-title="Select Relationship"  onchange="checkrelationfun(this.value)" />
+                            <option value="Father">Father</option>
+              <option value="Mother">Mother</option>
+              <option value="Guardian">Guardian</option>
+             </select>
+             <p id="msg1" style="color:red;"> </p>
+                       </div>
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-4">
                            <input type="text" name="name" placeholder="Enter Name" class="form-control" value="">
@@ -67,7 +77,7 @@
                         </div>
                         <label class="col-sm-2 control-label">Primary Mobile</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Mobile Number"  name="pmobile" maxlength="10"  class="form-control" onkeyup="checkcellfun(this.value)">
+                           <input type="text" placeholder="Mobile Number"  name="pmobile" maxlength="10"  class="form-control" onblur="checkcellfun(this.value)">
 						   <p id="gmsg1"></p>
                         </div>
                      </div>
@@ -98,16 +108,7 @@
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Relationship</label>
-                        <div class="col-sm-4">
-                           <input type="hidden" name="relationship" readonly class="form-control"  value="">
-						   <select name="relationship" class="selectpicker form-control" data-title="Select Relationship"  onchange="checkrelationfun(this.value)" />
-                             <option value="Father">Father</option>
-							 <option value="Mother">Mother</option>
-							 <option value="Guardian">Guardian</option>
-							</select>
-							<p id="msg1" style="color:red;"> </p>
-                        </div>
+
                         <label class="col-sm-2 control-label">Picture</label>
                         <div class="col-sm-4">
                            <input type="file" name="parents_picture" id="pic" class="form-control" onchange="loadFile(event)" accept="image/*" >
@@ -170,7 +171,7 @@
           home_phone:{required:true },
           office_phone:{required:true },
           pmobile:{required:true },
-         status:{required:true }, 
+         status:{required:true },
 		  priority:{required:true },
    },
       messages: {
@@ -189,7 +190,7 @@
             status:"Select Status",
 			priority:"Select Priority"
           }
-   }); 
+   });
    });
 </script>
 <script type="text/javascript">
@@ -205,7 +206,7 @@ function checkrelationfun(val)
    data:'relation='+ val +'&aid='+sid,
    success:function(test)
    {
-   if(test=="Email Id already Exit")
+   if(test=="Email Id already Exist")
    {
    $("#msg1").html(test);
    $("#save").hide();
@@ -219,7 +220,7 @@ function checkrelationfun(val)
    });
    }
 
-   
+
    function checkemailfun(val)
    {   //alert('hi');
       $.ajax({
@@ -228,7 +229,7 @@ function checkrelationfun(val)
    data:'email='+val,
    success:function(test)
    {
-   	if(test=="Email Id already Exit")
+   	if(test=="Email Id already Exist")
    	{
            $("#msg").html(test);
            $("#save").hide();
@@ -237,11 +238,11 @@ function checkrelationfun(val)
    		$("#msg").html(test);
         $("#save").show();
    	}
-   
+
    }
    });
    }
-   
+
    function checkcellfun(val)
    { //alert('hi');
       $.ajax({
@@ -257,12 +258,10 @@ function checkrelationfun(val)
 	   $("#save1").show();
    	}
    	else{
-   		$("#gmsg1").html('<span style="color:red;">Mobile number already exit</span>');
-        $("#save1").hide();   
+   		$("#gmsg1").html('<span style="color:red;">Mobile number already Exist</span>');
+        $("#save1").hide();
 		}
    }
    });
    }
 </script>
-
-

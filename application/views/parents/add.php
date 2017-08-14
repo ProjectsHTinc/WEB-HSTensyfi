@@ -49,7 +49,7 @@
                                  </div>
                               </div>
                            </fieldset>
-						   
+
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -83,27 +83,27 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" name="fpmobile" id="fpmobile" class="form-control" onkeyup="fcheckmobilefun(this.value)">
+                                    <input type="text" placeholder="Mobile Number" name="fpmobile" id="fpmobile" class="form-control" onblur="fcheckmobilefun(this.value)">
 									<p id="fmsg1"> </p>
                                  </div>
-								 
-                                 
+
+
                               </div>
                            </fieldset>
                            <fieldset>
                               <div class="form-group">
-							  
+
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" name="fsmobile" class="form-control">
                                  </div>
-								
-								 
+
+
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Home Phone" name="fhome_phone" id="fhome_phone" class="form-control">
                                  </div>
-								 
+
                               </div>
                            </fieldset>
                            <fieldset>
@@ -112,12 +112,12 @@
                                  <div class="col-sm-4">
                                     <textarea name="foffice_address" id="foffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"></textarea>
                                  </div>
-								 
+
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" name="foffice_phone" class="form-control">
                                  </div>
-                                 
+
                               </div>
                            </fieldset>
 						    <fieldset>
@@ -127,17 +127,17 @@
                                     <select name="frelationship" id="frelationship" class="selectpicker form-control"  >
                                        <option value="Father">Father</option>
 									</select>
-									
+
                                  </div>
-								 
+
                                  <label class="col-sm-2 control-label">Father Pic</label>
                                     <div class="col-sm-4">
                                        <input type="file" name="father_pic" id="fpic" class="form-control" onchange="loadFile(event)" accept="image/*" >
                                     </div>
                               </div>
-							  
+
                            </fieldset>
-						   
+
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -147,7 +147,7 @@
                                        <option value="Deactive">DeActive</option>
                                     </select>
                                  </div>
-								 
+
                                <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
                                     <select name="flogin" id="flogin" class="selectpicker form-control" data-title="Select Login Priority">
@@ -157,7 +157,7 @@
                                  </div>
 								  </div>
                            </fieldset>
-						   
+
                            <fieldset>
                               <div class="form-group">
 							  <label class="col-sm-2 control-label"></label>
@@ -166,7 +166,7 @@
                                  </div>
 								 </div>
                            </fieldset>
-							   
+
 			</div>
 							<!-- Mother-->
                 <div id="mothers" class="tab-pane">
@@ -178,7 +178,7 @@
                                  </div>
                               </div>
                            </fieldset>
-						   
+
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -212,27 +212,27 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" name="mpmobile" id="mpmobile" class="form-control" onkeyup="mcheckmobilefun(this.value)">
+                                    <input type="text" placeholder="Mobile Number" name="mpmobile" id="mpmobile" class="form-control" onblur="mcheckmobilefun(this.value)">
 									<p id="mmsg1"> </p>
                                  </div>
-								 
-                                 
+
+
                               </div>
                            </fieldset>
                            <fieldset>
                               <div class="form-group">
-							  
+
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" name="msmobile" class="form-control">
                                  </div>
-								
-								 
+
+
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Home Phone" name="mhome_phone" id="mhome_phone" class="form-control">
                                  </div>
-								 
+
                               </div>
                            </fieldset>
                            <fieldset>
@@ -241,12 +241,12 @@
                                  <div class="col-sm-4">
                                     <textarea name="moffice_address" id="moffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"></textarea>
                                  </div>
-								 
+
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" name="moffice_phone" class="form-control">
                                  </div>
-                                 
+
                               </div>
                            </fieldset>
 						    <fieldset>
@@ -258,15 +258,15 @@
 									</select>
 
                                  </div>
-								 
+
                                  <label class="col-sm-2 control-label">Mother Pic</label>
                                     <div class="col-sm-4">
                                        <input type="file" name="mother_pic" id="mpic" class="form-control" onchange="loadFile1(event)" accept="image/*" >
                                     </div>
                               </div>
-							  
+
                            </fieldset>
-						   
+
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -276,7 +276,7 @@
                                        <option value="Deactive">DeActive</option>
                                     </select>
                                  </div>
-								 
+
 								  <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
                                     <select name="mlogin" id="mlogin" class="selectpicker form-control" data-title="Select Login Priority">
@@ -295,10 +295,10 @@
 								 </div>
                            </fieldset>
 				     </div>
-					 
+
 					 <!-- Guardian -->
 						<div id="guardian" class="tab-pane">
-						
+
 						       <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Guardian Name</label>
@@ -307,7 +307,7 @@
                                  </div>
                               </div>
                            </fieldset>
-						   
+
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -341,28 +341,28 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" name="gpmobile" id="gpmobile" class="form-control" onkeyup="gcheckmobilefun(this.value)">
+                                    <input type="text" placeholder="Mobile Number" name="gpmobile" id="gpmobile" class="form-control" onblur="gcheckmobilefun(this.value)">
 									<p id="gmsg1"> </p>
                                  </div>
-								 
-								 
-                                 
+
+
+
                               </div>
                            </fieldset>
                            <fieldset>
                               <div class="form-group">
-							  
+
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" name="gsmobile" class="form-control">
                                  </div>
-								
-								 
+
+
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Home Phone" name="ghome_phone" id="ghome_phone" class="form-control">
                                  </div>
-								 
+
                               </div>
                            </fieldset>
                            <fieldset>
@@ -371,12 +371,12 @@
                                  <div class="col-sm-4">
                                     <textarea name="goffice_address" id="goffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"></textarea>
                                  </div>
-								 
+
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" name="goffice_phone" class="form-control">
                                  </div>
-                                 
+
                               </div>
                            </fieldset>
 						    <fieldset>
@@ -388,15 +388,15 @@
 									</select>
                                     <!-- <input type="text" placeholder="Enter Relationship" name="grelationship" class="form-control">-->
                                  </div>
-								 
+
                                  <label class="col-sm-2 control-label">Guardian Pic</label>
                                     <div class="col-sm-4">
                                        <input type="file" name="guardian_pic" id="gpic" class="form-control" onchange="loadFile2(event)" accept="image/*" >
                                     </div>
                               </div>
-							  
+
                            </fieldset>
-						   
+
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -406,7 +406,7 @@
                                        <option value="Deactive">DeActive</option>
                                     </select>
                                  </div>
-								 
+
 								 <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
                                     <select name="glogin" id="glogin" class="selectpicker form-control" data-title="Select Login Priority">
@@ -416,7 +416,7 @@
                                  </div>
 								  </div>
                            </fieldset>
-								 
+
                                 <fieldset>
                               <div class="form-group">
 							  <label class="col-sm-2 control-label"></label>
@@ -451,7 +451,7 @@
                                           <label class="col-sm-2 control-label">Mobile</label>
                                           <div class="col-sm-4">
                                              <input type="hidden" name="admission_no" class="form-control" placeholder=""  value="<?php echo $result; ?>">
-                                             <input type="text" required name="cell" placeholder="Enter Your Mobile Number" class="form-control" onkeyup="checkcellfun(this.value)" value="">
+                                             <input type="text" required name="cell" placeholder="Enter Your Mobile Number" class="form-control" onblur="checkcellfun(this.value)" value="">
                                              <p id="msg1"> </p>
                                           </div>
                                           <label class="col-sm-2 control-label">&nbsp;</label>
@@ -467,10 +467,10 @@
                      </div>
 
                   </div><!-- Existing -->
-				  
+
                </div>
             </div>
-			
+
          </div>
       </div>
    </div>
@@ -481,35 +481,35 @@ function validates()
 		var fname = document.getElementById("fname").value;
 		var mname = document.getElementById("mname").value;
 		var gname = document.getElementById("gname").value;
-		
+
 		var foccupation = document.getElementById("foccupation").value;
 		var moccupation = document.getElementById("moccupation").value;
 		var goccupation = document.getElementById("goccupation").value;
-		
+
 		var fincome = document.getElementById("fincome").value;
 		var mincome = document.getElementById("mincome").value;
 		var gincome = document.getElementById("gincome").value;
-		
+
 		var fhaddress = document.getElementById("fhaddress").value;
 		var mhaddress = document.getElementById("mhaddress").value;
 		var ghaddress = document.getElementById("ghaddress").value;
-		
+
 		var fstatus = document.getElementById("fstatus").value;
 		var mstatus = document.getElementById("mstatus").value;
 		var gstatus = document.getElementById("gstatus").value;
-		
+
 		var fpemail = document.getElementById("fpemail").value;
 		var mpemail = document.getElementById("mpemail").value;
 		var gpemail = document.getElementById("gpemail").value;
-		
+
 		var fpmobile = document.getElementById("fpmobile").value;
 		var mpmobile = document.getElementById("mpmobile").value;
 		var gpmobile = document.getElementById("gpmobile").value;
-		
+
 		var frelationship = document.getElementById("frelationship").value;
 		var mrelationship = document.getElementById("mrelationship").value;
 		var grelationship = document.getElementById("grelationship").value;
-		
+
 		var flogin = document.getElementById("flogin").value;
 		var mlogin = document.getElementById("mlogin").value;
 		var glogin = document.getElementById("glogin").value;
@@ -544,7 +544,7 @@ function validates()
 		 //document.form.teacher.focus() ;
 		 return false;
      }
-	 
+
 	 if(fincome=="" && mincome=="" && gincome=="")
      {   //alert("Please select Relationship Of Students");
 		 $("#erid").html("Please Enter Income");
@@ -563,28 +563,28 @@ function validates()
 		 //document.form.teacher.focus() ;
 		 return false;
      }
-	 
+
 	 if(flogin=="" && mlogin=="" && glogin=="")
      {   //alert("Please select priority for login");
 		 $("#erid").html("Please select priority for login");
 		 //document.form.teacher.focus() ;
 		 return false;
      }
-	
-} 
+
+}
 
      var loadFile = function(event)
      {
      var output = document.getElementById('output');
      output.src = URL.createObjectURL(event.target.files[0]);
     };
-   
+
     var loadFile1 = function(event)
      {
      var output1 = document.getElementById('output1');
      output1.src = URL.createObjectURL(event.target.files[0]);
    };
-   
+
    var loadFile2 = function(event)
     {
      var output2 = document.getElementById('output2');
@@ -600,7 +600,7 @@ function validates()
    data:'email='+val,
    success:function(test)
    {
-   	if(test=="Email Id already Exit")
+   	if(test=="Email Id already Exist")
    	{
            $("#msg").html(test);
            $("#save1").hide();
@@ -609,11 +609,11 @@ function validates()
    		$("#msg").html(test);
         $("#save1").show();
    	}
-   
+
    }
    });
    }
-   
+
    function mcheckemailfun(val)
    { //alert("hi");
       $.ajax({
@@ -622,7 +622,7 @@ function validates()
    data:'email='+val,
    success:function(test)
    {
-   	if(test=="Email Id already Exit")
+   	if(test=="Email Id already Exist")
    	{
            $("#mmsg").html(test);
            $("#save1").hide();
@@ -631,11 +631,11 @@ function validates()
    		$("#mmsg").html(test);
         $("#save1").show();
    	}
-   
+
    }
    });
    }
-   
+
    function gcheckemailfun(val)
    { //alert("hi");
       $.ajax({
@@ -644,7 +644,7 @@ function validates()
    data:'email='+val,
    success:function(test)
    {
-   	if(test=="Email Id already Exit")
+   	if(test=="Email Id already Exist")
    	{
            $("#gmsg").html(test);
            $("#save1").hide();
@@ -672,13 +672,13 @@ function validates()
 	   $("#save1").show();
    	}
    	else{
-   		$("#fmsg1").html('<span style="color:red;">Mobile number already exit</span>');
-        $("#save1").hide();   
+   		$("#fmsg1").html('<span style="color:red;">Mobile number already Exist</span>');
+        $("#save1").hide();
 		}
    }
    });
    }
-   
+
    function mcheckmobilefun(val)
    { //alert('hi');
       $.ajax({
@@ -694,13 +694,13 @@ function validates()
 	   $("#save1").show();
    	}
    	else{
-   		$("#mmsg1").html('<span style="color:red;">Mobile number already exit</span>');
-        $("#save1").hide();   
+   		$("#mmsg1").html('<span style="color:red;">Mobile number already Exist</span>');
+        $("#save1").hide();
 		}
    }
    });
    }
-   
+
    function gcheckmobilefun(val)
    { //alert('hi');
       $.ajax({
@@ -716,13 +716,13 @@ function validates()
 	   $("#save1").show();
    	}
    	else{
-   		$("#gmsg1").html('<span style="color:red;">Mobile number already exit</span>');
-        $("#save1").hide();   
+   		$("#gmsg1").html('<span style="color:red;">Mobile number already Exist</span>');
+        $("#save1").hide();
 		}
    }
    });
    }
-   
+
    function checkcellfun(val)
    {
       $.ajax({
@@ -743,7 +743,7 @@ function validates()
    }
    });
    }
-   
+
 </script>
 <script type="text/javascript">
    $(function () {
@@ -751,7 +751,7 @@ function validates()
            if ($(this).val() == "parents") {
                $("#stuparents").show();
    $("#stuguardian").hide();
-   
+
            } else {
                $("#stuguardian").show();
     $("#stuparents").hide();
@@ -759,4 +759,3 @@ function validates()
        });
    });
 </script>
-

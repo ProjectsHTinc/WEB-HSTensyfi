@@ -14,7 +14,7 @@
                      <div class="content">
                         <form method="post" action="<?php echo base_url(); ?>parents/update_parents" class="form-horizontal" enctype="multipart/form-data" id="parentform" name="parentform" onsubmit="return validates()">
                            <div class="content">
-						   
+
                                 <ul role="tablist" class="nav nav-tabs" style="border-bottom: none;padding-left:05px;">
                                     <li role="presentation" class="active" >
                                       <a href="#father" class="btn btn-info btn-fill" style="border-bottom-color:#976dea;" data-toggle="tab">Father</a>
@@ -27,7 +27,7 @@
                                     </li>
 									<?php  $s=count($editres);
  									if($s==3){ }else{ //foreach($editres as $prow){} $aid=$prow->admission_id;
-									?> 
+									?>
 									<li>
                                      <a href="<?php echo base_url(); ?>parents/create_new_parents_details/<?php echo $sid;?>/<?php echo 0;?>" class="btn btn-warning btn-fill btn-wd">Add </a>
                                     </li>
@@ -40,7 +40,7 @@
                    <div class="form-group">
 				      <label class="col-sm-2 control-label">Student Name</label>
                                  <div class="col-sm-4">
-								 <?php  
+								 <?php
 						 foreach($editres as $prow){ }?>
 								 <select multiple name="stu_name[]" class="selectpicker form-control"  >
                                 <?php
@@ -63,10 +63,10 @@
 								?>
                             </select>
                                  </div></div>
-							</fieldset>	 
+							</fieldset>
 					<div id="father" class="tab-pane active">
-					 <?php  
-						 foreach($editres as $prow){  
+					 <?php
+						 foreach($editres as $prow){
 						  $relation1=$prow->relationship;
 						    if($relation1=="Father"){
 					  ?>
@@ -81,11 +81,11 @@
                                  <div class="col-sm-4">
                                     <input type="text" name="fname" id="fname" placeholder="Enter Name" class="form-control" value="<?php echo $prow->name; ?>">
                                  </div>
-								
-								 
+
+
                               </div>
                            </fieldset>
-						   
+
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -106,7 +106,7 @@
                                  </div>
                                  <label class="col-sm-2 control-label">Primary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="fpemail" id="fpemail" value="<?php echo $prow->email; ?>"  class="form-control" placeholder="Email Address" onkeyup="checkemailfun(this.value)" />
+                                    <input type="text" name="fpemail" id="fpemail" value="<?php echo $prow->email; ?>"  class="form-control" placeholder="Email Address" onblur="checkemailfun(this.value)" />
                                     <p id="msg" style="color:red;"> </p>
                                  </div>
                               </div>
@@ -119,11 +119,11 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="fpmobile" id="fpmobile" class="form-control" onkeyup="fcheckmobilefun(this.value)">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="fpmobile" id="fpmobile" class="form-control" onblur="fcheckmobilefun(this.value)">
 									 <p id="fmsg1" style="color:red;"> </p>
                                  </div>
-								 
-                                 
+
+
                               </div>
                            </fieldset>
                            <fieldset>
@@ -144,21 +144,21 @@
                                  <div class="col-sm-4">
                                     <textarea name="foffice_address" id="foffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
-								 
+
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="foffice_phone" id="foffice_phone" class="form-control">
                                  </div>
-                                 
+
                               </div>
                            </fieldset>
 						    <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Relationship</label>
                                  <div class="col-sm-4">
-								 
-							<input type="text" name="frelationship" value="<?php echo "Father";?>" readonly class="form-control"  > 
-								  
+
+							<input type="text" name="frelationship" value="<?php echo "Father";?>" readonly class="form-control"  >
+
 								 <!-- <select name="frelationship" class="selectpicker form-control"  >
                                        <option value="Father">Father</option>
 									</select> -->
@@ -169,7 +169,7 @@
                                     </div>
                               </div>
                            </fieldset>
-						   
+
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -180,14 +180,14 @@
                                     </select>
 									<script language="JavaScript">document.parentform.fstatus.value="<?php echo $prow->status; ?>";</script>
                                  </div>
-								 
+
 								  <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
                                    <select name="flogin" id="flogin" class="selectpicker form-control">
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
                                     </select>
-				 <script language="JavaScript">document.parentform.flogin.value="<?php echo $prow->primary_flag; ?>";</script> 
+				 <script language="JavaScript">document.parentform.flogin.value="<?php echo $prow->primary_flag; ?>";</script>
                                  </div>
 
 								 </div>
@@ -211,11 +211,11 @@
 					  </div>
                     </fieldset>
 						 <?php } }?>
-					</div>	 
+					</div>
 					<!-- Mother-->
                 <div id="mothers" class="tab-pane">
-				<?php  
-				      foreach($editres as $prow){ 
+				<?php
+				      foreach($editres as $prow){
 					  $relation=$prow->relationship;
 					  if($relation=="Mother"){
 						//echo $prow->name; ?>
@@ -232,7 +232,7 @@
                                  </div>
                               </div>
                            </fieldset>
-						   
+
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -253,7 +253,7 @@
                                  </div>
                                  <label class="col-sm-2 control-label">Primary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="mpemail" id="mpemail" value="<?php echo $prow->email; ?>" class="form-control" placeholder="Email Address" onkeyup="mcheckemailfun(this.value)" />
+                                    <input type="text" name="mpemail" id="mpemail" value="<?php echo $prow->email; ?>" class="form-control" placeholder="Email Address" onblur="mcheckemailfun(this.value)" />
                                     <p id="mmsg" style="color:red;"> </p>
                                  </div>
                               </div>
@@ -266,25 +266,25 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="mpmobile" id="mpmobile"  class="form-control" onkeyup="mcheckmobilefun(this.value)">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="mpmobile" id="mpmobile"  class="form-control" onblur="mcheckmobilefun(this.value)">
 									 <p id="mmsg1" style="color:red;"> </p>
                                  </div>
                               </div>
                            </fieldset>
                            <fieldset>
                               <div class="form-group">
-							  
+
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="msmobile" id="msmobile"  class="form-control">
                                  </div>
-								
-								 
+
+
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="mhome_phone" id="mhome_phone"  class="form-control">
                                  </div>
-								 
+
                               </div>
                            </fieldset>
                            <fieldset>
@@ -293,12 +293,12 @@
                                  <div class="col-sm-4">
                                     <textarea name="moffice_address" id="moffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
-								 
+
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="moffice_phone" id="moffice_phone" class="form-control">
                                  </div>
-                                 
+
                               </div>
                            </fieldset>
 						    <fieldset>
@@ -309,15 +309,15 @@
                                        <option value="Mother">Mother</option>
 									</select>
                                  </div>
-								 
+
                                  <label class="col-sm-2 control-label">Mother Pic</label>
                                     <div class="col-sm-4">
                                        <input type="file" name="mother_pic" id="mpic" class="form-control" onchange="loadFile1(event)" accept="image/*" >
                                     </div>
                               </div>
-							  
+
                            </fieldset>
-						   
+
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -334,14 +334,14 @@
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
                                     </select>
-				         <script language="JavaScript">document.parentform.mlogin.value="<?php echo $prow->primary_flag; ?>";</script> 
+				         <script language="JavaScript">document.parentform.mlogin.value="<?php echo $prow->primary_flag; ?>";</script>
                                  </div>
-							  
+
 								 </div>
                            </fieldset>
 						   <fieldset>
                               <div class="form-group">
-							  
+
 							  <label class="col-sm-2 control-label">Old Picture</label>
                                  <div class="col-sm-4">
 								 <img src="<?php echo base_url(); ?>assets/parents/<?php echo $prow->user_pic; ?>" class="img-circle" style="width:110px;">
@@ -363,8 +363,8 @@
 				     </div>
 					 <!-- Guardian -->
 						<div id="guardian" class="tab-pane">
-						<?php 
-						foreach($editres as $prow){  
+						<?php
+						foreach($editres as $prow){
 					     $relation=$prow->relationship;
 						 if($relation=="Guardian"){
 								?>
@@ -379,10 +379,10 @@
                                  <div class="col-sm-4">
                                     <input type="text" name="gname" id="gname" placeholder="Enter Name" class="form-control" value="<?php echo $prow->name; ?>">
                                  </div>
-								 
+
                               </div>
                            </fieldset>
-						   
+
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -403,7 +403,7 @@
                                  </div>
                                  <label class="col-sm-2 control-label">Primary Email</label>
                                  <div class="col-sm-4">
-                                    <input type="text" name="gpemail" id="gpemail"  value="<?php echo $prow->email; ?>" class="form-control" placeholder="Email Address" onkeyup="gcheckemailfun(this.value)" />
+                                    <input type="text" name="gpemail" id="gpemail"  value="<?php echo $prow->email; ?>" class="form-control" placeholder="Email Address" onblur="gcheckemailfun(this.value)" />
                                     <p id="gmsg" style="color:red;"> </p>
                                  </div>
                               </div>
@@ -416,27 +416,27 @@
                                  </div>
 								 <label class="col-sm-2 control-label">Primary Mobile</label>
                                  <div class="col-sm-4">
-                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="gpmobile" id="gpmobile" class="form-control"  onkeyup="gcheckmobilefun(this.value)">
+                                    <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="gpmobile" id="gpmobile" class="form-control"  onblur="gcheckmobilefun(this.value)">
 									<p id="gmsg1" style="color:red;"> </p>
                                  </div>
-								 
-                                 
+
+
                               </div>
                            </fieldset>
                            <fieldset>
                               <div class="form-group">
-							  
+
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="gsmobile" id="gsmobile" class="form-control">
                                  </div>
-								
-								 
+
+
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="ghome_phone" id="ghome_phone" class="form-control">
                                  </div>
-								 
+
                               </div>
                            </fieldset>
                            <fieldset>
@@ -445,12 +445,12 @@
                                  <div class="col-sm-4">
                                     <textarea name="goffice_address" id="goffice_address"  MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
-								 
+
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="goffice_phone" id="goffice_phone" class="form-control">
                                  </div>
-                                 
+
                               </div>
                            </fieldset>
 						    <fieldset>
@@ -461,15 +461,15 @@
                                        <option value="Guardian">Guardian</option>
 									</select>
                                  </div>
-								 
+
                                  <label class="col-sm-2 control-label">Guardian Pic</label>
                                     <div class="col-sm-4">
                                        <input type="file" name="guardian_pic" id="gpic" class="form-control" onchange="loadFile2(event)" accept="image/*" >
                                     </div>
                               </div>
-							  
+
                            </fieldset>
-						   
+
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -479,26 +479,26 @@
                                        <option value="Deactive">DeActive</option>
                                     </select>
 									<script language="JavaScript">document.parentform.gstatus.value="<?php echo $prow->status; ?>";</script>
-									
+
                                  </div>
 								 <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
                                    <select name="glogin" id="glogin"  class="selectpicker form-control">
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
-                                    
+
                                     </select>
-				 <script language="JavaScript">document.parentform.glogin.value="<?php echo $prow->primary_flag; ?>";</script> 
+				 <script language="JavaScript">document.parentform.glogin.value="<?php echo $prow->primary_flag; ?>";</script>
                                  </div>
 
-							
+
 								 </div>
                            </fieldset>
 						   <fieldset>
                               <div class="form-group">
 							<label class="col-sm-2 control-label">Old Picture</label>
 							 <div class="col-sm-4">
-							 
+
 							 <img src="<?php echo base_url(); ?>assets/parents/<?php echo $prow->user_pic; ?>" class="img-circle" style="width:110px;">
 							 <input type="hidden" name="old_guardian_pic" class="form-control"  value="<?php echo $prow->user_pic; ?>">
 								 <img  id="output2" class="img-circle" style="width:110px;">
@@ -513,10 +513,10 @@
 					  </div>
 					  </div>
                     </fieldset>
-						<?php } //else{ echo "No Details";} 
+						<?php } //else{ echo "No Details";}
 						}?>
 				     </div>
-				    <!-- Guardian 
+				    <!-- Guardian
 					<fieldset>
                               <div class="form-group">
 					 <label class="col-sm-2 control-label">&nbsp;</label>
@@ -528,65 +528,66 @@
                      </div>
 					 </form>
                   </div>
-				 
+
          </div>
       </div>
    </div>
 </div>
 <script type="text/javascript">
+
      var loadFile = function(event)
      {
      var output = document.getElementById('output');
      output.src = URL.createObjectURL(event.target.files[0]);
     };
-   
+
     var loadFile1 = function(event)
      {
      var output1 = document.getElementById('output1');
      output1.src = URL.createObjectURL(event.target.files[0]);
    };
-   
+
    var loadFile2 = function(event)
     {
      var output2 = document.getElementById('output2');
      output2.src = URL.createObjectURL(event.target.files[0]);
     };
-  
+
 function validates()
-{        
+{
     //alert("hi");
 		var fname = document.getElementById("fname").value;
 		var mname = document.getElementById("mname").value;
 		var gname = document.getElementById("gname").value;
-		
+
 		var foccupation = document.getElementById("foccupation").value;
 		var moccupation = document.getElementById("moccupation").value;
 		var goccupation = document.getElementById("goccupation").value;
-		
+
 		var fincome = document.getElementById("fincome").value;
 		var mincome = document.getElementById("mincome").value;
 		var gincome = document.getElementById("gincome").value;
-		
+
 		var fhaddress = document.getElementById("fhaddress").value;
 		var mhaddress = document.getElementById("mhaddress").value;
 		var ghaddress = document.getElementById("ghaddress").value;
-		
+
 		var fstatus = document.getElementById("fstatus").value;
 		var mstatus = document.getElementById("mstatus").value;
 		var gstatus = document.getElementById("gstatus").value;
-		
+
 		var fpemail = document.getElementById("fpemail").value;
 		var mpemail = document.getElementById("mpemail").value;
 		var gpemail = document.getElementById("gpemail").value;
-		
+
 		var fpmobile = document.getElementById("fpmobile").value;
 		var mpmobile = document.getElementById("mpmobile").value;
 		var gpmobile = document.getElementById("gpmobile").value;
-		
+
 		var frelationship = document.getElementById("frelationship").value;
 		var mrelationship = document.getElementById("mrelationship").value;
 		var grelationship = document.getElementById("grelationship").value;
-		
+
 		var flogin = document.getElementById("flogin").value;
 		var mlogin = document.getElementById("mlogin").value;
 		var glogin = document.getElementById("glogin").value;
@@ -621,7 +622,7 @@ function validates()
 		 //document.form.teacher.focus() ;
 		 return false;
      }
-	 
+
 	 if(fincome=="" && mincome=="" && gincome=="")
      {   //alert("Please select Relationship Of Students");
 		 $("#erid").html("Please Enter Income");
@@ -640,15 +641,15 @@ function validates()
 		 //document.form.teacher.focus() ;
 		 return false;
      }
-	 
+
 	 if(flogin=="" && mlogin=="" && glogin=="")
      {   //alert("Please select priority for login");
 		 $("#erid").html("Please select priority for login");
 		 //document.form.teacher.focus() ;
 		 return false;
      }
-	
-} 
+
+}
 
 </script>
 <script type="text/javascript">
@@ -669,11 +670,11 @@ function validates()
    		$("#msg").html(test);
         $("#save1").show();
    	}
-   
+
    }
    });
    }
-   
+
    function mcheckemailfun(val)
    { //alert("hi");
       $.ajax({
@@ -691,11 +692,11 @@ function validates()
    		$("#mmsg").html(test);
         $("#save1").show();
    	}
-   
+
    }
    });
    }
-   
+
    function gcheckemailfun(val)
    { //alert("hi");
       $.ajax({
@@ -718,7 +719,8 @@ function validates()
    } //gcheckmobilefun
 
    function fcheckmobilefun(val)
-   { //alert('hi');
+   {
+     //alert('hi');
       $.ajax({
    type:'post',
    url:'<?php echo base_url(); ?>/parents/cellchecker1',
@@ -733,12 +735,12 @@ function validates()
    	}
    	else{
    		$("#fmsg1").html('<span style="color:red;">Mobile number already exit</span>');
-        $("#save1").hide();   
+        $("#save1").hide();
 		}
    }
    });
    }
-   
+
    function mcheckmobilefun(val)
    { //alert('hi');
       $.ajax({
@@ -755,12 +757,12 @@ function validates()
    	}
    	else{
    		$("#mmsg1").html('<span style="color:red;">Mobile number already exit</span>');
-        $("#save1").hide();   
+        $("#save1").hide();
 		}
    }
    });
    }
-   
+
    function gcheckmobilefun(val)
    { //alert('hi');
       $.ajax({
@@ -777,12 +779,12 @@ function validates()
    	}
    	else{
    		$("#gmsg1").html('<span style="color:red;">Mobile number already exit</span>');
-        $("#save1").hide();   
+        $("#save1").hide();
 		}
    }
    });
    }
-   
+
    function checkcellfun(val)
    {
       $.ajax({
@@ -803,7 +805,5 @@ function validates()
    }
    });
    }
-   
+
 </script>
-
-
