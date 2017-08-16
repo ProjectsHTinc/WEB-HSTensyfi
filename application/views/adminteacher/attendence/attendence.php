@@ -1,3 +1,6 @@
+<style>
+    td{text-align:center;}
+</style>
 <div class="main-panel">
 <div class="content">
        <div class="container-fluid">
@@ -78,7 +81,7 @@ echo $dateTime->format("A");
 
                            </table>
                           <button type="button"   class="btn btn-warning btn-fill btn-wd pull-right"  id="submit" style="margin-top:20px;" onclick="submitAttendence()">
-                        submit Attendnce  </button>
+                        Submit Attendance  </button>
                          </form>
 
                        </div>
@@ -106,7 +109,7 @@ $('#atten1').addClass('active');
 function submitAttendence(){
         swal({
                       title: "Are you sure?",
-                      text: "You Want Confrim this form",
+                      text: "You Want Confirm this form",
                       type: "success",
                       showCancelButton: true,
                       confirmButtonColor: '#DD6B55',
@@ -127,8 +130,8 @@ function submitAttendence(){
                 //  swal("Success!", "Thanks for Your Note!", "success");
                   $('#takeattendence')[0].reset();
                   swal({
-           title: "Attendence Done!",
-           text: "Message!",
+           title: "Attendance Done!",
+           text: "Thank You!",
            type: "success"
        }, function() {
            window.location = "<?php echo base_url(); ?>teacherattendence/view";

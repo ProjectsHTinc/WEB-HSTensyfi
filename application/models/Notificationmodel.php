@@ -431,15 +431,15 @@ Class Notificationmodel extends CI_Model
 
             //Group Notification
          function send_notification($group_id,$notes,$user_id){
-           $class="SELECT egm.group_member_id,ep.email,ep.mobile,ep.parent_id FROM edu_grouping_members AS egm
+           $class="SELECT egm.group_member_id,ep.email,ep.mobile,ep.id FROM edu_grouping_members AS egm
            LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
            LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id=eu.user_id
-           WHERE  egm.group_title_id='$group_id'";
+           WHERE  egm.group_title_id='$group_id' AND ep.primary_flag='yes'";
           $pcell=$this->db->query($class);
           $res2=$pcell->result();
           foreach($res2 as $result){
-          $parent_id=$result->parent_id;
-           $sql="SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$parent_id'";
+          $parent_id=$result->id;
+            $sql="SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$parent_id'";
            $sgsm=$this->db->query($sql);
            $res=$sgsm->result();
            foreach($res as $row){

@@ -107,7 +107,7 @@ class Teacherattendence extends CI_Controller {
 					 $this->load->view('adminteacher/attendence/attendence',$datas);
 					 $this->load->view('adminteacher/teacher_footer');
 				 }else if($datas['status']=="taken"){
-					 $datas['status']="Attendece already Taken for This Class";
+					 $datas['status']="Attendance already Taken for This Class";
 					 $this->load->view('adminteacher/teacher_header');
 					 $this->load->view('adminteacher/attendence/attendence',$datas);
 					 $this->load->view('adminteacher/teacher_footer');

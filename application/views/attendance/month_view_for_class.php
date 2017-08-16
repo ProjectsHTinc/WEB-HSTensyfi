@@ -22,13 +22,13 @@
                               <th data-field="pp" class="text-center" data-sortable="true">No.of.Present- in Days </th>
                               <th data-field="check" class="text-center" data-sortable="true">Check Leave dates </th>
                            </thead>
-                           <p>Total Working Days
-                           <?php if($res_total['status']=="success"){echo $wrk= $res_total['result']; }else{echo "No data"; } ?>
+                           <p>Total Working Days 
+                           <?php if($res_total['status']=="success"){echo $wrk= $res_total['result']; }else{echo "No data"; } ?> 
                            </p>
                            <tbody>
                               <?php
-
-
+                               
+                              
                                  $i=1;
                                  foreach ($res as $rows) {
 
@@ -39,7 +39,7 @@
                                   <td class="text-center  txt" ><?php  echo date("F", strtotime('00-'.$month.'-01')); ?></td>
                                  <td class="text-center"><?php echo $ab=$rows->leaves/2; ?></td>
                                  <td class="text-center"><?php echo $pp=$wrk-$ab; ?></td>
-
+                                 
                                   <td class="text-center">
                                     <input type="hidden" name="month_id" id="month_id" value="<?php echo $month;  ?>">
                                     <input type="hidden" name="year_id" id="year_id" value="<?php echo $year;  ?>">

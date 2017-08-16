@@ -213,7 +213,7 @@ Class Teacherattendencemodel extends CI_Model
 
 
 
-
+        
       //Get Total Working Days For class
       function get_total_working_days($first,$last,$class_master_id){
         $acd_year=$this->get_cur_year();

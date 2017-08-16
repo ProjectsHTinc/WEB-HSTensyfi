@@ -442,7 +442,7 @@ class Apiadminmodel extends CI_Model {
 							 	$parent_id = $rows->parnt_guardn_id;
 							}
 							
-					 	 $father_query = "SELECT * from edu_parents WHERE id IN ($parent_id) AND relationship = 'Father' AND status = 'Active'";
+					 	  $father_query = "SELECT * from edu_parents WHERE find_in_set ($admission_id,admission_id) AND relationship = 'Father' AND status = 'Active'";
 						$father_res = $this->db->query($father_query);
 						$father_profile = $father_res->result();
 
@@ -465,7 +465,7 @@ class Apiadminmodel extends CI_Model {
 							"user_pic" => $father_profile[0]->user_pic 
 						);
 						
-						$mother_query = "SELECT * from edu_parents WHERE id IN ($parent_id) AND relationship = 'Mother' AND status = 'Active'";
+						$mother_query = "SELECT * from edu_parents WHERE  find_in_set ($admission_id,admission_id) AND relationship = 'Mother' AND status = 'Active'";
 						$mother_res = $this->db->query($mother_query);
 						$mother_profile = $mother_res->result();
 
@@ -487,7 +487,7 @@ class Apiadminmodel extends CI_Model {
 							"user_pic" => $mother_profile[0]->user_pic 
 						);
 						
-						$guardian_query = "SELECT * from edu_parents WHERE id IN ($parent_id) AND relationship = 'Guardian' AND status = 'Active'";
+						$guardian_query = "SELECT * from edu_parents WHERE  find_in_set ($admission_id,admission_id) AND relationship = 'Guardian' AND status = 'Active'";
 						$guardian_res = $this->db->query($guardian_query);
 						$guardian_profile = $guardian_res->result();
 
@@ -601,7 +601,7 @@ class Apiadminmodel extends CI_Model {
                               //#################### GET   PARENT SUDENT LIST  ####################//
               function get_parent_student_list($parent_id){
                   $year_id=$this->getYear();
-                  $father_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+                  $father_query = "SELECT * from edu_parents WHERE id='$parent_id' AND status = 'Active'";
                   $father_res = $this->db->query($father_query);
                   $father_profile = $father_res->result();
 
@@ -609,7 +609,7 @@ class Apiadminmodel extends CI_Model {
                       $admisson_id = $rows->admission_id;
                   }
 
-                  $enroll_query = "SELECT A.enroll_id,A.admission_id,A.admisn_no,A.class_id,A.name,C.class_name,D.sec_name,EA.sex,A.admit_year FROM edu_enrollment A, edu_classmaster B, edu_class C, edu_sections D ,edu_admission EA WHERE A.class_id = B.class_sec_id AND B.class = C.class_id AND B.section = D.sec_id AND EA.admission_id=A.admission_id AND A.admit_year ='$year_id' AND A.admission_id IN ($admisson_id)";
+                   $enroll_query = "SELECT A.enroll_id,A.admission_id,A.admisn_no,A.class_id,A.name,C.class_name,D.sec_name,EA.sex,A.admit_year FROM edu_enrollment A, edu_classmaster B, edu_class C, edu_sections D ,edu_admission EA WHERE A.class_id = B.class_sec_id AND B.class = C.class_id AND B.section = D.sec_id AND EA.admission_id=A.admission_id AND A.admit_year ='$year_id' AND A.admission_id IN ($admisson_id)";
                   $enroll_res = $this->db->query($enroll_query);
                   $stu_enroll_res= $enroll_res->result();
 
@@ -813,7 +813,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
           function get_teachers_od_view($user_id){
             $year_id=$this->getYear();
             $query="SELECT eod.id,eod.od_for,eu.user_master_id,et.name,eod.from_date,eod.to_date,eod.notes,eod.status FROM edu_on_duty AS eod
-            LEFT JOIN edu_users AS eu ON eu.user_id=eod.user_id LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id WHERE eod.user_type='2' AND eod.year_id='$year_id' ORDER BY eod.id DESC;";
+            LEFT JOIN edu_users AS eu ON eu.user_id=eod.user_id LEFT JOIN edu_teachers AS et ON et.teacher_id=eu.user_master_id WHERE eod.user_type='2' AND eod.year_id='$year_id' ORDER BY eod.id DESC";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");
@@ -829,8 +829,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
           // Students OD FORM view
           function get_students_od_view($user_id){
             $year_id=$this->getYear();
-            $query="SELECT eod.id,eod.od_for,eu.user_master_id,ee.name,eod.from_date,eod.to_date,eod.notes,eod.status FROM edu_on_duty AS eod
-            LEFT JOIN edu_users AS eu ON eu.user_id=eod.user_id LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eu.user_master_id WHERE eod.user_type='3' AND eod.year_id='$year_id' ORDER BY eod.id DESC;";
+            $query="SELECT du.id,du.od_for,du.notes,du.from_date,du.to_date,du.status,u.user_id,u.name,u.user_master_id,c.class_name,s.sec_name FROM edu_on_duty AS du,edu_enrollment AS en,edu_classmaster AS cm,edu_class AS c,edu_sections AS s,edu_users AS u WHERE du.user_type=3 AND du.user_id=u.user_id AND u.user_master_id=en.admission_id AND u.name=en.name AND cm.class_sec_id=en.class_id AND cm.class=c.class_id AND cm.section=s.sec_id AND du.year_id='$year_id' ORDER BY du.id DESC";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");

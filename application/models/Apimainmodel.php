@@ -283,7 +283,7 @@ class Apimainmodel extends CI_Model {
 						INNER JOIN edu_class AS c ON cm.class=c.class_id 
 						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
 						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
-						GROUP by ed.classmaster_id, ems.exam_id
+						GROUP by ed.classmaster_id, ed.exam_id
 						
 						UNION ALL
 						
@@ -296,7 +296,7 @@ class Apimainmodel extends CI_Model {
 						INNER JOIN edu_classmaster AS cm ON ed.classmaster_id = cm.class_sec_id
 						INNER JOIN edu_class AS c ON cm.class=c.class_id 
 						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
-						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ex.exam_id NOT IN (SELECT DISTINCT exam_id FROM edu_exam_details where classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')) GROUP by ed.classmaster_id,ems.exam_id";
+						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ex.exam_id NOT IN (SELECT DISTINCT exam_id FROM edu_exam_details where classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')) GROUP by ed.classmaster_id,ed.exam_id";
 					
 						$exam_res = $this->db->query($exam_query);
 	
@@ -612,7 +612,7 @@ class Apimainmodel extends CI_Model {
 				
 						$parent_id = $rows->parent_id;
 
-						$parent_query = "SELECT * from edu_parents WHERE parent_id='$parent_id' AND status = 'Active'";
+						$parent_query = "SELECT * from edu_parents WHERE id='$parent_id' AND status = 'Active'";
 						$parent_res = $this->db->query($parent_query);
 						$parent_profile= $parent_res->result();
 
@@ -1166,23 +1166,23 @@ class Apimainmodel extends CI_Model {
                 }
 
 
-                // if($messagetype_sms != 0){
-                //     $mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-                // 	$mobile_res = $this->db->query($mobile_query);
-                //     $mobile_result = $email_res->result();
+                if($messagetype_sms != 0){
+                    $mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id' AND ep.primary_flag = 'Yes'";
+                	$mobile_res = $this->db->query($mobile_query);
+                    $mobile_result = $mobile_res->result();
                 
-                // 	 if($mobile_res->num_rows()!=0){
-                // 		foreach ($mobile_result as $rows)
-                // 		{
-                // 			  $sMobile = $rows->mobile;
-                // 			  //$this->sendSMS($sMobile,$message_details);
-                // 		}
-                //      }
-                // }
+                	 if($mobile_res->num_rows()!=0){
+                		foreach ($mobile_result as $rows)
+                		{
+                			  $sMobile = $rows->mobile;
+                			  $this->sendSMS($sMobile,$message_details);
+                		}
+                     }
+                }
 
             if($messagetype_mail != 0){
                 $subject = 'Group Notification';
-                $email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
+                $email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'  AND ep.primary_flag = 'Yes'";
                 $email_res = $this->db->query($email_query);
                 $email_result = $email_res->result();
                 
@@ -1199,7 +1199,7 @@ class Apimainmodel extends CI_Model {
             if($messagetype_notification != 0){
                 $subject = 'Group Notification';
                     
-                $gcm_query = "SELECT egm.group_member_id,ep.id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
+                $gcm_query = "SELECT egm.group_member_id,ep.id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'  AND ep.primary_flag = 'yes'";
                 $gcm_res = $this->db->query($gcm_query);
                 $gcm_result = $gcm_res->result();
                 
@@ -1230,7 +1230,7 @@ class Apimainmodel extends CI_Model {
 			} else {
 				$response = array("status" => "error");
 			}
-          
+
 			return $response;		
 	}
 //#################### Group Message End ####################//
@@ -1241,9 +1241,9 @@ class Apimainmodel extends CI_Model {
 			$year_id = $this->getYear();
 
             if ($user_type=='1'){
-			     $Group_query = "SELECT A.id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id`";
+			     $Group_query = "SELECT B.id, A.id AS group_title_id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` ORDER BY B.id DESC";
             } else {
-				 $Group_query = "SELECT A.id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` AND group_lead_id = '$user_id'";
+				 $Group_query = "SELECT B.id, A.id AS group_title_id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` AND group_lead_id = '$user_id' ORDER BY B.id DESC";
 			}
 		
 			$Group_res = $this->db->query($Group_query);

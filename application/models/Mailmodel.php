@@ -235,7 +235,7 @@ Class Mailmodel extends CI_Model
 
     // Group Mail
     function send_mail($group_id,$notes,$user_id){
-      $sql1="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
+       $sql1="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
       LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
       LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id)
       WHERE  egm.group_title_id='$group_id'";
@@ -245,9 +245,9 @@ Class Mailmodel extends CI_Model
        {
         $semail=$row1->email;
         $to=$semail;
-        $subject="hii";
+        $subject="From KalaiMagal";
 
-        $htmlContent = '
+         $htmlContent = '
           <html>
           <head><title></title>
           </head>
@@ -259,7 +259,7 @@ Class Mailmodel extends CI_Model
       $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
       // Additional headers
       $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-      mail($to,$subject,$htmlContent,$headers);
+     $send= mail($to,$subject,$htmlContent,$headers);
      }
     }
 

@@ -556,7 +556,6 @@ class Apiteachermodel extends CI_Model {
 	{
 		$year_id = $this->getYear();
 			
-	
         $sqlMarks = "SELECT * FROM edu_exam_marks WHERE exam_id = '$exam_id' AND subject_id ='$subject_id' AND stu_id ='$stu_id'  AND classmaster_id ='$classmaster_id'";
 		$Marks_result = $this->db->query($sqlMarks);
 
@@ -697,8 +696,6 @@ class Apiteachermodel extends CI_Model {
                 }
                 
 		      $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `internal_mark`, `internal_grade`, `external_mark`, `external_grade`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$internal_mark','$internal_grade','$external_mark','$external_grade','$total_marks','$total_grade','$created_by',NOW())";
-		
-	
 		}
 		
 			$marks_res = $this->db->query($marks_query);

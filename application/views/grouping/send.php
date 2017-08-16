@@ -144,9 +144,10 @@ submitHandler: function(form) {
                if (isConfirm) {
 $.ajax({
     url: "<?php echo base_url(); ?>grouping/send_msg",
-     type:'POST',
+     type:'post',
     data: $('#send_msg').serialize(),
     success: function(response) {
+       // alert(response);
         if(response=="success"){
          //  swal("Success!", "Thanks for Your Note!", "success");
            $('#send_msg')[0].reset();

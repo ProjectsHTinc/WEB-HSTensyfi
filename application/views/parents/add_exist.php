@@ -26,20 +26,20 @@
                                     </li>
 									<?php  $s=count($editres);
  									if($s==3){ }else{ foreach($editres as $prow){ $aid=$prow->admission_id;}
-									?>
+									?> 
 									<li>
                                      <a href="<?php echo base_url(); ?>parents/create_new_parents_details/<?php echo $newstu;?>/<?php echo $aid;?>" class="btn btn-wd btn-default">Add </a>
                                     </li>
 									<?php } ?>
                                 </ul>
-
+								
                             </div>
-
+							
 				<div class="tab-content">
 					<div id="father" class="tab-pane active">
 					<input type="hidden" name="newstu" class="form-control"  value="<?php echo $newstu; ?>">
-					 <?php
-						 foreach($editres as $prow){
+					 <?php  
+						 foreach($editres as $prow){  
 						  $relation1=$prow->relationship;
 						    if($relation1=="Father"){
 					  ?>
@@ -47,7 +47,7 @@
 						 <input type="hidden" name="newstu" class="form-control" value="<?php echo $newstu; ?>">
 							  <!-- <input type="text" name="admission_no" class="form-control"  value="<?php echo $prow->admission_id; ?>"> -->
 							  <input type="hidden" name="morestu" class="form-control"  value="<?php echo $prow->admission_id; ?>,<?php echo $newstu; ?>">
-
+							  
 							  <input type="hidden" name="fid" class="form-control"  value="<?php echo $prow->id; ?>">
 					           <fieldset>
                               <div class="form-group">
@@ -59,12 +59,12 @@
                                  <div class="col-sm-4">
 								 <?php foreach($stuname as $sname){ }?>
                                     <input type="text" name="stu_name" readonly class="form-control" value="<?php echo $prow->stuname; ?>,<?php echo $sname->name; ?>">
-
+								 
                                  </div>
-
+								 
                               </div>
                            </fieldset>
-
+						   
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -100,8 +100,8 @@
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="fpmobile" class="form-control">
                                  </div>
-
-
+								 
+                                 
                               </div>
                            </fieldset>
                            <fieldset>
@@ -122,21 +122,21 @@
                                  <div class="col-sm-4">
                                     <textarea name="foffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
-
+								 
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="foffice_phone" class="form-control">
                                  </div>
-
+                                 
                               </div>
                            </fieldset>
 						    <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Relationship</label>
                                  <div class="col-sm-4">
-
-							<input type="text" name="frelationship" value="<?php echo "Father";?>" readonly class="form-control"  >
-
+								 
+							<input type="text" name="frelationship" value="<?php echo "Father";?>" readonly class="form-control"  > 
+								  
 								 <!-- <select name="frelationship" class="selectpicker form-control"  >
                                        <option value="Father">Father</option>
 									</select> -->
@@ -147,7 +147,7 @@
                                     </div>
                               </div>
                            </fieldset>
-
+						   
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -158,14 +158,14 @@
                                     </select>
 									<script language="JavaScript">document.parentform.fstatus.value="<?php echo $prow->status; ?>";</script>
                                  </div>
-
+								 
 								  <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
                                    <select name="flogin" class="selectpicker form-control">
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
                                     </select>
-				 <script language="JavaScript">document.parentform.flogin.value="<?php echo $prow->primary_flag; ?>";</script>
+				 <script language="JavaScript">document.parentform.flogin.value="<?php echo $prow->primary_flag; ?>";</script> 
                                  </div>
 
 								 </div>
@@ -189,16 +189,16 @@
 					  </div>
                     </fieldset>
 						 <?php } }?>
-					</div>
+					</div>	 
 					<!-- Mother-->
                 <div id="mothers" class="tab-pane">
-				<?php
-				      foreach($editres as $prow){
+				<?php  
+				      foreach($editres as $prow){ 
 					  $relation=$prow->relationship;
 					  if($relation=="Mother"){
 						//echo $prow->name; ?>
 				    <input type="hidden" name="oldstu" class="form-control" value="<?php echo $prow->admission_id; ?>">
-
+						
 					<!-- <input type="text" name="admission_no" class="form-control"  value="<?php echo $prow->admission_id; ?>"> -->
 					 <input type="hidden" name="newstu" class="form-control" value="<?php echo $newstu; ?>">
 				   <input type="hidden" name="morestu" class="form-control"  value="<?php echo $prow->admission_id; ?>,<?php echo $newstu; ?>">
@@ -213,11 +213,11 @@
                                  <div class="col-sm-4">
 								 <?php foreach($stuname as $sname){ }?>
                                     <input type="text" name="stu_name" readonly class="form-control" value="<?php echo $prow->stuname; ?>,<?php echo $sname->name; ?>">
-
+								 
                                  </div>
                               </div>
                            </fieldset>
-
+						   
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -257,18 +257,18 @@
                            </fieldset>
                            <fieldset>
                               <div class="form-group">
-
+							  
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="msmobile" class="form-control">
                                  </div>
-
-
+								
+								 
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="mhome_phone" class="form-control">
                                  </div>
-
+								 
                               </div>
                            </fieldset>
                            <fieldset>
@@ -277,12 +277,12 @@
                                  <div class="col-sm-4">
                                     <textarea name="moffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
-
+								 
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="moffice_phone" class="form-control">
                                  </div>
-
+                                 
                               </div>
                            </fieldset>
 						    <fieldset>
@@ -293,15 +293,15 @@
                                        <option value="Mother">Mother</option>
 									</select>
                                  </div>
-
+								 
                                  <label class="col-sm-2 control-label">Mother Pic</label>
                                     <div class="col-sm-4">
                                        <input type="file" name="mother_pic" id="mpic" class="form-control" onchange="loadFile1(event)" accept="image/*" >
                                     </div>
                               </div>
-
+							  
                            </fieldset>
-
+						   
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -318,14 +318,14 @@
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
                                     </select>
-				         <script language="JavaScript">document.parentform.mlogin.value="<?php echo $prow->primary_flag; ?>";</script>
+				         <script language="JavaScript">document.parentform.mlogin.value="<?php echo $prow->primary_flag; ?>";</script> 
                                  </div>
-
+							  
 								 </div>
                            </fieldset>
 						   <fieldset>
                               <div class="form-group">
-
+							  
 							  <label class="col-sm-2 control-label">Old Picture</label>
                                  <div class="col-sm-4">
 								 <img src="<?php echo base_url(); ?>assets/parents/<?php echo $prow->user_pic; ?>" class="img-circle" style="width:110px;">
@@ -347,8 +347,8 @@
 				     </div>
 					 <!-- Guardian -->
 						<div id="guardian" class="tab-pane">
-						<?php
-						foreach($editres as $prow){
+						<?php 
+						foreach($editres as $prow){  
 					     $relation=$prow->relationship;
 						 if($relation=="Guardian"){
 								?>
@@ -356,7 +356,7 @@
 							  <input type="hidden" name="oldstu" class="form-control" value="<?php echo $prow->admission_id; ?>">
 							  <input type="hidden" name="newstu" class="form-control" value="<?php echo $newstu; ?>">
 							  <input type="hidden" name="morestu" class="form-control"  value="<?php echo $prow->admission_id; ?>,<?php echo $newstu; ?>">
-
+							  
 								<input type="hidden" name="gid" class="form-control"  value="<?php echo $prow->id; ?>">
 						       <fieldset>
                               <div class="form-group">
@@ -368,11 +368,11 @@
                                  <div class="col-sm-4">
 								 <?php foreach($stuname as $sname){ }?>
                                     <input type="text" name="stu_name" readonly class="form-control" value="<?php echo $prow->stuname; ?>,<?php echo $sname->name; ?>">
-
+								 
                                  </div>
                               </div>
                            </fieldset>
-
+						   
 							   <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Occupation</label>
@@ -408,24 +408,24 @@
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" value="<?php echo $prow->mobile; ?>" name="gpmobile" class="form-control">
                                  </div>
-
-
+								 
+                                 
                               </div>
                            </fieldset>
                            <fieldset>
                               <div class="form-group">
-
+							  
 							  <label class="col-sm-2 control-label">Secondary Mobile</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Mobile Number" value="<?php echo $prow->sec_mobile; ?>" name="gsmobile" class="form-control">
                                  </div>
-
-
+								
+								 
 								 <label class="col-sm-2 control-label">Home Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Home Phone" value="<?php echo $prow->home_phone; ?>" name="ghome_phone" class="form-control">
                                  </div>
-
+								 
                               </div>
                            </fieldset>
                            <fieldset>
@@ -434,12 +434,12 @@
                                  <div class="col-sm-4">
                                     <textarea name="goffice_address" MaxLength="150" placeholder="MaxCharacters 150" class="form-control" rows="4" cols="80"><?php echo $prow->office_address; ?></textarea>
                                  </div>
-
+								 
                                   <label class="col-sm-2 control-label">Office Phone</label>
                                  <div class="col-sm-4">
                                     <input type="text" placeholder="Office Phone" value="<?php echo $prow->office_phone; ?>" name="goffice_phone" class="form-control">
                                  </div>
-
+                                 
                               </div>
                            </fieldset>
 						    <fieldset>
@@ -450,15 +450,15 @@
                                        <option value="Guardian">Guardian</option>
 									</select>
                                  </div>
-
+								 
                                  <label class="col-sm-2 control-label">Guardian Pic</label>
                                     <div class="col-sm-4">
                                        <input type="file" name="guardian_pic" id="gpic" class="form-control" onchange="loadFile2(event)" accept="image/*" >
                                     </div>
                               </div>
-
+							  
                            </fieldset>
-
+						   
 						   <fieldset>
                               <div class="form-group">
 							   <label class="col-sm-2 control-label">Status</label>
@@ -468,26 +468,26 @@
                                        <option value="Deactive">DeActive</option>
                                     </select>
 									<script language="JavaScript">document.parentform.gstatus.value="<?php echo $prow->status; ?>";</script>
-
+									
                                  </div>
 								 <label class="col-sm-2 control-label">Login</label>
                                  <div class="col-sm-4">
                                    <select name="glogin" class="selectpicker form-control">
                                        <option value="Yes">Yes</option>
 									   <option value="No">No</option>
-
+                                    
                                     </select>
-				 <script language="JavaScript">document.parentform.glogin.value="<?php echo $prow->primary_flag; ?>";</script>
+				 <script language="JavaScript">document.parentform.glogin.value="<?php echo $prow->primary_flag; ?>";</script> 
                                  </div>
 
-
+							
 								 </div>
                            </fieldset>
 						   <fieldset>
                               <div class="form-group">
 							<label class="col-sm-2 control-label">Old Picture</label>
 							 <div class="col-sm-4">
-
+							 
 							 <img src="<?php echo base_url(); ?>assets/parents/<?php echo $prow->user_pic; ?>" class="img-circle" style="width:110px;">
 							 <input type="hidden" name="old_guardian_pic" class="form-control"  value="<?php echo $prow->user_pic; ?>">
 								 <img  id="output2" class="img-circle" style="width:110px;">
@@ -502,13 +502,13 @@
 					  </div>
 					  </div>
                     </fieldset>
-						<?php } //else{ echo "No Details";}
+						<?php } //else{ echo "No Details";} 
 						}?>
 				     </div>
                      </div>
 					 </form>
                   </div>
-
+				 
          </div>
       </div>
    </div>
@@ -519,13 +519,13 @@
      var output = document.getElementById('output');
      output.src = URL.createObjectURL(event.target.files[0]);
     };
-
+   
     var loadFile1 = function(event)
      {
      var output1 = document.getElementById('output1');
      output1.src = URL.createObjectURL(event.target.files[0]);
    };
-
+   
    var loadFile2 = function(event)
     {
      var output2 = document.getElementById('output2');
@@ -541,7 +541,7 @@
    data:'email='+val,
    success:function(test)
    {
-   	if(test=="Email Id already Exist")
+   	if(test=="Email Id already Exit")
    	{
 	   $("#msg").html(test);
 	   $("#save").hide();
@@ -553,8 +553,8 @@
    }
    });
    }
-
-
+   
+   
    function checkcellfun(val)
    {
       $.ajax({
@@ -574,9 +574,11 @@
    		$("#msg1").html('<span style="color:red;">Mobile Number Not Available</span>');
         $("#save1").hide();
    	}
-
+   
    }
    });
    }
-
+   
 </script>
+
+

@@ -183,7 +183,7 @@
                                 <a href="#">
 								 <img class="avatar border-gray" id="output23" src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $rows->profile_pic; ?>" alt="..."/>
                                </a>
-							   <h4 class="title"><?php echo $rows->name; ?></h4>
+							   <h4 class="title" style="line-height:100px;"><?php echo $rows->name; ?></h4>
                            </div>
                        </div>
                    </div>
@@ -221,50 +221,6 @@ function validates()
 </script>
 <script type="text/javascript">
 
-$(document).ready(function () {
-
- $('#parentform').validate({ // initialize the plugin
-     rules: {
-         admission_no:{required:true, number: true },
-         //father_name:{required:true },
-        // mother_name:{required:true },
-         //guardn_name:{required:true },
-         email:{required:true,email:true},
-         occupation:{required:true },
-         income:{required:true },
-         address:{required:true},
-        // email1:{required:true,email1:true},
-         home_phone:{required:true },
-         office_phone:{required:true },
-         mobile:{required:true },
-         mobile1:{required:true },
-         //father_pic:{required:true },
-        // mother_pic:{required:true },
-		// guardn_pic:{required:true }
-     },
-     messages: {
-           admission_no: "Enter Admission No",
-           //father_name: "Enter Father Name",
-          // mother_name: "Enter Mother Name",
-          // guardn_name: "Enter Guardian Name",
-           occupation: "Enter Occupation",
-           income: "Enter Income",
-           address: "Enter Address",
-		   email: "Enter Primary Email Address",
-             remote: "Email already in use!",
-           //email1: "Enter Secondary Email Address",
-		     //  remote: "Email already in use!",
-           home_phone: "Enter the Home Phone",
-           office_phone:"Enter the Office Phone",
-           community_class:"Enter the Community Class",
-           mobile:"Enter The Primary Mobile Number",
-           mobile1:"Enter The Secondary Mobile Number",
-          // father_pic:"Enter the Father Picture",
-		  //mother_pic:"Enter the Mother Picture",
-		  //guardn_pic:"Enter the Guardian Picture"
-         }
- });
-}); 
 
 
     $(function () {

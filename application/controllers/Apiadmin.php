@@ -160,7 +160,8 @@ class Apiadmin extends CI_Controller {
 					echo json_encode($res);
 					return;
 				}
-				  $student_id=$this->input->post('student_id');
+				   $student_id=$this->input->post('student_id');
+				  
 				$data['result']=$this->apiadminmodel->get_student_details($student_id);
 				$response = $data['result'];
 				echo json_encode($response);
@@ -484,10 +485,12 @@ class Apiadmin extends CI_Controller {
 							echo json_encode($res);
 							return;
 						}
-					 	 $admission_id=$this->input->post('admission_id');
+					 	  $admission_id=$this->input->post('admission_id');
 					 	
 						$data['result']=$this->apiadminmodel->get_parent_details($admission_id);
 						$response = $data['result'];
+				// 		echo "<pre>";
+				// 		print_r($response);
 						echo json_encode($response);
 					}
 
@@ -513,7 +516,7 @@ class Apiadmin extends CI_Controller {
 								echo json_encode($res);
 								return;
 							}
-							$parent_id=$this->input->post('parent_id');
+						 	$parent_id=$this->input->post('parent_id');
 							$data['result']=$this->apiadminmodel->get_parent_student_list($parent_id);
 							$response = $data['result'];
 							echo json_encode($response);

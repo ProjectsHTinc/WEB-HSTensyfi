@@ -105,7 +105,7 @@ Class Adminattendancemodel extends CI_Model
       function get_total_working_days($first,$last,$class_master_id){
         $acd_year=$this->get_cur_year();
         $year_id= $acd_year['cur_year'];
-
+        
        $total_days_query = "SELECT * FROM edu_attendence WHERE date(created_at) >= '$first' AND date(created_at) <= '$last' AND  ac_year='$year_id' AND class_id='$class_master_id'";
        $total_days_res = $this->db->query($total_days_query);
        $total_days_result= $total_days_res->result();

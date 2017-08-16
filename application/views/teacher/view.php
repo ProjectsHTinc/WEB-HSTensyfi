@@ -45,7 +45,7 @@
                            </form>
                            <table id="bootstrap-table" class="table">
                               <thead>
-                                 <th data-field="id" class="text-left">S.No</th>
+                                 <th data-field="id" class="text-left" data-sortable="true">S.No</th>
                                  <th data-field="name" class="text-left" data-sortable="true">Name</th>
                                  <th data-field="email" class="text-left" data-sortable="true">Email</th>
                                  <th data-field="mobile" class="text-left" data-sortable="true">Mobile</th>
@@ -298,7 +298,7 @@
                     showColumns: true,
                     pagination: true,
                     searchAlign: 'left',
-                    pageSize: 8,
+                    pageSize: 10,
                     clickToSelect: false,
                     pageList: [8,10,25,50,100],
 
