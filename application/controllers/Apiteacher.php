@@ -127,7 +127,79 @@ class Apiteacher extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function disp_Homework()
+// Reload Start
+	public function reloadHomework()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Homework View";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$class_id= '';
+		$teacher_id='';
+		$hw_type= '';
+		
+		
+		$teacher_id = $this->input->post("teacher_id");
+	
+
+		$data['result']=$this->apiteachermodel->reloadHomework($teacher_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+
+    	public function reloadExam()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Homework View";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$class_id= '';
+		$teacher_id='';
+		$hw_type= '';
+		
+		
+		$teacher_id = $this->input->post("teacher_id");
+	
+
+		$data['result']=$this->apiteachermodel->reloadExam($teacher_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+
+
+// REload end
+
+    	public function disp_Homework()
 	{
 		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 

@@ -194,6 +194,30 @@ class Apiteachermodel extends CI_Model {
 
 			return $response;		
 	}
+	
+	
+		public function reloadHomework($teacher_id)
+	{
+			$year_id = $this->getYear();
+			
+			$hw_query = "SELECT A.hw_id, A.hw_type, A.title, A.test_date, A.due_date,A.teacher_id ,A.class_id, A.hw_details, A.mark_status, A.subject_id,B.subject_name, D.class_name, E.sec_name FROM 
+                            `edu_homework` A, `edu_subject` B, `edu_classmaster` C, `edu_class` D, `edu_sections` E WHERE 
+                            A.subject_id = B.subject_id AND A.year_id ='$year_id' AND 
+                            A.subject_id IN (SELECT DISTINCT subject_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id') AND A.class_id IN (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id') AND 
+                            A.class_id = C. class_sec_id AND C.class = D.class_id AND
+                            C.section = E.sec_id AND A.status = 'Active' AND A.teacher_id='$teacher_id'";
+			$hw_res = $this->db->query($hw_query);
+			$hw_result= $hw_res->result();
+			$hw_count = $hw_res->num_rows();
+			
+			 if($hw_res->num_rows()==0){
+				 $response = array("status" => "error", "msg" => "Homework Not Found");
+			}else{
+				$response = array("status" => "success", "msg" => "View Homework Details", "count"=>$hw_count, "homeworkDetails"=>$hw_result);
+			} 
+
+			return $response;		
+	}
 //#################### Homework Details End ####################//
 
 
@@ -259,6 +283,70 @@ class Apiteachermodel extends CI_Model {
 
 			return $response;		
 	}
+	
+	
+	
+		public function reloadExam($teacher_id)
+	{
+			$year_id = $this->getYear();
+			
+	      $exam_query = "SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
+						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
+						FROM edu_examination ex
+						RIGHT JOIN edu_exam_details ed on ex.exam_id = ed.exam_id and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
+						LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id
+						INNER JOIN edu_classmaster AS cm ON ed.classmaster_id = cm.class_sec_id
+						INNER JOIN edu_class AS c ON cm.class=c.class_id 
+						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
+						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
+						GROUP by ed.classmaster_id, ed.exam_id
+						
+						UNION ALL
+						
+						SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
+						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
+						FROM edu_examination ex
+						LEFT JOIN edu_exam_details ed on ed.exam_id = ex.exam_id and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
+						LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id 
+						INNER JOIN edu_classmaster AS cm ON ed.classmaster_id = cm.class_sec_id
+						INNER JOIN edu_class AS c ON cm.class=c.class_id 
+						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
+						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ex.exam_id NOT IN (SELECT DISTINCT exam_id FROM edu_exam_details where classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')) GROUP by ed.classmaster_id,ed.exam_id";
+					
+						$exam_res = $this->db->query($exam_query);
+	
+						 if($exam_res->num_rows()==0){
+							 $exam_result = array("status" => "error", "msg" => "Exams not found");
+						
+						}else{
+							$exam_result= $exam_res->result();
+						} 
+						
+						$examdetail_query = "SELECT A.exam_id,A.exam_name,C.subject_name,B.exam_date, B.times,B.classmaster_id, E.class_name, F.sec_name FROM 
+							`edu_examination` A, `edu_exam_details` B, `edu_subject` C, `edu_classmaster` D, `edu_class` E, `edu_sections` F WHERE 
+							A.`exam_id` = B. exam_id AND B.subject_id = C.subject_id AND 
+							B.classmaster_id=D.class_sec_id AND D.class = E.class_id AND 
+							D.section = F.sec_id AND B.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')";
+							$examdetail_res = $this->db->query($examdetail_query);
+	
+						 if($examdetail_res->num_rows()==0){
+							 $examdetail_result = array("status" => "error", "msg" => "Exams not found");
+						
+						}else{
+							$examdetail_result= $examdetail_res->result();
+							$response = array("status" => "success","msg" => "Examsfound","Exams"=>$exam_result,"examDetails"=>$examdetail_result);
+						
+						}  
+						
+
+			return $response;		
+	}
+	
+	
+	
+	
 //#################### Exams for Teachers End ####################//
 
 
