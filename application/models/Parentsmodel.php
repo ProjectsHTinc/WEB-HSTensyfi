@@ -546,14 +546,16 @@ Class Parentsmodel extends CI_Model
 	   function update_exiting_parents_details($morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id)
 	   {
 		   //echo $oldstu; echo'<br>'; echo $newstu; echo'<br>';echo $morestu;  
+		    $newstu;
 	       $digits = 6;
 		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
 		   
-		   $sql="SELECT parnt_guardn_id FROM edu_admission WHERE admission_id IN($oldstu)";
+		     $sql="SELECT parnt_guardn_id FROM edu_admission WHERE admission_id IN ($oldstu)";
+		
 		   $getid=$this->db->query($sql);  
 		   $getid1=$getid->result();
 		   foreach($getid1 as $getid2){} $insertid=$getid2->parnt_guardn_id;
-		    //echo $insertid; exit;
+		    // $insertid; exit;
 		   //Father Details
 		   if(!empty($fname))
 		    { 
@@ -616,10 +618,14 @@ Class Parentsmodel extends CI_Model
 		   {
 			    if(empty($newstu)){
 				$admission_id=$oldstu;
-			    }else{ $admission_id=$morestu; }
+			    }else{ $admission_id=$morestu;
+			    
+			          $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$newstu'";
+		              $gsresultset=$this->db->query($parnt_guardnid);
+			    }
 			
-			  $mquery="UPDATE edu_parents SET admission_id='$admission_id',name='$mname',occupation='$moccupation',income='$mincome',home_address='$mhaddress',email='$mpemail',sec_email='$msemail',mobile='$mpmobile',sec_mobile='$msmobile',home_phone='$mhome_phone',office_address='$moffice_address',office_phone='$moffice_phone',relationship='$mrelationship',user_pic='$userFileName1',status='$mstatus',primary_flag='$mlogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$mid'";
-			  $mresultset=$this->db->query($mquery);
+			   $mquery="UPDATE edu_parents SET admission_id='$admission_id',name='$mname',occupation='$moccupation',income='$mincome',home_address='$mhaddress',email='$mpemail',sec_email='$msemail',mobile='$mpmobile',sec_mobile='$msmobile',home_phone='$mhome_phone',office_address='$moffice_address',office_phone='$moffice_phone',relationship='$mrelationship',user_pic='$userFileName1',status='$mstatus',primary_flag='$mlogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$mid'";
+		      $mresultset=$this->db->query($mquery);
               $motherid=$mid+600000;
 				//echo $motherid; 
 			  if($mlogin=="Yes")
@@ -673,7 +679,11 @@ Class Parentsmodel extends CI_Model
 		   {
 			   if(empty($newstu)){
 				$admission_id=$oldstu;
-			    }else{ $admission_id=$morestu; }
+			    }else{ $admission_id=$morestu;
+			    
+			         $parnt_guardnid="UPDATE edu_admission SET parents_status='1',parnt_guardn_id='$insertid' WHERE admission_id='$newstu'";
+		          $gsresultset=$this->db->query($parnt_guardnid);
+			    }
 				
 			  $mquery="UPDATE edu_parents SET admission_id='$admission_id',name='$gname',occupation='$goccupation',income='$gincome',home_address='$ghaddress',email='$gpemail',sec_email='$gsemail',mobile='$gpmobile',sec_mobile='$gsmobile',home_phone='$ghome_phone',office_address='$goffice_address',office_phone='$goffice_phone',relationship='$grelationship',user_pic='$userFileName2',status='$gstatus',primary_flag='$glogin',updated_by='$user_id',updated_at='NOW()' WHERE admission_id IN($oldstu) AND id='$gid'";
 			  $gresultset=$this->db->query($mquery);
@@ -764,7 +774,8 @@ Class Parentsmodel extends CI_Model
          $res1=$this->db->query($query);
 		 $result=$res1->result();
 		 foreach($result as $aid){} $sid=$aid->admission_id;
-		 $query1="SELECT p.*,a.name AS stuname FROM edu_parents AS p,edu_admission AS a WHERE p.admission_id='$sid' AND p.admission_id=a.admission_id";
+		  $query1="SELECT p.*,a.name AS stuname FROM edu_parents AS p,edu_admission AS a WHERE p.admission_id='$sid' AND p.admission_id=a.admission_id";
+		 
          $res2=$this->db->query($query1);
 		 $result1=$res2->result();
 		 return $result1;

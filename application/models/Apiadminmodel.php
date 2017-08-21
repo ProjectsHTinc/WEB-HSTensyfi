@@ -859,7 +859,7 @@ LEFT JOIN edu_terms AS et ON  efm.term_id=et.term_id WHERE efm.class_master_id='
 
 
           function get_all_circular_view($user_id){
-          $query="SELECT ecm.id,ecm.circular_title,ecm.circular_type,ecm.circular_description,ecm.status,ecm.created_at as circular_date FROM edu_circular_master  AS ecm ORDER BY ecm.id DESC";
+          $query="SELECT ecm.id,ecm.circular_title,ecm.circular_description,ec.circular_type,ecm.status,ecm.created_at as circular_date FROM edu_circular_master AS ecm,edu_circular as ec GROUP by id ORDER BY ecm.id DESC";
             $result_query=$this->db->query($query);
             if($result_query->num_rows()==0){
                 $data=array("status"=>"error","msg"=>"nodata");

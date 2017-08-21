@@ -51,7 +51,7 @@ Class Communicationmodel extends CI_Model
 	  
 	   function edit_leave($leave_id)
 	   {
-		 $que="SELECT l.*,u.user_id,u.user_type,u.user_master_id,t.name,t.teacher_id,t.phone FROM edu_user_leave AS l,edu_teachers AS t,edu_users AS u WHERE l.leave_id='$leave_id' AND u.user_type=l.user_type AND u.user_id=l.user_id  AND t.teacher_id=u.user_master_id";
+		 $que="SELECT l.*,u.user_id,u.user_type,u.user_master_id,t.name,t.teacher_id,t.phone,em.leave_title FROM edu_user_leave AS l,edu_teachers AS t,edu_users AS u,edu_user_leave_master as em WHERE l.leave_id='$leave_id' AND u.user_type=l.user_type AND u.user_id=l.user_id  AND t.teacher_id=u.user_master_id AND l.leave_master_id=em.id";
 		 $resultset1=$this->db->query($que);
 		 $row=$resultset1->result();
 		 return $row;

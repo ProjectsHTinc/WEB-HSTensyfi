@@ -187,10 +187,10 @@ Class Studentmodel extends CI_Model
 	   function get_student_user($user_id)
 	   {
 		$year_id=$this->getYear();
-       $get_enroll_id="SELECT ed.name,ed.student_id,ea.admisn_year,ea.admisn_no,ee.enroll_id FROM edu_users AS ed LEFT JOIN edu_admission AS ea ON ed.student_id=ea.admission_id
-LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_id=$user_id AND ea.admisn_year='$year_id'";
+         $get_enroll_id="SELECT ed.name,ed.student_id,ea.admisn_year,ea.admisn_no,ee.enroll_id FROM edu_users AS ed LEFT JOIN edu_admission AS ea ON ed.student_id=ea.admission_id
+LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_id=$user_id";
         $results=$this->db->query($get_enroll_id);
-        foreach($results->result() as $rows){}  $enroll_id=$rows->enroll_id;
+        foreach($results->result() as $rows){}   $enroll_id=$rows->enroll_id;
       $query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0 THEN 'FORENOON' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id' AND  a_status IN ('A', 'L')";
        $resultset1=$this->db->query($query);
 	 return $resultset1->result();
@@ -199,8 +199,8 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
      function get_class_id_user(){
 		 $year_id=$this->getYear();
         $user_id=$this->session->userdata('user_id');
-        $get_enroll_id="SELECT ed.name,ed.student_id,ea.admisn_year,ea.admisn_no,ee.enroll_id,ee.class_id,ee.admit_year FROM edu_users AS ed LEFT JOIN edu_admission AS ea ON ed.student_id=ea.admission_id
-       LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_id='$user_id' AND ea.admisn_year='$year_id' AND ee.admit_year=ea.admisn_year";
+         $get_enroll_id="SELECT ed.name,ed.student_id,ea.admisn_year,ea.admisn_no,ee.enroll_id,ee.class_id,ee.admit_year FROM edu_users AS ed LEFT JOIN edu_admission AS ea ON ed.student_id=ea.admission_id
+       LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_id='$user_id'";
 
         $results=$this->db->query($get_enroll_id);
         foreach($results->result() as $rows){}
@@ -208,7 +208,8 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
      }
 
      function get_timetable(){
-       $class_id=$this->get_class_id_user();
+        $class_id=$this->get_class_id_user();
+     
        $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id WHERE tt.class_id='$class_id' ORDER BY tt.table_id ASC";
       $result=$this->db->query($query);
       $time=$result->result();

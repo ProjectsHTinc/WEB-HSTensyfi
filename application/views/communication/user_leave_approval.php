@@ -16,7 +16,9 @@
                   </div>
                   <div class="content">
                      <form method="post" action="<?php echo base_url(); ?>communication/update_status" class="form-horizontal" enctype="multipart/form-data" id="myformsection" name="myformsection">
-                        <?php foreach($res as $row){  
+                        <?php 
+                        //print_r($res);
+                        foreach($res as $row){ 
 						 $id=$row->leave_id;
 						$date1=date_create($row->from_leave_date);
 						$leave=$row->type_leave;
@@ -27,18 +29,18 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Type of Leave</label>
                               <div class="col-sm-4">
-							   <select class="form-control" readonly name="leaves_type" >
-							  <?php foreach($leaves as $res1){ ?>
-									<option <?php echo $res1->leave_title; ?>><?php echo $res1->leave_title; ?></option>
-									<?php } ?>
-                           </select>
+							 
+							
+                             <input type="text" name="leaves_type" id="leaves_type" readonly value="<?php echo  $row->leave_title; ?>" class="form-control">
+                           
+                            
 							
 							  </div>
 							 
                               <label class="col-sm-2 control-label">From Leave Date</label>
                                 <div class="col-sm-4">
                           <input type="text" name="leave_date" readonly value="<?php $date1=date_create($row->from_leave_date);
-                                                 echo date_format($date1,"d-m-Y"); ?>" class="form-control">
+                                                 echo date_format($date1,"d-m-Y"); ?>" class="form-control">;
 						 <input type="hidden" name="leave_id" value="<?php echo $id;?>" class="form-control "  >
 						 <input type="hidden" name="cell" value="<?php echo $cell;?>" class="form-control "  >
                               </div>

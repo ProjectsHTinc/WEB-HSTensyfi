@@ -24,27 +24,8 @@
                         <h4 class="title" style="padding-bottom: 20px;">List of Student Registration</h4>
                         <div class="fresh-datatables">
 						<form method="post" action="<?php echo base_url(); ?>enrollment/get_sorting_details" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
-										 <div class="col-sm-2">
-                                            <select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
+										   
 											
-                                       <?php  foreach ($sorting as $rows)
-								          { ?>
-									 <option value="<?php echo $rows->sex; ?>"><?php echo $rows->sex;?>
-                                    </option>
-										<?php } ?>
-                                            </select>
-                                          </div>    
-											 <div class="col-sm-2">  
-											   <select name="cls" style="margin-top:30px;" data-title="Select Class" class="selectpicker">
-											
-                                       <?php  foreach ($sortclass as $rows1)
-								          { ?>
-									 <option value="<?php echo $rows1->class_id; ?>"><?php echo $rows1->class_name;?> - <?php echo $rows1->sec_name;?>
-                                    </option>
-										<?php } ?>
-                                            </select>
-											
-                                        </div>
 										 <div class="col-sm-4">
                                             <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
 											<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
