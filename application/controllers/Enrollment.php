@@ -202,9 +202,12 @@ class Enrollment extends CI_Controller {
 			 $quota_id=$this->input->post('quota_id');
 			 $groups_id=$this->input->post('groups_id');
 			 $act_id=$this->input->post('activity_id');
+			 if(empty($act_id)){
+				$activity_id='0'; 
+			 }else{
 			 $activity_id=implode(',',$act_id);
-			 
-			 
+			 }
+
 			 //$section=$this->input->post('section');
 			 $status=$this->input->post('status');
 			 $datas=$this->enrollmentmodel->save_enrollment($admit_year,$formatted_date,$name,$class,$status,$enroll_id,$admisn_no,$quota_id,$groups_id,$activity_id,$admission_id);

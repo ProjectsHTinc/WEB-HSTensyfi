@@ -243,7 +243,7 @@ $(document).ready(function () {
          section:{required:true },
 		 quota_id:{required:true },
 		 groups_id:{required:true },
-		 "activity_id[]":{required:true },
+		 //"activity_id[]":{required:true },
 		  status:{required:true }
 
      },
@@ -257,7 +257,7 @@ $(document).ready(function () {
            section: "Select Section",
 		    quota_id: "Select Quota",
             groups_id: "Select House Groups ",
-           "activity_id[]": "Select Extra Curricular  ",
+           //"activity_id[]": "Select Extra Curricular  ",
            status: "Select Status"
 
          }
