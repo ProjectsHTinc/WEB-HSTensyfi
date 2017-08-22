@@ -52,7 +52,7 @@ Class Enrollmentmodel extends CI_Model
              $resultsql=$this->db->query($sql);
              $result1= $resultsql->result();
              $cont=$result1[0]->student;
-			// echo $cont;exit;
+			//echo $cont;exit;
              $user_id=$admisnid+400000;
                $getmail="select email from edu_admission WHERE admisn_no='".$admisn_no."'";
      	      $resultset12 = $this->db->query($getmail);
