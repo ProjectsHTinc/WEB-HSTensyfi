@@ -64,7 +64,6 @@ Class Teacherattendencemodel extends CI_Model
 
 
        function get_attendence_class($class_id,$student_id,$attendence_val,$a_taken,$student_count,$get_academic){
-
             $len=count($student_id);
             //print_r($attendence_val);exit;
            if(empty($attendence_val)){
@@ -74,6 +73,7 @@ Class Teacherattendencemodel extends CI_Model
            }
            $dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
           $cur_d=$dateTime->format("Y-m-d H:i:s");
+            $cur_da=$dateTime->format("Y-m-d");
           $a_pe=$dateTime->format("A");
 
           if($a_pe=="AM"){
@@ -81,6 +81,10 @@ Class Teacherattendencemodel extends CI_Model
           }else{
             $a_period="1";
           }
+          $check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_da' AND attendence_period='$a_period'";
+          $get_att=$this->db->query($check_attendence);
+
+          if($get_att->num_rows()==0){
             $add_att_cal="INSERT INTO edu_attendance_calendar(Date,class_master_id) VALUES('$cur_d',$class_id)";
             $att_add=$this->db->query($add_att_cal);
             $total_present=$student_count-$at_val;
@@ -107,10 +111,6 @@ Class Teacherattendencemodel extends CI_Model
                $add_att="INSERT INTO edu_attendance_history(attend_id,class_id,student_id,abs_date,a_status,attend_period,a_val,a_taken_by,created_at,status) VALUES('$last_id','$class_id','$stu_id','$cur_d','$a_status','$a_period','1','$a_taken',NOW(),'Active')";
                 $resultset=$this->db->query($add_att);
              }
-
-
-
-
           }
           $att_co="SELECT count(attend_id) as absentcount FROM edu_attendance_history WHERE attend_id='$atten_id' AND a_status='L'";
           $res_att=$this->db->query($att_co);
@@ -136,7 +136,11 @@ Class Teacherattendencemodel extends CI_Model
                return $data;
              }
              }
+          }else{
+            $data= array("status" =>"taken");
+            return $data;
 
+          }
 
 
        }
@@ -213,7 +217,7 @@ Class Teacherattendencemodel extends CI_Model
 
 
 
-        
+
       //Get Total Working Days For class
       function get_total_working_days($first,$last,$class_master_id){
         $acd_year=$this->get_cur_year();

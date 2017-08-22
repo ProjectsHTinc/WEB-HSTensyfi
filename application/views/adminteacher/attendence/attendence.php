@@ -137,7 +137,7 @@ function submitAttendence(){
            window.location = "<?php echo base_url(); ?>teacherattendence/view";
        });
                }else{
-                 sweetAlert("Oops...", "Something went wrong!", "error");
+                 sweetAlert("Oops...", response, "error");
                }
            }
        });

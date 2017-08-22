@@ -245,7 +245,7 @@ function generatefromtable() {
                showColumns: true,
                pagination: true,
                searchAlign: 'left',
-               pageSize: 8,
+               pageSize: 10,
                clickToSelect: false,
                pageList: [8,10,25,50,100],
 

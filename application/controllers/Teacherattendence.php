@@ -152,8 +152,10 @@ class Teacherattendence extends CI_Controller {
 			 //print_r($datas['status']);exit;
 			 if($datas['status']=="success"){
 				 echo "success";
+			 }else if($datas['status']=="taken"){
+				  echo "Already Taken";
 			 }else{
-				  echo "failure";
+				 echo "failure";
 			 }
 
 			 }
