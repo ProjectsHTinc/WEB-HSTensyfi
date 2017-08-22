@@ -192,6 +192,19 @@ Class Adminparentmodel extends CI_Model
  	     return $resultset1->result();
      }
 
+     // GET TOTAL WORKING DAYS for parent
+      function get_total_working_days_parent($user_id,$user_type){
+        $get_class_name="SELECT eu.user_id,ep.admission_id ,ee.class_id FROM edu_users AS eu LEFT JOIN edu_parents AS ep ON eu.user_master_id=ep.id
+left join edu_enrollment as ee on ee.admission_id=ep.admission_id WHERE eu.user_id='$user_id'";
+        $resultset=$this->db->query($get_class_name);
+        $row=$resultset->result();
+        foreach($row as $rows){}
+       $class_id=$rows->class_id;
+         $year_id=$this->getYear();
+        $query="SELECT at_id AS total FROM edu_attendence WHERE class_id='$class_id'  AND ac_year='$year_id'";
+        $resultset1=$this->db->query($query);
+         return $resultset1->result();
+      }
 
     //  GET Working days for individual student
     function get_total_working_days_student($enroll_id){
