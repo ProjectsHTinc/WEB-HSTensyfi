@@ -46,15 +46,25 @@ Class Smsmodel extends CI_Model
 
  }
 
- function send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date)
-{
+ function send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id)
+ {
+	 
 	$sql="SELECT teacher_id,name,phone FROM edu_teachers WHERE teacher_id='$sub_teacher'";
 	$resultset=$this->db->query($sql);
 	$res=$resultset->result();
 	foreach($res as $cell){}
 	$num=$cell->phone;
-
-	$textmessage='This is to inform you that as '.$tname.' is on leave, '.$sub_tname.' will be the substitute teacher to fill in for '.$leave_date.' day/s.';
+	
+	$sql1="SELECT cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='$cls_id' AND cm.class=c.class_id AND cm.section=s.sec_id ";
+	$resultset1=$this->db->query($sql1);
+	$res1=$resultset1->result();
+	foreach($res1 as $cls){}
+	$cname=$cls->class_name;
+	$sename=$cls->sec_name;
+	
+    $textmessage='This is to inform you that as '.$tname.' is on leave,'.$sub_tname.' will be the substitute teacher to fill in for '.$cname.'-'.$sename.',period ('.$period_id.') on '.$leave_date.' ';
+	
+//$textmessage='This is to inform you that as '.$tname.' is on leave, '.$sub_tname.' will be the substitute teacher to fill in for '.$leave_date.' class & section ('.$cname.'-'.$sename.') period ('.$period_id.') day/s.';
 
 	 $textmsg =urlencode($textmessage);
 

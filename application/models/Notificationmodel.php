@@ -9,6 +9,65 @@ Class Notificationmodel extends CI_Model
 
   }
 
+     function send_notification_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id)
+	 {
+        $sql="SELECT user_id,name,user_master_id,teacher_id FROM edu_users WHERE teacher_id='$sub_teacher' AND user_type=2 AND user_master_id='$sub_teacher'";
+		$resultset=$this->db->query($sql);
+		$res=$resultset->result();
+		foreach($res as $rows){}
+		$userid=$rows->user_id;
+		//echo $userid; exit;
+		$sql1="SELECT cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='$cls_id' AND cm.class=c.class_id AND cm.section=s.sec_id ";
+		$resultset1=$this->db->query($sql1);
+		$res1=$resultset1->result();
+		foreach($res1 as $cls){}
+		$cname=$cls->class_name;
+		$sename=$cls->sec_name;
+		
+		$textmessage='This is to inform you that as '.$tname.' is on leave,'.$sub_tname.' will be the substitute teacher to fill in for '.$cname.'-'.$sename.',period ('.$period_id.') on '.$leave_date.' ';
+		
+		$data=array(
+				  'message' => $textmessage,
+				  'ctitle'  => "SUBSTITUTION",
+				  'vibrate'	=> 1,
+				  'sound'   => 1
+				  );
+							  
+		$sql="SELECT * FROM edu_notification WHERE user_id='$userid'";
+		$tgsm=$this->db->query($sql);
+		$tres1=$tgsm->result();
+		foreach($tres1 as $trow)
+		{
+		   $gsmkey=array($trow->gcm_key);
+		   //print_r($gsmkey);exit;
+		  $apiKey = 'AAAADRDlvEI:APA91bFi-gSDCTCnCRv1kfRd8AmWu0jUkeBQ0UfILrUq1-asMkBSMlwamN6iGtEQs72no-g6Nw0lO5h4bpN0q7JCQkuTYsdPnM1yfilwxYcKerhsThCwt10cQUMKrBrQM2B3U3QaYbWQ';
+			// Set POST request body
+			$post = array(
+						'registration_ids'  => $gsmkey,
+						'data'              => $data,
+						 );
+			// Set CURL request headers
+			$headers = array(
+						'Authorization: key=' . $apiKey,
+						'Content-Type: application/json'
+							);
+			// Initialize curl handle
+			$ch = curl_init();
+			// Set URL to GCM push endpoint
+			curl_setopt($ch, CURLOPT_URL, 'https://gcm-http.googleapis.com/gcm/send');
+			// Set request method to POST
+			curl_setopt($ch, CURLOPT_POST, true);
+			// Set custom request headers
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			// Get the response back as string instead of printing it
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			// Set JSON post data
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+			// Actually send the request
+			$result = curl_exec($ch);
+			curl_close($ch);
+		}
+	 }
 
        function send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id)
          {
@@ -230,7 +289,7 @@ Class Notificationmodel extends CI_Model
 					{
 						$userid=$trows->user_id;
 
-					     $sql="SELECT * FROM edu_notification WHERE user_id='$userid'";
+					    $sql="SELECT * FROM edu_notification WHERE user_id='$userid'";
 						$tgsm=$this->db->query($sql);
 						$tres1=$tgsm->result();
 						foreach($tres1 as $trow)

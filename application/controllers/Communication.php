@@ -8,6 +8,8 @@ class Communication extends CI_Controller
       $this->load->model('communicationmodel');
       $this->load->model('subjectmodel');
 	  $this->load->model('smsmodel');
+	  $this->load->model('mailmodel');
+	  $this->load->model('notificationmodel');
       $this->load->model('class_manage');
       $this->load->helper('url');
       $this->load->library('session');
@@ -137,16 +139,20 @@ class Communication extends CI_Controller
 			 $sub_teacher=strstr($steacher,'-',true);
 			 $stname=strstr($steacher,'-');
 			 $sub_tname=str_replace("-","",$stname);
-			// echo $sub_teacher; echo $sub_tname;  exit;
+			 //echo $sub_teacher; echo $sub_tname;  exit;
 			
 			$period_id=$this->input->post('period_id');
 			$status=$this->input->post('status');
-			
-			
+
 			$datas['res']=$this->communicationmodel->add_substitution_list($user_id,$cls_id,$teacher_id,$leave_date,$sub_teacher,$period_id,$leave_id,$status);
 			//print_r($datas['res']);exit;
 			
-           $data=$this->smsmodel->send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date); 
+           $data=$this->smsmodel->send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id);
+         
+		   $data=$this->mailmodel->send_mail_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id);
+		  
+           $data=$this->notificationmodel->send_notification_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id);
+		  
 
 			if($datas['status']=="success"){
 				 $this->session->set_flashdata('msg','Added Successfully');

@@ -8,6 +8,43 @@ Class Mailmodel extends CI_Model
       parent::__construct();
 
   }
+  
+  function send_mail_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id)
+  {
+	 
+	$sql="SELECT teacher_id,name,email FROM edu_teachers WHERE teacher_id='$sub_teacher'";
+	$resultset=$this->db->query($sql);
+	$res=$resultset->result();
+	foreach($res as $cell){}
+	$email_id=$cell->email;
+	
+	$sql1="SELECT cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='$cls_id' AND cm.class=c.class_id AND cm.section=s.sec_id ";
+	$resultset1=$this->db->query($sql1);
+	$res1=$resultset1->result();
+	foreach($res1 as $cls){}
+	$cname=$cls->class_name;
+	$sename=$cls->sec_name;
+	
+	$textmessage='This is to inform you that as '.$tname.' is on leave,'.$sub_tname.' will be the substitute teacher to fill in for '.$cname.'-'.$sename.',period ('.$period_id.') on '.$leave_date.' ';
+	
+		 $to=$email_id;
+		 $subject="SUBSTITUTION";
+		 $cnotes=$textmessage;
+		 $htmlContent = '
+			 <html>
+			 <head><title></title>
+			 </head>
+			 <body>
+			<p style="margin-left:50px;">'.$cnotes.'</p>
+			 </body>
+			 </html>';
+	 $headers = "MIME-Version: 1.0" . "\r\n";
+	 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+	 // Additional headers
+	 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+	 $sent= mail($to,$subject,$htmlContent,$headers);
+
+  }
 
   function send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id)
   {

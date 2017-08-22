@@ -38,7 +38,7 @@ Class Enrollmentmodel extends CI_Model
 			  //echo $OTP; 
               $md5pwd=md5($OTP);
 		
-			  $admisn="select name,admission_id from edu_admission WHERE admisn_year='$year_id' AND admisn_no='".$admisn_no."'";
+			  $admisn="select name,admission_id from edu_admission WHERE admisn_no='".$admisn_no."'";
      	      $resultset = $this->db->query($admisn);
 		      foreach ($resultset->result() as $rows)
 		      {}
@@ -48,13 +48,13 @@ Class Enrollmentmodel extends CI_Model
             $resultset=$this->db->query($query);
 
             //Student User Creation
-             $sql="SELECT COUNT(admission_id) AS student FROM edu_admission WHERE admisn_year='$year_id'" ;
+             $sql="SELECT COUNT(admission_id) AS student FROM edu_admission " ;
              $resultsql=$this->db->query($sql);
              $result1= $resultsql->result();
              $cont=$result1[0]->student;
 			// echo $cont;exit;
              $user_id=$admisnid+400000;
-               $getmail="select email from edu_admission WHERE admisn_no='".$admisn_no."' AND admisn_year='$year_id'";
+               $getmail="select email from edu_admission WHERE admisn_no='".$admisn_no."'";
      	      $resultset12 = $this->db->query($getmail);
               
              foreach($resultset12->result() as $rows){}
@@ -109,9 +109,8 @@ Class Enrollmentmodel extends CI_Model
 
 	   function add_enrollment($admisn_no)
 	   {    
-     	   $year_id=$this->getYear();
-		   
-		    $query="SELECT admission_id,admisn_year,name,admisn_no FROM edu_admission WHERE admisn_no='$admisn_no' AND admisn_year='$year_id'";
+     	  
+		    $query="SELECT admission_id,admisn_year,name,admisn_no FROM edu_admission WHERE admisn_no='$admisn_no'";
 		    $res=$this->db->query($query);
             return $res->result();
 	   }
@@ -213,8 +212,8 @@ Class Enrollmentmodel extends CI_Model
 
 	    function getData($admisno)
 		{
-			$year_id=$this->getYear(); 
-		  $query = "select name,admission_id from edu_admission WHERE admisn_no='".$admisno."' AND admisn_year='$year_id'";
+			
+		  $query = "select name,admission_id from edu_admission WHERE admisn_no='".$admisno."'";
      	  $resultset = $this->db->query($query);
 		  foreach ($resultset->result() as $rows)
 		  {
