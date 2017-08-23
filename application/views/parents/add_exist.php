@@ -26,8 +26,10 @@
                                     </li>
 									<?php  $s=count($editres);
  									if($s==3){ }else{ foreach($editres as $prow){ $aid=$prow->admission_id;}
+									 //$aid=strstr($aid1,',',true); 
+
 									?> 
-									<!-- <li style="margin-left:560px;">
+									 <!-- <li style="margin-left:560px;">
                                      <a href="<?php echo base_url(); ?>parents/create_new_parents_details/<?php echo $newstu;?>/<?php echo $aid;?>" class="btn btn-info btn-fill">Add More Details </a>
                                     </li>-->
 									<?php } ?>
