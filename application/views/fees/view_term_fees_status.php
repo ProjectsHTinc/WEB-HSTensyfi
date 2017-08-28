@@ -92,7 +92,7 @@
                showColumns: true,
                pagination: true,
                searchAlign: 'left',
-               pageSize: 10,
+               pageSize:10,
                clickToSelect: false,
                pageList: [10,15,25,50,100],
 

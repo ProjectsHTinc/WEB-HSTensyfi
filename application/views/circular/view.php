@@ -182,9 +182,9 @@ $('#communcicationmenu').addClass('collapse in');
                 showColumns: true,
                 pagination: true,
                 searchAlign: 'left',
-                pageSize:10,
+                pageSize: 8,
                 clickToSelect: false,
-                pageList: [10,15,25,50,100],
+                pageList: [8,10,25,50,100],
 
                 formatShowingRows: function(pageFrom, pageTo, totalRows){
                     //do nothing here, we don't want to show the text "showing x of y from..."

@@ -45,6 +45,7 @@ Class Eventmodel extends CI_Model
        //GET ALL TERMS
 
         function getall_events(){
+            $acd_year=$this->get_cur_year();
              $year_id= $acd_year['cur_year'];
                $query="SELECT * FROM edu_events  WHERE year_id='$year_id' ORDER BY event_id DESC";
           //$query="SELECT * FROM edu_events ORDER BY event_id DESC";

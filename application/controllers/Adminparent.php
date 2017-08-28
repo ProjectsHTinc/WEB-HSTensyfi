@@ -41,11 +41,15 @@ class Adminparent extends CI_Controller {
 				$stu= count($datas['res']);
 				if($stu==1){
 					$datas['stud_details']=$this->dashboard->get_students($user_id);
-
+						echo "<pre>";
+						print_r($datas['stud_details']);
+						exit;
 
 				}else{
 					$datas['stud_details']=$this->dashboard->get_students($user_id);
-
+					echo "<pre>";
+					print_r($datas['stud_details']);
+					exit;
 				}
 	 		 }
 	 		 else{
@@ -164,7 +168,8 @@ class Adminparent extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$datas['total']=$this->adminparentmodel->get_total_working_days_student($enroll_id);
+	    	$datas['total']=$this->adminparentmodel->get_total_working_days_student($enroll_id);
+	    	
 			if($user_type==4){
 					$datas['res']=$this->adminparentmodel->get_stude_attendance($enroll_id);
 					$this->load->view('adminparent/parent_header');
@@ -597,7 +602,7 @@ class Adminparent extends CI_Controller {
 			$datas['res']=$this->adminparentmodel->get_special_leave_all($user_id,$user_type);
 			echo json_encode($datas['res']);
 		}
-
+		
 //-----------------------------Special Class-------------------------
 
     public function view_special_cls()
@@ -648,3 +653,7 @@ class Adminparent extends CI_Controller {
 				}
 		}
 	}
+
+
+
+

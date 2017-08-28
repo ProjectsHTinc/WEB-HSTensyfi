@@ -59,6 +59,7 @@ class Event extends CI_Controller {
         $user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 				$datas['result']=$this->eventmodel->getall_events();
+			
 				if($user_type==1){
        $this->load->view('header',$datas);
        $this->load->view('event/add',$datas);

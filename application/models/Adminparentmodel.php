@@ -71,7 +71,7 @@ Class Adminparentmodel extends CI_Model
 			$name=$row4->name;
 			$class_id=$row4->class_id;
 			}
-			$year_id=$this->getYear();
+			$year_id=$this->getYear(); 
 			//echo $year_id;exit;
 			 $query3="SELECT h.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_homework AS h,edu_classmaster AS cm,edu_class AS c,edu_sections AS se WHERE h.class_id='$class_id' AND h.status='Active'AND h.year_id='$year_id' AND h.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id ORDER BY h.hw_id DESC" ;
 			$result2=$this->db->query($query3);
@@ -82,7 +82,7 @@ Class Adminparentmodel extends CI_Model
 
 		 function get_special_leave_all($user_id,$user_type)
 		 {
-
+			
 			 $query="SELECT parent_id,user_type,user_master_id,user_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
 				$resultset=$this->db->query($query);
 				$row=$resultset->result();
@@ -97,7 +97,7 @@ Class Adminparentmodel extends CI_Model
 		function get_stu_id($enroll_id)
 		{
 			$year_id=$this->getYear();
-
+			
 			$query2="SELECT name,admisn_no,enroll_id,class_id FROM edu_enrollment WHERE admit_year='$year_id' AND enroll_id='$enroll_id' AND status='Active'";
 			$result1=$this->db->query($query2);
 			$row3=$result1->result();
@@ -140,8 +140,8 @@ Class Adminparentmodel extends CI_Model
 		}
 
         function getall_exam_details($exam_id)
-        {
-		    $year_id=$this->getYear();
+        {    
+		    $year_id=$this->getYear();	
 			$sql = "SELECT ed.exam_id,ex.exam_id,ex.exam_year,ex.exam_flag,ex.status FROM edu_exam_details AS ed,edu_examination AS ex WHERE ex.exam_year='$year_id' AND ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By ed.exam_id";
 			$resultset1 = $this->db->query($sql);
 			$res        = $resultset1->result();
@@ -170,7 +170,7 @@ Class Adminparentmodel extends CI_Model
      function view_exam_calender_details($exam_id,$cls_id)
 	 {
 		 $year_id=$this->getYear();
-
+		 
 		 $sql1="SELECT ed.*,en.exam_id,en.exam_year,en.exam_name,su.* FROM edu_exam_details AS ed,edu_examination AS en,edu_subject AS su WHERE en.exam_year='$year_id' AND ed.exam_id='$exam_id' AND ed.classmaster_id='$cls_id' AND ed.exam_id=en.exam_id AND ed.subject_id=su.subject_id ";
 			$resultset1=$this->db->query($sql1);
 			$row1=$resultset1->result();
@@ -191,8 +191,8 @@ Class Adminparentmodel extends CI_Model
        $resultset1=$this->db->query($query);
  	     return $resultset1->result();
      }
-
-     // GET TOTAL WORKING DAYS for parent
+     
+          // GET TOTAL WORKING DAYS for parent
       function get_total_working_days_parent($user_id,$user_type){
         $get_class_name="SELECT eu.user_id,ep.admission_id ,ee.class_id FROM edu_users AS eu LEFT JOIN edu_parents AS ep ON eu.user_master_id=ep.id
 left join edu_enrollment as ee on ee.admission_id=ep.admission_id WHERE eu.user_id='$user_id'";
@@ -205,11 +205,12 @@ left join edu_enrollment as ee on ee.admission_id=ep.admission_id WHERE eu.user_
         $resultset1=$this->db->query($query);
          return $resultset1->result();
       }
-
-    //  GET Working days for individual student
+     
+       //  GET Working days for individual student
     function get_total_working_days_student($enroll_id){
      $year_id=$this->getYear();
-     $get_class_name="SELECT class_id FROM edu_enrollment WHERE enroll_id='$enroll_id'  AND ac_year='$year_id'";
+      $get_class_name="SELECT class_id FROM edu_enrollment WHERE enroll_id='$enroll_id'  AND admit_year='$year_id'";
+    
      $resultset=$this->db->query($get_class_name);
      $row=$resultset->result();
      foreach($row as $rows){}
@@ -218,7 +219,6 @@ left join edu_enrollment as ee on ee.admission_id=ep.admission_id WHERE eu.user_
      $resultset1=$this->db->query($query);
      return $resultset1->result();
     }
-
 
 	 function get_fees_status_details($enroll_id)
 	 {      //echo $enroll_id;

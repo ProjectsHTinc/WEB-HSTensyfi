@@ -51,13 +51,15 @@
                                                            echo date_format($date,"d-m-Y");?></td>
                     									<td class="text-left"><?php $date=date_create($rows->due_date_to);
                                                            echo date_format($date,"d-m-Y");?></td>
-                    									<!-- <td class="text-left"><?php //echo $rows->notes;?></td>-->								 
-                    									 <td><?php 
+                    									<!-- <td class="text-left">php //echo $rows->notes;</td>-->								 
+                    									 <td> 
+                    									 <?php 
                     									  if($stu=='Active'){?>
                     									   <button class="btn btn-success btn-fill btn-wd">Active</button>
                     									 <?php  }else{?>
                     									  <button class="btn btn-danger btn-fill btn-wd">De-Active</button>
-                    									  <?php } ?></td>
+                    									  <?php } ?>
+                    									  </td>
 
                                     <td class="text-left">
                                         <a href="<?php echo base_url(); ?>feesstructure/edit_fees_master_status/<?php echo $rows->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
@@ -98,7 +100,7 @@
                showColumns: true,
                pagination: true,
                searchAlign: 'left',
-               pageSize:10,
+               pageSize: 10,
                clickToSelect: false,
                pageList: [10,15,25,50,100],
 
