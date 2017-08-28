@@ -67,8 +67,8 @@ Class Admissionmodel extends CI_Model
          return $res->result();
        }
 
-       function get_ad_id1($admisn_no){
-         $query="SELECT * FROM edu_admission WHERE admisn_no='$admisn_no'";
+       function get_ad_id1($admission_id){
+         $query="SELECT * FROM edu_admission WHERE admission_id='$admission_id'";
          $res=$this->db->query($query);
          return $res->result();
        }

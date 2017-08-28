@@ -29,7 +29,7 @@ Class Enrollmentmodel extends CI_Model
                  
         function ad_enrollment($admisnid,$admit_year,$formatted_date,$admisn_no,$name,$class,$quota_id,$groups_id,$activity_id,$status){
 			$year_id=$this->getYear();
-          $check_email="SELECT * FROM edu_enrollment WHERE admit_year='$admit_year' AND admit_year='$year_id' AND admisn_no='$admisn_no'";
+          $check_email="SELECT * FROM edu_enrollment WHERE admit_year='$admit_year' AND admit_year='$year_id' AND admission_id='$admisnid' or admisn_no='$admisn_no'";
           $result=$this->db->query($check_email);
           if($result->num_rows()==0){
 			  
@@ -54,7 +54,7 @@ Class Enrollmentmodel extends CI_Model
              $cont=$result1[0]->student;
 			//echo $cont;exit;
              $user_id=$admisnid+400000;
-               $getmail="select email from edu_admission WHERE admisn_no='".$admisn_no."'";
+               $getmail="select email from edu_admission WHERE admission_id='".$admisnid."'";
      	      $resultset12 = $this->db->query($getmail);
               
              foreach($resultset12->result() as $rows){}
@@ -95,7 +95,7 @@ Class Enrollmentmodel extends CI_Model
               $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,student_id,created_date,updated_date,status) VALUES ('$name','$user_id','$md5pwd','3','$admisnid','$admisnid',NOW(),NOW(),'$status')";
               $resultset=$this->db->query($stude_insert);
 
-      		 $query2="UPDATE edu_admission SET enrollment='1' WHERE admisn_no='$admisn_no'";
+      		 $query2="UPDATE edu_admission SET enrollment='1' WHERE admission_id='$admisnid'";
       		 $resultset=$this->db->query($query2);
 
             $data= array("status" => "success");
@@ -107,10 +107,10 @@ Class Enrollmentmodel extends CI_Model
 
        }
 
-	   function add_enrollment($admisn_no)
+	   function add_enrollment($admission_id)
 	   {    
      	  
-		    $query="SELECT admission_id,admisn_year,name,admisn_no FROM edu_admission WHERE admisn_no='$admisn_no'";
+		    $query="SELECT admission_id,admisn_year,name,admisn_no FROM edu_admission WHERE admission_id='$admission_id'";
 		    $res=$this->db->query($query);
             return $res->result();
 	   }
@@ -137,7 +137,7 @@ Class Enrollmentmodel extends CI_Model
 	   {
 		  $year_id=$this->getYear();
 		  
-         $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c,edu_admission AS a WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND e.admission_id=a.admission_id AND e.name=a.name AND e.admisn_no=a.admisn_no AND e.admit_year='$year_id' ORDER BY enroll_id DESC";
+         $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c,edu_admission AS a WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND e.admission_id=a.admission_id AND e.name=a.name AND  e.admit_year='$year_id' ORDER BY enroll_id DESC";
          $res=$this->db->query($query);
          return $res->result();
        }
@@ -148,7 +148,7 @@ Class Enrollmentmodel extends CI_Model
 	 {
 		 $year_id=$this->getYear();
 		  
-         $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_admission AS a,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND  e.admission_id=a.admission_id AND e.name=a.name AND e.admisn_no=a.admisn_no AND e.admit_year='$year_id' Group BY sex ";
+         $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_admission AS a,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND  e.admission_id=a.admission_id AND e.name=a.name AND  e.admit_year='$year_id' Group BY sex ";
          $res=$this->db->query($query);
          return $res->result();
        }
@@ -166,16 +166,16 @@ Class Enrollmentmodel extends CI_Model
 	   {
 		   $year_id=$this->getYear();
 		   
-		   $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c,edu_admission AS a WHERE e.class_id='$cls_mst_id' AND e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND e.admission_id=a.admission_id AND e.name=a.name AND e.admisn_no=a.admisn_no AND a.sex='$gender' AND e.admit_year='$year_id'  ORDER BY enroll_id DESC";
+		   $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_name,s.sec_id,s.sec_name,a.admission_id,a.admisn_no,a.sex,a.name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c,edu_admission AS a WHERE e.class_id='$cls_mst_id' AND e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id AND e.admission_id=a.admission_id AND e.name=a.name  AND a.sex='$gender' AND e.admit_year='$year_id'  ORDER BY enroll_id DESC";
            $res=$this->db->query($query);
            return $res->result();
 	   }
 	   //-------------------
 
-       function get_enrollmentid($admisn_no){
+       function get_enrollmentid($admission_id){
 		   $year_id=$this->getYear();
 		   
-         $query="SELECT * FROM edu_enrollment WHERE admisn_no='$admisn_no' AND admit_year='$year_id'";
+         $query="SELECT * FROM edu_enrollment WHERE admission_id='$admission_id' AND admit_year='$year_id'";
          $res=$this->db->query($query);
          return $res->result();
        }
@@ -183,10 +183,10 @@ Class Enrollmentmodel extends CI_Model
 //Update enrollment
 
         function save_enrollment($admit_year,$formatted_date,$name,$class,$status,$enroll_id,$admisn_no,$quota_id,$groups_id,$activity_id,$admission_id){
-           $query="UPDATE edu_enrollment SET admit_year='$admit_year',admit_date='$formatted_date',name='$name',class_id='$class',house_id='$groups_id',extra_curicullar_id='$activity_id',quota_id='$quota_id',status='$status' WHERE enroll_id='$enroll_id' AND admisn_no='$admisn_no'";
+           $query="UPDATE edu_enrollment SET admit_year='$admit_year',admit_date='$formatted_date',name='$name',class_id='$class',house_id='$groups_id',extra_curicullar_id='$activity_id',quota_id='$quota_id',status='$status' WHERE enroll_id='$enroll_id' AND admission_id='$admission_id'";
            $res=$this->db->query($query);
 
-		   $query1="UPDATE edu_admission SET name='$name' WHERE admisn_no='$admisn_no'";
+		   $query1="UPDATE edu_admission SET name='$name' WHERE admission_id='$admission_id'";
            $res1=$this->db->query($query1);
 
 		   $query2="UPDATE edu_users SET name='$name' WHERE student_id='$admission_id'";

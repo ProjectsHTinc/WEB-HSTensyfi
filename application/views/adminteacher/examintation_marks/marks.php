@@ -21,6 +21,7 @@
 								 $exam_id=$this->input->get('var2');
                                  $sub_id=$this->input->get('var3');
 								 //echo $cls_masid;echo $exam_id;echo $sub_id;
+								
 								 //print_r($cla_tea_id);
 								    $cid=$cla_tea_id[0]->class_teacher;
 									//echo $cid; //exit;
@@ -37,8 +38,8 @@
                             </div>
                             <div class="content table-responsive table-full-width">
 					<form method="post" action="<?php echo base_url(); ?>examinationresult/marks_details" class="form-horizontal" enctype="multipart/form-data" id="markform">
-                                <table class="table table-hover table-striped">
-								<?php 
+                                <table class="table table-hover table-striped" id="bootstrap-table" >
+								<?php  echo '<input type="hidden" name="examid1" value="'.$exam_id.'"; />';
                                       if(!empty($res))
 									  {?>
                                     <thead>
@@ -51,7 +52,7 @@
 									 <?php  }else{
 										foreach($res as $row)
 										      { 
-											 foreach($result as $flag){} $eflag=$flag->exam_flag;$id=$flag->exam_id; }
+											 foreach($result as $flag){ } $eflag=$flag->exam_flag; $id=$flag->exam_id;} 
 											if($eflag==1){ 
 											?>
 											<input type="hidden" name="examid" value="<?php echo $id;?>" />
@@ -165,6 +166,46 @@
   $('#exam').addClass('active');
   $('#exam4').addClass('active');
   
+  	var $table = $('#bootstrap-table');
+         $().ready(function(){
+           jQuery('#markform').addClass('collapse in');
+             $table.bootstrapTable({
+                 toolbar: ".toolbar",
+                 clickToSelect: true,
+                 showRefresh: true,
+                 search: true,
+                 showToggle: true,
+                 showColumns: true,
+                 pagination: true,
+                 searchAlign: 'left',
+                 pageSize:10,
+                 clickToSelect: false,
+                 pageList: [10,25,50,100],
+   
+                 formatShowingRows: function(pageFrom, pageTo, totalRows){
+                     //do nothing here, we don't want to show the text "showing x of y from..."
+                 },
+                 formatRecordsPerPage: function(pageNumber){
+                     return pageNumber + " rows visible";
+                 },
+                 icons: {
+                     refresh: 'fa fa-refresh',
+                     toggle: 'fa fa-th-list',
+                     columns: 'fa fa-columns',
+                     detailOpen: 'fa fa-plus-circle',
+                     detailClose: 'fa fa-minus-circle'
+                 }
+             });
+             //activate the tooltips after the data table is initialized
+             $('[rel="tooltip"]').tooltip();
+   
+             $(window).resize(function () {
+                 $table.bootstrapTable('resetView');
+             });
+   
+   
+         
+  
   $(".inputBox").on("keyup keydown", function(e){
     var currentValue = String.fromCharCode(e.which);
     var finalValue = $(this).val() + currentValue;
@@ -188,5 +229,5 @@ $(".inputBox2").on("keyup keydown", function(e){
         e.preventDefault();
     }
 });
-
+});
   </script>

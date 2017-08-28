@@ -131,7 +131,7 @@ Class Homeworkmodel extends CI_Model
 	   }
 	  function get_stu_details($hw_id,$user_id,$user_type)
 	  { 
-		   $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,su.subject_id,su.subject_name,ed.enroll_id,ed.admission_id,ed.admit_year,ed.admisn_no,ed.name,ed.class_id,ed.status FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_enrollment AS ed WHERE ed.class_id=eh.class_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id And eh.hw_id='$hw_id' AND ed.status='Active'  ";
+		    $query="SELECT eh.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,su.subject_id,su.subject_name,ed.enroll_id,ed.admission_id,ed.admit_year,ed.admisn_no,ed.name,ed.class_id,ed.status,a.admission_id,a.admisn_no,a.name,a.sex FROM edu_homework as eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_enrollment AS ed,edu_admission AS a WHERE ed.class_id=eh.class_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND eh.subject_id=su.subject_id And eh.hw_id='$hw_id' AND ed.status='Active' AND ed.admission_id=a.admission_id AND ed.name=a.name ORDER BY a.sex DESC,ed.name ASC ";
 		  $result=$this->db->query($query);
           return $result->result();
 		  
@@ -170,7 +170,7 @@ Class Homeworkmodel extends CI_Model
 		  //foreach($row as $rows){}
 		  $teacher_id=$row[0]->user_master_id;
 			
-		   $query="SELECT eh.hw_id,eh.year_id,eh.class_id,eh.teacher_id,eh.	hw_type,eh.subject_id,su.subject_id,su.subject_name,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,em.mark_id,em.enroll_mas_id,em.hw_mas_id,em.marks,em.remarks,ed.enroll_id,ed.admission_id,ed.admit_year,ed.admisn_no,ed.name,ed.class_id,ed.status FROM edu_homework AS eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_class_marks AS em,edu_enrollment AS ed WHERE eh.hw_id='$hw_id' AND em.hw_mas_id='$hw_id' AND eh.teacher_id='$teacher_id' AND eh.subject_id=su.subject_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ed.enroll_id=em.enroll_mas_id";
+		    $query="SELECT eh.hw_id,eh.year_id,eh.class_id,eh.teacher_id,eh.	hw_type,eh.subject_id,su.subject_id,su.subject_name,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name,em.mark_id,em.enroll_mas_id,em.hw_mas_id,em.marks,em.remarks,ed.enroll_id,ed.admission_id,ed.admit_year,ed.admisn_no,ed.name,ed.class_id,ed.status,a.admission_id,a.admisn_no,a.name,a.sex FROM edu_homework AS eh,edu_classmaster AS cm,edu_subject AS su,edu_class AS c,edu_sections AS s,edu_class_marks AS em,edu_enrollment AS ed,edu_admission AS a WHERE eh.hw_id='$hw_id' AND em.hw_mas_id='$hw_id' AND eh.teacher_id='$teacher_id' AND eh.subject_id=su.subject_id AND eh.class_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id AND ed.enroll_id=em.enroll_mas_id AND ed.admission_id=a.admission_id AND ed.name=a.name ORDER BY a.sex DESC,ed.name ASC ";
 		 $result=$this->db->query($query); 
          return $result->result();		 
 	  }

@@ -258,8 +258,8 @@
    	mobile:{required:true },
    	subject:{required:true },
    	qualification:{required:true },
-   	groups_id:{required:true },
-   	'activity_id[]':{required:true},
+   	//groups_id:{required:true },
+   	//'activity_id[]':{required:true},
    	status:{required:true }
    },
    messages: {
@@ -280,8 +280,8 @@
    	qualification:"Enter the Qualification ",
 
    	mobile:"Enter the mobile Number",
-   	groups_id:"Select Groups Name",
-   	'activity_id[]':"Select Activity Name",
+   	//groups_id:"Select Groups Name",
+   	//'activity_id[]':"Select Activity Name",
    	status:"Select Status Name"
    }
    });

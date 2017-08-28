@@ -188,13 +188,13 @@ class Admission extends CI_Controller {
 				redirect('/');
 		 }
 		}
-		public function get_ad_id1($admisn_no){
+		public function get_ad_id1($admission_id){
 		 $datas=$this->session->userdata();
 		 $user_id=$this->session->userdata('user_id');
 
 		 $datas['result'] = $this->yearsmodel->getall_years();
 
-		 $datas['res']=$this->admissionmodel->get_ad_id1($admisn_no);
+		 $datas['res']=$this->admissionmodel->get_ad_id1($admission_id);
 		//	echo "<pre>";print_r(	$datas['res']);exit;
 		$user_type=$this->session->userdata('user_type');
 		if($user_type==1){

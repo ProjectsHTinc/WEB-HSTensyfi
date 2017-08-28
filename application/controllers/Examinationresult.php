@@ -143,7 +143,7 @@ class Examinationresult extends CI_Controller
         $datas['res']=$this->examinationresultmodel->getall_cls_sec_stu($user_id,$sub_id,$cls_masid,$exam_id,$user_type);
 		$datas['edate']=$this->examinationresultmodel->exam_date_check($user_id,$cls_masid,$exam_id,$user_type,$sub_id);
         $datas['mark']= $this->examinationresultmodel->getall_marks($user_id,$cls_masid,$exam_id,$sub_id,$user_type);
-        //echo'<pre>'; print_r($datas['mark'] );exit;
+        //echo'<pre>'; print_r($datas['result'] );exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/marks', $datas);
@@ -171,7 +171,7 @@ class Examinationresult extends CI_Controller
         $datas['smark']  = $this->examinationresultmodel->marks_status_details($cls_masid,$exam_id);
 		$datas['cls_exname']=$this->examinationresultmodel->clsname_examname($exam_id,$cls_masid);
        // print_r($datas['smark']);exit;
-	   //echo'<pre>'; print_r($datas['result'] );exit;
+	   //echo'<pre>'; print_r($datas['stu'] );exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/class_marks', $datas);
@@ -196,8 +196,8 @@ class Examinationresult extends CI_Controller
         $user_id   = $this->session->userdata('user_id');
         $user_type = $this->session->userdata('user_type');
         
-        $exam_id        = $this->input->post('examid');
-        $clsmastid      = $this->input->post('clsmastid');
+        $exam_id = $this->input->post('examid1');
+        $clsmastid = $this->input->post('clsmastid');
         $subid          = $this->input->post('subjectid');
         $sutid          = $this->input->post('sutid');
         $teaid          = $this->input->post('teaid');
@@ -205,7 +205,7 @@ class Examinationresult extends CI_Controller
         $external_marks = $this->input->post('external_marks');
         $total_marks = $this->input->post('total_marks');
 		$eflag=$this->input->post('eflag');
-		//echo $eflag;exit;
+		//echo $exam_id; echo $subid; exit;
 		//print_r($total_marks);exit;
         $datas = $this->examinationresultmodel->exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks, $external_marks,$user_id,$eflag,$total_marks);
         //print_r($datas);exit;

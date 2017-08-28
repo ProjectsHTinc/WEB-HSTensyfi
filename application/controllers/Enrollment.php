@@ -63,7 +63,7 @@ class Enrollment extends CI_Controller {
 	 		 }
 	 	}
 
-		public function add_enrollment($admisn_no)
+		public function add_enrollment($admission_id)
 		{
 	 		$datas=$this->session->userdata();
 	 		$user_id=$this->session->userdata('user_id');
@@ -74,7 +74,7 @@ class Enrollment extends CI_Controller {
 			$datas['sec'] = $this->sectionmodel->getsection();
 			$datas['getall_class']=$this->class_manage->getall_class();
             $datas['years']=$this->enrollmentmodel->get_current_years();
-		    $datas['res']=$this->enrollmentmodel->add_enrollment($admisn_no);
+		    $datas['res']=$this->enrollmentmodel->add_enrollment($admission_id);
 			
 			$datas['quota']=$this->enrollmentmodel->get_all_quota_details();
 			$datas['groups']=$this->enrollmentmodel->get_all_groups_details();
@@ -149,7 +149,7 @@ class Enrollment extends CI_Controller {
 		 $datas['sorting'] = $this->enrollmentmodel->get_all_enrollment_sorting_details();
 		 $datas['sortclass'] = $this->enrollmentmodel->get_all_enrollment_sorting_class();
 		 $datas['year'] = $this->yearsmodel->admisn_year();
-		  //echo "<pre>";print_r(	$datas['result']);exit;
+		  //echo "<pre>";print_r($datas['result']);exit;
 		 $user_type=$this->session->userdata('user_type');
  		 if($user_type==1){
 			 $this->load->view('header');
@@ -163,10 +163,10 @@ class Enrollment extends CI_Controller {
 
 
 
-		public function edit_enroll($admisn_no){
+		public function edit_enroll($admission_id){
 			//$datas['clas'] = $this->classmodel->getclass();
 			//$datas['sec'] = $this->sectionmodel->getsection();
-			$datas['res']=$this->enrollmentmodel->get_enrollmentid($admisn_no);
+			$datas['res']=$this->enrollmentmodel->get_enrollmentid($admission_id);
 			$datas['quota']=$this->enrollmentmodel->get_all_quota_details();
 			$datas['groups']=$this->enrollmentmodel->get_all_groups_details();
 			$datas['activities']=$this->enrollmentmodel->get_all_activities_details();

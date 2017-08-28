@@ -27,7 +27,7 @@
 										   
 											
 										 <div class="col-sm-4">
-                                            <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
+                                            
 											<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
                                         </div>
 										</form>
@@ -75,10 +75,10 @@
                                           ?>
                                     </td>
                                     <td>
-                                       <a href="<?php echo base_url(); ?>admission/get_ad_id1/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="View Admission Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                       <a href="<?php echo base_url(); ?>admission/get_ad_id1/<?php echo $rows->admission_id; ?>" rel="tooltip" title="View Admission Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                        </a> 
-                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
 
                                     </td>
                                  </tr>
@@ -111,10 +111,10 @@
                                           ?>
                                     </td>
                                     <td>
-                                       <a href="<?php echo base_url(); ?>admission/get_ad_id1/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="View Admission Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                       <a href="<?php echo base_url(); ?>admission/get_ad_id1/<?php echo $rows->admission_id; ?>" rel="tooltip" title="View Admission Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                        </a> 
-                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
 									<?php $i++;  }  }?>

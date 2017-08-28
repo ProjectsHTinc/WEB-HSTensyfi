@@ -75,7 +75,7 @@
 								  </td>
                                  <?php }else{?>
 								  <td>
-								   <input style="width:60%;" type="text"  name="total_marks[]" value="<?php echo $row->total_marks; ?>" class="form-control inputBox2"/>
+								   <input style="width:60%;" type="text"  name="total_marks[]" value="<?php echo $row->total_marks; ?>" class="form-control inputBox2" maxlength='3'/>
 								  </td>	<td></td> 
 								  
 								<?php }
@@ -106,8 +106,8 @@
    $('#examinationmenu').addClass('collapse in');
    			$('#exam').addClass('active');
    			$('#exam2').addClass('active'); 
-			
-			 $(".inputBox").on("keyup keydown", function(e){
+
+	$(".inputBox").on("keyup keydown", function(e){
     var currentValue = String.fromCharCode(e.which);
     var finalValue = $(this).val() + currentValue;
     if(finalValue >40){
@@ -130,5 +130,6 @@ $(".inputBox2").on("keyup keydown", function(e){
         e.preventDefault();
     }
 });
+
 </script>
 

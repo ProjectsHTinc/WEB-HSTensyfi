@@ -84,7 +84,7 @@
 										if($enrollment_status==0)
 										{
 										?>
-                                      <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                      <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
 									  <i class="fa fa-address-book" aria-hidden="true"></i>
 
                                      <!--  <i class="fa fa-address-card-o" aria-hidden="true"></i> -->
@@ -93,7 +93,7 @@
 										}
 										else{
 											?>
-                                         <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                         <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                       <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                         </a>
 										<?php
@@ -149,7 +149,7 @@
 										if($enrollment_status==0)
 										{
 										?>
-                                      <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                      <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
 									  <i class="fa fa-address-book" aria-hidden="true"></i>
 
                                      <!--  <i class="fa fa-address-card-o" aria-hidden="true"></i> -->
@@ -158,7 +158,7 @@
 										}
 										else{
 											?>
-                                         <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admisn_no; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                         <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                       <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                         </a>
 										<?php

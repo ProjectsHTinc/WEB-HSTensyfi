@@ -193,7 +193,7 @@ function generatefromtable() {
 			}
 			var $table = $('#bootstrap-table');
          $().ready(function(){
-           jQuery('#teachermenu').addClass('collapse in');
+           jQuery('#markform').addClass('collapse in');
              $table.bootstrapTable({
                  toolbar: ".toolbar",
                  clickToSelect: true,
@@ -203,9 +203,9 @@ function generatefromtable() {
                  showColumns: true,
                  pagination: true,
                  searchAlign: 'left',
-                 pageSize: 8,
+                 pageSize:10,
                  clickToSelect: false,
-                 pageList: [8,10,25,50,100],
+                 pageList: [10,25,50,100],
    
                  formatShowingRows: function(pageFrom, pageTo, totalRows){
                      //do nothing here, we don't want to show the text "showing x of y from..."
@@ -227,12 +227,12 @@ function generatefromtable() {
              $(window).resize(function () {
                  $table.bootstrapTable('resetView');
              });
-   
-   
-         });
-$('#exammenu').addClass('collapse in');
+   $('#exammenu').addClass('collapse in');
 $('#exam').addClass('active');
 $('#exam3').addClass('active');
+   
+         });
+
 
 $('tr').each(function () {
           var sum = 0;

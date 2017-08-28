@@ -332,8 +332,8 @@
    religion:{required:true },
    community_class:{required:true },
    community:{required:true },
-   groups_id:{required:true },
-   'activity_id[]':{required:true},
+   //groups_id:{required:true },
+   //'activity_id[]':{required:true},
    status:{required:true },
    mobile:{required:true }
 
@@ -355,8 +355,8 @@
    community_class:"Enter the Community Class",
    mother_tongue:"Enter The Mother tongue",
    mobile:"Enter the mobile Number",
-   groups_id:"Select Groups Name",
-   'activity_id[]':"Select Activity Name",
+   //groups_id:"Select Groups Name",
+   //'activity_id[]':"Select Activity Name",
    status:"Select Status Name"
 
    }

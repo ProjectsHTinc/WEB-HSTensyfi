@@ -347,7 +347,7 @@ class Examination extends CI_Controller
 			  $datas['smark']=$this->examinationmodel->marks_status_details($cls_masid,$exam_id);
 			  $datas['eflag'] = $this->examinationmodel->getall_exam_details($exam_id);
 			  //echo '<pre>';print_r($datas);
-			  //echo '<pre>';print_r($datas['eflag']); exit;
+			  //echo '<pre>';print_r($datas['stu']); exit;
 			
 			 if($user_type==1)
 			    { 

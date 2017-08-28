@@ -91,8 +91,14 @@ class Teacher extends CI_Controller {
 			 $sec_phone=$this->input->post('sec_phone');
 
 			 $groups_id=$this->input->post('groups_id');
+			 
 			 $activity=$this->input->post('activity_id');
-			 $activity_id=implode(',',$activity);
+			 if(!empty($activity)){
+				 $activity_id=implode(',',$activity);
+			 }else{
+				 $activity_id=0;
+			 }
+			 
 
 			 //print_r($activity_id);exit;
 			 $status=$this->input->post('status');
@@ -301,7 +307,8 @@ class Teacher extends CI_Controller {
 
 			 $groups_id=$this->input->post('groups_id');
 			 $activity=$this->input->post('activity_id');
-			 $activity_id=implode(',',$activity);
+			 
+			 if(!empty($activity)){ $activity_id=implode(',',$activity); }else{ $activity_id=0; }
 
 			 $user_pic_old=$this->input->post('old_pic');
 			 $teacher_pic = $_FILES["teacher_pic"]["name"];
