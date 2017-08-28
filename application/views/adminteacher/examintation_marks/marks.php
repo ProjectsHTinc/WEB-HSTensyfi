@@ -81,12 +81,8 @@
 										if($eflag==1){?>
 										<td style="width:05%;"><?php echo $i;?></td>
 										<td style="width:15%;">
-										<?php  $stdid=$rows->stu_id;
-										       $sql="SELECT enroll_id,name FROM edu_enrollment WHERE enroll_id='$stdid'";
-											   $result2=$this->db->query($sql);
-			                                   $row123=$result2->result();
-											   foreach($row123 as $name){ }
-											   echo $name->name;
+										<?php  $stdid=$rows->name;
+											   echo $stdid;
 										?>
 										</td>
 										<td style="width: 20%;"><?php echo $rows->internal_mark; ?> ( <?php echo $rows->internal_grade; ?> )</td>
@@ -95,12 +91,8 @@
 										<?php }else{?>
 										<td style="width:15%;"><?php echo $i;?></td>
 										<td style="width:25%;">
-										<?php  $stdid=$rows->stu_id;
-										       $sql="SELECT enroll_id,name FROM edu_enrollment WHERE enroll_id='$stdid'";
-											   $result2=$this->db->query($sql);
-			                                   $row123=$result2->result();
-											   foreach($row123 as $name){ }
-											   echo $name->name;
+										<?php  $stdid=$rows->name;
+											   echo $stdid;
 										?>
 										</td>
 										
@@ -111,12 +103,12 @@
 										<?php $i++;}
 										}else{
 										foreach($res as $row)
-										      { ?>
+										      { $gen=$row->sex?>
 										<tr>
 										
 										<td><?php echo $i;?></td>
 										<td style="">
-										<?php echo $row->name; ?>
+										<?php  echo $row->name; ?>
 										<input type="hidden" name="sutid[]" value="<?php echo $row->enroll_id; ?>" />
 										<input type="hidden" name="teaid" value="<?php echo $row->teacher_id; ?>" />
                                         <input type="hidden" name="clsmastid" value="<?php echo $row->class_id; ?>" />

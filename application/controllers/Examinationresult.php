@@ -136,14 +136,14 @@ class Examinationresult extends CI_Controller
         $cls_masid = $this->input->get('var1');
         $exam_id   = $this->input->get('var2');
 		$sub_id   = $this->input->get('var3');
-         //echo $cls_masid;echo $exam_id;echo $sub_id;exit;
+        //echo $cls_masid;echo $exam_id;echo $sub_id;exit;
         $datas['cla_tea_id'] = $this->examinationresultmodel->get_cls_teacher_id($user_id,$user_type);
         $datas['stu'] = $this->examinationresultmodel->getall_stuname($user_id, $cls_masid, $exam_id);
         $datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id);
         $datas['res']=$this->examinationresultmodel->getall_cls_sec_stu($user_id,$sub_id,$cls_masid,$exam_id,$user_type);
 		$datas['edate']=$this->examinationresultmodel->exam_date_check($user_id,$cls_masid,$exam_id,$user_type,$sub_id);
         $datas['mark']= $this->examinationresultmodel->getall_marks($user_id,$cls_masid,$exam_id,$sub_id,$user_type);
-        //echo'<pre>'; print_r($datas['result'] );exit;
+        //echo'<pre>'; print_r($datas['mark'] );exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/marks', $datas);
@@ -298,7 +298,7 @@ class Examinationresult extends CI_Controller
         $datas['edit'] = $this->examinationresultmodel->edit_marks_details($user_id,$subid,$clsmasid,$exam_id,$user_type);
         $datas['mark'] = $this->examinationresultmodel->marks_status_details($clsmasid, $exam_id);
 		$datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id);
-        //echo '<pre>';print_r($datas['mark']);exit;
+        //echo '<pre>';print_r($datas['edit']);exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/edit_mark', $datas);
