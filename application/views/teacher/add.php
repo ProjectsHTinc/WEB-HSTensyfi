@@ -256,7 +256,7 @@
    	community:{required:true },
 
    	mobile:{required:true },
-   	subject:{required:true },
+   	//subject:{required:true },
    	qualification:{required:true },
    	//groups_id:{required:true },
    	//'activity_id[]':{required:true},
@@ -272,7 +272,7 @@
    	dob: "Select Date of Birth",
    	age: "Enter AGE",
    	nationality: "Nationality",
-   	subject:"Choose The Subject",
+   	//subject:"Choose The Subject",
    	religion: "Enter the Religion",
    	community:"Enter the Community",
    	community_class:"Enter the Community Class",

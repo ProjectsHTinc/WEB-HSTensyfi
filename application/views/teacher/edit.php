@@ -98,7 +98,7 @@
                         <div class="col-sm-4">
                            <textarea name="address" MaxLength="150" class="form-control" rows="4" cols="80" placeholder="Max Characters 150"><?php echo $rows->address; ?></textarea>
                         </div>
-                        <label class="col-sm-2 control-label">Subject</label>
+                        <label class="col-sm-2 control-label">Main Subject</label>
                         <div class="col-sm-4">
                            <select   name="subject" id="subject_id" class="selectpicker" data-style="btn-block" onchange="getListClass()"  data-menu-style="dropdown-blue">
                               <?php foreach ($resubject as $rows3) {  ?>
@@ -145,7 +145,7 @@
                            </select>
                            <script language="JavaScript">document.teacherform.subject_multiple.value="<?php echo $rows->subject_handling; ?>";</script>
                         </div> -->
-                        <label class="col-sm-2 control-label">Class Teacher</label>
+                        <label class="col-sm-2 control-label">CLASS TUTOR</label>
                         <div class="col-sm-4">
                            <select   name="class_teacher"  class="selectpicker" data-style="btn-block"  data-menu-style="dropdown-blue">
                              <option value="">None</option>
