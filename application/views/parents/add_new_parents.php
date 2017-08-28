@@ -29,7 +29,7 @@
                      <div class="form-group">
                        <label class="col-sm-2 control-label">Relationship</label>
                        <div class="col-sm-4">
-                          <input type="hidden" name="relationship" readonly class="form-control"  value="">
+                         
               <select name="relationship" class="selectpicker form-control" data-title="Select Relationship"  onchange="checkrelationfun(this.value)" />
                             <option value="Father">Father</option>
               <option value="Mother">Mother</option>
