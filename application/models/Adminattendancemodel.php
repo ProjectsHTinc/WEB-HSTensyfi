@@ -47,28 +47,28 @@ Class Adminattendancemodel extends CI_Model
 
        }
 
-
        //LIST of record for class
        function get_list_record($at_id,$class_id){
-         $query="SELECT  c.enroll_id, c.name, o.a_status FROM  edu_enrollment c LEFT JOIN edu_attendance_history o ON c.enroll_id = o.student_id AND o.attend_id ='$at_id' WHERE c.class_id='$class_id' ORDER BY c.name ASC";
+          $query="SELECT  c.enroll_id, c.name,c.admission_id, o.a_status,a.sex FROM  edu_enrollment c LEFT JOIN edu_attendance_history o ON c.enroll_id = o.student_id AND o.attend_id ='$at_id' LEFT JOIN edu_admission a ON c.admission_id=a.admission_id WHERE c.class_id='$class_id'  ORDER BY a.sex DESC,c.name ASC";
          $res=$this->db->query($query);
          return $res->result();
        }
 
-
        //Get month for class view attendance
-       function get_month_class($class_id){
+       function get_month_class($class_id)
+	   {
          $acd_year=$this->get_cur_year();
-          $year_id= $acd_year['cur_year'];
+         $year_id= $acd_year['cur_year'];
          $query="SELECT DATE_FORMAT(`created_at`,'%M') AS showmonth,DATE_FORMAT(`created_at`,'%m') AS month_id FROM edu_attendence WHERE class_id='$class_id' AND ac_year='$year_id' GROUP BY showmonth";
          $res=$this->db->query($query);
          return $res->result();
        }
 
        //Get year for class view attendance
-       function get_year_class($class_id){
+       function get_year_class($class_id)
+	   {
          $acd_year=$this->get_cur_year();
-          $year_id= $acd_year['cur_year'];
+         $year_id= $acd_year['cur_year'];
          $query="SELECT DATE_FORMAT(`created_at`,'%Y') AS showyear FROM edu_attendence WHERE class_id='$class_id' AND ac_year='$year_id' GROUP BY showyear";
          $res=$this->db->query($query);
          return $res->result();
@@ -78,24 +78,27 @@ Class Adminattendancemodel extends CI_Model
       function get_monthview_class($first,$last,$class_master_id){
         $acd_year=$this->get_cur_year();
         $year_id= $acd_year['cur_year'];
-        $query="SELECT COUNT(ah.student_id) as leaves,en.enroll_id, en.class_id, en.name, c.class_name, s.sec_name, ah.abs_date, ah.a_status, ah.attend_period, at.at_id FROM edu_enrollment en
+        $query="SELECT COUNT(ah.student_id) as leaves,en.enroll_id, en.class_id, en.name, a.sex, c.class_name, s.sec_name, ah.abs_date, ah.a_status, ah.attend_period, at.at_id FROM edu_enrollment en
         INNER JOIN edu_attendance_history AS ah ON en.enroll_id = ah.student_id
         INNER JOIN edu_attendence AS at ON ah.attend_id = at.at_id
         INNER JOIN edu_classmaster AS cm ON en.class_id = cm.class_sec_id
         INNER JOIN edu_class AS c ON cm.class=c.class_id
-        INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE en.class_id='$class_master_id' AND en.admit_year = '$year_id' AND ah.abs_date >= '$first' AND ah.abs_date <= '$last' GROUP BY ah.student_id
+        INNER JOIN edu_sections AS s ON cm.section=s.sec_id 
+		INNER JOIN edu_admission AS a ON en.admission_id=a.admission_id WHERE en.class_id='$class_master_id' AND en.admit_year = '$year_id' AND ah.abs_date >= '$first' AND ah.abs_date <= '$last' GROUP BY ah.student_id,en.name ASC,a.sex DESC 
         UNION ALL
-        SELECT '0' as leaves,en.enroll_id, en.class_id, en.name, c.class_name, s.sec_name, '' as abs_date, 'P' as a_status, '' as attend_period,'' as at_id FROM edu_enrollment en
+        SELECT '0' as leaves,en.enroll_id, en.class_id, en.name,a.sex, c.class_name, s.sec_name, '' as abs_date, 'P' as a_status, '' as attend_period,'' as at_id FROM edu_enrollment en
         INNER JOIN edu_classmaster AS cm ON en.class_id = cm.class_sec_id
         INNER JOIN edu_class AS c ON cm.class=c.class_id
-        INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE en.class_id='$class_master_id' AND en.admit_year = '$year_id' AND en.enroll_id
+        INNER JOIN edu_sections AS s ON cm.section=s.sec_id
+		INNER JOIN edu_admission AS a ON en.admission_id=a.admission_id
+		WHERE en.class_id='$class_master_id' AND en.admit_year = '$year_id' AND en.enroll_id  
         NOT IN (SELECT en.enroll_id FROM edu_enrollment en
         INNER JOIN edu_attendance_history AS ah ON en.enroll_id = ah.student_id
         INNER JOIN edu_attendence AS at ON ah.attend_id = at.at_id
         INNER JOIN edu_classmaster AS cm ON en.class_id = cm.class_sec_id
         INNER JOIN edu_class AS c ON cm.class=c.class_id
         INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE en.class_id='$class_master_id' AND ah.abs_date >= '$first' AND ah.abs_date <= '$last')
-        GROUP BY en.enroll_id";
+        GROUP BY en.enroll_id,en.name ASC,a.sex DESC";
         $res=$this->db->query($query);
         return $res->result();
       }

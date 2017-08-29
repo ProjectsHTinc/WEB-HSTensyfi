@@ -189,6 +189,7 @@ class Teacherattendence extends CI_Controller {
 			 if($user_type==2){
 				$datas['result']=$this->teacherattendencemodel->get_list_record($at_id,$class_id);
 				$datas['get_name_class']=$this->class_manage->edit_cs($class_id);
+				 //echo'<pre>';print_r($datas['result']);exit;
 				 $this->load->view('adminteacher/teacher_header');
 				 $this->load->view('adminteacher/attendence/viewattendence',$datas);
 				 $this->load->view('adminteacher/teacher_footer');
@@ -234,6 +235,7 @@ class Teacherattendence extends CI_Controller {
 			$datas['res']=$this->adminattendancemodel->get_monthview_class($first,$last,$class_master_id);
 		    $datas['res_total']=$this->adminattendancemodel->get_total_working_days($first,$last,$class_master_id);
 			$datas['get_name_class']=$this->class_manage->edit_cs($class_master_id);
+			//echo'<pre>';print_r($datas['res']);exit;
 			  $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/attendence/attendance_month_view',$datas);
 			 $this->load->view('adminteacher/teacher_footer');

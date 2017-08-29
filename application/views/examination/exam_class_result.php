@@ -106,12 +106,29 @@
 								foreach($eflag as $erow){ $ef=$erow->exam_flag; }
 								if($ef==1)
 								{
-									echo '<span class="grade">'; echo $s->internal_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->internal_grade;echo'</span>';echo'</span>'; 
+									echo '<span class="grade">'; 
+									if(is_numeric($im)){
+									echo $s->internal_mark;  echo "&nbsp"; 
+									echo '<span class="space">';echo $s->internal_grade;echo'</span>';
+									echo'</span>'; 
+									}else{ echo $s->internal_mark; }
 									echo "&nbsp";
-									echo '<span class="grade1">'; echo $s->external_mark;  echo "&nbsp"; echo '<span class="space">';echo $s->external_grade;echo'</span>';echo'</span>';
-									echo'<span class="combat">';
-									echo "&nbsp";
-									 echo '<span class="grade2">'; echo $s->total_marks; echo "&nbsp"; echo '<span class="space">';echo $s->total_grade;echo'</span>';echo'</span>';
+									
+									echo '<span class="grade1">'; 
+									if(is_numeric($em)){
+									echo $s->external_mark;  echo "&nbsp";
+									echo '<span class="space">';echo $s->external_grade;echo'</span>';
+									}else{ echo $s->external_mark; }
+									echo'</span>';
+									
+									 echo '<span class="grade2">';
+									 if(is_numeric($tm)){
+									   echo'<span class="combat">';
+ 									    echo $s->total_marks; echo "&nbsp"; 
+									   echo '<span class="space">'; echo $s->total_grade; echo'</span>';
+									   echo'</span>';
+									 }else{  echo $s->total_marks; }
+									   
 									 echo'</span>';
 							   }else{
 									echo '<span class="grade2">'; 
@@ -124,13 +141,7 @@
 									  //echo"AB";
 									  echo '<span class="space">';echo $s->total_marks;echo'</span>';
 								  }
-									  /* echo "&nbsp";
-									  echo '<span class="grade2">';
-                                      echo'<span class="combat">';
-									    echo $s->total_marks; echo "&nbsp"; 
-									  echo'</span>';
-									  echo '<span class="space">';echo $s->total_grade;echo'</span>';
-									  echo'</span>'; */
+									  
 									 }
 							}else{
 								'<form method="post" class="form-horizontal" enctype="multipart/form-data" id="markform">';

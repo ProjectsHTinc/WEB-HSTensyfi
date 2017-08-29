@@ -38,7 +38,7 @@
                             </div>
                             <div class="content table-responsive table-full-width">
 					<form method="post" action="<?php echo base_url(); ?>examinationresult/marks_details" class="form-horizontal" enctype="multipart/form-data" id="markform">
-                                <table class="table table-hover table-striped" id="bootstrap-table" >
+                                <table class="table table-hover table-striped">
 								<?php  echo '<input type="hidden" name="examid1" value="'.$exam_id.'"; />';
                                       if(!empty($res))
 									  {?>
@@ -79,25 +79,36 @@
 										foreach($mark as $rows){?>
 										<tr>
 										<?php foreach($result as $flag){} $eflag=$flag->exam_flag;
-										if($eflag==1){?>
-										<td style="width:05%;"><?php echo $i;?></td>
-										<td style="width:15%;">
-										<?php  $stdid=$rows->name;
-											   echo $stdid;
-										?>
-										</td>
-										<td style="width: 20%;"><?php echo $rows->internal_mark; ?> ( <?php echo $rows->internal_grade; ?> )</td>
-										<td style="width: 20%;"><?php echo $rows->external_mark; ?> ( <?php echo $rows->external_grade; ?> )</td>
-										<td style="width: 20%;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade; ?> )</td>
-										<?php }else{?>
+										if($eflag==1)
+										{ ?>
+											<td style="width:05%;"><?php echo $i;?></td>
+											<td style="width:15%;">
+											<?php  $stdid=$rows->name;
+												   echo $stdid;
+											?>
+											</td>
+											<?php   $im=$rows->internal_mark;
+													$em=$rows->external_mark;
+													$tm=$rows->total_marks;										
+											if(is_numeric($im)){ ?>
+											<td style="width: 20%;"><?php echo $rows->internal_mark; ?> ( <?php echo $rows->internal_grade; ?> )</td>
+											<?php }else{?> <td style="width: 20%;"><?php echo $rows->internal_mark; ?></td> <?php } 
+											if(is_numeric($em)){  ?>
+											<td style="width: 20%;"><?php echo $rows->external_mark; ?> ( <?php echo $rows->external_grade; ?> )</td>
+											<?php }else{?> <td style="width: 20%;"><?php echo $rows->external_mark; ?></td> <?php }  if(is_numeric($tm)){ ?>
+											<td style="width: 20%;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade; ?> )</td>
+											<?php }else{ ?> 
+											<td style="width: 20%;"><?php echo $rows->total_marks; ?></td> <?php } 
+										}else{ 
+										     $tm=$rows->total_marks;	?>
 										<td style="width:15%;"><?php echo $i;?></td>
 										<td style="width:25%;">
 										<?php  $stdid=$rows->name;
-											   echo $stdid;
-										?>
+											   echo $stdid; ?>
 										</td>
-										
+										<?php  if(is_numeric($tm)){ ?>
 										<td style="width:30%;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade; ?> )</td>
+									    <?php }else{ ?><td style="width:30%;"><?php echo $rows->total_marks; ?> </td><?php } ?>
 										<td></td><td></td>
 										<?php }?>
 										</tr>

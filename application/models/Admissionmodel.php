@@ -11,21 +11,22 @@ Class Admissionmodel extends CI_Model
 
 //CREATE ADMISSION
 
-        function ad_create($admission_year,$admission_no,$emsi_num,$formatted_date,$name,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$language,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$status){
-          $check_number="SELECT * FROM edu_admission WHERE mobile='$mobile'";
+        function ad_create($admission_year,$admission_no,$emsi_num,$formatted_date,$name,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$language,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$status)
+		{
+          /* $check_number="SELECT * FROM edu_admission WHERE mobile='$mobile'";
           $res_number=$this->db->query($check_number);
           if($res_number->num_rows()>=1){
             $data= array("status" => "Already Mobile Number Exist");
             return $data;
           }
-
             $check_email="SELECT * FROM edu_admission WHERE email='$email'";
             $result=$this->db->query($check_email);
-            if($result->num_rows()==0){
+            if($result->num_rows()==0){ */
+				
             $query="INSERT INTO edu_admission (admisn_year,admisn_no,emsi_num,admisn_date,name,sex,dob,age,nationality,religion,community_class,community,mother_tongue,language,mobile,sec_mobile,email,sec_email,student_pic,last_sch_name,last_studied,qualified_promotion,	transfer_certificate,record_sheet,status,created_at) VALUES ('$admission_year','$admission_no','$emsi_num','$formatted_date','$name','$sex','$dob_date','$age','$nationality','$religion','$community_class','$community','$mother_tongue','$language','$mobile','$sec_mobile','$email','$sec_email','$userFileName','$last_sch','$last_studied','$qual','$tran_cert','$recod_sheet','$status',NOW())";
 
             $resultset1=$this->db->query($query);
-		        $insert_id = $this->db->insert_id();
+		    $insert_id = $this->db->insert_id();
 
       			/* $sql1="SELECT admisn_no,name FROM edu_admission WHERE admission_id='$insert_id'";
       			$resultset1=$this->db->query($sql1);
@@ -48,10 +49,10 @@ Class Admissionmodel extends CI_Model
 
           $data=array("status" => "success","last_id"=>$insert_id);
            return $data;
-          }else{
+          /* }else{
             $data= array("status" => "Email Already Exist");
             return $data;
-          }
+          } */
        }
 
        //GET ALL Admission Form
@@ -88,7 +89,7 @@ Class Admissionmodel extends CI_Model
 	       $query6="UPDATE edu_users SET name='$name',updated_date=NOW() WHERE student_id='$admission_id' ";
 	        $res=$this->db->query($query6);
 
-			$query7="UPDATE edu_enrollment SET name='$name' WHERE admisn_no='$admission_no' ";
+			$query7="UPDATE edu_enrollment SET name='$name' WHERE admission_id='$admission_id' ";
 	        $res=$this->db->query($query7);
 
          if($res){

@@ -93,11 +93,11 @@ Class Parentsmodel extends CI_Model
 	   function add_parents($admission_id,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$flogin,$userFileName,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$mlogin,$userFileName1,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$glogin,$userFileName2,$user_id)
 	   {
 		    //echo $flogin; echo $mlogin; echo $glogin; exit;
-		   $check_mobile="SELECT email,mobile FROM edu_parents WHERE mobile='$fpmobile'";
+		  /* $check_mobile="SELECT email,mobile FROM edu_parents WHERE mobile='$fpmobile'";
           $result=$this->db->query($check_mobile);
        
           if($result->num_rows()==0)
-		  { 
+		  {  */
 		   $digits = 6;
 		   $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
 		  //Father Details
@@ -294,10 +294,10 @@ Class Parentsmodel extends CI_Model
 		   
 		  $data= array("status"=>"success");
           return $data;
-		  }else{
+		  /* }else{
 			  $data= array("status"=>"MNAE");
 			   return $data;
-		  }
+		  } */
 	   }
 	   
 	   

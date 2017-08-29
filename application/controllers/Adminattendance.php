@@ -9,11 +9,9 @@ class Adminattendance extends CI_Controller {
 
 			$this->load->model('adminattendancemodel');
 			$this->load->model('class_manage');
-		  $this->load->helper('url');
+		    $this->load->helper('url');
 			$this->load->library('encryption');
-		  $this->load->library('session');
-
-
+		    $this->load->library('session');
  }
 
 	/**
@@ -95,17 +93,17 @@ class Adminattendance extends CI_Controller {
 							 $month_id=$this->input->post('month_id');
 							 $year_class=$this->input->post('year_class');
 							 $query_date = $year_class.'-'.$month_id.'-'.'01';
-				       $first= date('Y-m-01', strtotime($query_date));
-						   $last= date('Y-m-t', strtotime($query_date));
+				             $first= date('Y-m-01', strtotime($query_date));
+						     $last= date('Y-m-t', strtotime($query_date));
 							 $datas['month']=$month_id;
 							 $datas['year']=$year_class;
 						 	 $datas['res']=$this->adminattendancemodel->get_monthview_class($first,$last,$class_master_id);
-							 	 $datas['res_total']=$this->adminattendancemodel->get_total_working_days($first,$last,$class_master_id);
-								// print_r($datas['res_total']);exit;
+							 $datas['res_total']=$this->adminattendancemodel->get_total_working_days($first,$last,$class_master_id);
+							 //echo'<pre>';print_r($datas['res']);exit;
 							 $datas['get_name_class']=$this->class_manage->edit_cs($class_master_id);
-								$this->load->view('header');
-								$this->load->view('attendance/month_view_for_class',$datas);
-								$this->load->view('footer');
+							$this->load->view('header');
+							$this->load->view('attendance/month_view_for_class',$datas);
+							$this->load->view('footer');
 					 }
 					 else{
 							redirect('/');
@@ -155,6 +153,7 @@ class Adminattendance extends CI_Controller {
 			 if($user_type==1){
 				$datas['result']=$this->adminattendancemodel->get_list_record($at_id,$class_id);
 				$datas['get_name_class']=$this->class_manage->edit_cs($class_id);
+				//echo'<pre>';print_r($datas['result']);exit;
 				$this->load->view('header');
 				$this->load->view('attendance/class_view_attendance',$datas);
 				$this->load->view('footer');
