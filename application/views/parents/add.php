@@ -498,9 +498,9 @@ function validates()
 		var mstatus = document.getElementById("mstatus").value;
 		var gstatus = document.getElementById("gstatus").value;
 
-		var fpemail = document.getElementById("fpemail").value;
+		/* var fpemail = document.getElementById("fpemail").value;
 		var mpemail = document.getElementById("mpemail").value;
-		var gpemail = document.getElementById("gpemail").value;
+		var gpemail = document.getElementById("gpemail").value; */
 
 		var fpmobile = document.getElementById("fpmobile").value;
 		var mpmobile = document.getElementById("mpmobile").value;
@@ -526,12 +526,12 @@ function validates()
 		 //document.form.teacher.focus() ;
 		 return false;
      }
-	 if(fpemail=="" && mpemail=="" && gpemail=="")
-     {   //alert("Please Enter Email Id");
-		 $("#erid").html("Please Enter Email Id");
+	 //if(fpemail=="" && mpemail=="" && gpemail=="")
+     //{   //alert("Please Enter Email Id");
+		// $("#erid").html("Please Enter Email Id");
 		 //document.form.teacher.focus() ;
-		 return false;
-     }
+		 //return false;
+     //}
 	 if(fpmobile=="" && mpmobile=="" && gpmobile=="")
      {   //alert("Please select priority for login");
 		 $("#erid").html("Please select priority for login");

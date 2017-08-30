@@ -28,7 +28,7 @@
 
 								  <h4 class="title" style="padding-bottom:10px;">List of Admission</h4>
 
-							<form method="post" action="<?php echo base_url(); ?>admission/get_sorting_details" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
+							<form method="post" action="<?php echo base_url(); ?>admission/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
 
 							 <div class="col-sm-2">
 								<select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
@@ -50,6 +50,7 @@
                               <thead>
                                 <th data-field="id" class="text-left">ID</th>
                                 <th data-field="name" class="text-left" data-sortable="true">Name</th>
+								<th data-field="Parentsname" class="text-left" data-sortable="true">Parents Name</th>
                                 <th data-field="email" class="text-left" data-sortable="true">Email</th>
                                 <th data-field="mobile" class="text-left" data-sortable="true">Mobile</th>
 								<th data-field="gender" class="text-left" data-sortable="true">Gender</th>
@@ -59,12 +60,14 @@
                               <tbody>
                                 <?php
                                 $i=1;
-								if(!empty($gender)){
+								if(!empty($gender))
+								{
 								 foreach ($gender as $rows)
-								 {$stu=$rows->status;?>
+								 {$stu=$rows->status; $pname=$rows->parentsname;?>
 									 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
+									<td><?php echo $pname; ?></td>
                                     <td><?php echo $rows->email; ?></td>
                                     <td><?php echo $rows->mobile; ?></td>
 									<td><?php echo $rows->sex; ?></td>
@@ -75,10 +78,7 @@
 									 <?php  }else{?>
 									  <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
 									 ?></td>
-
-
                                     <td>
-
 									<?php
 										$enrollment_status=$rows->enrollment;
 										if($enrollment_status==0)
@@ -123,15 +123,17 @@
                                     </td>
                                   </tr>
 								<?php  $i++;  }
-
 								}else{
+									//echo'<pre>';print_r($result);exit;
                                 foreach ($result as $rows)
 								 { $stu=$rows->status;
+								 $pname=$rows->parentsname;
 
                                 ?>
                                   <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
+									<td><?php echo $pname; ?></td>
                                     <td><?php echo $rows->email; ?></td>
                                     <td><?php echo $rows->mobile; ?></td>
 									<td><?php echo $rows->sex; ?></td>

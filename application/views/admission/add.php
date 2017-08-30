@@ -255,7 +255,7 @@ $('#admission1').addClass('active');
          admission_year:{required:true },
          admission_date:{required:true },
          name:{required:true },
-         email:{required:true,email:true},
+         //email:{required:true,email:true},
 		     sex:{required:true },
          dob:{required:true },
 		 emsi_num:{required:true },
@@ -265,7 +265,7 @@ $('#admission1').addClass('active');
          community_class:{required:true },
          community:{required:true },
          mother_tongue:{required:true },
-         mobile:{required:true },
+         //mobile:{required:true },
          //student_pic:{required:true }
      },
      messages: {
@@ -274,7 +274,7 @@ $('#admission1').addClass('active');
            admission_year: "Enter Admission Year",
            admission_date: "Select Admission Date",
            name: "Enter Name",
-            email: "Enter Email Address",
+            //email: "Enter Email Address",
 			//sec_email:"Enter Email Address",
              remote: "Email already in use!",
            sex: "Select Gender",
@@ -286,7 +286,7 @@ $('#admission1').addClass('active');
            community:"Enter the Community",
            community_class:"Enter the Community Class",
            mother_tongue:"Enter The Mother tongue",
-           mobile:"Enter the mobile Number",
+           //mobile:"Enter the mobile Number",
           // student_pic:"Enter the Student Picture"
          }
 

@@ -130,26 +130,28 @@ class Admission extends CI_Controller {
 
 // GET ALL ADMISSION DETAILS
 
-		public function view(){
-		 $datas=$this->session->userdata();
-		 $user_id=$this->session->userdata('user_id');
-		  $user_type=$this->session->userdata('user_type');
-		 $datas['result'] = $this->admissionmodel->get_all_admission();
-		 $datas['sorting'] = $this->admissionmodel->get_sorting_admission_details();
-		 //echo "<pre>";print_r($datas['sorting']);exit;
-		
-	 	 	if($user_type==1){
-		 $this->load->view('header');
-		 $this->load->view('admission/view',$datas);
-		 $this->load->view('footer');
-		 }
-		 else{
-				redirect('/');
-		 }
+		public function view()
+		{
+			 $datas=$this->session->userdata();
+			 $user_id=$this->session->userdata('user_id');
+			 $user_type=$this->session->userdata('user_type');
+			 $gender=$this->input->post('gender');
+			 $datas['result'] = $this->admissionmodel->get_all_admission();
+			 $datas['sorting'] = $this->admissionmodel->get_sorting_admission_details();
+			 $datas['gender'] = $this->admissionmodel->get_sorting_gender_details($gender);
+			 //echo "<pre>";print_r($datas['gender']);exit;
+		     if($user_type==1){
+			 $this->load->view('header');
+			 $this->load->view('admission/view',$datas);
+			 $this->load->view('footer');
+			 }
+			 else{
+					redirect('/');
+			 }
 		}
         //-----------Sorting----------------
 		
-		public function get_sorting_details()
+		/* public function get_sorting_details()
 		{
 		 $datas=$this->session->userdata();
 		 $user_id=$this->session->userdata('user_id');
@@ -168,7 +170,7 @@ class Admission extends CI_Controller {
 				redirect('/');
 		 }
 			
-		}
+		} */
 		//-------------------------
 		public function get_ad_id($admission_id){
 		 $datas=$this->session->userdata();

@@ -56,11 +56,34 @@ Class Admissionmodel extends CI_Model
        }
 
        //GET ALL Admission Form
-       function get_all_admission(){
-         $query="SELECT * FROM  edu_admission ORDER BY admission_id DESC";
+       function get_all_admission()
+	   {
+         //$query="SELECT * FROM  edu_admission ORDER BY admission_id DESC";
+		$query= "SELECT a.name,a.admission_id,a.sex,a.mobile,a.email,a.status,a.enrollment,a.parents_status,a.parnt_guardn_id,
+                  (select 
+                     GROUP_CONCAT(p.name SEPARATOR ',')
+                          from  edu_parents AS p
+                            where
+                               FIND_IN_SET (p.id,a.parnt_guardn_id)) as parentsname  
+                                  FROM edu_admission as a  ORDER BY a.admission_id DESC";
          $res=$this->db->query($query);
          return $res->result();
        }
+	   
+	   function get_sorting_gender_details($gender)
+		{
+		  //$query="SELECT * FROM  edu_admission WHERE sex='$gender' ORDER BY admission_id DESC";
+		  $query= "SELECT a.name,a.admission_id,a.sex,a.mobile,a.email,a.status,a.enrollment,a.parents_status,a.parnt_guardn_id,
+                  (select 
+                     GROUP_CONCAT(p.name SEPARATOR ',')
+                          from  edu_parents AS p
+                            where
+                               FIND_IN_SET (p.id,a.parnt_guardn_id)) as parentsname  
+                                  FROM edu_admission as a WHERE sex='$gender' ORDER BY a.admission_id DESC";
+          $res=$this->db->query($query);
+          return $res->result();
+		}
+		
 
        function get_ad_id($admission_id){
          $query="SELECT * FROM edu_admission WHERE admission_id='$admission_id'";
@@ -133,11 +156,6 @@ Class Admissionmodel extends CI_Model
 			
 		}
 		
-		function get_sorting_gender_details($gender)
-		{
-		  $query="SELECT * FROM  edu_admission WHERE sex='$gender' ORDER BY admission_id DESC";
-          $res=$this->db->query($query);
-          return $res->result();
-		}
+		
 }
 ?>
