@@ -48,22 +48,22 @@ Class Smsmodel extends CI_Model
 
  function send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id)
  {
-	 
+
 	$sql="SELECT teacher_id,name,phone FROM edu_teachers WHERE teacher_id='$sub_teacher'";
 	$resultset=$this->db->query($sql);
 	$res=$resultset->result();
 	foreach($res as $cell){}
 	$num=$cell->phone;
-	
+
 	$sql1="SELECT cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='$cls_id' AND cm.class=c.class_id AND cm.section=s.sec_id ";
 	$resultset1=$this->db->query($sql1);
 	$res1=$resultset1->result();
 	foreach($res1 as $cls){}
 	$cname=$cls->class_name;
 	$sename=$cls->sec_name;
-	
+
     $textmessage='This is to inform you that as '.$tname.' is on leave,'.$sub_tname.' will be the substitute teacher to fill in for '.$cname.'-'.$sename.',period ('.$period_id.') on '.$leave_date.' ';
-	
+
 //$textmessage='This is to inform you that as '.$tname.' is on leave, '.$sub_tname.' will be the substitute teacher to fill in for '.$leave_date.' class & section ('.$cname.'-'.$sename.') period ('.$period_id.') day/s.';
 
 	 $textmsg =urlencode($textmessage);
@@ -438,14 +438,17 @@ Class Smsmodel extends CI_Model
         //  Group  SMS
         function send_msg($group_id,$notes,$user_id){
 
-          $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
+        echo  $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
           LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
           LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id)
           WHERE  egm.group_title_id='$group_id'";
+
           $pcell=$this->db->query($class);
           $res2=$pcell->result();
           foreach($res2 as $result){
-            $number=$result->mobile;
+             $list_number[]=$result->mobile;
+           }
+             $number = implode(',', $list_number);
             $textmessage=$notes;
             $textmsg =urlencode($textmessage);
             $smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
@@ -467,7 +470,7 @@ Class Smsmodel extends CI_Model
                 $output =  file_get_contents($smsgatewaydata);
               }
 
-          }
+
 
         }
 
