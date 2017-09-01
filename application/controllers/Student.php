@@ -364,7 +364,7 @@ class Student extends CI_Controller
 		 $dateTime = new DateTime($from_date);
          $fdate=date_format($dateTime,'Y-m-d' );
 
-		$to_date=$this->input->post('tdate');
+		 $to_date=$this->input->post('tdate');
 		 $dateTime1=new DateTime($to_date);
          $tdate=date_format($dateTime1,'Y-m-d' );
 

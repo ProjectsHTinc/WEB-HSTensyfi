@@ -1,43 +1,57 @@
+
+
 <div class="main-panel">
-  <!--  <div class="content">
+   <div class="content">
       <div class="container-fluid">
          <div class="row">
             <div class="col-md-10">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">On Duty Form</h4>
+                     <h4 class="title">Students On Duty Form</h4>
                   </div>
                   <div class="content">
-                     <form method="post" action="<?php echo base_url(); ?>student/apply_onduty" class="form-horizontal" enctype="multipart/form-data" id="ondutysection" name="ondutysection">
-                       
+                     <form method="post" action="<?php echo base_url(); ?>teacheronduty/apply_onduty_for_student" class="form-horizontal" enctype="multipart/form-data" id="ondutysection" name="ondutysection">
+                       <?php if(!empty($clsstudlist)){ foreach($clsstudlist as $rows){}?>
+					     <input type="hidden" name="cls_tea_id" value="<?php echo $rows->class_id; ?>" class="form-control">
+					   <?php }else{ ?>  <input type="hidden" name="cls_tea_id" value="<?php echo $clsid; ?>" class="form-control"> <?php  }?>
                         <fieldset>
                            <div class="form-group">
+						          
+						   <label class="col-sm-2 control-label">Students Name</label>
+                              <div class="col-sm-4">
+							     <select name="stu_userid" class="selectpicker form-control" data-title="Select Students " data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+								 <?php  if(!empty($clsstudlist)){ foreach($clsstudlist as $rows){?>
+									<option value="<?php echo $rows->user_id; ?>"><?php echo $rows->name; ?></option>
+								 <?php } }else{ } ?>
+								  </select>
+                              </div>  
+						   
                               <label class="col-sm-2 control-label">Reason Out</label>
                               <div class="col-sm-4">
 							   <input type="text" name="reason" class="form-control">
                               </div>
-                              <label class="col-sm-2 control-label">From Date</label>
-                              <div class="col-sm-4">
-                                 <input type="text" name="fdate" required class="form-control datepicker" value="">
-                              </div>
+                              
                            </div>
                         </fieldset>
 						 <fieldset>
                            <div class="form-group">
+						   <label class="col-sm-2 control-label">From Date</label>
+                              <div class="col-sm-4">
+                                 <input type="text" name="fdate" required class="form-control datepicker" value="">
+                              </div>
+							  
                               <label class="col-sm-2 control-label">To Date</label>
                               <div class="col-sm-4">
                                  <input type="text" name="tdate" required class="form-control datepicker" value="">
                               </div>
-							  <label class="col-sm-2 control-label">Notes</label>
-                              <div class="col-sm-4">
-                                 <textarea rows="4" cols="80" MaxLength="250" placeholder="MaxLength 250" name="notes" class="form-control"></textarea>
-                              </div>
-                            
                            </div>
                         </fieldset>
 						 <fieldset>
                            <div class="form-group">
-						    
+						     <label class="col-sm-2 control-label">Notes</label>
+                              <div class="col-sm-4">
+                                 <textarea rows="4" cols="80" MaxLength="250" placeholder="MaxLength 250" name="notes" class="form-control"></textarea>
+                              </div>
 
                            </div>
                         </fieldset>
@@ -53,8 +67,7 @@
                </div>
             </div>
          </div>
-		 </div>
-      </div> -->
+      </div>
       <?php if($this->session->flashdata('msg')): ?>
       <div class="alert alert-success">
          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -71,6 +84,7 @@
                            <table id="bootstrap-table" class="table">
                               <thead>
                                  <th>S.no</th>
+								 <th>Students Name</th>
                                  <th>Reason Out</th>
                                  <th>From Date</th>
                                  <th>To Date</th>
@@ -80,10 +94,11 @@
                               <tbody>
                                  <?php
                                     $i=1;
-                                    foreach ($result as $rows) { $stu=$rows->status;
+                                    foreach ($stuonduty as $rows) { $stu=$rows->status;
                                      ?>
                                  <tr>
                                     <td><?php  echo $i; ?></td>
+									<td><?php  echo $rows->name; ?></td>
                                     <td><?php  echo $rows->od_for; ?></td>
                                     <td><?php $dateTime=new DateTime($rows->from_date); $fdate=date_format($dateTime,'d-m-Y' ); echo $fdate; ?></td>
                                     <td><?php $dateTime=new DateTime($rows->to_date); $tdate=date_format($dateTime,'d-m-Y' ); echo $tdate; ?></td>
@@ -97,7 +112,7 @@
 								  </td>
 								  
                                     <td><?php if($stu=='Approved' || $stu=='Rejected' ){echo"-";}else{ ?>
-                                       <a href="<?php echo base_url();  ?>student/edit_onduty/<?php echo $rows->id; ?>" class="btn btn-simple btn-warning btn-icon edit">
+                                       <a href="<?php echo base_url();  ?>teacheronduty/edit_stu_onduty/<?php echo $rows->id; ?>/<?php echo $rows->class_id; ?>" class="btn btn-simple btn-warning btn-icon edit">
 									<i class="fa fa-edit"></i></a><?php }?>
                                     </td>
                                  </tr>
@@ -114,14 +129,14 @@
             </div>
             <!-- end row -->
          </div>
-      
+      </div>
    </div>
 </div>
 <script type="text/javascript">
    $(document).ready(function () {
-   /* $('#mastersmenu').addClass('collapse in');
-   $('#master').addClass('active');
-   $('#masters2').addClass('active'); */
+   $('#stuonduty').addClass('collapse in');
+     $('#stuonduty').addClass('active');
+     $('#stuonduty').addClass('active');
     $('#ondutysection').validate({ // initialize the plugin
         rules: {
             reason:{required:true },

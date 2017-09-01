@@ -237,7 +237,7 @@
 			   <li id="stuonduty">
                   <a href="<?php echo base_url(); ?>teacheronduty/view_class">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
-                     <p>Student Onduty View</p>
+                     <p>Student Onduty </p>
                   </a>
 				  </li>
                <li id="calendar">

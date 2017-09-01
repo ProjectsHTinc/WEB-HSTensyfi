@@ -7,11 +7,40 @@
             ×</button> <?php echo $this->session->flashdata('msg'); ?>
          </div>
          <?php endif; ?>
+		 
+		 <div class="row">
+            <div class="col-md-12">
+               <div class="card">
+                  <div class="header">
+                     <h4 class="title">Apply Onduty For Students </h4>
+                  </div>
+                  <div class="content">
+                     <div class="row">
+                        <?php 
+                           if(empty($cls_tutor)){
+                           	echo "<p>Records Not Found</p>";
+                           }else{
+                            foreach($cls_tutor as $rows1)
+                              {
+                           	 $cls_tea_id=$rows1->class_teacher;
+                           	 $clsname1=$rows1->class_name;
+                           	 $sec_name1=$rows1->sec_name;
+                                                ?>
+                        <div class="col-md-2">
+                           <a href="<?php echo base_url();?>teacheronduty/apply_stu_onduty/<?php echo $cls_tea_id; ?>" class="btn btn-wd"><?php echo $clsname1."-".$sec_name1; ?></a>
+                        </div>
+                        <?php  }  }?>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+		 
          <div class="row">
             <div class="col-md-12">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">Class Name</h4>
+                     <h4 class="title">View Students Onduty</h4>
                   </div>
                   <div class="content">
                      <div class="row">
