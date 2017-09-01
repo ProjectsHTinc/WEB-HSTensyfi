@@ -309,6 +309,20 @@ class Admission extends CI_Controller {
 						echo "Admission Number Available";
 					 }
                 }
+				
+				public function cellchecker()
+				{
+					$cell = $this->input->post('cell');
+					$numrows2 = $this->admissionmodel->checkcellnum($cell);
+					if($numrows2 > 0) 
+				     {
+						echo "Mobile Number Not Found";
+					 } 
+					else 
+					 {
+						echo "Mobile Number Available";
+					 }
+				}
 
 
 

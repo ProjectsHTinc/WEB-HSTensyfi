@@ -49,8 +49,9 @@
                                         <div class="form-group">
                                           <label class="col-sm-2 control-label">Email</label>
                                           <div class="col-sm-4">
-   <input type="text" name="email"  class="form-control "  onkeyup="checkemailfun(this.value)" id="email" placeholder="Email Address" />
-   <p id="msg" style="color:red;"></p>  <p id="msg1" style="color:green;"></p>
+   <input type="text" name="email"  class="form-control"  onkeyup="checkemailfun(this.value)" id="email" placeholder="Email Address" />
+				   <p id="msg" style="color:red;"></p>  
+				   <p id="msg1" style="color:green;"></p>
 
    </div>
                                           <label class="col-sm-2 control-label">Secondary-Email</label>
@@ -142,7 +143,8 @@
                                         <div class="form-group">
                                           <label class="col-sm-2 control-label">Mobile</label>
                                           <div class="col-sm-4">
-                                              <input type="text" placeholder="Mobile Number" name="mobile" class="form-control">
+                                              <input type="text" placeholder="Mobile Number" name="mobile" class="form-control" onblur="checkmobilefun(this.value)">
+											  <p id="cellmsg1"></p>
                                           </div>
                                           <label class="col-sm-2 control-label">Secondary Mobile</label>
                                           <div class="col-sm-4">
@@ -223,7 +225,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">&nbsp;</label>
                                             <div class="col-sm-10">
-                                                   <button type="submit" class="btn btn-info btn-fill center">Save </button>
+                                                   <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
                                             </div>
 
                                         </div>
@@ -320,6 +322,29 @@ $('#admission1').addClass('active');
 			}
 	  });
 }
+
+function checkmobilefun(val)
+   { //alert('hi');exit;
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/admission/cellchecker',
+   data:'cell='+val,
+   success:function(test)
+   {
+	   //alert(test)
+   	if(test=="Mobile Number Available")
+   	{
+	   $("#cellmsg1").html('<span style="color:green;">Mobile Number Available</span>');
+	   $("#save").show();
+   	}
+   	else{
+   		$("#cellmsg1").html('<span style="color:red;">Mobile number already Exist</span>');
+        $("#save").hide();
+		}
+   }
+   });
+   }
+   
 </script>
 
 <script type="text/javascript">
@@ -378,6 +403,7 @@ $('#admission1').addClass('active');
 				else{
 					/* alert(test); */
 					$("#msg1").html(test);
+					$("#msg").html(test).hide();
 			        $("#save").show();
 				}
 

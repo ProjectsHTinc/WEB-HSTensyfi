@@ -14,10 +14,12 @@ class Homework extends CI_Controller
 		  $this->load->model('homeworkmodel');
 		  $this->load->model('class_manage');
 		  $this->load->model('subjectmodel');
-		
+		  $this->load->model('smsmodel');
+		  $this->load->model('mailmodel');
+		  $this->load->model('notificationmodel');
+		  
         }
          
-       
 	public function home()
 	 {
 	 		 $datas=$this->session->userdata();
@@ -26,9 +28,12 @@ class Homework extends CI_Controller
 			 if($user_type==2){
 			 //$datas=$this->homeworkmodel->get_teacher_id($user_id);
 			 $datas['cls_sec']=$this->homeworkmodel->get_teacher_class_sec($user_id,$user_type);
+			 
+			 $datas['cls_tutor']=$this->homeworkmodel->get_cls_tutor($user_id,$user_type);
+			 
 			 $datas['result']=$this->homeworkmodel->getall_details($user_id,$user_type);
 			 $datas['ayear']=$this->homeworkmodel->get_acdaemicyear();
-			//echo'<pre>';print_r($datas['cls_sec']);exit;
+			//echo'<pre>';print_r($datas['cls_tutor']);exit;
 	 		 $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/homework/add',$datas);
 	 		 $this->load->view('adminteacher/teacher_footer');
@@ -230,6 +235,101 @@ class Homework extends CI_Controller
 			   $this->session->set_flashdata('msg','Falid To Update');
                 redirect('homework/home',$datas);	  
 			  }
+	   }
+	   
+	   //SMS
+	   public function get_all_homework($cls_tutor_id)
+	   { 
+		   $datas=$this->session->userdata();
+  	 	   $user_id=$this->session->userdata('user_id');
+		   $user_type=$this->session->userdata('user_type');
+		  
+		   $datas['tutor_homework']=$this->homeworkmodel->get_all_ctutor_homework($user_id,$user_type,$cls_tutor_id);
+		   //$datas['sendstatus']=$this->homeworkmodel->get_all_homework_send_status($user_id,$user_type,$cls_tutor_id);
+		  // echo'<pre>';print_r($datas['tutor_homework']);exit;
+		   if($user_type==2)
+		   {
+			 $this->load->view('adminteacher/teacher_header');
+			 $this->load->view('adminteacher/homework/send_sms',$datas);
+			 $this->load->view('adminteacher/teacher_footer');
+		   }else{
+	 		  redirect('/');
+	 		 }
+	   }
+	   
+	   public function send_sms_all_homework()
+	   {
+		   $datas=$this->session->userdata();
+  	 	   $user_id=$this->session->userdata('user_id');
+		   $user_type=$this->session->userdata('user_type');
+		   if($user_type==2)
+		  {
+					  
+		   $testdate=$this->input->post('tdate');
+		   $clssid=$this->input->post('clsid');
+		   $sendtype=$this->input->post('sendoption');
+		    //echo $testdate; echo'<br>'; echo $clssid;  echo'<br>'; print_r($sendtype); exit;
+		   $acount=count($sendtype); 
+		   
+		   $datas['send_status']=$this->homeworkmodel->send_homework_status($user_id,$user_type,$testdate,$clssid);
+		   //print_r($datas['send_status']);exit;
+			
+		 if($acount==3)
+		 {
+		   $datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$testdate,$clssid);
+		   $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid);
+		   $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$testdate,$clssid);
+		 }
+		 
+		 if($acount==2)
+	    {
+		  $ct1=$sendtype[0];
+	      $ct2=$sendtype[1];
+		 
+		   if($ct1=='SMS' && $ct2=='Mail')
+		  {
+			$datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$testdate,$clssid);
+		    $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid);
+		  }
+		  if($ct1=='SMS' && $ct2=='Notification')
+		  {
+			$datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$testdate,$clssid);
+		   $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$testdate,$clssid);
+		  }
+		  if($ct1=='Mail' && $ct2=='Notification')
+		  {
+			 $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid); 
+			 $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$testdate,$clssid);   
+		  } 
+	  }
+	  
+	  if($acount==1)
+	  {
+		  $ct=$sendtype[0];
+		 // echo $ct;exit;
+		  if($ct=='SMS')
+		  {
+			 $datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$testdate,$clssid);
+		  }
+		  if($ct=='Notification')
+		  { 
+			 $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$testdate,$clssid); 
+		  }
+		  if($ct=='Mail')
+		  {
+			 $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid);
+		  }
+	  }
+
+	  if($datas['status']=="success")
+	  { 
+	    echo "success";
+	  }else{
+         echo "Something went wrong!";
+      }
+		  }else{
+             redirect('/');
+			 }
 	   }
 	
 	

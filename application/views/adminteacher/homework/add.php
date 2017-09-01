@@ -6,6 +6,34 @@
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
+	  <div class="row">
+            <div class="col-md-12">
+               <div class="card">
+                  <div class="header">
+                     <h4 class="title"> Class Teacher </h4>
+                  </div>
+                  <div class="content">
+                     <div class="row">
+                        <?php 
+                           if(empty($cls_tutor)){
+                           	echo "<p>Records Not Found</p>";
+                           }else{
+                            foreach($cls_tutor as $rows1)
+                              {
+                           	 $cls_tutor_id=$rows1->class_teacher;
+                           	 $clsname1=$rows1->class_name;
+                           	 $sec_name1=$rows1->sec_name;
+                                                ?>
+                        <div class="col-md-2">
+                           <a href="<?php echo base_url();?>homework/get_all_homework/<?php echo $cls_tutor_id; ?>" class="btn btn-wd"><?php echo $clsname1."-".$sec_name1; ?></a>
+                        </div>
+                        <?php  }  }?>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+		 
          <div class="row">
             <div class="col-md-12">
                <div class="card">

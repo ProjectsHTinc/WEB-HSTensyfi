@@ -8,7 +8,22 @@ Class Homeworkmodel extends CI_Model
       parent::__construct();
 
   }
+  
+  public function getYear()
+    {
+      $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $year_result = $this->db->query($sqlYear);
+      $ress_year = $year_result->result();
 
+      if($year_result->num_rows()==1)
+      {
+        foreach ($year_result->result() as $rows)
+        {
+            $year_id = $rows->year_id;
+        }
+        return $year_id;
+      }
+    }
 //GET ALL SECTION get_subject($classid,$user_id,$user_type)
 
 //---------------New--------------------------------
@@ -25,6 +40,20 @@ Class Homeworkmodel extends CI_Model
 		 $resultset=$this->db->query($sql);
          $res1=$resultset->result();
          return $res1;
+	}
+	
+	function get_cls_tutor($user_id,$user_type)
+	{
+		$query="SELECT user_id,user_type,user_master_id,teacher_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+		$resultset=$this->db->query($query);
+		$row=$resultset->result();
+		 foreach($row as $rows){}
+		 $teacher_id=$rows->user_master_id;
+		 
+		 $cls_tutor="SELECT t.teacher_id,t.class_teacher,t.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_teachers AS t,edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE t.teacher_id='$teacher_id' AND t.class_teacher=cm.class_sec_id AND cm.class=c.class_id AND cm.section=s.sec_id";
+		 $resultset1=$this->db->query($cls_tutor);
+         $res2=$resultset1->result();
+         return $res2;
 	}
 	
 	function get_subject($classid,$user_id,$user_type)
@@ -189,7 +218,7 @@ Class Homeworkmodel extends CI_Model
 			$remarks1=$remarks[$i];
 		  $query="UPDATE edu_class_marks SET enroll_mas_id='$enroll1',hw_mas_id='$hwid1',marks='$marks1',remarks='$remarks1',updated_by='$user_id',updated_at=NOW() WHERE hw_mas_id='$hwid1' AND enroll_mas_id='$enroll1'";
 		  $result=$this->db->query($query);
-		  
+
           //return $result->result();
 		  }
 		  $data= array("status"=>"success");
@@ -224,17 +253,31 @@ Class Homeworkmodel extends CI_Model
 		{
 		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 		  $result1=$this->db->query($get_year);
-		  /* if($result1->num_rows()==0){
-			$data= array("status" => "no data Found");
-			return $data;
-		  }else{ */
-			$all_year= $result1->result();
-			//$data= array("status" => "success","all_years"=>$all_year);
-			return $all_year;
-			//print_r($all_year);
-		  
-
+		  $all_year= $result1->result();
+		  return $all_year;
 		}
+		
+		///SMS
+		
+		function get_all_ctutor_homework($user_id,$user_type,$cls_tutor_id)
+		{
+			$year_id=$this->getYear();
+			
+		  $hmw="SELECT h.*,s.subject_id,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE class_id='$cls_tutor_id' AND h.year_id='$year_id' AND h.subject_id=s.subject_id GROUP BY h.test_date DESC";
+		  $hmw1=$this->db->query($hmw);
+		  $hmw2= $hmw1->result();
+		  return $hmw2;
+		}
+		
+		function send_homework_status($user_id,$user_type,$testdate,$clssid)
+		{
+			$send="UPDATE edu_homework SET send_option_status='1',updated_by='$user_id',updated_at=NOW() WHERE class_id='$clssid' AND test_date='$testdate'";
+			$send1=$this->db->query($send); 
+            $data= array("status"=>"success");
+		    return $data;
+		}
+		
+		
 
 }
 ?>

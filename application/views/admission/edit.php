@@ -28,7 +28,11 @@
                                             </div>
                                             <label class="col-sm-2 control-label">Admission No</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control" name="admission_no" id="admission_no" value="<?php echo $rows->admisn_no; ?>" readonly>
+                                                <input type="text" class="form-control" name="admission_no" id="admission_no" value="<?php echo $rows->admisn_no; ?>" onkeyup="checkadmitnofun(this.value)">
+												
+												 <p id="no" style="color:red;"> </p> 
+												 <p id="no1" style="color:green;"> </p>
+												
                                                 <input type="hidden" class="form-control" name="admission_id" id="admission_no" value="<?php echo $rows->admission_id; ?>" readonly>
 
                                             </div>
@@ -178,7 +182,7 @@
                                             </div>
 											 <label class="col-sm-2 control-label">EMSI Number</label>
                                             <div class="col-sm-4">
-                                                <input type="text" name="emsi_num" readonly value="<?php echo $rows->emsi_num; ?>" class="form-control" />
+                                                <input type="text" name="emsi_num" value="<?php echo $rows->emsi_num; ?>" class="form-control" />
                                             </div>
 											
                                             <label class="col-sm-2 control-label">&nbsp;</label>
@@ -252,7 +256,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">&nbsp;</label>
                                             <div class="col-sm-10">
-                                                   <button type="submit" class="btn btn-info btn-fill center">Save</button>
+                                                   <button type="submit" id="save" class="btn btn-info btn-fill center">Save</button>
                                             </div>
 
                                         </div>
@@ -281,7 +285,7 @@ $('#admission2').addClass('active');
          admission_year:{required:true },
          admission_date:{required:true },
          name:{required:true },
-         email:{required:true,email:true},
+         //email:{required:true,email:true},
          sex:{required:true },
          dob:{required:true },
          age:{required:true,number:true,maxlength:2 },
@@ -290,7 +294,7 @@ $('#admission2').addClass('active');
          community_class:{required:true },
          community:{required:true },
          mother_tongue:{required:true },
-         mobile:{required:true }
+         //mobile:{required:true }
 
      },
      messages: {
@@ -298,7 +302,7 @@ $('#admission2').addClass('active');
            admission_year: "Enter Admission Year",
            admission_date: "Select Admission Date",
            name: "Enter Name",
-            email: "Enter Email Address",
+            //email: "Enter Email Address",
            sex: "Select Gender",
            dob: "Select Date of Birth",
            age: "Enter AGE",
@@ -307,14 +311,42 @@ $('#admission2').addClass('active');
            community:"Enter the Community",
            community_class:"Enter the Community Class",
            mother_tongue:"Enter The Mother tongue",
-           mobile:"Enter the mobile Number",
-           student_pic:"Enter the Student Picture"
+           //mobile:"Enter the mobile Number",
+           //student_pic:"Enter the Student Picture"
          }
  });
 });
 
 </script>
 <script type="text/javascript">
+
+function checkadmitnofun(val)
+   {
+      $.ajax({
+			type:'post',
+			url:'<?php echo base_url(); ?>/admission/checker1',
+			data:'admission_no='+val,
+			success:function(test1)
+			{ //alert(test1);
+				if(test1=="Admission No already Exit")
+				{
+				/* alert(test); */
+			        $("#no").html(test1);
+					$("#no1").html(test1).hide();
+			        $("#save").hide();
+				}
+				else{
+					/* alert(test); */
+					$("#no1").html(test1);
+
+			        $("#save").show();
+				}
+
+ 
+			}
+	  });
+}
+
      /*  $().ready(function(){
 
         $('.datepicker').datetimepicker({

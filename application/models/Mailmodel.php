@@ -9,6 +9,22 @@ Class Mailmodel extends CI_Model
 
   }
   
+  public function getYear()
+    {
+      $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $year_result = $this->db->query($sqlYear);
+      $ress_year = $year_result->result();
+
+      if($year_result->num_rows()==1)
+      {
+        foreach ($year_result->result() as $rows)
+        {
+            $year_id = $rows->year_id;
+        }
+        return $year_id;
+      }
+    }
+	
   function send_mail_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id)
   {
 	 
@@ -300,7 +316,58 @@ Class Mailmodel extends CI_Model
      }
     }
 
+	//-----------------------Send Home Work In Mail-----------------------------------------
+	
+     function send_mail_homework($user_id,$user_type,$testdate,$clssid)
+		{
+		   $year_id=$this->getYear();
+		   
+		   $pcell="SELECT p.email FROM edu_parents AS p,edu_enrollment AS e WHERE e.class_id='$clssid' AND FIND_IN_SET( e.admission_id,p.admission_id) GROUP BY p.name";
+		  $pcell1=$this->db->query($pcell);
+		  $pcel2=$pcell1->result();
+		  foreach($pcel2 as $res)
+		  {  $pamail[]=$res->email;
+		  }
+		  $sms="SELECT h.title,h.hw_details,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE h.class_id='$clssid' AND h.year_id='$year_id' AND h.test_date='$testdate' AND h.subject_id=s.subject_id";
+		  $sms1=$this->db->query($sms);
+		  $sms2= $sms1->result();
+		  //return $sms2;
+		  foreach ($sms2 as $value)
+          {
+            $hwtitle=$value->title;
+		    $hwdetails=$value->hw_details;
+			$subname=$value->subject_name;
+			
+			$message=" Title : " .$hwtitle . ", Details : " .$hwdetails .", Subject : ".$subname.",";
+			$home_work_details[]=$message;
+		  } 
+			//print_r($home_work_details);
+		     $hdetails=implode('',$home_work_details);
+			 $pmail_to=implode(',',$pamail);
+					 $to = $pmail_to;
+					 $subject="HomeWork Details";
+					 $cnotes=$hdetails;
+					 $htmlContent = '
+						 <html>
+						 <head><title></title>
+						 </head>
+						 <body>
+						 <p style="margin-left:50px;">'.$cnotes.'</p>
+						 </body>
+						 </html>';
+				 $headers = "MIME-Version: 1.0" . "\r\n";
+				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+				 // Additional headers
+				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+				 if(mail($to,$subject,$htmlContent,$headers))
+				 {
+                     $data= array("status"=>"success");
+		             return $data;
+                  }
+				// $sent=mail($to,$subject,$htmlContent,$headers);
+				 
 
+	}
 
 
 }//end class

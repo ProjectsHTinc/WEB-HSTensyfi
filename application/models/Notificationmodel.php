@@ -8,6 +8,23 @@ Class Notificationmodel extends CI_Model
       parent::__construct();
 
   }
+  
+  public function getYear()
+    {
+      $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $year_result = $this->db->query($sqlYear);
+      $ress_year = $year_result->result();
+
+      if($year_result->num_rows()==1)
+      {
+        foreach ($year_result->result() as $rows)
+        {
+            $year_id = $rows->year_id;
+        }
+        return $year_id;
+      }
+    }
+	
 
      function send_notification_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id)
 	 {
@@ -434,9 +451,6 @@ Class Notificationmodel extends CI_Model
 
   }
 
-
-
-
       function sendNotification($gcm_key,$notes)
             {
               $gcm_key = array($gcm_key);
@@ -474,8 +488,8 @@ Class Notificationmodel extends CI_Model
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
             // Actually send the request
             $result = curl_exec($ch);
-
-
+			//if(!$result){ echo "Success";}
+			
             // Handle errors
             if (curl_errno($ch)) {
             //echo 'GCM error: ' . curl_error($ch);
@@ -484,7 +498,7 @@ Class Notificationmodel extends CI_Model
             curl_close($ch);
 
             // Debug GCM response
-            //echo $result;
+            echo $result; 
             }
 
 
@@ -509,9 +523,90 @@ Class Notificationmodel extends CI_Model
         }
       }
 
+// Home Work Details
 
+    function send_notify_homework($user_id,$user_type,$testdate,$clssid)
+		{
+		   $year_id=$this->getYear();
+		  
+		  $sms="SELECT h.title,h.hw_details,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE h.class_id='$clssid' AND h.year_id='$year_id' AND h.test_date='$testdate' AND h.subject_id=s.subject_id";
+		  $sms1=$this->db->query($sms);
+		  $sms2= $sms1->result();
 
+		  foreach ($sms2 as $value)
+          {
+            $hwtitle=$value->title;
+		    $hwdetails=$value->hw_details;
+			$subname=$value->subject_name;
+			$message="Title : " .$hwtitle . ", Details : " .$hwdetails .", Subject : ".$subname.", ";
+			$home_work_details[]=$message;
+		  } 
+		   $notes[]=implode('',$home_work_details);
+			//print_r($notes); exit;
+            $pid="SELECT p.id,u.user_id FROM edu_parents AS p,edu_enrollment AS e,edu_users AS u WHERE e.class_id='$clssid' AND FIND_IN_SET(e.admission_id,p.admission_id) AND p.primary_flag='Yes' AND p.id=u.user_master_id AND u.user_type='4' GROUP BY p.id";
+			
+		  $pid1=$this->db->query($pid);
+		  $pid2=$pid1->result();
+		  foreach($pid2 as $res1)
+		  {  
+		    $paid=$res1->user_id; 
+		    $psql="SELECT user_id,gcm_key FROM edu_notification WHERE user_id='$paid'";
+           $pagsm=$this->db->query($psql);
+           $pares=$pagsm->result();
+           foreach($pares as $parow)
+		   {
+            $gcm_key=array($parow->gcm_key);
+		 
+            //$this->sendNotification($gcm_key,$notes);
+			
+              $data = array
+                    (
+                    'message' 	=> $notes,
+                    'vibrate'	=> 1,
+                    'sound'		=> 1
+                    );
 
+            // Insert real GCM API key from the Google APIs Console
+            $apiKey = 'AAAADRDlvEI:APA91bFi-gSDCTCnCRv1kfRd8AmWu0jUkeBQ0UfILrUq1-asMkBSMlwamN6iGtEQs72no-g6Nw0lO5h4bpN0q7JCQkuTYsdPnM1yfilwxYcKerhsThCwt10cQUMKrBrQM2B3U3QaYbWQ';
+            // Set POST request body
+            $post = array(
+                'registration_ids'  => $gcm_key,
+                'data'              => $data,
+                 );
+            // Set CURL request headers
+            $headers = array(
+                'Authorization: key=' . $apiKey,
+                'Content-Type: application/json'
+                  );
+            // Initialize curl handle
+            $ch = curl_init();
+            // Set URL to GCM push endpoint
+            curl_setopt($ch, CURLOPT_URL, 'https://gcm-http.googleapis.com/gcm/send');
+            // Set request method to POST
+            curl_setopt($ch, CURLOPT_POST, true);
+            // Set custom request headers
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            // Get the response back as string instead of printing it
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // Set JSON post data
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+            // Actually send the request
+            $result = curl_exec($ch);
+            // Handle errors
+            if (curl_errno($ch)) {
+            //echo 'GCM error: ' . curl_error($ch);
+            }
+            // Close curl handle
+            curl_close($ch);
+            // Debug GCM response
+            }
+		  }
+		  if(!$result){  $data= array("status"=>"success");
+		      return $data;}
+				
+	}
+	
+	
 }
 
   ?>

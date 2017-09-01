@@ -156,6 +156,13 @@ Class Admissionmodel extends CI_Model
 			
 		}
 		
+		function checkcellnum($cell)
+		{
+			$query = "select mobile from edu_admission WHERE mobile='".$cell."'";
+			$resultset = $this->db->query($query);
+			return count($resultset->result());
+		}
+		
 		
 }
 ?>

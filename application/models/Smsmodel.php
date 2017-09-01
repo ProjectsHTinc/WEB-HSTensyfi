@@ -8,6 +8,22 @@ Class Smsmodel extends CI_Model
 
   }
 
+   public function getYear()
+    {
+      $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $year_result = $this->db->query($sqlYear);
+      $ress_year = $year_result->result();
+
+      if($year_result->num_rows()==1)
+      {
+        foreach ($year_result->result() as $rows)
+        {
+            $year_id = $rows->year_id;
+        }
+        return $year_id;
+      }
+    }
+	
   function send_sms_for_teacher_leave($number,$leave_type)
   {
 	// http://173.45.76.227/send.aspx?username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS&numbers=12345&message=WELCOME
@@ -436,9 +452,9 @@ Class Smsmodel extends CI_Model
 
 
         //  Group  SMS
-        function send_msg($group_id,$notes,$user_id){
-
-        echo  $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
+        function send_msg($group_id,$notes,$user_id)
+		{
+         $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
           LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
           LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id)
           WHERE  egm.group_title_id='$group_id'";
@@ -469,10 +485,62 @@ Class Smsmodel extends CI_Model
            {
                 $output =  file_get_contents($smsgatewaydata);
               }
-
-
-
         }
+		
+		// Home Work SMS 
+		
+		function send_sms_homework($user_id,$user_type,$testdate,$clssid)
+		{
+		   $year_id=$this->getYear();
+		   
+		   $pcell="SELECT p.mobile FROM edu_parents AS p,edu_enrollment AS e WHERE e.class_id='$clssid' AND FIND_IN_SET( e.admission_id,p.admission_id) GROUP BY p.name";
+		  $pcell1=$this->db->query($pcell);
+		  $pcel2=$pcell1->result();
+		  foreach($pcel2 as $res)
+		  {  $cell[]=$res->mobile;
+		     //echo $num=implode(',',$cell); echo"<br>";
+			}
+		  $sms="SELECT h.title,h.hw_details,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE h.class_id='$clssid' AND h.year_id='$year_id' AND h.test_date='$testdate' AND h.subject_id=s.subject_id";
+		  $sms1=$this->db->query($sms);
+		  $sms2= $sms1->result();
+		  //return $sms2;
+		  foreach ($sms2 as $value)
+          {
+            $hwtitle=$value->title;
+		    $hwdetails=$value->hw_details;
+			$subname=$value->subject_name;
+			$message="Title : " .$hwtitle . ", Details : " .$hwdetails .", Subject : ".$subname.", ";
+			$home_work_details[]=$message;
+		  } 
+			//print_r($home_work_details);
+		    $hdetails=implode('',$home_work_details);
+			$num=implode(',',$cell);
+			
+			$count1=count($cell);
+
+				$textmsg =urlencode($hdetails);
+				$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+				$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+				$api_params = $api_element.'&numbers='.$num.'&message='.$textmsg;
+				$smsgatewaydata = $smsGatewayUrl.$api_params;
+
+				$url = $smsgatewaydata;
+             
+			   $ch = curl_init();
+			   curl_setopt($ch, CURLOPT_POST, false);
+			   curl_setopt($ch, CURLOPT_URL, $url);
+			   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			   $output = curl_exec($ch);
+			   curl_close($ch);
+
+			   if(!$output)
+			   {
+				  $output =  file_get_contents($smsgatewaydata);
+			   }else{ 
+			      $data= array("status"=>"success");
+		          return $data;
+			   }
+	}
 
 
 }
