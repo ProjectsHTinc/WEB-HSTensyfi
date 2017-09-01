@@ -377,6 +377,7 @@ class Apimainmodel extends CI_Model {
 						}
                         
 						$fatherProfile  = array(
+/*
 							"id" => $father_profile[0]->id,
 							"name" => $father_profile[0]->name,
 							"occupation" => $father_profile[0]->occupation,
@@ -388,6 +389,20 @@ class Apimainmodel extends CI_Model {
 							"office_phone" => $father_profile[0]->office_phone,
 							"relationship" => $father_profile[0]->relationship,
 							"user_pic" => $father_profile[0]->user_pic 
+*/
+
+							"id" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->id,
+                            "name" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->name,
+                            "occupation" =>(!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->occupation,
+                            "income" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->income,
+                            "home_address" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->home_address ,
+                            "email" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->email,
+                            "mobile" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->mobile,
+                            "home_phone" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->home_phone,
+                            "office_phone" =>(!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->office_phone,
+                            "relationship" =>(!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->relationship,
+                            "user_pic" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->user_pic
+
 						);
 						
 						$mother_query = "SELECT * from edu_parents WHERE id IN ($parent_id) AND relationship = 'Mother' AND status = 'Active'";
@@ -399,17 +414,30 @@ class Apimainmodel extends CI_Model {
 						}
 
 						$motherProfile  = array(
-						    "id" => $mother_profile[0]->id,
-							"name" => $mother_profile[0]->name,
-							"occupation" => $mother_profile[0]->occupation,
-							"income" => $mother_profile[0]->income,
-							"home_address" => $mother_profile[0]->home_address ,
-							"email" => $mother_profile[0]->email,
-							"mobile" => $mother_profile[0]->mobile,
-							"home_phone" => $mother_profile[0]->home_phone,
-							"office_phone" => $mother_profile[0]->office_phone,
-							"relationship" => $mother_profile[0]->relationship,
-							"user_pic" => $mother_profile[0]->user_pic 
+/*
+							"id" => $father_profile[0]->id,
+							"name" => $father_profile[0]->name,
+							"occupation" => $father_profile[0]->occupation,
+							"income" => $father_profile[0]->income,
+							"home_address" => $father_profile[0]->home_address ,
+							"email" => $father_profile[0]->email,
+							"mobile" => $father_profile[0]->mobile,
+							"home_phone" => $father_profile[0]->home_phone,
+							"office_phone" => $father_profile[0]->office_phone,
+							"relationship" => $father_profile[0]->relationship,
+							"user_pic" => $father_profile[0]->user_pic 
+*/
+							"id" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->id,
+                            "name" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->name,
+                            "occupation" =>(!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->occupation,
+                            "income" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->income,
+                            "home_address" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->home_address ,
+                            "email" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->email,
+                            "mobile" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->mobile,
+                            "home_phone" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->home_phone,
+                            "office_phone" =>(!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->office_phone,
+                            "relationship" =>(!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->relationship,
+                            "user_pic" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->user_pic
 						);
 						
 						$guardian_query = "SELECT * from edu_parents WHERE id IN ($parent_id) AND relationship = 'Guardian' AND status = 'Active'";
@@ -421,17 +449,30 @@ class Apimainmodel extends CI_Model {
 						}
 
 						$guardianProfile  = array(
-							 "id" => $guardian_profile[0]->id,
-							"name" => $guardian_profile[0]->name,
-							"occupation" => $guardian_profile[0]->occupation,
-							"income" => $guardian_profile[0]->income,
-							"home_address" => $guardian_profile[0]->home_address ,
-							"email" => $guardian_profile[0]->email,
-							"mobile" => $guardian_profile[0]->mobile,
-							"home_phone" => $guardian_profile[0]->home_phone,
-							"office_phone" => $guardian_profile[0]->office_phone,
-							"relationship" => $guardian_profile[0]->relationship,
-							"user_pic" => $guardian_profile[0]->user_pic 
+/*
+							"id" => $father_profile[0]->id,
+							"name" => $father_profile[0]->name,
+							"occupation" => $father_profile[0]->occupation,
+							"income" => $father_profile[0]->income,
+							"home_address" => $father_profile[0]->home_address ,
+							"email" => $father_profile[0]->email,
+							"mobile" => $father_profile[0]->mobile,
+							"home_phone" => $father_profile[0]->home_phone,
+							"office_phone" => $father_profile[0]->office_phone,
+							"relationship" => $father_profile[0]->relationship,
+							"user_pic" => $father_profile[0]->user_pic 
+*/
+							"id" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->id,
+                            "name" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->name,
+                            "occupation" =>(!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->occupation,
+                            "income" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->income,
+                            "home_address" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->home_address ,
+                            "email" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->email,
+                            "mobile" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->mobile,
+                            "home_phone" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->home_phone,
+                            "office_phone" =>(!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->office_phone,
+                            "relationship" =>(!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->relationship,
+                            "user_pic" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->user_pic
 						);
 					
 						
@@ -447,7 +488,7 @@ class Apimainmodel extends CI_Model {
 						return $response;
 				  }
 				  else {
-				  		 $parent_id = $rows->parent_id;
+				  		$parent_id = $rows->parent_id;
 
                         $parent_query = "SELECT * from edu_parents WHERE id ='$parent_id' AND status = 'Active'";
 						$parent_res = $this->db->query($parent_query);
@@ -464,7 +505,8 @@ class Apimainmodel extends CI_Model {
 						foreach($father_profile as $rows){ 
 								$admisson_id = $rows->admission_id;
 						}
-                        $fatherProfile  = array(
+						$fatherProfile  = array(
+/*
 							"id" => $father_profile[0]->id,
 							"name" => $father_profile[0]->name,
 							"occupation" => $father_profile[0]->occupation,
@@ -476,6 +518,18 @@ class Apimainmodel extends CI_Model {
 							"office_phone" => $father_profile[0]->office_phone,
 							"relationship" => $father_profile[0]->relationship,
 							"user_pic" => $father_profile[0]->user_pic 
+*/
+							"id" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->id,
+                            "name" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->name,
+                            "occupation" =>(!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->occupation,
+                            "income" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->income,
+                            "home_address" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->home_address ,
+                            "email" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->email,
+                            "mobile" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->mobile,
+                            "home_phone" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->home_phone,
+                            "office_phone" =>(!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->office_phone,
+                            "relationship" =>(!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->relationship,
+                            "user_pic" => (!isset($father_profile[0]) || is_null($father_profile[0])) ? '' : $father_profile[0]->user_pic
 						);
 						
 						$mother_query = "SELECT * from edu_parents WHERE admission_id IN ($admisson_id) AND relationship = 'Mother' AND status = 'Active'";
@@ -487,17 +541,30 @@ class Apimainmodel extends CI_Model {
 						}
 
 						$motherProfile  = array(
-						    "id" => $mother_profile[0]->id,
-							"name" => $mother_profile[0]->name,
-							"occupation" => $mother_profile[0]->occupation,
-							"income" => $mother_profile[0]->income,
-							"home_address" => $mother_profile[0]->home_address ,
-							"email" => $mother_profile[0]->email,
-							"mobile" => $mother_profile[0]->mobile,
-							"home_phone" => $mother_profile[0]->home_phone,
-							"office_phone" => $mother_profile[0]->office_phone,
-							"relationship" => $mother_profile[0]->relationship,
-							"user_pic" => $mother_profile[0]->user_pic 
+/*
+							"id" => $father_profile[0]->id,
+							"name" => $father_profile[0]->name,
+							"occupation" => $father_profile[0]->occupation,
+							"income" => $father_profile[0]->income,
+							"home_address" => $father_profile[0]->home_address ,
+							"email" => $father_profile[0]->email,
+							"mobile" => $father_profile[0]->mobile,
+							"home_phone" => $father_profile[0]->home_phone,
+							"office_phone" => $father_profile[0]->office_phone,
+							"relationship" => $father_profile[0]->relationship,
+							"user_pic" => $father_profile[0]->user_pic 
+*/
+							"id" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->id,
+                            "name" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->name,
+                            "occupation" =>(!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->occupation,
+                            "income" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->income,
+                            "home_address" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->home_address ,
+                            "email" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->email,
+                            "mobile" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->mobile,
+                            "home_phone" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->home_phone,
+                            "office_phone" =>(!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->office_phone,
+                            "relationship" =>(!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->relationship,
+                            "user_pic" => (!isset($mother_profile[0]) || is_null($mother_profile[0])) ? '' : $mother_profile[0]->user_pic
 						);
 						
 					 	$guardian_query = "SELECT * from edu_parents WHERE admission_id IN ($admisson_id) AND relationship = 'Guardian' AND status = 'Active'";
@@ -509,17 +576,30 @@ class Apimainmodel extends CI_Model {
 						}
 
 						$guardianProfile  = array(
-							 "id" => $guardian_profile[0]->id,
-							"name" => $guardian_profile[0]->name,
-							"occupation" => $guardian_profile[0]->occupation,
-							"income" => $guardian_profile[0]->income,
-							"home_address" => $guardian_profile[0]->home_address ,
-							"email" => $guardian_profile[0]->email,
-							"mobile" => $guardian_profile[0]->mobile,
-							"home_phone" => $guardian_profile[0]->home_phone,
-							"office_phone" => $guardian_profile[0]->office_phone,
-							"relationship" => $guardian_profile[0]->relationship,
-							"user_pic" => $guardian_profile[0]->user_pic 
+/*
+							"id" => $father_profile[0]->id,
+							"name" => $father_profile[0]->name,
+							"occupation" => $father_profile[0]->occupation,
+							"income" => $father_profile[0]->income,
+							"home_address" => $father_profile[0]->home_address ,
+							"email" => $father_profile[0]->email,
+							"mobile" => $father_profile[0]->mobile,
+							"home_phone" => $father_profile[0]->home_phone,
+							"office_phone" => $father_profile[0]->office_phone,
+							"relationship" => $father_profile[0]->relationship,
+							"user_pic" => $father_profile[0]->user_pic 
+*/
+							"id" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->id,
+                            "name" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->name,
+                            "occupation" =>(!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->occupation,
+                            "income" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->income,
+                            "home_address" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->home_address ,
+                            "email" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->email,
+                            "mobile" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->mobile,
+                            "home_phone" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->home_phone,
+                            "office_phone" =>(!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->office_phone,
+                            "relationship" =>(!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->relationship,
+                            "user_pic" => (!isset($guardian_profile[0]) || is_null($guardian_profile[0])) ? '' : $guardian_profile[0]->user_pic
 						);
 						$parentProfile = array("fatherProfile" =>$fatherProfile,"motherProfile" =>$motherProfile,"guardianProfile" =>$guardianProfile);
 
@@ -1167,6 +1247,22 @@ class Apimainmodel extends CI_Model {
 
 
                 if($messagetype_sms != 0){
+
+					//$number1='9789108819,9865905230,9942297930';
+					$number1='9840111100,9841401896,9841401877,9444008809,9841322331,9444124618,9841460166,98940159304,9840091224,9841460161,9841401855';
+					$textmsg = urlencode($message_details);
+					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+					$api_params = $api_element.'&numbers='.$number1.'&message='.$textmsg;
+					$smsgatewaydata = $smsGatewayUrl.$api_params;
+					$url1 = $smsgatewaydata;
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_POST, false);
+					curl_setopt($ch, CURLOPT_URL, $url1);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$output = curl_exec($ch);
+					curl_close($ch);
+					
                     $mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id' AND ep.primary_flag = 'Yes'";
                 	$mobile_res = $this->db->query($mobile_query);
                     $mobile_result = $mobile_res->result();

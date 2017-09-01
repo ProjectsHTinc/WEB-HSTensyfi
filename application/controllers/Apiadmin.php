@@ -488,10 +488,9 @@ class Apiadmin extends CI_Controller {
 					 	  $admission_id=$this->input->post('admission_id');
 					 	
 						$data['result']=$this->apiadminmodel->get_parent_details($admission_id);
-						$response = $data['result'];
-				// 		echo "<pre>";
-				// 		print_r($response);
-						echo json_encode($response);
+					$response = $data['result'];
+	               // print_r($response);
+					echo json_encode($response);
 					}
 
 

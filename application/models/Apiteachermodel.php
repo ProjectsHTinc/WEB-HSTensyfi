@@ -51,7 +51,7 @@ class Apiteachermodel extends CI_Model {
 
 			if ($disp_type=='day')
 			{
-    			 $att_query = "SELECT * from edu_attendence WHERE date(created_at) ='$disp_date' AND class_id ='$class_id' AND ac_year = '$year_id'  AND status = 'Active'";
+    			$att_query = "SELECT * from edu_attendence WHERE date(created_at) ='$disp_date' AND class_id ='$class_id' AND ac_year = '$year_id'  AND status = 'Active'";
     		    $att_res = $this->db->query($att_query);
 
     			 if($att_res->num_rows()==0) {
@@ -284,13 +284,12 @@ class Apiteachermodel extends CI_Model {
 			return $response;		
 	}
 	
-	
-	
-		public function reloadExam($teacher_id)
+//#################### Reload Exams for Teachers ####################//	
+	public function reloadExam($teacher_id)
 	{
 			$year_id = $this->getYear();
 			
-	      $exam_query = "SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+			$exam_query = "SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
 						FROM edu_examination ex
@@ -339,15 +338,10 @@ class Apiteachermodel extends CI_Model {
 							$response = array("status" => "success","msg" => "Examsfound","Exams"=>$exam_result,"examDetails"=>$examdetail_result);
 						
 						}  
-						
-
 			return $response;		
-	}
+	}	
 	
-	
-	
-	
-//#################### Exams for Teachers End ####################//
+//#################### Reload Exams for Teachers End ####################//
 
 
 //#################### Exam Details for Teachers ####################//
@@ -401,7 +395,7 @@ class Apiteachermodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 			
-	    	echo $timetable_query = "SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period,ss.sec_name,c.class_name FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.teacher_id ='$teacher_id' AND tt.year_id='$year_id' ORDER BY tt.day, tt.period";
+	    	$timetable_query = "SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period,ss.sec_name,c.class_name FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.teacher_id ='$teacher_id' AND tt.year_id='$year_id' ORDER BY tt.day, tt.period";
 			$timetable_res = $this->db->query($timetable_query);
 			$timetable_result= $timetable_res->result();
 
@@ -606,7 +600,7 @@ class Apiteachermodel extends CI_Model {
 //#################### Add Homework Marks for Teachers ####################//
 	public function addHWmarks ($hw_masterid,$student_id,$marks,$remarks,$created_by,$created_at)
 	{
-			$year_id = $this->getYear();
+		$year_id = $this->getYear();
 			
 		$sqlMarks = "SELECT * FROM edu_class_marks WHERE hw_mas_id  = '$hw_masterid' AND enroll_mas_id ='$student_id'";
 		$Marks_result = $this->db->query($sqlMarks);
