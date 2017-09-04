@@ -110,7 +110,7 @@ Class Parentsmodel extends CI_Model
 			  if($flogin=="Yes")
 			  {
 				 if(!empty($fpemail))
-				 {  echo $fpemail;
+				 {
 				 $to = $fpemail;
 				 $subject = '"Welcome Message"';
 				 $htmlContent = '
@@ -142,10 +142,9 @@ Class Parentsmodel extends CI_Model
 			   mail($to,$subject,$htmlContent,$headers);
 				 }
 				 if(!empty($fpmobile))
-				 { 
-			        echo $fpmobile;
+				 { // echo $fpmobile;
 					$userdetails="Name : " .$fname. ", Username : " .$fuser_name.", Password : ".$OTP.", ";
-					 echo $userdetails;
+					 //echo $userdetails;
 					$textmsg =urlencode($userdetails);
 					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
@@ -153,7 +152,7 @@ Class Parentsmodel extends CI_Model
 					$smsgatewaydata = $smsGatewayUrl.$api_params;
 
 				    $url = $smsgatewaydata;
-                     echo $url;
+                     //echo $url;
 
 				    $ch = curl_init();
 					curl_setopt($ch, CURLOPT_POST, false);
@@ -162,7 +161,7 @@ Class Parentsmodel extends CI_Model
 					$output = curl_exec($ch);
 					curl_close($ch);
 				 }
-				 exit;
+				 
 				  $fuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$fname','$fuser_name',md5($OTP),'4','$finsert_id','$finsert_id',NOW(),NOW(),'$fstatus')";
 			      $furesultset=$this->db->query($fuser);
 			  }
@@ -178,7 +177,8 @@ Class Parentsmodel extends CI_Model
 			   
 			  if($mlogin=="Yes")
 			   {
-				  if(!empty($mpemail)){
+				  if(!empty($mpemail))
+				  {  //echo $mpemail;
 				 $to = $mpemail;
 				 $subject = '"Welcome Message"';
 				 $htmlContent = '
@@ -210,9 +210,10 @@ Class Parentsmodel extends CI_Model
 			   mail($to,$subject,$htmlContent,$headers);
 				  }
 				if(!empty($mpmobile))
-				 { // echo $fpmobile;
-					$userdetails="Name : " .$mname . ", Username : " .$muser_name .", Password : ".$OTP.", ";
-					 //echo $userdetails;
+				 { 
+				    //echo $mpmobile;
+					$userdetails="Name : " .$mname . ", Username : " .$muser_name.", Password : ".$OTP.", ";
+					// echo $userdetails;
 					$textmsg =urlencode($userdetails);
 					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
@@ -230,7 +231,6 @@ Class Parentsmodel extends CI_Model
 					curl_close($ch);
 
 				 }
-				 
 			  $muser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$mname','$muser_name',md5($OTP),'4','$minsert_id','$minsert_id',NOW(),NOW(),'$mstatus')";
 			  $muresultset=$this->db->query($muser);
 			  }
@@ -276,7 +276,7 @@ Class Parentsmodel extends CI_Model
 			   mail($to,$subject,$htmlContent,$headers);
                   }
                  if(!empty($gpmobile))
-				 { // echo $fpmobile;
+				 { 
 					$userdetails="Name : " .$gname . ", Username : " .$guser_name .", Password : ".$OTP.", ";
 					 //echo $userdetails;
 					$textmsg =urlencode($userdetails);
@@ -388,7 +388,8 @@ Class Parentsmodel extends CI_Model
 		   $newuser_name=$newinsert_id+600000;
 
 		   if($priority=="Yes")
-			{
+			{ 
+		        if(!empty($pemail)){
 				 $to = $pemail;
 				 $subject = '"Welcome Message"';
 				 $htmlContent = '
@@ -416,6 +417,28 @@ Class Parentsmodel extends CI_Model
 			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 			   mail($to,$subject,$htmlContent,$headers);
+				}
+			   if(!empty($pmobile))
+				 { // echo $fpmobile;
+					$userdetails="Name : " .$name. ", Username : " .$newuser_name.", Password : ".$OTP.", ";
+					 //echo $userdetails;
+					$textmsg =urlencode($userdetails);
+					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+					$api_params = $api_element.'&numbers='.$pmobile.'&message='.$textmsg;
+					$smsgatewaydata = $smsGatewayUrl.$api_params;
+
+				    $url = $smsgatewaydata;
+                     //echo $url;
+
+				    $ch = curl_init();
+					curl_setopt($ch, CURLOPT_POST, false);
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$output = curl_exec($ch);
+					curl_close($ch);
+				 }
+				 
 			   
 				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$name','$newuser_name',md5($OTP),'4','$newinsert_id','$newinsert_id',NOW(),NOW(),'$status')";
 			      $nuresultset=$this->db->query($nuser);
@@ -467,7 +490,8 @@ Class Parentsmodel extends CI_Model
 				   $result=$this->db->query($check);
                    if($result->num_rows()==0)
 		           {
-					  $to = $mpemail;
+					  if(!empty($fpemail)){
+					  $to = $fpemail;
 				      $subject = '"Welcome Message"';
 				      $htmlContent = '
 					   <html>
@@ -494,6 +518,28 @@ Class Parentsmodel extends CI_Model
 					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 					   mail($to,$subject,$htmlContent,$headers);
+				   }
+				   if(!empty($fpmobile))
+				   {
+					$userdetails="Name : " .$fname. ", Username : " .$fatherid.", Password : ".$OTP.", ";
+					 //echo $userdetails;
+					$textmsg =urlencode($userdetails);
+					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+					$api_params = $api_element.'&numbers='.$fpmobile.'&message='.$textmsg;
+					$smsgatewaydata = $smsGatewayUrl.$api_params;
+
+				    $url = $smsgatewaydata;
+                     //echo $url;
+
+				    $ch = curl_init();
+					curl_setopt($ch, CURLOPT_POST, false);
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$output = curl_exec($ch);
+					curl_close($ch);
+				    
+				   }
 				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$fname','$fatherid',md5($OTP),'4','$fid','$fid',NOW(),NOW(),'Active')";
 			      $nuresultset=$this->db->query($nuser); 
 				   }else{
@@ -518,6 +564,7 @@ Class Parentsmodel extends CI_Model
 				   $result=$this->db->query($check);
                    if($result->num_rows()==0)
 		           {
+					  if(!empty($mpemail)){
 					  $to = $mpemail;
 				      $subject = '"Welcome Message"';
 				      $htmlContent = '
@@ -545,6 +592,25 @@ Class Parentsmodel extends CI_Model
 					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 					   mail($to,$subject,$htmlContent,$headers);
+					  }
+					   if(!empty($mpmobile))
+				      {
+						$userdetails="Name : " .$mname. ", Username : " .$motherid.", Password : ".$OTP.", ";
+						 //echo $userdetails;
+						$textmsg =urlencode($userdetails);
+						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+						$api_params = $api_element.'&numbers='.$mpmobile.'&message='.$textmsg;
+						$smsgatewaydata = $smsGatewayUrl.$api_params;
+						$url = $smsgatewaydata;
+						 //echo $url;
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_POST, false);
+						curl_setopt($ch, CURLOPT_URL, $url);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						$output = curl_exec($ch);
+						curl_close($ch);
+				     }
 				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$mname','$motherid',md5($OTP),'4','$mid','$mid',NOW(),NOW(),'$mstatus')";
 			      $nuresultset=$this->db->query($nuser); 
 				   }else{
@@ -569,7 +635,8 @@ Class Parentsmodel extends CI_Model
 				   $result=$this->db->query($check);
                    if($result->num_rows()==0)
 		           {
-					  $to = $mpemail;
+					   if(!empty($gpemail)){
+					  $to = $gpemail;
 				      $subject = '"Welcome Message"';
 				      $htmlContent = '
 					   <html>
@@ -596,6 +663,25 @@ Class Parentsmodel extends CI_Model
 					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 					   mail($to,$subject,$htmlContent,$headers);
+					   }
+					    if(!empty($gpmobile))
+				        {
+							$userdetails="Name : " .$gname. ", Username : " .$guardianid.", Password : ".$OTP.", ";
+							 //echo $userdetails;
+							$textmsg =urlencode($userdetails);
+							$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+							$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+							$api_params = $api_element.'&numbers='.$gpmobile.'&message='.$textmsg;
+							$smsgatewaydata = $smsGatewayUrl.$api_params;
+							$url = $smsgatewaydata;
+							 //echo $url;
+							$ch = curl_init();
+							curl_setopt($ch, CURLOPT_POST, false);
+							curl_setopt($ch, CURLOPT_URL, $url);
+							curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+							$output = curl_exec($ch);
+							curl_close($ch);
+				        }
 				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$gname','$guardianid',md5($OTP),'4','$gid','$gid',NOW(),NOW(),'Active')";
 			      $nuresultset=$this->db->query($nuser); 
 				   }else{
@@ -644,7 +730,8 @@ Class Parentsmodel extends CI_Model
 				   $result=$this->db->query($check);
                    if($result->num_rows()==0)
 		           {
-					  $to = $mpemail;
+					 if(!empty($fpemail)){
+					  $to = $fpemail;
 				      $subject = '"Welcome Message"';
 				      $htmlContent = '
 					   <html>
@@ -671,6 +758,30 @@ Class Parentsmodel extends CI_Model
 					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 					   mail($to,$subject,$htmlContent,$headers);
+				   }
+				 if(!empty($fpmobile))
+				   {
+					$userdetails="Name : " .$fname. ", Username : " .$fatherid.", Password : ".$OTP.", ";
+					 //echo $userdetails;
+					$textmsg =urlencode($userdetails);
+					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+					$api_params = $api_element.'&numbers='.$fpmobile.'&message='.$textmsg;
+					$smsgatewaydata = $smsGatewayUrl.$api_params;
+
+				    $url = $smsgatewaydata;
+                     //echo $url;
+
+				    $ch = curl_init();
+					curl_setopt($ch, CURLOPT_POST, false);
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$output = curl_exec($ch);
+					curl_close($ch);
+				    
+				   }
+					   
+					   
 				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$fname','$fatherid',md5($OTP),'4','$fid','$fid',NOW(),NOW(),'Active')";
 			      $nuresultset=$this->db->query($nuser); 
 				   }else{
@@ -703,6 +814,8 @@ Class Parentsmodel extends CI_Model
 				   $result=$this->db->query($check);
                    if($result->num_rows()==0)
 		           {
+					  if(!empty($mpemail))
+					  {
 					  $to = $mpemail;
 				      $subject = '"Welcome Message"';
 				      $htmlContent = '
@@ -730,6 +843,27 @@ Class Parentsmodel extends CI_Model
 					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 					   mail($to,$subject,$htmlContent,$headers);
+					  }
+					  
+					 if(!empty($mpmobile))
+				      {
+						$userdetails="Name : " .$mname. ", Username : " .$motherid.", Password : ".$OTP.", ";
+						 //echo $userdetails;
+						$textmsg =urlencode($userdetails);
+						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+						$api_params = $api_element.'&numbers='.$mpmobile.'&message='.$textmsg;
+						$smsgatewaydata = $smsGatewayUrl.$api_params;
+						$url = $smsgatewaydata;
+						 //echo $url;
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_POST, false);
+						curl_setopt($ch, CURLOPT_URL, $url);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						$output = curl_exec($ch);
+						curl_close($ch);
+				     }
+					 
 				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$mname','$motherid',md5($OTP),'4','$mid','$mid',NOW(),NOW(),'$mstatus')";
 			      $nuresultset=$this->db->query($nuser); 
 				   }else{
@@ -764,7 +898,8 @@ Class Parentsmodel extends CI_Model
 				   $result=$this->db->query($check);
                    if($result->num_rows()==0)
 		           {
-					  $to = $mpemail;
+					   if(!empty($gpemail)){
+					  $to = $gpemail;
 				      $subject = '"Welcome Message"';
 				      $htmlContent = '
 					   <html>
@@ -791,6 +926,27 @@ Class Parentsmodel extends CI_Model
 					   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 					   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 					   mail($to,$subject,$htmlContent,$headers);
+					   }
+					   
+					   if(!empty($gpmobile))
+				      {
+						$userdetails="Name : " .$gname. ", Username : " .$guardianid.", Password : ".$OTP.", ";
+						 //echo $userdetails;
+						$textmsg =urlencode($userdetails);
+						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+						$api_params = $api_element.'&numbers='.$gpmobile.'&message='.$textmsg;
+						$smsgatewaydata = $smsGatewayUrl.$api_params;
+						$url = $smsgatewaydata;
+						 //echo $url;
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_POST, false);
+						curl_setopt($ch, CURLOPT_URL, $url);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						$output = curl_exec($ch);
+						curl_close($ch);
+				     }
+					 
 				  $nuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$gname','$guardianid',md5($OTP),'4','$gid','$gid',NOW(),NOW(),'Active')";
 			      $nuresultset=$this->db->query($nuser); 
 				   }else{
