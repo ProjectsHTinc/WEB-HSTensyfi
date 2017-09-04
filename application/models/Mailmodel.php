@@ -345,7 +345,7 @@ Class Mailmodel extends CI_Model
 		     $hdetails=implode('',$home_work_details);
 			 $pmail_to=implode(',',$pamail);
 					 $to = $pmail_to;
-					 $subject="HomeWork Details";
+					 $subject="HomeWork / ClassTest Details";
 					 $cnotes=$hdetails;
 					 $htmlContent = '
 						 <html>

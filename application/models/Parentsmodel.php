@@ -92,10 +92,9 @@ Class Parentsmodel extends CI_Model
 	   
 	   function add_parents($admission_id,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$flogin,$userFileName,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$mlogin,$userFileName1,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$glogin,$userFileName2,$user_id)
 	   {
-		    //echo $flogin; echo $mlogin; echo $glogin; exit;
-		  /* $check_mobile="SELECT email,mobile FROM edu_parents WHERE mobile='$fpmobile'";
+		  //echo $flogin; echo $mlogin; echo $glogin; exit;
+		  /*$check_mobile="SELECT email,mobile FROM edu_parents WHERE mobile='$fpmobile'";
           $result=$this->db->query($check_mobile);
-       
           if($result->num_rows()==0)
 		  {  */
 		   $digits = 6;
@@ -103,13 +102,15 @@ Class Parentsmodel extends CI_Model
 		  //Father Details
 		   if(!empty($fname))
 		   {  
-			   $fquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile, sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,	status,primary_flag,created_by,created_at) VALUES ('$admission_id','$fname','$foccupation','$fincome','$fhaddress','$fpemail','$fsemail','$fpmobile','$fsmobile','$fhome_phone','$foffice_address','$foffice_phone','$frelationship','$userFileName','$fstatus','$flogin','$user_id',NOW())";
+			   $fquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile,sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,	status,primary_flag,created_by,created_at) VALUES ('$admission_id','$fname','$foccupation','$fincome','$fhaddress','$fpemail','$fsemail','$fpmobile','$fsmobile','$fhome_phone','$foffice_address','$foffice_phone','$frelationship','$userFileName','$fstatus','$flogin','$user_id',NOW())";
 			   $fresultset=$this->db->query($fquery);
 			   $finsert_id = $this->db->insert_id();
 			   $fuser_name=$finsert_id+600000;
 			   
 			  if($flogin=="Yes")
 			  {
+				 if(!empty($fpemail))
+				 {  echo $fpemail;
 				 $to = $fpemail;
 				 $subject = '"Welcome Message"';
 				 $htmlContent = '
@@ -139,7 +140,29 @@ Class Parentsmodel extends CI_Model
 			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 			   mail($to,$subject,$htmlContent,$headers);
+				 }
+				 if(!empty($fpmobile))
+				 { 
+			        echo $fpmobile;
+					$userdetails="Name : " .$fname. ", Username : " .$fuser_name.", Password : ".$OTP.", ";
+					 echo $userdetails;
+					$textmsg =urlencode($userdetails);
+					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+					$api_params = $api_element.'&numbers='.$fpmobile.'&message='.$textmsg;
+					$smsgatewaydata = $smsGatewayUrl.$api_params;
 
+				    $url = $smsgatewaydata;
+                     echo $url;
+
+				    $ch = curl_init();
+					curl_setopt($ch, CURLOPT_POST, false);
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$output = curl_exec($ch);
+					curl_close($ch);
+				 }
+				 exit;
 				  $fuser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$fname','$fuser_name',md5($OTP),'4','$finsert_id','$finsert_id',NOW(),NOW(),'$fstatus')";
 			      $furesultset=$this->db->query($fuser);
 			  }
@@ -147,7 +170,7 @@ Class Parentsmodel extends CI_Model
 		 //Mother Details
 		   if(!empty($mname))
 		   {
-			  $mquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile, sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,	status,primary_flag,created_by,created_at) VALUES ('$admission_id','$mname','$moccupation','$mincome','$mhaddress','$mpemail','$msemail','$mpmobile','$msmobile','$mhome_phone','$moffice_address','$moffice_phone','$mrelationship','$userFileName1','$mstatus','$mlogin','$user_id',NOW())";
+			  $mquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile, sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,status,primary_flag,created_by,created_at) VALUES ('$admission_id','$mname','$moccupation','$mincome','$mhaddress','$mpemail','$msemail','$mpmobile','$msmobile','$mhome_phone','$moffice_address','$moffice_phone','$mrelationship','$userFileName1','$mstatus','$mlogin','$user_id',NOW())";
 			  $mresultset=$this->db->query($mquery);
 			  $minsert_id=$this->db->insert_id();
 			  //echo $minsert_id;exit;
@@ -155,6 +178,7 @@ Class Parentsmodel extends CI_Model
 			   
 			  if($mlogin=="Yes")
 			   {
+				  if(!empty($mpemail)){
 				 $to = $mpemail;
 				 $subject = '"Welcome Message"';
 				 $htmlContent = '
@@ -175,7 +199,7 @@ Class Parentsmodel extends CI_Model
 							   <th>Password:</th><td>'.$OTP.'</td>
 						   </tr>
 						   <tr>
-							   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+							   <th></th><td><a href="'.base_url().'">Click here  to Login</a></td>
 						   </tr>
 					   </table>
 				   </body>
@@ -184,7 +208,29 @@ Class Parentsmodel extends CI_Model
 			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 			   mail($to,$subject,$htmlContent,$headers);
+				  }
+				if(!empty($mpmobile))
+				 { // echo $fpmobile;
+					$userdetails="Name : " .$mname . ", Username : " .$muser_name .", Password : ".$OTP.", ";
+					 //echo $userdetails;
+					$textmsg =urlencode($userdetails);
+					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+					$api_params = $api_element.'&numbers='.$mpmobile.'&message='.$textmsg;
+					$smsgatewaydata = $smsGatewayUrl.$api_params;
 
+				    $url = $smsgatewaydata;
+                    //echo $url;
+					
+				    $ch = curl_init();
+					curl_setopt($ch, CURLOPT_POST, false);
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$output = curl_exec($ch);
+					curl_close($ch);
+
+				 }
+				 
 			  $muser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$mname','$muser_name',md5($OTP),'4','$minsert_id','$minsert_id',NOW(),NOW(),'$mstatus')";
 			  $muresultset=$this->db->query($muser);
 			  }
@@ -199,9 +245,11 @@ Class Parentsmodel extends CI_Model
 			   
 			  if($glogin=="Yes")
 			  {
-				 $to = $gpemail;
-				 $subject = '"Welcome Message"';
-				 $htmlContent = '
+				  if(!empty($gpemail))
+				  {
+				    $to = $gpemail;
+				    $subject = '"Welcome Message"';
+				    $htmlContent = '
 				   <html>
 				   <head>  <title></title>
 				   </head>
@@ -226,7 +274,28 @@ Class Parentsmodel extends CI_Model
 			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 			   mail($to,$subject,$htmlContent,$headers);
+                  }
+                 if(!empty($gpmobile))
+				 { // echo $fpmobile;
+					$userdetails="Name : " .$gname . ", Username : " .$guser_name .", Password : ".$OTP.", ";
+					 //echo $userdetails;
+					$textmsg =urlencode($userdetails);
+					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+					$api_params = $api_element.'&numbers='.$gpmobile.'&message='.$textmsg;
+					$smsgatewaydata = $smsGatewayUrl.$api_params;
 
+				    $url = $smsgatewaydata;
+                    //echo $url;
+					
+				    $ch = curl_init();
+					curl_setopt($ch, CURLOPT_POST, false);
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$output = curl_exec($ch);
+					curl_close($ch);
+				 }				  
+					 
 				  $guser="INSERT INTO edu_users(name,user_name,user_password,user_type,user_master_id,parent_id,created_date,updated_date,status) VALUES('$gname','$guser_name',md5($OTP),'4','$ginsert_id','$ginsert_id',NOW(),NOW(),'$gstatus')";
 			      $guresultset=$this->db->query($guser);
 			  }
