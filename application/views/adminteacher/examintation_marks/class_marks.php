@@ -125,7 +125,7 @@
 								echo'</span>'; 
 						      	echo "&nbsp";
 						     	echo '<span class="grade1">';
-                            if(is_numeric($em)){								
+            if(is_numeric($em)){								
 								echo $s->external_mark;  echo "&nbsp"; 
 								echo '<span class="space">';echo $s->external_grade;echo'</span>';
 							}else{ echo $s->external_mark; }
@@ -205,23 +205,24 @@
                }
        });
    	   function insertfun()
-   	   {//onkeyup="insertfun(this.value)"
+   	    { 
+          //onkeyup="insertfun(this.value)"
    		   var m=document.getElementById("mark").value;
    		   var s=document.getElementById("sid").value;
    		   var c=document.getElementById("cid").value;
    		   var sub=document.getElementById("subid").value;
    		   var t=document.getElementById("tid").value;
    		   var ex=document.getElementById("eid").value;
-   
+
    		  // alert(m);alert(s);alert(ex);//exit;
-   
+
    		  $.ajax({
    				type:'post',
    				url:'<?php echo base_url(); ?>examinationresult/ajaxmarkinsert',
    				data:'examid=' + ex + '&suid=' + sub + '&stuid=' + s + '&clsid=' + c + '&teid=' + t + '&mark=' + m,
-   
    				success:function(test)
-   				{   alert(test);exit;
+   				{   
+             //alert(test);exit;
    					if(test=="Email Id already Exit")
    					{
    					/* alert(test); */

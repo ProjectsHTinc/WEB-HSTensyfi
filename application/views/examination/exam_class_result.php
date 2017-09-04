@@ -120,7 +120,7 @@
 									echo '<span class="space">';echo $s->external_grade;echo'</span>';
 									}else{ echo $s->external_mark; }
 									echo'</span>';
-									
+									   
 									 echo '<span class="grade2">';
 									 if(is_numeric($tm)){
 									   echo'<span class="combat">';
