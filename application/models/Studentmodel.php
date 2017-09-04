@@ -327,7 +327,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
 
-				 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+				  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 				  $result1=$this->db->query($get_year);
 				  $all_year= $result1->result();
 				  foreach($all_year as $cyear){}

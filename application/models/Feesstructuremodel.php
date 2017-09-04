@@ -63,7 +63,9 @@ Class Feesstructuremodel extends CI_Model
 		
 		function add_fees_details($year_id,$terms,$class_id,$fees_amount,$quota_name,$due_date_from,$due_date_to,$notes,$status,$user_id)
 		{
-           if($due_date_from<$due_date_to){
+           if($due_date_from<$due_date_to)
+		   {
+			   
 		  $count_name = count($class_id);
 		  //echo $count_name; exit;
 		  for($i=0;$i<$count_name;$i++)
