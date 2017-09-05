@@ -83,7 +83,8 @@ Class Dashboard extends CI_Model
     //  forgotpassword
 
 
-    function forgotpassword($username){
+    function forgotpassword($username)
+	{
       $query="SELECT user_type,teacher_id,parent_id,student_id FROM edu_users WHERE user_name='$username'";
       $result=$this->db->query($query);
        if($result->num_rows()==0){
@@ -146,10 +147,13 @@ Class Dashboard extends CI_Model
               $reset_pwd=md5($OTP);
               $reset="UPDATE edu_users SET user_password='$reset_pwd' WHERE student_id='$type_id'";
               $result_pwd=$this->db->query($reset);
-              $query="SELECT email FROM edu_admission WHERE admission_id='$type_id'";
+              $query="SELECT email,mobile FROM edu_admission WHERE admission_id='$type_id'";
               $result=$this->db->query($query);
               foreach($result->result() as $row){}
               $to_mail= $row->email;
+			  $cell= $row->mobile;
+			  
+			  if(!empty($to_mail)){
               $to = $to_mail;
               $subject = '"Password Reset"';
               $htmlContent = '
@@ -165,7 +169,7 @@ Class Dashboard extends CI_Model
                             <th>Password:</th><td>'.$OTP.'</td>
                         </tr>
                         <tr>
-                            <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+                            <th></th><td><a href="'.base_url() .'">Click here to Login</a></td>
                         </tr>
                     </table>
                 </body>
@@ -177,7 +181,27 @@ Class Dashboard extends CI_Model
             // Additional headers
             $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
             $sent= mail($to,$subject,$htmlContent,$headers);
-            if($sent){
+		  }
+			if(!empty($cell))
+		   {
+			$userdetails="Password : ".$OTP.", ";
+			 //echo $userdetails;
+			$textmsg =urlencode($userdetails);
+			$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+			$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+			$api_params = $api_element.'&numbers='.$cell.'&message='.$textmsg;
+			$smsgatewaydata = $smsGatewayUrl.$api_params;
+			$url = $smsgatewaydata;
+			 //echo $url;
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_POST, false);
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$output = curl_exec($ch);
+			curl_close($ch);
+		  }
+		 
+            if($sent  || !empty($cell)){
                 echo "Password  Reset and send to your Mail Please check it";
             }else{
               echo "Somthing Went Wrong";
@@ -191,10 +215,16 @@ Class Dashboard extends CI_Model
             $reset_pwd=md5($OTP);
             $reset="UPDATE edu_users SET user_password='$reset_pwd' WHERE parent_id='$type_id'";
             $result_pwd=$this->db->query($reset);
-            $query="SELECT email FROM edu_parents WHERE id='$type_id'";
+            $query="SELECT email,mobile FROM edu_parents WHERE id='$type_id'";
             $result=$this->db->query($query);
             foreach($result->result() as $row){}
             $to_mail= $row->email;
+			$cell= $row->mobile;
+			//$name= $row->name;
+			
+			//echo $to_mail; echo $cell; exit;
+			
+			if(!empty($to_mail)){
             $to = $to_mail;
             $subject = '"Password Reset"';
             $htmlContent = '
@@ -221,7 +251,27 @@ Class Dashboard extends CI_Model
           // Additional headers
           $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
           $sent= mail($to,$subject,$htmlContent,$headers);
-          if($sent){
+			}
+			
+		if(!empty($cell))
+		  {
+			$userdetails="Password : ".$OTP.", ";
+			 //echo $userdetails;
+			$textmsg =urlencode($userdetails);
+			$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+			$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+			$api_params = $api_element.'&numbers='.$cell.'&message='.$textmsg;
+			$smsgatewaydata = $smsGatewayUrl.$api_params;
+			$url = $smsgatewaydata;
+			 //echo $url;
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_POST, false);
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$output = curl_exec($ch);
+			curl_close($ch);
+		 }
+          if($sent || !empty($cell)){
               echo "Password  Reset and send to your Mail Please check it";
           }else{
             echo "Somthing Went Wrong";

@@ -54,43 +54,63 @@ Class Enrollmentmodel extends CI_Model
              $cont=$result1[0]->student;
 			//echo $cont;exit;
              $user_id=$admisnid+400000;
-               $getmail="select email from edu_admission WHERE admission_id='".$admisnid."'";
+               $getmail="select email,mobile from edu_admission WHERE admission_id='".$admisnid."'";
      	      $resultset12 = $this->db->query($getmail);
               
              foreach($resultset12->result() as $rows){}
              $email=$rows->email;
-              $to = $email;
-         $subject = '"Welcome Message"';
-         $htmlContent = '
-           <html>
-           <head>  <title></title>
-           </head>
-           <body style="background-color:beige;">
-
-             <table cellspacing="0" style=" width: 300px; height: 200px;">
-
-                   <tr>
-                       <th>Email:</th><td>'.$email.'</td>
-                   </tr>
-                   <tr>
-                       <th>Username :</th><td>'.$user_id.'</td>
-                   </tr>
-                   <tr>
-                       <th>Password:</th><td>'.$OTP.'</td>
-                   </tr>
-                   <tr>
-                       <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
-                   </tr>
-               </table>
-           </body>
-           </html>';
-
-       // Set content-type header for sending HTML email
-       $headers = "MIME-Version: 1.0" . "\r\n";
-       $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-       // Additional headers
-       $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-       mail($to,$subject,$htmlContent,$headers);
+			 $cell=$rows->mobile;
+			 
+			 if(!empty($email))
+			 {
+              $to =$email;
+              $subject ='"Welcome Message"';
+              $htmlContent = '
+			   <html>
+			   <head>  <title></title>
+			   </head>
+			   <body style="background-color:beige;">
+				 <table cellspacing="0" style=" width: 300px; height: 200px;">
+					   <tr>
+						   <th>Email:</th><td>'.$email.'</td>
+					   </tr>
+					   <tr>
+						   <th>Username :</th><td>'.$user_id.'</td>
+					   </tr>
+					   <tr>
+						   <th>Password:</th><td>'.$OTP.'</td>
+					   </tr>
+					   <tr>
+						   <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+					   </tr>
+				   </table>
+			   </body>
+			   </html>';
+			   // Set content-type header for sending HTML email
+			   $headers = "MIME-Version: 1.0" . "\r\n";
+			   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			   // Additional headers
+			   $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+			   mail($to,$subject,$htmlContent,$headers);
+			 }
+			 if(!empty($cell))
+			 {
+				$userdetails="Password :".$OTP."";
+				//echo $userdetails;
+				$textmsg =urlencode($userdetails);
+				$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+				$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+				$api_params = $api_element.'&numbers='.$cell.'&message='.$textmsg;
+				$smsgatewaydata = $smsGatewayUrl.$api_params;
+				$url = $smsgatewaydata;
+				//echo $url;
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_POST, false);
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$output = curl_exec($ch);
+				curl_close($ch);
+			 }
 	   
               $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,student_id,created_date,updated_date,status) VALUES ('$name','$user_id','$md5pwd','3','$admisnid','$admisnid',NOW(),NOW(),'$status')";
               $resultset=$this->db->query($stude_insert);

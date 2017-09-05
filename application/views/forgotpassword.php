@@ -95,7 +95,7 @@ body{
 
                                 <div class="footer text-center">
                                     <button type="submit" class="btn btn-fill btn-warning btn-wd">Reset</button><br>
-																		<a class  href="<?php echo base_url(); ?>">Back To Login</a>
+								  <a class  href="<?php echo base_url(); ?>">Back To Login</a>
                                 </div>
 																
 
