@@ -3,14 +3,13 @@
 {
 	padding-bottom: 48px;
     padding-top: 10px;
-    background-color: rgba(209, 209, 211, 0.11);
+    
     border-radius: 12px;
 }
 </style>
 
 <div class="main-panel">
 <div class="content">
-
        <?php if($this->session->flashdata('msg')): ?>
          <div class="alert alert-success">
        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -26,8 +25,10 @@
                             <div class="content">
                                 <div class="fresh-datatables">
 
-								  <h4 class="title" style="padding-bottom:10px;">List of Admission</h4>
-
+								  <h4 class="title" style="padding-bottom:10px;">List of Admission
+								  <button style="float:right;" class="btn btn-info btn-fill center download">Export Excel</button>
+							<button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
+							</h4>
 							<form method="post" action="<?php echo base_url(); ?>admission/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
 
 							 <div class="col-sm-2">
@@ -41,11 +42,10 @@
 							  </div>
 							 <div class="col-sm-10">
 								<button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
-								<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+								
 							</div>
-
 							</form>
-
+							
                           <table id="bootstrap-table" class="table">
                               <thead>
                                 <th data-field="id" class="text-left">ID</th>
@@ -207,6 +207,21 @@
 </div>
 
 <script type="text/javascript">
+
+ $(function() {  
+   $(".download").click(function() {  
+	$("#bootstrap-table").table2excel({
+					exclude: ".noExl",
+					name: "Excel Document Name",
+					filename: "Student",
+					fileext: ".xls",
+					exclude_img: true,
+					exclude_links: true,
+					exclude_inputs: true
+				});
+   });
+
+}); 
 
 function generatefromtable() {
 				var data = [], fontSize = 12, height = 0, doc;
