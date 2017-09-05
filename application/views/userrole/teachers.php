@@ -17,12 +17,11 @@
 
                             <div class="content">
                           
-                              <h4 class="title">List of Teachers <button style="float:right;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
-
-
+                              <h4 class="title">List of Teachers
+							   <button style="float:right;" class="btn btn-info btn-fill center download">Export Excel</button>
+							  <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
+							  </h4>
                                 <div class="fresh-datatables">
-
-
                           <table id="bootstrap-table" class="table">
                               <thead>
 
@@ -104,6 +103,21 @@ function generatefromtable() {
 				//doc.text(50, height + 20, 'hi world');
 				doc.save("Teacherrole.pdf");
 			}
+
+$(function() {  
+   $(".download").click(function() {  
+	$("#bootstrap-table").table2excel({
+					exclude: ".noExl",
+					name: "Excel Document Name",
+					filename: "Teacher Role List",
+					fileext: ".xls",
+					exclude_img: true,
+					exclude_links: true,
+					exclude_inputs: true
+				});
+   });
+
+});	
 			
  var $table = $('#bootstrap-table');
        $().ready(function(){

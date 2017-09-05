@@ -25,6 +25,9 @@
       <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
+	  <!-- Excel -->
+	  <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
+	  
       <!-- Calender
          <script src="<?php echo base_url(); ?>assets/js/datepicker.js" type="text/javascript"></script>
          <link href="<?php echo base_url(); ?>assets/css/clean.css" rel="stylesheet" />

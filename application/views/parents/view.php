@@ -15,8 +15,10 @@
                         <div class="card">
                             <div class="content">
                                 <div class="fresh-datatables">
-                                  <h4 class="title">List of Parents Details <button style="float:right;
-" class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button></h4>
+                                  <h4 class="title">List of Parents Details 
+                            <button style="float:right;" class="btn btn-info btn-fill center download">Export Excel</button>
+							<button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
+							</h4>
 
                           <table id="bootstrap-table" class="table">
                               <thead>
@@ -85,6 +87,21 @@ function generatefromtable() {
 				doc.save("Parents.pdf");
 			}
 			
+$(function() {  
+   $(".download").click(function() {  
+	$("#bootstrap-table").table2excel({
+					exclude: ".noExl",
+					name: "Excel Document Name",
+					filename: "Parents",
+					fileext: ".xls",
+					exclude_img: true,
+					exclude_links: true,
+					exclude_inputs: true
+				});
+   });
+
+}); 
+
  var $table = $('#bootstrap-table');
        $().ready(function(){
            $table.bootstrapTable({
@@ -96,9 +113,9 @@ function generatefromtable() {
                showColumns: true,
                pagination: true,
                searchAlign: 'left',
-               pageSize: 8,
+               pageSize:10,
                clickToSelect: false,
-               pageList: [8,10,25,50,100],
+               pageList: [10,25,50,100],
 
                formatShowingRows: function(pageFrom, pageTo, totalRows){
                    //do nothing here, we don't want to show the text "showing x of y from..."

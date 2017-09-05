@@ -1,7 +1,7 @@
 <style>
 .formdesign
 {
-	padding-bottom: 48px;
+	padding-bottom:50px;
     padding-top: 10px;
     background-color: rgba(209, 209, 211, 0.11);
     border-radius: 12px;
@@ -37,10 +37,14 @@
                               </div>
                               <div class="col-sm-4">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
-                                 <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+                                 
                               </div>
 							  
-							  <a href="<?php echo base_url(); ?>teacher/view_subject_handling" class="btn btn-wd btn-default pull-right" style="margin-right:20px;">Teacher Handling Subjects</a>
+							  <a href="<?php echo base_url(); ?>teacher/view_subject_handling" class="btn btn-wd btn-default pull-right" style="margin-right:10px;">Teacher Handling Subjects</a>
+							  <button style="float:right;margin-right:10px;" class="btn btn-info btn-fill center download">Export Excel</button>
+							  <button style="float:right;margin-right:10px;"  class="btn btn-info btn-fill" onclick="generatefromtable()">Export PDF</button>
+							  
+							   
 							 
                            </form>
                            <table id="bootstrap-table" class="table">
@@ -282,6 +286,20 @@
    				//doc.text(50, height + 20, 'hi world');
    				doc.save("teacher.pdf");
    			}
+$(function() {  
+   $(".download").click(function() {  
+	$("#bootstrap-table").table2excel({
+					exclude: ".noExl",
+					name: "Excel Document Name",
+					filename: "Teachers List",
+					fileext: ".xls",
+					exclude_img: true,
+					exclude_links: true,
+					exclude_inputs: true
+				});
+   });
+
+}); 
 
       var $table = $('#bootstrap-table');
        $('#teachermenu').addClass('collapse in');

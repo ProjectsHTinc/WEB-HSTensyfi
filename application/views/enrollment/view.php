@@ -21,16 +21,12 @@
                <div class="col-md-12">
                   <div class="card">
                      <div class="content">
-                        <h4 class="title" style="padding-bottom: 20px;">List of Student Registration</h4>
+                        <h4 class="title" style="padding-bottom: 20px;">List of Student Registration
+                            <button style="float:right;" class="btn btn-info btn-fill center download">Export Excel</button>
+							<button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
+							</h4>
                         <div class="fresh-datatables">
-						<form method="post" action="<?php echo base_url(); ?>enrollment/get_sorting_details" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
-										   
-											
-										 <div class="col-sm-4">
-                                            
-											<button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
-                                        </div>
-										</form>
+				
                            <table id="bootstrap-table" class="table">
                               <thead>
                                  <th data-field="id" >S.No</th>
@@ -155,6 +151,21 @@ function generatefromtable() {
 				doc.save("Registration.pdf");
 			}
 			
+$(function() {  
+   $(".download").click(function() {  
+	$("#bootstrap-table").table2excel({
+					exclude: ".noExl",
+					name: "Excel Document Name",
+					filename: "Registration",
+					fileext: ".xls",
+					exclude_img: true,
+					exclude_links: true,
+					exclude_inputs: true
+				});
+   });
+
+}); 
+
    var $table = $('#bootstrap-table');
          $().ready(function(){
             jQuery('#enrollmentmenu').addClass('collapse in');
@@ -169,9 +180,9 @@ function generatefromtable() {
                  showColumns: true,
                  pagination: true,
                  searchAlign: 'left',
-                 pageSize: 8,
+                 pageSize: 10,
                  clickToSelect: false,
-                 pageList: [8,10,25,50,100],
+                 pageList: [10,25,50,100],
    
                  formatShowingRows: function(pageFrom, pageTo, totalRows){
                      //do nothing here, we don't want to show the text "showing x of y from..."
