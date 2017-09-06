@@ -1,3 +1,4 @@
+<script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -20,7 +21,15 @@
             <div class="col-md-12">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">View Exam Marks ( <?php foreach ($cls_exname as $rows) {} echo $rows->exam_name; ?>  ) <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button> <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
+                     <h4 class="title">View Exam Marks ( <?php foreach ($cls_exname as $rows) {} echo $rows->exam_name; ?>  ) 
+					 
+                     <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="float:right; ">Go Back</button> 
+							 
+					<button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center download">Export Excel</button>
+					
+				    <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
+					 
+					</h4>
                      <p class="category"></p>
                   </div>
                   <div class="content table-responsive table-full-width">
@@ -298,6 +307,22 @@
 				//doc.text(50, height + 20, 'hi world');
 				doc.save("<?php  echo $this->session->userdata('name'); ?>( <?php echo $cls; echo $sec; ?> ).pdf");
 			}
+			
+$(function() {  
+   $(".download").click(function() {  
+	$("#bootstrap-table").table2excel({
+					exclude: ".noExl",
+					name: "Excel Document Name",
+					filename: "Exam Result Of ( <?php echo $cls; echo $sec; ?> ) ",
+					fileext: ".xls",
+					exclude_img: true,
+					exclude_links: true,
+					exclude_inputs: true
+				});
+   });
+
+});
+
 		 
 </script>
 

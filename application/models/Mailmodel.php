@@ -328,7 +328,7 @@ Class Mailmodel extends CI_Model
 		  foreach($pcel2 as $res)
 		  {  $pamail[]=$res->email;
 		  }
-		  $sms="SELECT h.title,h.hw_details,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE h.class_id='$clssid' AND h.year_id='$year_id' AND h.test_date='$testdate' AND h.subject_id=s.subject_id";
+		  $sms="SELECT h.title,h.hw_details,h.hw_type,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE h.class_id='$clssid' AND h.year_id='$year_id' AND h.test_date='$testdate' AND h.subject_id=s.subject_id";
 		  $sms1=$this->db->query($sms);
 		  $sms2= $sms1->result();
 		  //return $sms2;
@@ -337,13 +337,17 @@ Class Mailmodel extends CI_Model
             $hwtitle=$value->title;
 		    $hwdetails=$value->hw_details;
 			$subname=$value->subject_name;
+			$ht=$value->hw_type;
+			if($ht=='HW'){ $type="Home Work" ; }else{ $type="Class Test" ; }
 			
-			$message=" Title : " .$hwtitle . ", Details : " .$hwdetails .", Subject : ".$subname.",";
+			//$message="Title : " .$hwtitle. ",Type : " .$type. ", Details : " .$hwdetails .", Subject : ".$subname.", ";
+			  $message="Title : " .$hwtitle. ",Type : " .$type. ", Details : " .$hwdetails .", Subject : ".$subname.", ";
 			$home_work_details[]=$message;
 		  } 
 			//print_r($home_work_details);
 		     $hdetails=implode('',$home_work_details);
 			 $pmail_to=implode(',',$pamail);
+			 //echo $pmail_to;exit;
 					 $to = $pmail_to;
 					 $subject="HomeWork / ClassTest Details";
 					 $cnotes=$hdetails;
@@ -358,13 +362,15 @@ Class Mailmodel extends CI_Model
 				 $headers = "MIME-Version: 1.0" . "\r\n";
 				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 				 // Additional headers
+				 
 				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-				 if(mail($to,$subject,$htmlContent,$headers))
+                 //$send= mail($to,$subject,$htmlContent,$headers);
+				  if(mail($to,$subject,$htmlContent,$headers))
 				 {
                      $data= array("status"=>"success");
 		             return $data;
-                  }
-				// $sent=mail($to,$subject,$htmlContent,$headers);
+                  }  
+				 
 				 
 
 	}

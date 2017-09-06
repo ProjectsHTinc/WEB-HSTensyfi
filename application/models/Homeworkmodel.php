@@ -277,6 +277,14 @@ Class Homeworkmodel extends CI_Model
 		    return $data;
 		}
 		
+		function view_send_homework_all($user_id,$user_type,$tdate,$cid)
+		{
+		  $year_id=$this->getYear();
+		  $ahmw="SELECT h.hw_id,h.hw_type,h.title,h.test_date,h.due_date,h.hw_details,h.send_option_status,s.subject_id,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE class_id='$cid' AND h.year_id='$year_id' AND h.subject_id=s.subject_id AND h.test_date='$tdate' AND send_option_status='1'";
+		  $ahmw1=$this->db->query($ahmw);
+		  $ahmw2= $ahmw1->result();
+		  return $ahmw2;
+		}
 		
 
 }

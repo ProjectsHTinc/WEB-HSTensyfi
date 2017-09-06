@@ -500,7 +500,7 @@ Class Smsmodel extends CI_Model
 		  {  $cell[]=$res->mobile;
 		     //echo $num=implode(',',$cell); echo"<br>";
 			}
-		  $sms="SELECT h.title,h.hw_details,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE h.class_id='$clssid' AND h.year_id='$year_id' AND h.test_date='$testdate' AND h.subject_id=s.subject_id";
+		  $sms="SELECT h.title,h.hw_details,h.hw_type,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE h.class_id='$clssid' AND h.year_id='$year_id' AND h.test_date='$testdate' AND h.subject_id=s.subject_id";
 		  $sms1=$this->db->query($sms);
 		  $sms2= $sms1->result();
 		  //return $sms2;
@@ -509,7 +509,11 @@ Class Smsmodel extends CI_Model
             $hwtitle=$value->title;
 		    $hwdetails=$value->hw_details;
 			$subname=$value->subject_name;
-			$message="Title : " .$hwtitle . ", Details : " .$hwdetails .", Subject : ".$subname.", ";
+			$ht=$value->hw_type;
+			
+			if($ht=='HW'){ $type="Home Work" ; }else{ $type="Class Test" ; }
+			
+			$message="Title : " .$hwtitle. ",Type : " .$type. ", Details : " .$hwdetails .", Subject : ".$subname.", ";
 			$home_work_details[]=$message;
 		  } 
 			//print_r($home_work_details);
@@ -536,10 +540,8 @@ Class Smsmodel extends CI_Model
 			   if(!$output)
 			   {
 				  $output =  file_get_contents($smsgatewaydata);
-			   }else{ 
-			      $data= array("status"=>"success");
-		          return $data;
-			   }
+			   }else{  $data= array("status"=>"success");
+		      return $data; }
 	}
 
 
