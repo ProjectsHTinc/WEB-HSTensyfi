@@ -35,7 +35,6 @@
 								 $tdate=$rows->test_date;
 								 $cid=$rows->class_id;
 								 $send_status=$rows->send_option_status;
-								 
                                   ?>
                               <tr>
                                  <td><?php  echo $i; ?></td>
@@ -49,8 +48,11 @@
 								 <?php if($send_status=="1")
                                        { ?>
 										<i style="color:green; font-weight:bold;padding-right:10px;" class="fa fa-check" aria-hidden="true"></i> ( <?php $date=date_create($rows->updated_at);
-                                    echo date_format($date,"d-m-Y");  ?> )
+                                    echo date_format($date,"d-m-Y");  ?> )  
+			<a  style="padding-left: 7px;" href="<?php echo base_url(); ?>homework/view_send_all_homework/<?php echo $tdate; ?>/<?php echo $cid; ?>" ><i class="fa fa-file" aria-hidden="true"></i></a> 
 										<?php }else{ echo ""; } ?>
+										
+
 								 </td>
                                  
                               </tr>
@@ -158,7 +160,7 @@
 	            type:'POST',
 	           data: $('#homeworkform').serialize(),
 	           success: function(response) {
-				  //alert(response);
+				  alert(response);
 	               if(response=="success")
 				   {
 	                //  swal("Success!", "Thanks for Your Note!", "success");
@@ -226,7 +228,7 @@
    
    
          });
-</script>
+</script> 
 <script type="text/javascript">
    $().ready(function(){
    
