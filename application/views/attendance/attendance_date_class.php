@@ -10,6 +10,7 @@
             <div class="card">
                <div class="">
                   <legend>
+                    <h4 style="padding-top:20px;">Take Attendance For Class on Selected Date</h4>
                     </legend>
                   <div class="content">
                      <form action="<?php echo base_url(); ?>adminattendance/attendance_on_class" method="post" class="form-horizontal" id="select_month">
@@ -68,18 +69,18 @@
 
    $('#select_month').validate({ // initialize the plugin
        rules: {
-           year_class:{required:true },
+           attendance_date:{required:true },
            month_id:{required:true }
 
        },
        messages: {
-             year_class: "Select year",
+             attendance_date: "Select Date",
              month_id: "Select Month"
 
            }
    });
 
-  $('#attend').addClass('collapse in');
-  $('#attendance').addClass('active');
-  $('#attend2').addClass('active');
+          $('#attend').addClass('collapse in');
+          $('#attendance').addClass('active');
+          $('#attend1').addClass('active');
 </script>

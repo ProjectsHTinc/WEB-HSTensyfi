@@ -20,8 +20,8 @@
 
                      <div class="fresh-datatables">
                          <form action="" method="post" enctype="multipart/form-data" id="take_attendance">
-                           <input type="text" name="a_period" value="<?php echo $session_id; ?>">
-                            <input type="text" name="abs_date" value="<?php echo $abs_date; ?>">
+                           <input type="hidden" name="a_period" value="<?php echo $session_id; ?>">
+                            <input type="hidden" name="abs_date" value="<?php echo $abs_date; ?>">
                            <table class="table table-striped">
                                <thead>
                                    <tr>
@@ -38,7 +38,7 @@
                                        <td class="text-center"><?php echo $i;  ?></td>
                                        <input type="hidden" name="student_count" value="<?php echo count($res); ?>">
                                         <td class="text-center"><?php echo $rows->name;  ?>
-                                         <input type="text" name="enroll_id[]" value="<?php echo $rows->enroll_id; ?>">
+                                         <input type="hidden" name="enroll_id[]" value="<?php echo $rows->enroll_id; ?>">
                                          <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
                                        </td>
                                        <td>
@@ -83,9 +83,9 @@
 
 
 <script type="text/javascript">
-$('#attendmenu').addClass('collapse in');
-$('#atten').addClass('active');
-$('#atten1').addClass('active');
+$('#attend').addClass('collapse in');
+$('#attendance').addClass('active');
+$('#attend1').addClass('active');
 
 function submitAttendence(){
         swal({
@@ -106,7 +106,7 @@ function submitAttendence(){
             type:'POST',
            data: $('#take_attendance').serialize(),
            success: function(response) {
-            
+
                if(response=="success"){
                 //  swal("Success!", "Thanks for Your Note!", "success");
                   $('#take_attendance')[0].reset();
