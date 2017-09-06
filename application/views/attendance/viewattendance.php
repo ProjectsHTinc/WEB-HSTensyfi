@@ -7,10 +7,16 @@
 </style>
 <div class="main-panel">
    <div class="content">
-      <div class="col-md-12">
-         <h4 class="title">Attendance for Class in Daywise</h4>
-         <div class="card">
+      <div class="card">
+
+         <div class="content">
             <div class="content">
+              <div class="legend">
+                 <h4 class="title">Attendance for Class in Daywise</h4>
+                 <p class="pull-right">
+                   <a href="<?php echo base_url(); ?>adminattendance/take_attendance_for_class" class="btn btn-default">Take Attendance</a>
+                 </p>
+               </div>
                <div class="row">
                   <div class="col-md-12">
                      <div class="">

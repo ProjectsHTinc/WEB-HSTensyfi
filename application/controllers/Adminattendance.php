@@ -8,10 +8,11 @@ class Adminattendance extends CI_Controller {
 		 parent::__construct();
 
 			$this->load->model('adminattendancemodel');
+			$this->load->model('teacherattendencemodel');
 			$this->load->model('class_manage');
-		    $this->load->helper('url');
+		  $this->load->helper('url');
 			$this->load->library('encryption');
-		    $this->load->library('session');
+		  $this->load->library('session');
  }
 
 	/**
@@ -158,32 +159,143 @@ class Adminattendance extends CI_Controller {
 				$this->load->view('attendance/class_view_attendance',$datas);
 				$this->load->view('footer');
 			 }else{
+				 	redirect('/');
+			 }
+		}
 
+		public function edit_class_attendance($at_id,$class_id){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			 if($user_type==1){
+				$datas['result']=$this->adminattendancemodel->get_list_record($at_id,$class_id);
+				$datas['get_name_class']=$this->class_manage->edit_cs($class_id);
+				$datas['attend_id']=$at_id;
+				$datas['class_id']=$class_id;
+				$this->load->view('header');
+				$this->load->view('attendance/edit_class_attendance',$datas);
+				$this->load->view('footer');
+			 }else{
+				 	redirect('/');
+			 }
+		}
+
+
+		public function update_attendance(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			 if($user_type==1){
+				 $attend_id=$this->input->post('attend_id');
+				 $enroll_id=$this->input->post('enroll_id');
+				 $attendence_val=$this->input->post('attendence_val');
+				 $class_id=$this->input->post('class_id');
+				 $datas=$this->adminattendancemodel->update_attendance_class($attend_id,$enroll_id,$attendence_val,$class_id,$user_id);
+				 if($datas['status']=="success"){
+					 echo "success";
+				 }else if($datas['status']=="taken"){
+						echo "Already Taken";
+				 }else{
+					 echo "failure";
+				 }
+			 }else{
+				 	redirect('/');
 			 }
 		}
 
 
 
+		//Admin  class to take attendance
+		public function take_attendance_for_class(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			 if($user_type==1){
+				 $datas['res']=$this->adminattendancemodel->get_all_class();
+				 $this->load->view('header');
+ 				$this->load->view('attendance/attendance_date_class',$datas);
+ 				$this->load->view('footer');
+			 }else{
+				 	redirect('/');
+			 }
+		}
+
+		//Check attendance
+		public function attendance_on_class(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			 if($user_type==1){
+				 $attendance_date=$this->input->post('attendance_date');
+				 $session_id=$this->input->post('session_id');
+				 $class_id=$this->input->post('class_id');
+				$datas=$this->adminattendancemodel->check_attendance_by_admin($class_id,$session_id,$attendance_date);
+				if($datas['status']=="success"){
+				 $datas['res']=$this->teacherattendencemodel->get_studentin_class($class_id);
+				 $datas['class_id']=$class_id;
+				 $datas['cur']=$this->teacherattendencemodel->get_cur_year();
+				 if($datas['cur']['status']=="success"){
+					 $datas['abs_date']=$attendance_date;
+					 $datas['session_id']=$session_id;
+					$this->load->view('header');
+	 				$this->load->view('attendance/take_attendance',$datas);
+	 				$this->load->view('footer');
+				 }
+			 }else if($datas['status']=="special"){
+				 $datas['status']="This Day is marked AS Special Leave";
+				 $this->load->view('header');
+ 				$this->load->view('attendance/take_attendance',$datas);
+ 				$this->load->view('footer');
+				}else if($datas['status']=="regular"){
+					$datas['status']="This Day Is marked AS Regular Leave";
+					$this->load->view('header');
+	 				$this->load->view('attendance/take_attendance',$datas);
+	 				$this->load->view('footer');
+				}else if($datas['status']=="taken"){
+					$datas['status']="Attendance already Taken for This Class";
+					$this->load->view('header');
+	 				$this->load->view('attendance/take_attendance',$datas);
+	 				$this->load->view('footer');
+				}else if($datas['status']=="noYearfound"){
+					$datas['status']="No Academic  Year found";
+					$this->load->view('header');
+	 				$this->load->view('attendance/take_attendance',$datas);
+	 				$this->load->view('footer');
+				}
+				else{
+
+					$this->load->view('header');
+					$this->load->view('attendance/take_attendance',$datas);
+					$this->load->view('footer');
+		}
+			 }else{
+				 	redirect('/');
+			 }
+		}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		public function update_attendance_admin(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			 if($user_type==1){
+				 	$a_period=$this->input->post('a_period');
+					$abs_date=$this->input->post('abs_date');
+					$enroll_id=$this->input->post('enroll_id');
+					$attendence_val=$this->input->post('attendence_val');
+					$class_id=$this->input->post('class_id');
+					$datas=$this->adminattendancemodel->take_attendance_admin($a_period,$abs_date,$enroll_id,$attendence_val,$class_id,$user_id);
+					if($datas['status']=="success"){
+						echo "success";
+					}else if($datas['status']=="taken"){
+						 echo "Already Taken";
+					}else{
+						echo "failure";
+					}
+			 }else{
+				 	redirect('/');
+			 }
+		}
 
 
 

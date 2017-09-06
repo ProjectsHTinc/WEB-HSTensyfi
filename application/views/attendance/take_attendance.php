@@ -19,7 +19,9 @@
                       <?php     }else{ ?>
 
                      <div class="fresh-datatables">
-                         <form action="" method="post" enctype="multipart/form-data" id="takeattendence">
+                         <form action="" method="post" enctype="multipart/form-data" id="take_attendance">
+                           <input type="text" name="a_period" value="<?php echo $session_id; ?>">
+                            <input type="text" name="abs_date" value="<?php echo $abs_date; ?>">
                            <table class="table table-striped">
                                <thead>
                                    <tr>
@@ -35,41 +37,19 @@
                                    <tr>
                                        <td class="text-center"><?php echo $i;  ?></td>
                                        <input type="hidden" name="student_count" value="<?php echo count($res); ?>">
-         <td class="text-center"><?php echo $rows->name;  ?>
-         <input type="hidden" name="student_id[]" value="<?php echo $rows->enroll_id; ?>">
-         <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
-          <input type="hidden" name="user_id" value="<?php echo $user_id=$this->session->userdata('user_id'); ?>">
-
+                                        <td class="text-center"><?php echo $rows->name;  ?>
+                                         <input type="text" name="enroll_id[]" value="<?php echo $rows->enroll_id; ?>">
+                                         <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
                                        </td>
-                                       <td><select name="attendence_val[]">
-                                         <option value="P,<?php echo $rows->enroll_id; ?>,<?php
- $dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
- echo $dateTime->format("A");
- ?>">Present</option>
-                                        <option value="A,<?php echo $rows->enroll_id; ?>,<?php
-$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
-echo $dateTime->format("A");
-?>">Absent</option>
-                                        <option value="L,<?php echo $rows->enroll_id; ?>,<?php
-$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
-echo $dateTime->format("A");
-?>">Leave</option>
-                                        <option value="OD,<?php echo $rows->enroll_id; ?>,<?php
-$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
-echo $dateTime->format("A");
-?>">On-Duty</option>
+                                       <td>
+                                         <select name="attendence_val[]">
+                                         <option value="P">Present</option>
+                                        <option value="A">Absent</option>
+                                        <option value="L">Leave</option>
+                                        <option value="OD">On-Duty</option>
                                        </select>
                                        </td>
-                                        <!-- <td class="text-center">
-                                           <div class="switch"
-                                                data-on-label=""
-                                                data-off-label="">
-                                                <input type="checkbox" name="attendence_val[]" value="A,<?php echo $rows->enroll_id; ?>,<?php
-$dateTime = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
-echo $dateTime->format("A");
-?>"/>
-                                           </div>
-                                       </td> -->
+
                                    </tr>
 
                             <?php
@@ -122,20 +102,20 @@ function submitAttendence(){
                   function(isConfirm) {
                       if (isConfirm) {
        $.ajax({
-           url: "<?php echo base_url(); ?>teacherattendence/take_attendence",
+           url: "<?php echo base_url(); ?>adminattendance/update_attendance_admin",
             type:'POST',
-           data: $('#takeattendence').serialize(),
+           data: $('#take_attendance').serialize(),
            success: function(response) {
-             //alert(response);
+            
                if(response=="success"){
                 //  swal("Success!", "Thanks for Your Note!", "success");
-                  $('#takeattendence')[0].reset();
+                  $('#take_attendance')[0].reset();
                   swal({
            title: "Attendance Done!",
            text: "Thank You!",
            type: "success"
        }, function() {
-           window.location = "<?php echo base_url(); ?>teacherattendence/view";
+           window.location = "<?php echo base_url(); ?>adminattendance/home";
        });
                }else{
                  sweetAlert("Oops...", response, "error");
