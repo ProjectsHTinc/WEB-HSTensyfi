@@ -320,7 +320,6 @@ class Homework extends CI_Controller
 			 $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid);
 		  }
 	  }
-
 	  if($datas['status']=="success")
 	  { 
 	    echo "success";
@@ -331,15 +330,27 @@ class Homework extends CI_Controller
              redirect('/');
 			 }
 	   }
+	   
+	   
+	   public function view_send_all_homework($tdate,$cid)
+	   {
+		   //echo $tdate; echo $cid; 
+		   $datas=$this->session->userdata();
+		   $user_id=$this->session->userdata('user_id');
+		   $user_type=$this->session->userdata('user_type');
+		   $datas['view_all']=$this->homeworkmodel->view_send_homework_all($user_id,$user_type,$tdate,$cid); 
+		   //echo'<pre>'; print_r($datas['view_all']);exit;
+		   if($user_type==2)
+		   {
+			 $this->load->view('adminteacher/teacher_header');
+			 $this->load->view('adminteacher/homework/view_send_all_hw',$datas);
+			 $this->load->view('adminteacher/teacher_footer');
+		   }else{
+	 		  redirect('/');
+	 		 }
+	   }
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
  }
