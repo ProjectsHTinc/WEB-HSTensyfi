@@ -682,6 +682,9 @@ class Apiteachermodel extends CI_Model {
                 if ($marks <= 20) {
 					$total_grade = 'E2';
                 }
+				if ($marks == 'AB') {
+					$total_grade = '';
+                }
 				
 				   $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$marks','$total_grade','$created_by',NOW())";
 		
@@ -716,6 +719,9 @@ class Apiteachermodel extends CI_Model {
                 if ($internal_mark <= 8) {
                		$internal_grade = 'E2';
                 }
+                if ($internal_mark == 'AB') {
+               		$internal_grade = '';
+                }
                 
                 //External Mark Grade
                 if ($external_mark >= 55 && $external_mark <= 60) {
@@ -744,6 +750,9 @@ class Apiteachermodel extends CI_Model {
                 }
                 if ($external_mark <= 12) {
                 	$external_grade = 'E2';
+                }
+                if ($external_mark == 'AB') {
+               		$external_grade = '';
                 }
                 
                 //Total Mark Grade
@@ -776,7 +785,9 @@ class Apiteachermodel extends CI_Model {
                 if ($total_marks <= 20) {
 					$total_grade = 'E2';
                 }
-                
+                if ($internal_mark == 'AB' && $external_mark == 'AB') { 
+					$total_grade = '';
+                }
 		      $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `internal_mark`, `internal_grade`, `external_mark`, `external_grade`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$internal_mark','$internal_grade','$external_mark','$external_grade','$total_marks','$total_grade','$created_by',NOW())";
 		}
 		
