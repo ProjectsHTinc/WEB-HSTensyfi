@@ -245,6 +245,7 @@
                      <ul class="nav">
                         <li id="teacher1"><a href="<?php echo base_url(); ?>teacher/home">Add Teachers</a></li>
                         <li id="teacher2"><a href="<?php echo base_url(); ?>teacher/view">Teachers Search</a></li>
+						 <li id="teacher3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
                      </ul>
                   </div>
                </li>
@@ -328,7 +329,6 @@
                      <ul class="nav">
                         <li id="communication1"><a href="<?php echo base_url(); ?>circular/add_circular">Add Circular </a></li>
                         <li id="communication2"><a href="<?php echo base_url(); ?>circular/view_circular">View Circular </a></li>
-                        <li id="communication3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
                      </ul>
                   </div>
                </li>
