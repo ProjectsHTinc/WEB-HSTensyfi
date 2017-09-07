@@ -6,6 +6,8 @@
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
+	  
+	  <?php if(empty($cls_tutor)){  }else{ ?>
 	  <div class="row">
             <div class="col-md-12">
                <div class="card">
@@ -15,9 +17,6 @@
                   <div class="content">
                      <div class="row">
                         <?php 
-                           if(empty($cls_tutor)){
-                           	echo "<p>Records Not Found</p>";
-                           }else{
                             foreach($cls_tutor as $rows1)
                               {
                            	 $cls_tutor_id=$rows1->class_teacher;
@@ -27,12 +26,13 @@
                         <div class="col-md-2">
                            <a href="<?php echo base_url();?>homework/get_all_homework/<?php echo $cls_tutor_id; ?>" class="btn btn-wd"><?php echo $clsname1."-".$sec_name1; ?></a>
                         </div>
-                        <?php  }  }?>
+                        <?php  }  ?>
                      </div>
                   </div>
                </div>
             </div>
          </div>
+		 <?php } ?>
 		 
          <div class="row">
             <div class="col-md-12">
