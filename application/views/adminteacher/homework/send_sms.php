@@ -16,7 +16,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title">Send SMS</h4>
+                <h4 class="title">Send SMS  <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></h4>
                 <div class="fresh-datatables">
                   <table id="bootstrap-table" class="table">
                     <thead>
@@ -35,7 +35,7 @@
                         $cdate=$rows->created_at;
                         $cid=$rows->class_id;
                         $send_status=$rows->send_option_status;
-						$tdate = date('Y-m-d',strtotime($cdate)); 
+						$tdate = date('Y-m-d',strtotime($cdate));
                         //$time = date('H:i:s',strtotime($tdate));
                         ?>
                         <tr>
@@ -178,7 +178,7 @@
                 swal("Cancelled", "Process Cancel :)", "error");
               }
             });
-          } 
+          }
         });
       });
 

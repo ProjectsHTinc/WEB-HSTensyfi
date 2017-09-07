@@ -82,9 +82,10 @@
 </div>
 <script type="text/javascript">
    $(document).ready(function () {
-     $('#communcicationmenu').addClass('collapse in');
-     $('#communication').addClass('active');
-     $('#communication3').addClass('active');
+    $('#teachermenu').addClass('collapse in');
+    $('#teacher').addClass('active');
+    $('#teacher3').addClass('active');
+   
     $('#myformsection').validate({ // initialize the plugin
        rules: {
          leave_type:{required:true },
