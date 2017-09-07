@@ -55,7 +55,7 @@
                             { ?>
                               <i style="color:green; font-weight:bold;padding-right:10px;" class="fa fa-check" aria-hidden="true"></i> ( <?php $date=date_create($rows->updated_at);
                               echo date_format($date,"d-m-Y");  ?> )
-                              <a  style="padding-left: 7px;" href="<?php echo base_url(); ?>homework/view_send_all_homework/<?php echo $tdate; ?>/<?php echo $cid; ?>" ><i class="fa fa-file" aria-hidden="true"></i></a>
+                              <!-- <a  style="padding-left: 7px;" href="<?php echo base_url(); ?>homework/view_send_all_homework/<?php echo $tdate; ?>/<?php echo $cid; ?>" ><i class="fa fa-file" aria-hidden="true"></i></a>-->
                               <?php }else{ echo ""; } ?>
                             </td>
                           </tr>
