@@ -23,7 +23,7 @@ Class Smsmodel extends CI_Model
         return $year_id;
       }
     }
-	
+
   function send_sms_for_teacher_leave($number,$leave_type)
   {
 	// http://173.45.76.227/send.aspx?username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS&numbers=12345&message=WELCOME
@@ -486,13 +486,13 @@ Class Smsmodel extends CI_Model
                 $output =  file_get_contents($smsgatewaydata);
               }
         }
-		
-		// Home Work SMS 
-		
+
+		// Home Work SMS
+
 		function send_sms_homework($user_id,$user_type,$createdate,$clssid)
 		{
 		   $year_id=$this->getYear();
-		   
+
 		   $pcell="SELECT p.mobile FROM edu_parents AS p,edu_enrollment AS e WHERE e.class_id='$clssid' AND FIND_IN_SET( e.admission_id,p.admission_id) GROUP BY p.name";
 		  $pcell1=$this->db->query($pcell);
 		  $pcel2=$pcell1->result();
@@ -511,16 +511,16 @@ Class Smsmodel extends CI_Model
 			$subname=$value->subject_name;
 			$ht=$value->hw_type;
 			$tdat=$value->test_date;
-			
+
 			if($ht=='HW'){ $type="Home Work" ; }else{ $type="Class Test" ; }
-			
+
 			$message="Title : " .$hwtitle. ",Type : " .$type. ", Details : " .$hwdetails .", Subject : ".$subname.", ";
 			$home_work_details[]=$message;
-		  } 
+		  }
 			//print_r($home_work_details);
 		    $hdetails=implode('',$home_work_details);
 			$num=implode(',',$cell);
-			
+
 			$count1=count($cell);
 
 				$textmsg =urlencode($hdetails);
@@ -530,7 +530,7 @@ Class Smsmodel extends CI_Model
 				$smsgatewaydata = $smsGatewayUrl.$api_params;
 
 				$url = $smsgatewaydata;
-             
+
 			   $ch = curl_init();
 			   curl_setopt($ch, CURLOPT_POST, false);
 			   curl_setopt($ch, CURLOPT_URL, $url);
@@ -544,6 +544,46 @@ Class Smsmodel extends CI_Model
 			   }else{  $data= array("status"=>"success");
 		      return $data; }
 	}
+
+
+
+      function send_sms_attendance($attend_id){
+         $query="SELECT ee.name,ep.mobile,ee.admission_id,eah.abs_date,eah.student_id,eah.a_status,eah.attend_period,
+         CASE WHEN attend_period = 0 THEN 'MORNING'  ELSE 'AFTERNOON' END  AS a_session,CASE WHEN a_status = 'L' THEN 'Leave' WHEN a_status = 'A' THEN 'Absent' ELSE 'OnDuty' END  AS abs_atatus FROM edu_attendance_history AS eah LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eah.student_id LEFT JOIN edu_parents AS ep ON ee.admission_id=ep.admission_id WHERE
+          eah.attend_id='$attend_id' AND ep.primary_flag='Yes'";
+
+        $result=$this->db->query($query);
+        $res=$result->result();
+        foreach($res as $rows){
+           $st_name=$rows->name;
+           $parents_num=$rows->mobile;
+           $at_ses=$rows->a_session;
+           $abs_date=$rows->abs_date;
+           $abs_status=$rows->abs_atatus;
+
+           $textmessage='Your child '.$st_name.' was marked '.$abs_status.' today, '.$abs_date.' ON '.$at_ses.' To Known more details login into http://bit.ly/2wLwdRQ';
+
+          $textmsg =urlencode($textmessage);
+          $smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+          $api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+          $api_params = $api_element.'&numbers='.$parents_num.'&message='.$textmsg;
+          $smsgatewaydata = $smsGatewayUrl.$api_params;
+          $url = $smsgatewaydata;
+
+         $ch = curl_init();
+         curl_setopt($ch, CURLOPT_POST, false);
+         curl_setopt($ch, CURLOPT_URL, $url);
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         $output = curl_exec($ch);
+         curl_close($ch);
+
+         if(!$output)
+         {
+              $output =  file_get_contents($smsgatewaydata);
+            }
+
+        }
+      }
 
 
 }

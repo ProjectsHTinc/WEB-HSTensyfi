@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                        <label class="col-sm-4 control-label">Notification Type </label>
                                        <div class="col-sm-6">
-                                          <select multiple name="circular_type[]" id="circular_type" data-title="Select Circular Type" class="selectpicker form-control">
+                                          <select multiple name="circular_type[]" id="circular_type" data-title="Select  Type" class="selectpicker form-control">
                                              <option value="SMS">SMS</option>
                                              <option value="Mail">Mail</option>
                                              <option value="Notification">Notification</option>

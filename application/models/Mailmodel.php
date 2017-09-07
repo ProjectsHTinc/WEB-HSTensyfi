@@ -8,7 +8,7 @@ Class Mailmodel extends CI_Model
       parent::__construct();
 
   }
-  
+
   public function getYear()
     {
       $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
@@ -24,25 +24,25 @@ Class Mailmodel extends CI_Model
         return $year_id;
       }
     }
-	
+
   function send_mail_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id)
   {
-	 
+
 	$sql="SELECT teacher_id,name,email FROM edu_teachers WHERE teacher_id='$sub_teacher'";
 	$resultset=$this->db->query($sql);
 	$res=$resultset->result();
 	foreach($res as $cell){}
 	$email_id=$cell->email;
-	
+
 	$sql1="SELECT cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_classmaster AS cm,edu_class AS c,edu_sections AS s WHERE cm.class_sec_id='$cls_id' AND cm.class=c.class_id AND cm.section=s.sec_id ";
 	$resultset1=$this->db->query($sql1);
 	$res1=$resultset1->result();
 	foreach($res1 as $cls){}
 	$cname=$cls->class_name;
 	$sename=$cls->sec_name;
-	
+
 	$textmessage='This is to inform you that as '.$tname.' is on leave,'.$sub_tname.' will be the substitute teacher to fill in for '.$cname.'-'.$sename.',period ('.$period_id.') on '.$leave_date.' ';
-	
+
 		 $to=$email_id;
 		 $subject="SUBSTITUTION";
 		 $cnotes=$textmessage;
@@ -317,11 +317,11 @@ Class Mailmodel extends CI_Model
     }
 
 	//-----------------------Send Home Work In Mail-----------------------------------------
-	
+
      function send_mail_homework($user_id,$user_type,$createdate,$clssid)
 		{
 		   $year_id=$this->getYear();
-		   
+
 		   $pcell="SELECT p.email FROM edu_parents AS p,edu_enrollment AS e WHERE e.class_id='$clssid' AND FIND_IN_SET( e.admission_id,p.admission_id) GROUP BY p.name";
 		  $pcell1=$this->db->query($pcell);
 		  $pcel2=$pcell1->result();
@@ -338,14 +338,14 @@ Class Mailmodel extends CI_Model
 		    $hwdetails=$value->hw_details;
 			$subname=$value->subject_name;
 			$ht=$value->hw_type;
-			$tdat=$value->test_date; 
-			
+			$tdat=$value->test_date;
+
 			if($ht=='HW'){ $type="Home Work" ; }else{ $type="Class Test" ; }
-			
+
 			//$message="Title : " .$hwtitle. ",Type : " .$type. ", Details : " .$hwdetails .", Subject : ".$subname.", ";
 			  $message="Title : " .$hwtitle. ",Type : " .$type. ", Details : " .$hwdetails .", Subject : ".$subname.", ";
 			$home_work_details[]=$message;
-		  } 
+		  }
 			//print_r($home_work_details);
 		     $hdetails=implode('',$home_work_details);
 			 $pmail_to=implode(',',$pamail);
@@ -364,18 +364,52 @@ Class Mailmodel extends CI_Model
 				 $headers = "MIME-Version: 1.0" . "\r\n";
 				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 				 // Additional headers
-				 
+
 				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
                  //$send= mail($to,$subject,$htmlContent,$headers);
 				  if(mail($to,$subject,$htmlContent,$headers))
 				 {
                      $data= array("status"=>"success");
 		             return $data;
-                  }  
-				 
-				 
+                  }
+
+
 
 	}
+
+
+  function send_mail_attendance($attend_id){
+    $query="SELECT ee.name,ep.mobile,ep.email,ee.admission_id,eah.abs_date,eah.student_id,eah.a_status,eah.attend_period,
+    CASE WHEN attend_period = 0 THEN 'MORNING'  ELSE 'AFTERNOON' END  AS a_session,CASE WHEN a_status = 'L' THEN 'Leave' WHEN a_status = 'A' THEN 'Absent' ELSE 'OnDuty' END  AS abs_atatus FROM edu_attendance_history AS eah LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eah.student_id LEFT JOIN edu_parents AS ep ON ee.admission_id=ep.admission_id WHERE
+     eah.attend_id='$attend_id' AND ep.primary_flag='Yes'";
+   $result=$this->db->query($query);
+   $res=$result->result();
+   foreach($res as $rows){
+      $st_name=$rows->name;
+      $parents_email=$rows->email;
+      $at_ses=$rows->a_session;
+      $abs_date=$rows->abs_date;
+      $abs_status=$rows->abs_atatus;
+      $textmessage='Your child '.$st_name.' was marked '.$abs_status.' today, '.$abs_date.' ON '.$at_ses.' To Known more details login into http://bit.ly/2wLwdRQ';
+      $to=$parents_email;
+      $subject="From KalaiMagal";
+
+       $htmlContent = '
+        <html>
+        <head><title></title>
+        </head>
+        <body>
+        <p style="margin-left:50px;">'.$textmessage.'</p>
+        </body>
+        </html>';
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    // Additional headers
+    $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+    $send= mail($to,$subject,$htmlContent,$headers);
+
+   }
+  }
 
 
 }//end class
