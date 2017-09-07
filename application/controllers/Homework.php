@@ -243,7 +243,7 @@ class Homework extends CI_Controller
 		   $user_type=$this->session->userdata('user_type');
 		  
 		   $datas['tutor_homework']=$this->homeworkmodel->get_all_ctutor_homework($user_id,$cls_tutor_id);
-
+           //echo'<pre>';print_r($datas['tutor_homework']);exit;
 		   if($user_type==2)
 		   {
 			 $this->load->view('adminteacher/teacher_header');

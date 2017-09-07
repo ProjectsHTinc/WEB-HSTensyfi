@@ -269,9 +269,9 @@ Class Homeworkmodel extends CI_Model
 		  return $hmw2;
 		}
 		
-		function send_homework_status($user_id,$testdate,$clssid)
+		function send_homework_status($user_id,$createdate,$clssid)
 		{
-			$send="UPDATE edu_homework SET send_option_status='1',updated_by='$user_id',updated_at=NOW() WHERE class_id='$clssid' AND created_at='$testdate'";
+			$send="UPDATE edu_homework SET send_option_status='1',updated_by='$user_id',updated_at=NOW() WHERE class_id='$clssid' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$createdate'";
 			$send1=$this->db->query($send); 
             $data= array("status"=>"success");
 		    return $data;
@@ -280,7 +280,7 @@ Class Homeworkmodel extends CI_Model
 		function view_send_homework_all($user_id,$tdate,$cid)
 		{
 		  $year_id=$this->getYear();
-		  $ahmw="SELECT h.hw_id,h.hw_type,h.title,h.created_at,h.test_date,h.due_date,h.hw_details,h.send_option_status,s.subject_id,s.subject_name,t.name FROM edu_homework AS h,edu_subject AS s,edu_teachers AS t WHERE class_id='$cid' AND h.year_id='$year_id' AND h.subject_id=s.subject_id AND h.created_at='$tdate' AND send_option_status='1' AND h.teacher_id=t.	teacher_id";
+		   $ahmw="SELECT h.hw_id,h.hw_type,h.title,h.created_at,h.test_date,h.due_date,h.hw_details,h.send_option_status,s.subject_id,s.subject_name,t.name FROM edu_homework AS h,edu_subject AS s,edu_teachers AS t WHERE class_id='$cid' AND h.year_id='$year_id' AND h.subject_id=s.subject_id AND DATE_FORMAT(h.created_at,'%Y-%m-%d')='$tdate' AND send_option_status='1' AND h.teacher_id=t.teacher_id";
 		  $ahmw1=$this->db->query($ahmw);
 		  $ahmw2= $ahmw1->result();
 		  return $ahmw2;

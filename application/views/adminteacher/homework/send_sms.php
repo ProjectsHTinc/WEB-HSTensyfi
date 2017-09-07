@@ -32,11 +32,10 @@
                       foreach ($tutor_homework as $rows) {
                         $hw=$rows->hw_type;
                         $status=$rows->status;
-                        $tdate=$rows->created_at;
+                        $cdate=$rows->created_at;
                         $cid=$rows->class_id;
                         $send_status=$rows->send_option_status;
-				        //echo $tdate;
-						//$cdate = date('Y-m-d',strtotime($tdate)); 
+						$tdate = date('Y-m-d',strtotime($cdate)); 
                         //$time = date('H:i:s',strtotime($tdate));
                         ?>
                         <tr>
@@ -82,8 +81,8 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="card">
-                          <div class="content">
-                            <form method="post" action="<?php echo base_url(); ?>homework/send_sms_all_homework" class="form-horizontal" id="homeworkform">
+                          <div class="content"><!-- <?php //echo base_url(); ?>homework/send_sms_all_homework -->
+                            <form method="post" action="" class="form-horizontal" id="homeworkform">
                               <input type="hidden" id="event_id" name="tdate" >
                               <input type="hidden" name="clsid" id="csid" value="<?php echo $cid; ?>">
                               <fieldset>
@@ -136,7 +135,7 @@
             'sendoption[]':"Select Send Option",
           },
 
-         /*  submitHandler: function(form) {
+           submitHandler: function(form) {
             //alert("hi");
             var clssid = document.getElementById("csid").value;
             swal({
@@ -179,7 +178,7 @@
                 swal("Cancelled", "Process Cancel :)", "error");
               }
             });
-          } */
+          } 
         });
       });
 
