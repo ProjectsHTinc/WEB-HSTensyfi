@@ -1,13 +1,11 @@
-
-
 <div class="main-panel">
-
       <div class="content">
          <div class="container-fluid">
             <div class="row">
                <div class="col-md-12">
                   <div class="card">
                      <div class="content">
+					 <h4 class="title">View Special Class Details </h4>
                         <div class="fresh-datatables">
                            <table id="bootstrap-table" class="table">
                               <thead>
