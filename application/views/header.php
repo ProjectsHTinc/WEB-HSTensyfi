@@ -25,21 +25,20 @@
       <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
-	  <!-- Excel -->
-	  <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
-	  
+      <!-- Excel -->
+      <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
       <!-- Calender
          <script src="<?php echo base_url(); ?>assets/js/datepicker.js" type="text/javascript"></script>
          <link href="<?php echo base_url(); ?>assets/css/clean.css" rel="stylesheet" />
          <link href="<?php echo base_url(); ?>assets/css/base.css" rel="stylesheet" />---->
       <!--  Forms Validations Plugin -->
-        <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
-        <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+      <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
+      <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/jquery.datatables.js"></script>
       <style>
          .navbar{
          margin-bottom:0px;}
-        .caret{
+         .caret{
          position: relative;
          top: -20px;
          float: right;
@@ -66,8 +65,8 @@
          height: 100%;
          width: 100%;background-color: whitesmoke;}
          .menuimg{
-           float: left;
-           margin-right: 10px;
+         float: left;
+         margin-right: 10px;
          }
       </style>
    </head>
@@ -83,13 +82,13 @@
                <span class="icon-bar"></span>
                </button>
                <a class="navbar-brand title_ensyfi" href="#" style="margin-top: 20px;
-    font-size:28px;" ><?php  echo $this->session->userdata('name'); ?> </a>
+                  font-size:28px;" ><?php  echo $this->session->userdata('name'); ?> </a>
             </div>
             <div class="collapse navbar-collapse" style="float:right;margin-top:17px;">
                <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown" style="padding:08px 10px;">
                      <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size:12px;
-    color: white;border-color:white;text-transform: uppercase;border-radius: 8px;">
+                        color: white;border-color:white;text-transform: uppercase;border-radius: 8px;">
                      Quick Links</a>
                      <ul class="dropdown-menu">
                         <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
@@ -143,7 +142,6 @@
          </div>
       </nav>
       <div class="sidebar sidemenu">
-
          <div class="sidebar-wrapper" style="background-color:#323546;">
             <div class="user" style="margin-top:10px;">
                <div class="imgclass photo" style="margin-left:20px;">
@@ -180,7 +178,7 @@
                </li>
                <li id="master">
                   <a data-toggle="collapse" href="#mastersmenu" id="masters">
-                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/masters.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/masters.png"/>
                      <p>Masters</p>
                      <b class="caret"></b>
                   </a>
@@ -224,7 +222,7 @@
                </li>
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
-                       <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
                      <p>Registration	</p>
                      <b class="caret"></b>
                   </a>
@@ -237,7 +235,7 @@
                </li>
                <li id="teacher">
                   <a data-toggle="collapse" href="#teachermenu">
-                       <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/teachers.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/teachers.png"/>
                      <p>Teachers	</p>
                      <b class="caret"></b>
                   </a>
@@ -245,7 +243,7 @@
                      <ul class="nav">
                         <li id="teacher1"><a href="<?php echo base_url(); ?>teacher/home">Add Teachers</a></li>
                         <li id="teacher2"><a href="<?php echo base_url(); ?>teacher/view">Teachers Search</a></li>
-						 <li id="teacher3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
+                        <li id="teacher3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
                      </ul>
                   </div>
                </li>
@@ -273,13 +271,12 @@
                      <ul class="nav">
                         <li id="attend1"><a href="<?php echo base_url(); ?>adminattendance/home">Day Wise View</a></li>
                         <li id="attend2"><a href="<?php echo base_url(); ?>adminattendance/monthclass">Month view </a></li>
-
                      </ul>
                   </div>
                </li>
                <li id="event">
                   <a data-toggle="collapse" href="#eventmenu">
-                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
                      <p>Calender</p>
                      <b class="caret"></b>
                   </a>
@@ -294,7 +291,7 @@
                </li>
                <li id="time">
                   <a data-toggle="collapse" href="#timetablemenu">
-                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
                      <p>TimeTable</p>
                      <b class="caret"></b>
                   </a>
@@ -321,7 +318,7 @@
                </li>
                <li id="communication">
                   <a data-toggle="collapse" href="#communcicationmenu">
-                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/circular.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/circular.png"/>
                      <p>Circular</p>
                      <b class="caret"></b>
                   </a>
@@ -334,7 +331,7 @@
                </li>
                <li id="grouping">
                   <a data-toggle="collapse" href="#groupingmenu">
-                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/grp.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/grp.png"/>
                      <p>Grouping</p>
                      <b class="caret"></b>
                   </a>
@@ -347,20 +344,19 @@
                </li>
                <li id="promotion">
                   <a data-toggle="collapse" href="#promotionmenu">
-                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/promo.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/promo.png"/>
                      <p>Promotion</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="promotionmenu">
                      <ul class="nav">
                         <li id="promo1"><a href="<?php echo base_url(); ?>promotion/home">Promotion</a></li>
-
                      </ul>
                   </div>
                </li>
                <li id="onduty">
                   <a data-toggle="collapse" href="#ondutydetails">
-                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
                      <p>On Duty</p>
                      <b class="caret"></b>
                   </a>
@@ -388,3 +384,4 @@
             </ul>
          </div>
       </div>
+
