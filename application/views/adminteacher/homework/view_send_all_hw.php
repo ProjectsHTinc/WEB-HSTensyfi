@@ -18,13 +18,13 @@
                            <div class="fresh-datatables">
                         <table id="bootstrap-table" class="table">
                            <thead>
-                              <th>S.no</th>
-							  <th>Type</th>
+                             <th>S.no</th>
+							 <th>Teacher Name</th>
+							 <th>Type</th>
 							 <th>Title</th>
-							 <th>subject_name</th>
+							 <th>subject Name</th>
 							 <th>Home Work / Class Test Date</th>
 							 <th>Details</th>
-							 
                            </thead>
                            <tbody>
 					 <?php
@@ -34,6 +34,7 @@
 						 ?>
 					 <tr>
 						<td><?php  echo $i; ?></td>
+						<td><?php  echo $rows->name; ?></td>
 						<td><?php if($type=='HW'){ ?> Home Work <?php }else{ ?> Class Test  <?php } ?> </td>
 						<td><?php  echo $rows->title; ?></td>
 						<td><?php  echo $rows->subject_name; ?></td>

@@ -259,28 +259,28 @@ Class Homeworkmodel extends CI_Model
 		
 		///SMS
 		
-		function get_all_ctutor_homework($user_id,$user_type,$cls_tutor_id)
+		function get_all_ctutor_homework($user_id,$cls_tutor_id)
 		{
 			$year_id=$this->getYear();
 			
-		  $hmw="SELECT h.*,s.subject_id,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE class_id='$cls_tutor_id' AND h.year_id='$year_id' AND h.subject_id=s.subject_id GROUP BY h.test_date DESC";
+		  $hmw="SELECT h.*,s.subject_id,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE class_id='$cls_tutor_id' AND h.year_id='$year_id' AND h.subject_id=s.subject_id GROUP BY h.created_at DESC";
 		  $hmw1=$this->db->query($hmw);
 		  $hmw2= $hmw1->result();
 		  return $hmw2;
 		}
 		
-		function send_homework_status($user_id,$user_type,$testdate,$clssid)
+		function send_homework_status($user_id,$testdate,$clssid)
 		{
-			$send="UPDATE edu_homework SET send_option_status='1',updated_by='$user_id',updated_at=NOW() WHERE class_id='$clssid' AND test_date='$testdate'";
+			$send="UPDATE edu_homework SET send_option_status='1',updated_by='$user_id',updated_at=NOW() WHERE class_id='$clssid' AND created_at='$testdate'";
 			$send1=$this->db->query($send); 
             $data= array("status"=>"success");
 		    return $data;
 		}
 		
-		function view_send_homework_all($user_id,$user_type,$tdate,$cid)
+		function view_send_homework_all($user_id,$tdate,$cid)
 		{
 		  $year_id=$this->getYear();
-		  $ahmw="SELECT h.hw_id,h.hw_type,h.title,h.test_date,h.due_date,h.hw_details,h.send_option_status,s.subject_id,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE class_id='$cid' AND h.year_id='$year_id' AND h.subject_id=s.subject_id AND h.test_date='$tdate' AND send_option_status='1'";
+		  $ahmw="SELECT h.hw_id,h.hw_type,h.title,h.created_at,h.test_date,h.due_date,h.hw_details,h.send_option_status,s.subject_id,s.subject_name,t.name FROM edu_homework AS h,edu_subject AS s,edu_teachers AS t WHERE class_id='$cid' AND h.year_id='$year_id' AND h.subject_id=s.subject_id AND h.created_at='$tdate' AND send_option_status='1' AND h.teacher_id=t.	teacher_id";
 		  $ahmw1=$this->db->query($ahmw);
 		  $ahmw2= $ahmw1->result();
 		  return $ahmw2;

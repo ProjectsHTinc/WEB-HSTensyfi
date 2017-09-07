@@ -28,18 +28,16 @@ class Homework extends CI_Controller
 			 if($user_type==2){
 			 //$datas=$this->homeworkmodel->get_teacher_id($user_id);
 			 $datas['cls_sec']=$this->homeworkmodel->get_teacher_class_sec($user_id,$user_type);
-			 
 			 $datas['cls_tutor']=$this->homeworkmodel->get_cls_tutor($user_id,$user_type);
-			 
 			 $datas['result']=$this->homeworkmodel->getall_details($user_id,$user_type);
 			 $datas['ayear']=$this->homeworkmodel->get_acdaemicyear();
-			//echo'<pre>';print_r($datas['cls_tutor']);exit;
+			 //echo'<pre>';print_r($datas['cls_tutor']);exit;
 	 		 $this->load->view('adminteacher/teacher_header');
 			 $this->load->view('adminteacher/homework/add',$datas);
 	 		 $this->load->view('adminteacher/teacher_footer');
 	 		 }
 	 		 else{
-	 				redirect('/');
+	 		  redirect('/');
 	 		 }
 	 	}
 		
@@ -244,9 +242,8 @@ class Homework extends CI_Controller
   	 	   $user_id=$this->session->userdata('user_id');
 		   $user_type=$this->session->userdata('user_type');
 		  
-		   $datas['tutor_homework']=$this->homeworkmodel->get_all_ctutor_homework($user_id,$user_type,$cls_tutor_id);
-		   //$datas['sendstatus']=$this->homeworkmodel->get_all_homework_send_status($user_id,$user_type,$cls_tutor_id);
-		  // echo'<pre>';print_r($datas['tutor_homework']);exit;
+		   $datas['tutor_homework']=$this->homeworkmodel->get_all_ctutor_homework($user_id,$cls_tutor_id);
+
 		   if($user_type==2)
 		   {
 			 $this->load->view('adminteacher/teacher_header');
@@ -265,20 +262,18 @@ class Homework extends CI_Controller
 		   if($user_type==2)
 		  {
 					  
-		   $testdate=$this->input->post('tdate');
+		   $createdate=$this->input->post('tdate');
 		   $clssid=$this->input->post('clsid');
 		   $sendtype=$this->input->post('sendoption');
-		    //echo $testdate; echo'<br>'; echo $clssid;  echo'<br>'; print_r($sendtype); exit;
 		   $acount=count($sendtype); 
 		   
-		   $datas['send_status']=$this->homeworkmodel->send_homework_status($user_id,$user_type,$testdate,$clssid);
-		   //print_r($datas['send_status']);exit;
-			
+		   $datas['send_status']=$this->homeworkmodel->send_homework_status($user_id,$createdate,$clssid);
+		   
 		 if($acount==3)
 		 {
-		   $datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$testdate,$clssid);
-		   $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid);
-		   $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$testdate,$clssid);
+		   $datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$createdate,$clssid);
+		   $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$createdate,$clssid);
+		   $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$createdate,$clssid);
 		 }
 		 
 		 if($acount==2)
@@ -288,36 +283,35 @@ class Homework extends CI_Controller
 		 
 		   if($ct1=='SMS' && $ct2=='Mail')
 		  {
-			$datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$testdate,$clssid);
-		    $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid);
+			$datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$createdate,$clssid);
+		    $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$createdate,$clssid);
 		  }
 		  if($ct1=='SMS' && $ct2=='Notification')
 		  {
-			$datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$testdate,$clssid);
-		   $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$testdate,$clssid);
+			$datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$createdate,$clssid);
+		    $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$createdate,$clssid);
 		  }
 		  if($ct1=='Mail' && $ct2=='Notification')
 		  {
-			 $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid); 
-			 $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$testdate,$clssid);   
+			 $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$createdate,$clssid); 
+			 $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$createdate,$clssid);   
 		  } 
 	  }
 	  
 	  if($acount==1)
 	  {
 		  $ct=$sendtype[0];
-		 // echo $ct;exit;
 		  if($ct=='SMS')
 		  {
-			 $datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$testdate,$clssid);
+			 $datas=$this->smsmodel->send_sms_homework($user_id,$user_type,$createdate,$clssid);
 		  }
 		  if($ct=='Notification')
 		  { 
-			 $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$testdate,$clssid); 
+			 $datas=$this->notificationmodel->send_notify_homework($user_id,$user_type,$createdate,$clssid); 
 		  }
 		  if($ct=='Mail')
 		  {
-			 $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$testdate,$clssid);
+			 $datas=$this->mailmodel->send_mail_homework($user_id,$user_type,$createdate,$clssid);
 		  }
 	  }
 	  if($datas['status']=="success")
@@ -334,12 +328,11 @@ class Homework extends CI_Controller
 	   
 	   public function view_send_all_homework($tdate,$cid)
 	   {
-		   //echo $tdate; echo $cid; 
+		  
 		   $datas=$this->session->userdata();
 		   $user_id=$this->session->userdata('user_id');
 		   $user_type=$this->session->userdata('user_type');
-		   $datas['view_all']=$this->homeworkmodel->view_send_homework_all($user_id,$user_type,$tdate,$cid); 
-		   //echo'<pre>'; print_r($datas['view_all']);exit;
+		   $datas['view_all']=$this->homeworkmodel->view_send_homework_all($user_id,$tdate,$cid); 
 		   if($user_type==2)
 		   {
 			 $this->load->view('adminteacher/teacher_header');
