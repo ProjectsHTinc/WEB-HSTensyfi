@@ -263,7 +263,7 @@ Class Homeworkmodel extends CI_Model
 		{
 			$year_id=$this->getYear();
 			
-		  $hmw="SELECT h.*,s.subject_id,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE class_id='$cls_tutor_id' AND h.year_id='$year_id' AND h.subject_id=s.subject_id GROUP BY h.created_at DESC";
+		  $hmw="SELECT h.*,s.subject_id,s.subject_name FROM edu_homework AS h,edu_subject AS s WHERE class_id='$cls_tutor_id' AND h.year_id='$year_id' AND h.subject_id=s.subject_id GROUP BY DATE_FORMAT(h.created_at, '%Y-%m-%d')  DESC";
 		  $hmw1=$this->db->query($hmw);
 		  $hmw2= $hmw1->result();
 		  return $hmw2;
@@ -280,7 +280,7 @@ Class Homeworkmodel extends CI_Model
 		function view_send_homework_all($user_id,$tdate,$cid)
 		{
 		  $year_id=$this->getYear();
-		   $ahmw="SELECT h.hw_id,h.hw_type,h.title,h.created_at,h.test_date,h.due_date,h.hw_details,h.send_option_status,s.subject_id,s.subject_name,t.name FROM edu_homework AS h,edu_subject AS s,edu_teachers AS t WHERE class_id='$cid' AND h.year_id='$year_id' AND h.subject_id=s.subject_id AND DATE_FORMAT(h.created_at,'%Y-%m-%d')='$tdate' AND send_option_status='1' AND h.teacher_id=t.teacher_id";
+		   $ahmw="SELECT h.hw_id,h.hw_type,h.title,h.created_at,h.test_date,h.due_date,h.hw_details,h.send_option_status,s.subject_id,s.subject_name,t.name FROM edu_homework AS h,edu_subject AS s,edu_teachers AS t WHERE class_id='$cid' AND h.year_id='$year_id' AND h.subject_id=s.subject_id AND DATE_FORMAT(h.created_at,'%Y-%m-%d')='$tdate'  AND h.teacher_id=t.teacher_id";
 		  $ahmw1=$this->db->query($ahmw);
 		  $ahmw2= $ahmw1->result();
 		  return $ahmw2;

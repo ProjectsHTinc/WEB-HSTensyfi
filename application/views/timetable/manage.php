@@ -53,8 +53,6 @@
                     <th data-field="id" class="text-center">S.No</th>
                   <th data-field="name" class="text-center" data-sortable="true">Class</th>
                     <th data-field="name" class="text-center" data-sortable="true">Year</th>
-                  <!-- <th data-field="Section" class="text-center" data-sortable="true">Section</th> -->
-
                   <th data-field="actions" class="td-actions text-center" data-events="operateEvents">Actions</th>
                 </thead>
                 <tbody>
@@ -68,11 +66,11 @@
                         <!-- <td></td> -->
 
                       <td>
-                        <!-- <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>timetable/delete/<?php  echo $rowsclass->class_sec_id;  ?>"  > -->
+                        <!-- <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>timetable/edit/<?php  echo $rowsclass->class_sec_id;  ?>"  > -->
                           <a  onclick="confrim(<?php  echo $rowsclass->class_sec_id; ?>)"> <i class="fa fa-remove"></i></a>
                          <!-- </a> -->
-                        <!-- <a rel="tooltip" title="Remove" class="btn btn-simple btn-danger btn-icon table-action remove" href="<?php echo base_url(); ?>classmanage/deletecs/<?php  echo $rowsclass->class_sec_id; ?>">
-                          <i class="fa fa-remove"></i></a> -->
+                        <a rel="tooltip" title="Remove" class="btn btn-simple btn-danger btn-icon table-action remove" href="<?php echo base_url(); ?>timetable/edit/<?php  echo $rowsclass->class_sec_id; ?>">
+                          <i class="fa fa-remove"></i></a>
 
                       </td>
 

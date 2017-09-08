@@ -38,7 +38,7 @@
 						<td><?php if($type=='HW'){ ?> Home Work <?php }else{ ?> Class Test  <?php } ?> </td>
 						<td><?php  echo $rows->title; ?></td>
 						<td><?php  echo $rows->subject_name; ?></td>
-						<td> Given Date :<?php if($type=='HW'){  $dateTime=new DateTime($rows->test_date); $fdate=date_format($dateTime,'d-m-Y' ); echo $fdate; ?><br> Due Date : <?php  $ddate=new DateTime($rows->due_date); $duedate=date_format($ddate,'d-m-Y' ); echo $duedate; }else { $dateTime=new DateTime($rows->test_date); $fdate=date_format($dateTime,'d-m-Y' ); echo $fdate;  } ?>
+						<td> Test Date :<?php if($type=='HW'){  $dateTime=new DateTime($rows->test_date); $fdate=date_format($dateTime,'d-m-Y' ); echo $fdate; ?><br> Due Date : <?php  $ddate=new DateTime($rows->due_date); $duedate=date_format($ddate,'d-m-Y' ); echo $duedate; }else { $dateTime=new DateTime($rows->test_date); $fdate=date_format($dateTime,'d-m-Y' ); echo $fdate;  } ?>
 						</td>
 						<td><?php echo $rows->hw_details;?></td>
 						

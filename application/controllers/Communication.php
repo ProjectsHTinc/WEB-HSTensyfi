@@ -1,30 +1,35 @@
- <?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Communication extends CI_Controller
 {
-    function __construct()
+   public function __construct()
     {
         parent::__construct();
+        $this->load->helper('url');
+        $this->load->library('session');
         $this->load->model('communicationmodel');
         $this->load->model('subjectmodel');
         $this->load->model('smsmodel');
         $this->load->model('mailmodel');
         $this->load->model('notificationmodel');
         $this->load->model('class_manage');
-        $this->load->helper('url');
-        $this->load->library('session');
+       
+    }
+    
+    public function index()
+    {
     }
     
     public function view_user_leaves()
     {
-        $datas           = $this->session->userdata();
-        $user_id         = $this->session->userdata('user_id');
-        $user_type       = $this->session->userdata('user_type');
-        $datas['result'] = $this->communicationmodel->user_leaves();
+        $datas=$this->session->userdata();
+        $user_id=$this->session->userdata('user_id');
+        $user_type=$this->session->userdata('user_type');
+        $datas['result'] =$this->communicationmodel->user_leaves();
         //echo'<pre>';print_r($datas['result']);exit;
         if ($user_type == 1) {
             $this->load->view('header');
-            $this->load->view('communication/users_leave', $datas);
+            $this->load->view('communication/users_leave',$datas);
             $this->load->view('footer');
         } else {
             redirect('/');
@@ -36,9 +41,10 @@ class Communication extends CI_Controller
         $datas           = $this->session->userdata();
         $user_id         = $this->session->userdata('user_id');
         $user_type       = $this->session->userdata('user_type');
+		$datas['leaveid']=$leave_id;
         $datas['res']    = $this->communicationmodel->edit_leave($leave_id);
         $datas['leaves'] = $this->communicationmodel->get_all_leave($leave_id);
-        //echo'<pre>';print_r($datas['res']);exit;
+
         if ($user_type == 1) {
             $this->load->view('header');
             $this->load->view('communication/user_leave_approval', $datas);
@@ -51,46 +57,31 @@ class Communication extends CI_Controller
     
     public function update_status()
     {
-        $datas     = $this->session->userdata();
-        $user_id   = $this->session->userdata('user_id');
-        $user_type = $this->session->userdata('user_type');
-        
-        $leave_type = $this->input->post('leaves_type');
-        
-        //$leave_date=$this->input->post('leave_date');
-        $number   = $this->input->post('cell');
-        //$to_time=$this->input->post('to_time');
-        //$leave_description=$this->input->post('leave_description');
-        $leave_id = $this->input->post('leave_id');
-        $status   = $this->input->post('status');
-        //echo $leave_type; echo $status;exit;
-        //$dateTime = new DateTime($leave_date);
-        //$formatted_date=date_format($dateTime,'Y-m-d' );
-        //echo $status; exit;
-        $datas    = $this->communicationmodel->update_leave($leave_id, $status);
-        if ($status == 'Approved') {
-            $datas['sms'] = $this->smsmodel->send_sms_for_teacher_leave($number, $leave_type);
-            
+        $datas=$this->session->userdata();
+        $user_id=$this->session->userdata('user_id');
+        $user_type=$this->session->userdata('user_type');
+        $leave_type=$this->input->post('leaves_type');
+        $number=$this->input->post('cell');
+        $leave_id=$this->input->post('leave_id');
+        $status=$this->input->post('status');
+		$leave_id=$this->input->post('leave_id');
+		
+		if($status=='Approved')
+		{
+          $data= $this->smsmodel->send_sms_for_teacher_leave($number,$leave_type);
         }
-        
-        // $datas['result']=$this->communicationmodel->user_leaves();
-        
-        //print_r($datas['sms']);exit;
-        
-        if ($datas['status'] == "success") {
-            $this->session->set_flashdata('msg', 'Updated Successfully');
-            $this->load->view('header');
+		
+        $datas= $this->communicationmodel->update_leave($leave_id,$status);
+        // print_r($datas);exit;
+		 
+		if($datas['status'] == "success")
+		{
+           $this->session->set_flashdata('msg','Update Successfully');
             redirect('communication/view_user_leaves');
-            //$this->load->view('communication/users_leave',$datas);
-            $this->load->view('footer');
-        } else {
-            $this->session->set_flashdata('msg', 'Falid To Updated');
-            $this->load->view('header');
-            redirect('communication/view_user_leaves');
-            //$this->load->view('communication/users_leave',$datas);
-            $this->load->view('footer');
+        }else{
+            $this->session->set_flashdata('msg','Falid To Update');
+           redirect('communication/view_user_leaves');
         }
-        
     }
     
     
@@ -147,8 +138,7 @@ class Communication extends CI_Controller
         $data = $this->mailmodel->send_mail_for_teacher_substitution($tname, $sub_teacher, $sub_tname, $leave_date, $cls_id, $period_id);
         
         $data = $this->notificationmodel->send_notification_for_teacher_substitution($tname, $sub_teacher, $sub_tname, $leave_date, $cls_id, $period_id);
-        
-        
+
         if ($datas['status'] == "success") {
             $this->session->set_flashdata('msg', 'Added Successfully');
             redirect('communication/add_substitution/' . $leave_id . '');
@@ -156,7 +146,7 @@ class Communication extends CI_Controller
             $this->session->set_flashdata('msg', 'Already Exist');
             redirect('communication/add_substitution/' . $leave_id . '');
         } else {
-            $this->session->set_flashdata('msg', 'Added Successfully');
+            $this->session->set_flashdata('msg', 'Falid To Add');
             redirect('communication/add_substitution/' . $leave_id . '');
         }
     }
