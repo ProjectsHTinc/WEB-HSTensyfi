@@ -15,7 +15,9 @@
                   </div>
                   <div class="content">
                      <form method="post" action="<?php echo base_url(); ?>communication/update_status" class="form-horizontal" enctype="multipart/form-data" id="myformsection" name="myformsection">
-                        <?php 
+                       <input type="hidden" name="leave_id" value="<?php echo $leaveid; ?>">
+
+					   <?php 
                            //print_r($res);
                            foreach($res as $row){ 
                            $id=$row->leave_id;

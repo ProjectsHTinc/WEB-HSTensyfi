@@ -1,5 +1,3 @@
-
-
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -50,7 +48,6 @@
                 									 </td>
 													 <td><?php $date=date_create($rows->to_leave_date);
                                      echo date_format($date,"d-m-Y");?> </td>
-								 
                                  <td><?php if($status=='Pending'){ ?>
                 								 <button class="btn btn-warning btn-fill btn-wd">Pending </button>
                 								 <?php }else if($status=='Rejected'){?>

@@ -67,21 +67,18 @@ Class Communicationmodel extends CI_Model
         return $row;
     }
     
-    function update_leave($leave_id, $status)
+    function update_leave($leave_id,$status)
     {
         $query4  = "UPDATE edu_user_leave SET status='$status',updated_at=NOW() WHERE leave_id='$leave_id'";
         $result1 = $this->db->query($query4);
-        if ($result1) {
-            $data = array(
-                "status" => "success"
-            );
+		//$result2 = $result1->result();
+        if($result1){
+			$data = array("status"=>"success");
             return $data;
-        } else {
-            $data = array(
-                "status" => "Failed to Update"
-            );
-            return $data;
-        }
+        }else{
+              $data= array("status"=>"failure");
+              return $data;
+            }
         
     }
     
@@ -121,9 +118,7 @@ Class Communicationmodel extends CI_Model
         $resultset3 = $this->db->query($sql1);
         $res1       = $resultset3->result();
         if (empty($res1)) {
-            $data = array(
-                "status" => "Subject Not Found"
-            );
+            $data = array("status" => "Subject Not Found");
             return $data;
         } else {
             foreach ($res1 as $rows1) {
@@ -174,17 +169,14 @@ Class Communicationmodel extends CI_Model
         $res1 = $this->db->query($quy);
         if ($res1->num_rows() == 0) {
             $sql       = "INSERT INTO edu_substitution(teacher_id,sub_teacher_id,sub_date,class_master_id,period_id,status,created_by,created_at) VALUES ('$teacher_id','$sub_teacher','$leave_date','$cls_id','$period_id','$status','$user_id',NOW())";
-            $resultset = $this->db->query($sql);
+            $resultset=$this->db->query($sql);
+			//$resultset1=$resultset->result();
             if ($resultset) {
-                $data = array(
-                    "status" => "success"
-                );
+                $data = array("status" => "success");
                 return $data;
             }
         } else {
-            $data = array(
-                "status" => "Already_Exist"
-            );
+            $data = array("status" => "Already_Exist");
             return $data;
         }
     }

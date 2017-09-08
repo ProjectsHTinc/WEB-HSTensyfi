@@ -54,12 +54,6 @@ Class Smsmodel extends CI_Model
 	{
       $output =  file_get_contents($smsgatewaydata);
     }
-
-   /* if($return == '1')
-   {
-    return $output;
-   }else{ echo "send"; } */
-
  }
 
  function send_sms_for_teacher_substitution($tname,$sub_teacher,$sub_tname,$leave_date,$cls_id,$period_id)
