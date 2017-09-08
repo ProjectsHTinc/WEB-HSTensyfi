@@ -40,14 +40,11 @@ class Timetable extends CI_Controller {
 	 		 	$datas=$this->session->userdata();
   	 		$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				// $datas['getall_class1']=$this->timetablemodel->view_class_timetable();
-				// print_r($datas['getall_class1']);exit;
+
 				$datas['getall_class']=$this->class_manage->getall_class();
 				$datas['subres'] = $this->subjectmodel->getsubject();
 				$datas['teacheres'] = $this->teachermodel->get_all_teacher();
   			$datas['years'] = $this->timetablemodel->getall_years();
-				// echo "<pre>";
-				 //print_r($datas['years']['all_years']);
 				$datas['resterms'] = $this->yearsmodel->getall_terms();
 			 if($user_type==1){
 	 		 $this->load->view('header');
@@ -68,15 +65,11 @@ class Timetable extends CI_Controller {
 			 $class_id=$this->input->post('class_id');
 			 $year_id=$this->input->post('year_id');
 			 $term_id=$this->input->post('term_id');
-			  
 			 $subject_id=$this->input->post('subject_id');
 			 $teacher_id=$this->input->post('teacher_id');
-
 			 $day_id=$this->input->post('day_id');
 			 $period_id=$this->input->post('period_id');
-          // echo'<pre>'; print_r($day_id);exit;
 			 $datas=$this->timetablemodel->create_timetable($year_id,$term_id,$class_id,$subject_id,$teacher_id,$day_id,$period_id);
-			 //print_r($datas['status']);exit;
 			 if($datas['status']=='Already'){
 				 $this->session->set_flashdata('msg', 'Time Table Already Assigned to this Class');
 				 redirect('timetable/home');
@@ -98,7 +91,6 @@ class Timetable extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$datas['getall_class1']=$this->timetablemodel->view_class_timetable();
-			//echo "<pre>";print_r($datas['getall_class1']);exit;
 		 if($user_type==1){
 			 $this->load->view('header');
 			$this->load->view('timetable/manage',$datas);
@@ -115,7 +107,6 @@ class Timetable extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			$datas['restime']=$this->timetablemodel->view($class_sec_id);
-			//echo "<pre>";print_r($datas['restime']);exit;
 		 if($user_type==1){
 			 $this->load->view('header');
  			$this->load->view('timetable/view',$datas);
@@ -126,13 +117,33 @@ class Timetable extends CI_Controller {
 		 }
 		}
 
+		public function edit($class_sec_id){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			$datas['restime']=$this->timetablemodel->view($class_sec_id);
+			$datas['res_sub']=$this->timetablemodel->get_subject_class($class_sec_id);
+
+			$datas['res_teacher']=$this->timetablemodel->get_teacher_class($class_sec_id);
+			// echo "<pre>";
+			// print_r($datas['res_teacher']);exit;
+		 if($user_type==1){
+			 $this->load->view('header');
+ 			$this->load->view('timetable/edit',$datas);
+ 			$this->load->view('footer');
+		 }
+		 else{
+			 redirect('/');
+		 }
+		}
+
+
 
 		public function reviewview(){
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 				$datas['res']=$this->timetablemodel->view_review_all();
-			///	echo "<pre>"; print_r($datas['res']);exit;
 			 if($user_type==1){
 			 $this->load->view('header');
 			 $this->load->view('timetable/tablereview',$datas);
@@ -149,8 +160,6 @@ class Timetable extends CI_Controller {
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 				$datas['res']=$this->timetablemodel->edit_review_all($timetable_id);
-			//echo "<pre>";
-			//print_r($datas['res']);
 			 if($user_type==1){
 			 $this->load->view('header');
 			 $this->load->view('timetable/update_review',$datas);
@@ -197,9 +206,8 @@ class Timetable extends CI_Controller {
 
 			public function getTeacher(){
 				$class_sec_id=$this->input->post('class_id');
-				// 	$subject_id=$this->input->post('subject_id');
-			$datas['res']=$this->timetablemodel->get_teacher_class($class_sec_id);
-			echo json_encode( $datas['res']);
+			  $datas['res']=$this->timetablemodel->get_teacher_class($class_sec_id);
+			  echo json_encode( $datas['res']);
 			}
 
 		public function delete(){
@@ -211,8 +219,7 @@ class Timetable extends CI_Controller {
 		 if($user_type==1){
 			 if($datas['status']=="success"){
 				 echo "success";
-			  // $this->session->set_flashdata('msg', 'Deleted Successfully');
-			  // redirect('/timetable/manage');
+
 			}else{
 				echo "failure";
 			}

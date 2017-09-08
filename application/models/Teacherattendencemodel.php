@@ -47,25 +47,16 @@ Class Teacherattendencemodel extends CI_Model
 
 
        function get_studentin_class($class_id){
-
-
         $acd_year=$this->get_cur_year();
-        //print_r($acd_year['cur_year']);
         $ye= $acd_year['cur_year'];
-      //  exit;
-
          $query="SELECT * FROM edu_enrollment WHERE class_id='$class_id' AND admit_year='$ye' AND status='Active'";
          $resultset=$this->db->query($query);
          return $resultset->result();
-         //print_r($res);exit;
-
-
        }
 
 
        function get_attendence_class($class_id,$student_id,$attendence_val,$a_taken,$student_count,$get_academic){
             $len=count($student_id);
-            //print_r($attendence_val);exit;
            if(empty($attendence_val)){
              $at_val=0;
            }else{
@@ -88,7 +79,6 @@ Class Teacherattendencemodel extends CI_Model
             $add_att_cal="INSERT INTO edu_attendance_calendar(Date,class_master_id) VALUES('$cur_d',$class_id)";
             $att_add=$this->db->query($add_att_cal);
             $total_present=$student_count-$at_val;
-            //print_r($a_taken);
               $query="INSERT INTO edu_attendence (ac_year,class_id,class_total,attendence_period,created_by,created_at,status) VALUES('$get_academic','$class_id','$student_count','$a_period','$a_taken','$cur_d','Active')";
              $resultset=$this->db->query($query);
              $atten_id = $this->db->insert_id();
@@ -105,8 +95,6 @@ Class Teacherattendencemodel extends CI_Model
                   $a_status= $sp[$i][0];
                  $stu_id= $sp[$i][1];
                  $a_day= $sp[$i][2];
-                  //print_r($a_day);
-             //echo count($stu_id);
              if($a_status!="P"){
                $add_att="INSERT INTO edu_attendance_history(attend_id,class_id,student_id,abs_date,a_status,attend_period,a_val,a_taken_by,created_at,status) VALUES('$last_id','$class_id','$stu_id','$cur_d','$a_status','$a_period','1','$a_taken',NOW(),'Active')";
                 $resultset=$this->db->query($add_att);
@@ -176,12 +164,10 @@ Class Teacherattendencemodel extends CI_Model
 
                }
                $data= array("status" =>"success");
-              // print_r($data);exit;
               return $data;
             }
             else{
               $data= array("status" =>"regular");
-              //print_r($data);exit;
               return $data;
 
             }
@@ -202,8 +188,6 @@ Class Teacherattendencemodel extends CI_Model
           $query="SELECT ea.*,eu.name FROM edu_attendence  AS ea JOIN edu_users  AS eu ON eu.user_id=ea.created_by WHERE class_id='$class_id' AND ac_year='$ye' ORDER BY created_at DESC";
           $res=$this->db->query($query);
           return $res->result();
-
-
        }
 
        function get_list_record($at_id,$class_id){
@@ -213,10 +197,6 @@ Class Teacherattendencemodel extends CI_Model
          $res=$this->db->query($query);
          return $res->result();
        }
-
-
-
-
 
       //Get Total Working Days For class
       function get_total_working_days($first,$last,$class_master_id){
@@ -229,7 +209,6 @@ Class Teacherattendencemodel extends CI_Model
        $total_days_count = $total_days_res->num_rows();
 
        if($total_days_res->num_rows()==0){
-           // $response = array("status" => "error", "msg" => "No Attendance days Found");
             $data= array("status" => "nodata");
             return $data;
        }else{

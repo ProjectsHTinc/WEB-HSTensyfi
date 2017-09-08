@@ -80,7 +80,7 @@ Class Teachermodel extends CI_Model
 
       //  Subject Handling
       function subject_handling($user_id,$subject_id,$class_master_id,$teacher_id,$status){
-          $check ="SELECT * FROM edu_teacher_handling_subject WHERE class_master_id='$class_master_id' AND subject_id='$subject_id'";
+          $check ="SELECT * FROM edu_teacher_handling_subject WHERE class_master_id='$class_master_id' AND subject_id='$subject_id'  AND status='$status'";
           $result=$this->db->query($check);
           if($result->num_rows()==0){
             $query="INSERT INTO  edu_teacher_handling_subject (subject_id,teacher_id,class_master_id,status,created_at,created_by,updated_at) VALUES('$subject_id','$teacher_id','$class_master_id','$status',NOW(),'$user_id',NOW())";
