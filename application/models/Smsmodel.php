@@ -99,12 +99,6 @@ Class Smsmodel extends CI_Model
 	{
       $output =  file_get_contents($smsgatewaydata);
     }
-
-   /* if($return == '1')
-   {
-    return $output;
-   }else{ echo "send"; } */
-
 }
 
   function send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id)
@@ -508,13 +502,12 @@ Class Smsmodel extends CI_Model
 
 			if($ht=='HW'){ $type="Home Work" ; }else{ $type="Class Test" ; }
 
-			$message="Title : " .$hwtitle. ",Type : " .$type. ", Details : " .$hwdetails .", Subject : ".$subname.", ";
+			$message="Title : " .$hwtitle. ",Type : " .$type. ", Details : " .$hwdetails .", Subject : ".$subname.",";
 			$home_work_details[]=$message;
 		  }
 			//print_r($home_work_details);
 		    $hdetails=implode('',$home_work_details);
 			$num=implode(',',$cell);
-
 			$count1=count($cell);
 
 				$textmsg =urlencode($hdetails);

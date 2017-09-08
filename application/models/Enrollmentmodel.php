@@ -54,12 +54,13 @@ Class Enrollmentmodel extends CI_Model
              $cont=$result1[0]->student;
 			//echo $cont;exit;
              $user_id=$admisnid+400000;
-               $getmail="select email,mobile from edu_admission WHERE admission_id='".$admisnid."'";
+               $getmail="select email,mobile,name from edu_admission WHERE admission_id='".$admisnid."'";
      	      $resultset12 = $this->db->query($getmail);
               
              foreach($resultset12->result() as $rows){}
              $email=$rows->email;
 			 $cell=$rows->mobile;
+			 $sname=$rows->name;
 			 
 			 if(!empty($email))
 			 {
@@ -95,9 +96,9 @@ Class Enrollmentmodel extends CI_Model
 			 }
 			 if(!empty($cell))
 			 {
-				$userdetails="Password :".$OTP."";
+				$userdetails="Name : " .$sname. ",Username".$user_id.",Password :".$OTP.",";
 				//echo $userdetails;
-				$textmsg =urlencode($userdetails);
+				$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 				$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 				$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 				$api_params = $api_element.'&numbers='.$cell.'&message='.$textmsg;

@@ -35,9 +35,8 @@ class Teacher extends CI_Controller {
 	 	public function home(){
 	 		$datas=$this->session->userdata();
 	 		$user_id=$this->session->userdata('user_id');
-
 			$datas['get_all_class_notexist']=$this->class_manage->get_all_class_notexist();
-			 $datas['getall_class']=$this->class_manage->getall_class();
+			$datas['getall_class']=$this->class_manage->getall_class();
 			$datas['resubject'] = $this->subjectmodel->getsubject();
 			$datas['groups']=$this->teachermodel->get_all_groups_details();
 			$datas['activities']=$this->teachermodel->get_all_activities_details();
@@ -79,7 +78,7 @@ class Teacher extends CI_Controller {
 
 			 $dob=$this->input->post('dob');
 			 $dateTime = new DateTime($dob);
-              $formatted_date=date_format($dateTime,'Y-m-d' );
+             $formatted_date=date_format($dateTime,'Y-m-d' );
 
 			 $age=$this->input->post('age');
 		     $nationality=$this->input->post('nationality');
@@ -104,6 +103,7 @@ class Teacher extends CI_Controller {
 			 $status=$this->input->post('status');
 
 			 $address=$this->input->post('address');
+			 
 			 $teacher_pic = $_FILES["teacher_pic"]["name"];
 			 $userFileName =$teacher_pic;
 			 $uploaddir = 'assets/teachers/';
@@ -134,7 +134,7 @@ class Teacher extends CI_Controller {
 		public function view(){
 		  $datas=$this->session->userdata();
 		  $user_id=$this->session->userdata('user_id');
-      $user_type=$this->session->userdata('user_type');
+          $user_type=$this->session->userdata('user_type');
 		  $datas['getall_class']=$this->class_manage->getall_class();
 		  $datas['result'] = $this->teachermodel->get_all_teacher();
 		  $datas['resubject'] = $this->subjectmodel->getsubject();

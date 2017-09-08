@@ -251,10 +251,11 @@ class Parents extends CI_Controller {
 				{
 					 $datas=$this->session->userdata();
 					 $user_id=$this->session->userdata('user_id');
+					  $user_type=$this->session->userdata('user_type');
 					 $datas['editres']=$this->parentsmodel->edit_parents($admission_id);
 					 $datas['sid']=$admission_id;
 					 //echo "<pre>";print_r($datas['editres']);exit;
-					 $user_type=$this->session->userdata('user_type');
+					
 					if($user_type==1)
 					{
 					 $this->load->view('header');
@@ -270,10 +271,12 @@ class Parents extends CI_Controller {
 				{
 					 $datas=$this->session->userdata();
 					 $user_id=$this->session->userdata('user_id');
+					 $user_type=$this->session->userdata('user_type');
+					  
 					 $datas['res']=$this->parentsmodel->edit_parent($parnt_guardn_id);
 					 
 					 //echo "<pre>";print_r($datas['res']);exit;
-					 $user_type=$this->session->userdata('user_type');
+				
 					if($user_type==1)
 					{
 					 $this->load->view('header');
@@ -319,18 +322,20 @@ class Parents extends CI_Controller {
 					$flogin=$this->input->post('flogin');
 					
 					$old_father_pic=$this->input->post('old_father_pic');
-					$father_pic = $_FILES["father_pic"]["name"];
 					
-					
-				   if(!empty($father_pic)){ 
+                    if(!empty($_FILES["father_pic"]["name"])){
 				    $father_pic = $_FILES["father_pic"]["name"];
 				    $userFileName =$father_pic;
 				    $uploaddir = 'assets/parents/';
 				    $profilepic = $uploaddir.$userFileName;
 				    move_uploaded_file($_FILES['father_pic']['tmp_name'], $profilepic);
+				    
+					if(!empty($userFileName)){
+					    $userFileName=$userFileName;
 					}else{ 
 					$userFileName=$old_father_pic; 
 					}
+                    }else{ $userFileName=$old_father_pic;  }
 				   //echo $flogin; 
 				
 				//Mother Details
@@ -350,16 +355,16 @@ class Parents extends CI_Controller {
 					$mstatus=$this->input->post('mstatus');
 					$mlogin=$this->input->post('mlogin');
 					$old_mother_pic=$this->input->post('old_mother_pic');
-                    $mother_pic=$_FILES["mother_pic"]["name"];	
-					
-					if(!empty($mother_pic))
-					{
+
+					 if(!empty($_FILES["mother_pic"]["name"])){
 						$mother_pic = $_FILES["mother_pic"]["name"];	
 						$userFileName1 =$mother_pic;
 						$uploaddir1 = 'assets/parents/';
 						$profilepic1 = $uploaddir1.$userFileName1;
 						move_uploaded_file($_FILES['mother_pic']['tmp_name'], $profilepic1);
-					   }else{ $userFileName1=$old_mother_pic; }
+					 if(!empty($userFileName1)){ 
+					     $userFileName1=$userFileName1; }else{ $userFileName1=$old_mother_pic; }
+					 }else{ $userFileName1=$old_mother_pic; }
 
 				// Guardian Details
 				    $gid=$this->input->post('gid');
@@ -381,13 +386,14 @@ class Parents extends CI_Controller {
 					
 					//$guardn_pic = $_FILES["guardian_pic"]["name"];
 					
-					if(!empty($guardn_pic)){
+					 if(!empty($_FILES["guardian_pic"]["name"])){
 						$guardn_pic = $_FILES["guardian_pic"]["name"];
 						$userFileName2 =$guardn_pic;
 						$uploaddir2 = 'assets/parents/';
 						$profilepic2 = $uploaddir2.$userFileName2;
 						move_uploaded_file($_FILES['guardian_pic']['tmp_name'], $profilepic2);
-						}else{ $userFileName2=$old_guardian_pic; }	
+					if(!empty($userFileName2)){ $userFileName2=$userFileName2;	}else{ $userFileName2=$old_guardian_pic; }
+					 }else{ $userFileName2=$old_guardian_pic; }
 						//echo $fname; echo $gname; 
 	$datas=$this->parentsmodel->update_parents_details($stu_name,$admission_id,$morestu,$newstu,$oldstu,$flogin,$fid,$fname,$foccupation,$fincome,$fhaddress,$fpemail,$fsemail,$fpmobile,$fsmobile,$fhome_phone,$foffice_address,$foffice_phone,$frelationship,$fstatus,$userFileName,$mlogin,$mid,$mname,$moccupation,$mincome,$mhaddress,$mpemail,$msemail,$mpmobile,$msmobile,$mhome_phone,$moffice_address,$moffice_phone,$mrelationship,$mstatus,$userFileName1,$glogin,$gid,$gname,$goccupation,$gincome,$ghaddress,$gpemail,$gsemail,$gpmobile,$gsmobile,$ghome_phone,$goffice_address,$goffice_phone,$grelationship,$gstatus,$userFileName2,$user_id);
 		//print_r($datas['status']);exit;
@@ -436,10 +442,10 @@ class Parents extends CI_Controller {
 					$flogin=$this->input->post('flogin');
 					
 					$old_father_pic=$this->input->post('old_father_pic');
-					$father_pic = $_FILES["father_pic"]["name"];
+					//$father_pic = $_FILES["father_pic"]["name"];
 					
 					
-				   if(!empty($father_pic)){ 
+				   if(!empty( $_FILES["father_pic"]["name"])){ 
 				    $father_pic = $_FILES["father_pic"]["name"];
 				    $userFileName =$father_pic;
 				    $uploaddir = 'assets/parents/';
@@ -467,9 +473,9 @@ class Parents extends CI_Controller {
 					$mstatus=$this->input->post('mstatus');
 					$mlogin=$this->input->post('mlogin');
 					$old_mother_pic=$this->input->post('old_mother_pic');
-                    $mother_pic=$_FILES["mother_pic"]["name"];	
+                    //$mother_pic=$_FILES["mother_pic"]["name"];	
 					
-					if(!empty($mother_pic))
+					if(!empty($_FILES["mother_pic"]["name"]))
 					{
 						$mother_pic = $_FILES["mother_pic"]["name"];	
 						$userFileName1 =$mother_pic;
@@ -498,7 +504,7 @@ class Parents extends CI_Controller {
 					
 					//$guardn_pic = $_FILES["guardian_pic"]["name"];
 					
-					if(!empty($guardn_pic)){
+					if(!empty($_FILES["guardian_pic"]["name"])){
 						$guardn_pic = $_FILES["guardian_pic"]["name"];
 						$userFileName2 =$guardn_pic;
 						$uploaddir2 = 'assets/parents/';

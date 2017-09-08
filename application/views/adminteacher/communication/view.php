@@ -26,7 +26,7 @@
 
                                 ?>
                                         <div class="col-md-10">
-                                            <h5><?php echo $i; ?>. <?php echo $rows->circular_title; ?> (  <?php echo $rows->circular_type; ?> ) </h5>
+                                            <h5><?php echo $i; ?>. <?php echo $rows->circular_title; ?> </h5>
                                             <blockquote>
                                                <p><?php echo $rows->circular_description; ?></p>
                                                <small>

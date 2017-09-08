@@ -102,7 +102,7 @@ Class Parentsmodel extends CI_Model
 		  //Father Details
 		   if(!empty($fname))
 		   {  
-			   $fquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile,sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,	status,primary_flag,created_by,created_at) VALUES ('$admission_id','$fname','$foccupation','$fincome','$fhaddress','$fpemail','$fsemail','$fpmobile','$fsmobile','$fhome_phone','$foffice_address','$foffice_phone','$frelationship','$userFileName','$fstatus','$flogin','$user_id',NOW())";
+			   $fquery="INSERT INTO edu_parents(admission_id,name,occupation,income,home_address,email,sec_email,mobile,sec_mobile,home_phone,office_address,office_phone,relationship,user_pic,status,primary_flag,created_by,created_at) VALUES ('$admission_id','$fname','$foccupation','$fincome','$fhaddress','$fpemail','$fsemail','$fpmobile','$fsmobile','$fhome_phone','$foffice_address','$foffice_phone','$frelationship','$userFileName','$fstatus','$flogin','$user_id',NOW())";
 			   $fresultset=$this->db->query($fquery);
 			   $finsert_id = $this->db->insert_id();
 			   $fuser_name=$finsert_id+600000;
@@ -145,7 +145,7 @@ Class Parentsmodel extends CI_Model
 				 { // echo $fpmobile;
 					$userdetails="Name : " .$fname. ", Username : " .$fuser_name.", Password : ".$OTP.", ";
 					 //echo $userdetails;
-					$textmsg =urlencode($userdetails);
+					$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 					$api_params = $api_element.'&numbers='.$fpmobile.'&message='.$textmsg;
@@ -214,7 +214,7 @@ Class Parentsmodel extends CI_Model
 				    //echo $mpmobile;
 					$userdetails="Name : " .$mname . ", Username : " .$muser_name.", Password : ".$OTP.", ";
 					// echo $userdetails;
-					$textmsg =urlencode($userdetails);
+					$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 					$api_params = $api_element.'&numbers='.$mpmobile.'&message='.$textmsg;
@@ -279,7 +279,7 @@ Class Parentsmodel extends CI_Model
 				 { 
 					$userdetails="Name : " .$gname . ", Username : " .$guser_name .", Password : ".$OTP.", ";
 					 //echo $userdetails;
-					$textmsg =urlencode($userdetails);
+					$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 					$api_params = $api_element.'&numbers='.$gpmobile.'&message='.$textmsg;
@@ -422,7 +422,7 @@ Class Parentsmodel extends CI_Model
 				 { // echo $fpmobile;
 					$userdetails="Name : " .$name. ", Username : " .$newuser_name.", Password : ".$OTP.", ";
 					 //echo $userdetails;
-					$textmsg =urlencode($userdetails);
+					$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 					$api_params = $api_element.'&numbers='.$pmobile.'&message='.$textmsg;
@@ -523,7 +523,7 @@ Class Parentsmodel extends CI_Model
 				   {
 					$userdetails="Name : " .$fname. ", Username : " .$fatherid.", Password : ".$OTP.", ";
 					 //echo $userdetails;
-					$textmsg =urlencode($userdetails);
+					$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 					$api_params = $api_element.'&numbers='.$fpmobile.'&message='.$textmsg;
@@ -597,7 +597,7 @@ Class Parentsmodel extends CI_Model
 				      {
 						$userdetails="Name : " .$mname. ", Username : " .$motherid.", Password : ".$OTP.", ";
 						 //echo $userdetails;
-						$textmsg =urlencode($userdetails);
+						$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 						$api_params = $api_element.'&numbers='.$mpmobile.'&message='.$textmsg;
@@ -668,7 +668,7 @@ Class Parentsmodel extends CI_Model
 				        {
 							$userdetails="Name : " .$gname. ", Username : " .$guardianid.", Password : ".$OTP.", ";
 							 //echo $userdetails;
-							$textmsg =urlencode($userdetails);
+							$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 							$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 							$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 							$api_params = $api_element.'&numbers='.$gpmobile.'&message='.$textmsg;
@@ -763,7 +763,7 @@ Class Parentsmodel extends CI_Model
 				   {
 					$userdetails="Name : " .$fname. ", Username : " .$fatherid.", Password : ".$OTP.", ";
 					 //echo $userdetails;
-					$textmsg =urlencode($userdetails);
+					$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 					$api_params = $api_element.'&numbers='.$fpmobile.'&message='.$textmsg;
@@ -849,7 +849,7 @@ Class Parentsmodel extends CI_Model
 				      {
 						$userdetails="Name : " .$mname. ", Username : " .$motherid.", Password : ".$OTP.", ";
 						 //echo $userdetails;
-						$textmsg =urlencode($userdetails);
+						$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 						$api_params = $api_element.'&numbers='.$mpmobile.'&message='.$textmsg;
@@ -932,7 +932,7 @@ Class Parentsmodel extends CI_Model
 				      {
 						$userdetails="Name : " .$gname. ", Username : " .$guardianid.", Password : ".$OTP.", ";
 						 //echo $userdetails;
-						$textmsg =urlencode($userdetails);
+						$textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
 						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
 						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 						$api_params = $api_element.'&numbers='.$gpmobile.'&message='.$textmsg;
