@@ -244,7 +244,7 @@ Class Timetablemodel extends CI_Model
                  $year_id=$this->getYear();
                 $query="DELETE FROM edu_timetable WHERE class_id='$class_id' AND year_id='$year_id'";
                 $result=$this->db->query($query);
-                 $count_name= count(array_filter($teacher_id));
+                 $count_name= count($teacher_id);
                  for($i=0;$i<$count_name ;$i++){
                      $day  = $day_id[$i];
                      $period  =$period_id[$i];
