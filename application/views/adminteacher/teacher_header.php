@@ -94,8 +94,10 @@
                      Quick Links</a>
                      <ul class="dropdown-menu">
                         <li><a href="<?php echo base_url(); ?>teacheronduty/home">On Duty Form</a></li>
+						<li><a href="<?php echo base_url(); ?>teachercommunication/home">Apply Leaves </a></li>
                         <li><a href="<?php echo base_url(); ?>teacheronduty/special_class_details">Special Class </a></li>
                         <li><a href="<?php echo base_url(); ?>teacheronduty/view_substitution">Substitution </a></li>
+						
                           <!--  <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li>
                            <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> -->
                      </ul>
@@ -266,7 +268,6 @@
                   </a>
                   <div class="collapse" id="commmenu">
                      <ul class="nav">
-                        <li id="comm1"><a href="<?php echo base_url(); ?>teachercommunication/home">Apply Leaves </a></li>
                         <li id="comm2"><a href="<?php echo base_url(); ?>teachercommunication/view_circular">View Circulars</a></li>
                      </ul>
                   </div>
