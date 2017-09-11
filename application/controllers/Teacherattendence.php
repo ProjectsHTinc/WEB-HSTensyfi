@@ -202,8 +202,8 @@ class Teacherattendence extends CI_Controller {
 
 				if($acount==2)
 				 {
-				 $ct1=$sendtype[0];
-					 $ct2=$sendtype[1];
+				 $ct1=$msg_type[0];
+					 $ct2=$msg_type[1];
 
 					if($ct1=='SMS' && $ct2=='Mail')
 				 {
