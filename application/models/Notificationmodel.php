@@ -607,7 +607,7 @@ Class Notificationmodel extends CI_Model
             // Debug GCM response
             }
 		  }
-		  if(!$result){  $data= array("status"=>"success");
+		  if($result){  $data= array("status"=>"success");
 		      return $data;}
 
 	}

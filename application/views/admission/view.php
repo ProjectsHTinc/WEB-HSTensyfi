@@ -1,4 +1,5 @@
-<style>
+ <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
+ <style>
    .formdesign
    {
    padding-bottom: 48px;
@@ -22,23 +23,16 @@
                      <div class="content">
                         <div class="fresh-datatables">
                            <h4 class="title" style="padding-bottom:10px;">List of Admission
-                              <button style="float:right;" class="btn btn-info btn-fill center download">Export Excel</button>
+                              <button style="float:right;" id="download" class="btn btn-info btn-fill center">Export Excel</button>
                               <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
                            </h4>
                            <form method="post" action="<?php echo base_url(); ?>admission/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="gender" style="margin-top:30px;"  class="selectpicker">
-								  <option value="">Select</option>
-								  <option value="Male">Male</option>
-            						 <option value="Female">Female</option>
-                                    <!-- <?php  foreach ($sorting as $rows)
-                                       { ?>
-                                    <option value="<?php echo $rows->sex; ?>"><?php echo $rows->sex;?>
-                                    </option>
-                                    <?php } ?>-->
+									  <option value="">Select</option>
+									  <option value="Male">Male</option>
+									  <option value="Female">Female</option>
                                  </select>
-								 <?php  if(!empty($gender)){ foreach ($gender as $rows){} }?>
-							<script language="JavaScript">document.myformsection.gender.value="<?php echo $rows->sex; ?>";</script>
                               </div>
                               <div class="col-sm-10">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
@@ -196,16 +190,16 @@
    </div>
 </div>
 <script type="text/javascript">
-   $(function() {  
-     $(".download").click(function() {  
+   $(document).ready(function() {  
+   $("#download").click(function() {  
    $("#bootstrap-table").table2excel({
-   				exclude: ".noExl",
-   				name: "Excel Document Name",
-   				filename: "Student",
-   				fileext: ".xls",
-   				exclude_img: true,
-   				exclude_links: true,
-   				exclude_inputs: true
+   				exclude:".noExl",
+   				name:"Excel Document Name",
+   				filename:"Student",
+   				fileext:".xls",
+   				exclude_img:true,
+   				exclude_links:true,
+   				exclude_inputs:true
    			});
      });
    
