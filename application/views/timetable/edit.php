@@ -28,8 +28,9 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-  <form method="post" action="<?php echo base_url(); ?>timetable/create_timetable" class="form-horizontal" enctype="multipart/form-data" id="timetableform" name="timetableform">
-
+  <form method="post" action="<?php echo base_url(); ?>timetable/update_timetable" class="form-horizontal" enctype="multipart/form-data" id="timetableform" name="timetableform">
+    <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
+    <input type="hidden" name="term_id" value="">
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
@@ -47,7 +48,8 @@
                                     <?php $prd= count($restime)/6; //echo  $restime[5]->subject_name; ?>
                                     <?php
 $period = $prd;
-$arr2=array('Mon','Tue','Wednes','Thurs','Friday','Saturday');
+//$arr2=array('Mon','Tue','Wednes','Thurs','Friday','Saturday');
+$arr2=array('1','2','3','4','5','6');
 ?>
 
 <tr>
@@ -68,22 +70,32 @@ foreach($arr2 as $day){
             ?>
 
             <td>
-              <select   name="subject_id[]" class="subject_id" id="subject_id"   required>
-
+              <select   name="subject_id[]" class="subject_id" id="subject_id"   >
+                <option value=""> </option>
                 <?php foreach($res_sub['res'] as $row_subject){ ?>
-                 <option value="<?php echo   $row_subject->subject_id;  ?>" <?php if($restime[$k]->subject_id == $row_subject->subject_id) echo 'selected="selected"'; ?>>  <?php echo   $row_subject->subject_name;  ?></option>
+                 <option value="<?php echo   $row_subject->subject_id;  ?>"
+                   <?php if($restime[$k]->subject_id==$row_subject->subject_id)
+                   {echo 'selected="selected"';}
+                    ?>>
+                    <?php echo   $row_subject->subject_name;  ?></option>
                   <?php } ?>
-                     <option value=""> </option>
+
               </select>
+              <script language="JavaScript">document.timetableform.subject_id.value="<?php echo $restime[$k]->subject_id; ?>";</script>
                 <br>
-              <select   name="teacher_id[]" class="teacher_id" id="teacher_id"   required>
-
+              <select   name="teacher_id[]" class="teacher_id" id="teacher_id"   >
+                  <option value=""> </option>
                 <?php foreach($res_teacher['res'] as $row_teacher){ ?>
-                 <option value="<?php echo  $row_teacher->teacher_id;  ?>" <?php if($restime[$k]->teacher_id ==  $row_teacher->teacher_id) echo 'selected="selected"'; ?>> <?php echo  $row_teacher->name;  ?></option>
+                 <option value="<?php echo  $row_teacher->teacher_id;  ?>"
+                   <?php if($restime[$k]->teacher_id ==  $row_teacher->teacher_id) echo 'selected="selected"'; ?>>
+                   <?php
+                   echo  $row_teacher->name;  ?></option>
                    <?php } ?>
-                      <option value=""> </option>
-              </select>
 
+              </select>
+                <script language="JavaScript">document.timetableform.teacher_id.value="<?php echo $restime[$k]->teacher_id; ?>";</script>
+                <input type="hidden" name="period_id[]" value="<?php echo $i; ?>">
+                <input type="hidden"name="day_id[]" value="<?php echo $day; ?>">
 
 
             </td>
@@ -106,6 +118,14 @@ $k++;
                                 </table>
 
                             </div>
+                            <fieldset>
+                               <div class="form-group">
+                                  <label class="col-sm-2 control-label">&nbsp;</label>
+                                  <div class="col-sm-10">
+                                     <center>   <button type="submit" class="btn btn-info btn-fill col-md-2" style="padding:10px;">Update Timetable</button></center>
+                                  </div>
+                               </div>
+                            </fieldset>
 
                                                         </form>
                         </div>

@@ -80,7 +80,7 @@ Class Adminattendancemodel extends CI_Model
       function get_monthview_class($first,$last,$class_master_id){
         $acd_year=$this->get_cur_year();
         $year_id= $acd_year['cur_year'];
-        $query="SELECT COUNT(ah.student_id) as leaves,en.enroll_id, en.class_id, en.name, a.sex, c.class_name, s.sec_name, ah.abs_date, ah.a_status, ah.attend_period, at.at_id FROM edu_enrollment en
+         $query="SELECT COUNT(ah.student_id) as leaves,en.enroll_id, en.class_id, en.name, a.sex, c.class_name, s.sec_name, ah.abs_date, ah.a_status, ah.attend_period, at.at_id FROM edu_enrollment en
         INNER JOIN edu_attendance_history AS ah ON en.enroll_id = ah.student_id
         INNER JOIN edu_attendence AS at ON ah.attend_id = at.at_id
         INNER JOIN edu_classmaster AS cm ON en.class_id = cm.class_sec_id
@@ -100,7 +100,7 @@ Class Adminattendancemodel extends CI_Model
         INNER JOIN edu_classmaster AS cm ON en.class_id = cm.class_sec_id
         INNER JOIN edu_class AS c ON cm.class=c.class_id
         INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE en.class_id='$class_master_id' AND ah.abs_date >= '$first' AND ah.abs_date <= '$last')
-        GROUP BY en.enroll_id,en.name ASC,a.sex DESC";
+        GROUP BY en.enroll_id,en.name ";
         $res=$this->db->query($query);
         return $res->result();
       }

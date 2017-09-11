@@ -499,7 +499,7 @@ Class Notificationmodel extends CI_Model
             curl_close($ch);
 
             // Debug GCM response
-            echo $result;
+            // $result;
             }
 
 

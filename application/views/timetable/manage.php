@@ -69,8 +69,8 @@
                         <!-- <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="<?php echo base_url(); ?>timetable/edit/<?php  echo $rowsclass->class_sec_id;  ?>"  > -->
                           <a  onclick="confrim(<?php  echo $rowsclass->class_sec_id; ?>)"> <i class="fa fa-remove"></i></a>
                          <!-- </a> -->
-                        <a rel="tooltip" title="Remove" class="btn btn-simple btn-danger btn-icon table-action remove" href="<?php echo base_url(); ?>timetable/edit/<?php  echo $rowsclass->class_sec_id; ?>">
-                          <i class="fa fa-remove"></i></a>
+                        <a rel="tooltip" title="Edit" class="btn btn-simple btn-danger btn-icon table-action remove" href="<?php echo base_url(); ?>timetable/edit/<?php  echo $rowsclass->class_sec_id; ?>">
+                          <i class="fa fa-pencil-square-o"></i></a>
 
                       </td>
 

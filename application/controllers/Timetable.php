@@ -123,14 +123,42 @@ class Timetable extends CI_Controller {
 			$user_type=$this->session->userdata('user_type');
 			$datas['restime']=$this->timetablemodel->view($class_sec_id);
 			$datas['res_sub']=$this->timetablemodel->get_subject_class($class_sec_id);
-
 			$datas['res_teacher']=$this->timetablemodel->get_teacher_class($class_sec_id);
-			// echo "<pre>";
-			// print_r($datas['res_teacher']);exit;
+			$datas['class_id']=$class_sec_id;
 		 if($user_type==1){
 			 $this->load->view('header');
  			$this->load->view('timetable/edit',$datas);
  			$this->load->view('footer');
+		 }
+		 else{
+			 redirect('/');
+		 }
+		}
+
+		public function update_timetable()
+		{
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+		    if($user_type==1){
+			 $class_id=$this->input->post('class_id');
+			 $year_id=$this->input->post('year_id');
+			 $term_id=$this->input->post('term_id');
+			 $subject_id=$this->input->post('subject_id');
+			 $teacher_id=$this->input->post('teacher_id');
+			 $day_id=$this->input->post('day_id');
+			 $period_id=$this->input->post('period_id');
+			 $datas=$this->timetablemodel->update_timetable($year_id,$term_id,$class_id,$subject_id,$teacher_id,$day_id,$period_id);
+			 if($datas['status']=='Already'){
+				 $this->session->set_flashdata('msg', 'Time Table Already Assigned to this Class');
+				 redirect('timetable/home');
+			 }elseif($datas['status']=='success'){
+				 $this->session->set_flashdata('msg', 'Updated Successfully');
+				redirect('timetable/manage');
+			 }
+			 else{
+				 redirect('timetable/manage');
+			 }
 		 }
 		 else{
 			 redirect('/');

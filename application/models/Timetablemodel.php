@@ -45,7 +45,6 @@ Class Timetablemodel extends CI_Model
                     $period  =$period_id[$i];
                     $classid=$class_id;
                     $termid=$term_id;
-					//echo $termid;exit;
                     $yearid=$year_id;
                     $subjectid=$subject_id[$i];
                     $teacherid=$teacher_id[$i];
@@ -68,8 +67,6 @@ Class Timetablemodel extends CI_Model
                   $result1=$this->db->query($get_year);
                   foreach($result1->result() as $res){}
                   $year_id=$res->year_id;
-
-
                    $query="SELECT tt.class_id AS timid,cm.class_sec_id,cm.class,cm.section,c.class_id,tt.year_id,a.from_month,a.to_month,c.class_name,s.sec_name
                    FROM edu_timetable AS tt  INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id
                    INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE tt.year_id='$year_id' GROUP BY tt.class_id";
@@ -89,7 +86,6 @@ Class Timetablemodel extends CI_Model
                     $all_year= $result1->result();
                     $data= array("status" => "success","all_years"=>$all_year);
                     return $data;
-                    //print_r($all_year);
                   }
 
                 }
@@ -153,7 +149,6 @@ Class Timetablemodel extends CI_Model
 
               // Get Teacher To Class
                function get_teacher_class($class_sec_id){
-                // $query="SELECT teacher_id,name,class_name FROM edu_teachers WHERE  FIND_IN_SET('$class_sec_id',class_name)";
                 $query="SELECT eths.teacher_id,et.name  FROM edu_teacher_handling_subject AS eths LEFT JOIN edu_teachers AS et ON et.teacher_id=eths.teacher_id
                 WHERE class_master_id='$class_sec_id' GROUP BY eths.teacher_id";
                  $resultset=$this->db->query($query);
@@ -162,14 +157,8 @@ Class Timetablemodel extends CI_Model
                    return $data;
                  }else{
                   $res= $resultset->result();
-                  //  foreach($res as $rows){
-                     //$teacher_id=$rows->teacher_id; $teacher_name=$rows->name;$class_name=$rows->class_name;
                      $data= array("status"=>"success","res"=>$res);
-
-                    //  }
-                       return $data;
-
-
+                      return $data;
                  }
                }
 
@@ -250,10 +239,38 @@ Class Timetablemodel extends CI_Model
 
                 }
 
-                //Delete timetable
 
+                function update_timetable($year_id,$term_id,$class_id,$subject_id,$teacher_id,$day_id,$period_id){
+                 $year_id=$this->getYear();
+                $query="DELETE FROM edu_timetable WHERE class_id='$class_id' AND year_id='$year_id'";
+                $result=$this->db->query($query);
+                 $count_name= count(array_filter($teacher_id));
+                 for($i=0;$i<$count_name ;$i++){
+                     $day  = $day_id[$i];
+                     $period  =$period_id[$i];
+                     $classid=$class_id;
+                     $termid=$term_id;
+                     $yearid=$year_id;
+                     $subjectid=$subject_id[$i];
+                     $teacherid=$teacher_id[$i];
+                     $query = "INSERT INTO edu_timetable (year_id,term_id,class_id,subject_id,teacher_id,day,period,status,created_at,updated_at) VALUES ('$yearid','$termid','$classid','$subjectid','$teacherid','$day','$period','Active',NOW(),NOW())";
+                     $resultset=$this->db->query($query);
+                   }
+                   if($resultset){
+                   $data= array("status" => "success");
+                   return $data;}
+                   else{
+                     $data= array("status" => "failure");
+                     return $data;
+                   }
+
+                }
+
+
+                //Delete timetable
                 function delete_time($class_sec_id){
-                  $query="DELETE FROM edu_timetable WHERE class_id='$class_sec_id'";
+                   $year_id=$this->getYear();
+                  $query="DELETE FROM edu_timetable WHERE class_id='$class_sec_id' AND year_id='$year_id'";
                   $result=$this->db->query($query);
                   if($result){
                     $data= array("status" => "success");
