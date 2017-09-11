@@ -1,5 +1,4 @@
- <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
- <style>
+<style>
    .formdesign
    {
    padding-bottom: 48px;
