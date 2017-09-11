@@ -335,7 +335,7 @@ Class Circularmodel extends CI_Model
 		$sql2="UPDATE edu_circular_master SET circular_title='$ctile',circular_description='$cdescription',status='$status',updated_by='$user_id',updated_at=NOW() WHERE id='$cid'";
 		$resultset1=$this->db->query($sql2);
 		if($resultset1){
-		 $data = array("status" => "success");
+		$data = array("status" => "success");
            return $data;}else{$data = array("status" => "Failed");
 		return $data;}
 	}
