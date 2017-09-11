@@ -182,13 +182,14 @@ Class Circularmodel extends CI_Model
 				$circulardate1=$circulardate;
 				$user_id1=$user_id;
 			
-			    $parentsid="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id FROM edu_enrollment AS e,edu_admission AS a WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no"; 
+			    $parentsid="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,a.parents_status FROM edu_enrollment AS e,edu_admission AS a WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND a.parents_status='1'"; 
 				$stu_pid=$this->db->query($parentsid);
 				$res1=$stu_pid->result();
+				
 				foreach($res1 as $res2){ 
 				$pgid=$res2->parnt_guardn_id;
-				 //echo $pgid;
-			 $class="SELECT user_id,user_type,user_master_id,status,parent_id FROM edu_users WHERE user_master_id IN($pgid) AND user_type=4 AND status='Active'"; 
+			    if(!empty($pgid)){
+			    $class="SELECT user_id,user_type,user_master_id,status FROM edu_users WHERE user_master_id IN($pgid) AND user_type=4 AND status='Active'"; 
 			 	$stu_cls=$this->db->query($class);
 				$res=$stu_cls->result();
 			    foreach($res as $row)
@@ -197,13 +198,14 @@ Class Circularmodel extends CI_Model
 				  $query2="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_type,circular_date,status,created_by,created_at) VALUES ('4','$pid','$cirmat','$circular_type2','$circulardate1','$status1','$user_id1',NOW())";
 		          $parents=$this->db->query($query2);
 				 }
+			    }
 			 }
-			
-		    }
+		    }if(!empty($pgid)){
 			if ($parents){
 				  $data = array("status" => "success");
-				return $data; }else{$data = array("status" => "Failed");
+				return $data; }else{ $data = array("status" => "Failed");
 				return $data;}
+		  }else {  $data = array("status" => "Failed"); return $data;}
 		  }
            //-----------------------------Teacher----------------------
 		   //print_r($tusers_id);exit;
