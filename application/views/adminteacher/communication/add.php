@@ -161,9 +161,9 @@
   }
 
    $(document).ready(function () {
-     $('#commmenu').addClass('collapse in');
+     /* $('#commmenu').addClass('collapse in');
      $('#comm').addClass('active');
-     $('#comm1').addClass('active');
+     $('#comm1').addClass('active'); */
     $('#myformsection').validate({ // initialize the plugin
        rules: {
          leave_type:{required:true },
