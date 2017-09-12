@@ -25,26 +25,20 @@
                            <!-- <h4 class="title" style="padding-bottom: 20px;">List of Teacher</h4> -->
                            <legend>List of Teacher</legend>
                          
-						 <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
+						 <form method="post" action="<?php echo base_url(); ?>teacher/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
-                                    <?php  foreach ($sorting as $rows)
-                                       { ?>
-                                    <option value="<?php echo $rows->sex; ?>"><?php echo $rows->sex;?>
-                                    </option>
-                                    <?php } ?>
+                                    <option value="Male">Male</option>
+									<option value="Female">Female</option>
                                  </select>
                               </div>
                               <div class="col-sm-4">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
-                                 
                               </div>
 							  
 							  <a href="<?php echo base_url(); ?>teacher/view_subject_handling" class="btn btn-wd btn-default pull-right" style="margin-right:10px;">Teacher Handling Subjects</a>
 							  <button style="float:right;margin-right:10px;" class="btn btn-info btn-fill center download">Export Excel</button>
 							  <button style="float:right;margin-right:10px;"  class="btn btn-info btn-fill" onclick="generatefromtable()">Export PDF</button>
-							  
-							   
 							 
                            </form>
                            <table id="bootstrap-table" class="table">

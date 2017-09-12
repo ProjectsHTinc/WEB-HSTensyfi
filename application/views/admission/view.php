@@ -209,7 +209,7 @@
    			doc = new jsPDF('p', 'pt', 'a4', true);
    			doc.setFont("times", "normal");
    			doc.setFontSize(fontSize);
-   			doc.text(40, 20, "Student List");
+   			doc.text(20, 20, "Student List");
    			data = [];
    			data = doc.tableToJson('bootstrap-table');
    			height = doc.drawTable(data, {

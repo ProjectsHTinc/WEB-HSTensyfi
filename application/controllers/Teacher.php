@@ -135,11 +135,15 @@ class Teacher extends CI_Controller {
 		  $datas=$this->session->userdata();
 		  $user_id=$this->session->userdata('user_id');
           $user_type=$this->session->userdata('user_type');
+		  $gender=$this->input->post('gender');
+		  
 		  $datas['getall_class']=$this->class_manage->getall_class();
 		  $datas['result'] = $this->teachermodel->get_all_teacher();
 		  $datas['resubject'] = $this->subjectmodel->getsubject();
-			//print_r( $datas['resubject'] );
-		  $datas['sorting'] = $this->teachermodel->get_sorting_result();
+		  if(!empty($gender)){
+		   $datas['gender'] = $this->teachermodel->get_all_sorting_result($gender);
+			}
+		  //$datas['sorting'] = $this->teachermodel->get_sorting_result();
 		  //echo '<pre>';print_r($datas['result']);exit;
 		 if($user_type==1){
 		 $this->load->view('header');
@@ -151,7 +155,7 @@ class Teacher extends CI_Controller {
 		 }
 		}
 
-		public function get_sorting_details(){
+		/* public function get_sorting_details(){
 		  $datas=$this->session->userdata();
 		  $user_id=$this->session->userdata('user_id');
           $user_type=$this->session->userdata('user_type');
@@ -163,7 +167,7 @@ class Teacher extends CI_Controller {
 		  $datas['sorting'] = $this->teachermodel->get_sorting_result();
 
 		  $datas['gender'] = $this->teachermodel->get_all_sorting_result($gender);
-		  //echo'<pre>';print_r($datas['gender']);exit;
+		  echo'<pre>';print_r($datas['gender']);exit;
 		 if($user_type==1){
 		 $this->load->view('header');
 		 $this->load->view('teacher/view',$datas);
@@ -172,7 +176,7 @@ class Teacher extends CI_Controller {
 		 else{
 				redirect('/');
 		 }
-		}
+		} */
 
 		//Adding subject to teacher for class
 		public function subject_handling(){
