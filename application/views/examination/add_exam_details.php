@@ -196,7 +196,8 @@
                                  </tr>
                                  <?php $i++;  } }else{
                                     foreach ($result as $rows)
-                                    { $exid=$rows->exam_id;
+                                    { 
+									  $exid=$rows->exam_id;
                                                      ?>
                                  <tr>
                                     <td>
@@ -220,14 +221,17 @@
                                           ?>)
                                     </td>
                                     <?php
+									
                                        $id=$rows->teacher_id;
+									  if(!empty($id)){
                                        $query = "SELECT teacher_id,name FROM edu_teachers WHERE teacher_id='$id' ";
                                        $resultset = $this->db->query($query);
                                        $res=$resultset->result();
-                                       $name=$res[0]->name;
+                                       $name=$res->name;
+									   }else{ echo ""; }
                                        ?>
                                     <td>
-                                       <?php echo $name; ?>
+                                       <?php if(!empty($id)){ echo $name; }else{ echo"No"; }?>
                                     </td>
 									<td>
 										<?php $sta=$rows->status;
@@ -331,7 +335,7 @@
    
                            exam_secction += '<select name="time[]" required class="form-control" data-title="Select Time" data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Select Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
    
-                           teacher += '<select name="teacher_id[]" required id="teacher_id" class="form-control" ><option value="">Select Invigilator</option><?php foreach ($teacheres as $rows) {  ?><option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option><?php  } ?></select></br>';
+                           teacher += '<select name="teacher_id[]" id="teacher_id" class="form-control" ><option value="">Select Invigilator</option><?php foreach ($teacheres as $rows) {  ?><option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option><?php  } ?></select></br>';
    						
    						'</form>';
    

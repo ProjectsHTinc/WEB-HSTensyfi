@@ -1,4 +1,3 @@
-
 <div class="main-panel">
 <div class="content">
 <div class="col-md-12">
@@ -215,7 +214,7 @@
          subject_name:{required:true },
          exam_date:{required:true },
          class_name:{required:true },
-         teacher_id:{required:true }
+         //teacher_id:{required:true }
 
   },
      messages: {
@@ -223,7 +222,7 @@
            subject_name: "Select Subject",
            exam_date: "Enter Exam Date",
            class_name: "Select Class",
-           teacher_id: "Select Teachers",
+          // teacher_id: "Select Teachers",
 
 
          }
