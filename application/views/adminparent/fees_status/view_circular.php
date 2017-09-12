@@ -1,3 +1,5 @@
+
+
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -7,7 +9,7 @@
                   <div class="header">
                      <h4 class="title">Fees Status</h4>
                   </div>
-                    <div class="content">
+                  <div class="content">
                      <div class="content table-responsive table-full-width">
                         <table class="table table-hover table-striped">
                            <thead>
@@ -25,8 +27,8 @@
                               <?php
                                  $i=1;
                                  foreach ($fees as $rows) 
-								 {
-									 $paid=$rows->status;
+                                 {
+                                 $paid=$rows->status;
                                   ?>
                               <tr>
                                  <td><?php echo $i; ?></td>
@@ -35,29 +37,30 @@
                                  <td><?php echo $rows->quota_name; ?></td>
                                  <td><?php echo $rows->fees_amt; ?></td>
                                  <td>
-									<?php 
-									  if($paid=='Paid'){?>
-									   <button class="btn btn-success btn-fill btn-wd">Paid</button>
-									 <?php  }else{?>
-									  <button class="btn btn-danger btn-fill btn-wd">Unpaid</button>
-									  <?php } ?></td>
-								 <td class="text-left"><?php $date=date_create($rows->due_date_from);
-                                                           echo date_format($date,"d-m-Y");?></td>
-                    			 <td class="text-left"><?php $date=date_create($rows->due_date_to);
-                                                           echo date_format($date,"d-m-Y");?></td>
-                    			<td class="text-left"><?php echo $rows->notes;?></td>
+                                    <?php 
+                                       if($paid=='Paid'){?>
+                                    <button class="btn btn-success btn-fill btn-wd">Paid</button>
+                                    <?php  }else{?>
+                                    <button class="btn btn-danger btn-fill btn-wd">Unpaid</button>
+                                    <?php } ?>
+                                 </td>
+                                 <td class="text-left"><?php $date=date_create($rows->due_date_from);
+                                    echo date_format($date,"d-m-Y");?></td>
+                                 <td class="text-left"><?php $date=date_create($rows->due_date_to);
+                                    echo date_format($date,"d-m-Y");?></td>
+                                 <td class="text-left"><?php echo $rows->notes;?></td>
                               </tr>
                               <?php $i++;  }  ?>
                            </tbody>
                         </table>
                      </div>
                   </div>
-                  </div>
                </div>
-            </div> <!-- row -->
+            </div>
          </div>
-        
+         <!-- row -->
       </div>
+   </div>
 </div>
 <script type="text/javascript">
    $(document).ready(function () {
@@ -67,20 +70,20 @@
     $('#classsection').validate({ // initialize the plugin
         rules: {
             test_type:{required:true },
-			title:{required:true },
-			subject_name:{required:true },
-			tet_date:{required:true },
-			details:{required:true },
-			class_id:{required:true }
+   title:{required:true },
+   subject_name:{required:true },
+   tet_date:{required:true },
+   details:{required:true },
+   class_id:{required:true }
         },
         messages: {
               test_type: "Please Select Type Of Test",
-			  title: "Please Enter Title Name",
-			  subject_name: "Please Select Subject Name",
-			  tet_date: "Please Select Date",
-			  details: "Please Enter Details",
-			  class_id: "Please Enter Class Name"
-
+     title: "Please Enter Title Name",
+     subject_name: "Please Select Subject Name",
+     tet_date: "Please Select Date",
+     details: "Please Enter Details",
+     class_id: "Please Enter Class Name"
+   
             }
     });
    });
@@ -144,3 +147,4 @@
     });
    });
 </script>
+
