@@ -104,6 +104,7 @@ class Apiadminmodel extends CI_Model {
         //#################### GET STUDENT & PARENTS DETAILS ####################//
 
           function get_student_details($student_id){
+               $year_id=$this->getYear();
               $sql="SELECT er.admission_id,ea.* FROM edu_enrollment AS er LEFT JOIN edu_admission AS ea ON er.admission_id=ea.admission_id WHERE er.enroll_id='$student_id'";
             $res_stu=$this->db->query($sql);
             	$admis= $res_stu->result();
@@ -193,7 +194,7 @@ class Apiadminmodel extends CI_Model {
 						
 						$parentProfile = array("fatherProfile" =>$fatherProfile,"motherProfile" =>$motherProfile,"guardianProfile" =>$guardianProfile);
 						
-				  		$response = array("status" => "success", "msg" => "userdetailfound", "userData" => $userData,"studentData" =>$student_profile,"parentProfile" =>$parentProfile,"registeredDetails"=>$stu_enroll_res, "year_id" => $year_id);
+				  		$response = array("status" => "success", "msg" => "userdetailfound", "studentData" =>$student_profile,"parentProfile" =>$parentProfile,"registeredDetails"=>$stu_enroll_res, "year_id" => $year_id);
 						return $response;
           }
 
@@ -515,7 +516,7 @@ class Apiadminmodel extends CI_Model {
 						
 						$parentProfile = array("fatherProfile" =>$fatherProfile,"motherProfile" =>$motherProfile,"guardianProfile" =>$guardianProfile);
 					
-				  		$response = array("status" => "success", "msg" => "userdetailfound", "userData" => $userData,"studentProfile" =>$student_profile,"parentProfile" =>$parentProfile,"registeredDetails"=>$stu_enroll_res, "year_id" => $year_id);
+				  		$response = array("status" => "success", "msg" => "userdetailfound", "studentProfile" =>$student_profile,"parentProfile" =>$parentProfile,"registeredDetails"=>$stu_enroll_res, "year_id" => $year_id);
 						return $response;
                  
                  
