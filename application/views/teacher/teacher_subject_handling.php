@@ -1,3 +1,4 @@
+<script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js"></script>
 <div class="main-panel">
    <div class="content">
       <?php if($this->session->flashdata('msg')): ?>
@@ -13,7 +14,7 @@
                   <div class="card">
                      <div class="content" id="content1">
                         <div class="fresh-datatables">
-                           <h4 class="title" style="padding-bottom: 20px;">List of Teacher Handling Subject  <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button>
+                           <h4 class="title" style="padding-bottom: 20px;">List of Teacher Handling Subject
                             <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button>
                           </h4>
                            <form method="post" action="<?php echo base_url(); ?>teacher/get_sorting_details" class="form-horizontal" enctype="multipart/form-data" name="myformsection">
@@ -23,7 +24,7 @@
 
                               </div>
                            </form>
-                           <table id="bootstrap-table" class="table">
+                           <table id="example" class="table table-striped table-no-bordered table-hover">
                               <thead>
                                  <th data-field="id" class="text-center">S.No</th>
                                  <th data-field="name" class="text-center" data-sortable="true">Name</th>
@@ -130,6 +131,9 @@
 
 
 <script type="text/javascript">
+$('#teachermenu').addClass('collapse in');
+$('#teacher').addClass('active');
+$('#teacher2').addClass('active');
 function getListClass(){
 
 var subject_id=$('#subject_id').val();
@@ -215,71 +219,31 @@ $('#subject_handling_form').validate({ // initialize the plugin
 });
 
 
+      	$('#example').DataTable({
+          dom: 'lBfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  exportOptions: {
+                      columns: ':visible'
+                  }
+              },
+              {
+                  extend: 'pdfHtml5',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 5 ]
+                  }
+              },
+              'colvis'
+          ],
+      		"pagingType": "full_numbers",
+      		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+      		responsive: true,
+      		language: {
+      		search: "_INPUT_",
+      		searchPlaceholder: "Search ",
+      		}
+      	});
 
 
-
-
-function generatefromtable() {
-				var data = [], fontSize = 12, height = 0, doc;
-				doc = new jsPDF('p', 'pt', 'a4', true);
-				doc.setFont("times", "normal");
-				doc.setFontSize(fontSize);
-				doc.text(40, 20, "Teachers Handling Subject");
-				data = [];
-				data = doc.tableToJson('bootstrap-table');
-				height = doc.drawTable(data, {
-					xstart : 30,
-					ystart : 10,
-					tablestart : 40,
-					marginleft : 10,
-					xOffset : 10,
-					yOffset : 15
-				});
-				//doc.text(50, height + 20, 'hi world');
-				doc.save("teacher.pdf");
-			}
-
-   var $table = $('#bootstrap-table');
-    $('#teachermenu').addClass('collapse in');
-   $('#teacher').addClass('active');
-   $('#teacher2').addClass('active');
-         $().ready(function(){
-           jQuery('#teachermenu').addClass('collapse in');
-             $table.bootstrapTable({
-                 toolbar: ".toolbar",
-                 clickToSelect: true,
-                 showRefresh: true,
-                 search: true,
-                 showToggle: true,
-                 showColumns: true,
-                 pagination: true,
-                 searchAlign: 'left',
-                 pageSize: 8,
-                 clickToSelect: false,
-                 pageList: [8,10,25,50,100],
-
-                 formatShowingRows: function(pageFrom, pageTo, totalRows){
-                     //do nothing here, we don't want to show the text "showing x of y from..."
-                 },
-                 formatRecordsPerPage: function(pageNumber){
-                     return pageNumber + " rows visible";
-                 },
-                 icons: {
-                     refresh: 'fa fa-refresh',
-                     toggle: 'fa fa-th-list',
-                     columns: 'fa fa-columns',
-                     detailOpen: 'fa fa-plus-circle',
-                     detailClose: 'fa fa-minus-circle'
-                 }
-             });
-
-             //activate the tooltips after the data table is initialized
-             $('[rel="tooltip"]').tooltip();
-
-             $(window).resize(function () {
-                 $table.bootstrapTable('resetView');
-             });
-
-
-         });
 </script>
