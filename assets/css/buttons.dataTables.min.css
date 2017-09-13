@@ -161,6 +161,7 @@ a.dt-button:focus:not(.disabled) {
 div.dt-buttons {
     position: relative;
     float: left;
+	margin-left: 10%;
 
 }
 div.dt-buttons.buttons-right {

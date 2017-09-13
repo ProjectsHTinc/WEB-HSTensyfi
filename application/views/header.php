@@ -27,10 +27,11 @@
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/buttons.dataTables.min.css">
 		  
-	   <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
+	  <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/pdfmake.min.js" type="text/javascript"></script>
 	  <script src="<?php echo base_url(); ?>assets/js/vfs_fonts.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jszip.min.js" type="text/javascript"></script>
+	  <script src="<?php echo base_url(); ?>assets/js/buttons.colVis.min.js" type="text/javascript"></script>
 	  
 	  <script src="<?php echo base_url(); ?>assets/js/dataTables.buttons.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/buttons.flash.min.js" type="text/javascript"></script>
@@ -38,13 +39,13 @@
       <script src="<?php echo base_url(); ?>assets/js/buttons.print.min.js" type="text/javascript"></script> 
 	  
 	  
-      <!-- PDF 
+	   
       <script src="<?php echo base_url(); ?>assets/js/jspdf.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
-      <!-- Excel
-      <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>-->
+      
+      <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
      
       <!--  Forms Validations Plugin -->
       <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>

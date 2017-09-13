@@ -20,16 +20,16 @@
 	                            <!-- Here you can write extra buttons/actions for the toolbar-->
 	                       </div>
 						   
-                           <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                           <table id="example" class="table table-striped table-no-bordered table-hover">
                               <thead>
 
-                                  <th data-field="id" >S.No</th>
-                                  <th data-field="year"  data-sortable="true"> Name</th>
-                                  <th data-field="no"  data-sortable="true">Username</th>
-                                  <th data-field="Email"  data-sortable="true">Email</th>
-                                  <th data-field="name"  data-sortable="true">Created Date</th>
-								  <th data-field="status"  data-sortable="true">Status</th>
-								  <th data-field="Section"  data-sortable="true">Action</th>
+                                  <th>S.No</th>
+                                  <th> Name</th>
+                                  <th>Username</th>
+                                  <th>Email</th>
+                                  <th>Created Date</th>
+								  <th>Status</th>
+								  <th>Action</th>
 
 
                               </thead>
@@ -87,8 +87,22 @@ $(document).ready(function() {
          $('#user1').addClass('active');
 
 		$('#example').DataTable({
-			dom: 'Bfrtip',
-			buttons: ['excel', 'pdf'],
+			dom: 'lBfrtip',
+			buttons: [
+              {
+                  extend: 'excelHtml5',
+                  exportOptions: {
+                      columns: ':visible'
+                  }
+              },
+              {
+                  extend: 'pdfHtml5',
+                  exportOptions: {
+                       columns: ':visible'
+                  }
+              },
+              'colvis'
+          ],
 		    "pagingType": "full_numbers",
 		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 		    responsive: true,
@@ -96,30 +110,7 @@ $(document).ready(function() {
 		    search: "_INPUT_",
 		    searchPlaceholder: "Search records",
 		    }
-
 		});
 
-
-		var table = $('#example').DataTable();
-
-		// Edit record
-		table.on( 'click', '.edit', function () {
-		    $tr = $(this).closest('tr');
-
-		    var data = table.row($tr).data();
-		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
-		} );
-
-		// Delete a record
-		table.on( 'click', '.remove', function (e) {
-		    $tr = $(this).closest('tr');
-		    table.row($tr).remove().draw();
-		    e.preventDefault();
-		} );
-
-		//Like record
-		table.on( 'click', '.like', function () {
-		    alert('You clicked on Like button');
-		});
 	});
 </script>

@@ -21,13 +21,13 @@
 	                            <!-- Here you can write extra buttons/actions for the toolbar-->
 	                       </div>
 						   
-                           <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                           <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" >
                               <thead>
-                                <th data-field="id" >ID</th>
-                                <th data-field="name" data-sortable="true">Parents Name</th>
-                                <th data-field="email" data-sortable="true">Email</th>
-                                <th data-field="mobile"  data-sortable="true">Mobile</th>
-								<th data-field="Status" data-sortable="true">Status</th>
+                                <th>ID</th>
+                                <th>Parents Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+								<th>Status</th>
                               </thead>
                               <tbody>
                                 <?php
@@ -74,8 +74,22 @@ $(document).ready(function() {
        $('#admission3').addClass('active');
 
 		$('#example').DataTable({
-			dom: 'Bfrtip',
-			buttons: ['excel', 'pdf'],
+			dom: 'lBfrtip',
+			buttons: [
+              {
+                  extend: 'excelHtml5',
+                  exportOptions: {
+                      columns: ':visible'
+                  }
+              },
+              {
+                  extend: 'pdfHtml5',
+                  exportOptions: {
+                       columns: ':visible'
+                  }
+              },
+              'colvis'
+          ],
 		    "pagingType": "full_numbers",
 		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 		    responsive: true,
@@ -83,31 +97,8 @@ $(document).ready(function() {
 		    search: "_INPUT_",
 		    searchPlaceholder: "Search records",
 		    }
-
 		});
 
-
-		var table = $('#example').DataTable();
-
-		// Edit record
-		table.on( 'click', '.edit', function () {
-		    $tr = $(this).closest('tr');
-
-		    var data = table.row($tr).data();
-		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
-		} );
-
-		// Delete a record
-		table.on( 'click', '.remove', function (e) {
-		    $tr = $(this).closest('tr');
-		    table.row($tr).remove().draw();
-		    e.preventDefault();
-		} );
-
-		//Like record
-		table.on( 'click', '.like', function () {
-		    alert('You clicked on Like button');
-		});
 	});
       
 </script>

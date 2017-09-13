@@ -1,4 +1,3 @@
-<script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js"></script>
 <div class="main-panel">
    <div class="content">
       <?php if($this->session->flashdata('msg')): ?>
@@ -24,15 +23,14 @@
 
                               </div>
                            </form>
-                           <table id="example" class="table table-striped table-no-bordered table-hover">
+                          <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0">
                               <thead>
-                                 <th data-field="id" class="text-center">S.No</th>
-                                 <th data-field="name" class="text-center" data-sortable="true">Name</th>
-                                 <th data-field="email" class="text-center" data-sortable="true">Class</th>
-                                 <th data-field="mobile" class="text-center" data-sortable="true">Subject</th>
-
-                                 <th data-field="status" class="text-center" data-sortable="true">Status</th>
-                                 <th data-field="Section" class="text-center" data-sortable="true">Action</th>
+                                 <th>S.No</th>
+                                 <th>Name</th>
+                                 <th>Class</th>
+                                 <th>Subject</th>
+                                 <th>Status</th>
+                                 <th>Action</th>
                               </thead>
                               <tbody>
                                 <?php $i=1; foreach($res as $rows){ ?>
@@ -168,12 +166,10 @@ $('#subject_handling_form').validate({ // initialize the plugin
   rules: {
       subject_id:{required:true },
       class_master_id:{required:true },
-
   },
   messages: {
         subject_id: "Select Subject",
         class_master_id:"Select Class"
-
       },
     submitHandler: function(form) {
       //alert("hi");
@@ -218,7 +214,6 @@ $('#subject_handling_form').validate({ // initialize the plugin
 }
 });
 
-
       	$('#example').DataTable({
           dom: 'lBfrtip',
           buttons: [
@@ -231,7 +226,7 @@ $('#subject_handling_form').validate({ // initialize the plugin
               {
                   extend: 'pdfHtml5',
                   exportOptions: {
-                      columns: [ 0, 1, 2, 5 ]
+                       columns: ':visible'
                   }
               },
               'colvis'

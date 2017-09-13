@@ -21,8 +21,9 @@
 	                            <!-- Here you can write extra buttons/actions for the toolbar-->
 								</div>
 						   
-                           <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">                              <thead>
-
+                           <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">  
+						   
+						   <thead>
                                   <th data-field="id">S.No</th>
                                   <th data-field="year"  data-sortable="true"> Name</th>
                                   <th data-field="no"  data-sortable="true">Username</th>
@@ -86,8 +87,22 @@ $(document).ready(function() {
          $('#user2').addClass('active');
 
 		$('#example').DataTable({
-			dom: 'Bfrtip',
-			buttons: ['excel', 'pdf'],
+			dom: 'lBfrtip',
+			buttons: [
+              {
+                  extend: 'excelHtml5',
+                  exportOptions: {
+                      columns: ':visible'
+                  }
+              },
+              {
+                  extend: 'pdfHtml5',
+                  exportOptions: {
+                       columns: ':visible'
+                  }
+              },
+              'colvis'
+          ],
 		    "pagingType": "full_numbers",
 		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 		    responsive: true,
@@ -98,28 +113,6 @@ $(document).ready(function() {
 
 		});
 
-
-		var table = $('#example').DataTable();
-
-		// Edit record
-		table.on( 'click', '.edit', function () {
-		    $tr = $(this).closest('tr');
-
-		    var data = table.row($tr).data();
-		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
-		} );
-
-		// Delete a record
-		table.on( 'click', '.remove', function (e) {
-		    $tr = $(this).closest('tr');
-		    table.row($tr).remove().draw();
-		    e.preventDefault();
-		} );
-
-		//Like record
-		table.on( 'click', '.like', function () {
-		    alert('You clicked on Like button');
-		});
 	});
         
       
