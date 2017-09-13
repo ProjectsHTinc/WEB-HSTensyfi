@@ -21,10 +21,7 @@
                   <div class="card">
                      <div class="content">
                         <div class="fresh-datatables">
-                           <h4 class="title" style="padding-bottom:10px;">List of Admission
-                              <button style="float:right;" id="download" class="btn btn-info btn-fill center">Export Excel</button>
-                              <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
-                           </h4>
+                           <h4 class="title" style="padding-bottom:10px;">List of Admission</h4>
                            <form method="post" action="<?php echo base_url(); ?>admission/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="gender" style="margin-top:30px;"  class="selectpicker">
@@ -37,16 +34,19 @@
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
                               </div>
                            </form>
-                           <table id="bootstrap-table" class="table">
+						   <div class="toolbar">
+	                                <!--        Here you can write extra buttons/actions for the toolbar              -->
+	                            </div>
+                           <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                               <thead>
-                                 <th data-field="id" class="text-left">ID</th>
-                                 <th data-field="name" class="text-left" data-sortable="true">Name</th>
-                                 <th data-field="Parentsname" class="text-left" data-sortable="true">Parents Name</th>
-                                 <th data-field="email" class="text-left" data-sortable="true">Email</th>
-                                 <th data-field="mobile" class="text-left" data-sortable="true">Mobile</th>
-                                 <th data-field="gender" class="text-left" data-sortable="true">Gender</th>
-                                 <th data-field="status" class="text-left" data-sortable="true">Status</th>
-                                 <th data-field="Section" class="text-left" data-sortable="true">Action</th>
+                                 <th>ID</th>
+                                 <th>Name</th>
+                                 <th>Parents Name</th>
+                                 <th>Email</th>
+                                 <th>Mobile</th>
+                                 <th>Gender</th>
+                                 <th>Status</th>
+                                 <th>Action</th>
                               </thead>
                               <tbody>
                                  <?php
@@ -175,6 +175,7 @@
                                  <?php $i++;  }  }?>
                               </tbody>
                            </table>
+						  
                         </div>
                      </div>
                      <!-- end content-->
@@ -188,84 +189,51 @@
       </div>
    </div>
 </div>
+
+
+
 <script type="text/javascript">
-   $(document).ready(function() {  
-   $("#download").click(function() {  
-   $("#bootstrap-table").table2excel({
-   				exclude:".noExl",
-   				name:"Excel Document Name",
-   				filename:"Student",
-   				fileext:".xls",
-   				exclude_img:true,
-   				exclude_links:true,
-   				exclude_inputs:true
-   			});
-     });
-   
-   }); 
-   
-   function generatefromtable() {
-   			var data = [], fontSize = 12, height = 0, doc;
-   			doc = new jsPDF('p', 'pt', 'a4', true);
-   			doc.setFont("times", "normal");
-   			doc.setFontSize(fontSize);
-   			doc.text(20, 20, "Student List");
-   			data = [];
-   			data = doc.tableToJson('bootstrap-table');
-   			height = doc.drawTable(data, {
-   				xstart : 30,
-   				ystart : 10,
-   				tablestart : 40,
-   				marginleft : 10,
-   				xOffset : 10,
-   				yOffset : 15
-   			});
-   			//doc.text(50, height + 20, 'hi world');
-   			doc.save("student.pdf");
-   		}
-   
-   
-   var $table = $('#bootstrap-table');
-         $().ready(function(){
-           jQuery('#admissionmenu').addClass('collapse in');
-           $('#admission').addClass('active');
-           $('#admission2').addClass('active');
-             $table.bootstrapTable({
-                 toolbar: ".toolbar",
-                 clickToSelect: true,
-                 showRefresh: true,
-                 search: true,
-                 showToggle: true,
-                 showColumns: true,
-                 pagination: true,
-                 searchAlign: 'left',
-                 pageSize: 10,
-                 clickToSelect: false,
-                 pageList: [8,10,25,50,100],
-   
-                 formatShowingRows: function(pageFrom, pageTo, totalRows){
-                     //do nothing here, we don't want to show the text "showing x of y from..."
-                 },
-                 formatRecordsPerPage: function(pageNumber){
-                     return pageNumber + " rows visible";
-                 },
-                 icons: {
-                     refresh: 'fa fa-refresh',
-                     toggle: 'fa fa-th-list',
-                     columns: 'fa fa-columns',
-                     detailOpen: 'fa fa-plus-circle',
-                     detailClose: 'fa fa-minus-circle'
-                 }
-             });
-   
-             //activate the tooltips after the data table is initialized
-             $('[rel="tooltip"]').tooltip();
-   
-             $(window).resize(function () {
-                 $table.bootstrapTable('resetView');
-             });
-   
-   
-         });
+
+$(document).ready(function() {
+  
+
+		$('#example').DataTable({
+			dom: 'Bfrtip',
+			buttons: ['excel', 'pdf'],
+		    "pagingType": "full_numbers",
+		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+		    responsive: true,
+		    language: {
+		    search: "_INPUT_",
+		    searchPlaceholder: "Search records",
+		    }
+
+		});
+
+
+		var table = $('#example').DataTable();
+
+		// Edit record
+		table.on( 'click', '.edit', function () {
+		    $tr = $(this).closest('tr');
+
+		    var data = table.row($tr).data();
+		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+		} );
+
+		// Delete a record
+		table.on( 'click', '.remove', function (e) {
+		    $tr = $(this).closest('tr');
+		    table.row($tr).remove().draw();
+		    e.preventDefault();
+		} );
+
+		//Like record
+		table.on( 'click', '.like', function () {
+		    alert('You clicked on Like button');
+		});
+	});
+
+    
 </script>
 
