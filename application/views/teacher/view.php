@@ -37,11 +37,12 @@
                               </div>
 							  
 							  <a href="<?php echo base_url(); ?>teacher/view_subject_handling" class="btn btn-wd btn-default pull-right" style="margin-right:10px;">Teacher Handling Subjects</a>
-							  <button style="float:right;margin-right:10px;" class="btn btn-info btn-fill center download">Export Excel</button>
-							  <button style="float:right;margin-right:10px;"  class="btn btn-info btn-fill" onclick="generatefromtable()">Export PDF</button>
-							 
                            </form>
-                           <table id="bootstrap-table" class="table">
+                          <div class="toolbar">
+	                            <!-- Here you can write extra buttons/actions for the toolbar-->
+								</div>
+						   
+                           <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                               <thead>
                                  <th data-field="id" class="text-left" data-sortable="true">S.No</th>
                                  <th data-field="name" class="text-left" data-sortable="true">Name</th>
@@ -261,81 +262,47 @@
    });
 
 
-   function generatefromtable() {
-   				var data = [], fontSize = 12, height = 0, doc;
-   				doc = new jsPDF('p', 'pt', 'a4', true);
-   				doc.setFont("times", "normal");
-   				doc.setFontSize(fontSize);
-   				doc.text(40, 20, "Teachers List");
-   				data = [];
-   				data = doc.tableToJson('bootstrap-table');
-   				height = doc.drawTable(data, {
-   					xstart : 30,
-   					ystart : 10,
-   					tablestart : 40,
-   					marginleft : 10,
-   					xOffset : 10,
-   					yOffset : 15
-   				});
-   				//doc.text(50, height + 20, 'hi world');
-   				doc.save("teacher.pdf");
-   			}
-$(function() {  
-   $(".download").click(function() {  
-	$("#bootstrap-table").table2excel({
-					exclude: ".noExl",
-					name: "Excel Document Name",
-					filename: "Teachers List",
-					fileext: ".xls",
-					exclude_img: true,
-					exclude_links: true,
-					exclude_inputs: true
-				});
-   });
-
-}); 
-
-      var $table = $('#bootstrap-table');
-       $('#teachermenu').addClass('collapse in');
+$(document).ready(function() {
+	  $('#teachermenu').addClass('collapse in');
       $('#teacher').addClass('active');
       $('#teacher2').addClass('active');
-            $().ready(function(){
-              jQuery('#teachermenu').addClass('collapse in');
-                $table.bootstrapTable({
-                    toolbar: ".toolbar",
-                    clickToSelect: true,
-                    showRefresh: true,
-                    search: true,
-                    showToggle: true,
-                    showColumns: true,
-                    pagination: true,
-                    searchAlign: 'left',
-                    pageSize: 10,
-                    clickToSelect: false,
-                    pageList: [8,10,25,50,100],
 
-                    formatShowingRows: function(pageFrom, pageTo, totalRows){
-                        //do nothing here, we don't want to show the text "showing x of y from..."
-                    },
-                    formatRecordsPerPage: function(pageNumber){
-                        return pageNumber + " rows visible";
-                    },
-                    icons: {
-                        refresh: 'fa fa-refresh',
-                        toggle: 'fa fa-th-list',
-                        columns: 'fa fa-columns',
-                        detailOpen: 'fa fa-plus-circle',
-                        detailClose: 'fa fa-minus-circle'
-                    }
-                });
+	$('#example').DataTable({
+		dom: 'Bfrtip',
+		buttons: ['excel', 'pdf'],
+		"pagingType": "full_numbers",
+		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+		responsive: true,
+		language: {
+		search: "_INPUT_",
+		searchPlaceholder: "Search records",
+		}
 
-                //activate the tooltips after the data table is initialized
-                $('[rel="tooltip"]').tooltip();
-
-                $(window).resize(function () {
-                    $table.bootstrapTable('resetView');
-                });
+	});
 
 
-            });
+		var table = $('#example').DataTable();
+
+		// Edit record
+		table.on( 'click', '.edit', function () {
+		    $tr = $(this).closest('tr');
+
+		    var data = table.row($tr).data();
+		    alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+		} );
+
+		// Delete a record
+		table.on( 'click', '.remove', function (e) {
+		    $tr = $(this).closest('tr');
+		    table.row($tr).remove().draw();
+		    e.preventDefault();
+		} );
+
+		//Like record
+		table.on( 'click', '.like', function () {
+		    alert('You clicked on Like button');
+		});
+	});
+       
+	   
 </script>
