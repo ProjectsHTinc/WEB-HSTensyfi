@@ -173,14 +173,16 @@
                                     </td>
                                     <?php
                                        $id=$sea->teacher_id;
+                                       if(!empty($id)){
                                        $query = "SELECT teacher_id,name FROM edu_teachers WHERE teacher_id='$id' ";
                                        $resultset = $this->db->query($query);
                                        $res=$resultset->result();
                                        foreach($res as $row)
                                        {$name=$row->name;}
+                                       }else{ echo "No"; }
                                        ?>
                                     <td>
-                                       <?php echo $name; ?>
+                                       <?php  if(!empty($id)){ echo $name; }else{ echo "No"; } ?>
                                     </td>
 									<td>
 										<?php $sta=$sea->status;
@@ -227,7 +229,7 @@
                                        $query = "SELECT teacher_id,name FROM edu_teachers WHERE teacher_id='$id' ";
                                        $resultset = $this->db->query($query);
                                        $res=$resultset->result();
-                                       $name=$res->name;
+                                       $name=$res[0]->name;
 									   }else{ echo ""; }
                                        ?>
                                     <td>
