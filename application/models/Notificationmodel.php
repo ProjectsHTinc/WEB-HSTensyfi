@@ -499,7 +499,7 @@ Class Notificationmodel extends CI_Model
             curl_close($ch);
 
             // Debug GCM response
-            // $result;
+          
             }
 
 
@@ -614,7 +614,7 @@ Class Notificationmodel extends CI_Model
 
 
     function send_notification_attendance($attend_id){
-    $query="SELECT eu.user_id,en.gcm_key,ee.name,ep.mobile,ep.id,ee.admission_id,eah.abs_date,eah.student_id,eah.a_status,eah.attend_period,
+     $query="SELECT eu.user_id,en.gcm_key,ee.name,ep.mobile,ep.id,ee.admission_id,eah.abs_date,eah.student_id,eah.a_status,eah.attend_period,
     CASE WHEN attend_period = 0 THEN 'MORNING'  ELSE 'AFTERNOON' END  AS a_session,CASE WHEN a_status = 'L' THEN 'Leave' WHEN a_status = 'A' THEN 'Absent' ELSE 'OnDuty' END  AS abs_atatus  FROM edu_attendance_history AS eah LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eah.student_id LEFT JOIN edu_parents AS ep ON ee.admission_id=ep.admission_id LEFT JOIN edu_users AS eu ON
      eu.user_master_id=ep.id AND eu.user_type='4' LEFT JOIN edu_notification AS en ON eu.user_id=en.user_id WHERE eah.attend_id='$attend_id' AND ep.primary_flag='Yes'";
      $result=$this->db->query($query);
@@ -625,7 +625,7 @@ Class Notificationmodel extends CI_Model
         $at_ses=$rows->a_session;
         $abs_date=$rows->abs_date;
         $abs_status=$rows->abs_atatus;
-        $gcm_key=array($parents_gcm_key);
+         $gcm_key=array($parents_gcm_key);
         $notes='Your child '.$st_name.' was marked '.$abs_status.' today, '.$abs_date.' ON '.$at_ses.' To Known more details login into http://bit.ly/2wLwdRQ';
 
           $data = array
