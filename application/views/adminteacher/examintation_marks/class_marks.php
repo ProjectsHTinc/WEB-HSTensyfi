@@ -27,7 +27,7 @@
 							 
 					<button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center download">Export Excel</button>
 					
-				    <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
+				    <!-- <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button-->
 					 
 					</h4>
                      <p class="category"></p>
@@ -259,7 +259,7 @@
                  showColumns: true,
                  pagination: true,
                  searchAlign: 'left',
-                 pageSize: 10,
+                 pageSize:50,
                  clickToSelect: false,
                  pageList: [10,25,50,100],
    

@@ -21,7 +21,7 @@
                                 <h4 class="title">View Exam Marks ( <?php foreach($cls_exam as $rows){} echo $rows->exam_name;?> )
                                 <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="float:right; ">Go Back</button> 
 							 <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center download">Export Excel</button>
-							  <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>
+							  <!-- <button style="float:right;margin-right: 10px;" class="btn btn-info btn-fill center" onclick="generatefromtable()">Export PDF</button>-->
 								</h4>
                                 <p class="category"></p>
                             </div>
@@ -219,7 +219,7 @@ $(function() {
 
 });
 
-			var $table = $('#bootstrap-table');
+	var $table = $('#bootstrap-table');
          $().ready(function(){
            jQuery('#markform').addClass('collapse in');
              $table.bootstrapTable({
@@ -231,7 +231,7 @@ $(function() {
                  showColumns: true,
                  pagination: true,
                  searchAlign: 'left',
-                 pageSize:10,
+                 pageSize:100,
                  clickToSelect: false,
                  pageList: [10,25,50,100],
    
