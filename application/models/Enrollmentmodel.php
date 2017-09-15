@@ -247,7 +247,8 @@ Class Enrollmentmodel extends CI_Model
 		  foreach ($resultset->result() as $rows)
 		  {
 		   echo $rows->name;
-		   //echo $rows->admission_id;  exit;
+		   //echo $rows->admission_id;  
+		   exit;
 		  }
 
 		}
