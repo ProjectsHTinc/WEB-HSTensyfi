@@ -31,7 +31,6 @@
                            <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0">
                               <thead>
                                  <th>S.No</th>
-                                 <!-- <th data-field="year" class="text-center" data-sortable="true">Year</th> -->
                                  <th>Name</th>
                                  <th>Admission No</th>
                                  <th>Class-Section</th>

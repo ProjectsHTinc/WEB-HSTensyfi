@@ -95,10 +95,9 @@ class Enrollment extends CI_Controller {
 			 $datas=$this->session->userdata();
 			 $user_id=$this->session->userdata('user_id');
 			 //$datas['result'] = $this->classmodel->getclass();
-			$user_type=$this->session->userdata('user_type');
-		 if($user_type==1){
+			 $user_type=$this->session->userdata('user_type');
+		     if($user_type==1){
 			 $admit_year=$this->input->post('year_id');
-
 			 $admit_date=$this->input->post('admit_date');
 	         $dateTime = new DateTime($admit_date);
 			 $formatted_date=date_format($dateTime,'Y-m-d' );
@@ -107,7 +106,7 @@ class Enrollment extends CI_Controller {
 			 $name=$this->input->post('name');
 			 $class=$this->input->post('class_section');
 			 $admisnid=$this->input->post('admission_id');
-			 //echo $admisnid;exit;
+			 //echo $admisnid; 
 			 $quota_id=$this->input->post('quota_id');
 			 $groups_id=$this->input->post('groups_id');
 			 $act_id=$this->input->post('activity_id');

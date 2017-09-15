@@ -29,7 +29,7 @@ Class Enrollmentmodel extends CI_Model
 
         function ad_enrollment($admisnid,$admit_year,$formatted_date,$admisn_no,$name,$class,$quota_id,$groups_id,$activity_id,$status){
 			$year_id=$this->getYear();
-          $check_email="SELECT * FROM edu_enrollment WHERE admit_year='$admit_year' AND admit_year='$year_id' AND admission_id='$admisnid' or admisn_no='$admisn_no'";
+          $check_email="SELECT * FROM edu_enrollment WHERE admit_year='$admit_year' AND admit_year='$year_id' AND admission_id='$admisnid'";
           $result=$this->db->query($check_email);
           if($result->num_rows()==0){
 
@@ -38,12 +38,16 @@ Class Enrollmentmodel extends CI_Model
 			  //echo $OTP;
               $md5pwd=md5($OTP);
 
-			  $admisn="select name,admission_id from edu_admission WHERE admisn_no='".$admisn_no."'";
+			  $admisn="select name,admission_id from edu_admission WHERE admission_id='".$admisnid."'"; 
      	      $resultset = $this->db->query($admisn);
 		      foreach ($resultset->result() as $rows)
 		      {}
-		        $admisnid=$rows->admission_id;
-				//echo $admisnid; exit;
+			    if(!empty($admisn_no)){
+		        $admisn_no=$rows->admisn_no; 
+				}else{
+					$admisn_no=$admisn_no;
+				}
+				
             $query="INSERT INTO edu_enrollment (admission_id,admit_year,admit_date,admisn_no,name,class_id,house_id,extra_curicullar_id,quota_id,created_at,status) VALUES ('$admisnid','$admit_year','$formatted_date','$admisn_no','$name','$class','$groups_id','$activity_id','$quota_id',NOW(),'$status')";
             $resultset=$this->db->query($query);
 
@@ -56,8 +60,9 @@ Class Enrollmentmodel extends CI_Model
              $user_id=$admisnid+400000;
                $getmail="select email,mobile,name from edu_admission WHERE admission_id='".$admisnid."'";
      	      $resultset12 = $this->db->query($getmail);
+			  $reu=$resultset12->result();
 
-             foreach($resultset12->result() as $rows){}
+             foreach($reu as $rows){}
              $email=$rows->email;
 			 $cell=$rows->mobile;
 			 $sname=$rows->name;
@@ -237,22 +242,20 @@ Class Enrollmentmodel extends CI_Model
 	    function getData($admisno)
 		{
 
-		  $query = "select name,admission_id from edu_admission WHERE admisn_no='".$admisno."'";
+		  $query = "select name,admission_id from edu_admission WHERE admission_id='".$admisno."'";
      	  $resultset = $this->db->query($query);
 		  foreach ($resultset->result() as $rows)
 		  {
 		   echo $rows->name;
-		   //echo $rows->admission_id;
-		   exit;
+		   //echo $rows->admission_id;  exit;
 		  }
 
 		}
 
 		function getData1($admisno)
 		{
-			$year_id=$this->getYear();
-
-		   $query = "select name from edu_enrollment WHERE admisn_no='".$admisno."' AND admit_year='$year_id'";
+	      $year_id=$this->getYear();
+		  $query = "select name,admission_id from edu_enrollment WHERE admission_id='".$admisno."' AND admit_year='$year_id'";
      	  $resultset = $this->db->query($query);
 		  return  count($resultset->result());
 		}

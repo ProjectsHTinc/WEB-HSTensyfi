@@ -293,7 +293,7 @@ $('#admission2').addClass('active');
          religion:{required:true },
          community_class:{required:true },
          community:{required:true },
-         mother_tongue:{required:true },
+         //mother_tongue:{required:true },
          //mobile:{required:true }
 
      },
@@ -310,7 +310,7 @@ $('#admission2').addClass('active');
            religion: "Enter the Religion",
            community:"Enter the Community",
            community_class:"Enter the Community Class",
-           mother_tongue:"Enter The Mother tongue",
+           //mother_tongue:"Enter The Mother tongue",
            //mobile:"Enter the mobile Number",
            //student_pic:"Enter the Student Picture"
          }

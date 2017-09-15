@@ -138,11 +138,12 @@ class Admission extends CI_Controller {
 			 $gender=$this->input->post('gender');
 			 
 			 $datas['result'] = $this->admissionmodel->get_all_admission();
+			 //echo "<pre>";print_r($datas['result']);exit;
 			 //$datas['sorting'] = $this->admissionmodel->get_sorting_admission_details();
 			 if(!empty($gender)){
 			 $datas['gender'] = $this->admissionmodel->get_sorting_gender_details($gender);
-			 //echo "<pre>";print_r($datas['gender']);exit;
 			 }
+			
 		     if($user_type==1){
 			 $this->load->view('header');
 			 $this->load->view('admission/view',$datas);

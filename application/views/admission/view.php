@@ -41,8 +41,8 @@
                               <thead>
                                  <th>ID</th>
                                  <th>Name</th>
+								 <th>Admission Id</th>
                                  <th>Parents Name</th>
-                                 <th>Email</th>
                                  <th>Mobile</th>
                                  <th>Gender</th>
                                  <th>Status</th>
@@ -58,8 +58,9 @@
                                  <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
+									<td><?php echo $rows->admission_id; ?></td>
                                     <td><?php echo $pname; ?></td>
-                                    <td><?php echo $rows->email; ?></td>
+                                    
                                     <td><?php echo $rows->mobile; ?></td>
                                     <td><?php echo $rows->sex; ?></td>
                                     <td><?php
@@ -121,8 +122,9 @@
                                  <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
+									<td><?php echo $rows->admission_id; ?></td>
                                     <td><?php echo $pname; ?></td>
-                                    <td><?php echo $rows->email; ?></td>
+                                   
                                     <td><?php echo $rows->mobile; ?></td>
                                     <td><?php echo $rows->sex; ?></td>
                                     <td><?php
