@@ -197,6 +197,9 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	jQuery('#admissionmenu').addClass('collapse in');
+$('#admission').addClass('active');
+$('#admission2').addClass('active');
 		$('#example').DataTable({
 			dom: 'lBfrtip',
 			buttons: [
