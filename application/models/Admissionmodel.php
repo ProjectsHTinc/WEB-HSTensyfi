@@ -105,14 +105,16 @@ Class Admissionmodel extends CI_Model
          }
        }
 
-       function save_ad($admission_id,$admission_year,$admission_no,$emsi_num,$admission_date,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$lang,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$status){
+       function save_ad($admission_id,$admission_year,$admission_no,$emsi_num,$admission_date,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$lang,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$status)
+       {
+           //echo $name;echo $status; echo $admission_id; exit;
        $query="UPDATE edu_admission SET admisn_year='$admission_year',admisn_no='$admission_no',emsi_num='$emsi_num',admisn_date='$admission_date',name='$name',sex='$sex',dob='$dob',age='$age',nationality='$nationality',religion='$religion',community_class='$community_class',community='$community',mother_tongue='$mother_tongue',language='$lang',mobile='$mobile',sec_mobile='$sec_mobile',email='$email',sec_email='$sec_email',student_pic='$userFileName',last_sch_name='$last_sch',last_studied='$last_studied',qualified_promotion='$qual',transfer_certificate='$tran_cert',record_sheet='$recod_sheet',status='$status',updated_at=NOW()  WHERE admission_id='$admission_id'";
        $res=$this->db->query($query);
 
 	       $query6="UPDATE edu_users SET name='$name',updated_date=NOW() WHERE student_id='$admission_id' ";
 	        $res=$this->db->query($query6);
 
-			$query7="UPDATE edu_enrollment SET name='$name' WHERE admission_id='$admission_id' ";
+			$query7="UPDATE edu_enrollment SET name='$name',status='$status' WHERE admission_id='$admission_id' ";
 	        $res=$this->db->query($query7);
 
          if($res){

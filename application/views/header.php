@@ -24,8 +24,8 @@
 	  
 	  <!-- PDF / Excel  -->
 		
-	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.dataTables.min.css">
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/buttons.dataTables.min.css">
+	   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.dataTables.min.css">
+	 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/buttons.dataTables.min.css">
 		  
 	  <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/pdfmake.min.js" type="text/javascript"></script>

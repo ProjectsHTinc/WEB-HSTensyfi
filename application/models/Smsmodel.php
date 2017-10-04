@@ -119,8 +119,9 @@ Class Smsmodel extends CI_Model
 					$tcell=$this->db->query($sql);
 					$res=$tcell->result();
 					foreach($res as $row)
-					{ } $number=$row->phone;
-
+					{ }  $list_number[]=$row->phone;
+                         $number = implode(',', $list_number);
+						 
 						$textmessage=$ctitle.$cnotes;
 
 						$textmsg =urlencode($textmessage);
@@ -265,7 +266,7 @@ Class Smsmodel extends CI_Model
 					foreach($result1 as $rows)
 					{
 					   $tcell=$rows->phone;
-
+                     
 					   //echo $tcell;exit;
 						$textmessage=$ctitle.$cnotes;
 

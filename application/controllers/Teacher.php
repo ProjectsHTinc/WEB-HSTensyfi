@@ -108,7 +108,9 @@ class Teacher extends CI_Controller {
 			 $userFileName =$teacher_pic;
 			 $uploaddir = 'assets/teachers/';
 			 $profilepic = $uploaddir.$userFileName;
-				move_uploaded_file($_FILES['teacher_pic']['tmp_name'], $profilepic);
+			 move_uploaded_file($_FILES['teacher_pic']['tmp_name'], $profilepic);
+				
+				
 				$datas=$this->teachermodel->teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$userFileName);
 
 			//	print_r($datas['status']);exit;

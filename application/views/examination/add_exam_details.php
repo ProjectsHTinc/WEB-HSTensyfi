@@ -179,10 +179,10 @@
                                        $res=$resultset->result();
                                        foreach($res as $row)
                                        {$name=$row->name;}
-                                       }else{ echo "No"; }
+                                       }else{ echo ""; }
                                        ?>
                                     <td>
-                                       <?php  if(!empty($id)){ echo $name; }else{ echo "No"; } ?>
+                                       <?php  if(!empty($id)){ echo $name; }else{ echo ""; } ?>
                                     </td>
 									<td>
 										<?php $sta=$sea->status;
@@ -233,7 +233,7 @@
 									   }else{ echo ""; }
                                        ?>
                                     <td>
-                                       <?php if(!empty($id)){ echo $name; }else{ echo"No"; }?>
+                                       <?php if(!empty($id)){ echo $name; }else{ echo""; }?>
                                     </td>
 									<td>
 										<?php $sta=$rows->status;

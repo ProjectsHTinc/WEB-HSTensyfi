@@ -295,7 +295,7 @@ Class Dashboard extends CI_Model
        if($user_type=="students"){
 		   if(empty($class_sec)){
         //  $query="SELECT * FROM edu_enrollment AS ee WHERE ee.name LIKE '$ser_txt%'";
-        $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id  and e.name LIKE '$ser_txt%'";
+        $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id AND e.status='Active' and cm.class=c.class_id and cm.section=s.sec_id  and e.name LIKE '$ser_txt%'";
          $result=$this->db->query($query);
          if($result->num_rows()==0){
           echo "No Data Found";
@@ -323,7 +323,7 @@ Class Dashboard extends CI_Model
     ';
          } echo $output;}
 	   }else{
-		 $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE cm.class_sec_id='$class_sec' AND  e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id and e.name LIKE '$ser_txt%'";
+		 $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE cm.class_sec_id='$class_sec' AND e.status='Active' AND  e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id and e.name LIKE '$ser_txt%'";
          $result=$this->db->query($query);
          if($result->num_rows()==0){
           echo "No Data Found";
