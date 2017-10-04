@@ -138,4 +138,4 @@
         // chain jQuery functions
         return e;
     };
-})( jQuery, window, document );
+})(jQuery,window,document);

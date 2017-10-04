@@ -164,7 +164,7 @@
 						
 					 echo '</tr>';
 					$i++;
-				}
+				} //print_r($smark);
 				  if(!empty($smark)){ echo "";}else{ ?>
 				  <tr><td></td><td></td>
 					 <td>

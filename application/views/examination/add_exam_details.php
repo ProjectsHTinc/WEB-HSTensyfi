@@ -233,7 +233,7 @@
 									   }else{ echo ""; }
                                        ?>
                                     <td>
-                                       <?php if(!empty($id)){ echo $name; }else{ echo""; }?>
+                                       <?php if(!empty($id)){ echo $name; }else{ echo"No"; }?>
                                     </td>
 									<td>
 										<?php $sta=$rows->status;

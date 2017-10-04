@@ -103,7 +103,9 @@
 
                        </div><!--  end card  -->
              </div> <!-- end col-md-12 -->
-
+    <div id="loading">
+       <center><img src="<?php echo base_url(); ?>assets/126.gif" id="loading"></center> 
+    </div>
            </div>
 
        </div>
@@ -113,7 +115,7 @@
 </div>
 
 <script type="text/javascript">
-
+  $("#loading").hide();
 $('#send_msg').validate({ // initialize the plugin
   rules: {
       "circular_type[]":{required:true },
@@ -128,30 +130,37 @@ $('#send_msg').validate({ // initialize the plugin
       },
 
 submitHandler: function(form) {
+    
+
+    
  //alert("hi");
  swal({
-               title: "Are you sure?",
-               text: "You Want Confirm this form",
-               type: "success",
-               showCancelButton: true,
-               confirmButtonColor: '#DD6B55',
-               confirmButtonText: 'Yes, I am sure!',
-               cancelButtonText: "No, cancel it!",
-               closeOnConfirm: false,
-               closeOnCancel: false
-           },
-           function(isConfirm) {
-               if (isConfirm) {
+              title: "Are you sure?",
+              text: "You Want Confirm this form",
+              type: "success",
+              showCancelButton: true,
+              confirmButtonColor: '#DD6B55',
+              confirmButtonText: 'Yes, I am sure!',
+              cancelButtonText: "No, cancel it!",
+              closeOnConfirm: false,
+              closeOnCancel: false,
+               
+  },
+          function(isConfirm) {
+              if (isConfirm) {
+                  $("#loading").show();
+                   
 $.ajax({
     url: "<?php echo base_url(); ?>grouping/send_msg",
      type:'post',
     data: $('#send_msg').serialize(),
     success: function(response) {
-       // alert(response);
+      // alert(response);
         if(response=="success"){
+              
          //  swal("Success!", "Thanks for Your Note!", "success");
-           $('#send_msg')[0].reset();
-           swal({
+          $('#send_msg')[0].reset();
+          swal({
     title: "Wow!",
     text: "Message!",
     type: "success"
@@ -159,15 +168,19 @@ $.ajax({
      location.reload();
 });
         }else{
-          sweetAlert("Oops...", "Something went wrong!", "error");
+          sweetAlert("Oops...",response , "error");
         }
     }
 });
 }else{
+    $("#loading").hide();
   swal("Cancelled", "Process Cancel :)", "error");
 }
 });
+
+    
 }
+
 });
 
 

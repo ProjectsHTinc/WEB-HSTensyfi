@@ -41,13 +41,20 @@ body{
 
 </style>
 <body>
+
+
+
+
 <div class="wrapper" >
     <div class="login-page"  data-image="">
+
     <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="content" style="padding-top:12vh;">
             <div class="container">
+
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+
 												<?php if($this->session->flashdata('msg')): ?>
 													<div class="alert alert-danger">
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -89,7 +96,7 @@ body{
                                     </div>
                                     <div class="form-group">
                                         <label style="float:right;"><a  href="<?php echo base_url(); ?>home/forgotpassword">Forgot Password</a></label>
-									</div>
+																			</div>
 
 
                                 </div>

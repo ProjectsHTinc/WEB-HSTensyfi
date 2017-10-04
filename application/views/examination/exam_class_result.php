@@ -231,7 +231,7 @@ $(function() {
                  showColumns: true,
                  pagination: true,
                  searchAlign: 'left',
-                 pageSize:100,
+                 pageSize:50,
                  clickToSelect: false,
                  pageList: [10,25,50,100],
    

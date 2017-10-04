@@ -47,7 +47,7 @@ Class Teacherattendencemodel extends CI_Model
        function get_studentin_class($class_id){
          $acd_year=$this->get_cur_year();
         $ye= $acd_year['cur_year'];
-        $query="SELECT en.*,a.name,a.sex FROM edu_enrollment AS en,edu_admission AS a  WHERE en.class_id='$class_id' AND en.admit_year='$ye' AND en.status='Active' AND en.admission_id=a.admission_id AND en.name=a.name ORDER BY a.sex DESC,en.name ASC";
+        $query="SELECT en.*,a.name,a.sex FROM edu_enrollment AS en,edu_admission AS a  WHERE en.class_id='$class_id' AND en.admit_year='$ye' AND en.status='Active' AND en.admission_id=a.admission_id ORDER BY a.sex DESC,en.name ASC";
          $resultset=$this->db->query($query);
          return $resultset->result();
        }

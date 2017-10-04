@@ -221,11 +221,11 @@ dataType: "JSON",
 cache: false,
 success:function(test)
 {
-	//alert(test);
-	var len = test.length;
-	//alert(len);
-	var secction='';
-	var amount='';
+//alert(test);
+var len = test.length;
+//alert(len);
+var secction='';
+var amount='';
 
 		if(test!='')
 		{       //alert(len);

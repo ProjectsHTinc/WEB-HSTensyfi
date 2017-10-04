@@ -77,8 +77,9 @@ class Grouping extends CI_Controller {
 		if($user_type==1){
 			$group_id=$this->input->post('group_id');
 		
-			$notes=$this->input->post('notes');
+			 $notes=$this->db->escape_str($this->input->post('notes'));
 			$circular_type=$this->db->escape_str($this->input->post('circular_type'));
+			
 			 $cir=implode(',',$circular_type);
 			 $cir_cnt=count($circular_type);
 

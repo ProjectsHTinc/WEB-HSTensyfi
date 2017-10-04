@@ -37,6 +37,7 @@
                               <tbody>
                                 <?php
                                 $i=1;
+                               // print_r($parents);
                                 foreach ($parents as $rows) {
 
                                 ?>

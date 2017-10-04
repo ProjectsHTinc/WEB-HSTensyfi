@@ -11,7 +11,8 @@ Class Usermodel extends CI_Model
 
 	 function get_parents()
 	 {
-	   $query="SELECT ep.email,eu.* FROM edu_users as eu left join edu_parents as ep on eu.parent_id=ep.id where eu.user_type='4'";
+	   //$query="SELECT ep.email,eu.* FROM edu_users as eu left join edu_parents as ep on eu.parent_id=ep.id where eu.user_type='4'";
+	   $query="SELECT ep.email,eu.name,eu.user_name,eu.user_id,eu.created_date,eu.status FROM edu_users as eu left join edu_parents as ep on eu.parent_id=ep.id where eu.user_type='4' ORDER BY `eu`.`user_master_id` DESC";
 	   $result=$this->db->query($query);
 	   return $result->result();
 	 }

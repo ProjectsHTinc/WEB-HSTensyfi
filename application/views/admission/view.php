@@ -6,6 +6,9 @@
    border-radius: 12px;
    }
 </style>
+
+
+
 <div class="main-panel">
    <div class="content">
       <?php if($this->session->flashdata('msg')): ?>
@@ -41,9 +44,9 @@
                               <thead>
                                  <th>ID</th>
                                  <th>Name</th>
-								 <th>Admission Id</th>
+								 <th>Admission-Id</th>
                                  <th>Parents Name</th>
-                                 <th>Mobile</th>
+                                    <!--<th>Mobile</th-->
                                  <th>Gender</th>
                                  <th>Status</th>
                                  <th>Action</th>
@@ -61,7 +64,7 @@
 									<td><?php echo $rows->admission_id; ?></td>
                                     <td><?php echo $pname; ?></td>
                                     
-                                    <td><?php echo $rows->mobile; ?></td>
+                                    <!--td><?php //echo $rows->mobile; ?></td-->
                                     <td><?php echo $rows->sex; ?></td>
                                     <td><?php
                                        if($stu=='Active'){?>
@@ -125,7 +128,7 @@
 									<td><?php echo $rows->admission_id; ?></td>
                                     <td><?php echo $pname; ?></td>
                                    
-                                    <td><?php echo $rows->mobile; ?></td>
+                                    <!--td><?php //echo $rows->mobile; ?></td-->
                                     <td><?php echo $rows->sex; ?></td>
                                     <td><?php
                                        if($stu=='Active'){?>
@@ -192,14 +195,12 @@
    </div>
 </div>
 
-
-
 <script type="text/javascript">
 
 $(document).ready(function() {
 	jQuery('#admissionmenu').addClass('collapse in');
-    $('#admission').addClass('active');
-    $('#admission2').addClass('active');
+$('#admission').addClass('active');
+$('#admission2').addClass('active');
 		$('#example').DataTable({
 			dom: 'lBfrtip',
 			buttons: [

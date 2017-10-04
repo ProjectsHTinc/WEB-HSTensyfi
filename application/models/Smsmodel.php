@@ -119,9 +119,8 @@ Class Smsmodel extends CI_Model
 					$tcell=$this->db->query($sql);
 					$res=$tcell->result();
 					foreach($res as $row)
-					{ }  $list_number[]=$row->phone;
-                         $number = implode(',', $list_number);
-						 
+					{ } $number=$row->phone;
+
 						$textmessage=$ctitle.$cnotes;
 
 						$textmsg =urlencode($textmessage);
@@ -266,7 +265,7 @@ Class Smsmodel extends CI_Model
 					foreach($result1 as $rows)
 					{
 					   $tcell=$rows->phone;
-                     
+
 					   //echo $tcell;exit;
 						$textmessage=$ctitle.$cnotes;
 
@@ -443,17 +442,12 @@ Class Smsmodel extends CI_Model
         //  Group  SMS
         function send_msg($group_id,$notes,$user_id)
 		{
-         $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
-          LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
-          LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id)
-          WHERE  egm.group_title_id='$group_id'";
-
-          $pcell=$this->db->query($class);
+         $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) WHERE  egm.group_title_id='$group_id' and ep.mobile <>''";
+       
+        $pcell=$this->db->query($class);
           $res2=$pcell->result();
           foreach($res2 as $result){
-             $list_number[]=$result->mobile;
-           }
-             $number = implode(',', $list_number);
+             $number=$result->mobile;
             $textmessage=$notes;
             $textmsg =urlencode($textmessage);
             $smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
@@ -461,8 +455,9 @@ Class Smsmodel extends CI_Model
             $api_params = $api_element.'&numbers='.$number.'&message='.$textmsg;
             $smsgatewaydata = $smsGatewayUrl.$api_params;
 
-            $url = $smsgatewaydata;
-
+           $url = $smsgatewaydata;
+          
+          
            $ch = curl_init();
            curl_setopt($ch, CURLOPT_POST, false);
            curl_setopt($ch, CURLOPT_URL, $url);
@@ -474,6 +469,7 @@ Class Smsmodel extends CI_Model
            {
                 $output =  file_get_contents($smsgatewaydata);
               }
+          }
         }
 
 		// Home Work SMS
