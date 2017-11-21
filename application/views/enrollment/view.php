@@ -7,6 +7,7 @@
     border-radius: 12px;
 }
 </style>
+
 <div class="main-panel">
    <div class="content">
       <?php if($this->session->flashdata('msg')): ?>
@@ -41,6 +42,7 @@
                               <tbody>
                                  <?php
                                     $i=1;
+                                  
 									
 									if(!empty($gender)){
 										foreach ($gender as $rows) {
@@ -80,6 +82,7 @@
                                  </tr>
 									<?php $i++;  } 	
 									}else{
+									 
                                     foreach ($result as $rows) {
                                     $stu=$rows->status;
                                     ?>

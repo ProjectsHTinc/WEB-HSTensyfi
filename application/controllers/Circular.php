@@ -23,7 +23,7 @@ class Circular extends CI_Controller
 			  $user_type=$this->session->userdata('user_type');
 			  $datas['years']=$this->circularmodel->get_current_years();
 			  $datas['result']=$this->circularmodel->get_all_result();
-			  //print_r($datas['result']);exit;
+			  //echo'<pre>'; print_r($datas['result']);exit;
 			  if($user_type==1)
 			  {
 			  $this->load->view('header');
@@ -131,10 +131,12 @@ class Circular extends CI_Controller
 		  $datas=$this->session->userdata();
 		  $user_id=$this->session->userdata('user_id');
 		  $user_type=$this->session->userdata('user_type');
-		  $datas['all_circulars']=$this->circularmodel->get_all_circular();
+		  
 		  $datas['parents']=$this->circularmodel->get_parents_circular();
 		  $datas['students']=$this->circularmodel->get_students_circular();
-		 //echo '<pre>'; print_r($datas['students']);exit;
+		  $datas['teachers']=$this->circularmodel->get_all_circular();
+
+		  //echo '<pre>'; print_r($datas['teachers']); exit;
 
 		  if($user_type==1)
 		  {
@@ -182,9 +184,9 @@ class Circular extends CI_Controller
 	  
       public function create()
       {
-		  $datas=$this->session->userdata();
-		  $user_id=$this->session->userdata('user_id');
-		  $user_type=$this->session->userdata('user_type');
+    	  $datas=$this->session->userdata();
+    	  $user_id=$this->session->userdata('user_id');
+    	  $user_type=$this->session->userdata('user_type');
       if($user_type==1)
       {
       $users_id=$this->input->post('users');

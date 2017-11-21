@@ -21,7 +21,7 @@
             <div class="col-md-12">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">View Exam Marks ( <?php foreach ($cls_exname as $rows) {} echo $rows->exam_name; ?>  ) 
+                     <h4 class="title">View Exam Marks( <?php foreach ($cls_exname as $rows) {} echo $rows->exam_name; ?>  ) 
 					 
                      <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="float:right; ">Go Back</button> 
 							 

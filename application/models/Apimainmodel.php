@@ -1232,6 +1232,7 @@ class Apimainmodel extends CI_Model {
 	public function sendGroupmessage ($group_title_id,$messagetype_sms,$messagetype_mail,$messagetype_notification,$message_details,$created_by)
 	{
 			$year_id = $this->getYear();
+            $message_type ='';
 
                 if($messagetype_sms=="1"){
                      $message_type = "SMS";
@@ -1254,7 +1255,7 @@ class Apimainmodel extends CI_Model {
 
 
                 if($messagetype_sms != 0){
-
+/*
 					//$number1='9789108819,9865905230,9942297930';
 					$number1='9840111100,9841401896,9841401877,9444008809,9841322331,9444124618,9841460166,98940159304,9840091224,9841460161,9841401855';
 					$textmsg = urlencode($message_details);
@@ -1269,7 +1270,7 @@ class Apimainmodel extends CI_Model {
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 					$output = curl_exec($ch);
 					curl_close($ch);
-
+*/
                     $mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id' AND ep.primary_flag = 'Yes'";
                 	$mobile_res = $this->db->query($mobile_query);
                     $mobile_result = $mobile_res->result();

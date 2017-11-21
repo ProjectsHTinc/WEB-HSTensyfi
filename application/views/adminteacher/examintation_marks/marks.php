@@ -113,9 +113,9 @@
 										<?php }?>
 										</tr>
 										<?php $i++;}
-										}else{
+										}else{  
 										foreach($res as $row)
-										      { $gen=$row->sex?>
+                                         {  $gen=$row->sex?>
 										<tr>
 										
 										<td><?php echo $i;?></td>
