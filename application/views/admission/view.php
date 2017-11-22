@@ -1,3 +1,5 @@
+
+
 <style>
    .formdesign
    {
@@ -6,9 +8,6 @@
    border-radius: 12px;
    }
 </style>
-
-
-
 <div class="main-panel">
    <div class="content">
       <?php if($this->session->flashdata('msg')): ?>
@@ -28,25 +27,25 @@
                            <form method="post" action="<?php echo base_url(); ?>admission/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="gender" style="margin-top:30px;"  class="selectpicker">
-									  <option value="">Select</option>
-									  <option value="Male">Male</option>
-									  <option value="Female">Female</option>
+                                    <option value="">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                  </select>
                               </div>
                               <div class="col-sm-10">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
                               </div>
                            </form>
-						   <div class="toolbar">
-	                                <!--        Here you can write extra buttons/actions for the toolbar              -->
-	                            </div>
+                           <div class="toolbar">
+                              <!--        Here you can write extra buttons/actions for the toolbar              -->
+                           </div>
                            <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" >
                               <thead>
                                  <th>ID</th>
                                  <th>Name</th>
-								 <th>Admission-Id</th>
+                                 <th>Admission No</th>
                                  <th>Parents Name</th>
-                                    <!--<th>Mobile</th-->
+                                 <th>Blood Group</th>
                                  <th>Gender</th>
                                  <th>Status</th>
                                  <th>Action</th>
@@ -61,10 +60,9 @@
                                  <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
-									<td><?php echo $rows->admission_id; ?></td>
+                                    <td><?php echo $rows->admisn_no; ?></td>
                                     <td><?php echo $pname; ?></td>
-                                    
-                                    <!--td><?php //echo $rows->mobile; ?></td-->
+                                    <td><?php echo $rows->blood_group_name; ?></td>
                                     <td><?php echo $rows->sex; ?></td>
                                     <td><?php
                                        if($stu=='Active'){?>
@@ -86,7 +84,7 @@
                                        <?php
                                           }
                                           else{
-                                          	?>
+                                             ?>
                                        <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                        </a>
@@ -97,14 +95,14 @@
                                           $parent_status=$rows->parents_status;
                                           if($parent_status==0)
                                           {
-                                          	?>
+                                             ?>
                                        <a href="<?php echo base_url(); ?>parents/home/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Add Parent" class="btn btn-simple btn-info btn-icon table-action view" >
                                        <i class="fa fa-user-plus" aria-hidden="true"></i></a>
                                        <?php
                                           }
                                           else
                                           {
-                                          	// echo base_url(); parents/edit_parent/ echo $rows->parnt_guardn_id;
+                                             // echo base_url(); parents/edit_parent/ echo $rows->parnt_guardn_id;
                                           ?>
                                        <a href="<?php echo base_url(); ?>parents/edit_parents/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Parent Details" class="btn btn-simple btn-info btn-icon table-action view" >
                                        <i class="fa fa-id-card-o" aria-hidden="true"></i></a>
@@ -116,19 +114,18 @@
                                  </tr>
                                  <?php  $i++;  }
                                     }else{
-                                    	//echo'<pre>';print_r($result);exit;
-                                                            foreach ($result as $rows)
-                                     { $stu=$rows->status;
-                                     $pname=$rows->parentsname;
-                                    
-                                                            ?>
+                                       //echo'<pre>';print_r($result);exit;
+                                    foreach ($result as $rows)
+                                     { 
+                                       $stu=$rows->status;
+                                       $pname=$rows->parentsname;
+                                      ?>
                                  <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
-									<td><?php echo $rows->admission_id; ?></td>
+                                    <td><?php echo $rows->admisn_no; ?></td>
                                     <td><?php echo $pname; ?></td>
-                                   
-                                    <!--td><?php //echo $rows->mobile; ?></td-->
+                                    <td><?php echo $rows->blood_group_name; ?></td>
                                     <td><?php echo $rows->sex; ?></td>
                                     <td><?php
                                        if($stu=='Active'){?>
@@ -150,7 +147,7 @@
                                        <?php
                                           }
                                           else{
-                                          	?>
+                                             ?>
                                        <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                        </a>
@@ -161,7 +158,7 @@
                                           $parent_status=$rows->parents_status;
                                           if($parent_status==0)
                                           {
-                                          	?>
+                                             ?>
                                        <a href="<?php echo base_url(); ?>parents/home/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Add Parent" class="btn btn-simple btn-info btn-icon table-action view" >
                                        <i class="fa fa-user-plus" aria-hidden="true"></i></a>
                                        <?php
@@ -180,7 +177,6 @@
                                  <?php $i++;  }  }?>
                               </tbody>
                            </table>
-						  
                         </div>
                      </div>
                      <!-- end content-->
@@ -194,40 +190,38 @@
       </div>
    </div>
 </div>
-
 <script type="text/javascript">
-
-$(document).ready(function() {
-	jQuery('#admissionmenu').addClass('collapse in');
-$('#admission').addClass('active');
-$('#admission2').addClass('active');
-		$('#example').DataTable({
-			dom: 'lBfrtip',
-			buttons: [
-              {
-                  extend: 'excelHtml5',
-                  exportOptions: {
-                      columns: ':visible'
-                  }
-              },
-              {
-                  extend: 'pdfHtml5',
-                  exportOptions: {
-                       columns: ':visible'
-                  }
-              },
-              'colvis'
-          ],
-		    "pagingType": "full_numbers",
-		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		    responsive: true,
-		    language: {
-		    search: "_INPUT_",
-		    searchPlaceholder: "Search records",
-		    }
-		});
-	});
-
-    
+   $(document).ready(function() {
+      jQuery('#admissionmenu').addClass('collapse in');
+   $('#admission').addClass('active');
+   $('#admission2').addClass('active');
+         $('#example').DataTable({
+            dom: 'lBfrtip',
+            buttons: [
+                 {
+                     extend: 'excelHtml5',
+                     exportOptions: {
+                     columns: ':visible'
+                     }
+                 },
+                 {
+                     extend: 'pdfHtml5',
+                     exportOptions: {
+                     columns: ':visible'
+                     }
+                 },
+                 'colvis'
+             ],
+             "pagingType": "full_numbers",
+             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+             responsive: true,
+             language: {
+             search: "_INPUT_",
+             searchPlaceholder: "Search records",
+             }
+         });
+      });
+   
+       
 </script>
 

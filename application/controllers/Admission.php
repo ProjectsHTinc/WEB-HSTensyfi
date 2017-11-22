@@ -33,10 +33,12 @@ class Admission extends CI_Controller {
 
 	 	public function home(){
 	 		$datas=$this->session->userdata();
-	 		 $user_id=$this->session->userdata('user_id');
+	 		$user_id=$this->session->userdata('user_id');
 	 		//$datas['result'] = $this->classmodel->getclass();
 			$datas['class'] = $this->classmodel->getclass();
 			$datas['result'] = $this->yearsmodel->getall_years();
+			$datas['lang'] = $this->admissionmodel->getall_language_proposed();
+			$datas['blood'] = $this->admissionmodel->getall_blood_group();
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
 	 		 $this->load->view('header');
@@ -84,6 +86,7 @@ class Admission extends CI_Controller {
 			 $mother_tongue=$this->input->post('mother_tongue');
 			 
 			 $language=$this->input->post('lang');
+			 $blood_group=$this->input->post('blood_group');
 			 $status=$this->input->post('status');
 			 //echo $status;exit;
 			 
@@ -104,7 +107,7 @@ class Admission extends CI_Controller {
 				$recod_sheet=$this->input->post('rec_sheet');
 				$emsi_num=$this->input->post('emsi_num');
 				
-				$datas=$this->admissionmodel->ad_create($admission_year,$admission_no,$emsi_num,$formatted_date,$name,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$language,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$status);
+				$datas=$this->admissionmodel->ad_create($admission_year,$admission_no,$emsi_num,$formatted_date,$name,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$language,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$blood_group,$status);
 			     //print_r($datas['status']); print_r($datas['last_id']);exit;
                //print_r$data['admisn_no'] ; exit;
        
@@ -179,12 +182,15 @@ class Admission extends CI_Controller {
 		public function get_ad_id($admission_id){
 		 $datas=$this->session->userdata();
 		 $user_id=$this->session->userdata('user_id');
+		 $user_type=$this->session->userdata('user_type');
 
 		 $datas['result'] = $this->yearsmodel->getall_years();
 		 $datas['class'] = $this->classmodel->getclass();
 		 $datas['res']=$this->admissionmodel->get_ad_id($admission_id);
-		//	echo "<pre>";print_r(	$datas['res']);exit;
-		$user_type=$this->session->userdata('user_type');
+		 $datas['lang'] = $this->admissionmodel->getall_language_proposed();
+		 $datas['blood'] = $this->admissionmodel->getall_blood_group();
+		//echo "<pre>";print_r($datas['res']);exit;
+		
 		if($user_type==1){
 		 $this->load->view('header');
 		 $this->load->view('admission/edit',$datas);
@@ -201,6 +207,8 @@ class Admission extends CI_Controller {
 		 $datas['result'] = $this->yearsmodel->getall_years();
 
 		 $datas['res']=$this->admissionmodel->get_ad_id1($admission_id);
+		 $datas['lang'] = $this->admissionmodel->getall_language_proposed();
+		 $datas['blood'] = $this->admissionmodel->getall_blood_group();
 		//	echo "<pre>";print_r(	$datas['res']);exit;
 		$user_type=$this->session->userdata('user_type');
 		if($user_type==1){
@@ -236,6 +244,7 @@ class Admission extends CI_Controller {
 		     $community=$this->input->post('community');
 			 $mother_tongue=$this->input->post('mother_tongue');
 			 $lang=$this->input->post('lang');
+			  $blood_group=$this->input->post('blood_group');
 			 $mobile=$this->input->post('mobile');
 			 
 			 $sec_mobile=$this->input->post('sec_mobile');
@@ -262,7 +271,7 @@ class Admission extends CI_Controller {
 						$userFileName=$user_pic_old;
 				}
 
-				$datas=$this->admissionmodel->save_ad($admission_id,$admission_year,$admission_no,$emsi_num,$admission_date,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$lang,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$status);
+				$datas=$this->admissionmodel->save_ad($admission_id,$admission_year,$admission_no,$emsi_num,$admission_date,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$lang,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$blood_group,$status);
 			//	print_r($datas['status']);exit;
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Updated Successfully');
