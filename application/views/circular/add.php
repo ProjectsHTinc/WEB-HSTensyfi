@@ -166,12 +166,18 @@
                      </form>
                   </div>
                </div>
+               	<div id="loading">
+       <center><img src="<?php echo base_url(); ?>assets/126.gif" id="loading"></center> 
+    </div>
             </div>
+
+
          </div>
       </div>
    </div>
 </div>
 <script type="text/javascript">
+$("#loading").hide();
    $(document).ready(function () {
      $('#communcicationmenu').addClass('collapse in');
      $('#communication').addClass('active');
@@ -214,6 +220,7 @@
 	                  },
 	                  function(isConfirm) {
 	                      if (isConfirm) {
+							 $("#loading").show();
 	       $.ajax({
 	           url: "<?php echo base_url(); ?>circular/create",
 	            type:'POST',
@@ -238,6 +245,7 @@
 	           }
 	       });
 	     }else{
+			 $("#loading").hide();
 	         swal("Cancelled", "Process Cancel :)", "error");
 	     }
 	   });

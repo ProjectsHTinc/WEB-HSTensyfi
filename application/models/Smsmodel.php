@@ -121,7 +121,7 @@ Class Smsmodel extends CI_Model
 					foreach($res as $row)
 					{ } $number=$row->phone;
 
-						$textmessage=$ctitle.$cnotes;
+						$textmessage=$cnotes;
 
 						$textmsg =urlencode($textmessage);
 
@@ -157,16 +157,16 @@ Class Smsmodel extends CI_Model
 				 {
 					$clsid=$stusers_id[$i];
 					$cnotes=$notes;
-					$ctitle=$title;
+					//$ctitle=$title;
 
-					 $sql1="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.name,a.mobile FROM edu_enrollment AS e,edu_admission AS a WHERE e.class_id='$clsid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no ";
+					 $sql1="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.name,a.mobile FROM edu_enrollment AS e,edu_admission AS a WHERE e.class_id='$clsid' AND e.admission_id=a.admission_id ";
 					$scell=$this->db->query($sql1);
 					$res1=$scell->result();
 					foreach($res1 as $row1)
 					{
        					$snumber=$row1->mobile;
 					   //echo $snumber;exit;
-						$textmessage=$ctitle.$cnotes;
+						$textmessage=$cnotes;
 
 						$textmsg =urlencode($textmessage);
 
@@ -196,37 +196,37 @@ Class Smsmodel extends CI_Model
              }
 
 	 //-----------------------------Parents----------------------
-		  //print_r($pusers_id);
+		  print_r($pusers_id);
 		  if($pusers_id!='')
-		  {
+		  {  
 			 $pcountid=count($pusers_id);
 			 //echo $pcountid;exit;
 			 for ($i=0;$i<$pcountid;$i++)
 			 {
 				$classid=$pusers_id[$i];
 				$cnotes=$notes;
-				$ctitle=$title;
+				//$ctitle=$title;
 
 				 $pgid="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id FROM edu_enrollment AS e WHERE e.class_id='$classid'";
 				 $pcell=$this->db->query($pgid);
 				 $res2=$pcell->result();
 				 foreach($res2 as $row2)
-				 { $stuid=$row2->admission_id;
-
-				  $class="SELECT id,mobile,admission_id,primary_flag FROM edu_parents WHERE FIND_IN_SET('$stuid',admission_id) AND primary_flag='Yes'";
-				  $pcell1=$this->db->query($class);
-				  $res3=$pcell1->result();
+				 { 
+				     $stuid=$row2->admission_id;
+				    $class="SELECT id,mobile,admission_id,primary_flag FROM edu_parents WHERE FIND_IN_SET('$stuid',admission_id) AND primary_flag='Yes'"; 
+    				  $pcell1=$this->db->query($class);
+    				  $res3=$pcell1->result();
 					foreach($res3 as $row3)
 					{
        					$pnumber=$row3->mobile;
 					   //echo $pnumber;exit;
-						$textmessage=$ctitle.$cnotes;
+						$textmessage=$cnotes;
 
 						$textmsg =urlencode($textmessage);
 
-						$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+						$smsGatewayUrl ='http://173.45.76.227/send.aspx?';
 
-						$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+						$api_element ='username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
 
 						$api_params = $api_element.'&numbers='.$pnumber.'&message='.$textmsg;
 
@@ -258,7 +258,7 @@ Class Smsmodel extends CI_Model
 				{
 				 //echo $users_id;
 				    $cnotes=$notes;
-					$ctitle=$title;
+				//	$ctitle=$title;
 					$tsql="SELECT u.user_id,u.user_type,u.user_master_id,t.teacher_id,t.name,t.phone FROM edu_users AS u,edu_teachers AS t  WHERE u.user_type='$users_id' AND u.user_master_id=t.teacher_id AND u.status='Active'";
 					$res=$this->db->query($tsql);
 					$result1=$res->result();
@@ -267,7 +267,7 @@ Class Smsmodel extends CI_Model
 					   $tcell=$rows->phone;
 
 					   //echo $tcell;exit;
-						$textmessage=$ctitle.$cnotes;
+						$textmessage=$cnotes;
 
 						$textmsg =urlencode($textmessage);
 
@@ -304,7 +304,7 @@ Class Smsmodel extends CI_Model
 					   $scell=$rows1->mobile;
 
 					   //echo $tcell;exit;
-						$textmessage=$ctitle.$cnotes;
+						$textmessage=$cnotes;
 
 						$textmsg =urlencode($textmessage);
 
@@ -342,7 +342,7 @@ Class Smsmodel extends CI_Model
 					   $pcell=$prows1->mobile;
 
 					   //echo $tcell;exit;
-						$textmessage=$ctitle.$cnotes;
+						$textmessage=$cnotes;
 
 						$textmsg =urlencode($textmessage);
 
