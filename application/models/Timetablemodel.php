@@ -27,11 +27,26 @@ Class Timetablemodel extends CI_Model
                 }
               }
 
+              function getTerm()
+              {
+                $sqlYear = "SELECT * FROM edu_terms WHERE NOW() >= from_date AND NOW() <= to_date AND status = 'Active'";
+                $term_result = $this->db->query($sqlYear);
+                $ress_year = $term_result->result();
+
+                if($term_result->num_rows()==1)
+                {
+                  foreach ($term_result->result() as $rows)
+                  {
+                      $term_id = $rows->term_id;
+                  }
+                  return $term_id;
+                }
+              }
               //Create timetable
 
               function create_timetable($year_id,$term_id,$class_id,$subject_id,$teacher_id,$day_id,$period_id)
 			  {
-                 $check="SELECT * FROM edu_timetable WHERE class_id='$class_id' AND year_id='$year_id'";
+                 $check="SELECT * FROM edu_timetable WHERE class_id='$class_id' AND year_id='$year_id' AND term_id='$term_id'";
                  $result1=$this->db->query($check);
                  if($result1->num_rows()>=1){
                    $data= array("status" => "Already");
@@ -63,17 +78,23 @@ Class Timetablemodel extends CI_Model
                 //GET ALL Class assisgned for time table
 
                 function view_class_timetable(){
-                  $get_year="SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month";
-                  $result1=$this->db->query($get_year);
-                  foreach($result1->result() as $res){}
-                  $year_id=$res->year_id;
+                   $year_id = $this->getYear();
+                   $term_id=$this->getTerm();
                    $query="SELECT tt.class_id AS timid,cm.class_sec_id,cm.class,cm.section,c.class_id,tt.year_id,a.from_month,a.to_month,c.class_name,s.sec_name
                    FROM edu_timetable AS tt  INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id
-                   INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE tt.year_id='$year_id' GROUP BY tt.class_id";
+                   INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE tt.year_id='$year_id' AND tt.term_id='$term_id' GROUP BY tt.class_id";
                   $result=$this->db->query($query);
                   return $result->result();
+                }
 
 
+                function termwise($term_id){
+                  $year_id = $this->getYear();
+                  $query="SELECT tt.class_id AS timid,cm.class_sec_id,cm.class,cm.section,c.class_id,tt.year_id,tt.term_id,a.from_month,a.to_month,c.class_name,s.sec_name
+                  FROM edu_timetable AS tt  INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id
+                  INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE tt.year_id='$year_id' AND tt.term_id='$term_id' GROUP BY tt.class_id";
+                 $result=$this->db->query($query);
+                 return $result->result();
                 }
 
                 function getall_years(){
@@ -91,14 +112,13 @@ Class Timetablemodel extends CI_Model
                 }
 
                 //GET ALL TIME TABLE
-                function view($class_sec_id){
+                function view($class_sec_id,$term_id){
                   $get_year="SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month";
                   $result1=$this->db->query($get_year);
                   foreach($result1->result() as $res){}
                   $year_id=  $res->year_id;
-                     $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id WHERE tt.class_id='$class_sec_id' AND tt.year_id='$year_id' ORDER BY tt.table_id ASC";
-
-                   $result=$this->db->query($query);
+                   $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id WHERE tt.class_id='$class_sec_id' AND tt.year_id='$year_id' AND tt.term_id='$term_id' ORDER BY tt.table_id ASC";
+                  $result=$this->db->query($query);
                   if($result->num_rows()==0){
                     $data= array("status" => "no data Found");
                     return $data;

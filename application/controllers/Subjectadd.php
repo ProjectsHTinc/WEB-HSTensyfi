@@ -34,8 +34,8 @@ class Subjectadd extends CI_Controller {
 	 	public function addsubject(){
 	 		$datas=$this->session->userdata();
 	 		 $user_id=$this->session->userdata('user_id');
-	 		$datas['result'] = $this->subjectmodel->getsubject();
 			$user_type=$this->session->userdata('user_type');
+			$datas['result'] = $this->subjectmodel->getsubject();
 			if($user_type==1){
 	 		 $this->load->view('header');
 	 		 $this->load->view('subject/add',$datas);
@@ -48,9 +48,14 @@ class Subjectadd extends CI_Controller {
 
 
 		public function createsubject(){
+			  $datas=$this->session->userdata();
+	 		   $user_id=$this->session->userdata('user_id');
+				 $user_type=$this->session->userdata('user_type');
+				if($user_type==1){
 				$subjectname=$this->input->post('subjectname');
+				$is_preferred_lang=$this->input->post('is_preferred_lang');
 				$status=$this->input->post('status');
-				$res = $this->subjectmodel->addsubject($subjectname,$status);
+				$res = $this->subjectmodel->addsubject($subjectname,$is_preferred_lang,$status);
 				if($res['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Added Successfully');
 				 redirect('subjectadd/addsubject');
@@ -58,6 +63,9 @@ class Subjectadd extends CI_Controller {
 				 $this->session->set_flashdata('msg', 'Subject Name Already Exist');
 				 redirect('subjectadd/addsubject');
 			 }
+		 }else{
+			 redirect('/');
+		 }
 		}
 
 		public function updatesubject($subject_id){
@@ -71,8 +79,9 @@ class Subjectadd extends CI_Controller {
 		{
 			  $subject_name=$this->input->post('subjectname');
 			  $subject_id=$this->input->post('subject_id');
+				$is_preferred_lang=$this->input->post('is_preferred_lang');
 			  $status=$this->input->post('status');
-			  $data = $this->subjectmodel->save_subject($subject_name,$subject_id,$status);
+			  $data = $this->subjectmodel->save_subject($subject_name,$is_preferred_lang,$subject_id,$status);
 				if($data['status']=="success"){
 				 $this->session->set_flashdata('msg', 'Update Successfully');
 				 redirect('subjectadd/addsubject');

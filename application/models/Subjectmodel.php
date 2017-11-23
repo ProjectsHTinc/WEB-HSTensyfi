@@ -19,11 +19,11 @@ Class Subjectmodel extends CI_Model
 
 
 //CREATE SECTION NAME
-       function addsubject($subjectname,$status){
+       function addsubject($subjectname,$is_preferred_lang,$status){
            $check_class="SELECT * FROM edu_subject WHERE subject_name='$subjectname' AND status='$status'";
            $res=$this->db->query($check_class);
            if($res->num_rows()==0){
-           $query="INSERT INTO edu_subject (subject_name,status) VALUES ('$subjectname','$status')";
+           $query="INSERT INTO edu_subject (subject_name,is_preferred_lang,status) VALUES ('$subjectname','$is_preferred_lang','$status')";
            $resultset=$this->db->query($query);
            $data= array("status" => "success");
             return $data;
@@ -55,10 +55,10 @@ Class Subjectmodel extends CI_Model
 
 
 //UPDATE SECTION NAME
-       function save_subject($subject_name,$subject_id,$status)
+       function save_subject($subject_name,$is_preferred_lang,$subject_id,$status)
 	   {
 
-          $query="UPDATE edu_subject SET subject_name='$subject_name',status='$status' WHERE subject_id='$subject_id'";
+          $query="UPDATE edu_subject SET subject_name='$subject_name',status='$status',is_preferred_lang='$is_preferred_lang' WHERE subject_id='$subject_id'";
           $resultset=$this->db->query($query);
           $data= array("status" => "success");
           return $data;

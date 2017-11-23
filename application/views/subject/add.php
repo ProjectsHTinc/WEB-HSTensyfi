@@ -19,15 +19,23 @@
 
                                        </div>
                                    </div>
-								   <div class="col-md-5">
+								                   <div class="col-md-5">
                                        <div class="form-group">
                                            <label class="col-sm-2 control-label">Status</label>
-										   <select name="status"  class="selectpicker form-control">
-												  <option value="Active">Active</option>
-												  <option value="Deactive">DeActive</option>
-											</select>
-                                       </div>
-                                   </div>
+                  										   <select name="status"  class="selectpicker form-control">
+                  												  <option value="Active">Active</option>
+                  												  <option value="Deactive">DeActive</option>
+                  											</select>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label><input type="checkbox" name="is_preferred_lang" value="1" style="margin-right:10px;">Set as Preferred Language</label>
+                                          </div>
+                                     </div>
                                </div>
                            <button type="submit" class="btn btn-info btn-fill pull-left">Save</button>
                                <div class="clearfix"></div>
@@ -56,8 +64,9 @@
                           <table id="bootstrap-table" class="table">
                               <thead>
                                 <th>S.no</th>
-                                <th>Section</th>
-								<th>Status</th>
+                                <th>Subjects</th>
+                                  <th>Preferred Language</th>
+								                 <th>Status</th>
                                 <th>Actions</th>
                               </thead>
                               <tbody>
@@ -68,6 +77,7 @@
                                   <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->subject_name; ?></td>
+                                    <td><?php if($rows->is_preferred_lang) echo "<i class='fa fa-check'></i>"; ?></td>
                                    <td>
 										<?php $sta=$rows->status;
 										if($sta=='Active'){?>

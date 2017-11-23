@@ -44,7 +44,7 @@
                                  </div>
                               </div>
                            </fieldset>
-                            <!-- <fieldset>
+                            <fieldset>
                               <div class="form-group">
                                 <label class="col-sm-2 control-label">Select Term</label>
                               <div class="col-sm-3">
@@ -55,7 +55,7 @@
                                 </select>
                               </div>
                               </div>
-                              </fieldset> -->
+                              </fieldset>
                            <fieldset>
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Select class</label>

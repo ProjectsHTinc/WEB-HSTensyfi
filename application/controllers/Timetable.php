@@ -90,8 +90,9 @@ class Timetable extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$datas['getall_class1']=$this->timetablemodel->view_class_timetable();
 		 if($user_type==1){
+			 $datas['getall_class1']=$this->timetablemodel->view_class_timetable();
+			 $datas['resterms'] = $this->yearsmodel->getall_terms();
 			 $this->load->view('header');
 			$this->load->view('timetable/manage',$datas);
 			$this->load->view('footer');
@@ -102,26 +103,46 @@ class Timetable extends CI_Controller {
 		}
 
 
-		public function view($class_sec_id){
+
+				public function termwise($term_id){
+					$datas=$this->session->userdata();
+					$user_id=$this->session->userdata('user_id');
+					$user_type=$this->session->userdata('user_type');
+					$datas['getall_class1']=$this->timetablemodel->termwise($term_id);
+				 if($user_type==1){
+					 $this->load->view('header');
+		 			$this->load->view('timetable/termwise_timetable',$datas);
+		 			$this->load->view('footer');
+				 }
+				 else{
+					 redirect('/');
+				 }
+				}
+
+		public function view($class_sec_id,$term_id){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$datas['restime']=$this->timetablemodel->view($class_sec_id);
+			$class_sec_id=base64_decode($class_sec_id);
+			$class_id=$class_sec_id;
+			$datas['get_name_class']=$this->class_manage->edit_cs($class_id);
+			$datas['restime']=$this->timetablemodel->view($class_sec_id,$term_id);
 		 if($user_type==1){
-			 $this->load->view('header');
- 			$this->load->view('timetable/view',$datas);
- 			$this->load->view('footer');
+			 	$this->load->view('header');
+	 			$this->load->view('timetable/view',$datas);
+	 			$this->load->view('footer');
 		 }
 		 else{
 			 redirect('/');
 		 }
 		}
 
-		public function edit($class_sec_id){
+		public function edit($class_sec_id,$term_id){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$datas['restime']=$this->timetablemodel->view($class_sec_id);
+			$class_sec_id=base64_decode($class_sec_id);
+			$datas['restime']=$this->timetablemodel->view($class_sec_id,$term_id);
 			$datas['res_sub']=$this->timetablemodel->get_subject_class($class_sec_id);
 			$datas['res_teacher']=$this->timetablemodel->get_teacher_class($class_sec_id);
 			$datas['class_id']=$class_sec_id;

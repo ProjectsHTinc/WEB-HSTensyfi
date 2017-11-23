@@ -29,17 +29,26 @@
 
                                        </div>
                                    </div>
-								    <div class="col-md-5">
+								                           <div class="col-md-5">
+                                             <div class="form-group">
+                                                 <label>Status</label>
+                                                <select name="status" class="selectpicker form-control">
+                        												  <option value="Active">Active</option>
+                        												  <option value="Deactive">DeActive</option>
+                        												</select>
+                        											<script language="JavaScript">document.myformsub.status.value="<?php echo $rows->status; ?>";</script>
+                                             </div>
+                                           </div>
+                                   <div class="col-md-2"></div>
+                                 </div>
+                                 <div class="row">
+                                   <div class="col-md-6">
                                        <div class="form-group">
-                                           <label>Status</label>
-                                          <select name="status" class="selectpicker form-control">
-												  <option value="Active">Active</option>
-												  <option value="Deactive">DeActive</option>
-												</select>
-											<script language="JavaScript">document.myformsub.status.value="<?php echo $rows->status; ?>";</script>
-                                       </div>
-                                   </div>
-                               </div>
+                                         <label><input type="checkbox" name="is_preferred_lang" value="1" style="margin-right:10px;" <?php if ($rows->is_preferred_lang == 1) echo 'checked'; ?> >Set as Preferred Language</label>
+                                         </div>
+                                    </div>
+                                  </div>
+
                            <button type="submit" class="btn btn-info btn-fill pull-left">Update</button>
                                <div class="clearfix"></div>
                            </form>

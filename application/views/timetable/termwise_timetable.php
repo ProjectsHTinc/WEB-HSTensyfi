@@ -24,24 +24,20 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <legend>List of Terms<a href="<?php echo base_url(); ?>timetable/home" class="btn btn-primary btn-fill btn-wd pull-right" style="margin-top:-10px;">Create Timetable</a>
+                        <legend>Class View -Time Table <a href="<?php echo base_url(); ?>timetable/home" class="btn btn-primary btn-fill btn-wd pull-right" style="margin-top:-10px;">Create Timetable</a>
                             <a href="<?php echo base_url(); ?>timetable/reviewview" class="btn  btn-fill btn-wd pull-right" style="margin-top:-10px;">Go To Review</a>
-
+                             <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button>
                         </legend>
 
                     </div>
                     <div class="content">
                         <div class="row">
+
                             <div class="col-md-12">
-                              <?php foreach ($resterms as $rows) {  ?>
-                                  <a href="<?php echo base_url(); ?>timetable/termwise/<?php echo $rows->term_id; ?>" class="btn btn-wd btn-warning"><?php echo $rows->term_name; ?></a>
-                                  <?php      } ?>
-                            </div>
-                            <!-- <div class="col-md-12">
                                 <?php foreach ($getall_class1 as $rows) {  ?>
-                                    <a href="<?php echo base_url(); ?>timetable/view/<?php echo $rows->timid; ?>" class="btn btn-wd btn-warning"><?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></a>
+                                    <a href="<?php echo base_url(); ?>timetable/view/<?php echo base64_encode($rows->timid); ?>/<?php echo $this->uri->segment(3); ?>" class="btn btn-wd btn-warning"><?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></a>
                                     <?php      } ?>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +80,7 @@
                                                 <!-- <td></td> -->
 
                                                 <td>
-                                                    <a rel="tooltip" title="Edit" class="" href="<?php echo base_url(); ?>timetable/edit/<?php  echo $rowsclass->class_sec_id;  ?>"><i class="fa fa-edit"></i></a>
+                                                    <a rel="tooltip" title="Edit" class="" href="<?php echo base_url(); ?>timetable/edit/<?php  echo base64_encode($rows->class_sec_id);  ?>/<?php echo $this->uri->segment(3); ?>"><i class="fa fa-edit"></i></a>
                                                     <a onclick="confrim(<?php  echo $rowsclass->class_sec_id; ?>)"> <i class="fa fa-remove"></i></a>
 
                                                 </td>
@@ -131,8 +127,6 @@
                 searchPlaceholder: "Search records",
                 }
             });
-      
-
             function confrim(val) {
                 swal({
                         title: "Are you sure?",

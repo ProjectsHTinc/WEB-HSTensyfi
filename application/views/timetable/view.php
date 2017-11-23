@@ -18,7 +18,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="header">
-          <legend>Time Table <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
+          <legend>Time Table for  <?php foreach($get_name_class as $rows){} echo $rows->class_name.'-'.$rows->sec_name;  ?> <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button></legend>
 
       </div>
 
