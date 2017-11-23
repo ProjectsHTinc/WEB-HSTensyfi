@@ -1,5 +1,4 @@
 <?php
-
 Class Admissionmodel extends CI_Model
 {
 
