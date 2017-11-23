@@ -288,9 +288,9 @@ Class Timetablemodel extends CI_Model
 
 
                 //Delete timetable
-                function delete_time($class_sec_id){
+                function delete_time($class_sec_id,$termid){
                    $year_id=$this->getYear();
-                  $query="DELETE FROM edu_timetable WHERE class_id='$class_sec_id' AND year_id='$year_id'";
+                  $query="DELETE FROM edu_timetable WHERE class_id='$class_sec_id' AND term_id='$termid' AND year_id='$year_id'";
                   $result=$this->db->query($query);
                   if($result){
                     $data= array("status" => "success");

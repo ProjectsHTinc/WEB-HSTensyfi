@@ -52,7 +52,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <legend>Class View -Time Table</legend>
+                        <legend>Current Term -Time Table- view</legend>
                     </div>
                     <div class="content">
                         <div class="row">
@@ -85,7 +85,7 @@
 
                                                 <td>
                                                     <a rel="tooltip" title="Edit" class="" href="<?php echo base_url(); ?>timetable/edit/<?php  echo $rowsclass->class_sec_id;  ?>"><i class="fa fa-edit"></i></a>
-                                                    <a onclick="confrim(<?php  echo $rowsclass->class_sec_id; ?>)"> <i class="fa fa-remove"></i></a>
+                                                    <a onclick="confrim(<?php  echo $rowsclass->class_sec_id; ?>,<?php  echo $this->uri->segment(3); ?>)"> <i class="fa fa-remove"></i></a>
 
                                                 </td>
 
@@ -131,9 +131,9 @@
                 searchPlaceholder: "Search records",
                 }
             });
-      
 
-            function confrim(val) {
+
+            function confrim(val,termid) {
                 swal({
                         title: "Are you sure?",
                         text: "You Want to Delete the this Timetable",
@@ -151,7 +151,8 @@
                                 type: "POST",
                                 url: "<?php echo base_url(); ?>timetable/delete",
                                 data: {
-                                    val: val
+                                    val: val,
+                                    termid:termid
                                 },
                                 success: function(data) {
                                     // alert(data)

@@ -81,8 +81,7 @@
 
                                                 <td>
                                                     <a rel="tooltip" title="Edit" class="" href="<?php echo base_url(); ?>timetable/edit/<?php  echo base64_encode($rows->class_sec_id);  ?>/<?php echo $this->uri->segment(3); ?>"><i class="fa fa-edit"></i></a>
-                                                    <a onclick="confrim(<?php  echo $rowsclass->class_sec_id; ?>)"> <i class="fa fa-remove"></i></a>
-
+                                                      <a onclick="confrim(<?php  echo $rowsclass->class_sec_id; ?>,<?php  echo $this->uri->segment(3); ?>)"> <i class="fa fa-remove"></i></a>
                                                 </td>
 
                                             </tr>
@@ -127,7 +126,7 @@
                 searchPlaceholder: "Search records",
                 }
             });
-            function confrim(val) {
+            function confrim(val,termid) {
                 swal({
                         title: "Are you sure?",
                         text: "You Want to Delete the this Timetable",
@@ -145,7 +144,7 @@
                                 type: "POST",
                                 url: "<?php echo base_url(); ?>timetable/delete",
                                 data: {
-                                    val: val
+                                    val: val,termid:termid
                                 },
                                 success: function(data) {
                                     // alert(data)

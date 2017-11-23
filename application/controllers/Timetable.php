@@ -264,7 +264,8 @@ class Timetable extends CI_Controller {
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
 			 $class_sec_id=$this->input->post('val');
-			$datas=$this->timetablemodel->delete_time($class_sec_id);
+			 $termid=$this->input->post('termid');
+			$datas=$this->timetablemodel->delete_time($class_sec_id,$termid);
 		 if($user_type==1){
 			 if($datas['status']=="success"){
 				 echo "success";

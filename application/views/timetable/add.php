@@ -225,6 +225,7 @@
 
             period_id:{required:true },
             class_id:{required:true },
+              term_id:{required:true },
             year_id:{required:true },
 
             "subject_id[]":{required:true },
@@ -234,8 +235,8 @@
 
               period_id: "Select Period",
               class_id: "Select Class",
-              year_id: "Select Year"
-             //  term_id: "Select Term"
+              year_id: "Select Year",
+              term_id: "Select Term"
              //  subject_id: "Select Subject",
              //   teacher_id: "Select Teacher"
 
