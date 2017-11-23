@@ -60,22 +60,36 @@
                         </fieldset>
                         <fieldset>
                            <div class="form-group">
+
                               <p id="msg" style="text-align:center;"></p>
                               <p id="msg1" style="text-align:center;"></p>
-                              <label class="col-sm-2 control-label"></label>
-                              <div class="col-sm-2">
+
+                              <div class="col-sm-1">
                                  <div id="ajaxres"></div>
                               </div>
                               <div class="col-sm-2">
                                  <div id="ajaxres1"></div>
                               </div>
-                              <label class="col-sm-2 control-label"></label>
-                              <div class="col-sm-2">
+                              <div class="col-sm-1">
                                  <div id="ajaxres3"></div>
                               </div>
-                              <div class="col-sm-2">
+                              <div class="col-sm-1">
                                  <div id="ajaxres2"></div>
                               </div>
+
+                               <div class="col-sm-2">
+                                   <div id="subtlt"></div>
+                              </div>
+                               <div class="col-sm-1">
+                                   <div id="is_inter_exter"></div>
+                              </div>
+                               <div class="col-sm-2">
+                                   <div id="inter"></div>
+                              </div>
+                               <div class="col-sm-2">
+                                   <div id="exter"></div>
+                              </div>
+                             
                            </div>
                         </fieldset>
                         <fieldset>
@@ -329,13 +343,28 @@
                        var exam_date = '';
                        var exam_secction = '';
                        var teacher = '';
+                       
+                       var stlt = '';
+                       var internal = '';
+                       var external = '';
+                       var inter_exter = '';
+
+
                        for (i = 0; i < len; i++) {
    						'<form name="exam" id="examvalidate">';
-                           name += '<input name="subject_name" type="text" required class="form-control"  value="' + sub[i] + '"><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
+                           name += '<p style="padding-top:05px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
    
                            exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
+
+                           stlt +='<input type="text"  required name="sub_total[]"  class="form-control"   placeholder="Subject Total"/></br>';
+
+                           internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
+
+                           external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
+
+                           inter_exter +='<input type="text" required name="inter_exter_mark[]"  class="form-control"   /></br>';
    
-                           exam_secction += '<select name="time[]" required class="form-control" data-title="Select Time" data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Select Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
+                           exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
    
                            teacher += '<select name="teacher_id[]" id="teacher_id" class="form-control" ><option value="">Select Invigilator</option><?php foreach ($teacheres as $rows) {  ?><option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option><?php  } ?></select></br>';
    						
@@ -345,6 +374,12 @@
                            $("#ajaxres1").html(exam_date).find('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
                            $("#ajaxres2").html(exam_secction);
                            $("#ajaxres3").html(teacher);
+                           
+                           $("#subtlt").html(stlt);
+                           $("#is_inter_exter").html(inter_exter);
+                           $("#inter").html(internal);
+                           $("#exter").html(external);
+
                            $('#msg').html('');
                        }
                    } else {
@@ -353,6 +388,12 @@
                            $("#ajaxres1").html('');
                            $("#ajaxres2").html('');
                            $("#ajaxres3").html('');
+
+                           $("#subtlt").html('');
+                           $("#is_inter_exter").html('');
+                           $("#inter").html('');
+                           $("#exter").html('');
+
    					   //$('#examform')[0].reset();
                           //alert("Subject Not Found");
                    }

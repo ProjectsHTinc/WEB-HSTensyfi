@@ -34,6 +34,7 @@
                                  <th>S.No</th>
                                  <th>Name</th>
                                  <th>Admission No</th>
+                                 <th>Blood Group</th>
                                  <th>Class-Section</th>
                                  <th>Registration Date</th>
                                  <th>Status</th>
@@ -61,6 +62,7 @@
                                    
                                     <td><?php echo $rows->name; ?></td>
                                     <td><?php echo $rows->admisn_no; ?></td>
+                                     <td><?php echo $rows->blood_group_name; ?></td>
                                     <td><?php echo $rows->class_name; echo "--"; echo $rows->sec_name; ?></td>
                                     <td><?php $date=date_create($rows->admit_date);
                                        echo date_format($date,"d-m-Y"); ?></td>
@@ -82,40 +84,40 @@
                                  </tr>
 									<?php $i++;  } 	
 									}else{
-									 
-                                    foreach ($result as $rows) {
-                                    $stu=$rows->status;
-                                    ?>
-                                 <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <?php  foreach ($year as $row)
-                                       {
-                                           $fyear=$row->from_month;
-                                           $month= strtotime($fyear);
-                                           $eyear=$row->to_month;
-                                           $month1= strtotime($eyear);
-                                       }
-                                       ?>
-                                   
-                                    <td><?php echo $rows->name; ?></td>
-                                    <td><?php echo $rows->admisn_no; ?></td>
-                                    <td><?php echo $rows->class_name; echo "--"; echo $rows->sec_name; ?></td>
-                                    <td><?php $date=date_create($rows->admit_date);
-                                       echo date_format($date,"d-m-Y"); ?></td>
-                                    <td><?php 
-                                       if($stu=='Active'){?>
-                                       <button class="btn btn-success btn-fill btn-wd">Active</button>
-                                       <?php  }else{?>
-                                       <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
-                                          ?>
-                                    </td>
-                                    <td>
-                                       <a href="<?php echo base_url(); ?>admission/get_ad_id1/<?php echo $rows->admission_id; ?>" rel="tooltip" title="View Admission Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
-                                       <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                                       </a> 
-                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                    </td>
-                                 </tr>
+                          foreach ($result as $rows) {
+                          $stu=$rows->status;
+                          ?>
+                       <tr>
+                          <td><?php echo $i; ?></td>
+                          <?php  foreach ($year as $row)
+                             {
+                                 $fyear=$row->from_month;
+                                 $month= strtotime($fyear);
+                                 $eyear=$row->to_month;
+                                 $month1= strtotime($eyear);
+                             }
+                             ?>
+                         
+                          <td><?php echo $rows->name; ?></td>
+                          <td><?php echo $rows->admisn_no; ?></td>
+                          <td><?php echo $rows->blood_group_name; ?></td>
+                          <td><?php echo $rows->class_name; echo "--"; echo $rows->sec_name; ?></td>
+                          <td><?php $date=date_create($rows->admit_date);
+                             echo date_format($date,"d-m-Y"); ?></td>
+                          <td><?php 
+                             if($stu=='Active'){?>
+                             <button class="btn btn-success btn-fill btn-wd">Active</button>
+                             <?php  }else{?>
+                             <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
+                                ?>
+                          </td>
+                          <td>
+                             <a href="<?php echo base_url(); ?>admission/get_ad_id1/<?php echo $rows->admission_id; ?>" rel="tooltip" title="View Admission Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                             </a> 
+                             <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                          </td>
+                       </tr>
 									<?php $i++;  }  }?>
                               </tbody>
                            </table>
