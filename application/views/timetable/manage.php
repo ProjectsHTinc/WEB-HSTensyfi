@@ -107,6 +107,7 @@
             $('#time').addClass('active');
             $('#time2').addClass('active');
             $('#example').DataTable({
+              
                dom: 'lBfrtip',
                buttons: [
                     {

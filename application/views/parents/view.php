@@ -20,7 +20,7 @@
                           <div class="toolbar">
 	                            <!-- Here you can write extra buttons/actions for the toolbar-->
 	                       </div>
-						   
+
                            <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" >
                               <thead>
                                 <th>ID</th>
@@ -43,7 +43,7 @@
                                     <td><?php echo $rows->name; ?></td>
                                     <td><?php echo $rows->email; ?></td>
                                     <td><?php echo $rows->mobile; ?></td>
-									<td><?php 
+									<td><?php
 									  if($stu=='Active'){?>
 									   <button class="btn btn-success btn-fill btn-wd">Active</button>
 									 <?php  }else{?>
@@ -56,7 +56,7 @@
 									 <?php $i++;  }  ?>
                               </tbody>
                           </table>
-                      
+
                         </div>
                             </div><!-- end content-->
                         </div><!--  end card  -->
@@ -74,6 +74,7 @@ $(document).ready(function() {
        $('#admission3').addClass('active');
 
 		$('#example').DataTable({
+        fixedHeader: true,
 			dom: 'lBfrtip',
 			buttons: [
               {
@@ -100,5 +101,5 @@ $(document).ready(function() {
 		});
 
 	});
-      
+
 </script>
