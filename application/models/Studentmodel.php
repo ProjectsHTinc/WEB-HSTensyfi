@@ -8,7 +8,7 @@ Class Studentmodel extends CI_Model
       parent::__construct();
 
   }
-  
+
   public function getYear()
     {
       $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
@@ -23,6 +23,20 @@ Class Studentmodel extends CI_Model
         }
         return $year_id;
       }
+    }
+
+    function getTerm()
+    {
+        $sqlYear     = "SELECT * FROM edu_terms WHERE NOW() >= from_date AND NOW() <= to_date AND status = 'Active'";
+        $term_result = $this->db->query($sqlYear);
+        $ress_year   = $term_result->result();
+
+        if ($term_result->num_rows() == 1) {
+            foreach ($term_result->result() as $rows) {
+                $term_id = $rows->term_id;
+            }
+            return $term_id;
+        }
     }
 
 //GET ALL
@@ -45,7 +59,7 @@ Class Studentmodel extends CI_Model
 			$parnt_guardn_id=$row2->parnt_guardn_id;}
 
 			$year_id=$this->getYear();
-			
+
 			$query2="SELECT * FROM edu_enrollment WHERE admit_year='$year_id' AND admission_id='$admission_id' AND admisn_no='$admisn_no' AND name='$name' AND status='Active'";
 			$result1=$this->db->query($query2);
 			$row3=$result1->result();
@@ -64,7 +78,7 @@ Class Studentmodel extends CI_Model
 			function view_homework_marks($user_id,$hw_id)
 		   {
 			$year_id=$this->getYear();
-			
+
 			$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
@@ -91,7 +105,7 @@ Class Studentmodel extends CI_Model
 		function get_all_exam($user_id)
 		{
 			$year_id=$this->getYear();
-			
+
 			$query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
@@ -117,7 +131,7 @@ Class Studentmodel extends CI_Model
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
 			$student_id=$row[0]->student_id; */
-			 
+
 			 $year_id=$this->getYear();
 			 $sql1="SELECT * FROM edu_examination WHERE exam_year='$year_id' AND status='Active'";
 			 $resultset=$this->db->query($sql1);
@@ -126,7 +140,7 @@ Class Studentmodel extends CI_Model
 		}
 
 		function exam_marks($user_id,$exam_id,$user_type)
-		{   
+		{
 		     $year_id=$this->getYear();
 			$query="SELECT student_id,user_type,user_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
 			$resultset=$this->db->query($query);
@@ -157,7 +171,7 @@ Class Studentmodel extends CI_Model
 			$student_id=$row[0]->user_master_id;
 			//echo $student_id;exit;
              $year_id=$this->getYear();
-			 
+
 			$sql="SELECT * FROM edu_enrollment WHERE admit_year='$year_id' AND admission_id='$student_id'";
 			$resultset=$this->db->query($sql);
 			$row=$resultset->result();
@@ -174,15 +188,15 @@ Class Studentmodel extends CI_Model
 		}
 
        function getall_exam_details($exam_id)
-        {   
+        {
 		     $year_id=$this->getYear();
-			 
+
 			$sql = "SELECT ed.exam_id,ex.exam_id,ex.exam_flag,ex.status,ex.exam_year FROM edu_exam_details AS ed,edu_examination AS ex WHERE ex.exam_year='$year_id' AND ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By ed.exam_id";
 			$resultset1 = $this->db->query($sql);
 			$res        = $resultset1->result();
 			return $res;
          }
-         
+
 
 	   function get_student_user($user_id)
 	   {
@@ -208,9 +222,11 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
      }
 
      function get_timetable(){
+         $term_id = $this->getTerm();
+         $year_id = $this->getYear();
         $class_id=$this->get_class_id_user();
-     
-       $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id WHERE tt.class_id='$class_id' ORDER BY tt.table_id ASC";
+       $query="SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id WHERE tt.class_id='$class_id' AND tt.term_id='$term_id'
+       AND tt.year_id='$year_id' ORDER BY tt.table_id ASC";
       $result=$this->db->query($query);
       $time=$result->result();
      if($result->num_rows()==0){
@@ -248,7 +264,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 	 function get_fees_status_details($user_id)
 	 {
 		      $year_id=$this->getYear();
-			  
+
 		    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
@@ -273,7 +289,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 	 function get_all_regularleave($user_id)
 			 {
 				 $year_id=$this->getYear();
-				 
+
 		    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
@@ -296,7 +312,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 	function get_special_leave_all($user_id)
 	   {
 		   $year_id=$this->getYear();
-		   
+
 		    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 			$resultset=$this->db->query($query);
 			$row=$resultset->result();
@@ -391,7 +407,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 		   function special_class_details($user_id,$user_type)
 		   {
 			   $year_id=$this->getYear();
-			   
+
 			    $query="SELECT student_id FROM edu_users WHERE user_id='$user_id'";
 				$resultset=$this->db->query($query);
 				$row=$resultset->result();

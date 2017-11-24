@@ -149,16 +149,11 @@ class Teachertimetable extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				$datas['restime']=$this->timetablemodel->teacher_timetable($user_id);
-				//echo "<pre>"; print_r($datas['restime']);exit;
 				if($user_type==2){
-					$datas['restime']=$this->timetablemodel->teacher_timetable($user_id);
-
+						$datas['restime']=$this->timetablemodel->teacher_timetable($user_id);
  					 $this->load->view('adminteacher/teacher_header');
  					 $this->load->view('adminteacher/timetable/teacher_timetable',$datas);
  					 $this->load->view('adminteacher/teacher_footer');
- 			// 	 }
-
  			 }
 			 else{
 					redirect('/');
