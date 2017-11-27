@@ -138,13 +138,23 @@ Class Examinationresultmodel extends CI_Model
         $cls_te=$teacher_rows->class_teacher; */
     }
     
-    function getall_exam_details($exam_id)
+    function getall_exam_details($exam_id,$sub_id,$cls_masid)
     {
-        $sql        = "SELECT ed.exam_detail_id,ed.exam_id,ed.subject_id,ed.exam_date,ed.classmaster_id,ex.exam_id,ex.exam_year,ex.exam_name,ex.exam_flag,ex.status FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By classmaster_id";
+         $sql="SELECT ed.exam_detail_id,ed.exam_id,ed.subject_id,ed.exam_date,ed.classmaster_id,ed.subject_total,ed.is_internal_external,ed.internal_mark,ed.external_mark,ex.exam_id,ex.exam_year,ex.exam_name,ex.status,ex.exam_flag FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ed.classmaster_id='$cls_masid' AND ed.exam_id=ex.exam_id AND ed.subject_id='$sub_id'";
         $resultset1 = $this->db->query($sql);
         $res        = $resultset1->result();
         return $res;
     }
+
+    function getall_exam_inter_exter_details($exam_id,$cls_masid)
+    {
+        $sql="SELECT ed.exam_detail_id,ed.exam_id,ed.subject_id,ed.exam_date,ed.classmaster_id,ed.subject_total,ed.is_internal_external,ed.internal_mark,ed.external_mark,ex.exam_id,ex.exam_year,ex.exam_name,ex.status,ex.exam_flag FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ed.classmaster_id='$cls_masid' AND ed.exam_id=ex.exam_id ";
+        $resultset1 = $this->db->query($sql);
+        $res        = $resultset1->result();
+        return $res;
+    }
+
+
     function exam_date_check($user_id,$cls_masid,$exam_id,$user_type,$sub_id )
 	{
 		$query     = "SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
@@ -279,8 +289,54 @@ Class Examinationresultmodel extends CI_Model
         $rows = $res->result();
         return $rows;
     }
+
+    function calculate_grade($total)
+    {
+      if(is_numeric($total))
+            {
+                if ($total >= 91 && $total <= 100) {
+                    $grade = 'A1';
+                    return $grade;
+                }
+                if ($total >= 81 && $total <= 90) {
+                    $grade = 'A2';
+                    return $grade;
+                }
+                if ($total >= 71 && $total <= 80) {
+                    $grade = 'B1';
+                    return $grade;
+                }
+                if ($total >= 61 && $total <= 70) {
+                    $grade = 'B2';
+                    return $grade;
+                }
+                if ($total >= 51 && $total <= 60) {
+                    $grade = 'C1';
+                    return $grade;
+                }
+                if ($total >= 41 && $total <= 50) {
+                    $grade = 'C2';
+                    return $grade;
+                }
+                if ($total >= 31 && $total <= 40) {
+                    $grade = 'D';
+                    return $grade;
+                }
+                if ($total >= 21 && $total <= 30) {
+                    $grade = 'E1';
+                    return $grade;
+                }
+                if ($total <= 20) {
+                    $grade = 'E2';
+                    return $grade;
+                }
+                
+            }else{ 
+                $grade = '0'; 
+               return $grade;}
+    }
     
-    function exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id,$eflag,$total_marks)
+    function exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks,$external_marks,$user_id,$eflag,$total_marks,$ttlmark,$interlimit,$exterlimit)
     {   
 	 if($eflag==1)
 	 {
@@ -298,6 +354,7 @@ Class Examinationresultmodel extends CI_Model
             $clsmastid1 = $clsmastid;
             $teaid1     = $teaid;
             $examid1    = $exam_id;
+
             if (!empty($internal_marks[$i])) {
                 $marks1 = $internal_marks[$i];
             } else {
@@ -305,112 +362,28 @@ Class Examinationresultmodel extends CI_Model
                 $grade  = 'null';
             }
 			
+            //Internal Mark Grade
 			$marks1 = $internal_marks[$i];
-			
-			if(is_numeric($marks1)){
-            //Internal Marks Grade
-            if ($marks1 >= 37 && $marks1 <= 40) {
-                $grade = 'A1';
-            }
-            if ($marks1 >= 33 && $marks1 <= 36) {
-                $grade = 'A2';
-            }
-            if ($marks1 >= 29 && $marks1 <= 32) {
-                $grade = 'B1';
-            }
-            if ($marks1 >= 25 && $marks1 <= 28) {
-                $grade = 'B2';
-            }
-            if ($marks1 >= 21 && $marks1 <= 24) {
-                $grade = 'C1';
-            }
-            if ($marks1 >= 17 && $marks1 <= 20) {
-                $grade = 'C2';
-            }
-            if ($marks1 >= 13 && $marks1 <= 16) {
-                $grade = 'D';
-            }
-            if ($marks1 >= 9 && $marks1 <= 12) {
-                $grade = 'E1';
-            }
-            if ($marks1 <= 8) {
-                $grade = 'E2';
-            }
-			}else{
-				$grade ='0';
-			}
+            $total=($marks1/$interlimit)*100;
+			$grade=$this->calculate_grade($total);
             
             //External Mark Grade
-			
             $marks2 = $external_marks[$i];
-            if(is_numeric($marks2))
-			{
-				if ($marks2 >= 55 && $marks2 <= 60) {
-					$grade1 = 'A1';
-				}
-				if ($marks2 >= 49 && $marks2 <= 54) {
-					$grade1 = 'A2';
-				}
-				if ($marks2 >= 43 && $marks2 <= 48) {
-					$grade1 = 'B1';
-				}
-				if ($marks2 >= 37 && $marks2 <= 42) {
-					$grade1 = 'B2';
-				}
-				if ($marks2 >= 31 && $marks2 <= 36) {
-					$grade1 = 'C1';
-				}
-				if ($marks2 >= 25 && $marks2 <= 30) {
-					$grade1 = 'C2';
-				}
-				if ($marks2 >= 20 && $marks2 <= 24) {
-					$grade1 = 'D';
-				}
-				if ($marks2 >= 13 && $marks2 <= 19) {
-					$grade1 = 'E1';
-				}
-				if ($marks2 <= 12) {
-					$grade1 = 'E2';
-				}
-			}else{ $grade1 = '0'; }
-            
+            $total=($marks2/$exterlimit)*100;
+            $grade1=$this->calculate_grade($total);
+
             //Total Mark Grade
 			if(is_numeric($marks1) || is_numeric($marks2))
 			{
-                $total = $marks1 + $marks2;
-				if ($total >= 91 && $total <= 100) {
-					$grade2 = 'A1';
-				}
-				if ($total >= 81 && $total <= 90) {
-					$grade2 = 'A2';
-				}
-				if ($total >= 71 && $total <= 80) {
-					$grade2 = 'B1';
-				}
-				if ($total >= 61 && $total <= 70) {
-					$grade2 = 'B2';
-				}
-				if ($total >= 51 && $total <= 60) {
-					$grade2 = 'C1';
-				}
-				if ($total >= 41 && $total <= 50) {
-					$grade2 = 'C2';
-				}
-				if ($total >= 31 && $total <= 40) {
-					$grade2 = 'D';
-				}
-				if ($total >= 21 && $total <= 30) {
-					$grade2 = 'E1';
-				}
-				if ($total <= 20) {
-					$grade2 = 'E2';
-				}
+                $total_of = $marks1 + $marks2;
+                $total=($total_of/$ttlmark)*100;
+                $grade2=$this->calculate_grade($total);
 			}else{
-				$total=$marks1;
+				$total_of=$marks1;
 				$grade2 = '0';
 			}
             
-            $query      = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','$marks1','$grade','$marks2','$grade1','$total','$grade2','$user_id1',NOW())";
+            $query = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','$marks1','$grade','$marks2','$grade1','$total_of','$grade2','$user_id1',NOW())";
             $resultset1 = $this->db->query($query);
         }
 		  }else{
@@ -441,40 +414,14 @@ Class Examinationresultmodel extends CI_Model
 
             //Total Mark Grade
 			
-            $total =$total_marks[$i];
+            $total_of =$total_marks[$i];
+
+            $total=($total_of/$ttlmark)*100;
+
+            $grade2=$this->calculate_grade($total);
+            
 			
-            if(is_numeric($total))
-			{
-				if ($total >= 91 && $total <= 100) {
-					$grade2 = 'A1';
-				}
-				if ($total >= 81 && $total <= 90) {
-					$grade2 = 'A2';
-				}
-				if ($total >= 71 && $total <= 80) {
-					$grade2 = 'B1';
-				}
-				if ($total >= 61 && $total <= 70) {
-					$grade2 = 'B2';
-				}
-				if ($total >= 51 && $total <= 60) {
-					$grade2 = 'C1';
-				}
-				if ($total >= 41 && $total <= 50) {
-					$grade2 = 'C2';
-				}
-				if ($total >= 31 && $total <= 40) {
-					$grade2 = 'D';
-				}
-				if ($total >= 21 && $total <= 30) {
-					$grade2 = 'E1';
-				}
-				if ($total <= 20) {
-					$grade2 = 'E2';
-				}
-			}else{ $grade2 = '0'; }
-			
-            $query      = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','0','0','0','0','$total','$grade2','$user_id1',NOW())";
+            $query = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','0','0','0','0','$total_of','$grade2','$user_id1',NOW())";
             $resultset1 = $this->db->query($query);
         }
 		  }else{
@@ -566,7 +513,7 @@ Class Examinationresultmodel extends CI_Model
         return $row;
     }
     
-    function update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id,$eflag,$total_marks)
+    function update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id,$eflag,$total_marks,$ttlmark,$interlimit,$exterlimit)
     {  //echo $eflag;exit;
        if($eflag==1){
         $count_name = count($external_marks);
@@ -577,115 +524,31 @@ Class Examinationresultmodel extends CI_Model
             $clsmastid1 = $clsmastid;
             $teaid1     = $teaid;
             $examid1    = $exam_id;
-            
-            //Internal Marks Grade
-            $marks1=$internal_marks[$i];
-			
-            if(is_numeric($marks1))
-			{
-				if ($marks1 >= 37 && $marks1 <= 40) {
-					$grade = 'A1';
-				}
-				if ($marks1 >= 33 && $marks1 <= 36) {
-					$grade = 'A2';
-				}
-				if ($marks1 >= 29 && $marks1 <= 32) {
-					$grade = 'B1';
-				}
-				if ($marks1 >= 25 && $marks1 <= 28) {
-					$grade = 'B2';
-				}
-				if ($marks1 >= 21 && $marks1 <= 24) {
-					$grade = 'C1';
-				}
-				if ($marks1 >= 17 && $marks1 <= 20) {
-					$grade = 'C2';
-				}
-				if ($marks1 >= 13 && $marks1 <= 16) {
-					$grade = 'D';
-				}
-				if ($marks1 >= 9 && $marks1 <= 12) {
-					$grade = 'E1';
-				}
-				if ($marks1 <= 8) {
-					$grade = 'E2';
-				}
-            }else{ $grade='0'; }
+           
+            //Internal Mark Grade
+            $marks1 = $internal_marks[$i];
+            $total=($marks1/$interlimit)*100;
+            $grade=$this->calculate_grade($total);
             
             //External Mark Grade
             $marks2 = $external_marks[$i];
-			if(is_numeric($marks2))
-			{
-            if ($marks2 >= 55 && $marks2 <= 60) {
-                $grade1 = 'A1';
-            }
-            if ($marks2 >= 49 && $marks2 <= 54) {
-                $grade1 = 'A2';
-            }
-            if ($marks2 >= 43 && $marks2 <= 48) {
-                $grade1 = 'B1';
-            }
-            if ($marks2 >= 37 && $marks2 <= 42) {
-                $grade1 = 'B2';
-            }
-            if ($marks2 >= 31 && $marks2 <= 36) {
-                $grade1 = 'C1';
-            }
-            if ($marks2 >= 25 && $marks2 <= 30) {
-                $grade1 = 'C2';
-            }
-            if ($marks2 >= 20 && $marks2 <= 24) {
-                $grade1 = 'D';
-            }
-            if ($marks2 >= 13 && $marks2 <= 19) {
-                $grade1 = 'E1';
-            }
-            if ($marks2 <= 12) {
-                $grade1 = 'E2';
-            }
-			}else{ $grade1='0'; }
-            
-            //Total Mark Grade
-			
-			if(is_numeric($marks1) || is_numeric($marks2)){
-            $total = $marks1 + $marks2;
-			//echo $total;exit;
+            $total=($marks2/$exterlimit)*100;
+            $grade1=$this->calculate_grade($total);
 
-				if ($total >= 91 && $total <= 100) {
-					$grade2 = 'A1';
-				}
-				if ($total >= 81 && $total <= 90) {
-					$grade2 = 'A2';
-				}
-				if ($total >= 71 && $total <= 80) {
-					$grade2 = 'B1';
-				}
-				if ($total >= 61 && $total <= 70) {
-					$grade2 = 'B2';
-				}
-				if ($total >= 51 && $total <= 60) {
-					$grade2 = 'C1';
-				}
-				if ($total >= 41 && $total <= 50) {
-					$grade2 = 'C2';
-				}
-				if ($total >= 31 && $total <= 40) {
-					$grade2 = 'D';
-				}
-				if ($total >= 21 && $total <= 30) {
-					$grade2 = 'E1';
-				}
-				if ($total <= 20) {
-					$grade2 = 'E2';
-				}
-				//if($total==0){ $grade2 = ''; }
-			}else{
-				$total=$marks1;
-				$grade2 = '0';
-			}
+            //Total Mark Grade
+            if(is_numeric($marks1) || is_numeric($marks2))
+            {
+                $total_of = $marks1 + $marks2;
+                $total=($total_of/$ttlmark)*100;
+                $grade2=$this->calculate_grade($total);
+            }else{
+                $total_of=$marks1;
+                $grade2 = '0';
+            }
+          
 			
 			  
-          $update_marks="UPDATE edu_exam_marks SET internal_mark='$marks1',internal_grade='$grade',external_mark='$marks2',external_grade='$grade1',total_marks='$total',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND  classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
+          $update_marks="UPDATE edu_exam_marks SET internal_mark='$marks1',internal_grade='$grade',external_mark='$marks2',external_grade='$grade1',total_marks='$total_of',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND  classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
           $resultset=$this->db->query($update_marks);
         }
         if($resultset) {
@@ -705,39 +568,14 @@ Class Examinationresultmodel extends CI_Model
             $teaid1     = $teaid;
             $examid1    = $exam_id;
 
-            //Total Mark Grade
-            $total = $total_marks[$i];
-			if(is_numeric($total))
-			{
-            if ($total >= 91 && $total <= 100) {
-                $grade2 = 'A1';
-            }
-            if ($total >= 81 && $total <= 90) {
-                $grade2 = 'A2';
-            }
-            if ($total >= 71 && $total <= 80) {
-                $grade2 = 'B1';
-            }
-            if ($total >= 61 && $total <= 70) {
-                $grade2 = 'B2';
-            }
-            if ($total >= 51 && $total <= 60) {
-                $grade2 = 'C1';
-            }
-            if ($total >= 41 && $total <= 50) {
-                $grade2 = 'C2';
-            }
-            if ($total >= 31 && $total <= 40) {
-                $grade2 = 'D';
-            }
-            if ($total >= 21 && $total <= 30) {
-                $grade2 = 'E1';
-            }
-            if ($total <= 20) {
-                $grade2 = 'E2';
-            }
-			}else{ $grade2 = ''; }
-          $update_marks="UPDATE edu_exam_marks SET total_marks='$total',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND  classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
+           
+             //Total Mark Grade
+            $total_of =$total_marks[$i];
+            $total=($total_of/$ttlmark)*100;
+            $grade2=$this->calculate_grade($total);
+
+			
+          $update_marks="UPDATE edu_exam_marks SET total_marks='$total_of',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND  classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
           $resultset=$this->db->query($update_marks);
         }
         if($resultset) {

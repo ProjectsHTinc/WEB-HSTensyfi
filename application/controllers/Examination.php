@@ -182,7 +182,7 @@ class Examination extends CI_Controller
 			 $user_type=$this->session->userdata('user_type');
 			 if($user_type==1)
 			  {
-			     //$exam_id=$this->input->post('exam_id');
+			  
 				 $exam_year=$this->input->post('exam_year');
 			     $class_name=$this->input->post('class_name');
 				 $subject_name=$this->input->post('subject_id');
@@ -197,7 +197,14 @@ class Examination extends CI_Controller
 				 $teacher_id=$this->input->post('teacher_id');
 				 $status=$this->input->post('status');
 				 //print_r($notes);exit;
-           $datas=$this->examinationmodel->add_exam_details($exam_year,$class_name,$subject_name,$exdate,$time,$teacher_id,$status);
+                 
+                $sub_total=$this->input->post('sub_total');
+			  	$inter_mark=$this->input->post('inter_mark');
+			  	$exter_mark=$this->input->post('exter_mark');
+			  	$inter_exter_mark=$this->input->post('inter_exter_mark'); 
+                //print_r($inter_exter_mark);exit;
+
+           $datas=$this->examinationmodel->add_exam_details($exam_year,$class_name,$subject_name,$exdate,$time,$teacher_id,$status,$sub_total,$inter_mark,$exter_mark,$inter_exter_mark,$user_id);
 			 if($datas['status']=="success"){
 					$this->session->set_flashdata('msg','Added Successfully');
                     redirect('examination/add_exam_detail');
@@ -221,7 +228,7 @@ class Examination extends CI_Controller
 					 $user_id=$this->session->userdata('user_id');
 					 $datas['res']=$this->examinationmodel->edit_exam_details($exam_detail_id);
 					 //$datas['result'] = $this->examinationmodel->get_details_view();
-					 //echo "<pre>";print_r(	$datas['res']);exit;
+					 //echo "<pre>";print_r($datas['res']);exit;
 					 $user_type=$this->session->userdata('user_type');
 					if($user_type==1)
 					{
@@ -258,7 +265,12 @@ class Examination extends CI_Controller
 
 				 $teacher_id=$this->input->post('teacher_id');
 
-				 $datas=$this->examinationmodel->update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id,$status);
+				$sub_total=$this->input->post('sub_total');
+			  	$inter_mark=$this->input->post('inter_mark');
+			  	$exter_mark=$this->input->post('exter_mark');
+			  	$inter_exter_mark=$this->input->post('inter_exter_mark'); 
+
+				 $datas=$this->examinationmodel->update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id,$status,$sub_total,$inter_mark,$exter_mark,$inter_exter_mark,$user_id);
 
 				 if($datas['status']=="success")
 					 {
@@ -345,7 +357,7 @@ class Examination extends CI_Controller
 			  $datas['stu']=$this->examinationmodel->getall_stuname($user_id,$cls_masid,$exam_id);
 			  $datas['cls_exam']=$this->examinationmodel->clsname_examname($exam_id,$cls_masid);
 			  $datas['smark']=$this->examinationmodel->marks_status_details($cls_masid,$exam_id);
-			  $datas['eflag'] = $this->examinationmodel->getall_exam_details($exam_id);
+			  $datas['eflag'] = $this->examinationmodel->getall_exam_inter_exter_details($exam_id,$cls_masid);
 			  //echo '<pre>';print_r($datas);
 			  //echo '<pre>';print_r($datas['stu']); exit;
 			

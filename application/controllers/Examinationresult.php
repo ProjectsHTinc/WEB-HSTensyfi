@@ -57,6 +57,7 @@ class Examinationresult extends CI_Controller
 			$user_type = $this->session->userdata('user_type');
 			if ($user_type == 2) {
 				$datas['result'] = $this->examinationresultmodel->get_teacher_id($user_id);
+               //echo'<pre>';print_r($datas['result'] );exit;
 				$this->load->view('adminteacher/teacher_header');
 				$this->load->view('adminteacher/examintation_marks/add', $datas);
 				$this->load->view('adminteacher/teacher_footer');
@@ -140,11 +141,11 @@ class Examinationresult extends CI_Controller
         //echo $cls_masid;echo $exam_id;echo $sub_id;exit;
         $datas['cla_tea_id'] = $this->examinationresultmodel->get_cls_teacher_id($user_id,$user_type);
         $datas['stu'] = $this->examinationresultmodel->getall_stuname($user_id, $cls_masid, $exam_id);
-        $datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id);
+        $datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id,$sub_id,$cls_masid);
         $datas['res']=$this->examinationresultmodel->getall_cls_sec_stu($user_id,$sub_id,$cls_masid,$exam_id,$user_type);
 	    $datas['edate']=$this->examinationresultmodel->exam_date_check($user_id,$cls_masid,$exam_id,$user_type,$sub_id);
         $datas['mark']= $this->examinationresultmodel->getall_marks($user_id,$cls_masid,$exam_id,$sub_id,$user_type);
-       //echo'<pre>'; print_r($datas['mark'] );exit;
+     // echo'<pre>'; print_r($datas['result'] );exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/marks', $datas);
@@ -163,18 +164,18 @@ class Examinationresult extends CI_Controller
         $user_type = $this->session->userdata('user_type');
         
         $cls_masid = $this->input->get('var1');
-        
         $exam_id   = $this->input->get('var2');
+
        
         $datas         = $this->examinationresultmodel->getall_subname($user_id,$cls_masid,$exam_id,$user_type);
         $datas['stu']    = $this->examinationresultmodel->getall_stuname($user_id, $cls_masid,$exam_id);
-        $datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id);
+        $datas['result'] = $this->examinationresultmodel->getall_exam_inter_exter_details($exam_id,$cls_masid);
         $datas['marks1'] = $this->examinationresultmodel->getall_marks_details1($user_id,$cls_masid,$user_type);
         $datas['smark']  = $this->examinationresultmodel->marks_status_details($cls_masid,$exam_id);
        
 		$datas['cls_exname']=$this->examinationresultmodel->clsname_examname($exam_id,$cls_masid);
         // print_r($datas['smark']);
-	   //echo'<pre>'; print_r($datas['stu'] );exit;
+	   //echo'<pre>'; print_r($datas['result'] );exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/class_marks', $datas);
@@ -208,9 +209,14 @@ class Examinationresult extends CI_Controller
         $external_marks = $this->input->post('external_marks');
         $total_marks = $this->input->post('total_marks');
 		$eflag=$this->input->post('eflag');
+        
+        $ttlmark=$this->input->post('ttlmark');
+        $interlimit=$this->input->post('interlimit');
+        $exterlimit=$this->input->post('exterlimit');
+
 		//echo $exam_id; echo $subid; exit;
 		//print_r($total_marks);exit;
-        $datas = $this->examinationresultmodel->exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks, $external_marks,$user_id,$eflag,$total_marks);
+        $datas = $this->examinationresultmodel->exam_marks_details($exam_id,$subid,$sutid,$clsmastid,$teaid,$internal_marks, $external_marks,$user_id,$eflag,$total_marks,$ttlmark,$interlimit,$exterlimit);
         //print_r($datas);exit;
         if ($datas['status']=="success") {
             $this->session->set_flashdata('msg', 'Added Successfully');
@@ -300,8 +306,8 @@ class Examinationresult extends CI_Controller
         //echo $subid;echo $clsmasid;
         $datas['edit'] = $this->examinationresultmodel->edit_marks_details($user_id,$subid,$clsmasid,$exam_id,$user_type);
         $datas['mark'] = $this->examinationresultmodel->marks_status_details($clsmasid, $exam_id);
-		$datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id);
-        //echo '<pre>';print_r($datas['edit']);exit;
+		$datas['result'] = $this->examinationresultmodel->getall_exam_details($exam_id,$subid,$clsmasid);
+        //echo '<pre>';print_r($datas['result']);exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/edit_mark', $datas);
@@ -326,8 +332,13 @@ class Examinationresult extends CI_Controller
         $external_marks= $this->input->post('external');
         $total_marks = $this->input->post('total_marks');
 		$eflag=$this->input->post('eflag');
-         //echo $eflag; print_r($total_marks);exit;
-        $datas=$this->examinationresultmodel->update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id,$eflag,$total_marks);
+
+        $ttlmark=$this->input->post('ttlmark');
+        $interlimit=$this->input->post('interlimit');
+        $exterlimit=$this->input->post('exterlimit');
+
+         //echo $eflag; echo $ttlmark; echo $interlimit; echo $exterlimit; exit;
+        $datas=$this->examinationresultmodel->update_marks_details($teaid,$clsmastid,$exam_id,$subid,$internal_marks,$external_marks,$sutid,$user_id,$eflag,$total_marks,$ttlmark,$interlimit,$exterlimit);
        // print_r($datas);exit;
         if($datas['status']="success"){
             $this->session->set_flashdata('msg','Updated Successfully');

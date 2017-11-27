@@ -57,6 +57,14 @@ Class Examinationmodel extends CI_Model
 			$res        = $resultset1->result();
 			return $res;
          }
+
+      function getall_exam_inter_exter_details($exam_id,$cls_masid)
+       {
+        $sql="SELECT ed.exam_detail_id,ed.exam_id,ed.subject_id,ed.exam_date,ed.classmaster_id,ed.subject_total,ed.is_internal_external,ed.internal_mark,ed.external_mark,ex.exam_id,ex.exam_year,ex.exam_name,ex.status,ex.exam_flag FROM edu_exam_details AS ed,edu_examination AS ex WHERE ed.exam_id='$exam_id' AND ed.classmaster_id='$cls_masid' AND ed.exam_id=ex.exam_id ";
+        $resultset1 = $this->db->query($sql);
+        $res        = $resultset1->result();
+        return $res;
+       }
  
 	   
 	
@@ -76,7 +84,7 @@ Class Examinationmodel extends CI_Model
           }
     }
 
-	 function add_exam_details($exam_year,$class_name,$subject_name,$exdate,$time,$teacher_id,$status)
+	 function add_exam_details($exam_year,$class_name,$subject_name,$exdate,$time,$teacher_id,$status,$sub_total,$inter_mark,$exter_mark,$inter_exter_mark,$user_id)
 	 {
 		        $count_name = count($subject_name);
 				//echo $count_name; exit;
@@ -90,12 +98,18 @@ Class Examinationmodel extends CI_Model
                     $exam_dates=$exdate[$i];
                     $times=$time[$i];
                     $tea_id=$teacher_id[$i];
+
+                    $subtlt=$sub_total[$i];
+                    $inter_exter=$inter_exter_mark[$i];
+                    $inter=$inter_mark[$i];
+                    $exter=$exter_mark[$i];
+                  
 					
 	    $check_exam_name="SELECT * FROM edu_exam_details WHERE exam_id='$exam_years' AND subject_id='$subject_id' AND classmaster_id='$class_id' AND exam_date='$exam_dates' AND times='$times'";
 	   $result=$this->db->query($check_exam_name);
        if($result->num_rows()==0)
 	    {  
-			$query="INSERT INTO edu_exam_details(exam_id,subject_id,exam_date,times,classmaster_id,teacher_id,status,created_at) VALUES ('$exam_years','$subject_id','$exam_dates','$times','$class_id','$tea_id','$status',NOW())";
+			$query="INSERT INTO edu_exam_details(exam_id,subject_id,exam_date,times,classmaster_id,teacher_id,subject_total,is_internal_external,internal_mark,external_mark,status,created_by,created_at) VALUES ('$exam_years','$subject_id','$exam_dates','$times','$class_id','$tea_id','$subtlt','$inter_exter','$inter','$exter','$status','$user_id',NOW())";
 			$resultset=$this->db->query($query);
 		  }else{
             $data= array("status"=>"Exam Already Exist");
@@ -132,18 +146,18 @@ Class Examinationmodel extends CI_Model
 
 	function edit_exam_details($exam_detail_id) 
 	{
-		 $query1="SELECT * FROM  edu_exam_details WHERE exam_detail_id='$exam_detail_id'";
+		 $query1="SELECT ed.*,ex.exam_year,ex.exam_name,ex.exam_id,y.year_id,y.from_month,y.to_month FROM  edu_exam_details AS ed, edu_examination AS ex,edu_academic_year AS y WHERE exam_detail_id='$exam_detail_id' AND ed.exam_id=ex.exam_id AND ex.exam_year=y.year_id GROUP BY ed.exam_id";
          $res=$this->db->query($query1);
          return $res->result();
 	}
 
-	function update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id,$status)
+	function update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id,$status,$sub_total,$inter_mark,$exter_mark,$inter_exter_mark,$user_id)
 	{
-	  $check_exam_name="SELECT * FROM edu_exam_details WHERE exam_id='$exam_year' AND subject_id='$subject_name' AND classmaster_id='$class_name' AND exam_date='$formatted_date' AND times='$time' AND teacher_id='$teacher_id' AND status='$status'";
+	  $check_exam_name="SELECT * FROM edu_exam_details WHERE exam_id='$exam_year' AND subject_id='$subject_name' AND classmaster_id='$class_name' AND exam_date='$formatted_date' AND times='$time' AND teacher_id='$teacher_id' AND status='$status' AND internal_mark='$inter_mark' ";
 	  $result=$this->db->query($check_exam_name);
       if($result->num_rows()==0)
 	   {  
-	    $query="UPDATE edu_exam_details SET exam_id='$exam_year',subject_id='$subject_name',exam_date='$formatted_date',times='$time',classmaster_id='$class_name',teacher_id='$teacher_id',status='$status',updated_at='NOW()' WHERE exam_detail_id='$id' ";
+	    $query="UPDATE edu_exam_details SET exam_id='$exam_year',subject_id='$subject_name',exam_date='$formatted_date',times='$time',classmaster_id='$class_name',teacher_id='$teacher_id',subject_total='$sub_total',is_internal_external='$inter_exter_mark',internal_mark='$inter_mark',external_mark='$exter_mark',status='$status',updated_by='$user_id',updated_at='NOW()' WHERE exam_detail_id='$id' ";
 		$res=$this->db->query($query);
 		$data= array("status" => "success");
         return $data;

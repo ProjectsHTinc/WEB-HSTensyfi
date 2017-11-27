@@ -11,60 +11,19 @@ Class Admissionmodel extends CI_Model
 //CREATE ADMISSION
 
         function ad_create($admission_year,$admission_no,$emsi_num,$formatted_date,$name,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$language,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$blood_group,$status)
-		{
-          /* $check_number="SELECT * FROM edu_admission WHERE mobile='$mobile'";
-          $res_number=$this->db->query($check_number);
-          if($res_number->num_rows()>=1){
-            $data= array("status" => "Already Mobile Number Exist");
-            return $data;
-          }
-            $check_email="SELECT * FROM edu_admission WHERE email='$email'";
-            $result=$this->db->query($check_email);
-            if($result->num_rows()==0){ */
-				
+		      {
+          
             $query="INSERT INTO edu_admission (admisn_year,admisn_no,emsi_num,admisn_date,name,sex,dob,age,nationality,religion,community_class,community,mother_tongue,language,mobile,sec_mobile,email,sec_email,student_pic,last_sch_name,last_studied,qualified_promotion,transfer_certificate,record_sheet,status,blood_group,created_at) VALUES ('$admission_year','$admission_no','$emsi_num','$formatted_date','$name','$sex','$dob_date','$age','$nationality','$religion','$community_class','$community','$mother_tongue','$language','$mobile','$sec_mobile','$email','$sec_email','$userFileName','$last_sch','$last_studied','$qual','$tran_cert','$recod_sheet','$status','$blood_group',NOW())";
 
             $resultset1=$this->db->query($query);
-		    $insert_id = $this->db->insert_id();
-
-      			/* $sql1="SELECT admisn_no,name FROM edu_admission WHERE admission_id='$insert_id'";
-      			$resultset1=$this->db->query($sql1);
-                  $result1= $resultset1->result();
-      			foreach ($result1 as $row)
-                       {
-      					$admisn=$row->admisn_no;
-      					$aname=$row->name;
-                       } */
-
-      			  //   $sql="SELECT count(*) AS student FROM edu_admission" ;
-      			  //  $resultsql=$this->db->query($sql);
-              //        $result1= $resultsql->result();
-              //        $cont=$result1[0]->student;
-      			  //        $user_id=$cont+400000;
-               //
-               //
-              //     $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_pic,user_type,student_id,created_date,updated_date,status) VALUES ('$name','$user_id',md5(123),'$userFileName','3','$insert_id',NOW(),NOW(),'A')";
-              //     $resultset=$this->db->query($stude_insert);
-
-          $data=array("status" => "success","last_id"=>$insert_id);
-           return $data;
-          /* }else{
-            $data= array("status" => "Email Already Exist");
+		        $insert_id = $this->db->insert_id();
+            $data=array("status" => "success","last_id"=>$insert_id);
             return $data;
-          } */
-       }
+          }
 
        //GET ALL Admission Form
        function get_all_admission()
 	   {
-     
-		// $query= "SELECT a.name,a.admisn_no,a.sex,a.mobile,a.email,a.status,a.enrollment,a.parents_status,a.parnt_guardn_id,
-    //(select 
-    //GROUP_CONCAT(p.name SEPARATOR ',')
-    //from  edu_parents AS p
-    //where
-    //FIND_IN_SET (p.id,a.parnt_guardn_id)) as parentsname  
-    //FROM edu_admission as a  ORDER BY a.admission_id DESC";
         $query="SELECT a.admission_id,a.name,a.admisn_no,a.sex,a.mobile,a.email,a.status,a.enrollment,a.parents_status,a.parnt_guardn_id,b.blood_group_name,(select GROUP_CONCAT(p.name SEPARATOR ',') from  edu_parents AS p where FIND_IN_SET (p.id,a.parnt_guardn_id)) as parentsname FROM edu_admission as a,edu_blood_group as b WHERE a.blood_group=b.id  ORDER BY a.admission_id DESC";
          $res=$this->db->query($query);
          return $res->result();
@@ -73,19 +32,10 @@ Class Admissionmodel extends CI_Model
 
 	   
 	   function get_sorting_gender_details($gender)
-		{
-		  //$query="SELECT * FROM  edu_admission WHERE sex='$gender' ORDER BY admission_id DESC";
-		  // $query= "SELECT a.name,a.admisn_no,a.sex,a.mobile,a.email,a.status,a.enrollment,a.parents_status,a.parnt_guardn_id,
-    //               (select 
-    //                  GROUP_CONCAT(p.name SEPARATOR ',')
-    //                       from  edu_parents AS p
-    //                         where
-    //                            FIND_IN_SET (p.id,a.parnt_guardn_id)) as parentsname  
-    //                               FROM edu_admission as a WHERE sex='$gender' ORDER BY a.admission_id DESC";
-    //       $res=$this->db->query($query);
+		 {
       $query="SELECT a.admission_id,a.name,a.admisn_no,a.sex,a.mobile,a.email,a.status,a.enrollment,a.parents_status,a.parnt_guardn_id,b.blood_group_name,(select GROUP_CONCAT(p.name SEPARATOR ',') from  edu_parents AS p where FIND_IN_SET (p.id,a.parnt_guardn_id)) as parentsname FROM edu_admission as a,edu_blood_group as b WHERE a.blood_group=b.id  ORDER BY a.admission_id DESC";
           return $res->result();
-		}
+		  }
 		
 
        function get_ad_id($admission_id){

@@ -1,4 +1,3 @@
-
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -19,29 +18,38 @@
                      <form method="post" action="<?php echo base_url(); ?>examinationresult/update_marks_details" class="form-horizontal" enctype="multipart/form-data" id="markform">
                         <?php if(!empty($mark)){ echo "<p style=color:red;text-align:center;>The Reportcard Approve to Admin So Can't Update Marks</p>";}else{ } ?>
                         <table class="table table-hover table-striped">
+
                            <thead>
                               <th>Sno</th>
                               <th>Name</th>
                               <?php
-                              foreach($edit as $row)
-                                 { foreach($result as $flag){} $eflag=$flag->exam_flag; }
-								 if($eflag==1){?>
+                                foreach($edit as $row)
+                                { 
+                                  foreach($result as $flag){} 
+                                  $eflag=$flag->is_internal_external; 
+                                }
+                                  if($eflag==1){ ?>
                               <th>Internal <?php echo $row->subject_name;?></th>
                               <th>External <?php echo $row->subject_name;?></th>
-                              <?php 
-								 }else{
-                                 ?>	
-								 <th>Total Marks In <?php echo $row->subject_name;?></th>
-								 <?php } ?>								 
+                              <?php }else{ ?> 
+                              <th>Total Marks In <?php echo $row->subject_name;?></th>
+                              <?php } ?>                 
                            </thead>
+
                            <tbody>
                               <?php 
                                  $i=1;
                                  foreach($edit as $row)
-                                   {
-								    foreach($result as $flag){} $eflag=$flag->exam_flag; ?>
+                                  {
+                                   foreach($result as $flag){} 
+                                   $eflag=$flag->is_internal_external; ?>
                               <tr>
-							  <input type="hidden" name="eflag" value="<?php echo $eflag; ?>">
+                                 <input type="hidden" name="eflag" value="<?php echo $eflag; ?>">
+                                  <!-- new -->
+                                 <input type="hidden" name="ttlmark" value="<?php echo $flag->subject_total;?>" class="form-control"/>
+                                 <input type="hidden" name="interlimit" value="<?php echo $flag->internal_mark;?>" class="form-control"/>
+                                 <input type="hidden" name="exterlimit" value="<?php echo $flag->external_mark;?>" class="form-control"/>
+                                 <!-- new -->
                                  <td><?php echo $i;?></td>
                                  <td style="">
                                     <?php echo $row->name; ?>
@@ -52,44 +60,45 @@
                                     <input type="hidden" name="clsmastid" value="<?php echo $row->classmaster_id; ?>" />
                                  </td>
                                  <?php if(!empty($mark)){ 
-								       if($eflag==1){
-                                  ?>
+                                    if($eflag==1){ ?>
                                  <td>
                                     <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
                                  </td>
                                  <td>
                                     <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->external_mark; ?>" class="form-control"/>
                                  </td>
-									   <?php }else{?>
-									   <td>
+                                 <?php }else{?>
+                                 <td>
                                     <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->total_marks; ?>" class="form-control"/>
                                  </td>
-									  <?php }
-									   }else{
-									 if($eflag==1){?>
+                                 <?php }
+                                    }else{
+                                    if($eflag==1){?>
                                  <td>
-								   <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox"/>
-								 </td>
+                                    <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox"/>
+                                 </td>
                                  <td>
-								   <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control inputBox1"/>
-								  </td>
+                                    <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control inputBox1"/>
+                                 </td>
                                  <?php }else{?>
-								  <td>
-								   <input style="width:60%;" type="text"  name="total_marks[]" value="<?php echo $row->total_marks; ?>" class="form-control inputBox2" maxlength='3'/>
-								  </td>	<td></td> 
-								  
-								<?php }
-								 } ?>
+                                 <td>
+                                    <input style="width:60%;" type="text"  name="total_marks[]" value="<?php echo $row->total_marks; ?>" class="form-control inputBox2" maxlength='3'/>
+                                 </td>
+                                 <td></td>
+                                 <?php }
+                                    } ?>
                               </tr>
                               <?php $i++;} 
                                  if(!empty($mark)){ echo "";}else{ ?> 
                               <tr>
-							  <td></td><td></td>
+                                 <td></td>
+                                 <td></td>
                                  <td>
                                     <div class="col-sm-10">
                                        <button type="submit" id="update" class="btn btn-info btn-fill center">Update</button>
                                     </div>
-                                 </td><td></td>
+                                 </td>
+                                 <td></td>
                               </tr>
                               <?php } ?>
                            </tbody>
@@ -104,32 +113,32 @@
 </div>
 <script type="text/javascript">
    $('#examinationmenu').addClass('collapse in');
-   			$('#exam').addClass('active');
-   			$('#exam2').addClass('active'); 
-
-	$(".inputBox").on("keyup keydown", function(e){
-    var currentValue = String.fromCharCode(e.which);
-    var finalValue = $(this).val() + currentValue;
-    if(finalValue >40){
-        e.preventDefault();
-    }
-});
-
-$(".inputBox1").on("keyup keydown", function(e){
+        $('#exam').addClass('active');
+        $('#exam2').addClass('active'); 
+   
+   $(".inputBox").on("keyup keydown", function(e){
     var currentValue = String.fromCharCode(e.which);
     var finalValue = $(this).val() + currentValue;
     if(finalValue >60){
         e.preventDefault();
     }
-});
-
-$(".inputBox2").on("keyup keydown", function(e){
+   });
+   
+   $(".inputBox1").on("keyup keydown", function(e){
+    var currentValue = String.fromCharCode(e.which);
+    var finalValue = $(this).val() + currentValue;
+    if(finalValue >40){
+        e.preventDefault();
+    }
+   });
+   
+   $(".inputBox2").on("keyup keydown", function(e){
     var currentValue = String.fromCharCode(e.which);
     var finalValue = $(this).val() + currentValue;
     if(finalValue >100){
         e.preventDefault();
     }
-});
-
+   });
+   
 </script>
 

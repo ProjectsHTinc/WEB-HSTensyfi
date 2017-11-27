@@ -83,13 +83,16 @@
                                <div class="col-sm-1">
                                    <div id="is_inter_exter"></div>
                               </div>
-                               <div class="col-sm-2">
-                                   <div id="inter"></div>
-                              </div>
-                               <div class="col-sm-2">
-                                   <div id="exter"></div>
-                              </div>
-                             
+
+                              <div id="marks" style="display: none;">
+                                  <div class="col-sm-2">
+                                      <div id="inter"></div>
+                                 </div>
+                                  <div class="col-sm-2">
+                                      <div id="exter"></div>
+                                 </div>
+                             </div>
+
                            </div>
                         </fieldset>
                         <fieldset>
@@ -278,6 +281,17 @@
    </div>
 </div>
 <script type="text/javascript">
+
+   function showdiv(val)
+   { //alert(val.value);
+     if(val.value == 1)
+     {
+     document.getElementById('marks').style.display = "block";
+     }else{
+     document.getElementById('marks').style.display = "none";
+     }
+   }
+
    function checksubject(exam_year,class_name)
       { //alert(val);exit;
       var exam_year = document.getElementById('exam_year');
@@ -362,7 +376,7 @@
 
                            external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
 
-                           inter_exter +='<input type="text" required name="inter_exter_mark[]"  class="form-control"   /></br>';
+                           inter_exter +='<select name="inter_exter_mark[]" required class="form-control"  onchange="showdiv(this)"><option>Internal OR External </option><option value="1">Yes</option><option value="0">NO</option></select></br>';
    
                            exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
    
@@ -394,7 +408,7 @@
                            $("#inter").html('');
                            $("#exter").html('');
 
-   					   //$('#examform')[0].reset();
+   					         //$('#examform')[0].reset();
                           //alert("Subject Not Found");
                    }
                }
@@ -405,10 +419,11 @@
 <script type="text/javascript">
    function myFunction(){
      $( "#datepicker" ).datepicker();
-   }
+   }   
+
    $(document).ready(function() {
-   
-          $('#examvalidate').validate({ // initialize the plugin
+
+         $('#examvalidate').validate({ // initialize the plugin
               rules: {
                   exam_year: {required: true},
                   class_name: {required: true},
@@ -468,8 +483,7 @@
           });
    
       });
-</script>
-<script type="text/javascript">
+
    $().ready(function() {
        $('#exammenu').addClass('collapse in');
        $('#exam').addClass('active');
@@ -492,5 +506,4 @@
    });
    
 </script>
-<script type="text/javascript"></script>
 
