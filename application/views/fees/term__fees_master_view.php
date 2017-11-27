@@ -16,8 +16,8 @@
                             <div class="content">
 
                                 <div class="fresh-datatables">
-                                  <h4 class="title">Fees Status</h4>
-                          <table id="bootstrap-table" class="table">
+                                  <h4 class="title">Fees Status1</h4>
+                                  <table id="example" class="table table-fixed">
                               <thead>
                                  <th data-field="id" class="text-left">S.No</th>
                                 <th data-field="year" class="text-left" data-sortable="true">Year</th>
@@ -49,8 +49,8 @@
                                                          echo date_format($date,"d-m-Y");?></td>
                   									<td class="text-left"><?php $date=date_create($rows->due_date_to);
                                                          echo date_format($date,"d-m-Y");?></td>
-                  									<!-- <td class="text-left"><?php //echo $rows->notes;?></td>-->								 
-                  									 <td><?php 
+                  									<!-- <td class="text-left"><?php //echo $rows->notes;?></td>-->
+                  									 <td><?php
                   									  if($stu=='Active'){?>
                   									   <button class="btn btn-success btn-fill btn-wd">Active</button>
                   									 <?php  }else{?>
@@ -80,47 +80,41 @@
 </div>
 
 <script type="text/javascript">
- var $table = $('#bootstrap-table');
- 
-       $().ready(function(){
-        $('#feesmenu').addClass('collapse in');
-        $('#payment').addClass('active');
-        $('#fees1').addClass('active'); 
-           $table.bootstrapTable({
-               toolbar: ".toolbar",
-               clickToSelect: true,
-               showRefresh: true,
-               search: true,
-               showToggle: true,
-               showColumns: true,
-               pagination: true,
-               searchAlign: 'left',
-               pageSize:10,
-               clickToSelect: false,
-               pageList: [10,15,25,50,100],
-
-               formatShowingRows: function(pageFrom, pageTo, totalRows){
-                   //do nothing here, we don't want to show the text "showing x of y from..."
-               },
-               formatRecordsPerPage: function(pageNumber){
-                   return pageNumber + " rows visible";
-               },
-               icons: {
-                   refresh: 'fa fa-refresh',
-                   toggle: 'fa fa-th-list',
-                   columns: 'fa fa-columns',
-                   detailOpen: 'fa fa-plus-circle',
-                   detailClose: 'fa fa-minus-circle'
-               }
-           });
-
-           //activate the tooltips after the data table is initialized
-           $('[rel="tooltip"]').tooltip();
-
-           $(window).resize(function () {
-               $table.bootstrapTable('resetView');
-           });
+$('#feesmenu').addClass('collapse in');
+$('#payment').addClass('active');
+$('#fees1').addClass('active');
 
 
-       });
+$('#example').DataTable({
+   dom: 'lBfrtip',
+   buttons: [
+        {
+            extend: 'excelHtml5',
+            exportOptions: {
+            columns: ':visible'
+            }
+        },
+        {
+            extend: 'pdfHtml5',
+            exportOptions: {
+            columns: ':visible'
+            }
+        },
+        'colvis'
+    ],
+    "pagingType": "full_numbers",
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    responsive: true,
+    language: {
+    search: "_INPUT_",
+    searchPlaceholder: "Search records",
+  },
+  "fixedHeader" : {
+                  header : true,
+                  footer : true
+              }
+});
+
+
+
 </script>

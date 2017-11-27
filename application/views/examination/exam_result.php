@@ -1,9 +1,11 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css">
+<script src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
          <div class="row">
             <div class="col-md-12">
-               <div class="card">  
+               <div class="card">
                   <div class="header">
                      <h4 class="title">Class & Section</h4>
                   </div>
@@ -14,14 +16,14 @@
                         <div class="col-md-2">
                            <p>No Marks Added</p>
                         </div>
-                        <?php  }  else{ 
+                        <?php  }  else{
                                   foreach($cls as $rows){
  					    ?>
-                        
+
                         <div class="col-md-2">
                            <a rel="tooltip" href="<?php echo base_url(); ?>examination/exam_mark_details_cls_teacher?var1=<?php echo $rows->classmaster_id; ?>&var2=<?php echo $rows->exam_id; ?>" class="btn btn-wd"><?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></a>
                         </div>
-						
+
                         <?php  } }  ?>
 
                      </div>
@@ -34,6 +36,7 @@
    </div>
 </div>
 <script type="text/javascript">
+
    $(document).ready(function () {
    $('#exammenu').addClass('collapse in');
         $('#exam').addClass('active');
@@ -58,8 +61,5 @@
             }
     });
    });
-   
+
 </script>
-
-
-

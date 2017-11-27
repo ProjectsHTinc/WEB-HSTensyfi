@@ -34,7 +34,7 @@
                                 $i=1;
                                 foreach ($view as $rows) {
 									 $stu=$rows->status;
-									 
+
                                 ?>
                                   <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
@@ -44,13 +44,13 @@
                                     <td class="text-left"><?php echo $rows->class_name; ?> - <?php echo $rows->	sec_name; ?></td>
                   									<td class="text-left"><?php echo $rows->quota_name;?></td>
                   									<td class="text-left"><?php echo $rows->fees_amt;?></td>
-                  									
-                  									 <td><?php 
+
+                  									 <td><?php
                   									  if($stu=='Unpaid'){?>
                   									  <button class="btn btn-danger btn-fill btn-wd">UnPaid</button>
                   									 <?php  }else{?>
                   									   <button class="btn btn-success btn-fill btn-wd">Paid</button>
-                  									 
+
                   									  <?php } ?></td>
 
                                     <td class="text-left">
@@ -77,11 +77,11 @@
 
 <script type="text/javascript">
  var $table = $('#bootstrap-table');
- 
+
        $().ready(function(){
 		   $('#feesmenu').addClass('collapse in');
         $('#payment').addClass('active');
-        $('#fees1').addClass('active'); 
+        $('#fees1').addClass('active');
          //jQuery('#teachermenu').addClass('collapse in');
            $table.bootstrapTable({
                toolbar: ".toolbar",
