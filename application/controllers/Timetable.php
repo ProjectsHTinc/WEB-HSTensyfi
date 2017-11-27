@@ -146,6 +146,7 @@ class Timetable extends CI_Controller {
 			$datas['res_sub']=$this->timetablemodel->get_subject_class($class_sec_id);
 			$datas['res_teacher']=$this->timetablemodel->get_teacher_class($class_sec_id);
 			$datas['class_id']=$class_sec_id;
+			$datas['term_id']=$term_id;
 		 if($user_type==1){
 			 $this->load->view('header');
  			$this->load->view('timetable/edit',$datas);

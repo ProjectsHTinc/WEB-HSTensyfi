@@ -30,7 +30,7 @@
             <div class="card">
   <form method="post" action="<?php echo base_url(); ?>timetable/update_timetable" class="form-horizontal" enctype="multipart/form-data" id="timetableform" name="timetableform">
     <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
-    <input type="hidden" name="term_id" value="">
+    <input type="hidden" name="term_id" value="<?php echo $term_id; ?>">
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
