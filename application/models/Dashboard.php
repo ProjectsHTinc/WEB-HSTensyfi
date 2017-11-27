@@ -152,7 +152,7 @@ Class Dashboard extends CI_Model
               foreach($result->result() as $row){}
               $to_mail= $row->email;
 			  $cell= $row->mobile;
-			  
+
 			  if(!empty($to_mail)){
               $to = $to_mail;
               $subject = '"Password Reset"';
@@ -200,7 +200,7 @@ Class Dashboard extends CI_Model
 			$output = curl_exec($ch);
 			curl_close($ch);
 		  }
-		 
+
             if($sent  || !empty($cell)){
                 echo "Password  Reset and send to your Mail Please check it";
             }else{
@@ -221,9 +221,9 @@ Class Dashboard extends CI_Model
             $to_mail= $row->email;
 			$cell= $row->mobile;
 			//$name= $row->name;
-			
+
 			//echo $to_mail; echo $cell; exit;
-			
+
 			if(!empty($to_mail)){
             $to = $to_mail;
             $subject = '"Password Reset"';
@@ -252,7 +252,7 @@ Class Dashboard extends CI_Model
           $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
           $sent= mail($to,$subject,$htmlContent,$headers);
 			}
-			
+
 		if(!empty($cell))
 		  {
 			$userdetails="Password : ".$OTP.", ";
@@ -295,7 +295,13 @@ Class Dashboard extends CI_Model
        if($user_type=="students"){
 		   if(empty($class_sec)){
         //  $query="SELECT * FROM edu_enrollment AS ee WHERE ee.name LIKE '$ser_txt%'";
-        $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id AND e.status='Active' and cm.class=c.class_id and cm.section=s.sec_id  and e.name LIKE '$ser_txt%'";
+        // $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE e.class_id=cm.class_sec_id AND e.status='Active' and       cm.class=c.class_id and cm.section=s.sec_id  and e.name LIKE '$ser_txt%'";
+        $query="SELECT a.name,a.sex,c.class_name,a.admission_id,s.sec_name,
+       (SELECT GROUP_CONCAT(p.name,'- (',p.mobile,')' SEPARATOR ',') FROM edu_parents AS p
+       WHERE FIND_IN_SET (p.id,a.parnt_guardn_id)) AS parentsname FROM edu_admission AS a
+       INNER JOIN edu_enrollment AS e ON a.admission_id= e.admission_id INNER JOIN edu_classmaster AS cm ON e.class_id = cm.class_sec_id
+       INNER JOIN edu_class AS c ON  cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE  e.name LIKE '$ser_txt%'";
+
          $result=$this->db->query($query);
          if($result->num_rows()==0){
           echo "No Data Found";
@@ -304,26 +310,39 @@ Class Dashboard extends CI_Model
   <div class="table-responsive">
    <table class="table table bordered">
     <tr>
-     <th>Students</th>
-     <th>Admission No</th>
-     <th>Class</th>
-     <th>Admission Date</th>
-	 <th>Edit</th>
+    <th>S.no</th>
+    <th>Students</th>
+    <th>Gender</th>
+    <th>Class</th>
+    <th style="width:300px;">Parents Name</th>
+    <th>Edit</th>
     </tr>
   ';
+   $i=1;
      foreach($result->result() as $row){
+
     $output .= '
      <tr>
-      <td>'.$row->name.'</td>
-      <td>'.$row->admisn_no.'</td>
-      <td>'.$row->class_name.'-'.$row->sec_name.'</td>
-      <td>'.$row->admit_date.'</td>
+     <td>'.$i.'</td>
+    <td>'.$row->name.'</td>
+    <td>'.$row->sex.'</td>
+    <td>'.$row->class_name.'-'.$row->sec_name.'</td>
+    <td>'.$row->parentsname.'</td>
 	 <td><a href="'. base_url().'admission/get_ad_id/'.$row->admission_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
      </tr>
     ';
-         } echo $output;}
+     $i++;
+         }
+         echo $output;}
 	   }else{
-		 $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE cm.class_sec_id='$class_sec' AND e.status='Active' AND  e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id and e.name LIKE '$ser_txt%'";
+		 // $query="SELECT e.*,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,s.sec_id,s.sec_name FROM edu_enrollment as e,edu_classmaster as cm, edu_sections as s,edu_class as c WHERE cm.class_sec_id='$class_sec' AND e.status='Active' AND
+     //  e.class_id=cm.class_sec_id and cm.class=c.class_id and cm.section=s.sec_id and e.name LIKE '$ser_txt%'";
+     $query="SELECT a.name,a.sex,c.class_name,a.admission_id,s.sec_name,
+    (SELECT GROUP_CONCAT(p.name,'- (',p.mobile,')' SEPARATOR ',') FROM edu_parents AS p
+    WHERE FIND_IN_SET (p.id,a.parnt_guardn_id)) AS parentsname FROM edu_admission AS a
+    INNER JOIN edu_enrollment AS e ON a.admission_id= e.admission_id INNER JOIN edu_classmaster AS cm ON e.class_id = cm.class_sec_id
+    INNER JOIN edu_class AS c ON  cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE e.class_id='$class_sec' AND  e.name LIKE '$ser_txt%'";
+
          $result=$this->db->query($query);
          if($result->num_rows()==0){
           echo "No Data Found";
@@ -332,23 +351,27 @@ Class Dashboard extends CI_Model
   <div class="table-responsive">
    <table class="table table bordered">
     <tr>
+     <th>S.no</th>
      <th>Students</th>
-     <th>Admission No</th>
+     <th>Gender</th>
      <th>Class</th>
-     <th>Admission Date</th>
-	 <th>Edit</th>
+     <th style="width:300px;">Parents Name</th>
+	   <th>Edit</th>
     </tr>
   ';
+  $i=1;
      foreach($result->result() as $row){
     $output .= '
      <tr>
+       <td>'.$i.'</td>
       <td>'.$row->name.'</td>
-      <td>'.$row->admisn_no.'</td>
+      <td>'.$row->sex.'</td>
       <td>'.$row->class_name.'-'.$row->sec_name.'</td>
-      <td>'.$row->admit_date.'</td>
+      <td>'.$row->parentsname.'</td>
 	 <td><a href="'. base_url().'admission/get_ad_id/'.$row->admission_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
      </tr>
     ';
+    $i++;
          } echo $output;}
 
 	   }
@@ -368,25 +391,27 @@ Class Dashboard extends CI_Model
   <div class="table-responsive">
    <table class="table table bordered">
     <tr>
+     <th>S.no </th>
      <th>Name </th>
      <th>phone No</th>
      <th>Class Teacher</th>
      <th>Email </th>
-
-	 <th>Edit</th>
+	   <th>Edit</th>
     </tr>
   ';
+  $i=1;
      foreach($result->result() as $row){
     $output .= '
      <tr>
+       <td>'.$i.'</td>
       <td>'.$row->name.'</td>
       <td>'.$row->phone.'</td>
       <td>'.$row->class_name.'-'.$row->sec_name.'</td>
       <td>'.$row->email.'</td>
-
 	  <td><a href="'. base_url().'teacher/get_teacher_id/'.$row->teacher_id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
      </tr>
     ';
+    $i++;
          }echo $output;}
 		   }else{
 	     $query="SELECT et.name,et.phone,et.email,et.teacher_id,et.class_teacher,estc.teacher_id,estc.class_master_id,estc.status,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_teacher_handling_subject AS estc LEFT JOIN edu_teachers AS et ON et.teacher_id=estc.teacher_id LEFT JOIN edu_classmaster AS cm ON et.class_teacher=cm.class_sec_id
@@ -463,7 +488,7 @@ return  $result12->result();
     }
 // Admin Parents
 
-  function dash_parents($user_id){ 
+  function dash_parents($user_id){
     $query="SELECT eu.user_id,eu.user_pic,eu.parent_id,ep.name,ep.* FROM edu_users AS eu INNER JOIN edu_parents AS ep ON eu.parent_id=ep.id WHERE eu.user_id='$user_id'";
     $res=$this->db->query($query);
     $rows=$res->result();
@@ -472,7 +497,7 @@ return  $result12->result();
 	//echo $aid;exit;
 	 $query1="SELECT * FROM edu_parents WHERE admission_id IN($aid)";
     $res1=$this->db->query($query1);
-    return $res1->result(); 
+    return $res1->result();
   }
   function get_students($user_id)
   {
