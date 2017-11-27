@@ -54,19 +54,14 @@
                         <input type="hidden" name="exams_id" value="<?php echo $exam_id; ?>"/>
                         <input type="hidden" name="cls_id" value="<?php echo $cls_id; ?>"/>
                         <table id="bootstrap-table" class="table table-hover table-striped">
-                           <?php //foreach($cls as $rows){?>
-                           <!--<input type="text" name="msta_id" value="<?php echo $rows->exam_status_id; ?>"/>
-                              <input type="text" name="exam_id" value="<?php echo $rows->exam_id; ?>"/>
-                              <input type="text" name="class_id" value="<?php echo $rows->classmaster_id; ?>"/> -->
-                           <?php //}?>
                            <thead>
                               <th>Sno</th>
                               <th>Name</th>
                               <?php
                                  if($status=="Success")
                                  {
-                                                        $cnt= count($subject_name);
-                                                      for($i=0;$i<$cnt;$i++)
+                                    $cnt= count($subject_name);
+                                  for($i=0;$i<$cnt;$i++)
                                  { ?>
                               <th> <?php echo $subject_name[$i]; ?> <?php //echo $subject_id[$i]; ?></th>
                               <?php  }
