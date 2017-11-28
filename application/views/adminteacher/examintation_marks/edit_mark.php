@@ -116,29 +116,34 @@
         $('#exam').addClass('active');
         $('#exam2').addClass('active'); 
    
+
+
+
+    <?php foreach($result as $flag){}?>
+
    $(".inputBox").on("keyup keydown", function(e){
-    var currentValue = String.fromCharCode(e.which);
-    var finalValue = $(this).val() + currentValue;
-    if(finalValue >60){
-        e.preventDefault();
-    }
+     var currentValue = String.fromCharCode(e.which);
+     var finalValue = $(this).val() + currentValue;
+     if(finalValue ><?php echo $flag->internal_mark; ?>){
+         e.preventDefault();
+     }
    });
    
    $(".inputBox1").on("keyup keydown", function(e){
-    var currentValue = String.fromCharCode(e.which);
-    var finalValue = $(this).val() + currentValue;
-    if(finalValue >40){
-        e.preventDefault();
-    }
+     var currentValue = String.fromCharCode(e.which);
+     var finalValue = $(this).val() + currentValue;
+     if(finalValue ><?php echo $flag->external_mark; ?>){
+         e.preventDefault();
+     }
    });
    
    $(".inputBox2").on("keyup keydown", function(e){
-    var currentValue = String.fromCharCode(e.which);
-    var finalValue = $(this).val() + currentValue;
-    if(finalValue >100){
-        e.preventDefault();
-    }
+     var currentValue = String.fromCharCode(e.which);
+     var finalValue = $(this).val() + currentValue;
+     if(finalValue ><?php echo $flag->subject_total; ?>){
+         e.preventDefault();
+     }
    });
-   
+
 </script>
 

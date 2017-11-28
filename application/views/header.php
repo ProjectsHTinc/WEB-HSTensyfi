@@ -397,6 +397,13 @@
                      </ul>
                   </div>
                </li>
+               <li id="rank">
+                  <a href="<?php echo base_url(); ?>rank/home">
+                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/homework&classtest.png"/>
+                     <p>Rank</p>
+                  </a>
+               
+               </li>
             </ul>
          </div>
       </div>

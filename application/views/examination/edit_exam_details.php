@@ -12,9 +12,7 @@
             </div>
             <?php endif; ?>
             <?php
-               foreach($res as $rows)
-               {}
-               ?>
+               foreach($res as $rows) {} ?>
             <div class="content">
                <form method="post" action="<?php echo base_url(); ?>examination/update_exam_details" class="form-horizontal" enctype="multipart/form-data" name="examform" id="examform">
                   <fieldset>
@@ -121,11 +119,10 @@
                               if (in_array($sPlatform_id, $arryPlatform ))
                               {
                                            echo "<option  value=\"$s\" selected  /> $sec &nbsp;&nbsp; </option>";
-                                      }
-                                     else {
-                                    echo "<option value=\"$s\" />$sec &nbsp;&nbsp;</option>";
-                                     }
-                                          }
+                               }else {
+                                  echo "<option value=\"$s\" />$sec &nbsp;&nbsp;</option>";
+                                  }
+                                }
                                             ?>
                            </select>
                         </div>
@@ -147,22 +144,25 @@
                          </div>
                        
                          <div class="col-sm-2">
-                          <select name="inter_exter_mark" required class="form-control">
+                          <select name="inter_exter_mark" required class="form-control" onchange="clearfun(this)">
                             <option>Internal & External </option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                           </select>
                            <script language="JavaScript">document.examform.inter_exter_mark.value="<?php echo $rows->is_internal_external; ?>";</script>
                          </div>
+                         <?php  // if($rows->is_internal_external==1){ ?>
+
                   <label class="col-sm-2 control-label">Internal & External Marks</label>
                          <div class="col-sm-2">
-                            <input type="text"  name="inter_mark" class="form-control" value="<?php echo $rows->internal_mark;?>">
+                            <input type="text"  name="inter_mark"id="im" class="form-control" value="<?php echo $rows->internal_mark;?>">
                          </div>
                       
                          <div class="col-sm-2">
-                         <input type="text"  name="exter_mark" class="form-control" value="<?php echo $rows->external_mark;?>">
+                         <input type="text"  name="exter_mark" id="em" class="form-control" value="<?php echo $rows->external_mark;?>">
                          </div>
-                     
+                    
+                    <?php //} ?>
                      </div>
                      </fieldset>
                   <fieldset>
@@ -189,6 +189,23 @@
    </div>
 </div>
 <script type="text/javascript">
+  function clearfun(val)
+  {
+    var inm = $('#im').val();
+    var exm = $('#em').val();
+    //alert(inm);  alert(exm);
+    if(val.value==0){
+        $('#im').hide();
+        $('#em').hide();
+    }else{
+
+       $('#im').show(); 
+       $('#em').show();
+      //location.reload();
+    }
+
+  }
+
    $(document).ready(function ()
    {
      $('#examform').validate({ // initialize the plugin

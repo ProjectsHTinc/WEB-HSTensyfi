@@ -283,7 +283,12 @@
 <script type="text/javascript">
 
    function showdiv(val)
-   { //alert(val.value);
+   {   alert(val.value);
+      //var p=new Array($(sub_id[i]).val());
+
+      var a=new Array($(document.getElementById('subject_id')));
+      //alert(a);
+
      if(val.value == 1)
      {
      document.getElementById('marks').style.display = "block";
@@ -363,8 +368,9 @@
                        var external = '';
                        var inter_exter = '';
 
-
+                     
                        for (i = 0; i < len; i++) {
+                             
    						'<form name="exam" id="examvalidate">';
                            name += '<p style="padding-top:05px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
    
@@ -376,14 +382,14 @@
 
                            external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
 
-                           inter_exter +='<select name="inter_exter_mark[]" required class="form-control"  onchange="showdiv(this)"><option>Internal OR External </option><option value="1">Yes</option><option value="0">NO</option></select></br>';
+                           inter_exter +='<select name="inter_exter_mark[]" required class="form-control"  onchange="showdiv(this)"><option>Internal OR External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
    
                            exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
    
                            teacher += '<select name="teacher_id[]" id="teacher_id" class="form-control" ><option value="">Select Invigilator</option><?php foreach ($teacheres as $rows) {  ?><option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option><?php  } ?></select></br>';
    						
    						'</form>';
-   
+                              
                            $("#ajaxres").html(name);
                            $("#ajaxres1").html(exam_date).find('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
                            $("#ajaxres2").html(exam_secction);
