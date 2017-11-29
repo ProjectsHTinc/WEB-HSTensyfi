@@ -83,8 +83,8 @@
                                <div class="col-sm-1">
                                    <div id="is_inter_exter"></div>
                               </div>
-
-                              <div id="marks" style="display: none;">
+                              <!-- style="display: none;" onchange="showdiv(this.value)"-->
+                              <div id="marks">
                                   <div class="col-sm-2">
                                       <div id="inter"></div>
                                  </div>
@@ -283,17 +283,17 @@
 <script type="text/javascript">
 
    function showdiv(val)
-   {   alert(val.value);
-      //var p=new Array($(sub_id[i]).val());
+   {   
+    //alert(val.value); onchange="showdiv(this.value)"
+    // var a=new Array($(document.getElementById('subject_id')));
+    //  var districtValue = a.value;
+    // alert(districtValue);
 
-      var a=new Array($(document.getElementById('subject_id')));
-      //alert(a);
-
-     if(val.value == 1)
+     if(val== 1)
      {
-     document.getElementById('marks').style.display = "block";
+       document.getElementById('marks').style.display = "block";
      }else{
-     document.getElementById('marks').style.display = "none";
+       document.getElementById('marks').style.display = "none";
      }
    }
 
@@ -316,15 +316,14 @@
    				//alert(test);
    				if(test=="Already Exam Added")
    				{
-   			        $("#msg1").html(test); 
+   			      $("#msg1").html(test); 
    					$('#msg').html('');
    					$("#ajaxres").html('');
-                       $("#ajaxres1").html('');
-                       $("#ajaxres2").html('');
-                       $("#ajaxres3").html('');
+                  $("#ajaxres1").html('');
+                  $("#ajaxres2").html('');
+                  $("#ajaxres3").html('');
    					$("#save").hide();
-   				}
-   				else{
+   				}else{
    					$("#msg1").html('');
    					$("#save").show();
    					//alert(cid);
@@ -370,7 +369,6 @@
 
                      
                        for (i = 0; i < len; i++) {
-                             
    						'<form name="exam" id="examvalidate">';
                            name += '<p style="padding-top:05px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
    
@@ -382,7 +380,7 @@
 
                            external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
 
-                           inter_exter +='<select name="inter_exter_mark[]" required class="form-control"  onchange="showdiv(this)"><option>Internal OR External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
+                           inter_exter +='<select name="inter_exter_mark[]" required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
    
                            exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
    
@@ -394,12 +392,10 @@
                            $("#ajaxres1").html(exam_date).find('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
                            $("#ajaxres2").html(exam_secction);
                            $("#ajaxres3").html(teacher);
-                           
                            $("#subtlt").html(stlt);
                            $("#is_inter_exter").html(inter_exter);
                            $("#inter").html(internal);
                            $("#exter").html(external);
-
                            $('#msg').html('');
                        }
                    } else {
