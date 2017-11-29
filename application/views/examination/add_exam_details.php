@@ -143,6 +143,13 @@
                                     </option>
                                     <?php } ?>
                                  </select>
+                                  <?php
+                              if(!empty($filter))
+                                { 
+                                  foreach($filter as $sea)
+                                   {  }?>
+                                <script language="JavaScript">document.myformsection.class_id.value="<?php echo $sea->classmaster_id; ?>";</script>
+                              <?php }?>
                               </div>
                               <div class="col-sm-4">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
@@ -162,10 +169,10 @@
                               <tbody>
                                  <?php
                                     $i=1;
-                                    if(!empty($filter)){
-                                    foreach($filter as $sea)
-                                    {
-                                    ?>
+                           if(!empty($filter))
+                           {   //echo'<pre>';print_r($filter);
+                              foreach($filter as $sea)
+                              {  ?>
                                  <tr>
                                     <td>
                                        <?php echo $i; ?>
@@ -179,14 +186,12 @@
                                           echo date_format($date,"d-m-Y");  ?> (<?php echo $sea->times; ?> ) 
                                     </td>
                                     <?php
-                                      
                                        $clsname=$sea->class_name;
                                        $secname=$sea->sec_name;
-                                       
                                        ?>
                                     <td>
                                        <?php echo $clsname;?>
-                                       <?php echo $secname; ?>
+                                       <?php echo $secname; ?> (  <?php echo $sea->exam_name; ?> )
                                     </td>
                                     <?php
                                        $id=$sea->teacher_id;
@@ -201,24 +206,26 @@
                                     <td>
                                        <?php  if(!empty($id)){ echo $name; }else{ echo ""; } ?>
                                     </td>
-									<td>
-										<?php $sta=$sea->status;
-										if($sta=='Active'){?>
-										<button class="btn btn-success btn-fill btn-wd">Active</button>
-										<?php  }else{?>
-										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
-										<?php } ?>
-									</td>
+         									<td>
+         										<?php $sta=$sea->status;
+         										if($sta=='Active'){?>
+         										<button class="btn btn-success btn-fill btn-wd">Active</button>
+         										<?php  }else{?>
+         										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+         										<?php } ?>
+         									</td>
                                     <td>
                                        <a href="<?php echo base_url(); ?>examination/edit_exam_details/<?php echo $sea->exam_detail_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
-                                 <?php $i++;  } }else{
-                                    foreach ($result as $rows)
-                                    { 
-									  $exid=$rows->exam_id;
-                                                     ?>
-                                 <tr>
+                                 <?php $i++;  
+                              } 
+                           }else{
+                                    //print_r($result);
+                                 foreach ($result as $rows)
+                                 { 
+									           $exid=$rows->exam_id;  ?>
+                                   <tr>
                                     <td>
                                        <?php echo $i; ?>
                                     </td>
@@ -229,7 +236,7 @@
                                        <?php $date=date_create($rows->exam_date);
                                           echo date_format($date,"d-m-Y");  ?> (<?php echo $rows->times; ?> ) 
                                     </td>
-                                    <td>
+                                     <td>
                                        <?php echo $rows->class_name;?>
                                        <?php echo $rows->sec_name; ?> (<?php
                                           $sql="SELECT exam_id,exam_year,exam_name FROM edu_examination WHERE exam_id='$exid' ";
@@ -238,33 +245,33 @@
                                           echo $res1[0]->exam_name;
                                           
                                           ?>)
-                                    </td>
-                                    <?php
-									
+                                     </td>
+                                     <?php
                                        $id=$rows->teacher_id;
-									  if(!empty($id)){
+									             if(!empty($id)){
                                        $query = "SELECT teacher_id,name FROM edu_teachers WHERE teacher_id='$id' ";
                                        $resultset = $this->db->query($query);
                                        $res=$resultset->result();
                                        $name=$res[0]->name;
-									   }else{ echo ""; }
+									             }else{ echo ""; }
                                        ?>
                                     <td>
                                        <?php if(!empty($id)){ echo $name; }else{ echo"No"; }?>
                                     </td>
-									<td>
-										<?php $sta=$rows->status;
-										if($sta=='Active'){?>
-										<button class="btn btn-success btn-fill btn-wd">Active</button>
-										<?php  }else{?>
-										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
-										<?php } ?>
-									</td>
+         									<td>
+         										<?php $sta=$rows->status;
+         										if($sta=='Active'){?>
+         										<button class="btn btn-success btn-fill btn-wd">Active</button>
+         										<?php  }else{?>
+         										<button class="btn btn-danger btn-fill btn-wd">De Active</button>
+         										<?php } ?>
+         									</td>
                                     <td>
                                        <a href="<?php echo base_url(); ?>examination/edit_exam_details/<?php echo $rows->exam_detail_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
-                                 <?php $i++;  } } ?>
+                                 <?php $i++;  } 
+                              } ?>
                               </tbody>
                            </table>
                         </div>
@@ -458,9 +465,9 @@
               showColumns: true,
               pagination: true,
               searchAlign: 'left',
-              pageSize: 8,
+              pageSize: 10,
               clickToSelect: false,
-              pageList: [8, 10, 25, 50, 100],
+              pageList: [10, 25, 50, 100, 150],
    
               formatShowingRows: function(pageFrom, pageTo, totalRows) {
                   //do nothing here, we don't want to show the text "showing x of y from..."

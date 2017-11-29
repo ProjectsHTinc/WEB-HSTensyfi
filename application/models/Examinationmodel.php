@@ -9,12 +9,26 @@ Class Examinationmodel extends CI_Model
 
   }
 
-  
+  public function getYear()
+    {
+      $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $year_result = $this->db->query($sqlYear);
+      $ress_year = $year_result->result();
+
+      if($year_result->num_rows()==1)
+      {
+        foreach ($year_result->result() as $rows)
+        {
+            $year_id = $rows->year_id;
+        }
+        return $year_id;
+      }
+    }
 
   function get_exam_details()
 	 {   
-	 	
-		$query="SELECT e.*,y.year_id,y.from_month,y.to_month FROM edu_examination AS e,edu_academic_year AS y WHERE e.exam_year=y.year_id  ORDER BY exam_id DESC";
+	 	$year_id=$this->getYear();
+		$query="SELECT e.*,y.year_id,y.from_month,y.to_month FROM edu_examination AS e,edu_academic_year AS y WHERE e.exam_year=y.year_id AND e.exam_year='$year_id' ORDER BY exam_id DESC";
          $resultset=$this->db->query($query);
          return $resultset->result();
 	 }
@@ -37,15 +51,15 @@ Class Examinationmodel extends CI_Model
 	 }
 
 	  function search_details_view($class_name)
-	  {
-		 $query="select ex.*,s.subject_name,s.subject_id,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_exam_details AS ex,edu_subject AS s,edu_classmaster AS cm, edu_class AS c,edu_sections AS se  WHERE ex.classmaster_id='$class_name' AND ex.subject_id=s.subject_id AND ex.classmaster_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id";
+	  {   $year_id=$this->getYear();
+		 $query="select ed.exam_name,ex.*,s.subject_name,s.subject_id,cm.class_sec_id,cm.class,cm.section,c.class_id,c.class_name,se.sec_id,se.sec_name FROM edu_exam_details AS ex,edu_examination AS ed, edu_subject AS s,edu_classmaster AS cm, edu_class AS c,edu_sections AS se  WHERE ex.classmaster_id='$class_name' AND ex.subject_id=s.subject_id AND ex.classmaster_id=cm.class_sec_id AND cm.class=c.class_id AND cm.section=se.sec_id AND ex.exam_id=ed.exam_id AND ed.exam_year='$year_id'";
          $resultset=$this->db->query($query);
          return $resultset->result();  
 	  }
 
 	  function get_details_view1()
 	   {
-		 $query="select ex.exam_detail_id,ex.subject_id,ex.exam_date,ex.status,ex.times,ex.classmaster_id,cm.class_sec_id,ex.teacher_id,s.subject_name,c.class_name,se.sec_name  FROM edu_exam_details AS ex,edu_classmaster AS cm,edu_subject AS s,edu_class AS c,edu_sections AS se WHERE  ex.subject_id=s.subject_id AND ex.classmaster_id=cm.class_sec_id AND c.class_id =cm.class AND se.sec_id=cm.section GROUP BY c.class_name,se.sec_name ";
+		 $query="select ex.exam_detail_id,ex.subject_id,ex.exam_date,ex.status,ex.times,ex.classmaster_id,cm.class_sec_id,ex.teacher_id,s.subject_name,c.class_name,se.sec_name  FROM edu_exam_details AS ex,edu_classmaster AS cm,edu_subject AS s,edu_class AS c,edu_sections AS se WHERE  ex.subject_id=s.subject_id AND ex.classmaster_id=cm.class_sec_id AND c.class_id =cm.class AND se.sec_id=cm.section GROUP BY c.class_name,se.sec_name";
 
 		// select ex.classmaster_id,c.class_name,s.sec_name FROM  edu_exam_details AS ex,edu_classmaster AS cm, edu_class AS c,edu_sections AS s WHERE c.class_id =cm.class AND s.sec_id=cm.section
 
