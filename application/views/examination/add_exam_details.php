@@ -87,7 +87,7 @@
                               <div id="marks">
                                   <div class="col-sm-2">
                                       <div id="inter">
-                                         
+
                                       </div>
                                  </div>
                                   <div class="col-sm-2">
@@ -106,7 +106,7 @@
 									  <option value="Deactive">DeActive</option>
 								</select>
 							  </div>
-										  
+
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
@@ -133,7 +133,7 @@
                   <div class="card">
                      <div class="content">
                         <div class="fresh-datatables">
-						
+
                            <form method="post" action="<?php echo base_url(); ?>examination/add_exam_detail" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="class_id" style="margin-top:30px;" class="selectpicker">
@@ -147,7 +147,7 @@
                                  </select>
                                   <?php
                               if(!empty($filter))
-                                { 
+                                {
                                   foreach($filter as $sea)
                                    {  }?>
                                 <script language="JavaScript">document.myformsection.class_id.value="<?php echo $sea->classmaster_id; ?>";</script>
@@ -157,7 +157,7 @@
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
                               </div>
                            </form>
-						   
+
                            <table id="bootstrap-table" class="table">
                               <thead>
                                  <th data-field="id">ID</th>
@@ -179,13 +179,13 @@
                                     <td>
                                        <?php echo $i; ?>
                                     </td>
-                                    
+
                                     <td>
                                        <?php echo $sea->subject_name; ?>
                                     </td>
                                     <td>
                                        <?php $date=date_create($sea->exam_date);
-                                          echo date_format($date,"d-m-Y");  ?> (<?php echo $sea->times; ?> ) 
+                                          echo date_format($date,"d-m-Y");  ?> (<?php echo $sea->times; ?> )
                                     </td>
                                     <?php
                                        $clsname=$sea->class_name;
@@ -220,12 +220,12 @@
                                        <a href="<?php echo base_url(); ?>examination/edit_exam_details/<?php echo $sea->exam_detail_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
-                                 <?php $i++;  
-                              } 
+                                 <?php $i++;
+                              }
                            }else{
                                     //print_r($result);
                                  foreach ($result as $rows)
-                                 { 
+                                 {
 									           $exid=$rows->exam_id;  ?>
                                    <tr>
                                     <td>
@@ -236,7 +236,7 @@
                                     </td>
                                     <td>
                                        <?php $date=date_create($rows->exam_date);
-                                          echo date_format($date,"d-m-Y");  ?> (<?php echo $rows->times; ?> ) 
+                                          echo date_format($date,"d-m-Y");  ?> (<?php echo $rows->times; ?> )
                                     </td>
                                      <td>
                                        <?php echo $rows->class_name;?>
@@ -245,7 +245,7 @@
                                           $result=$this->db->query($sql);
                                           $res1=$result->result();
                                           echo $res1[0]->exam_name;
-                                          
+
                                           ?>)
                                      </td>
                                      <?php
@@ -272,7 +272,7 @@
                                        <a href="<?php echo base_url(); ?>examination/edit_exam_details/<?php echo $rows->exam_detail_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
-                                 <?php $i++;  } 
+                                 <?php $i++;  }
                               } ?>
                               </tbody>
                            </table>
@@ -291,23 +291,24 @@
 </div>
 <script type="text/javascript">
 
-   function showdiv(val)
-   {   
-      alert(val); 
-      var internal = '';
-      var external = '';
-    
+   function showdiv(dyid,val)
+   {
+     // alert(dyid);
+     //  alert(val);
+      var inter_id = '';
+      var exter_id = '';
+
      if(val== 1)
      {
        //alert(val);
        //document.getElementById('marks').style.display = "block";
-       internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
-      external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
-      $("#inter").html(internal);
-      $("#exter").html(external);
+       inter_id +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
+      exter_id +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
+      $("#"+ dyid +"").html(inter_id);
+      $("#"+ dyid +"").html(exter_id);
      }else{
-        $("#inter").html(' ');
-        $("#exter").html(' ');
+       $("#"+ dyid +"").html(' ');
+       $("#"+ dyid +"").html(' ');
      }
    }
 
@@ -315,8 +316,8 @@
       { //alert(val);exit;
       var exam_year = document.getElementById('exam_year');
       var class_name = document.getElementById('class_name');
-   
-      var eid = exam_year.value; 
+
+      var eid = exam_year.value;
       var cid = class_name.value;
       //alert(eid);alert(cid);
       if(eid!='' && cid!=''){
@@ -330,7 +331,7 @@
    				//alert(test);
    				if(test=="Already Exam Added")
    				{
-   			      $("#msg1").html(test); 
+   			      $("#msg1").html(test);
    					$('#msg').html('');
    					$("#ajaxres").html('');
                   $("#ajaxres1").html('');
@@ -347,7 +348,7 @@
    	  });
       }
    }
-   
+
        function checknamefun(cid) {
            //alert(classid);exit;
            $.ajax({
@@ -357,7 +358,7 @@
                    classid:cid
                },
               dataType: 'json',
-   
+
                success: function(test1) {
    				//alert(test1.subject_name);
    				//console.log(test1);
@@ -374,41 +375,43 @@
                        var exam_date = '';
                        var exam_secction = '';
                        var teacher = '';
-                       
+
                        var stlt = '';
-                       //var internal = '';
-                       //var external = '';
+                       var internal = '';
+                       var external = '';
                        var inter_exter = '';
 
-                     
+
                        for (i = 0; i < len; i++) {
    						'<form name="exam" id="examvalidate">';
                            name += '<p style="padding-top:05px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
-   
+
                            exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
 
                            stlt +='<input type="text"  required name="sub_total[]"  class="form-control"   placeholder="Subject Total"/></br>';
 
+                           internal +='<div id="'+ i+'"></div>';
+                            external +='<div id="'+ i+'"></div>';
                            //internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
 
                            //external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
 
-                           inter_exter +='<select name="inter_exter_mark[]" onchange="showdiv(this.value)" required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
-   
+                           inter_exter +='<select name="inter_exter_mark[]" onchange="showdiv('+i+',this.value)" required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
+
                            exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
-   
+
                            teacher += '<select name="teacher_id[]" id="teacher_id" class="form-control" ><option value="">Select Invigilator</option><?php foreach ($teacheres as $rows) {  ?><option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option><?php  } ?></select></br>';
-   						
+
    						'</form>';
-                              
+
                            $("#ajaxres").html(name);
                            $("#ajaxres1").html(exam_date).find('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
                            $("#ajaxres2").html(exam_secction);
                            $("#ajaxres3").html(teacher);
                            $("#subtlt").html(stlt);
                            $("#is_inter_exter").html(inter_exter);
-                           //$("#inter").html(internal);
-                           //$("#exter").html(external);
+                           $("#inter").html(internal);
+                           $("#exter").html(external);
                            $('#msg').html('');
                        }
                    } else {
@@ -429,12 +432,12 @@
                }
            });
        }
-   
+
 </script>
 <script type="text/javascript">
    function myFunction(){
      $( "#datepicker" ).datepicker();
-   }   
+   }
 
    $(document).ready(function() {
 
@@ -457,9 +460,9 @@
               }
           });
       });
-   
-   
-   
+
+
+
       var $table = $('#bootstrap-table');
       $().ready(function() {
           $table.bootstrapTable({
@@ -474,7 +477,7 @@
               pageSize: 10,
               clickToSelect: false,
               pageList: [10, 25, 50, 100, 150],
-   
+
               formatShowingRows: function(pageFrom, pageTo, totalRows) {
                   //do nothing here, we don't want to show the text "showing x of y from..."
               },
@@ -489,14 +492,14 @@
                   detailClose: 'fa fa-minus-circle'
               }
           });
-   
+
           //activate the tooltips after the data table is initialized
           $('[rel="tooltip"]').tooltip();
-   
+
           $(window).resize(function() {
               $table.bootstrapTable('resetView');
           });
-   
+
       });
 
    $().ready(function() {
@@ -519,6 +522,5 @@
          }
       });
    });
-   
-</script>
 
+</script>
