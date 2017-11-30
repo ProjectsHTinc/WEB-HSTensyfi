@@ -9,6 +9,20 @@ Class Dashboard extends CI_Model
 
   }
 
+  function getYear()
+  {
+      $sqlYear     = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $year_result = $this->db->query($sqlYear);
+      $ress_year   = $year_result->result();
+
+      if ($year_result->num_rows() == 1) {
+          foreach ($year_result->result() as $rows) {
+              $year_id = $rows->year_id;
+          }
+          return $year_id;
+      }
+  }
+
     function get_user_count_student(){
         $query="SELECT COUNT(enroll_id) AS user_count FROM  edu_enrollment WHERE admit_year=1";
         $result=$this->db->query($query);
@@ -292,6 +306,7 @@ Class Dashboard extends CI_Model
       // Search function in Admin Panel
 
      function search_data($ser_txt,$user_type,$class_sec){
+         $year_id = $this->getYear();
        if($user_type=="students"){
 		   if(empty($class_sec)){
         //  $query="SELECT * FROM edu_enrollment AS ee WHERE ee.name LIKE '$ser_txt%'";
@@ -300,7 +315,7 @@ Class Dashboard extends CI_Model
        (SELECT GROUP_CONCAT(p.name,'- (',p.mobile,')' SEPARATOR ',') FROM edu_parents AS p
        WHERE FIND_IN_SET (p.id,a.parnt_guardn_id)) AS parentsname FROM edu_admission AS a
        INNER JOIN edu_enrollment AS e ON a.admission_id= e.admission_id INNER JOIN edu_classmaster AS cm ON e.class_id = cm.class_sec_id
-       INNER JOIN edu_class AS c ON  cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE  e.name LIKE '$ser_txt%'";
+       INNER JOIN edu_class AS c ON  cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE e.admit_year='$year_id' AND e.name LIKE '$ser_txt%'";
 
          $result=$this->db->query($query);
          if($result->num_rows()==0){
@@ -341,7 +356,7 @@ Class Dashboard extends CI_Model
     (SELECT GROUP_CONCAT(p.name,'- (',p.mobile,')' SEPARATOR ',') FROM edu_parents AS p
     WHERE FIND_IN_SET (p.id,a.parnt_guardn_id)) AS parentsname FROM edu_admission AS a
     INNER JOIN edu_enrollment AS e ON a.admission_id= e.admission_id INNER JOIN edu_classmaster AS cm ON e.class_id = cm.class_sec_id
-    INNER JOIN edu_class AS c ON  cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE e.class_id='$class_sec' AND  e.name LIKE '$ser_txt%'";
+    INNER JOIN edu_class AS c ON  cm.class=c.class_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE e.class_id='$class_sec' AND e.admit_year='$year_id' AND   e.name LIKE '$ser_txt%'";
 
          $result=$this->db->query($query);
          if($result->num_rows()==0){
