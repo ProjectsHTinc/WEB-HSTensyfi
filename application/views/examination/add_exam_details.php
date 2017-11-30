@@ -86,7 +86,9 @@
                               <!-- style="display: none;" onchange="showdiv(this.value)"-->
                               <div id="marks">
                                   <div class="col-sm-2">
-                                      <div id="inter"></div>
+                                      <div id="inter">
+                                         
+                                      </div>
                                  </div>
                                   <div class="col-sm-2">
                                       <div id="exter"></div>
@@ -291,16 +293,21 @@
 
    function showdiv(val)
    {   
-    //alert(val.value); onchange="showdiv(this.value)"
-    // var a=new Array($(document.getElementById('subject_id')));
-    //  var districtValue = a.value;
-    // alert(districtValue);
-
+      alert(val); 
+      var internal = '';
+      var external = '';
+    
      if(val== 1)
      {
-       document.getElementById('marks').style.display = "block";
+       //alert(val);
+       //document.getElementById('marks').style.display = "block";
+       internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
+      external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
+      $("#inter").html(internal);
+      $("#exter").html(external);
      }else{
-       document.getElementById('marks').style.display = "none";
+        $("#inter").html(' ');
+        $("#exter").html(' ');
      }
    }
 
@@ -356,7 +363,6 @@
    				//console.log(test1);
    				//var test=test1.status;
    				//alert(test);
-				
                    if (test1.status=='Success') {
                        var sub = test1.subject_name;
    					//alert(sub.length);
@@ -370,8 +376,8 @@
                        var teacher = '';
                        
                        var stlt = '';
-                       var internal = '';
-                       var external = '';
+                       //var internal = '';
+                       //var external = '';
                        var inter_exter = '';
 
                      
@@ -383,11 +389,11 @@
 
                            stlt +='<input type="text"  required name="sub_total[]"  class="form-control"   placeholder="Subject Total"/></br>';
 
-                           internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
+                           //internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
 
-                           external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
+                           //external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
 
-                           inter_exter +='<select name="inter_exter_mark[]" required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
+                           inter_exter +='<select name="inter_exter_mark[]" onchange="showdiv(this.value)" required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
    
                            exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
    
@@ -401,8 +407,8 @@
                            $("#ajaxres3").html(teacher);
                            $("#subtlt").html(stlt);
                            $("#is_inter_exter").html(inter_exter);
-                           $("#inter").html(internal);
-                           $("#exter").html(external);
+                           //$("#inter").html(internal);
+                           //$("#exter").html(external);
                            $('#msg').html('');
                        }
                    } else {
