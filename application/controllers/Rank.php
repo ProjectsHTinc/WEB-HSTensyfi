@@ -20,6 +20,7 @@ class Rank extends CI_Controller
  		$user_type=$this->session->userdata('user_type');
 
  		$datas['exam_view'] = $this->rankmodel->get_exam_details_view();
+ 		$datas['cls_view'] = $this->rankmodel->get_cls_details_view();
 		//echo'<pre>';print_r($datas['exam_view']);exit;
 		 if($user_type==1)
 		 {
@@ -51,13 +52,22 @@ class Rank extends CI_Controller
  		 }
 	}
 
-	public function get_all_rank($cls_id,$examid)
+	public function get_all_rank()
 	{
-      $datas=$this->session->userdata();
+        $datas=$this->session->userdata();
  		$user_id=$this->session->userdata('user_id');
  		$user_type=$this->session->userdata('user_type');
- 		//echo $cls_id;exit;
- 		$datas['cls_rank'] = $this->rankmodel->get_rank_details_view($cls_id,$examid);
+
+ 		$exid=$this->input->post('exam_id');
+ 		$clsid=$this->input->post('class_id');
+ 		//print_r($exid); echo'<br>'; print_r($clsid); 
+
+ 		$examid=implode(',', $exid);
+ 		$cls_id=implode(',', $clsid);
+
+       //echo'<br>'; echo $examid; echo'<br>'; echo $cls_id; 
+
+ 	    $datas['cls_rank'] = $this->rankmodel->get_rank_details_view($examid,$cls_id);
  		echo'<pre>';print_r($datas['cls_rank']);exit;
 	}
 

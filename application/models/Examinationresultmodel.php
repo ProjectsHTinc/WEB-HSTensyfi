@@ -177,7 +177,7 @@ Class Examinationresultmodel extends CI_Model
         foreach ($row as $rows) {}
         $teacher_id = $rows->user_master_id;
         //echo $teacher_id;exit;  AND en.name=a.name
-          $sql        = "SELECT t.teacher_id,t.subject_id,t.class_master_id,su.subject_id,su.subject_name,en.enroll_id,en.admission_id,en.name,en.class_id,en.status,en.admisn_no,a.admission_id,a.admisn_no,a.name,a.sex,a.status FROM edu_subject AS su,edu_teacher_handling_subject AS t,edu_enrollment AS en,edu_admission AS a WHERE t.subject_id='$sub_id' AND t.subject_id=su.subject_id AND en.class_id='$cls_masid' AND t.class_master_id=en.class_id AND t.teacher_id='$teacher_id' AND en.status='Active' AND a.status='Active' AND en.admission_id=a.admission_id  ORDER BY a.sex DESC,en.name ASC";
+          $sql="SELECT t.teacher_id,t.subject_id,t.class_master_id,su.subject_id,su.subject_name,en.enroll_id,en.admission_id,en.name,en.class_id,en.status,en.admisn_no,a.admission_id,a.admisn_no,a.name,a.sex,a.status FROM edu_subject AS su,edu_teacher_handling_subject AS t,edu_enrollment AS en,edu_admission AS a WHERE t.subject_id='$sub_id' AND t.subject_id=su.subject_id AND en.class_id='$cls_masid' AND t.class_master_id=en.class_id AND t.teacher_id='$teacher_id' AND en.status='Active' AND a.status='Active' AND en.admission_id=a.admission_id  ORDER BY a.sex DESC,en.name ASC";
         $res        = $this->db->query($sql);
         $result     = $res->result();
         return $result;

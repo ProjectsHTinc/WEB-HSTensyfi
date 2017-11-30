@@ -88,7 +88,6 @@
                                   <div class="col-sm-2">
                                       <div id="inter"></div>
                                  </div>
-
                                   <div class="col-sm-2">
                                         <div id="exter"></div>
                                  </div>
@@ -163,7 +162,7 @@
                                  <th data-field="edate" data-sortable="true">Exam Date</th>
                                  <th data-field="section"  data-sortable="true">Class/Section</th>
                                  <th data-field="teacher"  data-sortable="true">Teacher</th>
-								 <th data-field="Status"  data-sortable="true">Status</th>
+								                 <th data-field="Status"  data-sortable="true">Status</th>
                                  <th>Action</th>
                               </thead>
                               <tbody>
@@ -296,9 +295,9 @@
       var inter_id = '';
       var exter_id = '';
  
-     if(val== 1)
+     if(val==1)
      {
-       alert(val); alert(dyid);
+       //alert(val); alert(dyid);
        inter_id +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/><br>';
       exter_id +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
 
@@ -306,14 +305,11 @@
       var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
       a.show();
       b.show();
-      //exter_id.attr('id','exter');
-      //inter_id.attr('id','inter');
-     
      }else{
-      
-      alert(val); alert(dyid);
+        
+      //alert(val); alert(dyid);
       //$("#"+ dyid +"").html(' ').attr('id','inter');
-       //$("#"+ dyid +"").html(' ').attr('id','exter');
+      //$("#"+ dyid +"").html(' ').attr('id','exter');
        var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
        var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
        a.hide();
