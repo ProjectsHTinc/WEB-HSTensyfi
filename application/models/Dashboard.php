@@ -11,7 +11,7 @@ Class Dashboard extends CI_Model
 
   function getYear()
   {
-      $sqlYear     = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $sqlYear     = "SELECT * FROM edu_academic_year WHERE CURDATE() >= from_month AND CURDATE() <= to_month AND status = 'Active'";
       $year_result = $this->db->query($sqlYear);
       $ress_year   = $year_result->result();
 
@@ -44,7 +44,7 @@ Class Dashboard extends CI_Model
 
 
     function dash_events(){
-      $query="SELECT * FROM edu_events WHERE STATUS='Active' AND  event_date>=NOW() ORDER BY event_id DESC LIMIT 5";
+      $query="SELECT * FROM edu_events WHERE STATUS='Active' AND  event_date>=CURDATE() ORDER BY event_id DESC LIMIT 5";
       $result=$this->db->query($query);
       return  $result->result();
 
@@ -59,7 +59,7 @@ Class Dashboard extends CI_Model
 
     function dash_comm()
 	{
-		 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		 $get_year="SELECT * FROM edu_academic_year WHERE CURDATE()>=from_month AND CURDATE()<=to_month";
 		  $result1=$this->db->query($get_year);
 		   $all_year= $result1->result();
 		  if($result1->num_rows()==0){
@@ -561,7 +561,7 @@ INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS s ON
 
 function get_students_circular($user_id)
   {
-	   $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+	   $get_year="SELECT * FROM edu_academic_year WHERE CURDATE()>=from_month AND CURDATE()<=to_month";
 		  $result1=$this->db->query($get_year);
 		  $all_year= $result1->result();
 		  if($result1->num_rows()==0){ }else{
@@ -579,7 +579,7 @@ function get_students_circular($user_id)
 
   function get_parents_circular($user_id)
   {
-	      $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+	      $get_year="SELECT * FROM edu_academic_year WHERE CURDATE()>=from_month AND CURDATE()<=to_month";
 		  $result1=$this->db->query($get_year);
 		  $all_year= $result1->result();
 		  if($result1->num_rows()==0){ }else{

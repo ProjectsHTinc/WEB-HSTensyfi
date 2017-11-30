@@ -185,7 +185,7 @@ class Student extends CI_Controller
                 $this->load->view('adminstudent/student_footer');
             } else {
                 $data['restime']  = $datas['restime']['time'];
-                $data['class_id'] = $class_sec_id;
+              //  $data['class_id'] = $class_sec_id;
                 $data['user_id']   = $user_id;
                 $data['user_type'] = $user_type;
                 $this->load->view('adminstudent/student_header');

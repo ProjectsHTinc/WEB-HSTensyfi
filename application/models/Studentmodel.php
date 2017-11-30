@@ -11,7 +11,7 @@ Class Studentmodel extends CI_Model
 
   public function getYear()
     {
-      $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $sqlYear = "SELECT * FROM edu_academic_year WHERE CURDATE() >= from_month AND CURDATE() <= to_month AND status = 'Active'";
       $year_result = $this->db->query($sqlYear);
       $ress_year = $year_result->result();
 
@@ -27,7 +27,7 @@ Class Studentmodel extends CI_Model
 
     function getTerm()
     {
-        $sqlYear     = "SELECT * FROM edu_terms WHERE NOW() >= from_date AND NOW() <= to_date AND status = 'Active'";
+        $sqlYear     = "SELECT * FROM edu_terms WHERE CURDATE() >= from_date AND CURDATE() <= to_date AND status = 'Active'";
         $term_result = $this->db->query($sqlYear);
         $ress_year   = $term_result->result();
 
@@ -244,7 +244,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 	 function get_circular($user_id){
 		 //$cid=$this->get_class_id_user();
         //echo $user_id;exit;
-		  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+		  $get_year="SELECT * FROM edu_academic_year WHERE CURDATE()>=from_month AND CURDATE<=to_month";
 		  $result1=$this->db->query($get_year);
 		  $all_year= $result1->result();
 		  if($result1->num_rows()==0){ }else{
@@ -343,7 +343,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
 
-				  $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+				  $get_year="SELECT * FROM edu_academic_year WHERE CURDATE>=from_month AND CURDATE<=to_month";
 				  $result1=$this->db->query($get_year);
 				  $all_year= $result1->result();
 				  foreach($all_year as $cyear){}
@@ -362,7 +362,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 				$row=$resultset->result();
 				$student_id=$row[0]->student_id;
 
-				 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
+				 $get_year="SELECT * FROM edu_academic_year WHERE CURDATE()>=from_month AND CURDATE()<=to_month";
 				  $result1=$this->db->query($get_year);
 				  $all_year= $result1->result();
 				  foreach($all_year as $cyear){}
