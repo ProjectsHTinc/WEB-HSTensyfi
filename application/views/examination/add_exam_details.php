@@ -84,14 +84,13 @@
                                    <div id="is_inter_exter"></div>
                               </div>
                               <!-- style="display: none;" onchange="showdiv(this.value)"-->
-                              <div id="marks">
+                              <div>
                                   <div class="col-sm-2">
-                                      <div id="inter">
-
-                                      </div>
+                                      <div id="inter"></div>
                                  </div>
+
                                   <div class="col-sm-2">
-                                      <div id="exter"></div>
+                                        <div id="exter"></div>
                                  </div>
                              </div>
 
@@ -106,7 +105,6 @@
 									  <option value="Deactive">DeActive</option>
 								</select>
 							  </div>
-
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
@@ -294,21 +292,32 @@
    function showdiv(dyid,val)
    {
      // alert(dyid);
-     //  alert(val);
+    
       var inter_id = '';
       var exter_id = '';
-
+ 
      if(val== 1)
      {
-       //alert(val);
-       //document.getElementById('marks').style.display = "block";
-       inter_id +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
+       alert(val); alert(dyid);
+       inter_id +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/><br>';
       exter_id +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
-      $("#"+ dyid +"").html(inter_id);
-      $("#"+ dyid +"").html(exter_id);
+
+      var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
+      var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
+      a.show();
+      b.show();
+      //exter_id.attr('id','exter');
+      //inter_id.attr('id','inter');
+     
      }else{
-       $("#"+ dyid +"").html(' ');
-       $("#"+ dyid +"").html(' ');
+      
+      alert(val); alert(dyid);
+      //$("#"+ dyid +"").html(' ').attr('id','inter');
+       //$("#"+ dyid +"").html(' ').attr('id','exter');
+       var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
+       var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
+       a.hide();
+       b.hide();
      }
    }
 
@@ -390,8 +399,10 @@
 
                            stlt +='<input type="text"  required name="sub_total[]"  class="form-control"   placeholder="Subject Total"/></br>';
 
-                           internal +='<div id="'+ i+'"></div>';
-                            external +='<div id="'+ i+'"></div>';
+                            internal +='<div id="'+ i +'">im</div>';
+
+                            external +='<div id="'+ i +'">em</div>';
+
                            //internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
 
                            //external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
