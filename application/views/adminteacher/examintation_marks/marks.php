@@ -76,7 +76,14 @@
                               <?php
                                  $i=1;
                                  if(!empty($mark)){
-                                 foreach($mark as $rows){?>
+                                 foreach($mark as $rows){
+                                   $preferlng=$rows->language; 
+                                      $sub="SELECT subject_name FROM edu_subject WHERE subject_id='$preferlng'";
+                                      $res1= $this->db->query($sub);
+                                      $subna=$res1->result();
+                                      foreach ($subna as $subname) { }
+                                        $sub_name=$subname->subject_name;
+                                  ?>
                               <tr>
                                  <?php foreach($result as $flag){} $eflag=$flag->is_internal_external;
                                     if($eflag==1)
@@ -84,7 +91,7 @@
                                  <td style="width:05%;"><?php echo $i;?></td>
                                  <td style="width:15%;">
                                     <?php  $stdid=$rows->name;
-                                       echo $stdid;
+                                       echo $stdid; echo ' '; echo '('; echo ' '; echo $sub_name; echo ' '; echo ')';
                                        ?>
                                  </td>
                                  <?php   
@@ -124,11 +131,18 @@
                               <?php $i++;}
                                  }else{  
                                  foreach($res as $row)
-                                   {  $gen=$row->sex?>
+                                   {  $gen=$row->sex;
+                                      $preferlng=$row->language; 
+                                      $sub="SELECT subject_name FROM edu_subject WHERE subject_id='$preferlng'";
+                                      $res1= $this->db->query($sub);
+                                      $subna=$res1->result();
+                                      foreach ($subna as $subname) { }
+                                        $sub_name=$subname->subject_name;
+                                     ?>
                               <tr>
                                  <td><?php echo $i;?></td>
                                  <td style="">
-                                    <?php  echo $row->name; ?>
+                                    <?php if($sub_id==$preferlng){ ?> <span style="color:#06d4f5;"> <?php echo $row->name; ?> ( <?php echo  $sub_name; ?> ) </span> <?php }else{  echo $row->name; echo' '; echo'('; echo' '; echo $sub_name; echo' '; echo')'; } ?> 
                                     <input type="hidden" name="sutid[]" value="<?php echo $row->enroll_id; ?>" />
                                     <input type="hidden" name="teaid" value="<?php echo $row->teacher_id; ?>" />
                                     <input type="hidden" name="clsmastid" value="<?php echo $row->class_id; ?>" />
@@ -140,10 +154,9 @@
                                  <input type="hidden" name="ttlmark" value="<?php echo $flag->subject_total;?>" class="form-control"/>
                                  <input type="hidden" name="interlimit" value="<?php echo $flag->internal_mark;?>" class="form-control"/>
                                  <input type="hidden" name="exterlimit" value="<?php echo $flag->external_mark;?>" class="form-control"/>
-
                                  <!-- new -->
                                  <td style="width: 30%;">
-                                    <input style="width:60%;" type="text" maxlength="2" name="internal_marks[]"  class="form-control inputBox"/>
+                                    <input style="width:60%;" type="text" maxlength="2" name="internal_marks[]" required  class="form-control inputBox"/>
                                  </td>
                                  <td style="width: 30%;">
                                     <input style="width:60%;" type="text" maxlength="2" required name="external_marks[]"  class="form-control inputBox1"/>

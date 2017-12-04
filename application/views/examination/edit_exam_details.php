@@ -14,7 +14,7 @@
             <?php
                foreach($res as $rows) {} ?>
             <div class="content">
-               <form method="post" action="<?php echo base_url(); ?>examination/update_exam_details" class="form-horizontal" enctype="multipart/form-data" name="examform" id="examform">
+               <form method="post" action="<?php echo base_url(); ?>examination/update_exam_details" class="form-horizontal" enctype="multipart/form-data" name="examform" id="examform" onsubmit=return sum();>
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Exam</label>
@@ -140,11 +140,11 @@
                      <div class="form-group">
                        <label class="col-sm-2 control-label">Subject Total</label>
                          <div class="col-sm-2">
-                            <input type="text"  name="sub_total" class="form-control" value="<?php echo $rows->subject_total;?>">
+                            <input type="text"  name="sub_total" maxlength="3" id="sub_total" class="form-control" value="<?php echo $rows->subject_total;?>">
                          </div>
                        
                          <div class="col-sm-2">
-                          <select name="inter_exter_mark" required class="form-control" onchange="clearfun(this)">
+                          <select name="inter_exter_mark" id="inter_exter_mark" required class="form-control" onchange="clearfun(this)">
                             <option>Internal & External </option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
@@ -155,11 +155,11 @@
 
                   <label class="col-sm-2 control-label">Internal & External Marks</label>
                          <div class="col-sm-2">
-                            <input type="text"  name="inter_mark"id="im" class="form-control" value="<?php echo $rows->internal_mark;?>">
+                            <input type="text"  name="inter_mark" id="im" maxlength="3" class="form-control" value="<?php echo $rows->internal_mark;?>">
                          </div>
                       
                          <div class="col-sm-2">
-                         <input type="text"  name="exter_mark" id="em" class="form-control" value="<?php echo $rows->external_mark;?>">
+                         <input type="text"  name="exter_mark" id="em" maxlength="3" class="form-control" value="<?php echo $rows->external_mark;?>">
                          </div>
                     
                     <?php //} ?>
@@ -189,6 +189,26 @@
    </div>
 </div>
 <script type="text/javascript">
+
+ $("form").submit(function(){
+   var res = document.getElementById('inter_exter_mark').value;
+   //alert("Submitted");alert(res);alert(txtFirstNumberValue);alert(txtSecondNumberValue);
+      if(res==1){
+          var txtFirstNumberValue = document.getElementById('im').value;
+          var txtSecondNumberValue = document.getElementById('em').value;
+          var result = parseInt(txtFirstNumberValue) + parseInt(txtSecondNumberValue);
+
+          var ttl=document.getElementById('sub_total').value;
+           if(ttl==result){
+           }else{
+            alert("The internal and external total marks value must be equal to subject total value");
+            return false;
+           }
+      }
+      
+    });
+
+ 
   function clearfun(val)
   {
     var inm = $('#im').val();

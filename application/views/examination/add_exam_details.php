@@ -298,8 +298,8 @@
      if(val==1)
      {
        //alert(val); alert(dyid);
-       inter_id +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/><br>';
-      exter_id +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
+       inter_id +='<input type="text"  required name="inter_mark[]" id="im" class="form-control"   placeholder="Internal Mark"/><br>';
+      exter_id +='<input type="text"  required name="exter_mark[]" id="em" class="form-control"   placeholder="External Mark"/></br>';
 
       var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
       var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
@@ -393,7 +393,7 @@
 
                            exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
 
-                           stlt +='<input type="text"  required name="sub_total[]"  class="form-control"   placeholder="Subject Total"/></br>';
+                           stlt +='<input type="text"  required name="sub_total[]" id="sub_total" class="form-control"   placeholder="Subject Total"/></br>';
 
                             internal +='<div id="'+ i +'">im</div>';
 
@@ -403,7 +403,7 @@
 
                            //external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
 
-                           inter_exter +='<select name="inter_exter_mark[]" onchange="showdiv('+i+',this.value)" required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
+                           inter_exter +='<select name="inter_exter_mark[]" id="inter_exter_mark" onchange="showdiv('+i+',this.value)" required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
 
                            exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
 

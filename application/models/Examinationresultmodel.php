@@ -171,13 +171,13 @@ Class Examinationresultmodel extends CI_Model
 	}
     function getall_cls_sec_stu($user_id,$sub_id,$cls_masid,$exam_id,$user_type)
     {
-        $query     = "SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
+    $query     = "SELECT teacher_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
         $resultset = $this->db->query($query);
         $row       = $resultset->result();
         foreach ($row as $rows) {}
         $teacher_id = $rows->user_master_id;
         //echo $teacher_id;exit;  AND en.name=a.name
-          $sql="SELECT t.teacher_id,t.subject_id,t.class_master_id,su.subject_id,su.subject_name,en.enroll_id,en.admission_id,en.name,en.class_id,en.status,en.admisn_no,a.admission_id,a.admisn_no,a.name,a.sex,a.status FROM edu_subject AS su,edu_teacher_handling_subject AS t,edu_enrollment AS en,edu_admission AS a WHERE t.subject_id='$sub_id' AND t.subject_id=su.subject_id AND en.class_id='$cls_masid' AND t.class_master_id=en.class_id AND t.teacher_id='$teacher_id' AND en.status='Active' AND a.status='Active' AND en.admission_id=a.admission_id  ORDER BY a.sex DESC,en.name ASC";
+          $sql="SELECT t.teacher_id,t.subject_id,t.class_master_id,su.subject_id,su.subject_name,en.enroll_id,en.admission_id,en.name,en.class_id,en.status,en.admisn_no,a.admission_id,a.admisn_no,a.name,a.sex,a.status,a.language FROM edu_subject AS su,edu_teacher_handling_subject AS t,edu_enrollment AS en,edu_admission AS a WHERE t.subject_id='$sub_id' AND t.subject_id=su.subject_id AND en.class_id='$cls_masid' AND t.class_master_id=en.class_id AND t.teacher_id='$teacher_id' AND en.status='Active' AND a.status='Active' AND en.admission_id=a.admission_id  ORDER BY a.sex DESC,en.name ASC";
         $res        = $this->db->query($sql);
         $result     = $res->result();
         return $result;
@@ -479,7 +479,8 @@ Class Examinationresultmodel extends CI_Model
         foreach ($row as $rows) {}
         $teacher_id = $rows->user_master_id;
 
-		 $sql1 = "SELECT em.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,a.admission_id,a.admisn_no,a.name,a.sex FROM edu_exam_marks AS em,edu_enrollment AS en,edu_admission AS a WHERE teacher_id='$teacher_id' AND subject_id='$sub_id' AND classmaster_id='$cls_masid' AND exam_id='$exam_id' AND en.enroll_id=em.stu_id AND en.admission_id=a.admission_id  ORDER BY a.sex DESC,en.name ASC";
+		 $sql1 = "SELECT em.*,en.enroll_id,en.admission_id,en.admisn_no,en.name,a.admission_id,a.admisn_no,a.name,a.sex,a
+         .language FROM edu_exam_marks AS em,edu_enrollment AS en,edu_admission AS a WHERE teacher_id='$teacher_id' AND subject_id='$sub_id' AND classmaster_id='$cls_masid' AND exam_id='$exam_id' AND en.enroll_id=em.stu_id AND en.admission_id=a.admission_id  ORDER BY a.sex DESC,en.name ASC";
         $result1 = $this->db->query($sql1);
         $row1    = $result1->result();
         return $row1;

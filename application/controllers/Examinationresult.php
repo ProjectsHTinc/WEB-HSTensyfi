@@ -145,7 +145,7 @@ class Examinationresult extends CI_Controller
         $datas['res']=$this->examinationresultmodel->getall_cls_sec_stu($user_id,$sub_id,$cls_masid,$exam_id,$user_type);
 	    $datas['edate']=$this->examinationresultmodel->exam_date_check($user_id,$cls_masid,$exam_id,$user_type,$sub_id);
         $datas['mark']= $this->examinationresultmodel->getall_marks($user_id,$cls_masid,$exam_id,$sub_id,$user_type);
-     // echo'<pre>'; print_r($datas['result'] );exit;
+       //echo'<pre>'; print_r($datas['mark'] );exit;
         if ($user_type == 2) {
             $this->load->view('adminteacher/teacher_header');
             $this->load->view('adminteacher/examintation_marks/marks', $datas);

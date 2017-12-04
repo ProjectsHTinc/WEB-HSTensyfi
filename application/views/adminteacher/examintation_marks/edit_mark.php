@@ -15,7 +15,7 @@
                      <p class="category"></p>
                   </div>
                   <div class="content table-responsive table-full-width">
-                     <form method="post" action="<?php echo base_url(); ?>examinationresult/update_marks_details" class="form-horizontal" enctype="multipart/form-data" id="markform">
+                     <form method="post" action="<?php echo base_url(); ?>examinationresult/update_marks_details" class="form-horizontal" enctype="multipart/form-data" id="markform" name="markform">
                         <?php if(!empty($mark)){ echo "<p style=color:red;text-align:center;>The Reportcard Approve to Admin So Can't Update Marks</p>";}else{ } ?>
                         <table class="table table-hover table-striped">
 
@@ -62,27 +62,27 @@
                                  <?php if(!empty($mark)){ 
                                     if($eflag==1){ ?>
                                  <td>
-                                    <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->internal_mark; ?>" class="form-control"/>
+                                    <input style="width:60%;" type="text" readonly value="<?php echo $row->internal_mark; ?>" class="form-control"/>
                                  </td>
                                  <td>
-                                    <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->external_mark; ?>" class="form-control"/>
+                                    <input style="width:60%;" type="text" readonly value="<?php echo $row->external_mark; ?>" class="form-control"/>
                                  </td>
                                  <?php }else{?>
                                  <td>
-                                    <input style="width:60%;" type="text" readonly name="" value="<?php echo $row->total_marks; ?>" class="form-control"/>
+                                    <input style="width:60%;" type="text" readonly  value="<?php echo $row->total_marks; ?>" class="form-control"/>
                                  </td>
                                  <?php }
                                     }else{
                                     if($eflag==1){?>
                                  <td>
-                                    <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox"/>
+                                    <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox" required />
                                  </td>
                                  <td>
-                                    <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control inputBox1"/>
+                                    <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control inputBox1"   required />
                                  </td>
                                  <?php }else{?>
                                  <td>
-                                    <input style="width:60%;" type="text"  name="total_marks[]" value="<?php echo $row->total_marks; ?>" class="form-control inputBox2" maxlength='3'/>
+                                    <input style="width:60%;" type="text"  name="total_marks[]" value="<?php echo $row->total_marks; ?>" class="form-control inputBox2" maxlength='3' required/>
                                  </td>
                                  <td></td>
                                  <?php }
@@ -115,10 +115,31 @@
    $('#examinationmenu').addClass('collapse in');
         $('#exam').addClass('active');
         $('#exam2').addClass('active'); 
-   
+  
 
+     $("[name^=internal]").each(function () {
+        $(this).rules("add", {
+            required: true,
+            checkValue: true
+        });
+    });
 
+      $("[name^=external]").each(function () {
+        $(this).rules("add", {
+            required: true,
+            checkValue: true
+        });
+    });
 
+       $("[name^=total_marks]").each(function () {
+        $(this).rules("add", {
+            required: true,
+            checkValue: true
+        });
+    });
+
+       
+      
     <?php foreach($result as $flag){}?>
 
    $(".inputBox").on("keyup keydown", function(e){

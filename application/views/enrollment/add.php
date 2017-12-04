@@ -31,14 +31,14 @@
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Admission Id</label>
+                        <label class="col-sm-2 control-label">Admission No</label>
                         <div class="col-sm-4">
-                           <select name="admission_id" id="admission_no" onchange="checknamefun(this.value)" class="selectpicker form-control" data-title="Select Admission Id" >
+                           <select name="admisn_no" id="admission_no" onchange="checknamefun(this.value)" class="selectpicker form-control" data-title="Select Admission No" >
                               <?php foreach ($admisno as $row) {  ?>
-                              <option value="<?php echo $row->admission_id; ?>"><?php echo $row->admission_id; ?></option>
+                              <option value="<?php echo $row->admisn_no; ?>"><?php echo $row->admisn_no; ?></option>
                               <?php      } ?>
                            </select>
-                        </div>
+                            </div>
                      </div>
                   </fieldset>
                   <fieldset>

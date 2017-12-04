@@ -103,9 +103,11 @@ class Enrollment extends CI_Controller {
 			 $formatted_date=date_format($dateTime,'Y-m-d' );
 			 
 			 $admisn_no=$this->input->post('admisn_no');
+			 $admisnid=$this->input->post('admission_id');
+			 //echo $admisn_no; echo'<br>'; echo $admisnid; exit;
 			 $name=$this->input->post('name');
 			 $class=$this->input->post('class_section');
-			 $admisnid=$this->input->post('admission_id');
+			 
 			 //echo $admisnid; 
 			 $quota_id=$this->input->post('quota_id');
 			 $groups_id=$this->input->post('groups_id');
