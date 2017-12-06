@@ -241,7 +241,7 @@
          type:'POST',
          data: $('#myformsection').serialize(),
          success: function(response) {
-          alert(response);
+            //alert(response);
         if(response=="success")
         {      
            $('#myformsection')[0].reset();

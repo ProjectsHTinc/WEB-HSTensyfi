@@ -171,18 +171,18 @@ Class Examinationmodel extends CI_Model
 
 	function update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id,$status,$sub_total,$inter_mark,$exter_mark,$inter_exter_mark,$user_id)
 	{
-	  $check_exam_name="SELECT * FROM edu_exam_details WHERE exam_id='$exam_year' AND subject_id='$subject_name' AND classmaster_id='$class_name' AND exam_date='$formatted_date' AND times='$time' AND teacher_id='$teacher_id' AND status='$status' AND internal_mark='$inter_mark' AND external_mark='$exter_mark' AND is_internal_external='$inter_exter_mark'";
-	  $result=$this->db->query($check_exam_name);
-      if($result->num_rows()==0)
-	   {  
+	  //$check_exam_name="SELECT * FROM edu_exam_details WHERE exam_id='$exam_year' AND subject_id='$subject_name' AND classmaster_id='$class_name' AND exam_date='$formatted_date' AND times='$time' AND teacher_id='$teacher_id' AND status='$status' AND internal_mark='$inter_mark' AND external_mark='$exter_mark' AND is_internal_external='$inter_exter_mark'";
+	 // $result=$this->db->query($check_exam_name);
+      //if($result->num_rows()==0)
+	  // {  
 	    $query="UPDATE edu_exam_details SET exam_id='$exam_year',subject_id='$subject_name',exam_date='$formatted_date',times='$time',classmaster_id='$class_name',teacher_id='$teacher_id',subject_total='$sub_total',is_internal_external='$inter_exter_mark',internal_mark='$inter_mark',external_mark='$exter_mark',status='$status',updated_by='$user_id',updated_at='NOW()' WHERE exam_detail_id='$id' ";
 		$res=$this->db->query($query);
 		$data= array("status" => "success");
         return $data;
-	   }else{
-         $data= array("status" => "Exam Already Exist");
-         return $data;
-       }
+	   //}else{
+         //$data= array("status" => "Exam Already Exist");
+         //return $data;
+       //}
 	}
 	
 	function check_add_exam($classid,$examid)

@@ -85,11 +85,12 @@
                               </div>
                               <!-- style="display: none;" onchange="showdiv(this.value)"-->
                               <div>
-                                  <div class="col-sm-2">
-                                      <div id="inter"></div>
-                                 </div>
-                                  <div class="col-sm-2">
-                                        <div id="exter"></div>
+                                  <div class="col-sm-4">
+
+                                    <div id="inter"></div>
+                                  <!--/div>
+                                  <div class="col-sm-4">
+                                      <div id="exter"></div-->
                                  </div>
                              </div>
 
@@ -287,33 +288,33 @@
    </div>
 </div>
 <script type="text/javascript">
+
 function showdiv(dyid,val)
 {
-// alert(dyid);
+    // alert(dyid);
+    var inter_id = '';
+    var exter_id = '';
+    if(val==1)
+    {
+        //alert(val); alert(dyid);.attr('id','exter')html(exter_id).find(".exterNal");
+        inter_id +='<input style="width: 130px;float:left;margin-bottom: 20px;" type="text" readonly  name="inter_mark[]" id="im" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" id="em" class="form-control"  placeholder="External Mark" style="width: 130px;float:left;margin-left: 10px;margin-bottom: 20px;"/></br>';
 
-var inter_id = '';
-var exter_id = '';
+        exter_id +='<input style="width: 130px;float:left;margin-bottom: 20px;"  type="text" required name="inter_mark[]" id="im" class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]" id="em" class="form-control emmarks"  placeholder="External Mark" style="width: 130px;float:left;margin-left: 10px;margin-bottom: 20px;"/></br>';
 
-if(val==1)
-{
- //alert(val); alert(dyid);
-inter_id +='<input type="text" required name="inter_mark[]" id="im" class="form-control" placeholder="Internal Mark"/><br>';
-exter_id +='<input type="text" required name="exter_mark[]" id="em" class="form-control"  placeholder="External Mark"/></br>';
-
-var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
-var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
-a.show();
-b.show();
-}else{
-  
-//alert(val); alert(dyid);
-//$("#"+ dyid +"").html(' ').attr('id','inter');
-//$("#"+ dyid +"").html(' ').attr('id','exter');
- var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
- var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
- a.hide();
- b.hide();
-}
+        var a=$("#"+ dyid +"").html(inter_id);
+        var b=$("#"+ dyid +"").html(exter_id);
+        a.show();
+        b.show();
+    }else{
+        //alert(val); alert(dyid);
+        //$("#"+ dyid +"").html(' ').attr('id','inter');
+        //$("#"+ dyid +"").html(' ').attr('id','exter');
+      
+        var b=$("#"+ dyid +"").html(exter_id);
+        var a=$("#"+ dyid +"").html(inter_id);
+        a.show();
+        b.show();
+        }
 }
 
 function checksubject(exam_year,class_name)
@@ -335,12 +336,12 @@ if(eid!='' && cid!=''){
 			//alert(test);
 			if(test=="Already Exam Added")
 			{
-		      $("#msg1").html(test);
+		    $("#msg1").html(test);
 				$('#msg').html('');
 				$("#ajaxres").html('');
-            $("#ajaxres1").html('');
-            $("#ajaxres2").html('');
-            $("#ajaxres3").html('');
+        $("#ajaxres1").html('');
+        $("#ajaxres2").html('');
+        $("#ajaxres3").html('');
 				$("#save").hide();
 			}else{
 				$("#msg1").html('');
@@ -392,11 +393,11 @@ if(eid!='' && cid!=''){
 
                      exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
 
-                     stlt +='<input type="text"  required name="sub_total[]" id="sub_total" class="form-control"   placeholder="Subject Total"/></br>';
+                     stlt +='<input type="text"  required name="sub_total[]"  id="sub_total" class="form-control"   placeholder="Subject Total"/></br>';
 
-                      internal +='<div id="'+ i +'">im</div>';
+                      internal +='<div id="'+ i +'"></div>';
 
-                      external +='<div id="'+ i +'">em</div>';
+                      external +='<div id="'+ i +'"></div>';
 
                      //internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
 
@@ -423,17 +424,13 @@ if(eid!='' && cid!=''){
              } else {
 				$('#msg').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
 				    $("#ajaxres").html('');
-                     $("#ajaxres1").html('');
-                     $("#ajaxres2").html('');
-                     $("#ajaxres3").html('');
-
-                     $("#subtlt").html('');
-                     $("#is_inter_exter").html('');
-                     $("#inter").html('');
-                     $("#exter").html('');
-
-				         //$('#examform')[0].reset();
-                    //alert("Subject Not Found");
+                     $("#ajaxres1").html(' ');
+                     $("#ajaxres2").html(' ');
+                     $("#ajaxres3").html(' ');
+                     $("#subtlt").html(' ');
+                     $("#is_inter_exter").html(' ');
+                     $("#inter").html(' ');
+                     $("#exter").html('  ');
              }
          }
      });
@@ -458,11 +455,11 @@ $(document).ready(function() {
         },
         messages: {
             exam_year: "Please Select Exam Year",
-		class_name: "Please Select Class and Section Name",
-		subject_name: "Please Select Subject Name",
-		exam_date: "Please Enter Exam Date",
-		time: "Please Select Time",
-		teacher_id: "Please Select Teacher Name"
+        		class_name: "Please Select Class and Section Name",
+        		subject_name: "Please Select Subject Name",
+        		exam_date: "Please Enter Exam Date",
+        		time: "Please Select Time",
+        		teacher_id: "Please Select Teacher Name"
         }
     });
 });
