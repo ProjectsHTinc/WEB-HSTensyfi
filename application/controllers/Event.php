@@ -59,7 +59,7 @@ class Event extends CI_Controller {
         $user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 				$datas['result']=$this->eventmodel->getall_events();
-			
+
 				if($user_type==1){
        $this->load->view('header',$datas);
        $this->load->view('event/add',$datas);
@@ -248,8 +248,7 @@ class Event extends CI_Controller {
 							 $co_id=$this->input->post('co_id');
 							 $sub_event_name=$this->input->post('sub_event_name');
 							 $co_name=$this->input->post('co_name');
-                             $status=$this->input->post('status');
-
+               $status=$this->input->post('status');
 							 $datas=$this->eventmodel->update_sub_event($event_id,$co_id,$sub_event_name,$co_name,$status);
 
 							 if($datas['status']=="success"){
@@ -262,11 +261,11 @@ class Event extends CI_Controller {
 			}
 			}
 
-           public function todolist(){
-				$datas=$this->session->userdata();
-				$user_id=$this->session->userdata('user_id');
-				$user_type=$this->session->userdata('user_type');
-			 if($user_type==1){
+     public function todolist(){
+					$datas=$this->session->userdata();
+					$user_id=$this->session->userdata('user_id');
+					$user_type=$this->session->userdata('user_type');
+				 if($user_type==1){
 					$to_do_date=$this->input->post('to_do_date');
 					$to_do_list=$this->input->post('to_do_list');
 					$to_do_notes=$this->input->post('to_do_notes');

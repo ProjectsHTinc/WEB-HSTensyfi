@@ -1,4 +1,4 @@
-<style>th{width:150px;}</style>
+<style>select{width:120px;}</style>
 <div class="main-panel">
 <div class="content">
 <div class="col-md-12">

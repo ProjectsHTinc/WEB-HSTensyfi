@@ -141,7 +141,7 @@ class Timetable extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			$class_sec_id=base64_decode($class_sec_id);
+		  $class_sec_id=base64_decode($class_sec_id);
 			$datas['restime']=$this->timetablemodel->view($class_sec_id,$term_id);
 			$datas['res_sub']=$this->timetablemodel->get_subject_class($class_sec_id);
 			$datas['res_teacher']=$this->timetablemodel->get_teacher_class($class_sec_id);

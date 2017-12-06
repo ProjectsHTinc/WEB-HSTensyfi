@@ -72,12 +72,11 @@ class Teachertimetable extends CI_Controller {
 		}
 
 
-		public function view($class_sec_id){
+		public function view($class_mas_id){
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-
-
+			$class_sec_id=base64_decode($class_mas_id);
 			$datas['restime']=$this->timetablemodel->view_time($class_sec_id);
 		 if($user_type==2){
 			 if($datas['restime']['st']=="no data Found"){

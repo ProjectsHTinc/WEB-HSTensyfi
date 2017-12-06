@@ -84,7 +84,7 @@
                                                 <!-- <td></td> -->
 
                                                 <td>
-                                                    <a rel="tooltip" title="Edit" class="" href="<?php echo base_url(); ?>timetable/edit/<?php  echo $rowsclass->class_sec_id;  ?>"><i class="fa fa-edit"></i></a>
+                                                    <a rel="tooltip" title="Edit" class="" href="<?php echo base_url(); ?>timetable/edit/<?php  echo base64_encode($rowsclass->class_sec_id);  ?>/<?php  echo $rowsclass->term_id;  ?>"><i class="fa fa-edit"></i></a>
                                                     <a onclick="confrim(<?php  echo $rowsclass->class_sec_id; ?>,<?php  echo $this->uri->segment(3); ?>)"> <i class="fa fa-remove"></i></a>
 
                                                 </td>
@@ -107,7 +107,7 @@
             $('#time').addClass('active');
             $('#time2').addClass('active');
             $('#example').DataTable({
-              
+
                dom: 'lBfrtip',
                buttons: [
                     {

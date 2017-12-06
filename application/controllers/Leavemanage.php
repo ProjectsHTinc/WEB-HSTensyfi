@@ -56,7 +56,7 @@ class Leavemanage extends CI_Controller {
 			 	$leave_type=$this->input->post('leave_type');
 				$years=$this->input->post('years');
 				$clas=$this->input->post('class_name');
-				
+
 				if($clas=='')
 		         {
 			       $class_name ="null";
@@ -105,8 +105,6 @@ class Leavemanage extends CI_Controller {
 				$user_type=$this->session->userdata('user_type');
 				$datas['regular']=$this->leavemodel->get_regular();
 				$datas['special']=$this->leavemodel->get_special();
-
-
 			 if($user_type==1){
 			 $this->load->view('header');
 			 $this->load->view('leavemanage/view',$datas);
@@ -118,7 +116,6 @@ class Leavemanage extends CI_Controller {
 		}
 
 		public function edit($id){
-
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
@@ -136,7 +133,6 @@ class Leavemanage extends CI_Controller {
 
 
 		public function specialedit($id){
-
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
@@ -163,7 +159,7 @@ class Leavemanage extends CI_Controller {
 			$leave_id=$this->input->post('leave_id');
 			$leave_mas_id=$this->input->post('leave_mas_id');
 			$leave_date=$this->input->post('leave_date');
-			
+
 			$clas=$this->input->post('class_name');
 				if($clas=='')
 		         {
@@ -171,7 +167,7 @@ class Leavemanage extends CI_Controller {
 				 }else{
 					$class_name = implode(',',$clas);
 				  }
-				  
+
 			$leave_name=$this->input->post('leave_name');
 			$leave_status=$this->input->post('leave_status');
 			$datas=$this->leavemodel->udate_special_leave($leave_type,$leave_id,$leave_mas_id,$leave_date,$class_name,$leave_name,$leave_status);
@@ -202,7 +198,7 @@ class Leavemanage extends CI_Controller {
 			 $leave_type=$this->input->post('leave_type');
 			 $leave_id=$this->input->post('leave_id');
 			 $years=$this->input->post('years');
-			 
+
 			 $clas=$this->input->post('class_name');
 				if($clas=='')
 		         {

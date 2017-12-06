@@ -82,7 +82,7 @@ Class Timetablemodel extends CI_Model
     {
         $year_id = $this->getYear();
         $term_id = $this->getTerm();
-        $query   = "SELECT tt.class_id AS timid,cm.class_sec_id,cm.class,cm.section,c.class_id,tt.year_id,a.from_month,a.to_month,c.class_name,s.sec_name
+        $query   = "SELECT tt.class_id AS timid,cm.class_sec_id,cm.class,cm.section,c.class_id,tt.term_id,tt.year_id,a.from_month,a.to_month,c.class_name,s.sec_name
                    FROM edu_timetable AS tt  INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id
                    INNER JOIN edu_academic_year AS a ON tt.year_id=a.year_id INNER JOIN edu_sections AS s ON cm.section=s.sec_id WHERE tt.year_id='$year_id' AND tt.term_id='$term_id' GROUP BY tt.class_id";
         $result  = $this->db->query($query);
@@ -169,15 +169,14 @@ Class Timetablemodel extends CI_Model
 
     function get_subject_class($class_sec_id)
     {
-        //echo $class_sec_id;
         $query  = "SELECT * FROM edu_classmaster WHERE class_sec_id='$class_sec_id'";
         $result = $this->db->query($query);
         foreach ($result->result() as $rows) {
         }
         $sPlatform = $rows->subject;
-        $sQuery    = "SELECT estc.subject_id,estc.class_master_id,c.class_name,s.sec_name,esu.subject_name FROM edu_subject_to_class AS estc
-                        LEFT JOIN edu_classmaster AS cm ON estc.class_master_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id
+        $sQuery    = "SELECT estc.subject_id,estc.class_master_id,c.class_name,s.sec_name,esu.subject_name FROM edu_subject_to_class AS estc LEFT JOIN edu_classmaster AS cm ON estc.class_master_id=cm.class_sec_id LEFT JOIN edu_class AS c ON cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id
                         LEFT JOIN edu_subject AS esu ON estc.subject_id=esu.subject_id WHERE estc.class_master_id='$class_sec_id'  AND estc.status='Active'";
+
         $objRs     = $this->db->query($sQuery);
         $res       = $objRs->result();
         if ($result->num_rows() == 0) {

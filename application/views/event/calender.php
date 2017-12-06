@@ -25,7 +25,7 @@
 											</div>
 										</center>
 									</div>
-									
+
 											<div class="col-md-4">
 
 										<div class="card">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
 								</div> <!-- end card -->
-									
+
 							</div>
 					</div>
 			</div>
@@ -88,10 +88,15 @@ $('#event1').addClass('active');
 		 textColor: 'black'
 	 },
 	 {
-		 url: '<?php echo base_url() ?>event/get_all_regularleave',
-		 color: 'blue',
+		 url: '<?php echo base_url() ?>leavemanage/get_all_special_leave',
+		 color: '#9266d9',
 		 textColor: 'white'
 	 },
+	 {
+		url: '<?php echo base_url() ?>event/get_all_regularleave',
+		color: 'blue',
+		textColor: 'white'
+	},
 	  {
 		url: '<?php echo base_url() ?>event/view_all_reminder',
 		color: 'red',
@@ -120,7 +125,7 @@ eventMouseout: function(calEvent, jsEvent) {
 		});
 
 	});
-	
+
 		$('#to_do_form').validate({ // initialize the plugin
 	    rules: {
 	        to_do_date:{required:true },
