@@ -131,7 +131,6 @@
                   <div class="card">
                      <div class="content">
                         <div class="fresh-datatables">
-
                            <form method="post" action="<?php echo base_url(); ?>examination/add_exam_detail" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="class_id" style="margin-top:30px;" class="selectpicker">
