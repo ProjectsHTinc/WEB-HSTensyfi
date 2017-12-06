@@ -16,14 +16,14 @@
       </div>
       <div class="">
          <div class="content">
-            <div class="container">
+            <div class="container card" style="padding-bottom:20px;">
                <div class="header">
                   <legend>Time Table<button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> <a href="<?php echo base_url(); ?>teachertimetable/reviewview" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go To Review</a></legend>
                </div>
-               <div class="content">
+               <div class="card">
                   <div class="">
                      <div class="col-md-12">
-                        <div class="row">
+                        <div class="">
                            <div class="">
                               <div class="col-md-3 tablwidth">
                                  <center>Monday</center>
