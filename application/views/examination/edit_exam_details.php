@@ -204,28 +204,15 @@
             alert("The internal and external total marks value must be equal to subject total value");
             return false;
            }
+      }else{
+        document.getElementById('im').value=0;
+        document.getElementById('em').value=0;
       }
       
     });
 
  
-  function clearfun(val)
-  {
-    var inm = $('#im').val();
-    var exm = $('#em').val();
-    //alert(inm);  alert(exm);
-    if(val.value==0){
-        $('#im').hide();
-        $('#em').hide();
-    }else{
-
-       $('#im').show(); 
-       $('#em').show();
-      //location.reload();
-    }
-
-  }
-
+  
    $(document).ready(function ()
    {
      $('#examform').validate({ // initialize the plugin

@@ -10,6 +10,14 @@
     background-color:#642160;
 	color: #fff;
 }
+.center img
+{
+    height: 128px;
+    width: 128px;
+    margin:200px auto;
+    float:right;
+    margin-right:200px;
+}
 </style>
 <div class="main-panel">
    <div class="content">
@@ -104,7 +112,6 @@
 							</div>
 					  </fieldset>
 						
-
                         <fieldset>
                            <div class="form-group">
                              
@@ -125,7 +132,6 @@
 						
 						 <fieldset>
                            <div class="form-group">
-                             
 							   <label class="col-sm-2 control-label">Title</label>
 							  <div class="col-sm-4">
 							  <div id="tnone">
@@ -166,18 +172,24 @@
                      </form>
                   </div>
                </div>
-               	<div id="loading">
-       <center><img src="<?php echo base_url(); ?>assets/126.gif" id="loading"></center> 
-    </div>
+               
+                <div class="modal" style="display:none">
+                 <div class="center">
+                     <img alt="" src="<?php echo base_url(); ?>assets/loader.gif" />
+                 </div>
+              </div>
+    
+               	<!--div id="loading" style="display: none;">
+                   <center><img src="<?php echo base_url(); ?>assets/loader.gif" id="loading" ></center> 
+                </div-->
             </div>
-
 
          </div>
       </div>
    </div>
 </div>
 <script type="text/javascript">
-$("#loading").hide();
+      //$("#loading").hide();
    $(document).ready(function () {
      $('#communcicationmenu').addClass('collapse in');
      $('#communication').addClass('active');
@@ -203,49 +215,60 @@ $("#loading").hide();
 		  notes:"Enter The Details",
 		  citrcular_type:"Select Circular Type",
 		  status:"Select Status"
-               },
-			   
-	        submitHandler: function(form) {
+             },
+             
+	  submitHandler: function(form) {
 	        //alert("hi");
-	        swal({
-	                      title: "Are you sure?",
-	                      text: "You Want Confirm this form",
-	                      type: "success",
-	                      showCancelButton: true,
-	                      confirmButtonColor: '#DD6B55',
-	                      confirmButtonText: 'Yes, I am sure!',
-	                      cancelButtonText: "No, cancel it!",
-	                      closeOnConfirm: false,
-	                      closeOnCancel: false
-	                  },
-	                  function(isConfirm) {
-	                      if (isConfirm) {
-							 $("#loading").show();
+	    swal({
+              title: "Are you sure?",
+              text: "You Want Confirm this form",
+              type: "success",
+              showCancelButton: true,
+              confirmButtonColor: '#DD6B55',
+              confirmButtonText: 'Yes, I am sure!',
+              cancelButtonText: "No, cancel it!",
+              closeOnConfirm: false,
+              closeOnCancel: false
+	       },
+	       function(isConfirm) {
+	          if (isConfirm) {
+			 //	$("#loading").show();
+			 	
+			 	$.ajaxSetup({
+			 	    
+			 	});
 	       $.ajax({
+	          beforeSend: function () {
+                        $(".modal").show();
+                    },
+                    complete: function () {
+                        $(".modal").hide();
+                    },
 	           url: "<?php echo base_url(); ?>circular/create",
 	            type:'POST',
 	           data: $('#myformsection').serialize(),
+	           
 	           success: function(response) {
-				  //alert(response);
-	               if(response=="success")
-				   {
-	                //  swal("Success!", "Thanks for Your Note!", "success");
-	                  $('#myformsection')[0].reset();
-	                  swal({
-	           title: "Wow!",
-	           text: "Message!",
-	           type: "success"
-	       },
-		   function() {
-	           window.location = "<?php echo base_url(); ?>circular/add_circular";
-	       });
+				 //alert(response);
+	          if(response=="success")
+				{      
+	             $('#myformsection')[0].reset();
+	               swal({
+            	           title: "Wow!",
+            	           text: "Message!",
+            	           type: "success"
+                	       },
+    		   function() {
+    	           window.location = "<?php echo base_url(); ?>circular/add_circular";
+    	       });
+    	        // $("#loading").hide();
 	       }else{
 	              sweetAlert("Oops...", "Something went wrong!", "error");
 	             }
 	           }
 	       });
 	     }else{
-			 $("#loading").hide();
+			//$("#loading").hide();
 	         swal("Cancelled", "Process Cancel :)", "error");
 	     }
 	   });
@@ -359,8 +382,6 @@ $.ajax({
 	}
 });
 }
-
-
 
 			
 </script>

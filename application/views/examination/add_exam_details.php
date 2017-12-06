@@ -287,247 +287,246 @@
    </div>
 </div>
 <script type="text/javascript">
+function showdiv(dyid,val)
+{
+// alert(dyid);
 
-   function showdiv(dyid,val)
-   {
-     // alert(dyid);
-    
-      var inter_id = '';
-      var exter_id = '';
- 
-     if(val==1)
-     {
-       //alert(val); alert(dyid);
-       inter_id +='<input type="text"  required name="inter_mark[]" id="im" class="form-control"   placeholder="Internal Mark"/><br>';
-      exter_id +='<input type="text"  required name="exter_mark[]" id="em" class="form-control"   placeholder="External Mark"/></br>';
+var inter_id = '';
+var exter_id = '';
 
-      var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
-      var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
-      a.show();
-      b.show();
-     }else{
-        
-      //alert(val); alert(dyid);
-      //$("#"+ dyid +"").html(' ').attr('id','inter');
-      //$("#"+ dyid +"").html(' ').attr('id','exter');
-       var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
-       var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
-       a.hide();
-       b.hide();
-     }
-   }
+if(val==1)
+{
+ //alert(val); alert(dyid);
+inter_id +='<input type="text" required name="inter_mark[]" id="im" class="form-control" placeholder="Internal Mark"/><br>';
+exter_id +='<input type="text" required name="exter_mark[]" id="em" class="form-control"  placeholder="External Mark"/></br>';
 
-   function checksubject(exam_year,class_name)
-      { //alert(val);exit;
-      var exam_year = document.getElementById('exam_year');
-      var class_name = document.getElementById('class_name');
+var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
+var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
+a.show();
+b.show();
+}else{
+  
+//alert(val); alert(dyid);
+//$("#"+ dyid +"").html(' ').attr('id','inter');
+//$("#"+ dyid +"").html(' ').attr('id','exter');
+ var a=$("#"+ dyid +"").html(inter_id).attr('id','inter');
+ var b=$("#"+ dyid +"").html(exter_id).attr('id','exter');
+ a.hide();
+ b.hide();
+}
+}
 
-      var eid = exam_year.value;
-      var cid = class_name.value;
-      //alert(eid);alert(cid);
-      if(eid!='' && cid!=''){
-   	   //alert(eid);alert(cid);exit;'code=' + code + '&userid=' + userid
-         $.ajax({
-   			type:'post',
-   			url:'<?php echo base_url(); ?>examination/subcheck',
-   			data:'clsmasid=' + eid + '&examid=' + cid,
-   			success:function(test)
-   			{
-   				//alert(test);
-   				if(test=="Already Exam Added")
-   				{
-   			      $("#msg1").html(test);
-   					$('#msg').html('');
-   					$("#ajaxres").html('');
-                  $("#ajaxres1").html('');
-                  $("#ajaxres2").html('');
-                  $("#ajaxres3").html('');
-   					$("#save").hide();
-   				}else{
-   					$("#msg1").html('');
-   					$("#save").show();
-   					//alert(cid);
-   					checknamefun(cid);
-   				}
-   			}
-   	  });
-      }
-   }
+function checksubject(exam_year,class_name)
+{ //alert(val);exit;
+var exam_year = document.getElementById('exam_year');
+var class_name = document.getElementById('class_name');
 
-       function checknamefun(cid) {
-           //alert(classid);exit;
-           $.ajax({
-               type: 'post',
-               url: '<?php echo base_url(); ?>examination/checker',
-               data: {
-                   classid:cid
-               },
-              dataType: 'json',
+var eid = exam_year.value;
+var cid = class_name.value;
+//alert(eid);alert(cid);
+if(eid!='' && cid!=''){
+   //alert(eid);alert(cid);exit;'code=' + code + '&userid=' + userid
+   $.ajax({
+		type:'post',
+		url:'<?php echo base_url(); ?>examination/subcheck',
+		data:'clsmasid=' + eid + '&examid=' + cid,
+		success:function(test)
+		{
+			//alert(test);
+			if(test=="Already Exam Added")
+			{
+		      $("#msg1").html(test);
+				$('#msg').html('');
+				$("#ajaxres").html('');
+            $("#ajaxres1").html('');
+            $("#ajaxres2").html('');
+            $("#ajaxres3").html('');
+				$("#save").hide();
+			}else{
+				$("#msg1").html('');
+				$("#save").show();
+				//alert(cid);
+				checknamefun(cid);
+			}
+		}
+  });
+}
+}
 
-               success: function(test1) {
-   				//alert(test1.subject_name);
-   				//console.log(test1);
-   				//var test=test1.status;
-   				//alert(test);
-                   if (test1.status=='Success') {
-                       var sub = test1.subject_name;
-   					//alert(sub.length);
-                       var sub_id = test1.subject_id;
-                       var len=sub.length;
-   					   //alert(len);
-                       var i;
-                       var name = '';
-                       var exam_date = '';
-                       var exam_secction = '';
-                       var teacher = '';
+ function checknamefun(cid) {
+     //alert(classid);exit;
+     $.ajax({
+         type: 'post',
+         url: '<?php echo base_url(); ?>examination/checker',
+         data: {
+             classid:cid
+         },
+        dataType: 'json',
 
-                       var stlt = '';
-                       var internal = '';
-                       var external = '';
-                       var inter_exter = '';
+         success: function(test1) {
+     				//alert(test1.subject_name);
+     				//console.log(test1);
+     				//var test=test1.status;
+     				//alert(test);
+             if (test1.status=='Success') {
+                 var sub = test1.subject_name;
+				            //alert(sub.length);
+                 var sub_id = test1.subject_id;
+                 var len=sub.length;
+				               //alert(len);
+                 var i;
+                 var name = '';
+                 var exam_date = '';
+                 var exam_secction = '';
+                 var teacher = '';
+
+                 var stlt = '';
+                 var internal = '';
+                 var external = '';
+                 var inter_exter = '';
 
 
-                       for (i = 0; i < len; i++) {
-   						'<form name="exam" id="examvalidate">';
-                           name += '<p style="padding-top:05px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
+                 for (i = 0; i < len; i++) {
+					'<form name="exam" id="examvalidate">';
+                     name += '<p style="padding-top:05px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
 
-                           exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
+                     exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
 
-                           stlt +='<input type="text"  required name="sub_total[]" id="sub_total" class="form-control"   placeholder="Subject Total"/></br>';
+                     stlt +='<input type="text"  required name="sub_total[]" id="sub_total" class="form-control"   placeholder="Subject Total"/></br>';
 
-                            internal +='<div id="'+ i +'">im</div>';
+                      internal +='<div id="'+ i +'">im</div>';
 
-                            external +='<div id="'+ i +'">em</div>';
+                      external +='<div id="'+ i +'">em</div>';
 
-                           //internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
+                     //internal +='<input type="text"  required name="inter_mark[]"  class="form-control"   placeholder="Internal Mark"/></br>';
 
-                           //external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
+                     //external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
 
-                           inter_exter +='<select name="inter_exter_mark[]" id="inter_exter_mark" onchange="showdiv('+i+',this.value)" required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
+                     inter_exter +='<select name="inter_exter_mark[]" id="inter_exter_mark" onchange="showdiv('+i+',this.value)"  required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
 
-                           exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
+                     exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
 
-                           teacher += '<select name="teacher_id[]" id="teacher_id" class="form-control" ><option value="">Select Invigilator</option><?php foreach ($teacheres as $rows) {  ?><option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option><?php  } ?></select></br>';
+                     teacher += '<select name="teacher_id[]" id="teacher_id" class="form-control" ><option value="">Select Invigilator</option><?php foreach ($teacheres as $rows) {  ?><option value="<?php echo $rows->teacher_id; ?>"><?php echo $rows->name; ?></option><?php  } ?></select></br>';
 
-   						'</form>';
+					'</form>';
 
-                           $("#ajaxres").html(name);
-                           $("#ajaxres1").html(exam_date).find('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
-                           $("#ajaxres2").html(exam_secction);
-                           $("#ajaxres3").html(teacher);
-                           $("#subtlt").html(stlt);
-                           $("#is_inter_exter").html(inter_exter);
-                           $("#inter").html(internal);
-                           $("#exter").html(external);
-                           $('#msg').html('');
-                       }
-                   } else {
-   					$('#msg').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
-   					    $("#ajaxres").html('');
-                           $("#ajaxres1").html('');
-                           $("#ajaxres2").html('');
-                           $("#ajaxres3").html('');
+                     $("#ajaxres").html(name);
+                     $("#ajaxres1").html(exam_date).find('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
+                     $("#ajaxres2").html(exam_secction);
+                     $("#ajaxres3").html(teacher);
+                     $("#subtlt").html(stlt);
+                     $("#is_inter_exter").html(inter_exter);
+                     $("#inter").html(internal);
+                     $("#exter").html(external);
+                     $('#msg').html('');
+                 }
+             } else {
+				$('#msg').html('<span style="color:red;text-align:center;">Subject Not Found</p>');
+				    $("#ajaxres").html('');
+                     $("#ajaxres1").html('');
+                     $("#ajaxres2").html('');
+                     $("#ajaxres3").html('');
 
-                           $("#subtlt").html('');
-                           $("#is_inter_exter").html('');
-                           $("#inter").html('');
-                           $("#exter").html('');
+                     $("#subtlt").html('');
+                     $("#is_inter_exter").html('');
+                     $("#inter").html('');
+                     $("#exter").html('');
 
-   					         //$('#examform')[0].reset();
-                          //alert("Subject Not Found");
-                   }
-               }
-           });
-       }
+				         //$('#examform')[0].reset();
+                    //alert("Subject Not Found");
+             }
+         }
+     });
+ }
 
 </script>
 <script type="text/javascript">
-   function myFunction(){
-     $( "#datepicker" ).datepicker();
+function myFunction(){
+$( "#datepicker" ).datepicker();
+}
+
+$(document).ready(function() {
+
+   $('#examvalidate').validate({ // initialize the plugin
+        rules: {
+            exam_year: {required: true},
+            class_name: {required: true},
+            subject_name: {required: true},
+            exam_date: {required: true},
+            time: {required: true},
+		teacher_id: {required: true}
+        },
+        messages: {
+            exam_year: "Please Select Exam Year",
+		class_name: "Please Select Class and Section Name",
+		subject_name: "Please Select Subject Name",
+		exam_date: "Please Enter Exam Date",
+		time: "Please Select Time",
+		teacher_id: "Please Select Teacher Name"
+        }
+    });
+});
+
+
+
+var $table = $('#bootstrap-table');
+$().ready(function() {
+    $table.bootstrapTable({
+        toolbar: ".toolbar",
+        clickToSelect: true,
+        showRefresh: true,
+        search: true,
+        showToggle: true,
+        showColumns: true,
+        pagination: true,
+        searchAlign: 'left',
+        pageSize: 10,
+        clickToSelect: false,
+        pageList: [10, 25, 50, 100, 150],
+
+        formatShowingRows: function(pageFrom, pageTo, totalRows) {
+            //do nothing here, we don't want to show the text "showing x of y from..."
+        },
+        formatRecordsPerPage: function(pageNumber) {
+            return pageNumber + " rows visible";
+        },
+        icons: {
+            refresh: 'fa fa-refresh',
+            toggle: 'fa fa-th-list',
+            columns: 'fa fa-columns',
+            detailOpen: 'fa fa-plus-circle',
+            detailClose: 'fa fa-minus-circle'
+        }
+    });
+
+    //activate the tooltips after the data table is initialized
+    $('[rel="tooltip"]').tooltip();
+
+    $(window).resize(function() {
+        $table.bootstrapTable('resetView');
+    });
+
+});
+
+$().ready(function() {
+ $('#exammenu').addClass('collapse in');
+ $('#exam').addClass('active');
+ $('#exam2').addClass('active');
+//$("#datepicker").attr('data-uk-datepicker','{format:"DD.MM.YYYY"}');
+$('.datepicker').datetimepicker({
+   format: 'DD-MM-YYYY',
+   icons: {
+       time: "fa fa-clock-o",
+       date: "fa fa-calendar",
+       up: "fa fa-chevron-up",
+       down: "fa fa-chevron-down",
+       previous: 'fa fa-chevron-left',
+       next: 'fa fa-chevron-right',
+       today: 'fa fa-screenshot',
+       clear: 'fa fa-trash',
+       close: 'fa fa-remove'
    }
-
-   $(document).ready(function() {
-
-         $('#examvalidate').validate({ // initialize the plugin
-              rules: {
-                  exam_year: {required: true},
-                  class_name: {required: true},
-                  subject_name: {required: true},
-                  exam_date: {required: true},
-                  time: {required: true},
-   			teacher_id: {required: true}
-              },
-              messages: {
-                  exam_year: "Please Select Exam Year",
-   			class_name: "Please Select Class and Section Name",
-   			subject_name: "Please Select Subject Name",
-   			exam_date: "Please Enter Exam Date",
-   			time: "Please Select Time",
-   			teacher_id: "Please Select Teacher Name"
-              }
-          });
-      });
-
-
-
-      var $table = $('#bootstrap-table');
-      $().ready(function() {
-          $table.bootstrapTable({
-              toolbar: ".toolbar",
-              clickToSelect: true,
-              showRefresh: true,
-              search: true,
-              showToggle: true,
-              showColumns: true,
-              pagination: true,
-              searchAlign: 'left',
-              pageSize: 10,
-              clickToSelect: false,
-              pageList: [10, 25, 50, 100, 150],
-
-              formatShowingRows: function(pageFrom, pageTo, totalRows) {
-                  //do nothing here, we don't want to show the text "showing x of y from..."
-              },
-              formatRecordsPerPage: function(pageNumber) {
-                  return pageNumber + " rows visible";
-              },
-              icons: {
-                  refresh: 'fa fa-refresh',
-                  toggle: 'fa fa-th-list',
-                  columns: 'fa fa-columns',
-                  detailOpen: 'fa fa-plus-circle',
-                  detailClose: 'fa fa-minus-circle'
-              }
-          });
-
-          //activate the tooltips after the data table is initialized
-          $('[rel="tooltip"]').tooltip();
-
-          $(window).resize(function() {
-              $table.bootstrapTable('resetView');
-          });
-
-      });
-
-   $().ready(function() {
-       $('#exammenu').addClass('collapse in');
-       $('#exam').addClass('active');
-       $('#exam2').addClass('active');
-   //$("#datepicker").attr('data-uk-datepicker','{format:"DD.MM.YYYY"}');
-      $('.datepicker').datetimepicker({
-         format: 'DD-MM-YYYY',
-         icons: {
-             time: "fa fa-clock-o",
-             date: "fa fa-calendar",
-             up: "fa fa-chevron-up",
-             down: "fa fa-chevron-down",
-             previous: 'fa fa-chevron-left',
-             next: 'fa fa-chevron-right',
-             today: 'fa fa-screenshot',
-             clear: 'fa fa-trash',
-             close: 'fa fa-remove'
-         }
-      });
-   });
+});
+});
 
 </script>

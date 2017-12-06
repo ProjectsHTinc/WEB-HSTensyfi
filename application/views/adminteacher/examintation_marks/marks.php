@@ -82,7 +82,7 @@
                                       $res1= $this->db->query($sub);
                                       $subna=$res1->result();
                                       foreach ($subna as $subname) { }
-                                        $sub_name=$subname->subject_name;
+                                      $sub_name=$subname->subject_name;
                                   ?>
                               <tr>
                                  <?php foreach($result as $flag){} $eflag=$flag->is_internal_external;
@@ -98,7 +98,8 @@
                                     $im=$rows->internal_mark;
                                     $em=$rows->external_mark;
                                     $tm=$rows->total_marks;										
-                                    if(is_numeric($im)){ ?>
+                                    if(is_numeric($im)){ 
+                                      ?>
                                  <td style="width: 20%;"><?php echo $rows->internal_mark; ?> ( <?php echo $rows->internal_grade; ?> )</td>
                                  <?php }else{?> 
                                  <td style="width: 20%;"><?php echo $rows->internal_mark; ?></td>
@@ -107,9 +108,13 @@
                                  <td style="width: 20%;"><?php echo $rows->external_mark; ?> ( <?php echo $rows->external_grade; ?> )</td>
                                  <?php }else{?> 
                                  <td style="width: 20%;"><?php echo $rows->external_mark; ?></td>
-                                 <?php }  if(is_numeric($tm)){ ?>
+                                 <?php }  if(is_numeric($tm)){ 
+                                        if($tm < '35'){ ?>
+                                 <td style="width: 20%;color: red;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade;echo ' '; echo')'; echo ' ';echo"Fail"; ?> </td>
+                                        <?php }else{  ?>
                                  <td style="width: 20%;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade; ?> )</td>
-                                 <?php }else{ ?> 
+                                 <?php }
+                               }else{ ?> 
                                  <td style="width: 20%;"><?php echo $rows->total_marks; ?></td>
                                  <?php } 
                                     }else{ 
@@ -142,7 +147,7 @@
                               <tr>
                                  <td><?php echo $i;?></td>
                                  <td style="">
-                                    <?php if($sub_id==$preferlng){ ?> <span style="color:#06d4f5;"> <?php echo $row->name; ?> ( <?php echo  $sub_name; ?> ) </span> <?php }else{  echo $row->name; echo' '; echo'('; echo' '; echo $sub_name; echo' '; echo')'; } ?> 
+                                  <?php echo $row->name; echo' '; echo'('; echo' '; echo $sub_name; echo' '; echo')'; ?> 
                                     <input type="hidden" name="sutid[]" value="<?php echo $row->enroll_id; ?>" />
                                     <input type="hidden" name="teaid" value="<?php echo $row->teacher_id; ?>" />
                                     <input type="hidden" name="clsmastid" value="<?php echo $row->class_id; ?>" />

@@ -59,11 +59,11 @@ class Rank extends CI_Controller
  		$user_type=$this->session->userdata('user_type');
 
  		$exid=$this->input->post('exam_id');
- 		$clsid=$this->input->post('class_id');
- 		//print_r($exid); echo'<br>'; print_r($clsid); 
+ 		$cls_id=$this->input->post('class_id');
+ 		//print_r($exid); echo'<br>'; echo $clsid; exit;
 
  		$examid=implode(',', $exid);
- 		$cls_id=implode(',', $clsid);
+ 		//$cls_id=implode(',', $clsid);
 
        //echo'<br>'; echo $examid; echo'<br>'; echo $cls_id; 
 

@@ -391,9 +391,11 @@ Class Examinationresultmodel extends CI_Model
             return $data;
             } 
         if ($resultset1) {
-            $data = array("status" => "success");return $data;
+            $data = array("status" => "success");
+            return $data;
         }else{
-            $data = array("status" => "failure");return $data;
+            $data = array("status" => "failure");
+            return $data;
         }
 	}else{
 		

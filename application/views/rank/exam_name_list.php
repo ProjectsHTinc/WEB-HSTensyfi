@@ -33,13 +33,14 @@ width: 13%;
 <div class="form-group">
       <label class="col-lg-2 control-label">Select Class</label>
       <div class="col-md-4">
-         <select name="class_id[]"  class="selectpicker" data-title="Select Class " data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+         <select name="class_id"  class="selectpicker" data-title="Select Class " data-style="btn-default btn-block" data-menu-style="dropdown-blue">
          <?php foreach($cls_view as $rows)
             {
-             $cls_id=$rows->class_id;
+             $cls_id=$rows->class_sec_id;
              $clsname=$rows->class_name;
+             $sec_name=$rows->sec_name;
             ?>
-         <option value="<?php  echo $cls_id; ?>"><?php  echo $clsname; ?></option>
+         <option value="<?php  echo $cls_id; ?>"><?php  echo $clsname; ?> ( <?php  echo $sec_name; ?> ) </option>
          <?php } ?>
          </select>
       </div>
