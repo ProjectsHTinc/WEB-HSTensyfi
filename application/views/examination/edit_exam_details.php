@@ -88,13 +88,11 @@
                               $sPlatform_name  = trim($sec);
                               if (in_array($sPlatform_id, $arryPlatform ))
                               {
-                                           echo "<option  value=\"$s\" selected  /> $sec &nbsp;&nbsp; </option>";
-                                      }
-                                     else {
+                                  echo "<option  value=\"$s\" selected  /> $sec &nbsp;&nbsp; </option>";
+                              }else {
                                     echo "<option value=\"$s\" />$sec &nbsp;&nbsp;</option>";
                                      }
-                                          }
-                                            ?>
+                              } ?>
                            </select>
                            <input type="hidden" readonly name="subject_name" class="form-control" value="<?php echo $rows->subject_id;?>"> 
                         </div>
@@ -118,12 +116,11 @@
                               $sPlatform_name  = trim($sec);
                               if (in_array($sPlatform_id, $arryPlatform ))
                               {
-                                           echo "<option  value=\"$s\" selected  /> $sec &nbsp;&nbsp; </option>";
+                                echo "<option  value=\"$s\" selected  /> $sec &nbsp;&nbsp; </option>";
                                }else {
                                   echo "<option value=\"$s\" />$sec &nbsp;&nbsp;</option>";
                                   }
-                                }
-                                            ?>
+                                } ?>
                            </select>
                         </div>
                         <div class="col-sm-2">
@@ -144,25 +141,34 @@
                          </div>
                        
                          <div class="col-sm-2">
-                          <select name="inter_exter_mark" id="inter_exter_mark" required class="form-control" onchange="clearfun(this)">
+                          <select name="inter_exter_mark" id="inter_exter_mark" required class="form-control" >
                             <option>Internal & External </option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                           </select>
                            <script language="JavaScript">document.examform.inter_exter_mark.value="<?php echo $rows->is_internal_external; ?>";</script>
                          </div>
-                         <?php  // if($rows->is_internal_external==1){ ?>
-
-                  <label class="col-sm-2 control-label">Internal & External Marks</label>
+                         <?php // if($rows->is_internal_external==1){ ?>
+                   <label class="col-sm-2 control-label">Internal & External Marks</label>
+                  <div id="yes_inter_exter">
                          <div class="col-sm-2">
                             <input type="text"  name="inter_mark" id="im" maxlength="3" class="form-control" value="<?php echo $rows->internal_mark;?>">
                          </div>
-                      
                          <div class="col-sm-2">
                          <input type="text"  name="exter_mark" id="em" maxlength="3" class="form-control" value="<?php echo $rows->external_mark;?>">
                          </div>
+                    </div>
+                    <?php //}else{?>
                     
-                    <?php //} ?>
+                    <div id="no_inter_exter" style="display: none;">
+                       <div class="col-sm-2">
+                        <input type="text"  name="inter_mark" id="im" maxlength="3" class="form-control" readonly value="0">
+                        </div>
+                       <div class="col-sm-2">
+                         <input type="text"  name="exter_mark" id="em" maxlength="3" class="form-control" readonly value="0">
+                        </div>
+                      </div>
+                   <?php  //} ?>
                      </div>
                      </fieldset>
                   <fieldset>
@@ -190,6 +196,18 @@
 </div>
 <script type="text/javascript">
 
+  // $("#inter_exter_mark").change(function(){
+  //        var a = this.value;
+  //      // alert(a);
+  //       if(a==1){
+  //       $("#yes_inter_exter").show();
+  //       $("#no_inter_exter").hide();
+  //       }else{
+  //        $("#no_inter_exter").show();
+  //        $("#yes_inter_exter").hide();
+  //       }
+  // });
+
  $("form").submit(function(){
    var res = document.getElementById('inter_exter_mark').value;
    //alert("Submitted");alert(res);alert(txtFirstNumberValue);alert(txtSecondNumberValue);
@@ -201,7 +219,7 @@
           var ttl=document.getElementById('sub_total').value;
            if(ttl==result){
            }else{
-            alert("The internal and external total marks value must be equal to subject total value");
+            alert("The internal and external total mark values must be equal to subject total value");
             return false;
            }
       }else{

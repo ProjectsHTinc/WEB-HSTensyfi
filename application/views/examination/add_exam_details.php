@@ -58,59 +58,50 @@
                               </div>
                            </div>
                         </fieldset>
-                        <fieldset>
-                           <div class="form-group">
-
-                              <p id="msg" style="text-align:center;"></p>
-                              <p id="msg1" style="text-align:center;"></p>
-
-                              <div class="col-sm-1">
-                                 <div id="ajaxres"></div>
-                              </div>
-                              <div class="col-sm-2">
-                                 <div id="ajaxres1"></div>
-                              </div>
-                              <div class="col-sm-1">
-                                 <div id="ajaxres3"></div>
-                              </div>
-                              <div class="col-sm-1">
-                                 <div id="ajaxres2"></div>
-                              </div>
-
-                               <div class="col-sm-2">
-                                   <div id="subtlt"></div>
-                              </div>
-                               <div class="col-sm-1">
-                                   <div id="is_inter_exter"></div>
-                              </div>
-                              <!-- style="display: none;" onchange="showdiv(this.value)"-->
-                              <div>
-                                  <div class="col-sm-4">
-
-                                    <div id="inter"></div>
-                                  <!--/div>
-                                  <div class="col-sm-4">
-                                      <div id="exter"></div-->
-                                 </div>
-                             </div>
-
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group">
-						   <label class="col-sm-2 control-label">Status</label>
-							  <div class="col-sm-4">
-							   <select name="status"  class="selectpicker form-control">
-									  <option value="Active">Active</option>
-									  <option value="Deactive">DeActive</option>
-								</select>
-							  </div>
-                              <label class="col-sm-2 control-label">&nbsp;</label>
-                              <div class="col-sm-4">
-                                 <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
-                              </div>
-                           </div>
-                        </fieldset>
+                    <fieldset>
+                      <div class="form-group">
+                        <p id="msg" style="text-align:center;"></p>
+                        <p id="msg1" style="text-align:center;"></p>
+                        <div class="row">
+                        <div class="col-sm-1">
+                           <div id="ajaxres"></div>
+                        </div>
+                        <div class="col-sm-2">
+                           <div id="ajaxres1"></div>
+                        </div>
+                        <div class="col-sm-1">
+                           <div id="ajaxres3"></div>
+                        </div>
+                        <div class="col-sm-1">
+                           <div id="ajaxres2"></div>
+                        </div>
+                         <div class="col-sm-2">
+                             <div id="subtlt"></div>
+                        </div>
+                         <div class="col-sm-1">
+                             <div id="is_inter_exter"></div>
+                        </div>
+                       <div class="col-sm-4">
+                          <div id="inter"></div>
+                       </div>
+                     </div>
+                   </div>
+                </fieldset>
+                <fieldset>
+                 <div class="form-group">
+						       <label class="col-sm-2 control-label">Status</label>
+        						<div class="col-sm-4">
+        						   <select name="status"  class="selectpicker form-control">
+        								  <option value="Active">Active</option>
+        								  <option value="Deactive">DeActive</option>
+        							</select>
+        						</div>
+                    <label class="col-sm-2 control-label">&nbsp;</label>
+                      <div class="col-sm-4">
+                         <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
+                      </div>
+                  </div>
+                </fieldset>
                      </form>
                   </div>
                </div>
@@ -291,29 +282,17 @@
 function showdiv(dyid,val)
 {
     // alert(dyid);
-    var inter_id = '';
-    var exter_id = '';
+    var inter_exter_val = '';
     if(val==1)
     {
-        //alert(val); alert(dyid);.attr('id','exter')html(exter_id).find(".exterNal");
-        inter_id +='<input style="width: 130px;float:left;margin-bottom: 20px;" type="text" readonly  name="inter_mark[]" id="im" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" id="em" class="form-control"  placeholder="External Mark" style="width: 130px;float:left;margin-left: 10px;margin-bottom: 20px;"/></br>';
-
-        exter_id +='<input style="width: 130px;float:left;margin-bottom: 20px;"  type="text" required name="inter_mark[]" id="im" class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]" id="em" class="form-control emmarks"  placeholder="External Mark" style="width: 130px;float:left;margin-left: 10px;margin-bottom: 20px;"/></br>';
-
-        var a=$("#"+ dyid +"").html(inter_id);
-        var b=$("#"+ dyid +"").html(exter_id);
-        a.show();
-        b.show();
+     inter_exter_val +='<input style="width: 130px;float:left;margin-bottom: 20px;"  type="text" required name="inter_mark[]"  class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]"  class="form-control emmarks"  placeholder="External Mark" style="width: 130px;float:left;margin-left: 10px;margin-bottom: 20px;"/></br>';
+      var b=$("#"+ dyid +"").html(inter_exter_val);
+      b.show();
     }else{
-        //alert(val); alert(dyid);
-        //$("#"+ dyid +"").html(' ').attr('id','inter');
-        //$("#"+ dyid +"").html(' ').attr('id','exter');
-      
-        var b=$("#"+ dyid +"").html(exter_id);
-        var a=$("#"+ dyid +"").html(inter_id);
+        var no_inter_exter_val = '<input style="width:130px;float:left;margin-bottom: 20px;" type="text" readonly  name="inter_mark[]" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" class="form-control" placeholder="External Mark" style="width: 130px;float:left;margin-left: 10px;margin-bottom: 20px;"/></br>';
+        var a=$("#"+ dyid +"").html(no_inter_exter_val);
         a.show();
-        b.show();
-        }
+      }
 }
 
 function checksubject(exam_year,class_name)
