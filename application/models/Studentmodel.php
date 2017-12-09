@@ -180,7 +180,7 @@ Class Studentmodel extends CI_Model
 			$cls_id=$rows->class_id;
 			//echo $cls_id; exit;
 
-			$sql1="SELECT ed.*,en.exam_id,en.exam_year,en.exam_name,su.* FROM edu_exam_details AS ed,edu_examination AS en,edu_subject AS su WHERE ed.exam_id='$exams_id' AND ed.classmaster_id='$cls_id' AND ed.exam_id=en.exam_id AND ed.subject_id=su.subject_id AND en.exam_year='$year_id' ";
+			$sql1="SELECT ed.*,en.exam_id,en.exam_year,en.exam_name,su.* FROM edu_exam_details AS ed,edu_examination AS en,edu_subject AS su WHERE ed.exam_id='$exams_id' AND ed.classmaster_id='$cls_id' AND ed.exam_id=en.exam_id AND ed.subject_id=su.subject_id AND en.exam_year='$year_id' AND ed.status='Active' ";
 			$resultset1=$this->db->query($sql1);
 			$row1=$resultset1->result();
 			return $row1;
