@@ -44,6 +44,28 @@ class Apistudentmodel extends CI_Model {
 
 //#################### Current Year End ####################//
 
+
+//#################### Current Term ####################//
+
+	public function getTerm()
+	{
+	    $year_id = $this->getYear();
+		$sqlTerm = "SELECT * FROM edu_terms WHERE NOW() >= from_date AND NOW() <= to_date AND year_id = '$year_id' AND status = 'Active'";
+		$term_result = $this->db->query($sqlTerm);
+		$ress_term = $term_result->result();
+		
+		if($term_result->num_rows()==1)
+		{
+			foreach ($term_result->result() as $rows)
+			{
+			    $term_id = $rows->term_id;
+			}
+			return $term_id;
+		}
+	}
+
+//#################### Current Term End ####################//
+
 //#################### Student Profile ####################//
 
 	public function showStudentProfile($stud_admission_id)
@@ -68,8 +90,10 @@ class Apistudentmodel extends CI_Model {
 	public function dispTimetable($class_id)
 	{
 			$year_id = $this->getYear();
+			$term_id = $this->getTerm();
+			
 			$timetable_query = "SELECT tt.table_id,tt.class_id,tt.subject_id,COALESCE(s.subject_name, '') as subject_name,tt.teacher_id,te.name,tt.day,tt.period,ss.sec_name,c.class_name
-			FROM edu_timetable AS tt LEFT JOIN edu_teachers AS te ON tt.teacher_id = te.teacher_id LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.class_id = '$class_id' AND tt.year_id='$year_id' ORDER BY tt.table_id";
+			FROM edu_timetable AS tt LEFT JOIN edu_teachers AS te ON tt.teacher_id = te.teacher_id LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.class_id = '$class_id' AND tt.year_id='$year_id' AND tt.term_id='$term_id' ORDER BY tt.table_id";
 			$timetable_res = $this->db->query($timetable_query);
 			$timetable_result= $timetable_res->result();
 			
@@ -151,9 +175,11 @@ class Apistudentmodel extends CI_Model {
 			$year_id = $this->getYear();
 	
 			if ($is_internal_external =='0') {
-				$mark_query = "SELECT C.exam_name,B.subject_name,A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
+				//$mark_query = "SELECT C.exam_name,B.subject_name,A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
+				$mark_query = "SELECT C.exam_name,B.subject_name, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
 			} else {
-				$mark_query = "SELECT C.exam_name,B.subject_name,A.internal_mark, A.internal_grade, A.external_mark, A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
+				//$mark_query = "SELECT C.exam_name,B.subject_name,A.internal_mark, A.internal_grade, A.external_mark, A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
+				$mark_query = "SELECT C.exam_name,B.subject_name, A.internal_grade, A.external_grade, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
 			}
 			
 			$mark_res = $this->db->query($mark_query);

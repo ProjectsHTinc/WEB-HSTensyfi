@@ -119,13 +119,36 @@ class Apimainmodel extends CI_Model {
 			return $year_id;
 		}
 	}
+//#################### Current Year End ####################//
 
+
+//#################### Current Term ####################//
+
+	public function getTerm()
+	{
+	    $year_id = $this->getYear();
+		$sqlTerm = "SELECT * FROM edu_terms WHERE NOW() >= from_date AND NOW() <= to_date AND year_id = '$year_id' AND status = 'Active'";
+		$term_result = $this->db->query($sqlTerm);
+		$ress_term = $term_result->result();
+		
+		if($term_result->num_rows()==1)
+		{
+			foreach ($term_result->result() as $rows)
+			{
+			    $term_id = $rows->term_id;
+			}
+			return $term_id;
+		}
+	}
+
+//#################### Current Term End ####################//
 
 //#################### Login ####################//
 
 	public function Login($username,$password,$gcmkey,$mobiletype)
 	{
 		$year_id = $this->getYear();
+		$term_id = $this->getTerm();
 
  		$sql = "SELECT * FROM edu_users A, edu_role B  WHERE A.user_type = B.role_id AND A.user_name ='".$username."' and A.user_password = md5('".$password."') and A.status='Active'";
 		$user_result = $this->db->query($sql);
@@ -239,8 +262,7 @@ class Apimainmodel extends CI_Model {
 						}
 
 
-
-						$timetable_query = "SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period,ss.sec_name,c.class_name FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.teacher_id ='$teacher_id' AND tt.year_id='$year_id' ORDER BY tt.day, tt.period";
+						$timetable_query = "SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period,ss.sec_name,c.class_name FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.teacher_id ='$teacher_id' AND tt.year_id='$year_id' AND tt.term_id='$term_id' ORDER BY tt.day, tt.period";
 						$timetable_res = $this->db->query($timetable_query);
 
 						 if($timetable_res->num_rows()==0){
@@ -248,7 +270,7 @@ class Apimainmodel extends CI_Model {
 
 						}else{
 
-							 $timetable_result = array("status" => "success", "msg" => "TimeTable found","data"=>$timetable_result= $timetable_res->result());
+							 $timetable_result = array("status" => "success", "msg" => "TimeTable found","data"=> $timetable_res->result());
 						}
 
 						$stud_query = "SELECT
@@ -256,14 +278,17 @@ class Apimainmodel extends CI_Model {
                                         A.admission_id,
                                         A.class_id,
                                         A.name,
+                                        F.subject_name as pref_language,
                                         CONCAT(C.class_name, ' ', D.sec_name) AS class_section
                                     FROM
                                         edu_enrollment A,
                                         edu_classmaster B,
                                         edu_class C,
-                                        edu_sections D
+                                        edu_sections D,
+                                        edu_admission E,
+                                        edu_subject F
                                     WHERE
-                                        A.class_id = B.class_sec_id AND B.class = C.class_id AND B.section = D.sec_id AND A.admit_year = '$year_id' AND A.class_id IN(SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id') ORDER BY A.class_id";
+                                        A.class_id = B.class_sec_id AND B.class = C.class_id AND B.section = D.sec_id AND A.admission_id = E.admission_id AND E.language = F.subject_id AND A.admit_year = '$year_id' AND A.class_id IN(SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id') ORDER BY A.class_id";
 
 						$stud_res = $this->db->query($stud_query);
 
@@ -275,7 +300,7 @@ class Apimainmodel extends CI_Model {
 							 $stud_result = array("status" => "success", "msg" => "Student found","data"=>$stud_result= $stud_res->result());
 						}
 
-
+/*
 					 $exam_query = "SELECT ex.exam_id,ex.exam_name,ex.exam_flag AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
 						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
 						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
@@ -300,6 +325,32 @@ class Apimainmodel extends CI_Model {
 						INNER JOIN edu_class AS c ON cm.class=c.class_id
 						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
 						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ex.exam_id NOT IN (SELECT DISTINCT exam_id FROM edu_exam_details where classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')) GROUP by ed.classmaster_id,ed.exam_id";
+*/
+
+					 $exam_query = "SELECT ex.exam_id,ex.exam_name,0 AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name,COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
+						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
+						FROM edu_examination ex
+						RIGHT JOIN edu_exam_details ed on ex.exam_id = ed.exam_id and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
+						LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id
+						INNER JOIN edu_classmaster AS cm ON ed.classmaster_id = cm.class_sec_id
+						INNER JOIN edu_class AS c ON cm.class=c.class_id
+						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
+						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
+						GROUP by ed.classmaster_id, ed.exam_id
+
+						UNION ALL
+
+						SELECT ex.exam_id,ex.exam_name,0 AS is_internal_external,ed.classmaster_id, ss.sec_name,c.class_name, COALESCE(DATE_FORMAT(MIN(ed.exam_date), '%d/%b/%y'),'') AS Fromdate,
+						COALESCE(DATE_FORMAT(MAX(ed.exam_date), '%d/%b/%y'),'') AS Todate,
+						CASE WHEN ems.status='Publish' OR ems.status='Approved' THEN 1 ELSE 0 END AS MarkStatus
+						FROM edu_examination ex
+						LEFT JOIN edu_exam_details ed on ed.exam_id = ex.exam_id and ed.classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')
+						LEFT JOIN edu_exam_marks_status ems ON ems.exam_id = ex.exam_id and ems.classmaster_id = ed.classmaster_id
+						INNER JOIN edu_classmaster AS cm ON ed.classmaster_id = cm.class_sec_id
+						INNER JOIN edu_class AS c ON cm.class=c.class_id
+						INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id
+						WHERE ex.exam_year ='$year_id' and ex.status = 'Active' and ex.exam_id NOT IN (SELECT DISTINCT exam_id FROM edu_exam_details where classmaster_id in (SELECT DISTINCT class_master_id from edu_teacher_handling_subject WHERE teacher_id ='$teacher_id')) GROUP by ed.classmaster_id,ed.exam_id";
 
 						$exam_res = $this->db->query($exam_query);
 
@@ -311,7 +362,7 @@ class Apimainmodel extends CI_Model {
 							 $exam_result = array("status" => "success", "msg" => "Exams found","data"=>$exam_result= $exam_res->result());
 						}
 
-						$examdetail_query = "SELECT A.exam_id,A.exam_name,C.subject_name,B.exam_date, B.times,B.classmaster_id, E.class_name, F.sec_name FROM
+						$examdetail_query = "SELECT A.exam_id,A.exam_name,C.subject_name,B.exam_date, B.times,B.is_internal_external,B.subject_total,B.internal_mark,B.external_mark,B.classmaster_id, E.class_name, F.sec_name FROM
 							`edu_examination` A, `edu_exam_details` B, `edu_subject` C, `edu_classmaster` D, `edu_class` E, `edu_sections` F WHERE
 							A.`exam_id` = B. exam_id AND B.subject_id = C.subject_id AND
 							B.classmaster_id=D.class_sec_id AND D.class = E.class_id AND

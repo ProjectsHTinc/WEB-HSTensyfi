@@ -44,6 +44,27 @@ class Apiteachermodel extends CI_Model {
 //#################### Current Year End ####################//
 
 
+//#################### Current Term ####################//
+
+	public function getTerm()
+	{
+	    $year_id = $this->getYear();
+		$sqlTerm = "SELECT * FROM edu_terms WHERE NOW() >= from_date AND NOW() <= to_date AND year_id = '$year_id' AND status = 'Active'";
+		$term_result = $this->db->query($sqlTerm);
+		$ress_term = $term_result->result();
+		
+		if($term_result->num_rows()==1)
+		{
+			foreach ($term_result->result() as $rows)
+			{
+			    $term_id = $rows->term_id;
+			}
+			return $term_id;
+		}
+	}
+
+//#################### Current Term End ####################//
+
 //#################### Attendence for class ####################//
 	public function dispAttendence ($class_id,$disp_type,$disp_date,$month_year)
 	{
@@ -394,8 +415,9 @@ class Apiteachermodel extends CI_Model {
 	public function dispTimetable($teacher_id)
 	{
 			$year_id = $this->getYear();
+			$term_id = $this->getTerm();
 			
-	    	$timetable_query = "SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period,ss.sec_name,c.class_name FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.teacher_id ='$teacher_id' AND tt.year_id='$year_id' ORDER BY tt.day, tt.period";
+	    	$timetable_query = "SELECT tt.table_id,tt.class_id,tt.subject_id,s.subject_name,tt.teacher_id,t.name,tt.day,tt.period,ss.sec_name,c.class_name FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id INNER JOIN edu_classmaster AS cm ON tt.class_id=cm.class_sec_id INNER JOIN edu_class AS c ON cm.class=c.class_id INNER JOIN edu_sections AS ss ON cm.section=ss.sec_id WHERE tt.teacher_id ='$teacher_id' AND tt.year_id='$year_id' AND tt.term_id='$term_id' ORDER BY tt.day, tt.period";
 			$timetable_res = $this->db->query($timetable_query);
 			$timetable_result= $timetable_res->result();
 
@@ -423,12 +445,12 @@ class Apiteachermodel extends CI_Model {
 			 if($reminder_res->num_rows()==0){
 				 $response = array("status" => "error", "msg" => "Reminders Not Found");
 			}else{
-				$response = array("status" => "success", "msg" => "View Timetable", "dispReminder"=>$reminder_res);
+				$response = array("status" => "success", "msg" => "View Reminder", "dispReminder"=>$reminder_res);
 			} 
 
 			return $response;		
 	}
-//#################### Timetable End ####################//
+//#################### Reminder End ####################//
 
 //#################### Communication for Teachers ####################//
 	public function dispCommunication ($teacher_id)

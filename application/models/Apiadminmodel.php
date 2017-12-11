@@ -41,9 +41,30 @@ class Apiadminmodel extends CI_Model {
 			return $year_id;
 		}
 	}
+//#################### Current Year End ####################//
 
 
 
+//#################### Current Term ####################//
+
+	public function getTerm()
+	{
+	    $year_id = $this->getYear();
+		$sqlTerm = "SELECT * FROM edu_terms WHERE NOW() >= from_date AND NOW() <= to_date AND year_id = '$year_id' AND status = 'Active'";
+		$term_result = $this->db->query($sqlTerm);
+		$ress_term = $term_result->result();
+		
+		if($term_result->num_rows()==1)
+		{
+			foreach ($term_result->result() as $rows)
+			{
+			    $term_id = $rows->term_id;
+			}
+			return $term_id;
+		}
+	}
+
+//#################### Current Term End ####################//
 
 //#################### GET ALL ClASS ####################//
 
@@ -618,7 +639,8 @@ WHERE eths.class_master_id='$class_master_id' AND eths.status='Active' order by 
               foreach($result as $rows){   }
               $classid=$rows->class_sec_id;
               $year_id=$this->getYear();
-              $query="SELECT tt.table_id,tt.class_id,tt.subject_id,COALESCE(s.subject_name,' ') AS subject_name,tt.teacher_id,COALESCE(t.name,' ') AS teacher_name,tt.day,COALESCE(ed.list_day,' ') AS w_days,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id LEFT JOIN edu_days AS ed  ON tt.day=ed.d_id WHERE tt.class_id='$classid' AND tt.year_id='$year_id' ORDER BY tt.table_id ASC";
+              $term_id = $this->getTerm();
+              $query="SELECT tt.table_id,tt.class_id,tt.subject_id,COALESCE(s.subject_name,' ') AS subject_name,tt.teacher_id,COALESCE(t.name,' ') AS teacher_name,tt.day,COALESCE(ed.list_day,' ') AS w_days,tt.period FROM edu_timetable AS tt LEFT JOIN edu_subject AS s ON tt.subject_id=s.subject_id LEFT JOIN edu_teachers AS t ON tt.teacher_id=t.teacher_id LEFT JOIN edu_days AS ed  ON tt.day=ed.d_id WHERE tt.class_id='$classid' AND tt.year_id='$year_id' AND tt.term_id='$term_id' ORDER BY tt.table_id ASC";
               $result_query=$this->db->query($query);
               if($result_query->num_rows()==0){
                   $data=array("status"=>"error","msg"=>"nodata");

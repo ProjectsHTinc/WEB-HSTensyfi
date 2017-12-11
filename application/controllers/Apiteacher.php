@@ -787,9 +787,7 @@ class Apiteacher extends CI_Controller {
         $classmaster_id = $this->input->post("classmaster_id");
         $internal_mark = $this->input->post("internal_mark");
         $external_mark = $this->input->post("external_mark");
-		 $marks = $this->input->post("marks");
-	
-		
+		$marks = $this->input->post("marks");
         $created_by = $this->input->post("created_by");
         $is_internal_external = $this->input->post("is_internal_external");
 				
