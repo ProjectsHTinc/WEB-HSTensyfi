@@ -1,5 +1,3 @@
-
-
 <style>
    .myBtn{
    background-color: rgba(68, 125, 247, 0.59);
@@ -284,7 +282,6 @@
        //document.form.teacher.focus() ;
        return false;
         }
-    
    } 
    
 </script>
@@ -365,7 +362,7 @@
          }
     }
    });
-   }
+  }
 </script>
 <script type="text/javascript">
    $().ready(function(){

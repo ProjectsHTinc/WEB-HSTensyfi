@@ -160,7 +160,7 @@ Class Yearsmodel extends CI_Model
 
     function getall_years()
     {
-        $query  = "SELECT * FROM edu_academic_year ";
+        $query  = "SELECT * FROM edu_academic_year where status='Active'";
         $result = $this->db->query($query);
         return $result->result();
     }
