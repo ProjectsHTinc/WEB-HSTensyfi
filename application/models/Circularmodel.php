@@ -82,7 +82,7 @@ Class Circularmodel extends CI_Model
 	 }
 	 
 	  function get_circular_title_lists($ctype)
-	 {
+	  {
 		 $get_year="SELECT * FROM edu_academic_year WHERE NOW()>=from_month AND NOW()<=to_month";
 		  $result1=$this->db->query($get_year);
 		  $all_year= $result1->result();

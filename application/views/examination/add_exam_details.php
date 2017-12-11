@@ -281,18 +281,36 @@
 
 function showdiv(dyid,val)
 {
-    // alert(dyid);
+    //alert(dyid);
     var inter_exter_val = '';
     if(val==1)
     {
-     inter_exter_val +='<input style="width: 130px;float:left;margin-bottom: 20px;"  type="text" required name="inter_mark[]"  class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]"  class="form-control emmarks"  placeholder="External Mark" style="width: 130px;float:left;margin-left: 10px;margin-bottom: 20px;"/></br>';
+     inter_exter_val +='<input style="width:33%;float:left;margin-bottom:18px;" type="text" required name="inter_mark[]" id="im" class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]"  class="form-control emmarks" id="em" placeholder="External Mark" style="width: 33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
       var b=$("#"+ dyid +"").html(inter_exter_val);
       b.show();
+
+      $("#em").bind("blur",add);
+      //$("#im").bind("blur",add);
     }else{
-        var no_inter_exter_val = '<input style="width:130px;float:left;margin-bottom: 20px;" type="text" readonly  name="inter_mark[]" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" class="form-control" placeholder="External Mark" style="width: 130px;float:left;margin-left: 10px;margin-bottom: 20px;"/></br>';
+        var no_inter_exter_val = '<input style="width:33%;float:left;margin-bottom:18px;" type="text" readonly  name="inter_mark[]" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" class="form-control" placeholder="External Mark" style="width:33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
         var a=$("#"+ dyid +"").html(no_inter_exter_val);
         a.show();
       }
+}
+
+function add()
+{
+  //alert('hi');
+  var ttl=document.getElementById('sub_total').value;
+  var c=Number($("#im").val())+Number($("#em").val());
+  if(ttl==c){
+
+  }else{
+      alert("The internal and external total mark values must be equal to subject total value");
+      return false;
+  }
+
+ 
 }
 
 function checksubject(exam_year,class_name)
