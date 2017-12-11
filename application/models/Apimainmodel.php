@@ -362,7 +362,7 @@ class Apimainmodel extends CI_Model {
 							 $exam_result = array("status" => "success", "msg" => "Exams found","data"=>$exam_result= $exam_res->result());
 						}
 
-						$examdetail_query = "SELECT A.exam_id,A.exam_name,C.subject_name,B.exam_date, B.times,B.is_internal_external,B.subject_total,B.internal_mark,B.external_mark,B.classmaster_id, E.class_name, F.sec_name FROM
+						$examdetail_query = "SELECT A.exam_id,A.exam_name,C.subject_name,B.subject_id,B.exam_date, B.times,B.is_internal_external,B.subject_total,B.internal_mark,B.external_mark,B.classmaster_id, E.class_name, F.sec_name FROM
 							`edu_examination` A, `edu_exam_details` B, `edu_subject` C, `edu_classmaster` D, `edu_class` E, `edu_sections` F WHERE
 							A.`exam_id` = B. exam_id AND B.subject_id = C.subject_id AND
 							B.classmaster_id=D.class_sec_id AND D.class = E.class_id AND
