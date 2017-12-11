@@ -1,5 +1,3 @@
-
-
 <style>
    .col-md-2{
    width: 13%;
@@ -69,13 +67,13 @@
                         </div>
                      
                         <div class="form-group">
-                           <label class="col-lg-2 control-label">Limit For Pass Marks</label>
+                           <label class="col-lg-2 control-label">Filter By Marks</label>
                            <div class="col-sm-4">
-                           <input type="text" class="form-control" name="pass_mark"  placeholder="">
+                           <input type="text" class="form-control" name="pass_mark"  placeholder="Enter The Marks">
                            </div>
                            <label class="col-lg-2 control-label"></label>
                            <div class="col-md-4">
-                              <button type="submit" class="btn btn-fill btn-info">Save</button>
+                              <button type="submit" class="btn btn-fill btn-info">Search</button>
                            </div>
                         </div>
                      </form>
@@ -139,13 +137,15 @@ $(document).ready(function() {
           year_id: {required: true},
          'exam_id[]': {required: true},
           class_id: {required: true},
-         'sub_name_id[]': {required: true}
+         'sub_name_id[]': {required: true},
+         pass_mark:{required: true}
        },
        messages: {
           year_id: "Please Select Year",
          'exam_id[]': "Please Select Exame",
           class_id: "Please Select Class",
-         'sub_name_id[]': "Please Select Subjects"
+         'sub_name_id[]': "Please Select Subjects",
+         pass_mark:"Enter The Marks"
        }
     });
 });

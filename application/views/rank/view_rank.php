@@ -21,7 +21,8 @@
                   <div class="card">
                      <div class="content">
                         <div class="fresh-datatables">
-                           <h4 class="title" style="padding-bottom:10px;">List of Rank</h4>
+                           <h4 class="title" style="padding-bottom:10px;">List of Rank
+                            <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-bottom:10px;">Go Back</button> </h4>
                            <div class="toolbar">
                               <!--  Here you can write extra buttons/actions for the toolbar -->
                            </div>
