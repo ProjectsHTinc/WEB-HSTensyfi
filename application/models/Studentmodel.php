@@ -141,7 +141,7 @@ Class Studentmodel extends CI_Model
 
 		function exam_marks($user_id,$exam_id,$user_type)
 		{
-		     $year_id=$this->getYear();
+		    $year_id=$this->getYear();
 
 			$query="SELECT student_id,user_type,user_id,user_master_id FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
 			$resultset=$this->db->query($query);
@@ -157,7 +157,7 @@ Class Studentmodel extends CI_Model
 			$cls_id=$rows->class_id;
 			//echo $enr_id;exit;
 
-			 $sql1="SELECT ms.*,em.* FROM edu_exam_marks AS em,edu_exam_marks_status AS ms WHERE ms.status='Publish' AND em.exam_id='$exam_id' AND ms.exam_id=em.exam_id  AND em.classmaster_id='$cls_id' AND em.classmaster_id=ms.classmaster_id AND em.stu_id='$enr_id'";
+			 $sql1="SELECT ms.*,em.*,su.subject_name FROM edu_exam_marks AS em,edu_exam_marks_status AS ms,edu_subject AS su WHERE ms.status='Publish' AND em.exam_id='$exam_id' AND ms.exam_id=em.exam_id  AND em.classmaster_id='$cls_id' AND em.classmaster_id=ms.classmaster_id AND em.stu_id='$enr_id' AND em.subject_id=su.subject_id";
 			 $resultset1=$this->db->query($sql1);
 			 $res1=$resultset1->result();
              return $res1;
@@ -185,18 +185,7 @@ Class Studentmodel extends CI_Model
 			$resultset1=$this->db->query($sql1);
 			$row1=$resultset1->result();
 			return $row1;
-
 		}
-
-       function getall_exam_details($exam_id)
-        {
-		     $year_id=$this->getYear();
-
-			$sql = "SELECT ed.exam_id,ex.exam_id,ex.exam_flag,ex.status,ex.exam_year FROM edu_exam_details AS ed,edu_examination AS ex WHERE ex.exam_year='$year_id' AND ed.exam_id='$exam_id' AND ex.exam_id='$exam_id' AND ed.exam_id=ex.exam_id GROUP By ed.exam_id";
-			$resultset1 = $this->db->query($sql);
-			$res        = $resultset1->result();
-			return $res;
-         }
 
 
 	   function get_student_user($user_id)
@@ -260,7 +249,7 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 		 $row=$resultset->result();
 		 return $row;
 		   }
-	 }
+	 
 
 	 //--------------------Fees Status---------------
 
@@ -428,9 +417,6 @@ LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_
 			    $res=$result1->result();
 				return $res;
 		   }
-
-
-
 
 }
 ?>

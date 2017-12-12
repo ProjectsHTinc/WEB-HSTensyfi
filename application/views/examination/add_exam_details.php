@@ -122,29 +122,6 @@
                   <div class="card">
                      <div class="content">
                         <div class="fresh-datatables">
-                     <!--form method="post" action="<?php echo base_url(); ?>examination/add_exam_detail" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
-                        <div class="col-sm-2">
-                           <select name="class_id" style="margin-top:30px;" class="selectpicker">
-                              <option>Search By Class</option>
-                              <?php  foreach ($result1 as $rows)
-                                 { ?>
-                              <option value="<?php echo $rows->classmaster_id; ?>"><?php echo $rows->class_name;?>
-                                 <?php echo $rows->sec_name; ?>
-                              </option>
-                              <?php } ?>
-                           </select>
-                           <?php
-                              if(!empty($filter))
-                              {
-                              foreach($filter as $sea)
-                              {  }?>
-                           <script language="JavaScript">document.myformsection.class_id.value="<?php echo $sea->classmaster_id; ?>";</script>
-                           <?php }?>
-                        </div>
-                        <div class="col-sm-4">
-                           <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
-                        </div>
-                     </form-->
            <table id="bootstrap-table" class="table">
               <thead>
                  <th data-field="id">ID</th>
@@ -157,43 +134,6 @@
               <tbody>
                  <?php
                     $i=1;
-                    //if(!empty($filter))
-                   // {   
-                    //echo'<pre>';print_r($filter);
-                    //foreach($filter as $sea)
-                   // {  ?>
-                 <!--tr>
-                    <td>
-                       <?php //echo $i; ?>
-                    </td>
-                    
-                    <td>
-                    <?php echo $sea->exam_name; ?> 
-                    </td>
-                    <?php
-                       $clsname=$sea->class_name;
-                       $secname=$sea->sec_name;
-                       ?>
-                    <td>
-                       <?php echo $clsname;?>
-                       <?php echo $secname; ?>
-                    </td>
-                    <td>
-                       <?php $sta=$sea->status;
-                          if($sta=='Active'){?>
-                       <button class="btn btn-success btn-fill btn-wd">Active</button>
-                       <?php  }else{?>
-                       <button class="btn btn-danger btn-fill btn-wd">De Active</button>
-                       <?php } ?>
-                    </td>
-                    <td>
-                       <a href="<?php echo base_url(); ?>examination/edit_exam_details/<?php echo $sea->exam_detail_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                    </td>
-                 </tr-->
-                 <?php //$i++;
-                     //}
-                   // }else{
-                    //print_r($result);
                     foreach ($result as $rows)
                     {
                     $exid=$rows->exam_id;  ?>

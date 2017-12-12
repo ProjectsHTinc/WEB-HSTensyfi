@@ -1,5 +1,3 @@
-
-
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -23,75 +21,55 @@
                   </div>
                   <div class="content table-responsive table-full-width">
                      <form method="post" action="<?php echo base_url(); ?>examinationresult/marks_details" class="form-horizontal" enctype="multipart/form-data" id="markform">
-                        <table class="table table-hover table-striped">
-                           <thead>
-                              <th>Sno</th>
-                              <th>Subject Name</th>
-                              <?php foreach($eflag as $erows) { $ex_flag=$erows->exam_flag; }
-                                 if($ex_flag==1) { ?>	
-                              <th>Internal Marks</th>
-                              <th>External Marks</th>
-                              <th>Total Marks</th>
-                              <?php }else{?>
-                              <th>Total Marks</th>
-                              <?php }?>
-                           </thead>
-                           <tbody>
-                              <?php
-                                 $i=1;
-                                 if(!empty($result)){
-                                 foreach ($result as $rows) {
-                                 $tm=$rows->total_marks;
-                                 ?>
-                              <tr>
-                                 <td><?php echo $i; ?></td>
-                                 <td><?php $subid=$rows->subject_id;
-                                    $sql = "SELECT * FROM edu_subject WHERE subject_id='$subid' ";
-                                    $result=$this->db->query($sql);
-                                    $row=$result->result();
-                                    $sec=$row[0]->subject_name;
-                                        echo $sec;
-                                    ?> </td>
-                                 <?php foreach($eflag as $erows) { $ex_flag=$erows->exam_flag; }
-                                    if($ex_flag==1) { ?>	 
-                                 <td><?php //echo $rows->internal_mark; ?>  <span class="grade"><?php echo $rows->internal_grade; ?>  </span></td>
-                                 <td><?php //echo $rows->external_mark; ?>  <span class="grade"><?php echo $rows->external_grade; ?>  </span></td>
-                                 <td>
-                                    <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
-                                    <?php //echo $rows->total_marks; ?>   <span class="grade"><?php echo $rows->total_grade; ?>  </span>
-                                 </td>
-                                 <?php }else{ ?>
-                                 <td>
-                                    <?php if(is_numeric($tm)){?>
-                                    <input type="hidden" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
-                                    <?php //echo $rows->total_marks; ?>  <span class="grade"><?php echo $rows->total_grade; ?>  </span>
-                                    <?php }else{ echo $rows->total_marks; } ?>
-                                 </td>
-                                 <?php } ?>
-                              </tr>
-                              <?php $i++;  } 
-                                 }else{ echo "No exam added for any class";}	?>
-                              <?php if($ex_flag==0) { ?>
-                              <td></td>
-                              <?php if(!empty($result)){ ?>
-                              <td>TOTAL</td>
-                              <td>
-                                 <p id="totals"></p>
-                              </td>
-                              <?php }else{ echo"";}?>
-                              <?php }else{ ?>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <?php if(!empty($result)){ ?>
-                              <td>TOTAL</td>
-                              <td>
-                                 <p id="totals"></p>
-                              </td>
-                              <?php }else{ echo"";}?>
-                              <?php } ?>
-                           </tbody>
-                        </table>
+                        <table id="resulttable" class="table table-hover table-striped">
+               <thead>
+                <th>Sno</th>
+                <th>Subject Name</th>
+                <th>Internal Marks</th>
+                <th>External Marks</th>
+                <th>Total Marks</th>
+               </thead>
+               <tbody>
+               <?php
+                  $i=1;
+                  if(!empty($result))
+                  {
+                     foreach ($result as $rows) 
+                     {
+                      $tm=$rows->total_marks;
+                      $im=$rows->internal_mark; $ig=$rows->internal_grade;
+                      $em=$rows->external_mark; $eg=$rows->external_grade;
+                    ?>
+                     <tr>
+                      <td><?php echo $i; ?></td>
+                      <td><?php echo $subid=$rows->subject_name;?> </td>
+                      <?php if($im==0 && $em==0 && $ig==0 && $eg==0) { ?>
+                      <td></td><td></td>
+                         <td>
+                       <input type="hidden" style="width:30%;" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
+                       <span class="total"><?php //echo $rows->total_marks; ?></span>   <span class="grade"><?php echo $rows->total_grade; ?>  </span>
+                     </td>
+                      <?php }else{ ?>
+                          <td><?php //echo $rows->internal_mark; ?>  <span class="grade"><?php echo $rows->internal_grade; ?>  </span></td> 
+                      <td><?php //echo $rows->external_mark; ?>   <span class="grade"><?php echo $rows->external_grade; ?>  </span></td>
+                      <td>
+                       <input type="hidden" style="width:30%;" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
+                       <span class="total"><?php //echo $rows->total_marks; ?></span>  <span class="grade"><?php echo $rows->total_grade; ?> </span>
+                     </td>
+                      <?php } ?>
+                     </tr>
+                      <?php $i++;  } }else{ echo "<p style=text-align:center;color:red;>No exam added for any class </p>"; }  
+                     ?>      
+                         <!--td></td><td></td><td></td>
+                        <?php //if(!empty($result)){ ?>
+                         <td>TOTAL</td>
+                        <td>
+                              <p id="totals"></p>
+                          </td-->
+                        <?php //}else{ echo"";}?>
+               
+                  </tbody>
+               </table>
                      </form>
                   </div>
                </div>

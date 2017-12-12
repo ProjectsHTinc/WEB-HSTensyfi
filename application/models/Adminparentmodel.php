@@ -131,10 +131,10 @@ Class Adminparentmodel extends CI_Model
         return $res;
     }
 
-    function exam_marks($exam_id, $stu_id, $cls_id)
+    function exam_marks($exam_id,$stu_id,$cls_id)
     {
 
-        $sql1       = "SELECT * FROM edu_exam_marks WHERE exam_id='$exam_id' AND stu_id='$stu_id' AND classmaster_id='$cls_id'";
+        $sql1       = "SELECT em.*,su.subject_name FROM edu_exam_marks AS em,edu_subject AS su WHERE em.exam_id='$exam_id' AND em.stu_id='$stu_id' AND em.classmaster_id='$cls_id' AND em.subject_id=su.subject_id";
         $resultset1 = $this->db->query($sql1);
         $res1       = $resultset1->result();
         return $res1;
