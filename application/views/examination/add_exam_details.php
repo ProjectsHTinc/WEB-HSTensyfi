@@ -190,18 +190,45 @@
    </div>
 </div>
 <script type="text/javascript">
+  $("#")
    function showdiv(dyid,val)
    {
    //alert(dyid);
    var inter_exter_val = '';
    if(val==1)
    { 
-   inter_exter_val +='<input style="width:33%;float:left;margin-bottom:18px;" type="text" required name="inter_mark[]" id="im" class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]"  class="form-control emmarks" id="em" placeholder="External Mark" style="width: 33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
+   inter_exter_val +='<input style="width:33%;float:left;margin-bottom:18px;" type="text" required name="inter_mark[]" id="im'+ dyid +'" class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]"  class="form-control emmarks" id="em'+ dyid +'" placeholder="External Mark" style="width: 33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
+
    var b=$("#"+ dyid +"").html(inter_exter_val);
    b.show();
    
-   $("#em").bind("blur",add);
-   //$("#im").bind("blur",add);
+   $("#em" + dyid +"").blur(function()
+   {
+    if(Number($("#im" + dyid +"").val()!='')){
+     var ttl=document.getElementById('sub_total').value;
+     var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
+     if(ttl==c){
+     }else{
+     alert("The internal and external marks must be equal to subject total value");
+     //return false;
+     }
+   }
+   });
+    
+   $("#im" + dyid +"").blur(function()
+   {
+    if(Number($("#em" + dyid +"").val()!='')){
+     var ttl=document.getElementById('sub_total').value;
+     var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
+     if(ttl==c){
+     }else{
+     alert("The internal and external marks must be equal to subject total value");
+     //return false;
+     } 
+    }
+    
+   })
+
    }else{
    var no_inter_exter_val = '<input style="width:33%;float:left;margin-bottom:18px;" type="text" readonly  name="inter_mark[]" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" class="form-control" placeholder="External Mark" style="width:33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
    var a=$("#"+ dyid +"").html(no_inter_exter_val);
@@ -214,6 +241,7 @@
    var ttl=document.getElementById('sub_total').value;
    var c=Number($("#im").val())+Number($("#em").val());
    if(ttl==c){
+
    }else{
    alert("The internal and external total mark values must be equal to subject total value");
    return false;
@@ -294,6 +322,7 @@
    
    for (i = 0; i < len; i++) {
    '<form name="exam" id="examvalidate">';
+
    name += '<p style="padding-top:05px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
    
    exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
@@ -308,7 +337,7 @@
    
    //external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
    
-   inter_exter +='<select name="inter_exter_mark[]" id="inter_exter_mark" onchange="showdiv('+i+',this.value)"  required class="form-control"><option>Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
+   inter_exter +='<select name="inter_exter_mark[]" required id="inter_exter_mark" onchange="showdiv('+i+',this.value)"   class="form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
    
    exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
    
@@ -356,7 +385,8 @@
    subject_name: {required: true},
    exam_date: {required: true},
    time: {required: true},
-   teacher_id: {required: true}
+   teacher_id: {required: true},
+   'inter_exter_mark[]':{required: true}
    },
    messages: {
    exam_year: "Please Select Exam Year",
@@ -364,13 +394,12 @@
    subject_name: "Please Select Subject Name",
    exam_date: "Please Enter Exam Date",
    time: "Please Select Time",
-   teacher_id: "Please Select Teacher Name"
+   teacher_id: "Please Select Teacher Name",
+   'inter_exter_mark[]':"Select Internal Or External"
    }
    });
    });
-   
-   
-   
+
    var $table = $('#bootstrap-table');
    $().ready(function() {
    $table.bootstrapTable({
