@@ -21,6 +21,9 @@
                         <div class="col-sm-4">
                            <input type="hidden" name="id" value="<?php echo $rows->exam_detail_id; ?>">
                            <input type="hidden" name="eid" value="<?php echo $rows->exam_id; ?>"> 
+                            <input type="hidden" name="classmaster_id" value="<?php echo $rows->classmaster_id; ?>"> 
+
+
                            <?php 
                              
                               $a=$rows->from_month;

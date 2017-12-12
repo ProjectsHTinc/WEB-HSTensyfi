@@ -90,30 +90,30 @@
    jQuery('#rank').addClass('collapse in');
    $('#rank').addClass('active');
    $('#rank').addClass('active');
-         $('#example').DataTable({
-            dom: 'lBfrtip',
-            buttons: [
-                 {
-                     extend: 'excelHtml5',
-                     exportOptions: {
-                     columns: ':visible'
-                     }
-                 },
-                 {
-                     extend: 'pdfHtml5',
-                     exportOptions: {
-                     columns: ':visible'
-                     }
-                 },
-                 'colvis'
-             ],
-             "pagingType": "full_numbers",
-             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-             responsive: true,
-             language: {
-             search: "_INPUT_",
-             searchPlaceholder: "Search records",
-             }
+   $('#example').DataTable({
+      dom: 'lBfrtip',
+      buttons: [
+           {
+               extend: 'excelHtml5',
+               exportOptions: {
+               columns: ':visible'
+               }
+           },
+           {
+               extend: 'pdfHtml5',
+               exportOptions: {
+               columns: ':visible'
+               }
+           },
+           'colvis'
+       ],
+       "pagingType": "full_numbers",
+       "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+       responsive: true,
+       language: {
+       search: "_INPUT_",
+       searchPlaceholder: "Search records",
+       }
          });
       });
    

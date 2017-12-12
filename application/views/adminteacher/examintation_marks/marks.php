@@ -122,7 +122,7 @@
                                  <td style="width:15%;"><?php echo $i;?></td>
                                  <td style="width:25%;">
                                     <?php  $stdid=$rows->name;
-                                       echo $stdid; ?>
+                                       echo $stdid; echo ' '; echo '('; echo ' '; echo $sub_name; echo ' '; echo ')'; ?>
                                  </td>
                                  <?php  if(is_numeric($tm)){ ?>
                                  <td style="width:30%;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade; ?> )</td>

@@ -497,7 +497,8 @@ Class Examinationresultmodel extends CI_Model
         foreach ($row as $rows) {}
         $teacher_id = $rows->user_master_id;
 
-         $sql = "SELECT m.*,en.enroll_id,en.admit_year,en.name,en.class_id,en.admisn_no,su.subject_id,su.subject_name,a.admission_id,a.admisn_no,a.name,a.sex FROM edu_exam_marks AS m,edu_enrollment AS en,edu_subject AS su,edu_admission AS a  WHERE m.exam_id='$exam_id' AND m.subject_id='$subid' AND m.classmaster_id='$clsmasid' AND m.teacher_id='$teacher_id' AND en.class_id='$clsmasid' AND en.enroll_id=m.stu_id AND m.subject_id=su.subject_id AND en.admission_id=a.admission_id  ORDER BY a.sex DESC,en.name ASC ";
+         $sql = "SELECT m.*,en.enroll_id,en.admit_year,en.name,en.class_id,en.admisn_no,su.subject_id,su.subject_name,a.admission_id,a.admisn_no,a.name,a.sex,a
+         .language FROM edu_exam_marks AS m,edu_enrollment AS en,edu_subject AS su,edu_admission AS a  WHERE m.exam_id='$exam_id' AND m.subject_id='$subid' AND m.classmaster_id='$clsmasid' AND m.teacher_id='$teacher_id' AND en.class_id='$clsmasid' AND en.enroll_id=m.stu_id AND m.subject_id=su.subject_id AND en.admission_id=a.admission_id  ORDER BY a.sex DESC,en.name ASC ";
 
 		//SELECT m.*,en.enroll_id,en.admit_year,en.name,en.class_id,en.admisn_no,su.subject_id,su.subject_name,a.admission_id,a.admisn_no,a.name,a.sex FROM edu_exam_marks AS m,edu_enrollment AS en,edu_subject AS su,edu_admission AS a  WHERE m.exam_id='$exam_id' AND m.subject_id='$subid' AND m.classmaster_id='$clsmasid' AND m.teacher_id='$teacher_id' AND en.class_id='$clsmasid' AND en.enroll_id=m.stu_id AND m.subject_id=su.subject_id AND en.admission_id=a.admission_id AND en.name=a.name AND en.admisn_no=a.admisn_no ORDER BY a.sex DESC,en.name ASC
 

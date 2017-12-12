@@ -28,7 +28,7 @@
                                   foreach($result as $flag){} 
                                   $eflag=$flag->is_internal_external; 
                                 }
-                                  if($eflag==1){ ?>
+                                if($eflag==1){ ?>
                               <th>Internal <?php echo $row->subject_name;?></th>
                               <th>External <?php echo $row->subject_name;?></th>
                               <?php }else{ ?> 
@@ -42,7 +42,15 @@
                                  foreach($edit as $row)
                                   {
                                    foreach($result as $flag){} 
-                                   $eflag=$flag->is_internal_external; ?>
+                                   $eflag=$flag->is_internal_external; 
+								   
+								    $preferlng=$row->language; 
+                                      $sub="SELECT subject_name FROM edu_subject WHERE subject_id='$preferlng'";
+                                      $res1= $this->db->query($sub);
+                                      $subna=$res1->result();
+                                      foreach ($subna as $subname) { }
+                                      $sub_name=$subname->subject_name;
+									  ?>
                               <tr>
                                  <input type="hidden" name="eflag" value="<?php echo $eflag; ?>">
                                   <!-- new -->
@@ -52,7 +60,7 @@
                                  <!-- new -->
                                  <td><?php echo $i;?></td>
                                  <td style="">
-                                    <?php echo $row->name; ?>
+                                    <?php echo $row->name; ?> ( <?php echo $sub_name; ?> )
                                     <input type="hidden" name="examid" value="<?php echo $row->exam_id; ?>" />
                                     <input type="hidden" name="subid" value="<?php echo $row->subject_id; ?>" />
                                     <input type="hidden" name="sutid[]" value="<?php echo $row->stu_id; ?>" />
@@ -75,10 +83,10 @@
                                     }else{
                                     if($eflag==1){?>
                                  <td>
-                                    <input style="width:60%;" type="text"  name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox" required />
+                                    <input style="width:60%;" type="text" maxlength="3" name="internal[]" value="<?php echo $row->internal_mark; ?>" class="form-control inputBox" required />
                                  </td>
                                  <td>
-                                    <input style="width:60%;" type="text"  name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control inputBox1"   required />
+                                    <input style="width:60%;" type="text" maxlength='3' name="external[]" value="<?php echo $row->external_mark; ?>" class="form-control inputBox1"  required />
                                  </td>
                                  <?php }else{?>
                                  <td>
@@ -117,7 +125,7 @@
         $('#exam2').addClass('active'); 
   
 
-     $("[name^=internal]").each(function () {
+     /*$("[name^=internal]").each(function () {
         $(this).rules("add", {
             required: true,
             checkValue: true
@@ -136,16 +144,16 @@
             required: true,
             checkValue: true
         });
-    });
+    }); */
 
        
       
-    <?php foreach($result as $flag){}?>
+    <?php foreach($result as $flag){} ?>
 
    $(".inputBox").on("keyup keydown", function(e){
      var currentValue = String.fromCharCode(e.which);
      var finalValue = $(this).val() + currentValue;
-     if(finalValue ><?php echo $flag->internal_mark; ?>){
+     if(finalValue > <?php echo $flag->internal_mark; ?>){
          e.preventDefault();
      }
    });
@@ -153,7 +161,7 @@
    $(".inputBox1").on("keyup keydown", function(e){
      var currentValue = String.fromCharCode(e.which);
      var finalValue = $(this).val() + currentValue;
-     if(finalValue ><?php echo $flag->external_mark; ?>){
+     if(finalValue > <?php echo $flag->external_mark; ?>){
          e.preventDefault();
      }
    });
@@ -161,7 +169,7 @@
    $(".inputBox2").on("keyup keydown", function(e){
      var currentValue = String.fromCharCode(e.which);
      var finalValue = $(this).val() + currentValue;
-     if(finalValue ><?php echo $flag->subject_total; ?>){
+     if(finalValue > <?php echo $flag->subject_total; ?>){
          e.preventDefault();
      }
    });
