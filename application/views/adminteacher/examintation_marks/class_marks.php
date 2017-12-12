@@ -114,7 +114,7 @@
                                          $ef=$flag->is_internal_external;
                                          $efsi=$flag->subject_id;
 
-                                         if($im==0 && $em==0)
+                                         if($im==0 && $em==0 && is_numeric($im) && is_numeric($em))
                                          {
                                               echo '<span class="grade2">';
                                               if(is_numeric($tm)){
