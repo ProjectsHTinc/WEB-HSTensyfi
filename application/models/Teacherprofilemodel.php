@@ -11,7 +11,7 @@ Class Teacherprofilemodel extends CI_Model
 
   function getYear()
   {
-    $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+    $sqlYear = "SELECT * FROM edu_academic_year WHERE CURDATE() >= from_month AND CURDATE() <= to_month AND status = 'Active'";
     $year_result = $this->db->query($sqlYear);
     $ress_year = $year_result->result();
 

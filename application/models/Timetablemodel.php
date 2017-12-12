@@ -12,7 +12,7 @@ Class Timetablemodel extends CI_Model
 
     function getYear()
     {
-        $sqlYear     = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+        $sqlYear     = "SELECT * FROM edu_academic_year WHERE CURDATE() >= from_month AND CURDATE() <= to_month AND status = 'Active'";
         $year_result = $this->db->query($sqlYear);
         $ress_year   = $year_result->result();
 
@@ -26,7 +26,7 @@ Class Timetablemodel extends CI_Model
 
     function getTerm()
     {
-        $sqlYear     = "SELECT * FROM edu_terms WHERE NOW() >= from_date AND NOW() <= to_date AND status = 'Active'";
+        $sqlYear     = "SELECT * FROM edu_terms WHERE CURDATE() >= from_date AND CURDATE() <= to_date AND status = 'Active'";
         $term_result = $this->db->query($sqlYear);
         $ress_year   = $term_result->result();
 
@@ -102,7 +102,7 @@ Class Timetablemodel extends CI_Model
 
     function getall_years()
     {
-        $get_year = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month";
+        $get_year = "SELECT * FROM edu_academic_year WHERE CURDATE() >= from_month AND CURDATE() <= to_month";
         $result1  = $this->db->query($get_year);
         if ($result1->num_rows() == 0) {
             $data = array(
@@ -123,7 +123,7 @@ Class Timetablemodel extends CI_Model
     //GET ALL TIME TABLE
     function view($class_sec_id, $term_id)
     {
-        $get_year = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month";
+        $get_year = "SELECT * FROM edu_academic_year WHERE CURDATE() >= from_month AND CURDATE() <= to_month";
         $result1  = $this->db->query($get_year);
         foreach ($result1->result() as $res) {
         }

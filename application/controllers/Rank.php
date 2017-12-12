@@ -13,13 +13,13 @@ class Rank extends CI_Controller
 		  $this->load->model('rankmodel');
 		  $this->load->model('yearsmodel');
     }
-         
+
 	public function home()
 	{
  		$datas=$this->session->userdata();
  		$user_id=$this->session->userdata('user_id');
  		$user_type=$this->session->userdata('user_type');
-        
+
         $datas['result'] = $this->yearsmodel->getall_years();
  		$datas['exam_view'] = $this->rankmodel->get_exam_details_view();
  		$datas['cls_view'] = $this->rankmodel->get_cls_details_view();
@@ -42,7 +42,7 @@ class Rank extends CI_Controller
  		$user_type=$this->session->userdata('user_type');
        $datas['examid'] =$exam_id;
  		$datas['cls_view'] = $this->rankmodel->get_cls_details_view();
-		
+
 		 if($user_type==1)
 		 {
 			 $this->load->view('header');
@@ -70,7 +70,7 @@ class Rank extends CI_Controller
             $pass_mark=$this->input->post('pass_mark');
 	 		$examid=implode(',', $exid);
 	 		$sub_id=implode(',', $sname);
-	       //echo'<br>'; echo $examid; echo'<br>'; echo $cls_id; 
+	       //echo'<br>'; echo $examid; echo'<br>'; echo $cls_id;
 
 	 	    $datas['cls_rank'] = $this->rankmodel->get_rank_details_view($year_id,$examid,$cls_id,$sub_id,$pass_mark);
  		   //echo'<pre>';print_r($datas['cls_rank']);exit;

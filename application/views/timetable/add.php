@@ -5,7 +5,7 @@
    margin-left:30px;
    margin-top:15px;
    }
-   select{width:100px;}
+   /*select{width:100px;}*/
 </style>
 <div class="main-panel">
 <div class="content">
@@ -169,12 +169,14 @@
 		 //alert(stat);
            $(".subject_id").empty();
          if(stat=="success"){
+
            var res=data.res;
              var len=res.length;
                $('<option>').val(" ").text("Select Subject").appendTo('.subject_id');
                for (i = 0; i < len; i++) {
                  $('<option>').val(res[i].subject_id).text(res[i].subject_name).appendTo('.subject_id');
                }
+
               getTeacher();
          }else{
        $(".subject_id").empty();
@@ -198,15 +200,18 @@
            //alert(stat);
            $(".teacher_id").empty();
          if(stat=="success"){
+
            var res=data.res;
            //alert(res.length);
            var len=res.length;
              $('<option>').val(" ").text("Select Teacher").appendTo('.teacher_id');
+
            for (i = 0; i < len; i++) {
 
            $('<option>').val(res[i].teacher_id).text(res[i].name).appendTo('.teacher_id');
-           }
 
+           }
+          
          }else{
              $("#teacher_id").empty();
          }
