@@ -182,6 +182,7 @@
    foreach ($cls_exam as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
    // echo $cls; echo $sec; ?>
 <script type="text/javascript">
+
    function generatefromtable() {
    				var data = [], fontSize =10, height = 0, doc;
    				doc = new jsPDF('p', 'pt', 'a3', true);
@@ -202,8 +203,9 @@
    				doc.save("<?php echo $cls; echo $sec; ?>.pdf");
    			}
 
-   $(function() {
-      $(".download").click(function() {
+   $(function() 
+   {
+    $(".download").click(function() {
    	$("#bootstrap-table").table2excel({
    					exclude: ".noExl",
    					name: "Excel Document Name",
@@ -215,50 +217,10 @@
    				});
       });
 
-   });
-
-   	var $table = $('#bootstrap-table');
-            $().ready(function(){
-              jQuery('#markform').addClass('collapse in');
-                $table.bootstrapTable({
-                    toolbar: ".toolbar",
-                    clickToSelect: true,
-                    showRefresh: true,
-                    search: true,
-                    showToggle: true,
-                    showColumns: true,
-                    pagination: true,
-                    searchAlign: 'left',
-                    pageSize:50,
-                    clickToSelect: false,
-                    pageList: [10,25,50,100],
-
-                    formatShowingRows: function(pageFrom, pageTo, totalRows){
-                        //do nothing here, we don't want to show the text "showing x of y from..."
-                    },
-                    formatRecordsPerPage: function(pageNumber){
-                        return pageNumber + " rows visible";
-                    },
-                    icons: {
-                        refresh: 'fa fa-refresh',
-                        toggle: 'fa fa-th-list',
-                        columns: 'fa fa-columns',
-                        detailOpen: 'fa fa-plus-circle',
-                        detailClose: 'fa fa-minus-circle'
-                    }
-                });
-                //activate the tooltips after the data table is initialized
-                $('[rel="tooltip"]').tooltip();
-
-                $(window).resize(function () {
-                    $table.bootstrapTable('resetView');
-                });
-      $('#exammenu').addClass('collapse in');
+   $('#exammenu').addClass('collapse in');
    $('#exam').addClass('active');
    $('#exam3').addClass('active');
-
-            });
-
+});
 
    $('tr').each(function () {
              var sum = 0;
@@ -272,17 +234,15 @@
          });
 
    $('#markform').validate({ // initialize the plugin
-           rules: {
+       rules:{
                marks1:{required:true },
-   			marks:{required:true }
-           },
-           messages: {
-                 marks1: "Please Enter The Marks",
-   			  marks: "Please Enter The Marks"
-               }
+   			       marks:{required:true }
+            },
+      messages:{
+                marks1: "Please Enter The Marks",
+   			        marks: "Please Enter The Marks"
+              }
        });
-
-
 
    	   function insertfun()
    	   {//onkeyup="insertfun(this.value)"
@@ -292,14 +252,11 @@
    		   var sub=document.getElementById("subid").value;
    		   var t=document.getElementById("tid").value;
    		   var ex=document.getElementById("eid").value;
-
    		   //alert(m);alert(s);alert(ex);//exit;
-
    		  $.ajax({
    				type:'post',
    				url:'<?php echo base_url(); ?>/examinationresult/ajaxmarkinsert',
    				data:'examid=' + ex + '&suid=' + sub + '&stuid=' + s + '&clsid=' + c + '&teid=' + t + '&mark=' + m,
-
    				success:function(test)
    				{   alert(test);exit;
    					if(test=="Email Id already Exit")
