@@ -5,7 +5,7 @@
    margin-left:30px;
    margin-top:15px;
    }
-   /*select{width:100px;}*/
+   select{width:100px;}
 </style>
 <div class="main-panel">
 <div class="content">
@@ -211,7 +211,7 @@
            $('<option>').val(res[i].teacher_id).text(res[i].name).appendTo('.teacher_id');
 
            }
-          
+
          }else{
              $("#teacher_id").empty();
          }
