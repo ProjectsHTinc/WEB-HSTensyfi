@@ -102,14 +102,14 @@
                                       ?>
                                  <td style="width: 20%;"><?php echo $rows->internal_mark; ?> ( <?php echo $rows->internal_grade; ?> )</td>
                                  <?php }else{?> 
-                                 <td style="width: 20%;"><?php echo $rows->internal_mark; ?></td>
+                                 <td style="width: 20%;color: red;"><?php echo $rows->internal_mark; ?></td>
                                  <?php } 
                                     if(is_numeric($em)){  ?>
                                  <td style="width: 20%;"><?php echo $rows->external_mark; ?> ( <?php echo $rows->external_grade; ?> )</td>
                                  <?php }else{?> 
-                                 <td style="width: 20%;"><?php echo $rows->external_mark; ?></td>
+                                 <td style="width: 20%;color: red;"><?php echo $rows->external_mark; ?></td>
                                  <?php }  if(is_numeric($tm)){ 
-                                        if($tm < '35'){ ?>
+                                        if($tm < '35' || !is_numeric($im) || !is_numeric($em)){ ?>
                                  <td style="width: 20%;color: red;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade;echo ' '; echo')'; echo ' ';echo"Fail"; ?> </td>
                                         <?php }else{  ?>
                                  <td style="width: 20%;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade; ?> )</td>

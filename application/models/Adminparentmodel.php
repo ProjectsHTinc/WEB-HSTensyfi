@@ -134,7 +134,7 @@ Class Adminparentmodel extends CI_Model
     function exam_marks($exam_id,$stu_id,$cls_id)
     {
 
-        $sql1       = "SELECT em.*,su.subject_name FROM edu_exam_marks AS em,edu_subject AS su WHERE em.exam_id='$exam_id' AND em.stu_id='$stu_id' AND em.classmaster_id='$cls_id' AND em.subject_id=su.subject_id";
+        $sql1 = "SELECT em.*,su.subject_name,en.admission_id,a.language FROM edu_exam_marks AS em,edu_subject AS su LEFT JOIN edu_enrollment AS en ON en.enroll_id='$stu_id' LEFT JOIN edu_admission AS a ON a.admission_id=en.admission_id WHERE em.exam_id='$exam_id' AND em.stu_id='$stu_id' AND em.classmaster_id='$cls_id' AND em.subject_id=su.subject_id";
         $resultset1 = $this->db->query($sql1);
         $res1       = $resultset1->result();
         return $res1;

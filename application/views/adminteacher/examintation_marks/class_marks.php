@@ -1,3 +1,5 @@
+
+
 <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css">
 <script src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
@@ -60,12 +62,13 @@
                            <thead>
                               <th>Sno</th>
                               <th>Name</th>
+                              <th>Preferred Language</th>
                               <?php
                                  if($status=="Success")
-                                 {
-                                 $cnt= count($subject_name);//echo $cnt;
-                                 for($i=0;$i<$cnt;$i++)
-                                 { ?>
+                                  {
+                                  $cnt= count($subject_name);//echo $cnt;
+                                  for($i=0;$i<$cnt;$i++)
+                                  { ?>
                               <th> <?php echo $subject_name[$i]; ?> <?php //echo $subject_id[$i]; ?></th>
                               <?php  }
                                  }else{  ?>
@@ -83,7 +86,7 @@
                                  {
                                  $student_arr = array();
                                  $student_array_generate($stu,$student_arr);
-
+                                 
                                  $i = 1;
                                  foreach ($student_arr as $k => $s1)
                                  {
@@ -96,35 +99,46 @@
                                     if(empty($s) === false && $k == 1){
                                       echo '<input type="hidden" id="sid" name="sutid[]" value="'.$s->enroll_id.'" />';
                                       echo '<input type="hidden" id="cid" name="clsmastid" value="'.$s->class_id.'" />';
+                                      //echo $s->language;
                                       $k++;
+                                 echo'<td>';
+                                   echo'('; echo' '; echo $s->subject_name; echo' '; echo')'; 
+                                 echo'</td>';
                                     }
-                                    if($status=="Success")
-                                     {
-
-                                echo '<td>';
-                                echo '<input type="hidden" required  name="subid" value="'.$k1.'" class="form-control"/>';
+                                 if($status=="Success")
+                                 {
+                                 echo '<td>';
+                                 echo '<input type="hidden" required  name="subid" value="'.$k1.'" class="form-control"/>';
                                       if(!empty($s))
                                       {
                                         $im=$s->internal_mark;
                                         $em=$s->external_mark;
                                         $tm=$s->total_marks;
                                         //echo $tm;
-
+                                 
                                         foreach($result as $flag){}
                                          $ef=$flag->is_internal_external;
                                          $efsi=$flag->subject_id;
-
+                                 
                                          if($im==0 && $em==0 && is_numeric($im) && is_numeric($em))
                                          {
                                               echo '<span class="grade2">';
-                                              if(is_numeric($tm)){
-                                               echo'<span class="combat">';
-                                                  echo $s->total_marks; echo "&nbsp";
-                                                echo'</span>';
-                                                  echo '<span class="space">';echo $s->total_grade;echo'</span>';
+                                              if(is_numeric($tm))
+                                              {
+                                                if($tm <'35'){
+                                                     echo'<span class="combat" style="color:red;">';
+                                                 echo $s->total_marks; echo "&nbsp";
+                                                 echo'</span>';
+                                                 echo '<span class="space" style="color:red;">';echo $s->total_grade;echo'</span>';
+                                                 }else{
+                                                     echo'<span class="combat">';
+                                                 echo $s->total_marks; echo "&nbsp";
+                                                 echo'</span>';
+                                                 echo '<span class="space">';echo $s->total_grade;echo'</span>';
+                                                 }   
                                               }else{
                                                 //echo"AB";
-                                                echo '<span class="space">';echo $s->total_marks;echo'</span>';
+                                                echo '<span class="space" style="color:red;">';echo $s->total_marks;echo'</span>';
                                                  }
                                             echo'</span>';
                                           }else{
@@ -132,22 +146,30 @@
                                               if(is_numeric($im)){
                                               echo $s->internal_mark;  echo "&nbsp";
                                               echo '<span class="space">';echo $s->internal_grade;echo'</span>';
-                                              }else{ echo $s->internal_mark; }
+                                              }else{ echo'<span style="color:red;">'; echo $s->internal_mark; echo'</span>'; }
                                               echo'</span>';
                                                   echo "&nbsp";
                                                 echo '<span class="grade1">';
                                                if(is_numeric($em)){
                                               echo $s->external_mark;  echo "&nbsp";
                                               echo '<span class="space">';echo $s->external_grade;echo'</span>';
-                                            }else{ echo $s->external_mark; }
+                                            }else{ echo'<span style="color:red;">'; echo $s->external_mark; echo'</span>'; }
                                               echo'</span>';
                                               echo "&nbsp";
                                              echo '<span class="grade2">';
                                                if(is_numeric($tm)){
-                                                 echo'<span class="combat">';
+                                                  if($tm < '35' || !is_numeric($im) || !is_numeric($em)){
+                                                    echo'<span class="combat" style="color:red;">';
+                                                   echo $s->total_marks; echo "&nbsp";
+                                                  echo'</span>';
+                                             echo '<span class="space" style="color:red;">';echo $s->total_grade;echo'</span>';
+                                                   }else{
+                                                  echo'<span class="combat">';
                                                    echo $s->total_marks; echo "&nbsp";
                                                   echo'</span>';
                                              echo '<span class="space">';echo $s->total_grade;echo'</span>';
+                                                  }
+                                            
                                                }else{  echo $s->total_marks; }
                                              echo'</span>';
                                           }
@@ -162,7 +184,6 @@
                                   }
                                  echo '<td class="total-combat">
                                           </td>';
-
                                    echo '</tr>';
                                   $i++;
                                  } //print_r($smark);
@@ -192,6 +213,14 @@
    // echo $cls; echo $sec; ?>
 <script type="text/javascript">
 
+    $('#examinationmenu').addClass('collapse in');
+    $('#exam').addClass('active');
+    $('#exam4').addClass('active');
+
+  $(document).ready(function(){
+   $('th').attr('class','-');
+ });
+
    $('tr').each(function () {
           var sum = 0;
         $(this).find('.combat').each(function () {
@@ -203,61 +232,57 @@
         });
         $(this).find('.total-combat').html(sum);
       });
-
-   $('#examinationmenu').addClass('collapse in');
-   $('#exam').addClass('active');
-   $('#exam4').addClass('active');
-
+   
+ 
    $('#markform').validate({ // initialize the plugin
            rules: {
                totalmarks:{required:true,number:true }
            },
            messages: {
                  totalmarks: "Please Enter The Marks"
-
+   
                }
        });
- 
-   var $table = $('#bootstrap-table');
-         $(document).ready(function(){
-
-           jQuery('#markform').addClass('collapse in');
-             $table.bootstrapTable({
-                 toolbar: ".toolbar",
-                 clickToSelect: true,
-                 showRefresh: true,
-                 search: true,
-                 showToggle: true,
-                 showColumns: true,
-                 pagination: true,
-                 searchAlign: 'left',
-                 pageSize:50,
-                 clickToSelect: false,
-                 pageList: [10,25,50,100],
-
-                 formatShowingRows: function(pageFrom, pageTo, totalRows){
-                     //do nothing here, we don't want to show the text "showing x of y from..."
-                 },
-                 formatRecordsPerPage: function(pageNumber){
-                     return pageNumber + " rows visible";
-                 },
-                 icons: {
-                     refresh: 'fa fa-refresh',
-                     toggle: 'fa fa-th-list',
-                     columns: 'fa fa-columns',
-                     detailOpen: 'fa fa-plus-circle',
-                     detailClose: 'fa fa-minus-circle'
-                 }
-             });
-
-             //activate the tooltips after the data table is initialized
-             $('[rel="tooltip"]').tooltip();
-
-             $(window).resize(function () {
-                 $table.bootstrapTable('resetView');
-             });
-         });
-
+   
+   // var $table = $('#bootstrap-table');
+   //       $(document).ready(function(){
+   //         jQuery('#markform').addClass('collapse in');
+   //           $table.bootstrapTable({
+   //               toolbar: ".toolbar",
+   //               clickToSelect: true,
+   //               showRefresh: true,
+   //               search: true,
+   //               showToggle: true,
+   //               showColumns: true,
+   //               pagination: true,
+   //               searchAlign: 'left',
+   //               pageSize:50,
+   //               clickToSelect: false,
+   //               pageList: [10,25,50,100],
+   
+   //               formatShowingRows: function(pageFrom, pageTo, totalRows){
+   //                   //do nothing here, we don't want to show the text "showing x of y from..."
+   //               },
+   //               formatRecordsPerPage: function(pageNumber){
+   //                   return pageNumber + " rows visible";
+   //               },
+   //               icons: {
+   //                   refresh: 'fa fa-refresh',
+   //                   toggle: 'fa fa-th-list',
+   //                   columns: 'fa fa-columns',
+   //                   detailOpen: 'fa fa-plus-circle',
+   //                   detailClose: 'fa fa-minus-circle'
+   //               }
+   //           });
+   
+   //           //activate the tooltips after the data table is initialized
+   //           $('[rel="tooltip"]').tooltip();
+   
+   //           $(window).resize(function () {
+   //               $table.bootstrapTable('resetView');
+   //           });
+   //       });
+   
    function generatefromtable() 
    {
     var data = [], fontSize =10, height = 0, doc;
@@ -278,7 +303,7 @@
     //doc.text(50, height + 20, 'hi world');
     doc.save("<?php  echo $this->session->userdata('name'); ?>( <?php echo $cls; echo $sec; ?> ).pdf");
    }
-
+   
    $(function() {
    $(".download").click(function() {
    $("#bootstrap-table").table2excel({
@@ -291,12 +316,13 @@
       exclude_inputs: true
     });
    });
-
+   
    });
-
+   
    var table = $('#bootstrap-table').DataTable( {
        responsive: true,
        paging: false
    } );
    new $.fn.dataTable.FixedHeader( table );
 </script>
+

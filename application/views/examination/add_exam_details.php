@@ -202,7 +202,7 @@
    var b=$("#"+ dyid +"").html(inter_exter_val);
    b.show();
    
-   $("#em" + dyid +"").blur(function()
+   $("#em" + dyid +"").mouseout(function()
    {
     if(Number($("#im" + dyid +"").val()!='')){
      var ttl=document.getElementById('sub_total').value;
@@ -210,12 +210,12 @@
      if(ttl==c){
      }else{
      alert("The internal and external marks must be equal to subject total value");
-     //return false;
+     return false;
      }
    }
    });
     
-   $("#im" + dyid +"").blur(function()
+   $("#im" + dyid +"").mouseout(function()
    {
     if(Number($("#em" + dyid +"").val()!='')){
      var ttl=document.getElementById('sub_total').value;
@@ -223,7 +223,7 @@
      if(ttl==c){
      }else{
      alert("The internal and external marks must be equal to subject total value");
-     //return false;
+     return false;
      } 
     }
     

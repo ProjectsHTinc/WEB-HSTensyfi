@@ -18,7 +18,17 @@
 	<div class="col-md-8">
 		<div class="card">
 			<div class="header">
-				<h4 class="title">Exam Marks <button class="btn btn-info btn-fill center" onclick="generatefromtable()">Generate PDF</button><button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> </h4>
+				<?php if(empty($result)){
+
+				}else{
+              foreach ($result as $rows) {  } $iang=$rows->language;
+	           $sql="SELECT subject_name FROM edu_subject WHERE subject_id='$iang'";
+	           $sql1=$this->db->query($sql);
+				   $row=$sql1->result();
+				   $sub_id=$row[0]->subject_name;
+				}?>
+			<h4 class="title">Exam Marks ( Preferred Language = <?php if(empty($result)){}else{ echo'<b>'; echo'<span style="color:green;">'; echo $sub_id; echo'</span>'; echo'</b>';}?> )
+				<button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button><button class="btn btn-info btn-fill center pull-right " style="margin-top:-10px; margin-right:10px;" onclick="generatefromtable()">Generate PDF</button> </h4>
 				<p class="category"></p>
 			</div>
 			<div class="content table-responsive table-full-width">
