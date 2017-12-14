@@ -221,7 +221,7 @@ font-weight: 500;
                   <div class="collapse" id="examinationmenu">
                      <ul class="nav">
                         <li id="exam1">
-                           <a href="<?php echo base_url(); ?>adminparent/exam_name_calender">Examination Calender</a>
+                           <a href="<?php echo base_url(); ?>adminparent/exam_name_calender">Examination Calendar</a>
                         </li>
                         <li id="exam2">
                            <a href="<?php echo base_url(); ?>adminparent/exam_result">Examination Result</a>

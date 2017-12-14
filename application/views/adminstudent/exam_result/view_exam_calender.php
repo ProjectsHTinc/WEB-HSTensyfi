@@ -6,7 +6,7 @@
                <div class="card">
                   <div class="header">
 				  <?php 
-				  if(empty($calender)){ echo "Examination Calender";}else{
+				  if(empty($calender)){ echo "Examination Calendar";}else{
 				  foreach ($calender as $rows) 
 								 {}?>
 				  <h4 class="title"><?php echo $rows->exam_name; }?></h4>

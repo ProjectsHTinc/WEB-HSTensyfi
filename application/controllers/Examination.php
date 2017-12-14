@@ -179,10 +179,7 @@ public function add_exam_details()
 		$subject_name=$this->input->post('subject_id');
 		//print_r($subject_name);exit;
 		$exdate=$this->input->post('exam_dates');
-		/*  print_r($exam_date);
-		$edate=new DateTime($exam_date);
-		$exdate=date_format($edate,'Y-m-d' );
-		exit; */
+	
 		$time=$this->input->post('time');
 		//print_r($time);exit;
 		$teacher_id=$this->input->post('teacher_id');
@@ -194,22 +191,6 @@ public function add_exam_details()
 		$exter_mark=$this->input->post('exter_mark');
 		$inter_exter_mark=$this->input->post('inter_exter_mark'); 
 
-		// $len=count($sub_total);
-  //       echo $len;
-  //       for($i=0;$i<$len;$i++)
-  //       {
-  //        $ttl[$i]=$inter_mark[$i] + $exter_mark[$i];
-  //        if($sub_total[$i]==$ttl[$i]){
-  //          echo"success";
-  //        }else{
-  //        	echo"Fail";
-  //        }
-  //       }
-  //       exit;
-		//print_r($inter_exter_mark);exit;
-		//$tlt=$inter_mark+$exter_mark;
-		//echo $tlt;exit;
-  
 	$datas=$this->examinationmodel->add_exam_details($exam_year,$class_name,$subject_name,$exdate,$time,$teacher_id,$status,$sub_total,$inter_mark,$exter_mark,$inter_exter_mark,$user_id);
 	if($datas['status']=="success"){
 		$this->session->set_flashdata('msg','Added Successfully');

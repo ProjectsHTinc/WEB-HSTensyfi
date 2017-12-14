@@ -330,7 +330,6 @@ Class Examinationresultmodel extends CI_Model
                     $grade = 'E2';
                     return $grade;
                 }
-
             }else{
                 $grade = '0';
                return $grade;}
@@ -354,24 +353,35 @@ Class Examinationresultmodel extends CI_Model
             $clsmastid1 = $clsmastid;
             $teaid1     = $teaid;
             $examid1    = $exam_id;
+            $marks1 = $internal_marks[$i];
+            $marks2 = $external_marks[$i];
 
             if (!empty($internal_marks[$i])) {
                 $marks1 = $internal_marks[$i];
-            } else {
+            }else{
                 $marks1 = 0;
                 $grade  = 'null';
             }
 
             //Internal Mark Grade
-			$marks1 = $internal_marks[$i];
-            $total=($marks1/$interlimit)*100;
-			$grade=$this->calculate_grade($total);
-
+            if(is_numeric($marks1)){
+                $marks1 = $internal_marks[$i];
+                $total=($marks1/$interlimit)*100;
+                $grade=$this->calculate_grade($total);
+            }else{
+                $marks1 = $internal_marks[$i];
+                $grade=$marks1;
+            }
+			
             //External Mark Grade
-            $marks2 = $external_marks[$i];
-            $total=($marks2/$exterlimit)*100;
-            $grade1=$this->calculate_grade($total);
-
+            if(is_numeric($marks2)){
+                $total=($marks2/$exterlimit)*100;
+                $grade1=$this->calculate_grade($total);
+            }else{
+                $marks2 = $external_marks[$i];
+                $grade1=$marks2;
+            }
+           
             //Total Mark Grade
 			if(is_numeric($marks1) || is_numeric($marks2))
 			{
@@ -380,7 +390,7 @@ Class Examinationresultmodel extends CI_Model
                 $grade2=$this->calculate_grade($total);
 			}else{
 				$total_of=$marks1;
-				$grade2 = '0';
+				$grade2 = $total_of;
 			}
 
             $query = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','$marks1','$grade','$marks2','$grade1','$total_of','$grade2','$user_id1',NOW())";
@@ -413,15 +423,16 @@ Class Examinationresultmodel extends CI_Model
             $clsmastid1 = $clsmastid;
             $teaid1     = $teaid;
             $examid1    = $exam_id;
-
-            //Total Mark Grade
-
             $total_of =$total_marks[$i];
 
-            $total=($total_of/$ttlmark)*100;
-
-            $grade2=$this->calculate_grade($total);
-
+            //Total Mark Grade
+            if(is_numeric($total_of)){
+                $total=($total_of/$ttlmark)*100;
+                $grade2=$this->calculate_grade($total);
+            }else{
+                $total_of =$total_marks[$i];
+                $grade2=$total_of;
+            }
 
             $query = "INSERT INTO edu_exam_marks(exam_id,teacher_id,subject_id,stu_id,classmaster_id,internal_mark,internal_grade,external_mark,external_grade,total_marks,total_grade,created_by,created_at)VALUES('$examid1','$teaid1','$subid1','$sutid1','$clsmastid1','0','0','0','0','$total_of','$grade2','$user_id1',NOW())";
             $resultset1 = $this->db->query($query);
@@ -528,18 +539,30 @@ Class Examinationresultmodel extends CI_Model
             $clsmastid1 = $clsmastid;
             $teaid1     = $teaid;
             $examid1    = $exam_id;
-
-            //Internal Mark Grade
             $marks1 = $internal_marks[$i];
-            $total=($marks1/$interlimit)*100;
-            $grade=$this->calculate_grade($total);
-
-            //External Mark Grade
             $marks2 = $external_marks[$i];
-            $total=($marks2/$exterlimit)*100;
-            $grade1=$this->calculate_grade($total);
+            
+        //Internal Mark Grade
+            if(is_numeric($marks1))
+            {
+                $total=($marks1/$interlimit)*100;
+                $grade=$this->calculate_grade($total);
+            }else{
+                 $marks1 = $internal_marks[$i];
+                 $grade=$marks1;
+            }
 
-            //Total Mark Grade
+        //External Mark Grade
+            if(is_numeric($marks2))
+            {
+                $total=($marks2/$exterlimit)*100;
+                $grade1=$this->calculate_grade($total);
+            }else{
+                $marks2 = $external_marks[$i];
+                $grade1=$marks2;
+            }
+
+        //Total Mark Grade
             if(is_numeric($marks1) || is_numeric($marks2))
             {
                 $total_of = $marks1 + $marks2;
@@ -547,10 +570,8 @@ Class Examinationresultmodel extends CI_Model
                 $grade2=$this->calculate_grade($total);
             }else{
                 $total_of=$marks1;
-                $grade2 = '0';
+                $grade2 = $total_of;
             }
-
-
 
           $update_marks="UPDATE edu_exam_marks SET internal_mark='$marks1',internal_grade='$grade',external_mark='$marks2',external_grade='$grade1',total_marks='$total_of',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND  classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
           $resultset=$this->db->query($update_marks);
@@ -571,13 +592,16 @@ Class Examinationresultmodel extends CI_Model
             $clsmastid1 = $clsmastid;
             $teaid1     = $teaid;
             $examid1    = $exam_id;
-
-
-             //Total Mark Grade
             $total_of =$total_marks[$i];
-            $total=($total_of/$ttlmark)*100;
-            $grade2=$this->calculate_grade($total);
 
+        //Total Mark Grade
+           if(is_numeric($total_of)){
+              $total=($total_of/$ttlmark)*100;
+              $grade2=$this->calculate_grade($total);
+           }else{
+               $total_of =$total_marks[$i];
+               $grade2=$total_of;
+           }
 
           $update_marks="UPDATE edu_exam_marks SET total_marks='$total_of',total_grade='$grade2',updated_by='$user_id1',updated_at=NOW() WHERE exam_id='$examid1' AND  classmaster_id='$clsmastid1' AND subject_id='$subid1' AND stu_id='$sutid1'";
           $resultset=$this->db->query($update_marks);

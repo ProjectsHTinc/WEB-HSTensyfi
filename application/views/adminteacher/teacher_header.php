@@ -250,12 +250,12 @@
                <li id="calendar">
                   <a data-toggle="collapse" href="#calendermenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
-                     <p>Calender	</p>
+                     <p>Calendar	</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="calendermenu">
                      <ul class="nav">
-                        <li id="calendar1"><a href="<?php echo base_url(); ?>teacherevent/calender">Calender</a></li>
+                        <li id="calendar1"><a href="<?php echo base_url(); ?>teacherevent/calender">Calendar</a></li>
                         <li id="calendar2"><a href="<?php echo base_url(); ?>teacherevent/home">List of Event</a></li>
                      </ul>
                   </div>

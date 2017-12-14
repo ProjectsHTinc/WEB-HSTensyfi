@@ -293,13 +293,13 @@
                <li id="event">
                   <a data-toggle="collapse" href="#eventmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
-                     <p>Calender</p>
+                     <p>Calendar</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="eventmenu">
                      <ul class="nav">
                         <li id="event2"><a href="<?php echo base_url(); ?>event/create">Add / View Event</a></li>
-                        <li id="event1"><a href="<?php echo base_url(); ?>event/home">Event Calender</a></li>
+                        <li id="event1"><a href="<?php echo base_url(); ?>event/home">Event Calendar</a></li>
                         <li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add/ View Leave </a></li>
                         <!-- <li><a href="<?php echo base_url(); ?>event/view">View Event</a></li> -->
                      </ul>
@@ -327,7 +327,7 @@
                   <div class="collapse" id="exammenu">
                      <ul class="nav">
                         <li id="exam1"><a href="<?php echo base_url(); ?>examination/add_exam">Add / View Exams</a></li>
-                        <li id="exam2"><a href="<?php echo base_url(); ?>examination/add_exam_detail">Examination Calender</a></li>
+                        <li id="exam2"><a href="<?php echo base_url(); ?>examination/add_exam_detail">Examination Calendar</a></li>
                         <li id="exam3"><a href="<?php echo base_url(); ?>examination/exam_name_status">Exam Result Details</a></li>
                      </ul>
                   </div>

@@ -136,9 +136,7 @@ function add_exam_details($exam_year,$class_name,$subject_name,$exdate,$time,$te
 			$inter=$inter_mark[$i];
 			$exter=$exter_mark[$i];
 		}
-
-//echo $inter;  echo $exter; exit;
-
+     //echo $inter;  echo $exter; exit;
 	$check_exam_name="SELECT * FROM edu_exam_details WHERE exam_id='$exam_years' AND subject_id='$subject_id' AND classmaster_id='$class_id' AND exam_date='$exam_dates' AND times='$times'";
 	$result=$this->db->query($check_exam_name);
 	if($result->num_rows()==0)

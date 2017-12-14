@@ -11,7 +11,7 @@
             <div class="container-fluid">
 							<div class="content">
 								<div class="header">
-										<legend>Event Calender </legend>
+										<legend>Event Calendar </legend>
 
 								</div>
 								<div class="container-fluid">

@@ -3,7 +3,7 @@
       <div class="col-md-12">
          <div class="card">
             <div class="header">
-               <legend>Update Examination Calender</legend>
+               <legend>Update Examination Calendar</legend>
             </div>
             <?php if($this->session->flashdata('msg')): ?>
             <div class="alert alert-success">

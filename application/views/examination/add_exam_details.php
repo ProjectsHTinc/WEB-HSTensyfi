@@ -19,7 +19,7 @@
             <div class="col-md-12">
                <div class="card">
                   <div class="header">
-                     <h4 class="title">Examination Calender</h4>
+                     <h4 class="title">Examination Calendar</h4>
                   </div>
                   <div class="content">
                      <form method="post" action="<?php echo base_url(); ?>examination/add_exam_details" class="form-horizontal" enctype="multipart/form-data" id="examform">
@@ -98,7 +98,7 @@
                               </div>
                               <label class="col-sm-2 control-label">&nbsp;</label>
                               <div class="col-sm-4">
-                                 <button type="submit" id="save" class="btn btn-info btn-fill center">Save </button>
+                                 <input type="submit" id="save" class="btn btn-info btn-fill center" value="Save">
                               </div>
                            </div>
                         </fieldset>
@@ -204,31 +204,53 @@
    
    $("#em" + dyid +"").mouseout(function()
    {
-    if(Number($("#im" + dyid +"").val()!='')){
-     var ttl=document.getElementById('sub_total').value;
-     var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
-     if(ttl==c){
-     }else{
-     alert("The internal and external marks must be equal to subject total value");
-     return false;
-     }
+    if(Number($("#im" + dyid +"").val()!=''))
+    {
+       var ttl=document.getElementById('sub_total').value;
+       var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
+       if(ttl==c)
+       { var k=1;
+         for(k=1;k<15;k++)
+         {
+           $('#save').attr('type','submit');
+           $("#inter_exter_mark"+(dyid+k)+"").attr("disabled", false);
+           $("#im" + dyid +"").css("border-color","#E3E3E3");
+           $("#em" + dyid +"").css("border-color", "#E3E3E3");
+         }
+       }else
+       {  var k=1;
+         alert("The internal and external marks must be equal to subject total value");
+         for(k=1;k<15;k++){
+            $('#save').attr('type','-');
+          $("#inter_exter_mark"+(dyid+k)+"").attr("disabled", true);
+          $("#im" + dyid +"").css("border-color","red");
+          $("#em" + dyid +"").css("border-color", "red");
+         } return false;
+        
+       }
    }
    });
     
-   $("#im" + dyid +"").mouseout(function()
-   {
-    if(Number($("#em" + dyid +"").val()!='')){
-     var ttl=document.getElementById('sub_total').value;
-     var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
-     if(ttl==c){
-     }else{
-     alert("The internal and external marks must be equal to subject total value");
-     return false;
-     } 
-    }
-    
-   })
-
+     $("#im" + dyid +"").mouseout(function()
+     {
+      if(Number($("#em" + dyid +"").val()!='')){
+       var ttl=document.getElementById('sub_total').value;
+       var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
+       if(ttl==c){
+         $('#save').attr('type','submit');
+         $("#inter_exter_mark"+(dyid+1)+"").attr("disabled", false);
+         $("#im" + dyid +"").css("border-color","#E3E3E3");
+         $("#em" + dyid +"").css("border-color", "#E3E3E3");
+       }else{
+        alert("The internal and external marks must be equal to subject total value");
+         $('#save').attr('type','-');
+         $("#inter_exter_mark"+(dyid+1)+"").attr("disabled", true);
+         $("#im" + dyid +"").css("border-color","red");
+         $("#em" + dyid +"").css("border-color", "red");
+         return false;
+       } 
+      }
+     })
    }else{
    var no_inter_exter_val = '<input style="width:33%;float:left;margin-bottom:18px;" type="text" readonly  name="inter_mark[]" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" class="form-control" placeholder="External Mark" style="width:33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
    var a=$("#"+ dyid +"").html(no_inter_exter_val);
@@ -236,19 +258,17 @@
    }
    }
    
-   function add()
-   {
-   var ttl=document.getElementById('sub_total').value;
-   var c=Number($("#im").val())+Number($("#em").val());
-   if(ttl==c){
+   // function add()
+   // {
+   // var ttl=document.getElementById('sub_total').value;
+   // var c=Number($("#im").val())+Number($("#em").val());
+   // if(ttl==c){
 
-   }else{
-   alert("The internal and external total mark values must be equal to subject total value");
-   return false;
-   }
-   
-   
-   }
+   // }else{
+   // alert("The internal and external total mark values must be equal to subject total value");
+   // return false;
+   // }
+   // }
    
    function checksubject(exam_year,class_name)
    { //alert(val);exit;
@@ -337,7 +357,7 @@
    
    //external +='<input type="text"  required name="exter_mark[]"  class="form-control"   placeholder="External Mark"/></br>';
    
-   inter_exter +='<select name="inter_exter_mark[]" required id="inter_exter_mark" onchange="showdiv('+i+',this.value)"   class="form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
+   inter_exter +='<select name="inter_exter_mark[]" required id="inter_exter_mark'+i+'" onchange="showdiv('+i+',this.value)"   class="form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Internal Or External </option><option value="1">Yes</option><option value="0">No</option></select></br>';
    
    exam_secction += '<select name="time[]" required class="form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue"><option value="">Time</option><option value="AM">AM</option><option value="PM">PM</option></select></br>';
    
