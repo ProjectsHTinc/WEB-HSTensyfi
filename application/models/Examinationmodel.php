@@ -45,7 +45,7 @@ function view_exam_details($exam_id,$classmaster_id)
 {
 	$year_id=$this->getYear();
 
-	 $query="select ed.exam_name,ex.exam_detail_id,ex.subject_id,ex.exam_date,ex.times,ex.classmaster_id,ex.exam_id,cm.class_sec_id,ex.teacher_id,ex.status,s.subject_name,s.subject_id,c.class_name,se.sec_name FROM edu_exam_details AS ex,edu_classmaster AS cm,edu_subject AS s,edu_class AS c,edu_sections AS se,edu_examination AS ed WHERE ex.exam_id IN('$exam_id') AND ed.exam_id=ex.exam_id AND ed.exam_year='$year_id'  AND ex.subject_id=s.subject_id AND ex.classmaster_id IN('$classmaster_id') AND ex.classmaster_id=cm.class_sec_id AND c.class_id =cm.class AND se.sec_id=cm.section";
+	 $query="select ed.exam_name,ex.exam_detail_id,ex.subject_id,ex.exam_date,ex.times,ex.classmaster_id,ex.exam_id,cm.class_sec_id,ex.teacher_id,ex.status,ex.subject_total,ex.is_internal_external,ex.internal_mark,ex.external_mark,s.subject_name,s.subject_id,c.class_name,se.sec_name FROM edu_exam_details AS ex,edu_classmaster AS cm,edu_subject AS s,edu_class AS c,edu_sections AS se,edu_examination AS ed WHERE ex.exam_id IN('$exam_id') AND ed.exam_id=ex.exam_id AND ed.exam_year='$year_id'  AND ex.subject_id=s.subject_id AND ex.classmaster_id IN('$classmaster_id') AND ex.classmaster_id=cm.class_sec_id AND c.class_id =cm.class AND se.sec_id=cm.section";
 	$resultset=$this->db->query($query);
    return $resultset->result();
 

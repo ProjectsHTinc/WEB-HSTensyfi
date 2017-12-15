@@ -286,12 +286,15 @@
       {
          var tl=Number(inm1)+Number(exm1);
          if(a==tl){
-              //alert("Success");
+             $("#im" + x +"").css("border-color","#E3E3E3");
+             $("#em" + x +"").css("border-color", "#E3E3E3");
          }else{
            alert("The internal and external marks must be equal to subject total value");
+            $("#im" + x +"").css("border-color","red");
+            $("#em" + x +"").css("border-color", "red");
+           return false;
          }
       }else{
-        //alert("NO INTER EXTER");
       }
     }
         
