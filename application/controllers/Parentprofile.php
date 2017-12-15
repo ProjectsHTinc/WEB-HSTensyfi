@@ -44,40 +44,33 @@ class Parentprofile extends CI_Controller {
 				 $user_type=$this->session->userdata('user_type');
 				 if($user_type==4)
 				 {
-					
 					$user_id=$this->session->userdata('user_id');
 					$parent_id=$this->input->post('parent_id');
 					$student=$this->input->post('student');
-					//print_r($student);exit;
-					 //$user_pic_old=$this->input->post('user_pic_old');
-	
-					   $student_pic = $_FILES["user_pic"]["name"];
-				       $userFileName =time().$student_pic;
-				       $uploaddir = 'assets/parents/profile/';
-					   $profilepic = $uploaddir.$userFileName;
-					   move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
-
-
-				$datas=$this->parentprofilemodel->update_parents($user_id,$user_type,$parent_id,$student,$userFileName);
-				
-				//print_r($datas['status']);exit;
-				if($datas['status']=="success"){
-					$this->session->set_flashdata('msg', 'Updated Successfully');
-					redirect('parentprofile/profile_edit');
-				}else if($datas['status']=="Email Already Exist"){
-					$this->session->set_flashdata('msg', 'Email Already Exist');
-					redirect('parentprofile/profile_edit');
-				}else{
-					$this->session->set_flashdata('msg', 'Failed to Add');
-					redirect('parentprofile/profile_edit');
-				}
-			 }
-			 else{
-					redirect('/');
-			 }
+ 			    $student_pic = $_FILES["user_pic"]["name"];
+					$temp = pathinfo($student_pic, PATHINFO_EXTENSION);
+					$userFileName = round(microtime(true)) . '.' . $temp;
+				  $uploaddir = 'assets/parents/profile/';
+					$profilepic = $uploaddir.$userFileName;
+					move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
+					$datas=$this->parentprofilemodel->update_parents($user_id,$user_type,$parent_id,$student,$userFileName);
+					if($datas['status']=="success"){
+						$this->session->set_flashdata('msg', 'Updated Successfully');
+						redirect('parentprofile/profile_edit');
+					}else if($datas['status']=="Email Already Exist"){
+						$this->session->set_flashdata('msg', 'Email Already Exist');
+						redirect('parentprofile/profile_edit');
+					}else{
+						$this->session->set_flashdata('msg', 'Failed to Add');
+						redirect('parentprofile/profile_edit');
+					}
+				 }
+				 else{
+						redirect('/');
+				 }
 		}
-		
-	
+
+
 	public function pwd_edit()
 	{
 		 $datas=$this->session->userdata();
@@ -105,19 +98,19 @@ class Parentprofile extends CI_Controller {
 		{
 		 		    $user_id=$this->input->post('user_id');
 				//echo $user_id;exit;
-			
+
 						$name=$this->input->post('name');
 						$oldpassword=md5($this->input->post('oldpassword'));
 						$newpassword=md5($this->input->post('newpassword'));
 						$user_password_old=$this->input->post('user_password_old');
-						
+
 						$res=$this->parentprofilemodel->updateprofilepwd($user_id,$oldpassword,$newpassword);
-						
+
                     //print_r($res);exit;
 					if($res['status']=="success"){
 					 $this->session->set_flashdata('msg', 'Update Successfully');
 					  redirect('parentprofile/pwd_edit');
-						
+
 					  }else{
 							$this->session->set_flashdata('msg', 'Failed to update');
 							 redirect('parentprofile/pwd_edit');
