@@ -190,8 +190,8 @@
    </div>
 </div>
 <script type="text/javascript">
-  $("#")
-   function showdiv(dyid,val)
+
+  function showdiv(dyid,val)
    {
    //alert(dyid);
    var inter_exter_val = '';
@@ -202,74 +202,101 @@
    var b=$("#"+ dyid +"").html(inter_exter_val);
    b.show();
    
-   $("#em" + dyid +"").mouseout(function()
-   {
-    if(Number($("#im" + dyid +"").val()!=''))
-    {
-       var ttl=document.getElementById('sub_total').value;
-       var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
-       if(ttl==c)
-       { var k=1;
-         for(k=1;k<15;k++)
-         {
-           $('#save').attr('type','submit');
-           $("#inter_exter_mark"+(dyid+k)+"").attr("disabled", false);
-           $("#im" + dyid +"").css("border-color","#E3E3E3");
-           $("#em" + dyid +"").css("border-color", "#E3E3E3");
-         }
-       }else
-       {  var k=1;
-         alert("The internal and external marks must be equal to subject total value");
-         for(k=1;k<15;k++){
-            $('#save').attr('type','-');
-          $("#inter_exter_mark"+(dyid+k)+"").attr("disabled", true);
-          $("#im" + dyid +"").css("border-color","red");
-          $("#em" + dyid +"").css("border-color", "red");
-         } return false;
-        
-       }
-   }
-   });
+   // $("#em" + dyid +"").mouseout(function()
+   // {
+   //  if(Number($("#im" + dyid +"").val()!=''))
+   //  {
+   //     //var ttl=document.getElementById('sub_total').value;
+   //     var ttl=$("#sub_total"+ dyid +"").val(); 
+   //     var ids = $('input[name*="exam_dates"]');
+   //      //alert(ids.length);
+   //     var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
+   //     if(ttl==c)
+   //     {   var k=0;
+   //       for(k=1;k<ids.length;k++)
+   //       {
+   //         $('#save').attr('type','submit');
+   //         $("#inter_exter_mark"+(dyid+k)+"").attr("disabled", false);
+   //         $("#im" + dyid +"").css("border-color","#E3E3E3");
+   //         $("#em" + dyid +"").css("border-color", "#E3E3E3");
+   //       }
+   //     }else{  
+   //       var k=1;
+   //       alert("The internal and external marks must be equal to subject total value");
+   //       for(k=1;k<ids.length;k++){
+   //        $('#save').attr('type','-');
+   //        $("#inter_exter_mark"+(dyid+k)+"").attr("disabled", true);
+   //        $("#im" + dyid +"").css("border-color","red");
+   //        $("#em" + dyid +"").css("border-color", "red");
+   //       } return false;
+   //     }
+   // }
+   // });
     
-     $("#im" + dyid +"").mouseout(function()
-     {
-      if(Number($("#em" + dyid +"").val()!='')){
-       var ttl=document.getElementById('sub_total').value;
-       var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
-       if(ttl==c){
-         $('#save').attr('type','submit');
-         $("#inter_exter_mark"+(dyid+1)+"").attr("disabled", false);
-         $("#im" + dyid +"").css("border-color","#E3E3E3");
-         $("#em" + dyid +"").css("border-color", "#E3E3E3");
-       }else{
-        alert("The internal and external marks must be equal to subject total value");
-         $('#save').attr('type','-');
-         $("#inter_exter_mark"+(dyid+1)+"").attr("disabled", true);
-         $("#im" + dyid +"").css("border-color","red");
-         $("#em" + dyid +"").css("border-color", "red");
-         return false;
-       } 
-      }
-     })
+   //   $("#im" + dyid +"").mouseout(function()
+   //   {
+   //    if(Number($("#em" + dyid +"").val()!='')){
+   //       var ids = $('input[name*="exam_dates"]');
+   //    // var ttl=document.getElementById('sub_total').value;
+   //  var ttl=$("#sub_total"+ dyid +"").val(); 
+   //     var c=Number($("#im" + dyid +"").val())+Number($("#em" + dyid +"").val());
+   //     if(ttl==c){
+   //      var k=0;
+   //       for(k=1;k<ids.length;k++)
+   //       {
+   //       $('#save').attr('type','submit');
+   //       $("#inter_exter_mark"+(dyid+k)+"").attr("disabled", false);
+   //       $("#im" + dyid +"").css("border-color","#E3E3E3");
+   //       $("#em" + dyid +"").css("border-color", "#E3E3E3");
+   //     }
+   //     }else{
+   //      alert("The internal and external marks must be equal to subject total value");
+   //       var k=0;
+   //       for(k=1;k<ids.length;k++)
+   //       {
+   //       $('#save').attr('type','-');
+   //       $("#inter_exter_mark"+(dyid+k)+"").attr("disabled", true);
+   //       $("#im" + dyid +"").css("border-color","red");
+   //       $("#em" + dyid +"").css("border-color", "red");
+   //     }
+   //       return false;
+   //     } 
+   //    }
+   //   })
    }else{
    var no_inter_exter_val = '<input style="width:33%;float:left;margin-bottom:18px;" type="text" readonly  name="inter_mark[]" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" class="form-control" placeholder="External Mark" style="width:33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
    var a=$("#"+ dyid +"").html(no_inter_exter_val);
    a.show();
    }
    }
-   
-   // function add()
-   // {
-   // var ttl=document.getElementById('sub_total').value;
-   // var c=Number($("#im").val())+Number($("#em").val());
-   // if(ttl==c){
 
-   // }else{
-   // alert("The internal and external total mark values must be equal to subject total value");
-   // return false;
-   // }
-   // }
-   
+
+// new methode 
+ $('#save').click(function ()
+ { 
+    var ids = $('input[id*="sub_total"]');
+    var x='';
+    for(x=0;x<ids.length;x++)
+     {
+        var a =$("#sub_total"+x+"").val();
+        var b=$("#inter_exter_mark"+x+"").val();
+        var inm1=$("#im"+x+"").val();
+        var exm1=$("#em"+x+"").val();
+      if(b==1)
+      {
+         var tl=Number(inm1)+Number(exm1);
+         if(a==tl){
+              //alert("Success");
+         }else{
+           alert("The internal and external marks must be equal to subject total value");
+         }
+      }else{
+        //alert("NO INTER EXTER");
+      }
+    }
+        
+  });
+
    function checksubject(exam_year,class_name)
    { //alert(val);exit;
    var exam_year = document.getElementById('exam_year');
@@ -347,7 +374,7 @@
    
    exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
    
-   stlt +='<input type="text"  required name="sub_total[]"  id="sub_total" class="form-control"   placeholder="Subject Total"/></br>';
+   stlt +='<input type="text"  required name="sub_total[]"  id="sub_total'+i+'" class="form-control"   placeholder="Subject Total"/></br>';
    
    internal +='<div id="'+ i +'"></div>';
    
