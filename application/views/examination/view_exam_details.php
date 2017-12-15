@@ -27,7 +27,11 @@
                <div class="col-md-12">
                   <div class="card">
                       <div class="header">
-                     <h4 class="title">Exam Details For Class</h4>
+                     <h4 class="title">Exam Details For <?php if(empty($view_details)){ }else{
+                      foreach ($view_details as $rows)
+                      {}
+                      echo '<b>'; echo $rows->class_name;
+                      echo $rows->sec_name; echo'('; echo' '; echo $rows->exam_name; echo' ';  echo')'; echo '</b>'; }?></h4>
                   </div>
                      <div class="content">
                   <div class="fresh-datatables">
@@ -37,7 +41,10 @@
                  <th data-field="id">ID</th>
                  <th data-field="name" data-sortable="true"> Subject</th>
                  <th data-field="edate" data-sortable="true">Exam Date</th>
-                 <th data-field="section"  data-sortable="true">Class/Section</th>
+                 <!--th data-field="section"  data-sortable="true">Class/Section</th-->
+                 <th data-field="total"  data-sortable="true">Total Marks</th>
+                 <th data-field="internal"  data-sortable="true">Internal Marks</th>
+                 <th data-field="external"  data-sortable="true">External Marks</th>
                  <th data-field="teacher"  data-sortable="true">Teacher</th>
                  <th data-field="Status"  data-sortable="true">Status</th>
                  <th>Action</th>
@@ -49,7 +56,8 @@
                     //print_r($result);
                     foreach ($view_details as $rows)
                     {
-                    $exid=$rows->exam_id;  ?>
+                    $exid=$rows->exam_id;
+                    $inex=$rows->is_internal_external ;  ?>
                  <tr>
                     <td>
                        <?php echo $i; ?>
@@ -61,11 +69,18 @@
                        <?php $date=date_create($rows->exam_date);
                           echo date_format($date,"d-m-Y");  ?> (<?php echo $rows->times; ?> )
                     </td>
-                    <td>
+                    <!--td>
                        <?php echo $rows->class_name;?>
                        <?php echo $rows->sec_name; ?> (<?php  echo $rows->exam_name;?>)
-                    </td>
-                    <?php
+                    </td-->
+                    <td><?php echo $rows->subject_total;?></td>
+                    <?php if($inex==1){ ?>
+                    <td><?php echo $rows->internal_mark;?></td>
+                    <td><?php echo $rows->external_mark;?></td>
+                    <?php }else{?>
+                    <td><?php echo'<span style="color:#d6dcd5;">'; echo 'No'; echo'</span>';?></td>
+                    <td><?php echo'<span style="color:#d6dcd5;">'; echo 'No'; echo'</span>'; ?></td>
+                    <?php } 
                        $id=$rows->teacher_id;
                        if(!empty($id)){
                        $query = "SELECT teacher_id,name FROM edu_teachers WHERE teacher_id='$id' ";

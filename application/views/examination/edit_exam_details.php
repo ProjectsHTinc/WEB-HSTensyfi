@@ -22,10 +22,7 @@
                            <input type="hidden" name="id" value="<?php echo $rows->exam_detail_id; ?>">
                            <input type="hidden" name="eid" value="<?php echo $rows->exam_id; ?>"> 
                             <input type="hidden" name="classmaster_id" value="<?php echo $rows->classmaster_id; ?>"> 
-
-
                            <?php 
-                             
                               $a=$rows->from_month;
                               $fyear= strtotime($a);
                               $fy=date('Y',$fyear);
@@ -151,7 +148,6 @@
                           </select>
                            <script language="JavaScript">document.examform.inter_exter_mark.value="<?php echo $rows->is_internal_external; ?>";</script>
                          </div>
-                         <?php // if($rows->is_internal_external==1){ ?>
                    <label class="col-sm-2 control-label">Internal & External Marks</label>
                   <div id="yes_inter_exter">
                          <div class="col-sm-2">
@@ -161,17 +157,6 @@
                          <input type="text"  name="exter_mark" id="em" maxlength="3" class="form-control" value="<?php echo $rows->external_mark;?>">
                          </div>
                     </div>
-                    <?php //}else{?>
-                    
-                    <div id="no_inter_exter" style="display: none;">
-                       <div class="col-sm-2">
-                        <input type="text"  name="inter_mark" id="im" maxlength="3" class="form-control" readonly value="0">
-                        </div>
-                       <div class="col-sm-2">
-                         <input type="text"  name="exter_mark" id="em" maxlength="3" class="form-control" readonly value="0">
-                        </div>
-                      </div>
-                   <?php  //} ?>
                      </div>
                      </fieldset>
                   <fieldset>

@@ -278,6 +278,7 @@ public function update_exam_details()
 		$sub_total=$this->input->post('sub_total');
 		$inter_mark=$this->input->post('inter_mark');
 		$exter_mark=$this->input->post('exter_mark');
+		//echo $inter_mark; echo $exter_mark; exit;
 		$inter_exter_mark=$this->input->post('inter_exter_mark'); 
 
 		$datas=$this->examinationmodel->update_exam_detail($id,$exam_year,$class_name,$subject_name,$formatted_date,$time,$teacher_id,$status,$sub_total,$inter_mark,$exter_mark,$inter_exter_mark,$user_id);
