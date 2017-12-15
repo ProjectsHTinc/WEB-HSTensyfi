@@ -16,7 +16,6 @@ class Teacherprofile extends CI_Controller {
 		 $this->load->helper('url');
 		 $this->load->library('session');
 
-
  }
 
 
@@ -159,41 +158,24 @@ class Teacherprofile extends CI_Controller {
 			$user_type=$this->session->userdata('user_type');
 		 	if($user_type==2)
 			{
-				        $user_id=$this->input->post('user_id');
-			          	//echo $user_id;exit;
-						$teachername=$this->input->post('name');
-						$user_pic_old=$this->input->post('user_pic_old');
-
-					  $sex=$this->input->post('sex');
-			          $dob=$this->input->post('dob');
-			          $age=$this->input->post('age');
-		              $nationality=$this->input->post('nationality');
-			          $religion=$this->input->post('religion');
-                      $mobile=$this->input->post('mobile');
-
-					  $sec_email=$this->input->post('sec_email');
-					  $sec_phone=$this->input->post('sec_phone');
-
-					  $community_class=$this->input->post('community_class');
-		              $community=$this->input->post('community');
-			          $address=$this->input->post('address');
-					  $email=$this->input->post('email');
-
-				       $student_pic = $_FILES["user_pic"]["name"];
-				       $userFileName =time().$student_pic;
-				       $uploaddir = 'assets/teachers/profile/';
-					   $profilepic = $uploaddir.$userFileName;
-					   move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
-					   if(empty($student_pic))
-					   {
-					    $userFileName=$user_pic_old;
-				       }
-
-
-						$res=$this->teacherprofilemodel->teacherprofileupdate($user_id,$teachername,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$mobile,$sec_phone,$community_class,$community,$address,$userFileName);
-
-						if($res['status']=="success"){
-					 $this->session->set_flashdata('msg', 'Update Successfully');
+		      $user_id=$this->input->post('user_id');
+	         //echo $user_id;exit;
+				//$teachername=$this->input->post('name');
+				$user_pic_old=$this->input->post('user_pic_old');
+		      $teacher_pic = $_FILES["user_pic"]["name"];
+		      $temp = pathinfo($teacher_pic, PATHINFO_EXTENSION);
+		      $userFileName = round(microtime(true)) . '.' . $temp;
+		      //$userFileName =time();
+		      $uploaddir = 'assets/teachers/profile/';
+			   $profilepic = $uploaddir.$userFileName;
+			   move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
+			   if(empty($teacher_pic))
+			   {
+			    $userFileName=$user_pic_old;
+		       }
+			$res=$this->teacherprofilemodel->teacherprofileupdate($user_id,$userFileName);
+				if($res['status']=="success"){
+					$this->session->set_flashdata('msg', 'Update Successfully');
 					 redirect('teacherprofile/profilepic');
 				    }else{
 					 $this->session->set_flashdata('msg', 'Failed to update');

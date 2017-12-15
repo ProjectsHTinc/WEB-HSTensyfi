@@ -14,19 +14,16 @@ class Parentprofile extends CI_Controller {
 
 
  }
-	public function home()
-	{
-
-    }
+	public function home(){}
 
 	public function profile_edit()
 	{
-		 $datas=$this->session->userdata();
-		 $user_id=$this->session->userdata('user_id');
-		 $user_type=$this->session->userdata('user_type');
-		 //echo $user_id;exit;
-		 $datas['result'] = $this->parentprofilemodel->getuser($user_id);
-         //echo'<pre>';print_r($datas['result']);exit;
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		//echo $user_id;exit;
+		$datas['result'] = $this->parentprofilemodel->getuser($user_id);
+        //echo'<pre>';print_r($datas['result']);exit;
 		if($user_type==1 || $user_type==2 || $user_type==3 ||$user_type==4 ){
 		$this->load->view('adminparent/parent_header',$datas);
 		$this->load->view('adminparent/profile_update',$datas);
@@ -38,37 +35,43 @@ class Parentprofile extends CI_Controller {
 }
 
   public function update_parents()
-			{
-				 $datas=$this->session->userdata();
-				 $user_id=$this->session->userdata('user_id');
-				 $user_type=$this->session->userdata('user_type');
-				 if($user_type==4)
-				 {
-					$user_id=$this->session->userdata('user_id');
-					$parent_id=$this->input->post('parent_id');
-					$student=$this->input->post('student');
- 			    $student_pic = $_FILES["user_pic"]["name"];
-					$temp = pathinfo($student_pic, PATHINFO_EXTENSION);
-					$userFileName = round(microtime(true)) . '.' . $temp;
-				  $uploaddir = 'assets/parents/profile/';
-					$profilepic = $uploaddir.$userFileName;
-					move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
-					$datas=$this->parentprofilemodel->update_parents($user_id,$user_type,$parent_id,$student,$userFileName);
-					if($datas['status']=="success"){
-						$this->session->set_flashdata('msg', 'Updated Successfully');
-						redirect('parentprofile/profile_edit');
-					}else if($datas['status']=="Email Already Exist"){
-						$this->session->set_flashdata('msg', 'Email Already Exist');
-						redirect('parentprofile/profile_edit');
-					}else{
-						$this->session->set_flashdata('msg', 'Failed to Add');
-						redirect('parentprofile/profile_edit');
-					}
-				 }
-				 else{
-						redirect('/');
-				 }
+	{
+	 $datas=$this->session->userdata();
+	 $user_id=$this->session->userdata('user_id');
+	 $user_type=$this->session->userdata('user_type');
+	 if($user_type==4)
+	 {
+		$user_id=$this->session->userdata('user_id');
+		$parent_id=$this->input->post('parent_id');
+		$student=$this->input->post('student');
+		$old_pic=$this->input->post('old_pic');
+
+	   $parents_pic = $_FILES["user_pic"]["name"];
+		$temp = pathinfo($parents_pic, PATHINFO_EXTENSION);
+		$userFileName = round(microtime(true)) . '.' . $temp;
+	    $uploaddir = 'assets/parents/profile/';
+		$profilepic = $uploaddir.$userFileName;
+		move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
+      if(empty($parents_pic)){
+         $userFileName=$old_pic;
+      }
+
+	$datas=$this->parentprofilemodel->update_parents($user_id,$user_type,$parent_id,$student,$userFileName);
+		if($datas['status']=="success"){
+			$this->session->set_flashdata('msg', 'Updated Successfully');
+			redirect('parentprofile/profile_edit');
+		}else if($datas['status']=="Email Already Exist"){
+			$this->session->set_flashdata('msg', 'Email Already Exist');
+			redirect('parentprofile/profile_edit');
+		}else{
+			$this->session->set_flashdata('msg', 'Failed to Add');
+			redirect('parentprofile/profile_edit');
 		}
+	 }
+	 else{
+			redirect('/');
+	 }
+	}
 
 
 	public function pwd_edit()

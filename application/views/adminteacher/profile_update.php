@@ -1,5 +1,3 @@
-
-
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -17,9 +15,7 @@
                   </div>
                   <?php
                      // print_r($result);
-                      foreach ($result as $rows) {
-                     
-                      }
+                      foreach ($result as $rows) { }
                        ?>
                   <div class="content">
                      <form action="<?php echo base_url(); ?>teacherprofile/profileupdate" method="post" enctype="multipart/form-data" name="teacherform">
@@ -123,17 +119,17 @@
                                  <label for="exampleInputEmail1">Subject</label>
                                  <?php
                                     $tea_name=$rows->subject;
-                                                      $sQuery = "SELECT * FROM edu_subject WHERE subject_id='$tea_name'";
-                                                      $objRs=$this->db->query($sQuery);
-                                                      $row=$objRs->result();
-                                                      foreach ($row as $rows1)
+                                       $sQuery = "SELECT * FROM edu_subject WHERE subject_id='$tea_name'";
+                                       $objRs=$this->db->query($sQuery);
+                                       $row=$objRs->result();
+                                       foreach ($row as $rows1)
                                     {
                                       $sub=$rows1->subject_name;
                                     }
                                     ?>
                                  <input type="text" readonly name="subject"  class="form-control" value="<?php echo $sub; ?>">
                                  <label for="exampleInputEmail1"> Email</label>
-                                 <input type="text" name="email" readonly  class="form-control " id="email" placeholder="Email Address" onblur="checkMailStatus()"  value="<?php echo $rows->email; ?>"/>
+                                 <input type="text" name="email" disabled class="form-control " id="email" placeholder="Email Address" onblur="checkMailStatus()"  value="<?php echo $rows->email; ?>"/>
                               </div>
                            </div>
                         </div>
@@ -146,122 +142,9 @@
                          
                               </div>
                            </div>
-                           <div class="col-md-7">
-                              <div class="form-group">
-                                 <label for="exampleInputEmail1">Subject Handling</label>
-                                <select multiple name="subject_multiple[]" disabled="" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
-                               <?php
-                                 $sub_id=$rows->subject_handling;
-                                 $Query = "SELECT * FROM edu_subject";
-                                 $obj=$this->db->query($Query);
-                                 //print_r($objRs);
-                                 $row=$obj->result();
-                                 foreach ($row as $rows1)
-                                 {
-                                 $sid= $rows1->subject_id;
-                                 $subname=$rows1->subject_name;
-                                 $arryPlatform = explode(",", $sub_id);
-                                 $sPlatform_id  = trim($sid);
-                                
-                                 if (in_array($sPlatform_id, $arryPlatform )) {
-                                 ?>
-                              <?php
-                                 echo "<option  value=\"$sPlatform_id\" selected />$subname</option>";
-                                 ?>
-                              <?php }
-                                 else {
-                                 echo "<option value=\"$sPlatform_id\"/>$subname</option>";
-                                 }
-                                     }
-                                       ?>
-                           </select>
-                           <script language="JavaScript">document.teacherform.subject_multiple.value="<?php echo $rows->subject_handling; ?>";</script>
-                              </div>
-                           </div>
                         </div>
-						
-						
-                        <div class="row">
-                          
-                           <div class="col-md-7">
-                              <div class="form-group">
-                                 <label for="exampleInputEmail1"> Class Handling</label>
-                                 <select multiple disabled=""  name="class_name[]" id="multiple-class" class="selectpicker">
-                                 <?php
-                                    $sPlatform=$rows->class_name;
-                                    $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
-                                    $objRs=$this->db->query($sQuery);
-                                    //print_r($objRs);
-                                    $row=$objRs->result();
-                                    foreach ($row as $rows1) {
-                                    $s= $rows1->class_sec_id;
-                                    $sec=$rows1->class;
-                                    $clas=$rows1->class_name;
-                                    $sec_name=$rows1->sec_name;
-                                    $arryPlatform = explode(",", $sPlatform);
-                                    $sPlatform_id  = trim($s);
-                                    $sPlatform_name  = trim($sec);
-                                    if (in_array($sPlatform_id, $arryPlatform )) {
-                                    ?>
-                                 <?php
-                                    echo "<option  value=\"$sPlatform_id\" selected  />$clas-$sec_name &nbsp;&nbsp; </option>";
-                                     ?>
-                                 <?php }
-                                    }
-                                      ?>
-                                 </select>
-                              </div>
-                           </div>
-                        </div>
-						
-						<div class="row">
-                           <div class="col-md-5">
-                              <div class="form-group">
-                                 <label>Groups Name</label>
-                                <select name="groups_id" disabled="" class="selectpicker"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                              <?php foreach ($groups as $row2) {  ?>
-                              <option value="<?php echo $row2->id; ?>"><?php echo $row2->group_name; ?></option>
-                              <?php      } ?>
-                           </select>
-                           <script language="JavaScript">document.teacherform.groups_id.value="<?php echo $rows->groups_id; ?>";</script>
-                              </div>
-                           </div>
-                           <div class="col-md-7">
-                              <div class="form-group">
-                                 <label for="exampleInputEmail1">Actvities Name</label>
-                                 <select name="activity_id[]" multiple disabled="" class="selectpicker" >
-							  <?php
-                                 $activity_id=$rows->extra_curicullar_id;
-                                 $Query = "SELECT * FROM edu_extra_curricular";
-                                 $obj=$this->db->query($Query);
-                                 //print_r($objRs);
-                                 $row=$obj->result();
-                                 foreach ($row as $rows1)
-                                 {
-                                 $aid= $rows1->id;
-                                 $activityname=$rows1->extra_curricular_name;
-                                 $arryPlatform = explode(",", $activity_id);
-                                 $sPlatform_id  = trim($aid);
-                                
-                                 if (in_array($sPlatform_id, $arryPlatform )) {
-                                 ?>
-                              <?php
-                                 echo "<option  value=\"$sPlatform_id\" selected />$activityname</option>";
-                                 ?>
-                              <?php }
-                                 else {
-                                
-                                 }
-                                     }
-                                       ?>
-									   
-									   
-                           </select>
-                              </div>
-                           </div>
-                        </div>
-						
-                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+
+                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile Picture</button>
                         <div class="clearfix"></div>
                      </form>
                   </div>

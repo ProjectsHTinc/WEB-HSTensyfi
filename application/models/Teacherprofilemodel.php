@@ -57,22 +57,20 @@ Class Teacherprofilemodel extends CI_Model
        }
 
 
-  function teacherprofileupdate($user_id,$teachername,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$mobile,$sec_phone,$community_class,$community,$address,$userFileName)
+  function teacherprofileupdate($user_id,$userFileName)
     {
-	 $query="UPDATE edu_teachers SET name='$teachername',email='$email',sec_email='$sec_email',sex='$sex',dob='$dob',age='$age',nationality='$nationality',religion='$religion',community_class='$community_class',community='$community',phone='$mobile',sec_phone='$sec_phone',address='$address',update_at=NOW() WHERE teacher_id='$user_id'";
+	   $query="UPDATE edu_teachers SET update_at=NOW() WHERE teacher_id='$user_id'";
 
-      $query1="UPDATE edu_users SET name='$teachername',user_pic='$userFileName',updated_date=NOW() WHERE teacher_id='$user_id' ";
-
-	  $res1=$this->db->query($query1);
-
-    	 $res=$this->db->query($query);
-         if($res)
+     $query1="UPDATE edu_users SET user_pic='$userFileName',updated_date=NOW() WHERE teacher_id='$user_id' ";
+	   $res1=$this->db->query($query1);
+     $res=$this->db->query($query);
+     if($res)
 		 {
-         $data= array("status" => "success");
-         return $data;
-        }else{
-         $data= array("status" => "Failed to Update");
-         return $data;
+        $data= array("status" => "success");
+        return $data;
+      }else{
+        $data= array("status" => "Failed to Update");
+        return $data;
        }
  }
 
