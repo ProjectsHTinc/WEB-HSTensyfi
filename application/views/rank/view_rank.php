@@ -48,6 +48,8 @@
                                        $in=explode(',',$im);
                                        $e=explode(',',$em);
                                        $co=count($c);
+                                     $cc=array_count_values($c);
+                                    // print_r($cc);
                                        ?>
                                    <tr>
                                        <td><?php echo $s; ?></td>

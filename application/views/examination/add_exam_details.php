@@ -4,10 +4,10 @@
    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{border-radius: initial !important;}
    .formdesign
    {
-   padding-bottom: 48px;
-   padding-top: 10px;
-   background-color: rgba(209, 209, 211, 0.11);
-   border-radius: 12px;
+     padding-bottom: 48px;
+     padding-top: 10px;
+     background-color: rgba(209, 209, 211, 0.11);
+     border-radius: 12px;
    }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
