@@ -78,7 +78,7 @@ font-weight: 500;
 				</div>
             <div class="collapse navbar-collapse" style="padding-top: 18px;">
                <ul class="nav navbar-nav navbar-right">
-                 
+
                   <li style="padding: 08px 10px;">
                      <a href="<?php echo base_url(); ?>adminparent/view_onduty" class="abox"style="padding:03px 15px;border-color: white;">
                         <p style="color: white;text-transform: uppercase;font-size: 12px;padding-left:0px;">Onduty</p>
@@ -98,12 +98,12 @@ font-weight: 500;
 						  $pic=$rows1->user_pic;
 						  if($pic!='')
 						  {?>
-					  <img src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/> 
+					  <img src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/>
 			        <?php }else{
 				   ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" />
 						 <?php }} ?>
                         </div>
-                        
+
                            <b class="caret" style="margin-left:55px;color:white;"></b>
                      </a>
                      <ul class="dropdown-menu dropdown-with-icons">
@@ -148,14 +148,14 @@ font-weight: 500;
 						  $pic=$rows1->user_pic;
 						  if($pic!='')
 						  {?>
-					<img class="img-responsive" style="width:80px;height:80px;" src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $pic; ?>" > 
+					<img class="img-responsive" style="width:80px;height:80px;" src="<?php echo base_url(); ?>assets/parents/profile/<?php echo $pic; ?>" >
 			        <?php }else{
 				   ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
 						 <?php }} ?>
                 </div>
                 <div class="info">
                    <a  href="" style="padding-top:25px;">
-					<?php 
+					<?php
 					   $user_id=$this->session->userdata('user_id');
 					  $user_type=$this->session->userdata('user_type');
 					  $query="SELECT name FROM edu_users WHERE user_id='$user_id' AND user_type='$user_type'";
@@ -164,10 +164,10 @@ font-weight: 500;
 					  foreach ($rows as $rows2)
 					  { }echo '<p>'; echo"Welcome, "; echo $rows2->name; echo '</p>';?>
                     </a>
-                   
+
                 </div>
             </div>
-			
+
             <ul class="nav">
                <li id="dashboard">
                   <a href="<?php echo base_url(); ?>">
@@ -211,7 +211,7 @@ font-weight: 500;
                      <p>Fees Status</p>
                   </a>
                </li>
-			   
+
                <li id="exam">
                   <a data-toggle="collapse"  href="#examinationmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Results.png"/>
@@ -229,7 +229,7 @@ font-weight: 500;
                      </ul>
                   </div>
                </li>
-              
+
                <li id="timetable">
                   <a href="<?php echo base_url(); ?>adminparent/timetable">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
@@ -239,4 +239,3 @@ font-weight: 500;
             </ul>
          </div>
       </div>
-
