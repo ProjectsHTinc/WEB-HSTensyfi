@@ -4,10 +4,10 @@
    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{border-radius: initial !important;}
    .formdesign
    {
-     padding-bottom: 48px;
-     padding-top: 10px;
-     background-color: rgba(209, 209, 211, 0.11);
-     border-radius: 12px;
+   padding-bottom: 48px;
+   padding-top: 10px;
+   background-color: rgba(209, 209, 211, 0.11);
+   border-radius: 12px;
    }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
@@ -63,8 +63,8 @@
                               <p id="msg" style="text-align:center;"></p>
                               <p id="msg1" style="text-align:center;"></p>
                               <div class="row">
-                                 <div class="col-sm-1">
-                                    <div id="ajaxres"></div>
+                                 <div class="col-sm-2">
+                                    <div id="ajaxres" style="padding-left:20px;"></div>
                                  </div>
                                  <div class="col-sm-2">
                                     <div id="ajaxres1"></div>
@@ -81,7 +81,7 @@
                                  <div class="col-sm-1">
                                     <div id="is_inter_exter"></div>
                                  </div>
-                                 <div class="col-sm-4">
+                                 <div class="col-sm-2">
                                     <div id="inter"></div>
                                  </div>
                               </div>
@@ -197,7 +197,7 @@
    var inter_exter_val = '';
    if(val==1)
    { 
-   inter_exter_val +='<input style="width:33%;float:left;margin-bottom:18px;" type="text" required name="inter_mark[]" id="im'+ dyid +'" class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]"  class="form-control emmarks" id="em'+ dyid +'" placeholder="External Mark" style="width: 33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
+   inter_exter_val +='<input style="width:48%;float:left;margin-bottom:22px;" type="text" required name="inter_mark[]" id="im'+ dyid +'" class="form-control immarks" placeholder="Internal Mark"/><input type="text"  required name="exter_mark[]"  class="form-control emmarks" id="em'+ dyid +'" placeholder="External Mark" style="width:48%;float:left;margin-left:05px;margin-bottom:22px;"/></br>';
 
    var b=$("#"+ dyid +"").html(inter_exter_val);
    b.show();
@@ -264,7 +264,7 @@
    //    }
    //   })
    }else{
-   var no_inter_exter_val = '<input style="width:33%;float:left;margin-bottom:18px;" type="text" readonly  name="inter_mark[]" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" class="form-control" placeholder="External Mark" style="width:33%;float:left;margin-left: 10px;margin-bottom:18px;"/></br>';
+   var no_inter_exter_val = '<input style="width:48%;float:left;margin-bottom:18px;" type="text" readonly  name="inter_mark[]" class="form-control" placeholder="Internal Mark"/><input type="text" readonly name="exter_mark[]" class="form-control" placeholder="External Mark" style="width:48%;float:left;margin-left:05px;margin-bottom:18px;"/></br>';
    var a=$("#"+ dyid +"").html(no_inter_exter_val);
    a.show();
    }
@@ -373,7 +373,7 @@
    for (i = 0; i < len; i++) {
    '<form name="exam" id="examvalidate">';
 
-   name += '<p style="padding-top:05px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
+   name += '<p style="padding-top:06px;">' + sub[i] + '</p><input name="subject_id[]" required type="hidden" class="form-control"  value="' + sub_id[i] + '"></br>';
    
    exam_date += '<input type="text"  required name="exam_dates[]"  class="form-control datepicker"   placeholder="Enter The Exam Date"/></br>';
    

@@ -26,54 +26,66 @@
                            <div class="toolbar">
                               <!--  Here you can write extra buttons/actions for the toolbar -->
                            </div>
-                           <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" >
-                              <thead>
-                                 <th>S.no</th>
-                                 <th>Student-Name</th>
-                                 <th>Class</th>
-                                 <th>Total</th>
-                                 <th>Status</th>
-                              </thead>
-                              <tbody>
-                                 <?php
-                                  $s=1;
-                                 if(!empty($cls_rank))
+                       <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" >
+                          <thead>
+                             <th>S.no</th>
+                             <th>Student-Name</th>
+                             <th>Class</th>
+                             <th>Total</th>
+                             <th>Status</th>
+                          </thead>
+                          <tbody>
+                          <?php
+                            $s=1;
+                            if(!empty($cls_rank))
+                            {
+                              foreach ($cls_rank as $rows)
+                              { 
+                                $sts=$rows->Subject_marks;
+                                $im=$rows->inm;
+                                $em=$rows->exm;
+                                $c=explode(',',$sts);
+                                $in=explode(',',$im);
+                                $e=explode(',',$em);
+                                $co=count($c);
+                                $cc=array_count_values($c);
+                               ?>
+                              <tr>
+                                <td><?php echo $s; ?></td>
+                                <td><?php echo $rows->name; ?></td>
+                                <td><?php echo $rows->class_name; ?> ( <?php echo $rows->sec_name; ?> ) </td>
+                                <td><?php echo $rows->total; ?></td>
+                                <td>
+                                <?php 
+                                 foreach ($cc as $key => $value) 
                                  {
-                                    foreach ($cls_rank as $rows)
-                                    { 
-                                       $sts=$rows->Subject_marks;
-                                        $im=$rows->inm;
-                                        $em=$rows->exm;
-                                       $c=explode(',',$sts);
-                                       $in=explode(',',$im);
-                                       $e=explode(',',$em);
-                                       $co=count($c);
-                                     $cc=array_count_values($c);
-                                    // print_r($cc);
-                                       ?>
-                                   <tr>
-                                       <td><?php echo $s; ?></td>
-                                       <td><?php echo $rows->name; ?></td>
-                                       <td><?php echo $rows->class_name; ?> ( <?php echo $rows->sec_name; ?> ) </td>
-                                       <td><?php echo $rows->total; ?></td>
-                                       <td>
-                                      <?php 
-                                      for($i=0;$i<$co;++$i)
-                                      { 
-                                        if($c[$i]=="Fail" || !is_numeric(($in[$i])) || !is_numeric(($e[$i])) )
-                                        {
-                                          echo'<span style=color:red;> '; echo "Fail"; echo'</span>';
-                                          }else{
-                                           //echo "Pass";
-                                          } 
-                                       }
-                                           ?> 
-
-                                       </td>
-                                 </tr>
-                                 <?php  $s++;  } } ?>
-                              </tbody>
-                           </table>
+                                   if($key=='Fail')
+                                   { 
+                                      echo'<span style=color:red;> ';  echo $key; echo'</span>';
+                                    }else{
+                                       for($i=0;$i<$co;++$i)
+                                       { 
+                                         if(!is_numeric(($in[$i])) || !is_numeric(($e[$i])) )
+                                         {
+                                           echo'<span style=color:red;> '; echo"Fail"; echo'</span>';
+                                        }
+                                      } 
+                                    }  
+                                 }
+                                // for($i=0;$i<$co;++$i)
+                                // { 
+                                //  if($c[$i]=="Fail" || !is_numeric(($in[$i])) || !is_numeric(($e[$i])) )
+                                //   {
+                                //     echo'<span style=color:red;> '; echo"Fail"; echo'</span>';
+                                //   }else{
+                                //    //echo "Pass";
+                                //   } 
+                                // } ?> 
+                                </td>
+                             </tr>
+                             <?php  $s++;  } } ?>
+                          </tbody>
+                       </table>
                         </div>
                      </div>
                      <!-- end content-->
