@@ -65,6 +65,55 @@ class Apiteachermodel extends CI_Model {
 
 //#################### Current Term End ####################//
 
+//#################### Grade System Start ####################//
+    public function calculate_grade($Marks)
+    {
+            if(is_numeric($Marks))
+            {
+                if ($Marks >= 91 && $Marks <= 100) {
+                    $grade = 'A1';
+                    return $grade;
+                }
+                if ($Marks >= 81 && $Marks <= 90) {
+                    $grade = 'A2';
+                    return $grade;
+                }
+                if ($Marks >= 71 && $Marks <= 80) {
+                    $grade = 'B1';
+                    return $grade;
+                }
+                if ($Marks >= 61 && $Marks <= 70) {
+                    $grade = 'B2';
+                    return $grade;
+                }
+                if ($Marks >= 51 && $Marks <= 60) {
+                    $grade = 'C1';
+                    return $grade;
+                }
+                if ($Marks >= 41 && $Marks <= 50) {
+                    $grade = 'C2';
+                    return $grade;
+                }
+                if ($Marks >= 31 && $Marks <= 40) {
+                    $grade = 'D';
+                    return $grade;
+                }
+                if ($Marks >= 21 && $Marks <= 30) {
+                    $grade = 'E1';
+                    return $grade;
+                }
+                if ($Marks <= 20) {
+                    $grade = 'E2';
+                    return $grade;
+                }
+            }else{
+                $grade = '';
+               return $grade;
+            }
+    }
+//#################### Grade System End ####################//
+    
+    
 //#################### Attendence for class ####################//
 	public function dispAttendence ($class_id,$disp_type,$disp_date,$month_year)
 	{
@@ -659,7 +708,20 @@ class Apiteachermodel extends CI_Model {
 	public function addExammarks ($exam_id,$teacher_id,$subject_id,$stu_id,$classmaster_id,$internal_mark,$external_mark,$marks,$created_by,$is_internal_external)
 	{
 		$year_id = $this->getYear();
-			
+		
+		$totalMarks = "SELECT * FROM edu_exam_details WHERE exam_id = '$exam_id' AND subject_id ='$subject_id' AND classmaster_id ='$classmaster_id'";
+		$totalMarks_result = $this->db->query($totalMarks);
+
+		if($totalMarks_result->num_rows()>0)
+		{
+		    	foreach ($totalMarks_result->result() as $rows)
+		        {
+		            $subject_total  = $rows->subject_total;
+		            $internal_mark_total  = $rows->internal_mark;
+		            $external_mark_total  = $rows->external_mark;
+		        }
+		} 
+
         $sqlMarks = "SELECT * FROM edu_exam_marks WHERE exam_id = '$exam_id' AND subject_id ='$subject_id' AND stu_id ='$stu_id'  AND classmaster_id ='$classmaster_id'";
 		$Marks_result = $this->db->query($sqlMarks);
 
@@ -672,11 +734,18 @@ class Apiteachermodel extends CI_Model {
 			$response = array("status" => "AlreadyAdded", "msg" => "Already Added", "exam_mark_id"=>$exam_marks_id);
 		} else {
     		    
-    		  
-    		    
 			if ($is_internal_external=="0") 
 			{
-			   
+
+			    if(is_numeric($marks))
+                {
+    			    $total = ($marks/$subject_total)*100;
+                    $total_grade = $this->calculate_grade($total);
+                } else {
+					$total_grade = $marks;
+                }
+			    
+			    /*
 				if ($marks >= 91 && $marks <= 100) { 
 					$total_grade = 'A1';
                 }
@@ -707,11 +776,51 @@ class Apiteachermodel extends CI_Model {
 				if ($marks == 'AB') {
 					$total_grade = '';
                 }
-				
+				*/
 				   $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$marks','$total_grade','$created_by',NOW())";
 		
 			} 	
 			else 	{
+				
+				
+			    if(is_numeric($internal_mark))
+                {
+    			    $total = ($internal_mark/$internal_mark_total)*100;
+                    $internal_grade = $this->calculate_grade($total);
+                } else {
+					$internal_grade = $internal_mark;
+                }
+                
+                 if(is_numeric($external_mark))
+                {
+    			    $total = ($external_mark/$external_mark_total)*100;
+                    $external_grade = $this->calculate_grade($total);
+                } else {
+					$external_grade = $external_mark;
+                }
+                
+                 if(is_numeric($internal_mark) || is_numeric($external_mark))
+                {
+                    $total_marks = $internal_mark + $external_mark;
+                    $total = ($total_marks/$subject_total)*100;
+                    $total_grade = $this->calculate_grade($total);
+                }else{
+                    $total_marks = $internal_mark;
+                    $total_grade = $internal_mark;
+                }
+            
+            /*
+            
+                $total_marks = $internal_mark + $external_mark;
+                
+                if(is_numeric($total_marks))
+                {
+    			    $total = ($total_marks/$subject_total)*100;
+                    $total_grade = $this->calculate_grade($total);
+                } else {
+					$total_grade = '';
+                }
+			    
 				
 				//Internal Marks Grade
                 if ($internal_mark >= 37 && $internal_mark <= 40) {
@@ -810,6 +919,7 @@ class Apiteachermodel extends CI_Model {
                 if ($internal_mark == 'AB' && $external_mark == 'AB') { 
 					$total_grade = '';
                 }
+                */
 		      $marks_query = "INSERT INTO `edu_exam_marks`(`exam_id`, `teacher_id`, `subject_id`, `stu_id`, `classmaster_id`, `internal_mark`, `internal_grade`, `external_mark`, `external_grade`, `total_marks`, `total_grade`, `created_by`, `created_at`) VALUES ('$exam_id','$teacher_id','$subject_id','$stu_id','$classmaster_id','$internal_mark','$internal_grade','$external_mark','$external_grade','$total_marks','$total_grade','$created_by',NOW())";
 		}
 		
