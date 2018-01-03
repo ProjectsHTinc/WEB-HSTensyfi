@@ -42,17 +42,21 @@
                   $i=1;
                   if(!empty($result))
                   {
+             
                      foreach ($result as $rows) 
                      {
                       $tm=$rows->total_marks;
-                      $im=$rows->internal_mark; $ig=$rows->internal_grade;
-                      $em=$rows->external_mark; $eg=$rows->external_grade;
+                      $im=$rows->internal_mark; 
+                      $ig=$rows->internal_grade;
+                      $em=$rows->external_mark; 
+                      $eg=$rows->external_grade;
                     ?>
                      <tr>
                       <td><?php echo $i; ?></td>
                       <td><?php echo $subid=$rows->subject_name;?> </td>
-                      <?php if($im==0 && $em==0 && $ig==0 && $eg==0) { ?>
-                      <td></td><td></td>
+                      <?php if($im==0 && $em==0) { ?>
+                        <td> <span class="grade"><?php echo $rows->internal_grade; ?>  </span></td> 
+			 <td><?php echo $rows->external_grade; ?>  </span></td>
                          <td>
                        <input type="hidden" style="width:30%;" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
                        <span class="total"><?php //echo $rows->total_marks; ?></span>   <span class="grade"><?php echo $rows->total_grade; ?>  </span>
