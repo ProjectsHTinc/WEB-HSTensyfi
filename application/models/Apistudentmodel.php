@@ -174,27 +174,28 @@ class Apistudentmodel extends CI_Model {
 	{
 			$year_id = $this->getYear();
 	
-			if ($is_internal_external =='0') {
+			//if ($is_internal_external =='0') {
 				//$mark_query = "SELECT C.exam_name,B.subject_name,A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
-				$mark_query = "SELECT C.exam_name,B.subject_name, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
-			} else {
+			//	$mark_query = "SELECT C.exam_name,B.subject_name, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
+		//	} else {
 				//$mark_query = "SELECT C.exam_name,B.subject_name,A.internal_mark, A.internal_grade, A.external_mark, A.external_grade, A.total_marks, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
 				$mark_query = "SELECT C.exam_name,B.subject_name, A.internal_grade, A.external_grade, A.total_grade FROM `edu_exam_marks` A, `edu_subject` B, `edu_examination`C WHERE A.`exam_id` ='$exam_id' AND A.`stu_id` = '$stud_id' AND A.subject_id=B.subject_id AND A.exam_id = C.exam_id";
-			}
+		//	}
 			
 			$mark_res = $this->db->query($mark_query);
 			$mark_result= $mark_res->result();
 			
-			$total_marks = 0;
-			foreach($mark_result as $rows){ 
-				$exam_marks = $rows->total_marks;
-				$total_marks = 	$total_marks + $exam_marks;
-			}
+	//		$total_marks = 0;
+	//		foreach($mark_result as $rows){ 
+	//			$exam_marks = $rows->total_marks;
+	//			$total_marks = 	$total_marks + $exam_marks;
+	//		}
 			
 			 if($mark_res->num_rows()==0){
 				 $response = array("status" => "error", "msg" => "Marks Not Found");
 			}else{
-				$response = array("status" => "success", "msg" => "View Marks Details", "marksDetails"=>$mark_result, "totalMarks"=>$total_marks);
+			    $response = array("status" => "success", "msg" => "View Marks Details", "marksDetails"=>$mark_result);
+				//$response = array("status" => "success", "msg" => "View Marks Details", "marksDetails"=>$mark_result, "totalMarks"=>$total_marks);
 			} 
 
 			return $response;		
