@@ -10,6 +10,7 @@ class Years extends CI_Controller {
 		  $this->load->model('yearsmodel');
 		  $this->load->helper('url');
 		  $this->load->library('session');
+			$this->load->library('form_validation');
 
 
  }
@@ -76,6 +77,7 @@ class Years extends CI_Controller {
 			 $user_type=$this->session->userdata('user_type');
 			 if($user_type==1)
 			  {
+				
 			    $from_month=$this->input->post('from_month');
 			    $end_month=$this->input->post('end_month');
 				$status=$this->input->post('status');
@@ -127,7 +129,7 @@ class Years extends CI_Controller {
 				$dateTime = new DateTime($from_month);
 				$formatted_date=date_format($dateTime,'Y-m-d' );
 
-                   
+
 			    $end_month=$this->input->post('end_month');
 
 				$dateTime1 = new DateTime($end_month);
@@ -232,7 +234,7 @@ class Years extends CI_Controller {
 								$this->session->set_flashdata('msg','Failed To Updated');
 								redirect('years/home');
 							}
-								
+
 					}
 
 			 }

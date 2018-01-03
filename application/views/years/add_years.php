@@ -5,7 +5,7 @@
            <div class="row">
                <div class="col-md-8">
                    <div class="card">
-                       <div class="header"> 
+                       <div class="header">
                            <h4 class="title">Add Year </h4>
                        </div>
 
@@ -13,10 +13,10 @@
                            <form method="post" action="<?php echo base_url(); ?>years/create" class="form-horizontal" enctype="multipart/form-data" id="myformsection">
 
                                  <fieldset>
-								  
+
                                       <div class="form-group">
                                           <label class="col-sm-2 control-label">FROM YEAR</label>
-                                          <div class="col-sm-4"> 
+                                          <div class="col-sm-4">
 										  <input type="text" name="from_month" id="from_year" class="form-control datepicker" required value="">
                                         <!--<input id="test" value="" name="from_month" class="form-control" required >-->
                                           </div>
@@ -58,7 +58,7 @@
 </div>
 
 <?php endif; ?>
-       
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -87,7 +87,7 @@
                                     <td><?php  echo $i; ?></td>
                                     <td><?php  echo date('M-Y',$month); ?></td>
 									<td><?php echo date('M-Y',$month1); ?></td>
-									<td><?php 
+									<td><?php
 										  if($sta=='Active'){?>
 											<button class="btn btn-success btn-fill btn-wd">Active</button>
 										 <?php  }else{?>
@@ -108,7 +108,7 @@
                 </div> <!-- end row -->
 
             </div>
-        
+
    </div>
 </div>
 
@@ -120,7 +120,7 @@
             $("#test").kendoDatePicker();
             //DISABLE inputs
             $("#datepicker").attr("readonly",true);  */
-			 
+
  $('#myformsection').validate({ // initialize the plugin
      rules: {
          from_year:{required:true },
@@ -132,7 +132,7 @@
          }
  });
 
- 
+
 var $table = $('#bootstrap-table');
       $().ready(function(){
           $table.bootstrapTable({

@@ -117,10 +117,11 @@
                                         //echo $tm;
                                  
                                         foreach($result as $flag){}
-                                         $ef=$flag->is_internal_external;
+                                        $ef=$flag->is_internal_external;
                                          $efsi=$flag->subject_id;
                                  
-                                         if($im==0 && $em==0 && is_numeric($im) && is_numeric($em))
+                                        // if($im==0 && $em==0 && is_numeric($im) && is_numeric($em))
+                                          if($ef==0)
                                          {
                                               echo '<span class="grade2">';
                                               if(is_numeric($tm))
@@ -213,10 +214,6 @@
    // echo $cls; echo $sec; ?>
 <script type="text/javascript">
 
-    $('#examinationmenu').addClass('collapse in');
-    $('#exam').addClass('active');
-    $('#exam4').addClass('active');
-
   $(document).ready(function(){
    $('th').attr('class','-');
  });
@@ -233,7 +230,10 @@
         $(this).find('.total-combat').html(sum);
       });
    
- 
+   $('#examinationmenu').addClass('collapse in');
+   $('#exam').addClass('active');
+   $('#exam4').addClass('active');
+   
    $('#markform').validate({ // initialize the plugin
            rules: {
                totalmarks:{required:true,number:true }
@@ -244,44 +244,44 @@
                }
        });
    
-   // var $table = $('#bootstrap-table');
-   //       $(document).ready(function(){
-   //         jQuery('#markform').addClass('collapse in');
-   //           $table.bootstrapTable({
-   //               toolbar: ".toolbar",
-   //               clickToSelect: true,
-   //               showRefresh: true,
-   //               search: true,
-   //               showToggle: true,
-   //               showColumns: true,
-   //               pagination: true,
-   //               searchAlign: 'left',
-   //               pageSize:50,
-   //               clickToSelect: false,
-   //               pageList: [10,25,50,100],
+   var $table = $('#bootstrap-table');
+         $(document).ready(function(){
+           jQuery('#markform').addClass('collapse in');
+             $table.bootstrapTable({
+                 toolbar: ".toolbar",
+                 clickToSelect: true,
+                 showRefresh: true,
+                 search: true,
+                 showToggle: true,
+                 showColumns: true,
+                 pagination: true,
+                 searchAlign: 'left',
+                 pageSize:50,
+                 clickToSelect: false,
+                 pageList: [10,25,50,100],
    
-   //               formatShowingRows: function(pageFrom, pageTo, totalRows){
-   //                   //do nothing here, we don't want to show the text "showing x of y from..."
-   //               },
-   //               formatRecordsPerPage: function(pageNumber){
-   //                   return pageNumber + " rows visible";
-   //               },
-   //               icons: {
-   //                   refresh: 'fa fa-refresh',
-   //                   toggle: 'fa fa-th-list',
-   //                   columns: 'fa fa-columns',
-   //                   detailOpen: 'fa fa-plus-circle',
-   //                   detailClose: 'fa fa-minus-circle'
-   //               }
-   //           });
+                 formatShowingRows: function(pageFrom, pageTo, totalRows){
+                     //do nothing here, we don't want to show the text "showing x of y from..."
+                 },
+                 formatRecordsPerPage: function(pageNumber){
+                     return pageNumber + " rows visible";
+                 },
+                 icons: {
+                     refresh: 'fa fa-refresh',
+                     toggle: 'fa fa-th-list',
+                     columns: 'fa fa-columns',
+                     detailOpen: 'fa fa-plus-circle',
+                     detailClose: 'fa fa-minus-circle'
+                 }
+             });
    
-   //           //activate the tooltips after the data table is initialized
-   //           $('[rel="tooltip"]').tooltip();
+             //activate the tooltips after the data table is initialized
+             $('[rel="tooltip"]').tooltip();
    
-   //           $(window).resize(function () {
-   //               $table.bootstrapTable('resetView');
-   //           });
-   //       });
+             $(window).resize(function () {
+                 $table.bootstrapTable('resetView');
+             });
+         });
    
    function generatefromtable() 
    {

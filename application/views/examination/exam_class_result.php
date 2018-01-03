@@ -109,7 +109,8 @@
                                  foreach($eflag as $erow){ }
                                  $ef=$erow->is_internal_external;
                                  $efsi=$erow->subject_id;
-                                 if($im==0 && $em==0 && is_numeric($im) && is_numeric($em))
+                                // if($im==0 && $em==0 && is_numeric($im) && is_numeric($em))
+                                if($ef==0)
                                  {
                                  echo '<span class="grade2">';
                                  if(is_numeric($tm)){
@@ -204,11 +205,29 @@
    foreach ($cls_exam as $rows) {} $cls=$rows->class_name; $sec=$rows->sec_name;
    // echo $cls; echo $sec; ?>sorting
 <script type="text/javascript">
-   
 $(document).ready(function(){
  $('th').attr('class','-');
 });
 
+   function generatefromtable() {
+   var data = [], fontSize =10, height = 0, doc;
+   doc = new jsPDF('p', 'pt', 'a3', true);
+   doc.setFont("times", "normal");
+   doc.setFontSize(fontSize);
+   doc.text(40,20, "Exam Result Of ( <?php echo $cls; echo $sec; ?> ) ");
+   data = [];
+   data = doc.tableToJson('bootstrap-table');
+   height = doc.drawTable(data, {
+   xstart : 30,
+   ystart : 10,
+   tablestart :40,
+   marginleft :10,
+   xOffset : 10,
+   yOffset : 15
+   });
+   //doc.text(50, height + 20, 'hi world');
+   doc.save("<?php echo $cls; echo $sec; ?>.pdf");
+   }
    
    $(function() 
    {
@@ -288,6 +307,5 @@ $(document).ready(function(){
    } );
    
    new $.fn.dataTable.FixedHeader( table );
-
 </script>
 

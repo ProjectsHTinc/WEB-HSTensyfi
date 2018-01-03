@@ -55,8 +55,9 @@
 			<tr>
 			 <td><?php echo $i; ?></td>
 			 <td><?php echo $subid=$rows->subject_name;?> </td>
-			 <?php if($im==0 && $em==0 && $ig==0 && $eg==0) { ?>
-			 <td></td><td></td>
+			 <?php if($im==0 && $em==0) { ?>
+			  <td><?php echo $rows->internal_mark; ?> ( <span class="grade"><?php echo $rows->internal_grade; ?>  )</span></td> 
+			 <td><?php echo $rows->external_mark; ?> (  <span class="grade"><?php echo $rows->external_grade; ?>  )</span></td>
              <td>
 			  <input type="hidden" style="width:30%;" name="marks" disabled id="smark" class="form-control" value="<?php echo $rows->total_marks; ?>" /> 
 			  <span class="total"><?php echo $rows->total_marks; ?></span> (  <span class="grade"><?php echo $rows->total_grade; ?>  )</span>
