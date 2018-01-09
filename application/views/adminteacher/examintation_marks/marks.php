@@ -13,7 +13,7 @@
                <div class="card">
                   <div class="header">
                      <h4 class="title">Enter Exam Marks
-                        <?php  
+                        <?php
                            foreach($result as $flag){} $ename=$flag->exam_name;
                            echo '('; echo $ename; echo ')';
                            $cls_masid=$this->input->get('var1');
@@ -26,11 +26,11 @@
                            //echo $cls_masid;
                            if($cid==$cls_masid)
                            {?>
-                        <a href="<?php echo base_url(); ?>examinationresult/exam_mark_details_cls_teacher?var1=<?php echo $cid; ?>&var2=<?php  echo $exam_id; ?>"  class="btn btn-info btn-fill btn-wd">View Class Mark</a>	
+                        <a href="<?php echo base_url(); ?>examinationresult/exam_mark_details_cls_teacher?var1=<?php echo $cid; ?>&var2=<?php  echo $exam_id; ?>"  class="btn btn-info btn-fill btn-wd">View Class Mark</a>
                         <?php }
                            //foreach($res as $row){}echo $row->class_id;
                            ?>
-                        <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button> 
+                        <button onclick="history.go(-1);" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">Go Back</button>
                      </h4>
                      <p class="category"></p>
                   </div>
@@ -49,12 +49,12 @@
                               <p style="padding:15px;">Student Not Found </p>
                               <?php  }else{
                                  foreach($res as $row)
-                                       { 
-                                 	     foreach($result as $flag){ } 
-                                 	   	   $eflag=$flag->is_internal_external; 
+                                       {
+                                 	     foreach($result as $flag){ }
+                                 	   	   $eflag=$flag->is_internal_external;
                                  	        $id=$flag->exam_id;
                                  	    }
-                                 	if($eflag==1){ 
+                                 	if($eflag==1){
                                  	?>
                               <input type="hidden" name="examid" value="<?php echo $id;?>" />
                               <th> Internal <?php echo $row->subject_name; ?> Marks
@@ -64,7 +64,7 @@
                               <?php if(!empty($mark)){?>
                               <th> Total <?php echo $row->subject_name; ?> Marks<input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
                               <?php }}else{?>
-                              <input type="hidden" name="examid" value="<?php echo $id;?>" />	
+                              <input type="hidden" name="examid" value="<?php echo $id;?>" />
                               <th> Total <?php echo $row->subject_name; ?> Marks<input type="hidden" name="subjectid" value="<?php echo $row->subject_id; ?>" /></th>
                               <th></th>
                               <th></th>
@@ -77,7 +77,7 @@
                                  $i=1;
                                  if(!empty($mark)){
                                  foreach($mark as $rows){
-                                   $preferlng=$rows->language; 
+                                   $preferlng=$rows->language;
                                       $sub="SELECT subject_name FROM edu_subject WHERE subject_id='$preferlng'";
                                       $res1= $this->db->query($sub);
                                       $subna=$res1->result();
@@ -94,30 +94,30 @@
                                        echo $stdid; echo ' '; echo '('; echo ' '; echo $sub_name; echo ' '; echo ')';
                                        ?>
                                  </td>
-                                 <?php   
+                                 <?php
                                     $im=$rows->internal_mark;
                                     $em=$rows->external_mark;
-                                    $tm=$rows->total_marks;										
-                                    if(is_numeric($im)){ 
+                                    $tm=$rows->total_marks;
+                                    if(is_numeric($im)){
                                       ?>
                                  <td style="width: 20%;"><?php echo $rows->internal_mark; ?> ( <?php echo $rows->internal_grade; ?> )</td>
-                                 <?php }else{?> 
+                                 <?php }else{?>
                                  <td style="width: 20%;color: red;"><?php echo $rows->internal_mark; ?></td>
-                                 <?php } 
+                                 <?php }
                                     if(is_numeric($em)){  ?>
                                  <td style="width: 20%;"><?php echo $rows->external_mark; ?> ( <?php echo $rows->external_grade; ?> )</td>
-                                 <?php }else{?> 
+                                 <?php }else{?>
                                  <td style="width: 20%;color: red;"><?php echo $rows->external_mark; ?></td>
-                                 <?php }  if(is_numeric($tm)){ 
+                                 <?php }  if(is_numeric($tm)){
                                         if($tm < '35' || !is_numeric($im) || !is_numeric($em)){ ?>
                                  <td style="width: 20%;color: red;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade;echo ' '; echo')'; echo ' ';echo"Fail"; ?> </td>
                                         <?php }else{  ?>
                                  <td style="width: 20%;"><?php echo $rows->total_marks; ?> ( <?php echo $rows->total_grade; ?> )</td>
                                  <?php }
-                               }else{ ?> 
+                               }else{ ?>
                                  <td style="width: 20%;"><?php echo $rows->total_marks; ?></td>
-                                 <?php } 
-                                    }else{ 
+                                 <?php }
+                                    }else{
                                          $tm=$rows->total_marks;	?>
                                  <td style="width:15%;"><?php echo $i;?></td>
                                  <td style="width:25%;">
@@ -134,10 +134,10 @@
                                  <?php }?>
                               </tr>
                               <?php $i++;}
-                                 }else{  
+                                 }else{
                                  foreach($res as $row)
                                    {  $gen=$row->sex;
-                                      $preferlng=$row->language; 
+                                      $preferlng=$row->language;
                                       $sub="SELECT subject_name FROM edu_subject WHERE subject_id='$preferlng'";
                                       $res1= $this->db->query($sub);
                                       $subna=$res1->result();
@@ -147,7 +147,7 @@
                               <tr>
                                  <td><?php echo $i;?></td>
                                  <td style="">
-                                  <?php echo $row->name; echo' '; echo'('; echo' '; echo $sub_name; echo' '; echo')'; ?> 
+                                  <?php echo $row->name; echo' '; echo'('; echo' '; echo $sub_name; echo' '; echo')'; ?>
                                     <input type="hidden" name="sutid[]" value="<?php echo $row->enroll_id; ?>" />
                                     <input type="hidden" name="teaid" value="<?php echo $row->teacher_id; ?>" />
                                     <input type="hidden" name="clsmastid" value="<?php echo $row->class_id; ?>" />
@@ -164,7 +164,7 @@
                                     <input style="width:60%;" type="text" maxlength="2" name="internal_marks[]" required  class="form-control inputBox"/>
                                  </td>
                                  <td style="width: 30%;">
-                                    <input style="width:60%;" type="text" maxlength="2" required name="external_marks[]"  class="form-control inputBox1"/>
+                                    <input style="width:60%;" type="text" maxlength="3" required name="external_marks[]"  class="form-control inputBox1"/>
                                  </td>
                                  <td></td>
                                  <?php }else{?>
@@ -212,7 +212,7 @@
    $('#examinationmenu').addClass('collapse in');
    $('#exam').addClass('active');
    $('#exam4').addClass('active');
-   
+
    	var $table = $('#bootstrap-table');
           $().ready(function(){
             jQuery('#markform').addClass('collapse in');
@@ -228,7 +228,7 @@
                   pageSize:10,
                   clickToSelect: false,
                   pageList: [10,25,50,100],
-    
+
                   formatShowingRows: function(pageFrom, pageTo, totalRows){
                       //do nothing here, we don't want to show the text "showing x of y from..."
                   },
@@ -245,7 +245,7 @@
               });
               //activate the tooltips after the data table is initialized
               $('[rel="tooltip"]').tooltip();
-    
+
               $(window).resize(function () {
                   $table.bootstrapTable('resetView');
               });
@@ -259,7 +259,7 @@
          e.preventDefault();
      }
    });
-   
+
    $(".inputBox1").on("keyup keydown", function(e){
      var currentValue = String.fromCharCode(e.which);
      var finalValue = $(this).val() + currentValue;
@@ -267,7 +267,7 @@
          e.preventDefault();
      }
    });
-   
+
    $(".inputBox2").on("keyup keydown", function(e){
      var currentValue = String.fromCharCode(e.which);
      var finalValue = $(this).val() + currentValue;
@@ -278,4 +278,3 @@
 
    });
 </script>
-
