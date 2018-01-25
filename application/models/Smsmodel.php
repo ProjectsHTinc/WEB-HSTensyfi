@@ -440,99 +440,39 @@ Class Smsmodel extends CI_Model
 
     //
     //     //  Group  SMS
-    //     function send_msg($group_id,$notes,$user_id)
-		// {
-    //      $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) WHERE  egm.group_title_id='$group_id' and ep.mobile <>''";
-    //
-    //     $pcell=$this->db->query($class);
-    //       $res2=$pcell->result();
-    //       foreach($res2 as $result){
-    //          $number=$result->mobile;
-    //         $textmessage=$notes;
-    //         $textmsg =urlencode($textmessage);
-    //         $smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
-    //         $api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
-    //         $api_params = $api_element.'&numbers='.$number.'&message='.$textmsg;
-    //         $smsgatewaydata = $smsGatewayUrl.$api_params;
-    //
-    //        $url = $smsgatewaydata;
-    //
-    //
-    //        $ch = curl_init();
-    //        curl_setopt($ch, CURLOPT_POST, false);
-    //        curl_setopt($ch, CURLOPT_URL, $url);
-    //        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //        $output = curl_exec($ch);
-    //        curl_close($ch);
-    //
-    //        if(!$output)
-    //        {
-    //             $output =  file_get_contents($smsgatewaydata);
-    //           }
-    //       }
-    //     }
+        function send_msg($group_id,$notes,$user_id)
+		{
+         $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) WHERE  egm.group_title_id='$group_id' and ep.mobile <>''";
+
+        $pcell=$this->db->query($class);
+          $res2=$pcell->result();
+          foreach($res2 as $result){
+             $number=$result->mobile;
+            $textmessage=$notes;
+            $textmsg =urlencode($textmessage);
+            $smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+            $api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+            $api_params = $api_element.'&numbers='.$number.'&message='.$textmsg;
+            $smsgatewaydata = $smsGatewayUrl.$api_params;
+
+           $url = $smsgatewaydata;
 
 
-     function send_msg($group_id,$notes,$user_id){
-       //Your authentication key
-      $authKey = "191431AStibz285a4f14b4";
+           $ch = curl_init();
+           curl_setopt($ch, CURLOPT_POST, false);
+           curl_setopt($ch, CURLOPT_URL, $url);
+           curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+           $output = curl_exec($ch);
+           curl_close($ch);
 
-      //Multiple mobiles numbers separated by comma
-      $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) WHERE  egm.group_title_id='$group_id' and ep.mobile <>''";
-      $pcell=$this->db->query($class);
-      $res2=$pcell->result();
-      foreach($res2 as $rows){ $mobile[]=$rows->mobile;}
-      //$Phoneno[]=$rows->mobile;
-       $mobileNumber=implode(',',$mobile);
-
-      //Sender ID,While using route4 sender id should be 6 characters long.
-      $senderId = "ENSYFI";
-
-      //Your message to send, Add URL encoding here.
-      $message = urlencode($notes);
-
-      //Define route
-      $route = "transactional";
-
-      //Prepare you post parameters
-      $postData = array(
-          'authkey' => $authKey,
-          'mobiles' => $mobileNumber,
-          'message' => $message,
-          'sender' => $senderId,
-          'route' => $route
-      );
-
-      //API URL
-      $url="https://control.msg91.com/api/sendhttp.php";
-
-      // init the resource
-      $ch = curl_init();
-      curl_setopt_array($ch, array(
-          CURLOPT_URL => $url,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_POST => true,
-          CURLOPT_POSTFIELDS => $postData
-          //,CURLOPT_FOLLOWLOCATION => true
-      ));
+           if(!$output)
+           {
+                $output =  file_get_contents($smsgatewaydata);
+              }
+          }
+        }
 
 
-      //Ignore SSL certificate verification
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-
-      //get response
-      $output = curl_exec($ch);
-
-      //Print error if any
-      if(curl_errno($ch))
-      {
-          echo 'error:' . curl_error($ch);
-      }
-
-      curl_close($ch);
-     }
 
 		// Home Work SMS
 

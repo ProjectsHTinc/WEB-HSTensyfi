@@ -1,5 +1,5 @@
 <?php
-   
+
 Class Rankmodel extends CI_Model
 {
 
@@ -8,7 +8,7 @@ Class Rankmodel extends CI_Model
       parent::__construct();
 
   }
-  
+
 
   function getYear()
     {
@@ -26,7 +26,7 @@ Class Rankmodel extends CI_Model
     }
 
   function get_exam_details_view()
-  {  
+  {
   	 $year_id=$this->getYear();
 
   	$query= "SELECT ex.*,ed.exam_detail_id,ed.exam_id FROM edu_examination AS ex,edu_exam_details AS ed WHERE ex.status='Active' AND ex.exam_year='$year_id' AND ex.exam_id=ed.exam_id  GROUP By ed.exam_id";
@@ -45,11 +45,11 @@ Class Rankmodel extends CI_Model
 
   function get_rank_details_view($year_id,$examid,$cls_id,$sub_id,$pass_mark)
   {
-   
+
         //$query= "SELECT cm.class_sec_id FROM edu_classmaster AS cm WHERE cm.class IN ($cls_id)";
 	     //$cls=$this->db->query($query);
 	    //$row=$cls->result();
-	   //foreach($row as $rows){ 
+	   //foreach($row as $rows){
     //$cm_id[]=$rows->class_sec_id; }
    //$cid=implode(',', $cm_id);
 
@@ -57,7 +57,9 @@ Class Rankmodel extends CI_Model
 
    //SELECT sum(total_marks) as total,em.total_marks,em.subject_id,em.classmaster_id,em.stu_id,st.name,c.class_name,s.sec_name FROM edu_exam_marks AS em,edu_enrollment AS st, edu_class AS c,edu_sections AS s,edu_classmaster AS cm WHERE em.classmaster_id IN($cid) AND em.exam_id IN($examid) AND em.stu_id=st.enroll_id   AND FIND_IN_SET(em.classmaster_id,cm.class_sec_id) AND cm.class_sec_id IN($cid) AND FIND_IN_SET(cm.class,c.class_id) AND FIND_IN_SET(cm.section,s.sec_id)  GROUP BY em.classmaster_id,em.stu_id;
 
-   $query= "SELECT sum(total_marks) as total,GROUP_CONCAT(if(em.total_marks>=$pass_mark,'Pass','Fail')) AS Subject_marks,st.name,ad.sex,c.class_name,s.sec_name,GROUP_CONCAT(em.internal_mark) AS inm,GROUP_CONCAT(em.external_mark) AS exm FROM edu_exam_marks AS em LEFT JOIN edu_enrollment AS st ON  em.stu_id=st.enroll_id LEFT JOIN edu_classmaster AS cm ON em.classmaster_id=cm.class_sec_id LEFT JOIN  edu_class AS c ON  cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_examination AS ed ON ed.exam_id=em.exam_id LEFT JOIN edu_subject AS su ON su.subject_id=em.subject_id LEFT JOIN edu_admission As ad ON ad.admission_id=st.admission_id WHERE ed.exam_id='$year_id' AND em.classmaster_id='$cls_id' AND em.exam_id IN($examid) AND  em.subject_id IN($sub_id) GROUP BY em.classmaster_id,em.stu_id ORDER BY ad.sex DESC,st.name ASC";
+   $query= "SELECT sum(total_marks) as total,GROUP_CONCAT(if(em.total_marks>=$pass_mark,'Pass','Fail')) AS Subject_marks,st.name,ad.sex,c.class_name,s.sec_name,GROUP_CONCAT(em.internal_mark) AS inm,GROUP_CONCAT(em.external_mark) AS exm FROM edu_exam_marks AS em LEFT JOIN edu_enrollment AS st ON  em.stu_id=st.enroll_id LEFT JOIN edu_classmaster AS cm ON em.classmaster_id=cm.class_sec_id LEFT JOIN  edu_class AS c
+   ON  cm.class=c.class_id LEFT JOIN edu_sections AS s ON cm.section=s.sec_id LEFT JOIN edu_examination AS ed ON ed.exam_id=em.exam_id LEFT JOIN edu_subject AS su ON su.subject_id=em.subject_id LEFT JOIN edu_admission As ad ON ad.admission_id=st.admission_id WHERE ed.exam_id='$examid' AND em.classmaster_id='$cls_id' AND em.exam_id IN($examid)
+    AND  em.subject_id IN($sub_id) GROUP BY em.classmaster_id,em.stu_id ORDER BY ad.sex DESC,st.name ASC";
 	  $marks=$this->db->query($query);
 	  $row1=$marks->result();
 	  return $row1;
