@@ -30,7 +30,7 @@ Class Adminparentmodel extends CI_Model
     {
 
 
-        $query      = " SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0  THEN 'FORENOON' ELSE 'AFTERNOON' END AS title
+        $query      = " SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0  THEN 'FULLDAY' ELSE 'FULLDAY' END AS title
       FROM edu_attendance_history WHERE student_id='$enroll_id' AND  a_status IN ('A', 'L')";
         $resultset1 = $this->db->query($query);
         return $resultset1->result();
@@ -38,7 +38,7 @@ Class Adminparentmodel extends CI_Model
 
     function get_student_od_view($enroll_id)
     {
-        $query      = "SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0  THEN 'FORENOON' ELSE 'AFTERNOON' END AS title
+        $query      = "SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0  THEN 'FULLDAY' ELSE 'FULLDAY' END AS title
        FROM edu_attendance_history WHERE student_id='$enroll_id' AND  a_status IN ('OD')";
         $resultset1 = $this->db->query($query);
         return $resultset1->result();

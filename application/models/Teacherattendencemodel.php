@@ -70,7 +70,9 @@ Class Teacherattendencemodel extends CI_Model
           }else{
             $a_period="1";
           }
-          $check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_da' AND attendence_period='$a_period'";
+		  
+          //$check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_da' AND attendence_period='$a_period'";
+		  $check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_da'";
           $get_att=$this->db->query($check_attendence);
 
           if($get_att->num_rows()==0){
@@ -149,7 +151,8 @@ Class Teacherattendencemodel extends CI_Model
 
             $get_re=$this->db->query($check_reg_leave);
             if($get_re->num_rows()==0){
-               $check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_d' AND attendence_period='$a_period'";
+               //$check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_d' AND attendence_period='$a_period'";
+			   $check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_d'";
                $get_att=$this->db->query($check_attendence);
                if($get_att->num_rows()==0){
 

@@ -35,7 +35,7 @@
                                  <td class="text-center"><?php echo $i;  ?></td>
                                  <td class="text-center  txt" ><?php echo $rows->name; ?></td>
                                   <td class="text-center  txt" ><?php  echo date("F", strtotime('00-'.$month.'-01')); ?></td>
-                                 <td class="text-center"><?php echo $ab=$rows->leaves/2; ?></td>
+                                 <td class="text-center"><?php echo $ab=$rows->leaves; ?></td>
                                   <td class="text-center"><?php echo $pp=$wrk-$ab; ?></td>
 
                                   <td class="text-center">

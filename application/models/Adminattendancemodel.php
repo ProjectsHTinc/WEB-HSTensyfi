@@ -121,7 +121,8 @@ Class Adminattendancemodel extends CI_Model
             $data= array("status" => "nodata");
             return $data;
        }else{
-           $total_days = $total_days_count/2;
+           //$total_days = $total_days_count/2;
+		   $total_days = $total_days_count;
            $data= array("status" => "success","result" => $total_days);
             return $data;
        }
@@ -199,7 +200,8 @@ Class Adminattendancemodel extends CI_Model
             $check_reg_leave="SELECT * FROM edu_leavemaster AS elm LEFT JOIN edu_holidays_list_history AS ehlh ON ehlh.leave_masid=elm.leave_id WHERE ehlh.leave_list_date='$cur_d' AND FIND_IN_SET('$class_id',elm.leave_classes)";
            $get_re=$this->db->query($check_reg_leave);
            if($get_re->num_rows()==0){
-             $check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_d' AND attendence_period='$a_period'";
+             //$check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_d' AND attendence_period='$a_period'";
+			 $check_attendence="SELECT * FROM edu_attendence WHERE class_id='$class_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$cur_d'";
               $get_att=$this->db->query($check_attendence);
               if($get_att->num_rows()==0){
                 $data= array("status" =>"success");

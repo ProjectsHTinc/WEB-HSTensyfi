@@ -187,6 +187,7 @@ class Circular extends CI_Controller
     	  $datas=$this->session->userdata();
     	  $user_id=$this->session->userdata('user_id');
     	  $user_type=$this->session->userdata('user_type');
+		  
       if($user_type==1)
       {
       $users_id=$this->input->post('users');

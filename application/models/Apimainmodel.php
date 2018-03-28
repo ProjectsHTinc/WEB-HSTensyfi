@@ -1396,9 +1396,9 @@ class Apimainmodel extends CI_Model {
 			$year_id = $this->getYear();
 
             if ($user_type=='1'){
-			     $Group_query = "SELECT B.id, A.id AS group_title_id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` ORDER BY B.id DESC";
+			     $Group_query = "SELECT B.id, A.id AS group_title_id, A.group_title, B.notes, B.created_at FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` ORDER BY B.id DESC";
             } else {
-				 $Group_query = "SELECT B.id, A.id AS group_title_id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` AND group_lead_id = '$user_id' ORDER BY B.id DESC";
+				 $Group_query = "SELECT B.id, A.id AS group_title_id, A.group_title, B.notes, B.created_at FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` AND group_lead_id = '$user_id' ORDER BY B.id DESC";
 			}
 
 			$Group_res = $this->db->query($Group_query);

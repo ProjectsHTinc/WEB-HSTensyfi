@@ -196,7 +196,7 @@ Class Studentmodel extends CI_Model
 LEFT JOIN edu_enrollment AS ee ON ee.admission_id=ea.admission_id WHERE ed.user_id=$user_id";
         $results=$this->db->query($get_enroll_id);
         foreach($results->result() as $rows){}   $enroll_id=$rows->enroll_id;
-      $query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0 THEN 'FORENOON' ELSE 'AFTERNOON' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id' AND  a_status IN ('A', 'L')";
+      $query="SELECT abs_date AS start,a_status AS description,CASE WHEN attend_period = 0 THEN 'FULLDAY' ELSE 'FULLDAY' END AS title FROM edu_attendance_history WHERE student_id='$enroll_id' AND  a_status IN ('A', 'L')";
        $resultset1=$this->db->query($query);
 	 return $resultset1->result();
      }

@@ -256,7 +256,8 @@ class Apistudentmodel extends CI_Model {
 			if($total_days_res->num_rows()==0){
 				 $response = array("status" => "error", "msg" => "No Attendance days Found");
 			}else{
-			    $total_days = $total_days_count/2;
+			   // $total_days = $total_days_count/2;
+			    $total_days = $total_days_count;
 			    
 			    foreach($total_days_result as $rows){ 
     				$at_id = $rows->at_id;
@@ -268,7 +269,8 @@ class Apistudentmodel extends CI_Model {
     			$absent_count = $absent_res->num_rows();
     			
     			if($absent_res->num_rows()>0){
-    				$absent_days = $absent_count/2;
+    				//$absent_days = $absent_count/2;
+    				$absent_days = $absent_count;
     			} else {
     			    $absent_days = 0;
     			}
@@ -279,7 +281,8 @@ class Apistudentmodel extends CI_Model {
     			$leave_count = $leave_res->num_rows();
     			
     			if($leave_res->num_rows()>0){
-    				 $leave_days = $leave_count/2;
+    				 //$leave_days = $leave_count/2;
+    				 $leave_days = $leave_count;
     			} else {
     			    $leave_days = 0;
     			}
@@ -290,7 +293,8 @@ class Apistudentmodel extends CI_Model {
     			$od_count = $od_res->num_rows();
     			
     			if($od_res->num_rows()>0){
-    				 $od_days = $od_count/2;
+    				 //$od_days = $od_count/2;
+    				 $od_days = $od_count;
     			} else {
     			    $od_days = 0;
     			}
@@ -317,7 +321,7 @@ class Apistudentmodel extends CI_Model {
     			$attend_count = $attend_res->num_rows();
     			
     			 if($attend_res->num_rows()==0){
-    				 $response = array("status" => "error", "msg" => "No Records Found");
+    				 $response = array("status" => "success", "msg" => "View Attendence","attendenceHistory"=>$attendence_history, "attendenceDetails"=>$attend_result);
     			}else{
     				$response = array("status" => "success", "msg" => "View Attendence","attendenceHistory"=>$attendence_history, "attendenceDetails"=>$attend_result);
     			} 
