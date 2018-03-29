@@ -190,41 +190,42 @@ class Circular extends CI_Controller
 		  
       if($user_type==1)
       {
-      $users_id=$this->input->post('users');
-	  $tusers_id=$this->input->post('tusers');
-	  //print_r($users_id);exit;
-	  $pusers_id=$this->input->post('pusers');
-      $stusers_id=$this->input->post('stusers');
-      //print_r($pusers_id);exit;
-      $title=$this->db->escape_str($this->input->post('ctitle')); 
+		  $users_id=$this->input->post('users');
+		  $tusers_id=$this->input->post('tusers');
+		  //print_r($users_id);exit;
+		  $pusers_id=$this->input->post('pusers');
+		  $stusers_id=$this->input->post('stusers');
+		  //print_r($pusers_id);exit;
+		  $title=$this->db->escape_str($this->input->post('ctitle')); 
+		  
+		  $cdate=$this->input->post('date');
+		  $dateTime = new DateTime($cdate);
+		  $circulardate=date_format($dateTime,'Y-m-d' );
+		  //echo $circulardate;exit;
+		  $notes=$this->db->escape_str($this->input->post('notes'));
+		  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
+		  $status=$this->input->post('status'); 
 	  
-	  $cdate=$this->input->post('date');
-      $dateTime = new DateTime($cdate);
-      $circulardate=date_format($dateTime,'Y-m-d' );
-	  //echo $circulardate;exit;
-      $notes=$this->db->escape_str($this->input->post('notes'));
-	  $citrcular_type=$this->db->escape_str($this->input->post('citrcular_type'));
-	  $status=$this->input->post('status'); 
-	  
-	  if(empty($citrcular_type)){
-		$citrcular_type1="null";
-	  }else{
-	  $citrcular_type1=implode(',',$citrcular_type);
-	  }
+		  if(empty($citrcular_type)){
+			$citrcular_type1="null";
+		  }else{
+			$citrcular_type1=implode(',',$citrcular_type);
+		  }
 
 	    //print_r($citrcular_type);exit;
 	   //$ct1=$citrcular_type[0];
 	  //echo $ct1;exit;
 	  
-      $datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$citrcular_type1,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id);
+      		$datas=$this->circularmodel->circular_create($title,$notes,$circulardate,$citrcular_type1,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id);
       
 	  //------------------------------SMS & MAIL & NOTIFICATION--------------------------------------------
 	  $acount=count($citrcular_type);
+	  
 	  if($acount==3)
 	  {
-	   $datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
-	   $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
-	   $datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id);
+		   $datasms=$this->smsmodel->send_circular_via_sms($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+		   $datamail=$this->mailmodel->send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id); 
+		   $datanotify=$this->notificationmodel->send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id);
 	  } 
 	  if($acount==2)
 	  {

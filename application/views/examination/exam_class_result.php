@@ -1,5 +1,3 @@
-
-
 <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css">
 <script src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
 <div class="main-panel">
@@ -65,7 +63,8 @@
                                     $cnt= count($subject_name);
                                     for($i=0;$i<$cnt;$i++)
                                  { ?>
-                              <th> <?php echo $subject_name[$i]; ?> <?php //echo $subject_id[$i]; ?></th>
+                              <th> <?php echo $subject_name[$i]; ?> <?php echo $subject_id[$i]; ?></th>
+							 
                               <?php  }
                                  }else{  ?>
                               <th style="color:red;">Subject Not Found</th>
@@ -93,7 +92,9 @@
                                  echo '<input type="hidden" id="cid" name="clsmastid" value="'.$s->class_id.'" />';
                                  $k++;
                                  echo'<td>';
-                                    echo'('; echo' ';  echo $s->subject_name;  echo' '; echo')'; 
+								 if ($s->pref_language!=''){
+                                    echo'('; echo' ';  echo $s->pref_language;  echo' '; echo')'; 
+								 }
                                  echo'</td>';
                                  }
                                  

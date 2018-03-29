@@ -102,7 +102,9 @@
                                       //echo $s->language;
                                       $k++;
                                  echo'<td>';
-                                   echo'('; echo' '; echo $s->subject_name; echo' '; echo')'; 
+                                  if ($s->pref_language!=''){
+                                    echo'('; echo' ';  echo $s->pref_language;  echo' '; echo')'; 
+								 }
                                  echo'</td>';
                                     }
                                  if($status=="Success")

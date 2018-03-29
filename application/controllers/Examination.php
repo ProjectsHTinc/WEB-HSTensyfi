@@ -366,6 +366,7 @@ public function exam_mark_details_cls_teacher()
 	//echo $cls_masid;echo $exam_id;exit;
 	$datas=$this->examinationmodel->getall_subname($user_id,$cls_masid,$exam_id);
 	$datas['stu']=$this->examinationmodel->getall_stuname($user_id,$cls_masid,$exam_id);
+	//echo "<pre>";print_r($datas['stu']);exit;
 	$datas['cls_exam']=$this->examinationmodel->clsname_examname($exam_id,$cls_masid);
 	$datas['smark']=$this->examinationmodel->marks_status_details($cls_masid,$exam_id);
 	$datas['eflag'] = $this->examinationmodel->getall_exam_inter_exter_details($exam_id,$cls_masid);
