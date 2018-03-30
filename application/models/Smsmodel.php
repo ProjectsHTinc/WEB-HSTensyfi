@@ -113,7 +113,7 @@ Class Smsmodel extends CI_Model
 				 {
 					$userid=$tusers_id[$i];
 					$cnotes=$notes;
-					$ctitle=$title;
+					//$ctitle=$title;
 
 					$sql="SELECT u.user_id,u.user_type,u.user_master_id,t.teacher_id,t.name,t.phone FROM edu_users AS u,edu_teachers AS t WHERE u.user_id='$userid' AND u.user_type='2' AND u.user_master_id=t.teacher_id";
 					$tcell=$this->db->query($sql);
@@ -295,7 +295,7 @@ Class Smsmodel extends CI_Model
 				{
 				   //echo $users_id;
 				    $cnotes=$notes;
-					$ctitle=$title;
+					//$ctitle=$title;
 					$ssql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,a.admission_id,a.name,a.mobile FROM edu_users AS u,edu_admission AS a  WHERE u.user_type='$users_id' AND u.user_master_id=a.admission_id AND u.name=a.name AND u.status='Active'";
 					$res2=$this->db->query($ssql);
 					$result2=$res2->result();
@@ -333,7 +333,7 @@ Class Smsmodel extends CI_Model
 				{
 				   //echo $users_id;
 				    $cnotes=$notes;
-					$ctitle=$title;
+					//$ctitle=$title;
 					$psql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,p.id,p.mobile FROM edu_users AS u,edu_parents AS p WHERE u.user_type='$users_id' AND u.user_master_id=p.id AND u.status='Active'";
 					$pres2=$this->db->query($psql);
 					$presult2=$pres2->result();
@@ -535,8 +535,7 @@ Class Smsmodel extends CI_Model
 
       function send_sms_attendance($attend_id){
          $query="SELECT ee.name,ep.mobile,ee.admission_id,eah.abs_date,eah.student_id,eah.a_status,eah.attend_period,
-         CASE WHEN attend_period = 0 THEN 'MORNING'  ELSE 'AFTERNOON' END  AS a_session,CASE WHEN a_status = 'L' THEN 'Leave' WHEN a_status = 'A' THEN 'Absent' ELSE 'OnDuty' END  AS abs_atatus FROM edu_attendance_history AS eah LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eah.student_id LEFT JOIN edu_parents AS ep ON ee.admission_id=ep.admission_id WHERE
-          eah.attend_id='$attend_id' AND ep.primary_flag='Yes'";
+         CASE WHEN attend_period = 0 THEN 'MORNING'  ELSE 'AFTERNOON' END  AS a_session,CASE WHEN a_status = 'L' THEN 'Leave' WHEN a_status = 'A' THEN 'Absent' ELSE 'OnDuty' END  AS abs_atatus FROM edu_attendance_history AS eah LEFT JOIN edu_enrollment AS ee ON ee.enroll_id=eah.student_id LEFT JOIN edu_parents AS ep ON ee.admission_id=ep.admission_id WHERE eah.attend_id='$attend_id' AND ep.primary_flag='Yes'";
 
         $result=$this->db->query($query);
         $res=$result->result();

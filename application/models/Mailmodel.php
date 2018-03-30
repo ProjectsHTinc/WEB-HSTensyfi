@@ -64,8 +64,14 @@ Class Mailmodel extends CI_Model
 
   function send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id)
   {
-
-	   $user_type=$users_id;
+		$ssql = "SELECT * FROM edu_circular_master WHERE id ='$title'";
+		$res = $this->db->query($ssql);
+		$result =$res->result();
+		foreach($result as $rows)
+		{ }
+		$title = $rows->circular_title;
+	   	$user_type = $users_id;
+	   
 	  //-----------Admin------------------------
 	  if(!empty($user_type))
 	   {
@@ -285,6 +291,8 @@ Class Mailmodel extends CI_Model
              }//Parents close
 
   }//function close
+
+
 
     // Group Mail
     function send_mail($group_id,$notes,$user_id){

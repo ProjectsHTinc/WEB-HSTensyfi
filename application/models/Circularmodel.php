@@ -109,7 +109,7 @@ Class Circularmodel extends CI_Model
 		  foreach($all_year as $cyear){}
 		  $current_year=$cyear->year_id;
 		  
-		  $query5="SELECT id,academic_year_id,circular_title,circular_description,status FROM edu_circular_master WHERE circular_title='$ctitle' AND academic_year_id='$current_year'  AND status='Active'";
+		  $query5="SELECT id,academic_year_id,circular_title,circular_description,status FROM edu_circular_master WHERE id='$ctitle' AND academic_year_id='$current_year'  AND status='Active'";
          $resultset3=$this->db->query($query5);
          if($resultset3->num_rows()==0){
            $data= array("status" =>"nodata");
@@ -123,7 +123,7 @@ Class Circularmodel extends CI_Model
 	 
 	 function circular_create($title,$notes,$circulardate,$circular_type1,$users_id,$tusers_id,$pusers_id,$stusers_id,$status,$user_id)
 	 {     //echo $title; echo $title; 
-		  $master="SELECT id,circular_title,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_description='$notes' AND status='Active'"; 
+		  $master="SELECT id,circular_title,circular_description,status FROM edu_circular_master WHERE id='$title' AND circular_description='$notes' AND status='Active'"; 
 		   $resultset=$this->db->query($master);
 		   $res=$resultset->result();
 		   foreach($res as $rows){}
@@ -148,14 +148,14 @@ Class Circularmodel extends CI_Model
 				$circulardate1=$circulardate;
 				$user_id1=$user_id;
 
-			    $stud="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.name,u.student_id,u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=3 AND a.admission_id=u.user_master_id AND a.admission_id=u.student_id AND u.status='Active'";
+			     $stud="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.parnt_guardn_id,u.user_id,u.user_type,u.user_master_id,u.name,u.student_id,u.status FROM edu_enrollment AS e,edu_admission AS a,edu_users AS u WHERE e.class_id='$classid' AND e.admission_id=a.admission_id AND e.admisn_no=a.admisn_no AND u.user_type=3 AND a.admission_id=u.user_master_id AND a.admission_id=u.student_id AND u.status='Active'";
 				$stu_id=$this->db->query($stud);
 				$res1=$stu_id->result();
 			    foreach($res1 as $row1)
 				{
 				  $sid=$row1->user_id;
 				  //echo $sid; exit;
-		$query1="INSERT INTO edu_circular(user_type,user_id,circular_master_id,	circular_type,circular_date,status,created_by,created_at) VALUES ('3','$sid','$cirmat','$circular_type2','$circulardate1','$status1','$user_id1',NOW())";
+		 $query1="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_type,circular_date,status,created_by,created_at) VALUES ('3','$sid','$cirmat','$circular_type2','$circulardate1','$status1','$user_id1',NOW())";
 		          $students=$this->db->query($query1);
 				 }
 			

@@ -133,12 +133,14 @@ class Adminparent extends CI_Controller
             $datas['res']   = $this->dashboard->stud_details($user_id);
             $stu            = count($datas['res']);
             $datas['total'] = $this->adminparentmodel->get_total_working_days_parent($user_id, $user_type);
-
+ 			$datas['ableavedays'] = $this->adminparentmodel->get_absent_leave_days_parent($user_id, $user_type);
+			
             if ($stu == 1) {
                 $datas['stud_details'] = $this->dashboard->get_students($user_id);
                 foreach ($datas['stud_details'] as $rows) {
                 }
                 $user_id = $rows->enroll_id;
+				
                 $this->load->view('adminparent/parent_header');
                 $this->load->view('adminparent/attendance/calender', $datas);
                 $this->load->view('adminparent/parent_footer');

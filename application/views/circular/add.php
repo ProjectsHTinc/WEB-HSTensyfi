@@ -132,7 +132,7 @@
                                  <div id="tnone">
                                     <select name="ctitle" id="cititle" class="selectpicker form-control" data-title="Select Title" onchange="circulardescription(this)">
                                        <?php foreach($cmaster as $cmtitle) {?>
-                                       <option value="<?php echo $cmtitle->circular_title; ?>"><?php echo $cmtitle->circular_title; ?></option>
+                                       <option value="<?php echo $cmtitle->id; ?>"><?php echo $cmtitle->circular_title; ?></option>
                                        <?php } ?>
                                     </select>
                                  </div>
@@ -240,7 +240,8 @@
          data: $('#myformsection').serialize(),
          success: function(response) {
             //alert(response);
-        if(response=="success")
+        
+		if(response=="success")
         {      
            $('#myformsection')[0].reset();
              swal({
@@ -331,9 +332,9 @@
    } */
    
     function circulardescription(cde1) {
-      var cde=document.getElementById('cititle').value;
+      var cde= document.getElementById('cititle').value;
       //var ctype=document.getElementById('citrcular_type').value;   
-      //alert(cde); 
+     // alert (cde); 
    $.ajax({
     url:'<?php echo base_url(); ?>circular/get_description_list',
     type:'post',

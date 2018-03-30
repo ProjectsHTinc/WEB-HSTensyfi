@@ -88,6 +88,12 @@ Class Notificationmodel extends CI_Model
 
        function send_circular_via_notification($title,$notes,$tusers_id,$stusers_id,$pusers_id,$users_id)
          {
+			$ssql = "SELECT * FROM edu_circular_master WHERE id ='$title'";
+			$res = $this->db->query($ssql);
+			$result =$res->result();
+			foreach($result as $rows)
+			{ }
+			$title = $rows->circular_title;
 
 	        if($tusers_id!='')
 			{

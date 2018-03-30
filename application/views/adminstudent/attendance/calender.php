@@ -42,8 +42,13 @@
                            <p class="red">1</p>
                         </div>
                         <div class="Words">
-                           Absent
-                        </div>
+											Absent & Leave - 
+                                            <?php if(empty($ableavedays)){
+
+											} else{
+												echo count($ableavedays);
+											}?> 
+                                            </div>
                      </div>
                   </div>
                </div>

@@ -44,13 +44,18 @@
 												echo count($total);
 											}?> </p>
 										</div>
-										<div class="noote" style="    display: inline-flex;   ">
+										<div class="noote" style="display: inline-flex;   ">
 										<div class="notice">
 											<p class="red">1</p>
 										</div>
 										<div class="Words">
-											Absent
-										</div>
+											Absent & Leave - 
+                                            <?php if(empty($ableavedays)){
+
+											} else{
+												echo count($ableavedays);
+											}?> 
+                                            </div>
 									</div>
 										</div>
 
@@ -77,11 +82,10 @@ $('#attendence').addClass('collapse in');
 			eventLimit: true, // allow "more" link when too many events
 			// events:"<?php echo base_url() ?>event/getall_act_event",
 			eventSources: [
-	 {
-		 url: '<?php echo base_url() ?>adminparent/get_stude',
-		 color: 'red'
-
-	 }
+	 		{
+			 url: '<?php echo base_url() ?>adminparent/get_stude',
+			 color: 'red'
+	 		}
 
  ],
  eventMouseover: function(calEvent, jsEvent) {
@@ -110,4 +114,4 @@ eventMouseout: function(calEvent, jsEvent) {
 
 	});
 
-		    </script>
+</script>
