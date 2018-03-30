@@ -40,6 +40,7 @@ class Teacher extends CI_Controller {
 			$datas['resubject'] = $this->subjectmodel->getsubject();
 			$datas['groups']=$this->teachermodel->get_all_groups_details();
 			$datas['activities']=$this->teachermodel->get_all_activities_details();
+			$datas['res_user_role']=$this->teachermodel->get_user_rolename();
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
 	 		 $this->load->view('header');
@@ -58,60 +59,41 @@ class Teacher extends CI_Controller {
 			 $user_type=$this->session->userdata('user_type');
  			if($user_type==1)
 			{
+		   $role_type_id=$this->input->post('role_type_id');
 			 $class_name=$this->input->post('class_name');
- 			// $class_name=implode(',',$clas);
-
 			 $class_teacher=$this->input->post('class_teacher');
 			 $subject=$this->input->post('subject');
-
 			 $multiple_sub=$this->input->post('subject_multiple');
-			 //$multiple_sub=implode(',',$subject_multiple);
-
 			 $qualification=$this->input->post('qualification');
-
 			 $name=$this->input->post('name');
 			 $email=$this->input->post('email');
-
 			 $sec_email=$this->input->post('sec_email');
-
-		      $sex=$this->input->post('sex');
-
+		   $sex=$this->input->post('sex');
 			 $dob=$this->input->post('dob');
 			 $dateTime = new DateTime($dob);
-             $formatted_date=date_format($dateTime,'Y-m-d' );
-
+       $formatted_date=date_format($dateTime,'Y-m-d' );
 			 $age=$this->input->post('age');
-		     $nationality=$this->input->post('nationality');
+		   $nationality=$this->input->post('nationality');
 			 $religion=$this->input->post('religion');
 		 	 $community_class=$this->input->post('community_class');
-		     $community=$this->input->post('community');
+		   $community=$this->input->post('community');
 			 $mobile=$this->input->post('mobile');
-
 			 $sec_phone=$this->input->post('sec_phone');
-
 			 $groups_id=$this->input->post('groups_id');
-			 
 			 $activity=$this->input->post('activity_id');
 			 if(!empty($activity)){
 				 $activity_id=implode(',',$activity);
 			 }else{
 				 $activity_id=0;
 			 }
-			 
-
-			 //print_r($activity_id);exit;
 			 $status=$this->input->post('status');
-
 			 $address=$this->input->post('address');
-			 
 			 $teacher_pic = $_FILES["teacher_pic"]["name"];
 			 $userFileName =$teacher_pic;
 			 $uploaddir = 'assets/teachers/';
 			 $profilepic = $uploaddir.$userFileName;
 				move_uploaded_file($_FILES['teacher_pic']['tmp_name'], $profilepic);
-				$datas=$this->teachermodel->teacher_create($name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$userFileName);
-
-			//	print_r($datas['status']);exit;
+				$datas=$this->teachermodel->teacher_create($role_type_id,$name,$email,$sec_email,$sex,$formatted_date,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$userFileName);
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Added Successfully');
 					redirect('teacher/view');
@@ -136,15 +118,14 @@ class Teacher extends CI_Controller {
 		  $user_id=$this->session->userdata('user_id');
           $user_type=$this->session->userdata('user_type');
 		  $gender=$this->input->post('gender');
-		  
+
 		  $datas['getall_class']=$this->class_manage->getall_class();
 		  $datas['result'] = $this->teachermodel->get_all_teacher();
 		  $datas['resubject'] = $this->subjectmodel->getsubject();
 		  if(!empty($gender)){
 		   $datas['gender'] = $this->teachermodel->get_all_sorting_result($gender);
 			}
-		  //$datas['sorting'] = $this->teachermodel->get_sorting_result();
-		  //echo '<pre>';print_r($datas['result']);exit;
+
 		 if($user_type==1){
 		 $this->load->view('header');
 		 $this->load->view('teacher/view',$datas);
@@ -155,28 +136,7 @@ class Teacher extends CI_Controller {
 		 }
 		}
 
-		/* public function get_sorting_details(){
-		  $datas=$this->session->userdata();
-		  $user_id=$this->session->userdata('user_id');
-          $user_type=$this->session->userdata('user_type');
 
-		  $gender=$this->input->post('gender');
-		  $datas['getall_class']=$this->class_manage->getall_class();
-		  $datas['result'] = $this->teachermodel->get_all_teacher();
-		  $datas['resubject'] = $this->subjectmodel->getsubject();
-		  $datas['sorting'] = $this->teachermodel->get_sorting_result();
-
-		  $datas['gender'] = $this->teachermodel->get_all_sorting_result($gender);
-		  echo'<pre>';print_r($datas['gender']);exit;
-		 if($user_type==1){
-		 $this->load->view('header');
-		 $this->load->view('teacher/view',$datas);
-		 $this->load->view('footer');
-		 }
-		 else{
-				redirect('/');
-		 }
-		} */
 
 		//Adding subject to teacher for class
 		public function subject_handling(){
@@ -254,13 +214,13 @@ class Teacher extends CI_Controller {
 
 		public function get_teacher_id($teacher_id){
 			$datas=$this->session->userdata();
-		    $user_id=$this->session->userdata('user_id');
-		    $datas['getall_class']=$this->class_manage->getall_class();
+		  $user_id=$this->session->userdata('user_id');
+		  $datas['getall_class']=$this->class_manage->getall_class();
 		 	$datas['res']=$this->teachermodel->get_teacher_id($teacher_id);
 			$datas['resubject'] = $this->subjectmodel->getsubject();
 			$datas['groups']=$this->teachermodel->get_all_groups_details();
 			$datas['activities']=$this->teachermodel->get_all_activities_details();
-			//echo "<pre>";print_r(	$datas['res']);exit;
+			$datas['res_user_role']=$this->teachermodel->get_user_rolename();
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
 		 $this->load->view('header');
@@ -280,44 +240,37 @@ class Teacher extends CI_Controller {
 			 if($user_type==1){
 				 $teacher_id=$this->input->post('teacher_id');
 			 $class_name=$this->input->post('class_name');
-			 //$class_name = implode(',',$clas);
-			 $class_teacher=$this->input->post('class_teacher');
+			  $role_type_id=$this->input->post('role_type_id');
+			 if($role_type_id=="5"){
+				  $class_teacher="0";
+			 }else{
+				  $class_teacher=$this->input->post('class_teacher');
+			 }
 			 $subject=$this->input->post('subject');
 			 $name=$this->input->post('name');
 			 $email=$this->input->post('email');
-
 			 $sec_email=$this->input->post('sec_email');
 			 $sec_phone=$this->input->post('sec_phone');
-
 			 $multiple_sub=$this->input->post('subject_multiple');
-			 //$multiple_sub=implode(',',$subject_multiple);
 			 $qualification=$this->input->post('qualification');
-
-		     $sex=$this->input->post('sex');
-
+		   $sex=$this->input->post('sex');
 			 $dobdate=$this->input->post('dob');
 			 $dateTime = new DateTime($dobdate);
-              $dob=date_format($dateTime,'Y-m-d' );
-
-			 //$dob=$this->input->post('dob');
+       $dob=date_format($dateTime,'Y-m-d' );
 			 $age=$this->input->post('age');
-		     $nationality=$this->input->post('nationality');
+		   $nationality=$this->input->post('nationality');
 			 $religion=$this->input->post('religion');
 			 $community_class=$this->input->post('community_class');
-		     $community=$this->input->post('community');
+		   $community=$this->input->post('community');
 			 $mobile=$this->input->post('mobile');
 			 $address=$this->input->post('address');
 			 $status=$this->input->post('status');
-
 			 $groups_id=$this->input->post('groups_id');
 			 $activity=$this->input->post('activity_id');
-			 
 			 if(!empty($activity)){ $activity_id=implode(',',$activity); }else{ $activity_id=0; }
-
 			 $user_pic_old=$this->input->post('old_pic');
 			 $teacher_pic = $_FILES["teacher_pic"]["name"];
 			 $userFileName =time().'-'.$teacher_pic;
-
 				$uploaddir = 'assets/teachers/';
 				$profilepic = $uploaddir.$userFileName;
 				move_uploaded_file($_FILES['teacher_pic']['tmp_name'], $profilepic);
@@ -325,7 +278,7 @@ class Teacher extends CI_Controller {
 						$userFileName=$user_pic_old;
 				}
 
-				$datas=$this->teachermodel->save_teacher($name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$teacher_id);
+				$datas=$this->teachermodel->save_teacher($role_type_id,$name,$email,$sec_email,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mobile,$sec_phone,$address,$userFileName,$class_teacher,$class_name,$subject,$multiple_sub,$qualification,$groups_id,$activity_id,$status,$user_id,$teacher_id);
 			//	print_r($datas['status']);exit;
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Updated Successfully');
@@ -349,21 +302,27 @@ class Teacher extends CI_Controller {
 
 		}
 
-         public function checker()
-         {
+    public function checker(){
 			$email = $this->input->post('email');
-
 			$numrows = $this->teachermodel->getemail($email);
 
-			if ($numrows > 0)
-		     {
-				echo "Email Id already Exit";
-			 }
-			else
-			 {
-				echo "Email Id Available";
-			 }
-        }
+    }
+		public function mobile_checker(){
+			$mobile = $this->input->post('mobile');
+			$numrows = $this->teachermodel->mobile_checker($mobile);
+		}
 
+		public function email_checker(){
+			$email = $this->input->post('email');
+			$teacher_id=$this->uri->segment(3);
+			$numrows = $this->teachermodel->email_checker($email,$teacher_id);
+
+		}
+		public function mobile_exist_checker(){
+			$mobile = $this->input->post('mobile');
+			$teacher_id=$this->uri->segment(3);
+			$numrows = $this->teachermodel->mobile_exist_checker($mobile,$teacher_id);
+
+		}
 
 }

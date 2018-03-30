@@ -3,7 +3,7 @@
       <div class="col-md-12">
          <div class="card">
             <div class="header">
-               <legend>Add Teacher</legend>
+               <legend>Add Staff</legend>
             </div>
             <?php if($this->session->flashdata('msg')): ?>
             <div class="alert alert-success">
@@ -13,6 +13,18 @@
             <?php endif; ?>
             <div class="content">
                <form method="post" action="<?php echo base_url(); ?>teacher/create" class="form-horizontal" enctype="multipart/form-data" id="admissionform">
+                 <fieldset>
+                    <div class="form-group">
+                       <label class="col-sm-2 control-label">Select Role </label>
+                       <div class="col-sm-4">
+                          <select name="role_type_id" id="role_type_id" class="selectpicker form-control" data-title="Select Role" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                            <?php foreach($res_user_role as $res_user_role_name){ ?>
+                               <option value="<?php echo $res_user_role_name->role_id; ?>"><?php echo $res_user_role_name->user_type_name; ?></option>
+                          <?php   } ?>
+                            </select>
+                       </div>
+                    </div>
+                 </fieldset>
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
@@ -119,6 +131,7 @@
                               <?php      } ?>
                            </select>
                         </div> -->
+                        <div id="class_tutor_teacher">
                         <label class="col-sm-2 control-label">Class Tutor</label>
                         <div class="col-sm-4">
                            <select   name="class_teacher"  id="class_teacher" data-title="Select Class" class="selectpicker" data-style=" btn-block"  data-menu-style="dropdown-blue">
@@ -128,6 +141,7 @@
                            </select>
                         </div>
                      </div>
+                        </div>
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
@@ -196,6 +210,11 @@
       </div>
    </div>
 </div>
+<style>
+#class_tutor_teacher {
+  display:none;
+}
+</style>
 <script type="text/javascript">
    function getListClass(){
 
@@ -233,40 +252,44 @@
    output.src = URL.createObjectURL(event.target.files[0]);
    };
 
-   // function select_class(classname){
-   //   var values = $('#multiple-class').val();
-   //   alert(values);
-   // }
-
-
    $(document).ready(function () {
 
-    //$("textarea").MaxLength({ MaxLength:10})
 
    $('#admissionform').validate({ // initialize the plugin
    rules: {
- 	name:{required:true }, address:{required:true },
-   	email:{required:true,email:true},
+     role_type_id:{required:true },
+ 	   name:{required:true }, address:{required:true },
+   	 email:{required:true,email:true,
+                    remote: {
+                               url: "<?php echo base_url(); ?>teacher/checker",
+                               type: "post"
+                            }
+                          },
    	sex:{required:true },
    	dob:{required:true },
-   	age:{required:true,number:true,maxlength:2 },
+   	// age:{required:true,number:true,maxlength:2 },
    	nationality:{required:true },
    	religion:{required:true },
    	community_class:{required:true },
    	community:{required:true },
-
-   	mobile:{required:true },
-   	//subject:{required:true },
+   	mobile:{required:true,  remote: {
+                 url: "<?php echo base_url(); ?>teacher/mobile_checker",
+                 type: "post"
+              }
+             },
    	qualification:{required:true },
-   	//groups_id:{required:true },
-   	//'activity_id[]':{required:true},
    	status:{required:true }
    },
    messages: {
+    role_type_id:"Select Role",
    	address: "Enter Address",
    	admission_date: "Select Admission Date",
    	name: "Enter Name",
-   	email: "Enter Email Address",
+   	email:{
+          required: "Please enter your email address.",
+          email: "Please enter a valid email address.",
+          remote: "Email already in use!"
+    },
 
    	sex: "Select Gender",
    	dob: "Select Date of Birth",
@@ -278,37 +301,24 @@
    	community_class:"Enter the Community Class",
    	mother_tongue:"Enter The Mother tongue",
    	qualification:"Enter the Qualification ",
-
-   	mobile:"Enter the mobile Number",
-   	//groups_id:"Select Groups Name",
-   	//'activity_id[]':"Select Activity Name",
+   	mobile:{
+      required: "Please enter your mobile Number.",
+      mobile: "Please enter a valid mobile Number.",
+      remote: "Mobile Number already in use!"
+    },
    	status:"Select Status Name"
    }
    });
    });
 
-
-   function checkemailfun(val)
-   {
-   $.ajax({
-   type:'post',
-   url:'<?php echo base_url(); ?>/teacher/checker',
-   data:'email='+val,
-   success:function(test)
-   {
-   if(test=="Email Id already Exit")
-   {
-   $("#msg").html(test);
-   $("#save").hide();
-   }
-   else{
-   $("#msg").html(test);
-   $("#save").show();
-   }
-
-   }
+   $('#role_type_id').on('change', function () {
+       if(this.value === "2"){
+           $("#class_tutor_teacher").show();
+       } else {
+           $("#class_tutor_teacher").hide();
+       }
    });
-   }
+
 
 
    $().ready(function(){

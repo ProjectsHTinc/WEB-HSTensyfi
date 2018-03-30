@@ -23,28 +23,11 @@
                      <div class="content" id="content1">
                         <div class="fresh-datatables">
                            <!-- <h4 class="title" style="padding-bottom: 20px;">List of Teacher</h4> -->
-                           <legend>List of Teacher</legend>
-
-						 <form method="post" action="<?php echo base_url(); ?>teacher/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
-                              <div class="col-sm-2">
-                                 <select name="gender" style="margin-top:30px;" data-title="Select Gender" class="selectpicker">
-                                    <option value="Male">Male</option>
-									<option value="Female">Female</option>
-                                 </select>
-                              </div>
-                              <div class="col-sm-4">
-                                 <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
-                              </div>
-
-							  <a href="<?php echo base_url(); ?>teacher/view_subject_handling" class="btn btn-wd btn-default pull-right" style="margin-right:10px;">Teacher Handling Subjects</a>
-                           </form>
-                          <div class="toolbar">
-	                            <!-- Here you can write extra buttons/actions for the toolbar-->
-								</div>
-
+                           <legend>List of Staff</legend>
                            <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" >
                               <thead>
                                  <th data-field="id" class="text-left" data-sortable="true">S.No</th>
+																 <th data-field="Role" class="text-left" data-sortable="true">Role</th>
                                  <th data-field="name" class="text-left" data-sortable="true">Name</th>
                                  <th data-field="email" class="text-left" data-sortable="true">Email</th>
                                  <th data-field="mobile" class="text-left" data-sortable="true">Mobile</th>
@@ -56,32 +39,13 @@
                                  <?php
                                     $i=1;
                                     if(!empty($gender)){
-                                    foreach ($gender as $rows) {
-                                    $stu=$rows->status;
-                                    ?>
-                                 <tr>
-                                    <td class="text-left"><?php echo $i; ?></td>
-                                    <td class="text-left"><?php echo $rows->name; ?></td>
-                                    <td class="text-left"><?php echo $rows->email; ?></td>
-                                    <td class="text-left"><?php echo $rows->phone; ?></td>
-                                    <td class="text-left"><?php echo $rows->class_name;?>-<?php echo $rows->sec_name; ?></td>
-                                    <td><?php
-                                       if($stu=='Active'){?>
-                                       <button class="btn btn-success btn-fill btn-wd">Active</button>
-                                       <?php  }else{?>
-                                       <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
-                                          ?>
-                                    </td>
-                                    <td class="text-left">
-                                       <a href="<?php echo base_url(); ?>teacher/get_teacher_id/<?php echo $rows->teacher_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                    </td>
-                                 </tr>
-                                 <?php $i++; }}else{
+                                	}else{
                                     foreach ($result as $rows) {
                                     $stu=$rows->status;
                                     ?>
                                  <tr>
                                     <td class="text-left"><?php echo $i; ?></td>
+																		<td class="text-left"><?php if($rows->role_type_id=='5'){echo "Board Memeber";}else{echo "Teacher";} ?></td>
                                     <td class="text-left"><?php echo $rows->name; ?></td>
                                     <td class="text-left"><?php echo $rows->email; ?></td>
                                     <td class="text-left"><?php echo $rows->phone; ?></td>
@@ -95,8 +59,13 @@
                                     </td>
                                     <td class="text-left">
                                        <a href="<?php echo base_url(); ?>teacher/get_teacher_id/<?php echo $rows->teacher_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                       <a rel="tooltip" href="#myModal" data-id="<?php echo $rows->teacher_id; ?>" title="Add Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit" style="color:#eb34ff;" data-toggle="modal" data-target="#myModal"   >
-                                       <i class="fa fa-user-plus">  </i></a>
+																			 <?php if($rows->role_type_id=='5'){
+
+																			 }else{ ?>
+																				 <a rel="tooltip" href="#myModal" data-id="<?php echo $rows->teacher_id; ?>" title="Add Subjects" class="open-AddBookDialog btn btn-simple btn-warning btn-icon edit" style="color:#eb34ff;" data-toggle="modal" data-target="#myModal"   >
+																				 <i class="fa fa-user-plus">  </i></a>
+																		<?php	 } ?>
+
                                     </td>
                                  </tr>
                                  <?php  $i++;  } } ?>

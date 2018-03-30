@@ -20,37 +20,37 @@
       <script src="<?php echo base_url(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
-	  
-	  
+
+
 	  <!-- PDF / Excel  -->
-		
+
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/buttons.dataTables.min.css">
-		  
+
 	  <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/pdfmake.min.js" type="text/javascript"></script>
 	  <script src="<?php echo base_url(); ?>assets/js/vfs_fonts.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jszip.min.js" type="text/javascript"></script>
 	  <script src="<?php echo base_url(); ?>assets/js/buttons.colVis.min.js" type="text/javascript"></script>
-	  
+
 	  <script src="<?php echo base_url(); ?>assets/js/dataTables.buttons.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/buttons.flash.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/buttons.html5.min.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>assets/js/buttons.print.min.js" type="text/javascript"></script> 
-	  
-	  
-	   
+      <script src="<?php echo base_url(); ?>assets/js/buttons.print.min.js" type="text/javascript"></script>
+
+
+
       <script src="<?php echo base_url(); ?>assets/js/jspdf.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
-      
+
       <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
-     
+
       <!--  Forms Validations Plugin -->
       <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
       <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
-     
+
       <style>
          .navbar{
          margin-bottom:0px;}
@@ -97,14 +97,13 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
                </button>
-               <a class="navbar-brand title_ensyfi" href="#" style="margin-top: 20px;
-                  font-size:28px;" ><?php  echo $this->session->userdata('name'); ?> </a>
+               <a class="navbar-brand title_ensyfi" href="#" style="margin-top: 20px;font-size:28px;" >
+                 <?php  echo $this->session->userdata('name'); ?> </a>
             </div>
             <div class="collapse navbar-collapse" style="float:right;margin-top:17px;">
                <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown" style="padding:08px 10px;">
-                     <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size:12px;
-                        color: white;border-color:white;text-transform: uppercase;border-radius: 8px;">
+          <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size:12px;color: white;border-color:white;text-transform: uppercase;border-radius: 8px;">
                      Quick Links</a>
                      <ul class="dropdown-menu">
                         <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
@@ -252,13 +251,13 @@
                <li id="teacher">
                   <a data-toggle="collapse" href="#teachermenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/teachers.png"/>
-                     <p>Teachers	</p>
+                     <p>Staff	</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="teachermenu">
                      <ul class="nav">
-                        <li id="teacher1"><a href="<?php echo base_url(); ?>teacher/home">Add Teachers</a></li>
-                        <li id="teacher2"><a href="<?php echo base_url(); ?>teacher/view">Teachers Search</a></li>
+                        <li id="teacher1"><a href="<?php echo base_url(); ?>teacher/home">Add Staff</a></li>
+                        <li id="teacher2"><a href="<?php echo base_url(); ?>teacher/view">Staff Search</a></li>
                         <li id="teacher3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
                      </ul>
                   </div>
@@ -402,9 +401,8 @@
                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/homework&classtest.png"/>
                      <p>Rank</p>
                   </a>
-               
+
                </li>
             </ul>
          </div>
       </div>
-

@@ -3,7 +3,7 @@
       <div class="col-md-12">
          <div class="card">
             <div class="header">
-               <legend>Update Teacher</legend>
+               <legend>Update Staff</legend>
             </div>
             <?php if($this->session->flashdata('msg')): ?>
             <div class="alert alert-success">
@@ -14,6 +14,19 @@
             <?php foreach ($res as $rows) { } ?>
             <div class="content">
                <form method="post" action="<?php echo base_url(); ?>teacher/save" class="form-horizontal" enctype="multipart/form-data" id="admissionform" name="teacherform">
+                 <fieldset>
+                    <div class="form-group">
+                       <label class="col-sm-2 control-label">Select Role </label>
+                       <div class="col-sm-4">
+                          <select name="role_type_id" id="role_type_id" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                            <?php foreach($res_user_role as $res_user_role_name){ ?>
+                               <option value="<?php echo $res_user_role_name->role_id; ?>"><?php echo $res_user_role_name->user_type_name; ?></option>
+                          <?php   } ?>
+                            </select>
+                             <script language="JavaScript">document.teacherform.role_type_id.value="<?php echo $rows->role_type_id; ?>";</script>
+                       </div>
+                    </div>
+                 </fieldset>
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
@@ -115,36 +128,8 @@
                         <div class="col-sm-4">
                            <input type="text" value="<?php echo $rows->qualification; ?>" name="qualification" class="form-control">
                         </div>
-                        <!-- <label class="col-sm-2 control-label">Subject Handling</label>
-                        <div class="col-sm-4">
-                           <select multiple name="subject_multiple[]" id="subject_id"  class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
-                               <?php
-                                 $sub_id=$rows->subject_handling;
-                                 $Query = "SELECT * FROM edu_subject";
-                                 $obj=$this->db->query($Query);
-                                 //print_r($objRs);
-                                 $row=$obj->result();
-                                 foreach ($row as $rows1)
-                                 {
-                                 $sid= $rows1->subject_id;
-                                 $subname=$rows1->subject_name;
-                                 $arryPlatform = explode(",", $sub_id);
-                                 $sPlatform_id  = trim($sid);
 
-                                 if (in_array($sPlatform_id, $arryPlatform )) {
-                                 ?>
-                              <?php
-                                 echo "<option  value=\"$sPlatform_id\" selected />$subname</option>";
-                                 ?>
-                              <?php }
-                                 else {
-                                 echo "<option value=\"$sPlatform_id\"/>$subname</option>";
-                                 }
-                                     }
-                                       ?>
-                           </select>
-                           <script language="JavaScript">document.teacherform.subject_multiple.value="<?php echo $rows->subject_handling; ?>";</script>
-                        </div> -->
+                        <div id="class_tutor_teacher">
                         <label class="col-sm-2 control-label">CLASS TUTOR</label>
                         <div class="col-sm-4">
                            <select   name="class_teacher"  class="selectpicker" data-style="btn-block"  data-menu-style="dropdown-blue">
@@ -155,36 +140,15 @@
                            </select>
                            <script language="JavaScript">document.teacherform.class_teacher.value="<?php echo $rows->class_teacher; ?>";</script>
                         </div>
+                      </div>
+
+
                      </div>
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
 
-                        <!-- <label class="col-sm-2 control-label">Class </label>
-                        <div class="col-sm-4">
-                           <select multiple  name="class_name[]" id="multiple-class" class="" data-style="btn-block"  data-menu-style="dropdown-blue">
-                           <?php
-                              $sPlatform=$rows->class_name;
-                              $sQuery = "SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.class FROM edu_class AS c,edu_sections AS s ,edu_classmaster AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
-                              $objRs=$this->db->query($sQuery);
-                              //print_r($objRs);
-                              $row=$objRs->result();
-                              foreach ($row as $rows1) {
-                              $s= $rows1->class_sec_id;
-                              $sec=$rows1->class;
-                              $clas=$rows1->class_name;
-                              $sec_name=$rows1->sec_name;
-                              $arryPlatform = explode(",", $sPlatform);
-                              $sPlatform_id  = trim($s);
-                              $sPlatform_name  = trim($sec);
-                              if (in_array($sPlatform_id, $arryPlatform )) {
-                              echo "<option  value=\"$sPlatform_id\" selected  />$clas-$sec_name &nbsp;&nbsp; </option>";
-                              }
-                              else { }
-                              }
-                              ?>
-                           </select>
-                        </div> -->
+
                      </div>
                   </fieldset>
                   <fieldset>
@@ -208,7 +172,7 @@
                               <option value="<?php echo $row2->id; ?>"><?php echo $row2->group_name; ?></option>
                               <?php      } ?>
                            </select>
-                           <script language="JavaScript">document.teacherform.groups_id.value="<?php echo $rows->groups_id; ?>";</script>
+                           <script language="JavaScript">document.teacherform.groups_id.value="<?php echo $rows->house_id; ?>";</script>
                         </div>
                      </div>
                   </fieldset>
@@ -242,7 +206,7 @@
                                      }
                                        ?>
                            </select>
-                           <script language="JavaScript">document.teacherform.activity_id[].value="<?php echo $rows->activity_id; ?>";</script>
+                           <!-- <script language="JavaScript">document.teacherform.activity_id.value="<?php echo $rows->extra_curicullar_id; ?>";</script> -->
                         </div>
                         <label class="col-sm-2 control-label">Status</label>
                         <div class="col-sm-4">
@@ -323,7 +287,11 @@
    rules: {
 
    name:{required:true }, address:{required:true },
-   //email:{required:true,email:true},
+   email:{required:true,email:true,  remote: {
+                url: "<?php echo base_url(); ?>teacher/email_checker/<?php echo $rows->teacher_id; ?>",
+                type: "post"
+             }
+           },
    sex:{required:true },
    dob:{required:true },
    age:{required:true,number:true,maxlength:2 },
@@ -332,10 +300,13 @@
    religion:{required:true },
    community_class:{required:true },
    community:{required:true },
-   //groups_id:{required:true },
-   //'activity_id[]':{required:true},
    status:{required:true },
-   mobile:{required:true }
+   mobile:{required:true,
+     remote: {
+                  url: "<?php echo base_url(); ?>teacher/mobile_exist_checker/<?php echo $rows->teacher_id; ?>",
+                  type: "post"
+               }
+              }
 
    },
    messages: {
@@ -344,8 +315,11 @@
    admission_date: "Select Admission Date",
    name: "Enter Name",
    "class_name[]":"Select class",
-   //email: "Enter Email Address",
-   remote: "Email already in use!",
+   email:{
+         required: "Please enter your email address.",
+         email: "Please enter a valid email address.",
+         remote: "Email already in use!"
+   },
    sex: "Select Gender",
    dob: "Select Date of Birth",
    age: "Enter AGE",
@@ -354,13 +328,17 @@
    community:"Enter the Community",
    community_class:"Enter the Community Class",
    mother_tongue:"Enter The Mother tongue",
-   mobile:"Enter the mobile Number",
-   //groups_id:"Select Groups Name",
-   //'activity_id[]':"Select Activity Name",
+   mobile:{
+     required: "Please enter your mobile Number.",
+     mobile: "Please enter a valid mobile Number.",
+     remote: "Mobile Number already in use!"
+   },
    status:"Select Status Name"
 
    }
    });
    });
+
+
 
 </script>
