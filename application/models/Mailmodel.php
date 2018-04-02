@@ -70,6 +70,7 @@ Class Mailmodel extends CI_Model
 		foreach($result as $rows)
 		{ }
 		$title = $rows->circular_title;
+		$notes = $rows->circular_description;
 	   	$user_type = $users_id;
 
 	  //-----------Admin------------------------
@@ -91,7 +92,7 @@ Class Mailmodel extends CI_Model
 					 $to=$mail_to;
 
 					 $subject=$title;
-					 $cnotes=$notes.$cdate;
+					 $cnotes=$notes.' '.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -119,7 +120,7 @@ Class Mailmodel extends CI_Model
 					 $smail_to=implode(',',$smail);
 					 $to = $smail_to;
 					 $subject=$title;
-					  $cnotes=$notes.$cdate;
+					  $cnotes=$notes.' '.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -147,7 +148,7 @@ Class Mailmodel extends CI_Model
 					 $pmail_to=implode(',',$pmail);
 					 $to = $pmail_to;
 					 $subject=$title;
-					 $cnotes=$notes.$cdate;
+					 $cnotes=$notes.' '.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -190,7 +191,7 @@ Class Mailmodel extends CI_Model
 					 $temail=$trow->email;
                      $to=$temail;
 					 $subject=$title;
-					  $cnotes=$notes.$cdate;
+					  $cnotes=$notes.' '.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -228,7 +229,7 @@ Class Mailmodel extends CI_Model
        				 $semail=$row1->email;
                      $to=$semail;
 					 $subject=$title;
-					 $cnotes=$notes.$cdate;
+					 $cnotes=$notes.' '.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>
@@ -271,7 +272,7 @@ Class Mailmodel extends CI_Model
        				 $pmail=$row3->email;
                      $to=$pmail;
 					 $subject=$title;
-					 $cnotes=$notes.$cdate;
+					 $cnotes=$notes.' '.$cdate;
 					 $htmlContent = '
 						 <html>
 						 <head><title></title>

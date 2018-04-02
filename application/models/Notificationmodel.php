@@ -94,6 +94,7 @@ Class Notificationmodel extends CI_Model
 			foreach($result as $rows)
 			{ }
 			$title = $rows->circular_title;
+			$notes = $rows->circular_description;
 
 	        if($tusers_id!='')
 			{
