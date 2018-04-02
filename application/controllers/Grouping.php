@@ -58,6 +58,7 @@ class Grouping extends CI_Controller {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$datas['list_of_grouping']=$this->groupingmodel->get_all_grouping();
+		$datas['get_board_members']=$this->groupingmodel->get_board_members();
 		$user_type=$this->session->userdata('user_type');
 		if($user_type==1){
 		 $this->load->view('header');
@@ -76,10 +77,10 @@ class Grouping extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		if($user_type==1){
 			$group_id=$this->input->post('group_id');
-		
-			 $notes=$this->db->escape_str($this->input->post('notes'));
+			$members_id=$this->input->post('members_id');
+			$notes=$this->db->escape_str($this->input->post('notes'));
 			$circular_type=$this->db->escape_str($this->input->post('circular_type'));
-			
+
 			 $cir=implode(',',$circular_type);
 			 $cir_cnt=count($circular_type);
 
@@ -98,9 +99,9 @@ class Grouping extends CI_Controller {
 					}
 					if($cir_cnt==3)
 				 {
-					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
-					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
-					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
+					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id,$members_id);
+					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id,$members_id);
+					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id,$members_id);
 				 }
 			 if($cir_cnt==2)  {
 		 		  $ct1=$circular_type[0];
@@ -108,19 +109,19 @@ class Grouping extends CI_Controller {
 
 		 		  if($ct1=='SMS' && $ct2=='Mail')
 		 		  {
-					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
- 					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
+					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id,$members_id);
+ 					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id,$members_id);
 		 		  }
 		 		  if($ct1=='SMS' && $ct2=='Notification')
 		 		  {
-					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
- 					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
+					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id,$members_id);
+ 					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id,$members_id);
 		 		  }
 		 		  if($ct1=='Mail' && $ct2=='Notification')
 		 		  {
-		 		      
- 					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
- 					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
+
+ 					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id,$members_id);
+ 					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id,$members_id);
 		 		  }
 
 		 	  }
@@ -128,21 +129,21 @@ class Grouping extends CI_Controller {
 				  $ct=$circular_type[0];
 				  if($ct=='SMS')
 				  {
-						$data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
+						$data=$this->smsmodel->send_msg($group_id,$notes,$user_id,$members_id);
 
 				  }
 				  if($ct=='Notification')
 				  {
-						 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
+						 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id,$members_id);
 				  }
 				  if($ct=='Mail')
 				  {
-						$data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
+						$data=$this->mailmodel->send_mail($group_id,$notes,$user_id,$members_id);
 				  }
 			  }
-			 
-				$datas=$this->groupingmodel->save_group_history($group_id,$cir,$notes,$user_id);
-			
+
+				$datas=$this->groupingmodel->save_group_history($group_id,$cir,$notes,$user_id,$members_id);
+
 				if($datas['status']=="success"){
 					echo "success";
 				}else if($datas['status']=="Already"){

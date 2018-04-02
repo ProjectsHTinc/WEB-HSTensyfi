@@ -67,14 +67,27 @@
                                           <div class="col-sm-6">
 
                                             <select multiple name="circular_type[]" id="circular_type" data-title="Select Circular Type" class="selectpicker form-control">
-                                <option value="SMS">SMS</option>
-                                <option value="Mail">Mail</option>
-                                <option value="Notification">Notification</option>
-                            </select>
+                                              <option value="SMS">SMS</option>
+                                              <option value="Mail">Mail</option>
+                                              <option value="Notification">Notification</option>
+                                          </select>
                                              <input type="hidden" name="group_id" id="group_id" class="form-control" value="">
                                           </div>
                                        </div>
+                                       <div class="form-group">
+                                          <label class="col-sm-4 control-label">Board Memebers </label>
+                                          <div class="col-sm-6">
 
+                                            <select multiple name="members_id[]" id="members_id" data-title="Select Board Members" class="selectpicker form-control">
+                                              <?php foreach($get_board_members as $res_member){ ?>
+                                                  <option value="<?php echo $res_member->teacher_id ?>"><?php echo $res_member->name ?></option>
+                                            <?php   } ?>
+
+
+                                          </select>
+                                             <input type="hidden" name="group_id" id="group_id" class="form-control" value="">
+                                          </div>
+                                       </div>
 
                                        <div class="form-group">
                                           <label class="col-sm-4 control-label">Notes </label>
@@ -104,7 +117,7 @@
                        </div><!--  end card  -->
              </div> <!-- end col-md-12 -->
     <div id="loading">
-       <center><img src="<?php echo base_url(); ?>assets/126.gif" id="loading"></center> 
+       <center><img src="<?php echo base_url(); ?>assets/loader.gif" id="loading" style="position: absolute;    top: 50%;    left: 80%;"></center>
     </div>
            </div>
 
@@ -116,6 +129,7 @@
 
 <script type="text/javascript">
   $("#loading").hide();
+    // $("#loading").show();
 $('#send_msg').validate({ // initialize the plugin
   rules: {
       "circular_type[]":{required:true },
@@ -130,9 +144,9 @@ $('#send_msg').validate({ // initialize the plugin
       },
 
 submitHandler: function(form) {
-    
 
-    
+
+
  //alert("hi");
  swal({
               title: "Are you sure?",
@@ -144,20 +158,21 @@ submitHandler: function(form) {
               cancelButtonText: "No, cancel it!",
               closeOnConfirm: false,
               closeOnCancel: false,
-               
+
   },
           function(isConfirm) {
               if (isConfirm) {
-                  $("#loading").show();
-                   
+              $("#loading").show();
+
 $.ajax({
     url: "<?php echo base_url(); ?>grouping/send_msg",
      type:'post',
     data: $('#send_msg').serialize(),
     success: function(response) {
-      // alert(response);
+      //alert(response);
+      $("#loading").show();
         if(response=="success"){
-              
+            $("#loading").hide();
          //  swal("Success!", "Thanks for Your Note!", "success");
           $('#send_msg')[0].reset();
           swal({
@@ -178,7 +193,7 @@ $.ajax({
 }
 });
 
-    
+
 }
 
 });

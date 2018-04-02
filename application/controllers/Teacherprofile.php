@@ -47,6 +47,7 @@ class Teacherprofile extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		if($user_type==2){
 			$datas['list_of_grouping']=$this->teacherprofilemodel->get_groups_for_teacher($user_id);
+				$datas['get_board_members']=$this->groupingmodel->get_board_members();
 			$this->load->view('adminteacher/teacher_header',$datas);
 			$this->load->view('adminteacher/communication/send_msg',$datas);
 			$this->load->view('adminteacher/teacher_footer');
@@ -75,6 +76,7 @@ class Teacherprofile extends CI_Controller {
 		$user_type=$this->session->userdata('user_type');
 		if($user_type==2){
 			$group_id=$this->input->post('group_id');
+			$members_id=$this->input->post('members_id');
 			 $notes=$this->input->post('notes');
 			$circular_type=$this->db->escape_str($this->input->post('circular_type'));
 			 $cir=implode(',',$circular_type);
@@ -93,9 +95,9 @@ class Teacherprofile extends CI_Controller {
 					}
 					if($cir_cnt==3)
 				 {
-					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
-					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
-					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
+					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id,$members_id);
+					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id,$members_id);
+					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id,$members_id);
 				 }
 			 if($cir_cnt==2)  {
 					$ct1=$circular_type[0];
@@ -103,18 +105,18 @@ class Teacherprofile extends CI_Controller {
 
 					if($ct1=='SMS' && $ct2=='Mail')
 					{
-					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
-					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
+					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id,$members_id);
+					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id,$members_id);
 					}
 					if($ct1=='SMS' && $ct2=='Notification')
 					{
 					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
-					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
+					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id,$members_id);
 					}
 					if($ct1=='Mail' && $ct2=='Notification')
 					{
-					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
-					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
+					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id,$members_id);
+					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id,$members_id);
 					}
 
 				}
@@ -122,19 +124,19 @@ class Teacherprofile extends CI_Controller {
 					$ct=$circular_type[0];
 					if($ct=='SMS')
 					{
-						$data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
+						$data=$this->smsmodel->send_msg($group_id,$notes,$user_id,$members_id);
 
 					}
 					if($ct=='Notification')
 					{
-						 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
+						 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id,$members_id);
 					}
 					if($ct=='Mail')
 					{
-						$data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
+						$data=$this->mailmodel->send_mail($group_id,$notes,$user_id,$members_id);
 					}
 				}
-				$data=$this->groupingmodel->save_group_history($group_id,$cir,$notes,$user_id);
+				$data=$this->groupingmodel->save_group_history($group_id,$cir,$notes,$user_id,$members_id);
 				if($data['status']=="success"){
 					echo "success";
 				}else if($data['status']=="Already"){

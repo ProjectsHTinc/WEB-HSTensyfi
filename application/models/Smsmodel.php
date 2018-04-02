@@ -440,11 +440,43 @@ Class Smsmodel extends CI_Model
 
     //
     //     //  Group  SMS
-        function send_msg($group_id,$notes,$user_id)
+        function send_msg($group_id,$notes,$user_id,$members_id)
 		{
-         $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) WHERE  egm.group_title_id='$group_id' and ep.mobile <>''";
+      if(empty($members_id)){
+      }else{
+          $member_id=implode(',',$members_id);
+          $mem_cnt=count($member_id);
+          $select="Select phone from edu_teachers where role_type_id='5' and teacher_id IN ($member_id)";
+          $resultset=$this->db->query($select);
+          $res=$resultset->result();
+          if(empty($res)){
 
-        $pcell=$this->db->query($class);
+          }else{
+            foreach($res as $phone){
+              $phone=$phone->phone;
+              $textmessage=$notes;
+              $textmsg =urlencode($textmessage);
+              $smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
+              $api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
+              $api_params = $api_element.'&numbers='.$phone.'&message='.$textmsg;
+              $smsgatewaydata = $smsGatewayUrl.$api_params;
+              $url = $smsgatewaydata;
+              $ch = curl_init();
+              curl_setopt($ch, CURLOPT_POST, false);
+              curl_setopt($ch, CURLOPT_URL, $url);
+              curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+              $output = curl_exec($ch);
+              curl_close($ch);
+              if(!$output)
+              {
+              $output =  file_get_contents($smsgatewaydata);
+              }
+            }
+          }
+      }
+    
+         $class="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) WHERE  egm.group_title_id='$group_id' and ep.mobile <>''";
+         $pcell=$this->db->query($class);
           $res2=$pcell->result();
           foreach($res2 as $result){
              $number=$result->mobile;
@@ -454,21 +486,17 @@ Class Smsmodel extends CI_Model
             $api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
             $api_params = $api_element.'&numbers='.$number.'&message='.$textmsg;
             $smsgatewaydata = $smsGatewayUrl.$api_params;
-
-           $url = $smsgatewaydata;
-
-
-           $ch = curl_init();
-           curl_setopt($ch, CURLOPT_POST, false);
-           curl_setopt($ch, CURLOPT_URL, $url);
-           curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-           $output = curl_exec($ch);
-           curl_close($ch);
-
-           if(!$output)
-           {
-                $output =  file_get_contents($smsgatewaydata);
-              }
+            $url = $smsgatewaydata;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_POST, false);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $output = curl_exec($ch);
+            curl_close($ch);
+            if(!$output)
+            {
+            $output =  file_get_contents($smsgatewaydata);
+            }
           }
         }
 

@@ -71,7 +71,7 @@ Class Mailmodel extends CI_Model
 		{ }
 		$title = $rows->circular_title;
 	   	$user_type = $users_id;
-	   
+
 	  //-----------Admin------------------------
 	  if(!empty($user_type))
 	   {
@@ -295,7 +295,35 @@ Class Mailmodel extends CI_Model
 
 
     // Group Mail
-    function send_mail($group_id,$notes,$user_id){
+    function send_mail($group_id,$notes,$user_id,$members_id){
+      if(empty($members_id)){
+      }else{
+          $member_id=implode(',',$members_id);
+          $mem_cnt=count($member_id);
+          $select="Select email from edu_teachers where role_type_id='5' and teacher_id IN ($member_id)";
+          $resultset=$this->db->query($select);
+          $res=$resultset->result();
+          if(empty($res)){
+
+          }else{
+            foreach($res as $phone){
+              $to=$phone->email;
+              $subject="From KalaiMagal";
+               $htmlContent = '
+                <html>
+                <head><title></title>
+                </head>
+                <body>
+                <p style="margin-left:50px;">'.$notes.'</p>
+                </body>
+                </html>';
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+            $send= mail($to,$subject,$htmlContent,$headers);
+            }
+          }
+      }
        $sql1="SELECT egm.group_member_id,ep.email,ep.mobile FROM edu_grouping_members AS egm
       LEFT JOIN edu_users AS eu ON eu.user_id=egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id=eu.user_master_id
       LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id, ep.admission_id)
