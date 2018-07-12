@@ -2,7 +2,7 @@
           <div class="container-fluid">
 
               <p class="copyright pull-right">
-                  &copy; 2017 <a href="">ENSIFY</a> </p>
+                  &copy; 2017 <a href="">ENSYFI</a> </p>
           </div>
       </footer>
 </div>
