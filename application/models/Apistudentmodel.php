@@ -153,7 +153,7 @@ class Apistudentmodel extends CI_Model {
 	{
 			 $year_id = $this->getYear();
 		
-			$exam_query = "SELECT A.exam_id,A.exam_name,C.subject_name,B.exam_date, B.times FROM `edu_examination` A, `edu_exam_details` B, `edu_subject` C WHERE A.`exam_id` = B. exam_id AND B.subject_id = C.subject_id AND B.classmaster_id ='$class_id' AND B.exam_id='$exam_id'";
+			$exam_query = "SELECT A.exam_id,A.exam_name,C.subject_name,B.exam_date, B.times FROM `edu_examination` A, `edu_exam_details` B, `edu_subject` C WHERE A.`exam_id` = B. exam_id AND B.subject_id = C.subject_id AND B.classmaster_id ='$class_id' AND B.exam_id='$exam_id' AND A.status = 'Active' AND B.status ='Active'";
 			$exam_res = $this->db->query($exam_query);
 			$exam_result= $exam_res->result();
 			$exam_result_count = $exam_res->num_rows();
